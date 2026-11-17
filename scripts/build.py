@@ -58,7 +58,11 @@ def site_copy(key):
     (dest/'migration-config.js').write_text('window.__YUNJIN_TOOL__='+json.dumps(config,ensure_ascii=False,separators=(',',':'))+';')
 
 for key in sorted({m['web'].split('/')[-1] for m in modules if m['kind']=='web'}):site_copy(key)
-for p in (ROOT/'downloads').glob('*'):shutil.copy2(p,OUT/p.name)
+for m in modules:
+    download=m.get('download','')
+    if download and not download.startswith('https://'):
+        p=ROOT/download
+        shutil.copy2(p,OUT/p.name)
 if (ROOT/'portal').exists():shutil.copytree(ROOT/'portal',OUT/'portal',dirs_exist_ok=True)
 public=[]
 for m in modules:

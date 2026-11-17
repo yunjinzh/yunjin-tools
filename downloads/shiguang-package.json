@@ -1,0 +1,17 @@
+{
+  "filename": "ShiguangPhoto_Windows_v1.0.1.zip",
+  "bytes": 111537553,
+  "sha256": "4a0fbcb79fc28c7143157620bf8b03ea5e2280f30d4d1f2d37b09118b67cc6fa",
+  "parts": [
+    {
+      "file": "ShiguangPhoto_Windows_v1.0.1.zip.001",
+      "bytes": 67108864,
+      "sha256": "69dc461ee911fb9226de9a83c4e6619f9dbb8cb165888a210766cb680fcf87d0"
+    },
+    {
+      "file": "ShiguangPhoto_Windows_v1.0.1.zip.002.bin",
+      "bytes": 44428689,
+      "sha256": "9135972f824e14123393e2e4cf47c3419277e6fc5040f9489a00c81ad8471a89"
+    }
+  ]
+}

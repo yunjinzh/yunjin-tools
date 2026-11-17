@@ -2678,3 +2678,8 @@ __pycache__/
 /sources/m044/public/poems/lines/sishitianyuan-2.webp
 /sources/m134/docs/state-machines-review.jpg
 /sources/m065/public/campus-aerial.png
+
+/tests/last-*.json
+/tests/portal-*.png
+
+/release-packages/

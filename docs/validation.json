@@ -1,0 +1,995 @@
+{
+  "date": "2026-11-17",
+  "environment": "Local Chromium; GitHub Pages subpath /yunjin-tools/; this repository Raw asset URLs served from local asset files for preview",
+  "published": false,
+  "web_entries": 108,
+  "passed": 108,
+  "checks": [
+    {
+      "id": "m001",
+      "name": "数字孪生应用技术员 · 职业能力门户",
+      "http": 200,
+      "title": "数字孪生应用技术员 · 职业能力门户",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m003",
+      "name": "云金阅读",
+      "http": 200,
+      "title": "云金阅读 · 让阅读，慢下来",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m004",
+      "name": "字里山河 · 文字地图工坊",
+      "http": 200,
+      "title": "字里山河 · 文字地图工坊",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m005",
+      "name": "CIM 技术应用 · 能力图谱",
+      "http": 200,
+      "title": "CIM 技术应用 · 能力图谱",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m006",
+      "name": "职业教育数字教材研究与设计｜CIM × 数字孪生",
+      "http": 200,
+      "title": "教材实验室｜CIM × 数字孪生",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m007",
+      "name": "具身工场 · 机器人虚拟训练系统",
+      "http": 200,
+      "title": "具身工场 · 机器人虚拟训练系统",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m008",
+      "name": "共境 · 具身智能实训平台",
+      "http": 200,
+      "title": "共境 · 具身智能实训平台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m009",
+      "name": "故事芽 · 英语阅读探险",
+      "http": 200,
+      "title": "故事芽 · 六册英语探险书架",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m010",
+      "name": "西游小游记 · 108角色奇遇",
+      "http": 200,
+      "title": "西游小游记 · 108角色奇遇",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m011",
+      "name": "梁山小英雄 · 108人物奇遇记",
+      "http": 200,
+      "title": "梁山小英雄 · 108人物奇遇记",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m012",
+      "name": "合同匹配工作台",
+      "http": 200,
+      "title": "合同匹配工作台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m013",
+      "name": "绘境 · 批量创作室",
+      "http": 200,
+      "title": "绘境 · 手动出图工作台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m014",
+      "name": "新能源汽车虚拟仿真维修平台",
+      "http": 200,
+      "title": "新能源汽车虚拟仿真维修平台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m015",
+      "name": "原作工坊｜PPT 产品工作台",
+      "http": 200,
+      "title": "原作工坊｜PPT 产品工作台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m016",
+      "name": "推文研究档案",
+      "http": 200,
+      "title": "推文研究档案",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m017",
+      "name": "诗画有声 · 小学生古诗词52首",
+      "http": 200,
+      "title": "咏鹅 · 诗画有声",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m019",
+      "name": "万象寰宇｜世界地图艺术宫",
+      "http": 200,
+      "title": "万象寰宇｜世界地图艺术宫",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m021",
+      "name": "单词探险岛 3D",
+      "http": 200,
+      "title": "单词探险岛 3D · Word Island",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m022",
+      "name": "小小英语冒险家 3D",
+      "http": 200,
+      "title": "小小英语冒险家 3D · LITTLE WORDQUEST",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m024",
+      "name": "光境 · 户型与光影设计台",
+      "http": 200,
+      "title": "光境 · 户型与光影设计台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m025",
+      "name": "单词消消乐 · WORD POP",
+      "http": 200,
+      "title": "单词消消乐 · WORD POP",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m026",
+      "name": "智枢 · 工业数字孪生调度中心",
+      "http": 200,
+      "title": "智枢 · 工业数字孪生调度中心",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m027",
+      "name": "单词探险岛 · Word Quest",
+      "http": 200,
+      "title": "单词探险岛 · Word Quest",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m028",
+      "name": "视析 · 视频智能分析",
+      "http": 200,
+      "title": "视析 · 视频智能分析",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m029",
+      "name": "北京的三十种面孔 · 地图展馆",
+      "http": 200,
+      "title": "北京的三十种面孔 · 地图展馆",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m030",
+      "name": "雨生岛 · 地图交互花园",
+      "http": 200,
+      "title": "雨生岛 · 把世界的一角唤醒",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m031",
+      "name": "三十六计 · 智谋沙盘",
+      "http": 200,
+      "title": "瞒天过海 · 三十六计智谋沙盘",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m032",
+      "name": "北京 · 三十种看见",
+      "http": 200,
+      "title": "北京 · 三十种看见 — 30天地图挑战",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m033",
+      "name": "歌曲风格听音室",
+      "http": 200,
+      "title": "歌曲风格听音室 · SONG ATLAS",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m034",
+      "name": "小小手绘报",
+      "http": 200,
+      "title": "小小手绘报 · 把好点子画在纸上",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m035",
+      "name": "智造图谱 · 20设备三维展示",
+      "http": 200,
+      "title": "智造图谱 · 20设备三维展示",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m036",
+      "name": "山河入图 · 中国地图史三维展厅",
+      "http": 200,
+      "title": "山河入图 · 中国地图史三维展厅",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m037",
+      "name": "四舍五入练习",
+      "http": 200,
+      "title": "四舍五入练习 · 数学小练习",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m039",
+      "name": "森间飞行 · 1903",
+      "http": 200,
+      "title": "森间飞行 · 1903 Wright Flyer",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m040",
+      "name": "云游中国 · 飞行探险",
+      "http": 200,
+      "title": "云游中国 · 小小飞行家",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m041",
+      "name": "城迹 · 中国地标三维图鉴",
+      "http": 200,
+      "title": "城迹 · 中国地标三维图鉴",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m042",
+      "name": "观 · 无界画廊",
+      "http": 200,
+      "title": "观 · 无界画廊",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m044",
+      "name": "四年级古诗四阶背诵游戏",
+      "http": 200,
+      "title": "诗词山河｜四年级古诗四阶背诵游戏",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m045",
+      "name": "四年级数学AI自主学习平台",
+      "http": 200,
+      "title": "四年级数学AI自主学习平台 · 离线版",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m046",
+      "name": "四年级语文AI自主学习平台",
+      "http": 200,
+      "title": "四年级语文AI自主学习平台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m048",
+      "name": "高校实验室安全分级分类管理系统",
+      "http": 200,
+      "title": "高校实验室安全分级分类管理系统",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m049",
+      "name": "Splat Studio 3D",
+      "http": 200,
+      "title": "Splat Studio 3D",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m050",
+      "name": "论文零基础大图解",
+      "http": 200,
+      "title": "论文零基础大图解",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m051",
+      "name": "Agent时代做生意：零基础图解",
+      "http": 200,
+      "title": "Agent时代做生意：零基础图解",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m052",
+      "name": "数字孪生空间智能实训平台",
+      "http": 200,
+      "title": "数字孪生空间智能实训平台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m053",
+      "name": "PrettyMaps 地图艺术工坊",
+      "http": 200,
+      "title": "PrettyMaps 地图艺术工坊",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m054",
+      "name": "云金｜空间与数字孪生作品集",
+      "http": 200,
+      "title": "云金｜空间与数字孪生作品集",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m055",
+      "name": "问卷调研工作台",
+      "http": 200,
+      "title": "问卷调研工作台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m056",
+      "name": "供应商协同管理系统",
+      "http": 200,
+      "title": "供应商协同管理系统",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m057",
+      "name": "需求分解与质量控制框架图",
+      "http": 200,
+      "title": "需求分解与质量控制框架图",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m058",
+      "name": "GeoPBF 三维场景生成器",
+      "http": 200,
+      "title": "GeoPBF 三维场景生成器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m059",
+      "name": "高校教学成效评价知识图谱",
+      "http": 200,
+      "title": "高校教学成效评价知识图谱",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m060",
+      "name": "GeoModel 通用三维模型浏览器",
+      "http": 200,
+      "title": "GeoModel 通用三维模型浏览器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m062",
+      "name": "诗田四季 · 唐诗种植乐园",
+      "http": 200,
+      "title": "诗田四季 · 唐诗种植乐园",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m063",
+      "name": "论文可视化解读生成器",
+      "http": 200,
+      "title": "论文可视化解读生成器｜本地单文件版",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m064",
+      "name": "资源展示平台",
+      "http": 200,
+      "title": "登录 · MUSE",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m065",
+      "name": "数字孪生校园原型",
+      "http": 200,
+      "title": "数字孪生校园原型",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m067",
+      "name": "GPX 轨迹动画工作室",
+      "http": 200,
+      "title": "GPX 轨迹动画工作室",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m068",
+      "name": "Image to 3D Studio",
+      "http": 200,
+      "title": "Image to 3D Studio",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m069",
+      "name": "GeoAI 影像智能识别平台",
+      "http": 200,
+      "title": "GeoAI 影像智能识别平台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m070",
+      "name": "机器人交互式拆装训练平台",
+      "http": 200,
+      "title": "机器人交互式拆装训练平台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m071",
+      "name": "飞渡岗位能力与知识图谱",
+      "http": 200,
+      "title": "飞渡岗位能力与知识图谱",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m072",
+      "name": "产教融合空间智能教学门户",
+      "http": 200,
+      "title": "产教融合空间智能教学门户",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m076",
+      "name": "小小英语乐园",
+      "http": 200,
+      "title": "小小英语乐园",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m082",
+      "name": "页序 · PDF 整理工具",
+      "http": 200,
+      "title": "页序 · PDF 工作台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m088",
+      "name": "星光钢琴",
+      "http": 200,
+      "title": "星光钢琴 · 无特效版 v1.2",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m091",
+      "name": "视界解剖室",
+      "http": 200,
+      "title": "视界解剖室 · 眼科三维教学",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m092",
+      "name": "30个在线制图工具精选 - 订阅用户分享版",
+      "http": 200,
+      "title": "30个在线制图工具精选 - 订阅用户分享版",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m093",
+      "name": "SPLAT FACTORY · 3D 高斯浏览器",
+      "http": 200,
+      "title": "SPLAT FACTORY · 3D 高斯浏览器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m094",
+      "name": "工业级三维模型查看器",
+      "http": 200,
+      "title": "工业级三维模型查看器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m095",
+      "name": "云金书摘 - 最终完善版",
+      "http": 200,
+      "title": "云金书摘 - 最终完善版",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m096",
+      "name": "中国省级行政区划罗盘与地图",
+      "http": 200,
+      "title": "中国省级行政区划罗盘与地图",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m097",
+      "name": "小小识字家 - 汉字启蒙",
+      "http": 200,
+      "title": "小小识字家 - 汉字启蒙",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m098",
+      "name": "教育部认可的全国大学生学科竞赛名单 · 交互查询",
+      "http": 200,
+      "title": "教育部认可的全国大学生学科竞赛名单 · 交互查询",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m099",
+      "name": "三维地形生成器",
+      "http": 200,
+      "title": "三维地形生成器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m100",
+      "name": "GIS坐标投影速查工具 V3.0",
+      "http": 200,
+      "title": "GIS坐标投影速查工具 V3.0",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m101",
+      "name": "GPT-IMAGE 2 · 提示词画廊",
+      "http": 200,
+      "title": "GPT-IMAGE 2 · 提示词画廊",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m102",
+      "name": "手绘风格画廊 · Handraw Style Gallery · 274 Styles",
+      "http": 200,
+      "title": "手绘风格画廊 · Handraw Style Gallery · 274 Styles",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m103",
+      "name": "HTML 可视化编辑器",
+      "http": 200,
+      "title": "HTML 可视化编辑器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m104",
+      "name": "高等职业教育本科专业教学标准目录",
+      "http": 200,
+      "title": "高等职业教育本科专业教学标准目录",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m105",
+      "name": "CHINA BOX OFFICE · TOP 10 / 中国电影史票房集锦",
+      "http": 200,
+      "title": "CHINA BOX OFFICE · TOP 10 / 中国电影史票房集锦",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m106",
+      "name": "MUSIC PROMPT — 音乐描述生成器",
+      "http": 200,
+      "title": "MUSIC PROMPT — 音乐描述生成器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m107",
+      "name": "PAPER FACTORY · 论文精读工坊",
+      "http": 200,
+      "title": "PAPER FACTORY · 论文精读工坊",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m108",
+      "name": "QR FACTORY · 批量二维码工坊",
+      "http": 200,
+      "title": "QR FACTORY · 批量二维码工坊",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m109",
+      "name": "自然资源·视界 · 卡片封面生成器",
+      "http": 200,
+      "title": "自然资源·视界 · 卡片封面生成器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m110",
+      "name": "地形剖面生成器 | GISer学习团",
+      "http": 200,
+      "title": "地形剖面生成器 | GISer学习团",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m111",
+      "name": "GIS101 工具目录",
+      "http": 200,
+      "title": "GIS101 工具目录",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m112",
+      "name": "VideoDownloader / 极简视频下载器",
+      "http": 200,
+      "title": "VideoDownloader / 极简视频下载器",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m113",
+      "name": "APEXDOWN / 瑞士视觉网络版",
+      "http": 200,
+      "title": "APEXDOWN / 瑞士视觉网络版",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m114",
+      "name": "HISTORYLAPSE — 历史影像变迁制作台",
+      "http": 200,
+      "title": "HISTORYLAPSE — 历史影像变迁制作台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m115",
+      "name": "职业教育专业目录（2021年）· 层级查询工具",
+      "http": 200,
+      "title": "职业教育专业目录（2021年）· 层级查询工具",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m116",
+      "name": "高等职业教育专科专业教学标准目录",
+      "http": 200,
+      "title": "高等职业教育专科专业教学标准目录",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m117",
+      "name": "普通高等学校本科专业目录（2026年）",
+      "http": 200,
+      "title": "普通高等学校本科专业目录（2026年）",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m118",
+      "name": "数字孪生技术应用 — 产学研用知识图谱",
+      "http": 200,
+      "title": "数字孪生技术应用 — 产学研用知识图谱",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m121",
+      "name": "清底 · 图片背景移除",
+      "http": 200,
+      "title": "清底 Qingdi — 留下主角，移除背景",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m122",
+      "name": "楚河汉界 · 桌上兵事",
+      "http": 200,
+      "title": "楚河汉界 · 桌上兵事",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m123",
+      "name": "Stageshow 效果展厅",
+      "http": 200,
+      "title": "Stageshow — 界面与动效展厅",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m124",
+      "name": "形与感 · Frontend Design 实验室",
+      "http": 200,
+      "title": "形与感 — Frontend Design 实验室",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m125",
+      "name": "宝石小掌柜 · 奇妙工坊",
+      "http": 200,
+      "title": "宝石小掌柜 · 3D 奇妙工坊",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m127",
+      "name": "山川人海 · 高程人口制图工作台",
+      "http": 200,
+      "title": "山川人海 · Ridge Atlas",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m128",
+      "name": "地球板块演化实验室",
+      "http": 200,
+      "title": "地球板块演化实验室",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m129",
+      "name": "云金造物 · 文字三维建模",
+      "http": 200,
+      "title": "云金造物 · 三维建模工作台",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m131",
+      "name": "西游织梦 · 三维角色艺术馆",
+      "http": 200,
+      "title": "西游织梦 · 三维角色艺术馆",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m132",
+      "name": "地图的演化历程",
+      "http": 200,
+      "title": "地图的演化历程 · Cartographic Odyssey",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m135",
+      "name": "科研资助洞察｜国家基金项目对齐分析",
+      "http": 200,
+      "title": "科研资助洞察 · 国家基金研究",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m138",
+      "name": "厂房空间复原 · 三维漫游",
+      "http": 200,
+      "title": "厂房空间复原 · 三维漫游",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m139",
+      "name": "昆冶数字孪生实训基地 · 厂房改造方案",
+      "http": 200,
+      "title": "昆冶 · 数字孪生实训基地",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    },
+    {
+      "id": "m140",
+      "name": "三字经 · 云山书院",
+      "http": 200,
+      "title": "三字经 · 云山书院",
+      "errors": [],
+      "failures": [],
+      "ok": true
+    }
+  ],
+  "flows": {
+    "ok": true,
+    "checks": [
+      "Portal: 142 entries, search, empty state, category and availability filters, 390px viewport",
+      "Module storage isolation: get, set and clear",
+      "PDF reader: built-in sample action completes without a visible import/load error"
+    ]
+  },
+  "limitations": [
+    "Initial rendering and targeted interactions only; not exhaustive business-function testing",
+    "No public deployment verification yet",
+    "Windows package contents and ZIP CRC validated; Windows executable not run",
+    "Server-only applications require a separate backend; private cloud data was not exported"
+  ]
+}

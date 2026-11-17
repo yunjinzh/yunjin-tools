@@ -1,6 +1,8 @@
 # 云金工具集
 
-[在线工具入口](https://yunjinzh.github.io/yunjin-tools/) · [完整迁移清单](docs/MIGRATION.md) · [本地程序下载](https://github.com/yunjinzh/yunjin-tools/releases/tag/v2026.11.17)
+[部署后访问地址](https://yunjinzh.github.io/yunjin-tools/) · [完整迁移清单](docs/MIGRATION.md) · [本地程序下载](https://github.com/yunjinzh/yunjin-tools/releases/tag/v2026.11.17)
+
+> 迁移准备状态（2026-11-17）：源码、静态产物和部署配置已在本地整理完成。当前 GitHub 连接创建仓库返回 403，仓库与 Pages 尚未发布。上方在线地址及 Release 地址为预定地址。见 [发布步骤](docs/DEPLOYMENT.md)。
 
 统一收录 142 项网页工具、三维作品、教学应用及本地程序。已取回 123 项源码或程序包：108 项提供网页入口，13 项依赖后端，2 项提供本地安装包；19 项仍待取得原文件。详见迁移清单。
 
@@ -45,7 +47,7 @@ cd sources/m003
 
 ## 部署
 
-仓库启用 GitHub Actions Pages 部署。推送 `main` 后，工作流检查资源完整性、构建入口和网页目录，再发布到 GitHub Pages。构建大小检查限制为 950 MiB，以留出托管空间余量。
+已配置 GitHub Actions Pages 工作流。首次发布需先创建仓库，并在 Settings → Pages 中选择 GitHub Actions。推送 `main` 后，工作流检查资源完整性、构建入口和网页目录，再发布到 GitHub Pages。构建大小检查限制为 950 MiB，以留出托管空间余量。
 
 大型完整 Windows 包通过 GitHub Releases 提供。图片与部分媒体资源直接读取本仓库的 Raw 地址，因此首次访问仍需要网络。
 

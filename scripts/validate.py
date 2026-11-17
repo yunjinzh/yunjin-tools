@@ -11,6 +11,8 @@ for m in modules:
     if m.get('source') and not (ROOT/m['source']).is_dir():errors.append(f"{m['id']}: missing source")
     if m['migration']=='pending' and m['kind']!='missing':errors.append(f"{m['id']}: pending source incorrectly labelled")
     if m['kind']=='server' and m['migration']!='source':errors.append(f"{m['id']}: backend incorrectly labelled as deployed")
+    download=m.get('download','')
+    if download and not download.startswith('https://') and not (ROOT/download).is_file():errors.append(f"{m['id']}: missing local download")
 index=json.loads((ROOT/'assets/index.json').read_text())
 for folder in ['sources','web']:
     for manifest in (ROOT/folder).glob('*/migration-assets.json'):
@@ -23,6 +25,10 @@ if '--hashes' in sys.argv:
     for name,meta in index.items():
         p=ROOT/'assets'/name
         if hashlib.sha256(p.read_bytes()).hexdigest()!=meta['sha256']:errors.append(f'Corrupt asset {name}')
+    package=json.loads((ROOT/'downloads/shiguang-package.json').read_text())
+    for part in package['parts']:
+        p=ROOT/'downloads'/part['file']
+        if not p.is_file() or p.stat().st_size!=part['bytes'] or hashlib.sha256(p.read_bytes()).hexdigest()!=part['sha256']:errors.append(f'Corrupt package part {part["file"]}')
 site=ROOT/'_site'
 if site.exists():
     public=json.loads((site/'modules.json').read_text())
