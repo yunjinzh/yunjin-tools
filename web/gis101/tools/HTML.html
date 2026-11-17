@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML 可视化编辑器</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #F1F0EC;
+      --paper-deep: #E7E4DC;
+      --paper-soft: #ECEAE4;
+      --ink: #1A1A1A;
+      --muted: #77736B;
+      --line: #D1CDC3;
+      --accent: #E07563;
+      --accent-dark: #B95142;
+      --green: #496F5D;
+      --shadow-2xl: 0 32px 80px rgba(26, 26, 26, 0.24);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans SC", system-ui, sans-serif;
+      font-weight: 300;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.08;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--paper);
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #BEB8AD;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    .font-oswald {
+      font-family: "Oswald", sans-serif;
+    }
+
+    .font-serif {
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 360px 1fr 360px;
+      height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(26,26,26,0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(26,26,26,0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 80px 80px;
+    }
+
+    .left-panel,
+    .right-panel {
+      overflow-y: auto;
+      background: rgba(241, 240, 236, 0.94);
+    }
+
+    .left-panel {
+      position: relative;
+      padding: 34px 28px 42px;
+      border-right: 1px solid var(--line);
+    }
+
+    .left-panel::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 28px;
+      width: 2px;
+      height: 130px;
+      background: var(--accent);
+    }
+
+    .right-panel {
+      padding: 34px 24px 42px;
+      border-left: 1px solid var(--line);
+      background: var(--paper-deep);
+    }
+
+    .stage {
+      position: relative;
+      overflow: hidden;
+      padding: 34px 38px 36px;
+      background:
+        radial-gradient(circle at 20px 20px, rgba(26,26,26,0.10) 1px, transparent 1px),
+        var(--paper-soft);
+      background-size: 28px 28px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 22px;
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Oswald", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 36px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .huge-title {
+      margin: 0;
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(68px, 7vw, 118px);
+      line-height: 0.82;
+      letter-spacing: -0.055em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .sub-title {
+      margin-top: 18px;
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .desc {
+      margin-top: 18px;
+      max-width: 280px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+      border-left: 2px solid var(--ink);
+      padding-left: 12px;
+    }
+
+    .section {
+      margin-top: 34px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-index {
+      font-family: "Oswald", sans-serif;
+      font-size: 14px;
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 18px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 8px;
+    }
+
+    .toolbar-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-family: "Noto Sans SC", "Oswald", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 13px 16px;
+      transition: 0.18s ease;
+      width: 100%;
+    }
+
+    .btn-primary {
+      color: var(--paper);
+      background: var(--accent);
+      box-shadow: 10px 10px 0 rgba(224, 117, 99, 0.18);
+    }
+
+    .btn-primary:hover {
+      background: var(--ink);
+      box-shadow: 10px 10px 0 rgba(26, 26, 26, 0.14);
+    }
+
+    .btn-dark {
+      color: var(--paper);
+      background: var(--ink);
+    }
+
+    .btn-dark:hover {
+      background: var(--accent);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+    }
+
+    .btn-outline:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-soft {
+      background: var(--paper-deep);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .btn-soft:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .file-input {
+      width: 100%;
+      padding: 12px;
+      background: var(--paper-deep);
+      border: 1px dashed var(--ink);
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .status-box {
+      margin-top: 16px;
+      padding: 14px;
+      background: rgba(224, 117, 99, 0.08);
+      border-left: 3px solid var(--accent);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+      word-break: break-all;
+    }
+
+    .preview-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+    }
+
+    .preview-title-cn {
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 34px;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+
+    .preview-title-cn span {
+      color: var(--accent);
+    }
+
+    .preview-meta {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    .device-bar {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .device-btn {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans SC", sans-serif;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .device-btn:hover,
+    .device-btn.active {
+      background: var(--accent);
+      color: var(--paper);
+      border-color: var(--accent);
+    }
+
+    .preview-shell {
+      position: relative;
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .iframe-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--paper);
+      box-shadow: var(--shadow-2xl);
+      transition: width 0.25s ease;
+    }
+
+    .iframe-wrap::before {
+      content: "页面预览 / 点击元素进行选择编辑";
+      position: absolute;
+      top: -24px;
+      left: 0;
+      font-family: "Noto Sans SC", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .iframe-wrap::after {
+      content: "";
+      position: absolute;
+      right: -18px;
+      bottom: -18px;
+      width: 110px;
+      height: 110px;
+      border-right: 4px solid var(--accent);
+      border-bottom: 4px solid var(--accent);
+      z-index: -1;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: var(--paper);
+      display: block;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .tab {
+      padding: 12px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-family: "Noto Sans SC", sans-serif;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .tab.active {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .panel-page {
+      display: none;
+    }
+
+    .panel-page.active {
+      display: block;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 7px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .field label span:last-child {
+      font-family: "Oswald", sans-serif;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+      border-radius: 0;
+      padding: 11px 12px;
+      font-family: "Noto Sans SC", system-ui, sans-serif;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(224, 117, 99, 0.12);
+    }
+
+    .source-editor {
+      height: calc(100vh - 300px);
+      min-height: 420px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      white-space: pre;
+      overflow: auto;
+    }
+
+    .dom-path {
+      margin-bottom: 18px;
+      padding: 13px;
+      background: var(--paper);
+      border-left: 3px solid var(--accent);
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.7;
+      word-break: break-all;
+    }
+
+    .empty-state {
+      padding: 22px 14px;
+      border-left: 3px solid var(--accent);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .danger-note {
+      margin-top: 14px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: "Oswald", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      margin-right: 6px;
+    }
+
+    @media (max-width: 1280px) {
+      .app {
+        grid-template-columns: 320px 1fr 330px;
+      }
+
+      .huge-title {
+        font-size: 74px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      body {
+        overflow: auto;
+      }
+
+      .app {
+        display: block;
+        height: auto;
+      }
+
+      .left-panel,
+      .right-panel,
+      .stage {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+      }
+
+      .stage {
+        min-height: 760px;
+      }
+
+      .source-editor {
+        height: 480px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <!-- 左侧：品牌与文件操作 -->
+    <aside class="left-panel">
+      <header>
+        <div class="kicker">Local HTML Visual Editor</div>
+        <h1 class="huge-title">HTML<br>EDIT</h1>
+        <div class="sub-title">可视化网页编辑器</div>
+        <p class="desc">
+          直接打开 HTML 文件，点击页面区域，修改文本、链接、图片、样式与源码。保存后可写回原文件或下载新文件。
+        </p>
+      </header>
+
+      <section class="section">
+        <div class="section-head">
+          <span class="section-index">01</span>
+          <div class="section-title">文件入口</div>
+        </div>
+
+        <div class="toolbar-grid">
+          <button class="btn btn-primary" onclick="openWithFileSystemAPI()">打开 HTML 文件</button>
+          <input class="file-input" id="legacyFileInput" type="file" accept=".html,.htm,text/html" onchange="openWithInput(event)" />
+        </div>
+
+        <div class="status-box" id="fileStatus">
+          <span class="badge">就绪</span>
+          请选择一个 HTML 文件开始编辑。Chrome / Edge 可尝试直接写回原文件。
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <span class="section-index">02</span>
+          <div class="section-title">保存与历史</div>
+        </div>
+
+        <div class="toolbar-grid">
+          <button class="btn btn-dark" onclick="saveFile()">保存文件</button>
+          <button class="btn btn-outline" onclick="downloadHTML()">下载 HTML</button>
+          <button class="btn btn-soft" onclick="downloadBackup()">下载备份</button>
+        </div>
+
+        <div class="mini-grid">
+          <button class="btn btn-soft" onclick="undo()">撤销</button>
+          <button class="btn btn-soft" onclick="redo()">重做</button>
+        </div>
+
+        <p class="danger-note">
+          保存前建议先下载备份。若当前浏览器不支持文件系统写入，将自动降级为下载保存。
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <span class="section-index">03</span>
+          <div class="section-title">使用说明</div>
+        </div>
+
+        <div class="empty-state">
+          1. 打开 HTML 文件；<br>
+          2. 在中间预览区悬停元素；<br>
+          3. 点击需要编辑的区域；<br>
+          4. 在右侧属性面板修改；<br>
+          5. 保存或下载 HTML。
+        </div>
+      </section>
+    </aside>
+
+    <!-- 中间：预览区域 -->
+    <main class="stage">
+      <div class="preview-head">
+        <div>
+          <div class="preview-title-cn">页面<span>可视化编辑</span></div>
+          <div class="kicker" style="margin-top: 10px; margin-bottom: 0;">点击选择 / 右侧修改 / 保存生效</div>
+        </div>
+
+        <div>
+          <div class="preview-meta">
+            当前模式：可视化选择<br>
+            页面脚本：默认移除以保障编辑安全
+          </div>
+
+          <div class="device-bar">
+            <button class="device-btn active" onclick="setDevice('full', this)">全宽</button>
+            <button class="device-btn" onclick="setDevice('desktop', this)">桌面</button>
+            <button class="device-btn" onclick="setDevice('tablet', this)">平板</button>
+            <button class="device-btn" onclick="setDevice('mobile', this)">手机</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="preview-shell">
+        <div class="iframe-wrap" id="iframeWrap">
+          <iframe id="previewFrame" sandbox="allow-same-origin"></iframe>
+        </div>
+      </section>
+    </main>
+
+    <!-- 右侧：属性与源码 -->
+    <aside class="right-panel">
+      <div class="tabs">
+        <button class="tab active" id="tabInspect" onclick="switchTab('inspect')">属性编辑</button>
+        <button class="tab" id="tabSource" onclick="switchTab('source')">源码编辑</button>
+      </div>
+
+      <section class="panel-page active" id="pageInspect">
+        <div class="section-head">
+          <span class="section-index">04</span>
+          <div class="section-title">元素属性</div>
+        </div>
+
+        <div id="inspectEmpty" class="empty-state">
+          尚未选中元素。请在中间预览区点击任意页面区域。
+        </div>
+
+        <div id="inspectForm" style="display:none;">
+          <div class="dom-path" id="domPath">未选择</div>
+
+          <div class="field">
+            <label>
+              <span>标签名</span>
+              <span>TAG</span>
+            </label>
+            <input type="text" id="fieldTag" disabled />
+          </div>
+
+          <div class="field">
+            <label>
+              <span>文本内容</span>
+              <span>TEXT</span>
+            </label>
+            <textarea id="fieldText" oninput="applyTextEdit()"></textarea>
+          </div>
+
+          <div class="field">
+            <label>
+              <span>链接地址</span>
+              <span>HREF</span>
+            </label>
+            <input type="text" id="fieldHref" oninput="applyAttrEdit('href', this.value)" placeholder="常用于 a 标签" />
+          </div>
+
+          <div class="field">
+            <label>
+              <span>图片地址</span>
+              <span>SRC</span>
+            </label>
+            <input type="text" id="fieldSrc" oninput="applyAttrEdit('src', this.value)" placeholder="常用于 img / video 等标签" />
+          </div>
+
+          <div class="field">
+            <label>
+              <span>替代文本</span>
+              <span>ALT</span>
+            </label>
+            <input type="text" id="fieldAlt" oninput="applyAttrEdit('alt', this.value)" />
+          </div>
+
+          <div class="field">
+            <label>
+              <span>类名</span>
+              <span>CLASS</span>
+            </label>
+            <textarea id="fieldClass" oninput="applyClassEdit()"></textarea>
+          </div>
+
+          <div class="field">
+            <label>
+              <span>内联样式</span>
+              <span>STYLE</span>
+            </label>
+            <textarea id="fieldStyle" oninput="applyStyleEdit()" placeholder="color:#E07563; font-size:32px;"></textarea>
+          </div>
+
+          <div class="toolbar-grid">
+            <button class="btn btn-outline" onclick="removeSelectedElement()">删除当前元素</button>
+            <button class="btn btn-soft" onclick="duplicateSelectedElement()">复制当前元素</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel-page" id="pageSource">
+        <div class="section-head">
+          <span class="section-index">05</span>
+          <div class="section-title">源码编辑</div>
+        </div>
+
+        <div class="field">
+          <label>
+            <span>HTML 源码</span>
+            <span>CODE</span>
+          </label>
+          <textarea id="sourceEditor" class="source-editor" spellcheck="false" oninput="sourceDirty = true;"></textarea>
+        </div>
+
+        <div class="toolbar-grid">
+          <button class="btn btn-dark" onclick="applySourceToPreview()">应用源码到预览</button>
+          <button class="btn btn-outline" onclick="formatSource()">简单格式化</button>
+        </div>
+
+        <p class="danger-note">
+          源码模式会重新渲染预览区。复杂脚本已默认移除，避免影响编辑器安全。
+        </p>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    let fileHandle = null;
+    let fileName = "untitled.html";
+    let originalHTML = "";
+    let currentHTML = "";
+    let selectedEditorId = null;
+    let editorIdCounter = 1;
+    let sourceDirty = false;
+
+    const historyStack = [];
+    const redoStack = [];
+
+    const previewFrame = document.getElementById("previewFrame");
+    const iframeWrap = document.getElementById("iframeWrap");
+    const sourceEditor = document.getElementById("sourceEditor");
+
+    function setStatus(message, badge = "提示") {
+      document.getElementById("fileStatus").innerHTML = `<span class="badge">${badge}</span>${message}`;
+    }
+
+    async function openWithFileSystemAPI() {
+      if (!window.showOpenFilePicker) {
+        setStatus("当前浏览器不支持 File System Access API，请使用文件选择框打开。", "提醒");
+        document.getElementById("legacyFileInput").click();
+        return;
+      }
+
+      try {
+        const [handle] = await window.showOpenFilePicker({
+          types: [
+            {
+              description: "HTML Files",
+              accept: {
+                "text/html": [".html", ".htm"]
+              }
+            }
+          ],
+          multiple: false
+        });
+
+        fileHandle = handle;
+        const file = await handle.getFile();
+        fileName = file.name;
+        const text = await file.text();
+
+        loadHTML(text, file.name, true);
+      } catch (error) {
+        console.warn(error);
+        setStatus("文件打开已取消或失败。", "提醒");
+      }
+    }
+
+    function openWithInput(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        fileHandle = null;
+        fileName = file.name;
+        loadHTML(String(reader.result), file.name, false);
+      };
+      reader.readAsText(file, "UTF-8");
+    }
+
+    function loadHTML(html, name, writable) {
+      originalHTML = html;
+      currentHTML = html;
+      historyStack.length = 0;
+      redoStack.length = 0;
+      pushHistory(currentHTML, true);
+
+      renderPreview(currentHTML);
+      sourceEditor.value = currentHTML;
+      sourceDirty = false;
+      setStatus(`${name} 已加载。${writable ? "支持直接写回原文件。" : "当前为普通读取模式，保存时将下载新文件。"}`, writable ? "已打开" : "已加载");
+    }
+
+    function sanitizeHTMLForPreview(html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      doc.querySelectorAll("script").forEach(script => {
+        const placeholder = doc.createComment("script removed by visual editor");
+        script.replaceWith(placeholder);
+      });
+
+      const style = doc.createElement("style");
+      style.setAttribute("data-editor-runtime", "true");
+      style.textContent = `
+        [data-editor-hover="true"] {
+          outline: 2px dashed #E07563 !important;
+          outline-offset: 2px !important;
+          cursor: crosshair !important;
+        }
+        [data-editor-selected="true"] {
+          outline: 3px solid #E07563 !important;
+          outline-offset: 3px !important;
+          box-shadow: 0 0 0 6px rgba(224,117,99,0.16) !important;
+        }
+      `;
+      doc.head.appendChild(style);
+
+      assignEditorIds(doc.body);
+
+      return "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
+    }
+
+    function assignEditorIds(root) {
+      if (!root) return;
+
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+      let node = root;
+
+      while (node) {
+        if (!node.hasAttribute("data-editor-id")) {
+          node.setAttribute("data-editor-id", "eid-" + editorIdCounter++);
+        }
+        node = walker.nextNode();
+      }
+    }
+
+    function renderPreview(html) {
+      editorIdCounter = 1;
+      const previewHTML = sanitizeHTMLForPreview(html);
+      previewFrame.srcdoc = previewHTML;
+
+      previewFrame.onload = () => {
+        attachPreviewEvents();
+      };
+    }
+
+    function attachPreviewEvents() {
+      const doc = previewFrame.contentDocument;
+      if (!doc || !doc.body) return;
+
+      doc.querySelectorAll("[data-editor-id]").forEach(el => {
+        el.addEventListener("mouseover", event => {
+          event.stopPropagation();
+          clearHover(doc);
+          el.setAttribute("data-editor-hover", "true");
+        });
+
+        el.addEventListener("mouseout", event => {
+          event.stopPropagation();
+          el.removeAttribute("data-editor-hover");
+        });
+
+        el.addEventListener("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          selectElement(el);
+        });
+      });
+    }
+
+    function clearHover(doc) {
+      doc.querySelectorAll("[data-editor-hover]").forEach(el => {
+        el.removeAttribute("data-editor-hover");
+      });
+    }
+
+    function clearSelected(doc) {
+      doc.querySelectorAll("[data-editor-selected]").forEach(el => {
+        el.removeAttribute("data-editor-selected");
+      });
+    }
+
+    function selectElement(el) {
+      const doc = previewFrame.contentDocument;
+      clearSelected(doc);
+
+      el.setAttribute("data-editor-selected", "true");
+      selectedEditorId = el.getAttribute("data-editor-id");
+
+      document.getElementById("inspectEmpty").style.display = "none";
+      document.getElementById("inspectForm").style.display = "block";
+
+      document.getElementById("fieldTag").value = el.tagName.toLowerCase();
+      document.getElementById("fieldText").value = getDirectText(el);
+      document.getElementById("fieldHref").value = el.getAttribute("href") || "";
+      document.getElementById("fieldSrc").value = el.getAttribute("src") || "";
+      document.getElementById("fieldAlt").value = el.getAttribute("alt") || "";
+      document.getElementById("fieldClass").value = el.getAttribute("class") || "";
+      document.getElementById("fieldStyle").value = el.getAttribute("style") || "";
+      document.getElementById("domPath").textContent = getDomPath(el);
+
+      switchTab("inspect");
+    }
+
+    function getDirectText(el) {
+      const texts = [];
+      el.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          texts.push(node.textContent);
+        }
+      });
+      return texts.join("").trim();
+    }
+
+    function setDirectText(el, text) {
+      let firstTextNode = null;
+
+      el.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE && !firstTextNode) {
+          firstTextNode = node;
+        }
+      });
+
+      if (firstTextNode) {
+        firstTextNode.textContent = text;
+      } else {
+        el.insertBefore(document.createTextNode(text), el.firstChild);
+      }
+    }
+
+    function getSelectedElement() {
+      const doc = previewFrame.contentDocument;
+      if (!doc || !selectedEditorId) return null;
+      return doc.querySelector(`[data-editor-id="${selectedEditorId}"]`);
+    }
+
+    function applyTextEdit() {
+      const el = getSelectedElement();
+      if (!el) return;
+
+      setDirectText(el, document.getElementById("fieldText").value);
+      syncFromPreview(true);
+    }
+
+    function applyAttrEdit(attr, value) {
+      const el = getSelectedElement();
+      if (!el) return;
+
+      if (value.trim() === "") {
+        el.removeAttribute(attr);
+      } else {
+        el.setAttribute(attr, value);
+      }
+
+      syncFromPreview(true);
+    }
+
+    function applyClassEdit() {
+      const el = getSelectedElement();
+      if (!el) return;
+
+      const value = document.getElementById("fieldClass").value;
+      if (value.trim() === "") {
+        el.removeAttribute("class");
+      } else {
+        el.setAttribute("class", value);
+      }
+
+      syncFromPreview(true);
+    }
+
+    function applyStyleEdit() {
+      const el = getSelectedElement();
+      if (!el) return;
+
+      const value = document.getElementById("fieldStyle").value;
+      if (value.trim() === "") {
+        el.removeAttribute("style");
+      } else {
+        el.setAttribute("style", value);
+      }
+
+      syncFromPreview(true);
+    }
+
+    function syncFromPreview(withHistory) {
+      const doc = previewFrame.contentDocument;
+      if (!doc) return;
+
+      const cloned = doc.documentElement.cloneNode(true);
+
+      cloned.querySelectorAll("[data-editor-id]").forEach(el => {
+        el.removeAttribute("data-editor-id");
+        el.removeAttribute("data-editor-hover");
+        el.removeAttribute("data-editor-selected");
+      });
+
+      cloned.querySelectorAll("[data-editor-runtime]").forEach(el => el.remove());
+
+      let html = "<!DOCTYPE html>\n" + cloned.outerHTML;
+      currentHTML = html;
+      sourceEditor.value = currentHTML;
+      sourceDirty = false;
+
+      if (withHistory) {
+        pushHistory(currentHTML);
+      }
+    }
+
+    function pushHistory(html, force = false) {
+      if (!force && historyStack[historyStack.length - 1] === html) return;
+      historyStack.push(html);
+      if (historyStack.length > 100) historyStack.shift();
+      redoStack.length = 0;
+    }
+
+    function undo() {
+      if (historyStack.length <= 1) {
+        setStatus("没有可撤销的操作。", "撤销");
+        return;
+      }
+
+      const current = historyStack.pop();
+      redoStack.push(current);
+      currentHTML = historyStack[historyStack.length - 1];
+      sourceEditor.value = currentHTML;
+      renderPreview(currentHTML);
+      setStatus("已撤销上一步操作。", "撤销");
+    }
+
+    function redo() {
+      if (redoStack.length === 0) {
+        setStatus("没有可重做的操作。", "重做");
+        return;
+      }
+
+      const html = redoStack.pop();
+      currentHTML = html;
+      historyStack.push(html);
+      sourceEditor.value = currentHTML;
+      renderPreview(currentHTML);
+      setStatus("已重做操作。", "重做");
+    }
+
+    function switchTab(name) {
+      document.getElementById("tabInspect").classList.toggle("active", name === "inspect");
+      document.getElementById("tabSource").classList.toggle("active", name === "source");
+
+      document.getElementById("pageInspect").classList.toggle("active", name === "inspect");
+      document.getElementById("pageSource").classList.toggle("active", name === "source");
+    }
+
+    function applySourceToPreview() {
+      const html = sourceEditor.value;
+      currentHTML = html;
+      pushHistory(currentHTML);
+      renderPreview(currentHTML);
+      sourceDirty = false;
+      setStatus("源码已应用到预览区。", "源码");
+    }
+
+    function formatSource() {
+      let html = sourceEditor.value;
+
+      html = html
+        .replace(/></g, ">\n<")
+        .replace(/\n{3,}/g, "\n\n");
+
+      sourceEditor.value = html;
+      sourceDirty = true;
+    }
+
+    function removeSelectedElement() {
+      const el = getSelectedElement();
+      if (!el) return;
+
+      if (!confirm("确认删除当前选中元素？")) return;
+
+      el.remove();
+      selectedEditorId = null;
+
+      document.getElementById("inspectEmpty").style.display = "block";
+      document.getElementById("inspectForm").style.display = "none";
+
+      syncFromPreview(true);
+    }
+
+    function duplicateSelectedElement() {
+      const el = getSelectedElement();
+      if (!el || !el.parentElement) return;
+
+      const clone = el.cloneNode(true);
+      clone.removeAttribute("data-editor-selected");
+      clone.removeAttribute("data-editor-hover");
+      clone.setAttribute("data-editor-id", "eid-" + editorIdCounter++);
+
+      el.parentElement.insertBefore(clone, el.nextSibling);
+      attachPreviewEvents();
+      syncFromPreview(true);
+    }
+
+    function getDomPath(el) {
+      const path = [];
+
+      while (el && el.nodeType === 1 && el.tagName.toLowerCase() !== "html") {
+        let selector = el.tagName.toLowerCase();
+
+        if (el.id) {
+          selector += "#" + el.id;
+          path.unshift(selector);
+          break;
+        }
+
+        if (el.className && typeof el.className === "string") {
+          const classes = el.className.trim().split(/\s+/).filter(Boolean).slice(0, 2);
+          if (classes.length) selector += "." + classes.join(".");
+        }
+
+        const parent = el.parentElement;
+        if (parent) {
+          const sameTag = Array.from(parent.children).filter(child => child.tagName === el.tagName);
+          if (sameTag.length > 1) {
+            selector += `:nth-of-type(${sameTag.indexOf(el) + 1})`;
+          }
+        }
+
+        path.unshift(selector);
+        el = el.parentElement;
+      }
+
+      return path.join(" > ");
+    }
+
+    async function saveFile() {
+      if (sourceDirty) {
+        currentHTML = sourceEditor.value;
+        pushHistory(currentHTML);
+        sourceDirty = false;
+      } else {
+        syncFromPreview(false);
+      }
+
+      if (fileHandle && window.showSaveFilePicker !== undefined) {
+        try {
+          const writable = await fileHandle.createWritable();
+          await writable.write(currentHTML);
+          await writable.close();
+          setStatus(`${fileName} 已写回原文件。`, "保存");
+          return;
+        } catch (error) {
+          console.warn(error);
+          setStatus("写回原文件失败，已准备下载保存。", "提醒");
+        }
+      }
+
+      downloadHTML();
+    }
+
+    function downloadHTML() {
+      if (sourceDirty) {
+        currentHTML = sourceEditor.value;
+        pushHistory(currentHTML);
+        sourceDirty = false;
+      }
+
+      const blob = new Blob([currentHTML], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName || "edited.html";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      URL.revokeObjectURL(url);
+      setStatus("HTML 文件已下载。", "下载");
+    }
+
+    function downloadBackup() {
+      const backupName = (fileName || "index.html").replace(/\.html?$/i, "");
+      const timestamp = new Date()
+        .toISOString()
+        .replace(/[-:]/g, "")
+        .replace(/\..+/, "")
+        .replace("T", "-");
+
+      const blob = new Blob([originalHTML || currentHTML || ""], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${backupName}.backup.${timestamp}.html`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      URL.revokeObjectURL(url);
+      setStatus("备份文件已下载。", "备份");
+    }
+
+    function setDevice(type, button) {
+      document.querySelectorAll(".device-btn").forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      if (type === "full") {
+        iframeWrap.style.width = "100%";
+      } else if (type === "desktop") {
+        iframeWrap.style.width = "1280px";
+      } else if (type === "tablet") {
+        iframeWrap.style.width = "768px";
+      } else if (type === "mobile") {
+        iframeWrap.style.width = "390px";
+      }
+    }
+
+    const demoHTML = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #F1F0EC;
+      color: #1A1A1A;
+    }
+    .hero {
+      padding: 80px 10%;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #ECEAE4;
+    }
+    .card {
+      max-width: 760px;
+      padding: 56px;
+      background: #E7E4DC;
+      box-shadow: 0 32px 80px rgba(26,26,26,.18);
+    }
+    h1 {
+      margin: 0;
+      font-size: 72px;
+      line-height: .95;
+      color: #E07563;
+    }
+    p {
+      font-size: 18px;
+      line-height: 1.9;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 22px;
+      background: #1A1A1A;
+      color: #F1F0EC;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="card">
+      <h1>点击这个标题进行编辑</h1>
+      <p>这是一个内置示例页面。你可以直接点击标题、段落或按钮，然后在右侧修改文本、链接、class 与 style。</p>
+      <a href="https://example.com">示例链接</a>
+    </div>
+  </section>
+</body>
+</html>`;
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadHTML(demoHTML, "demo.html", false);
+    });
+  </script>
+</body>
+</html>

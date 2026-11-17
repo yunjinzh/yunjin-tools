@@ -34,6 +34,7 @@ def site_copy(key):
             if parsed.scheme+'://'+parsed.netloc not in origins:return original
             rel=urllib.parse.unquote(parsed.path).lstrip('/')
         else:rel=posixpath.normpath(posixpath.join(parent,urllib.parse.unquote(parsed.path))) if not parsed.path.startswith('/') else urllib.parse.unquote(parsed.path).lstrip('/')
+        if parsed.path.endswith('/') and not rel.endswith('/'):rel+='/'
         suffix=('?'+parsed.query if parsed.query else '')+('#'+parsed.fragment if parsed.fragment else '')
         if rel in remote:return remote[rel]+suffix
         if rel in files or rel.rstrip('/')+'/index.html' in files:return base+urllib.parse.quote(rel,safe='/@-_.')+suffix

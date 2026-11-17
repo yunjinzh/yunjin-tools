@@ -471,25 +471,40 @@
   </div>
 
   <script>
-    const BASE_URL = "http://gis101.cn/tools/";
+    const BASE_URL = new URL('../tools/', location.href).href;
 
     const manualTools = [
       {
-        title: "HTML 可视化编辑器",
-        description: "打开本地 HTML 文件，点击页面区域即可修改文本、链接、图片、样式与源码。",
-        url: "html-editor.html"
+            "title": "HTML 可视化编辑器",
+            "description": "从 GIS101 原工具目录迁入，可直接在浏览器中打开。",
+            "url": "../tools/HTML.html"
       },
       {
-        title: "地质材质拼图生成器",
-        description: "基于 Voronoi 异形多边形算法生成岩石材质拼图，支持孔隙度、缝隙、平滑度与材质比例调节。",
-        url: "geo-material-puzzle.html"
+            "title": "云金书摘",
+            "description": "从 GIS101 原工具目录迁入，可直接在浏览器中打开。",
+            "url": "../tools/bookmark.html"
       },
       {
-        title: "GIS 数据处理工具",
-        description: "面向空间数据整理、转换、检查与可视化预览的轻量化网页工具。",
-        url: "gis-data-tool.html"
+            "title": "三年级英语单词大冒险升级版",
+            "description": "从 GIS101 原工具目录迁入，可直接在浏览器中打开。",
+            "url": "../tools/english3.html"
+      },
+      {
+            "title": "三维地形生成器",
+            "description": "从 GIS101 原工具目录迁入，可直接在浏览器中打开。",
+            "url": "../tools/geo3d.html"
+      },
+      {
+            "title": "PAPER FACTORY · 论文精读工坊",
+            "description": "从 GIS101 原工具目录迁入，可直接在浏览器中打开。",
+            "url": "../tools/paper.html"
+      },
+      {
+            "title": "周报智能整理工具",
+            "description": "从 GIS101 原工具目录迁入，可直接在浏览器中打开。",
+            "url": "../tools/week.html"
       }
-    ];
+];
 
     let allTools = [];
 

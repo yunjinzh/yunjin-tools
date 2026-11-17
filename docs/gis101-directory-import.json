@@ -1,0 +1,36 @@
+{
+  "directory": "https://gis101.cn/tools/",
+  "pages": [
+    {
+      "path": "/tools/bookmark.html",
+      "bytes": 20772,
+      "ok": true
+    },
+    {
+      "path": "/tools/english3.html",
+      "bytes": 32633,
+      "ok": true
+    },
+    {
+      "path": "/tools/geo3d.html",
+      "bytes": 34154,
+      "ok": true
+    },
+    {
+      "path": "/tools/HTML.html",
+      "bytes": 35874,
+      "ok": true
+    },
+    {
+      "path": "/tools/paper.html",
+      "bytes": 39828,
+      "ok": true
+    },
+    {
+      "path": "/tools/week.html",
+      "bytes": 39970,
+      "ok": true
+    }
+  ],
+  "note": "Six HTML dependencies of catalogue entry m111; original bytes preserved under sources/gis101/tools; deployable copies use same-origin paths."
+}

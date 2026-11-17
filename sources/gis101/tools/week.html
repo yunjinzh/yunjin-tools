@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>周报智能整理工具</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #F1F0EC;
+      --paper-deep: #E7E4DC;
+      --paper-soft: #ECEAE4;
+      --ink: #1A1A1A;
+      --muted: #77736B;
+      --line: #D1CDC3;
+      --accent: #E07563;
+      --accent-dark: #B95142;
+      --green: #496F5D;
+      --blue: #405E73;
+      --yellow: #D1A94B;
+      --shadow-2xl: 0 32px 80px rgba(26, 26, 26, 0.24);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      position: relative;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans SC", system-ui, sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.08;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--paper);
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #BEB8AD;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 42px 48px 70px;
+      background:
+        linear-gradient(90deg, rgba(26,26,26,0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(26,26,26,0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 80px 80px;
+    }
+
+    .top-layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 520px) 1fr auto;
+      gap: 36px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Oswald", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 36px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .huge-title {
+      margin: 0;
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(72px, 7vw, 126px);
+      line-height: 0.82;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .sub-title {
+      margin-top: 20px;
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 30px;
+      line-height: 1.2;
+    }
+
+    .desc {
+      margin-top: 16px;
+      max-width: 420px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+      border-left: 2px solid var(--ink);
+      padding-left: 13px;
+    }
+
+    .counter {
+      text-align: right;
+      min-width: 150px;
+    }
+
+    .counter-number {
+      font-family: "Oswald", sans-serif;
+      font-size: 88px;
+      line-height: 0.85;
+      letter-spacing: -0.05em;
+      color: var(--accent);
+    }
+
+    .counter-label {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-family: "Noto Sans SC", "Oswald", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 14px 16px;
+      transition: 0.18s ease;
+    }
+
+    .btn-primary {
+      color: var(--paper);
+      background: var(--accent);
+      box-shadow: 10px 10px 0 rgba(224, 117, 99, 0.18);
+    }
+
+    .btn-primary:hover {
+      background: var(--ink);
+      box-shadow: 10px 10px 0 rgba(26, 26, 26, 0.14);
+    }
+
+    .btn-dark {
+      color: var(--paper);
+      background: var(--ink);
+    }
+
+    .btn-dark:hover {
+      background: var(--accent);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+    }
+
+    .btn-outline:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-soft {
+      background: var(--paper-deep);
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .btn-soft:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(360px, 0.85fr) minmax(420px, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 50px rgba(26, 26, 26, 0.12);
+    }
+
+    .panel-highlight {
+      box-shadow: var(--shadow-2xl);
+    }
+
+    .panel-head {
+      padding: 22px 22px 18px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .panel-index {
+      font-family: "Oswald", sans-serif;
+      font-size: 14px;
+      color: var(--accent);
+    }
+
+    .panel-title {
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 20px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 8px;
+    }
+
+    .panel-body {
+      padding: 22px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .field label span:last-child {
+      font-family: "Oswald", sans-serif;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--paper-deep);
+      color: var(--ink);
+      outline: none;
+      border-radius: 0;
+      padding: 13px 14px;
+      font-family: "Noto Sans SC", system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(224, 117, 99, 0.12);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .log-list {
+      display: grid;
+      gap: 14px;
+      max-height: 520px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .log-card {
+      position: relative;
+      padding: 16px;
+      background: var(--paper-deep);
+      border-left: 4px solid var(--accent);
+    }
+
+    .log-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: "Oswald", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    .tag.done {
+      background: var(--green);
+    }
+
+    .tag.doing {
+      background: var(--blue);
+    }
+
+    .tag.todo {
+      background: var(--accent);
+    }
+
+    .tag.risk {
+      background: #7B3F3F;
+    }
+
+    .log-text {
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.85;
+      white-space: pre-wrap;
+    }
+
+    .log-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .small-btn {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      padding: 5px 9px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .small-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .report-box {
+      min-height: 680px;
+      width: 100%;
+      background: var(--paper-deep);
+      border: 1px solid var(--line);
+      padding: 18px;
+      font-family: "Noto Sans SC", system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.85;
+      white-space: pre-wrap;
+    }
+
+    .history-box {
+      min-height: 360px;
+      margin-top: 16px;
+    }
+
+    .history-search-results {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .history-result-card {
+      border-left: 4px solid var(--accent);
+      background: var(--paper-deep);
+      padding: 13px 14px;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .history-result-card:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .history-result-card:hover .history-result-meta,
+    .history-result-card:hover .history-result-snippet {
+      color: rgba(241, 240, 236, 0.76);
+    }
+
+    .history-result-title {
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .history-result-meta {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .history-result-snippet {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .history-empty-tip {
+      padding: 14px;
+      color: var(--muted);
+      background: var(--paper-deep);
+      border-left: 3px solid var(--line);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .history-entry-details {
+      min-height: 160px;
+      max-height: 360px;
+      overflow-y: auto;
+      padding: 14px;
+      background: var(--paper-deep);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.85;
+      white-space: pre-wrap;
+    }
+
+    .history-entry-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .history-entry-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-entry-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    mark {
+      background: rgba(224, 117, 99, 0.28);
+      color: var(--ink);
+      padding: 0 2px;
+    }
+
+    .status {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .status strong {
+      color: var(--accent);
+    }
+
+    @media (max-width: 1180px) {
+      .top-layout {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .counter {
+        text-align: left;
+      }
+
+      .toolbar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 30px 20px 48px;
+      }
+
+      .huge-title {
+        font-size: 72px;
+      }
+
+      .toolbar,
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="top-layout">
+      <header>
+        <div class="kicker">Weekly Work Report</div>
+        <h1 class="huge-title">WEEK NOTE</h1>
+        <div class="sub-title">周报智能整理工具</div>
+        <p class="desc">
+          持续记录每日工作内容，每周六一键生成结构化周报。每周只保留一份最终周报，同周再次生成会覆盖旧版本。
+        </p>
+      </header>
+
+      <div class="toolbar">
+        <button class="btn btn-primary" onclick="generateWeeklyReport()">生成本周周报</button>
+        <button class="btn btn-dark" onclick="copyReport()">复制周报</button>
+        <button class="btn btn-outline" onclick="exportData()">导出数据</button>
+        <button class="btn btn-soft" onclick="clearAllData()">清空数据</button>
+      </div>
+
+      <div class="counter">
+        <div class="counter-number" id="entryCounter">00</div>
+        <div class="counter-label">本周记录</div>
+      </div>
+    </div>
+
+    <main class="main-grid">
+      <section class="panel">
+        <div class="panel-head">
+          <span class="panel-index">01</span>
+          <div class="panel-title">添加工作内容</div>
+        </div>
+
+        <div class="panel-body">
+          <div class="form-grid">
+            <div class="mini-grid">
+              <div class="field">
+                <label>
+                  <span>工作日期</span>
+                  <span>DATE</span>
+                </label>
+                <input type="date" id="workDate" />
+              </div>
+
+              <div class="field">
+                <label>
+                  <span>事项状态</span>
+                  <span>TYPE</span>
+                </label>
+                <select id="workType">
+                  <option value="done">已完成</option>
+                  <option value="doing">进行中</option>
+                  <option value="todo">待处理</option>
+                  <option value="risk">问题风险</option>
+                  <option value="plan">下周计划</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>
+                <span>事项标题</span>
+                <span>TITLE</span>
+              </label>
+              <input type="text" id="workTitle" placeholder="例如：完成工具目录页面开发" />
+            </div>
+
+            <div class="field">
+              <label>
+                <span>详细内容</span>
+                <span>CONTENT</span>
+              </label>
+              <textarea id="workContent" placeholder="请输入具体工作内容、进展、结果、问题或下一步计划。可以多写一点，生成周报时会自动压缩整理。"></textarea>
+            </div>
+
+            <button class="btn btn-primary" onclick="addEntry()">添加记录</button>
+          </div>
+
+          <div class="status" id="statusText">
+            <strong>提示：</strong>数据会保存在当前浏览器本地，不会上传服务器。
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <span class="panel-index">02</span>
+          <div class="panel-title">本周记录</div>
+        </div>
+
+        <div class="panel-body">
+          <div class="log-list" id="logList"></div>
+        </div>
+      </section>
+
+      <section class="panel panel-highlight">
+        <div class="panel-head">
+          <span class="panel-index">03</span>
+          <div class="panel-title">周报结果</div>
+        </div>
+
+        <div class="panel-body">
+          <textarea id="reportOutput" class="report-box" placeholder="点击“生成本周周报”后，这里会出现整理后的周报。"></textarea>
+          <div class="status">
+            生成后会自动保存为本周周报。同一周内再次生成时，会覆盖本周之前保存的周报。
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <span class="panel-index">04</span>
+          <div class="panel-title">历史周报</div>
+        </div>
+
+        <div class="panel-body">
+          <div class="field">
+            <label>
+              <span>选择历史周次</span>
+              <span>HISTORY</span>
+            </label>
+            <select id="historySelect" onchange="viewHistoryReport()">
+              <option value="">暂无历史周报</option>
+            </select>
+          </div>
+
+          <div class="field" style="margin-top: 16px;">
+            <label>
+              <span>历史关键词搜索</span>
+              <span>SEARCH</span>
+            </label>
+            <input
+              type="text"
+              id="historySearchInput"
+              placeholder="输入工作关键词，例如：目录页面、接口、数据处理、周报工具"
+              oninput="searchHistoryReports()"
+            />
+          </div>
+
+          <div id="historySearchResults" class="history-search-results">
+            <div class="history-empty-tip">输入关键词后，可定位到包含该工作的具体周次。</div>
+          </div>
+
+          <div class="field" style="margin-top: 16px;">
+            <label>
+              <span>当周详细记录</span>
+              <span>DETAIL</span>
+            </label>
+            <div id="historyEntryDetails" class="history-entry-details">
+              选择历史周报或搜索结果后，这里会显示该周的原始工作记录。
+            </div>
+          </div>
+
+          <div class="mini-grid" style="margin-top: 16px;">
+            <button class="btn btn-dark" onclick="copyHistoryReport()">复制历史周报</button>
+            <button class="btn btn-outline" onclick="deleteHistoryReport()">删除历史周报</button>
+          </div>
+
+          <textarea id="historyReportOutput" class="report-box history-box" placeholder="选择一个历史周次后，这里会显示该周周报。"></textarea>
+
+          <div class="status">
+            每一周只保留一份周报。同一周内再次生成周报时，会覆盖该周之前保存的内容。
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "weekly_report_entries_v1";
+    const REPORT_STORAGE_KEY = "weekly_report_history_v1";
+
+    let entries = [];
+    let weeklyReports = {};
+
+    const typeMap = {
+      done: "已完成",
+      doing: "进行中",
+      todo: "待处理",
+      risk: "问题风险",
+      plan: "下周计划"
+    };
+
+    const tagClassMap = {
+      done: "done",
+      doing: "doing",
+      todo: "todo",
+      risk: "risk",
+      plan: "todo"
+    };
+
+    function init() {
+      document.getElementById("workDate").value = formatDate(new Date());
+      entries = loadEntries();
+      weeklyReports = loadWeeklyReports();
+      renderEntries();
+      renderReportHistory();
+      loadCurrentWeekReportIfExists();
+    }
+
+    function loadEntries() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveEntries() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+
+    function loadWeeklyReports() {
+      try {
+        return JSON.parse(localStorage.getItem(REPORT_STORAGE_KEY) || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveWeeklyReports() {
+      localStorage.setItem(REPORT_STORAGE_KEY, JSON.stringify(weeklyReports));
+    }
+
+    function formatDate(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function formatDateTime(timestamp) {
+      const date = new Date(timestamp);
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      const h = String(date.getHours()).padStart(2, "0");
+      const min = String(date.getMinutes()).padStart(2, "0");
+      return `${y}-${m}-${d} ${h}:${min}`;
+    }
+
+    function getWeekRange(date = new Date()) {
+      const current = new Date(date);
+      const day = current.getDay() || 7;
+
+      const monday = new Date(current);
+      monday.setDate(current.getDate() - day + 1);
+      monday.setHours(0, 0, 0, 0);
+
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+      sunday.setHours(23, 59, 59, 999);
+
+      return { monday, sunday };
+    }
+
+    function getWeekKey(date = new Date()) {
+      const { monday, sunday } = getWeekRange(date);
+      return `${formatDate(monday)}_${formatDate(sunday)}`;
+    }
+
+    function getWeekLabelFromKey(key) {
+      const parts = key.split("_");
+      if (parts.length !== 2) return key;
+      return `${parts[0]} 至 ${parts[1]}`;
+    }
+
+    function isThisWeek(dateString) {
+      const { monday, sunday } = getWeekRange();
+      const date = new Date(dateString + "T12:00:00");
+      return date >= monday && date <= sunday;
+    }
+
+    function getThisWeekEntries() {
+      return entries
+        .filter(item => isThisWeek(item.date))
+        .sort((a, b) => {
+          if (a.date !== b.date) return a.date.localeCompare(b.date);
+          return a.createdAt - b.createdAt;
+        });
+    }
+
+    function loadCurrentWeekReportIfExists() {
+      const weekKey = getWeekKey(new Date());
+      if (weeklyReports[weekKey]) {
+        document.getElementById("reportOutput").value = weeklyReports[weekKey].content || "";
+      }
+    }
+
+    function addEntry() {
+      const date = document.getElementById("workDate").value;
+      const type = document.getElementById("workType").value;
+      const title = document.getElementById("workTitle").value.trim();
+      const content = document.getElementById("workContent").value.trim();
+
+      if (!date) {
+        setStatus("请选择工作日期。");
+        return;
+      }
+
+      if (!title && !content) {
+        setStatus("请至少填写事项标题或详细内容。");
+        return;
+      }
+
+      entries.unshift({
+        id: Date.now() + "-" + Math.random().toString(16).slice(2),
+        date,
+        type,
+        title: title || content.slice(0, 24),
+        content,
+        createdAt: Date.now()
+      });
+
+      saveEntries();
+
+      document.getElementById("workTitle").value = "";
+      document.getElementById("workContent").value = "";
+
+      renderEntries();
+      setStatus("记录已添加。");
+    }
+
+    function deleteEntry(id) {
+      if (!confirm("确认删除这条记录？")) return;
+
+      entries = entries.filter(item => item.id !== id);
+      saveEntries();
+      renderEntries();
+      setStatus("记录已删除。");
+    }
+
+    function renderEntries() {
+      const list = document.getElementById("logList");
+      const weekEntries = getThisWeekEntries();
+
+      document.getElementById("entryCounter").textContent = String(weekEntries.length).padStart(2, "0");
+
+      if (!weekEntries.length) {
+        list.innerHTML = `
+          <div class="log-card">
+            <div class="log-meta">
+              <span class="tag">EMPTY</span>
+            </div>
+            <div class="log-text">本周还没有记录。请先添加工作内容。</div>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = weekEntries.map(item => `
+        <article class="log-card">
+          <div class="log-meta">
+            <span class="tag ${tagClassMap[item.type] || ""}">${typeMap[item.type] || item.type}</span>
+            <span>${item.date}</span>
+          </div>
+          <div class="log-text"><strong>${escapeHTML(item.title)}</strong>${item.content ? "\n" + escapeHTML(item.content) : ""}</div>
+          <div class="log-actions">
+            <button class="small-btn" onclick="deleteEntry('${item.id}')">删除</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function generateWeeklyReport() {
+      const weekEntries = getThisWeekEntries();
+      const { monday, sunday } = getWeekRange();
+
+      if (!weekEntries.length) {
+        document.getElementById("reportOutput").value = "本周暂无工作记录，无法生成周报。";
+        return;
+      }
+
+      const grouped = {
+        done: weekEntries.filter(item => item.type === "done"),
+        doing: weekEntries.filter(item => item.type === "doing"),
+        todo: weekEntries.filter(item => item.type === "todo"),
+        risk: weekEntries.filter(item => item.type === "risk"),
+        plan: weekEntries.filter(item => item.type === "plan")
+      };
+
+      const mainTopics = extractMainTopics(weekEntries);
+
+      const report = [
+        `周报`,
+        ``,
+        `周期：${formatDate(monday)} 至 ${formatDate(sunday)}`,
+        `生成时间：${formatDateTime(Date.now())}`,
+        ``,
+        `一、本周主要事项`,
+        formatList(mainTopics.length ? mainTopics : weekEntries.slice(0, 5).map(item => item.title)),
+        ``,
+        `二、已完成事项`,
+        formatEntries(grouped.done, "本周暂无明确标记为“已完成”的事项。"),
+        ``,
+        `三、进行中事项`,
+        formatEntries(grouped.doing, "本周暂无明确标记为“进行中”的事项。"),
+        ``,
+        `四、待处理事项`,
+        formatEntries(grouped.todo, "本周暂无明确标记为“待处理”的事项。"),
+        ``,
+        `五、问题与风险`,
+        formatEntries(grouped.risk, "本周暂无明确记录的问题与风险。"),
+        ``,
+        `六、下周计划`,
+        formatEntries(grouped.plan.length ? grouped.plan : grouped.todo, "暂无明确下周计划，可根据待处理事项继续推进。"),
+        ``,
+        `七、本周小结`,
+        generateSummarySentence(weekEntries, grouped)
+      ].join("\n");
+
+      document.getElementById("reportOutput").value = report;
+
+      const weekKey = getWeekKey(new Date());
+
+      weeklyReports[weekKey] = {
+        weekKey,
+        weekLabel: getWeekLabelFromKey(weekKey),
+        content: report,
+        updatedAt: Date.now(),
+        entryCount: weekEntries.length
+      };
+
+      saveWeeklyReports();
+      renderReportHistory();
+      searchHistoryReports();
+
+      setStatus("本周周报已生成，并已覆盖保存为本周最新版本。");
+    }
+
+    function formatEntries(list, emptyText) {
+      if (!list.length) return `- ${emptyText}`;
+
+      return list.map(item => {
+        const text = item.content ? `${item.title}：${compressText(item.content)}` : item.title;
+        return `- ${text}`;
+      }).join("\n");
+    }
+
+    function formatList(list) {
+      if (!list.length) return "- 暂无";
+      return list.map(item => `- ${item}`).join("\n");
+    }
+
+    function extractMainTopics(list) {
+      const titleWords = list
+        .map(item => item.title)
+        .filter(Boolean);
+
+      const unique = [];
+      titleWords.forEach(title => {
+        const normalized = title.replace(/[，。；、,.]/g, "").trim();
+        if (normalized && !unique.some(item => similarity(item, normalized) > 0.55)) {
+          unique.push(normalized);
+        }
+      });
+
+      return unique.slice(0, 6);
+    }
+
+    function similarity(a, b) {
+      const setA = new Set(a);
+      const setB = new Set(b);
+      let same = 0;
+      setA.forEach(ch => {
+        if (setB.has(ch)) same++;
+      });
+      return same / Math.max(setA.size, setB.size, 1);
+    }
+
+    function compressText(text, maxLength = 90) {
+      const clean = String(text || "").replace(/\s+/g, " ").trim();
+      if (clean.length <= maxLength) return clean;
+      return clean.slice(0, maxLength) + "……";
+    }
+
+    function generateSummarySentence(all, grouped) {
+      const total = all.length;
+      const done = grouped.done.length;
+      const doing = grouped.doing.length;
+      const todo = grouped.todo.length;
+      const risk = grouped.risk.length;
+
+      return `本周共记录 ${total} 项工作，其中已完成 ${done} 项，进行中 ${doing} 项，待处理 ${todo} 项，问题风险 ${risk} 项。整体工作围绕项目推进、工具建设、问题处理与后续计划展开，后续需继续跟进未完成事项，及时处理风险问题，保证下周工作有序推进。`;
+    }
+
+    function renderReportHistory() {
+      const select = document.getElementById("historySelect");
+      const output = document.getElementById("historyReportOutput");
+
+      if (!select || !output) return;
+
+      const reports = Object.values(weeklyReports)
+        .sort((a, b) => String(b.weekKey).localeCompare(String(a.weekKey)));
+
+      if (!reports.length) {
+        select.innerHTML = `<option value="">暂无历史周报</option>`;
+        output.value = "";
+        renderHistoryEntryDetails("");
+        return;
+      }
+
+      select.innerHTML = `
+        <option value="">请选择历史周报</option>
+        ${reports.map(report => {
+          const updatedText = formatDateTime(report.updatedAt);
+          return `<option value="${escapeHTML(report.weekKey)}">${escapeHTML(report.weekLabel)} ｜ ${report.entryCount || 0} 条记录 ｜ 更新于 ${updatedText}</option>`;
+        }).join("")}
+      `;
+    }
+
+    function viewHistoryReport() {
+      const select = document.getElementById("historySelect");
+      const output = document.getElementById("historyReportOutput");
+
+      const weekKey = select.value;
+
+      if (!weekKey || !weeklyReports[weekKey]) {
+        output.value = "";
+        renderHistoryEntryDetails("");
+        return;
+      }
+
+      output.value = weeklyReports[weekKey].content || "";
+      renderHistoryEntryDetails(weekKey);
+    }
+
+    function searchHistoryReports() {
+      const input = document.getElementById("historySearchInput");
+      const resultBox = document.getElementById("historySearchResults");
+
+      if (!input || !resultBox) return;
+
+      const keywordRaw = input.value.trim();
+      const keyword = keywordRaw.toLowerCase();
+
+      if (!keyword) {
+        resultBox.innerHTML = `
+          <div class="history-empty-tip">输入关键词后，可定位到包含该工作的具体周次。</div>
+        `;
+        return;
+      }
+
+      const weekMap = buildWeekEntryMap();
+
+      const results = Object.values(weeklyReports)
+        .map(report => {
+          const entriesOfWeek = weekMap[report.weekKey] || [];
+          const reportMatched = String(report.content || "").toLowerCase().includes(keyword);
+
+          const matchedEntries = entriesOfWeek.filter(item => {
+            return (
+              String(item.title || "").toLowerCase().includes(keyword) ||
+              String(item.content || "").toLowerCase().includes(keyword) ||
+              String(typeMap[item.type] || "").toLowerCase().includes(keyword)
+            );
+          });
+
+          if (!reportMatched && !matchedEntries.length) {
+            return null;
+          }
+
+          return {
+            report,
+            matchedEntries,
+            reportMatched
+          };
+        })
+        .filter(Boolean)
+        .sort((a, b) => String(b.report.weekKey).localeCompare(String(a.report.weekKey)));
+
+      if (!results.length) {
+        resultBox.innerHTML = `
+          <div class="history-empty-tip">没有找到包含「${escapeHTML(keywordRaw)}」的历史周报或工作记录。</div>
+        `;
+        return;
+      }
+
+      resultBox.innerHTML = results.map(item => {
+        const report = item.report;
+        const matchedCount = item.matchedEntries.length;
+        const firstEntry = item.matchedEntries[0];
+
+        let snippet = "";
+
+        if (firstEntry) {
+          snippet = `${firstEntry.title || ""} ${firstEntry.content || ""}`;
+        } else {
+          snippet = extractSnippet(report.content || "", keywordRaw);
+        }
+
+        return `
+          <div class="history-result-card" onclick="openHistorySearchResult('${escapeJS(report.weekKey)}', '${escapeJS(keywordRaw)}')">
+            <div class="history-result-title">${escapeHTML(report.weekLabel)}</div>
+            <div class="history-result-meta">
+              ${report.entryCount || 0} 条记录 ｜ 匹配 ${matchedCount || 1} 项 ｜ 更新于 ${formatDateTime(report.updatedAt)}
+            </div>
+            <div class="history-result-snippet">
+              ${highlightKeyword(escapeHTML(compressText(snippet, 90)), keywordRaw)}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function openHistorySearchResult(weekKey, keyword) {
+      const select = document.getElementById("historySelect");
+      const output = document.getElementById("historyReportOutput");
+
+      if (!weeklyReports[weekKey]) return;
+
+      select.value = weekKey;
+      output.value = weeklyReports[weekKey].content || "";
+
+      renderHistoryEntryDetails(weekKey, keyword);
+
+      setStatus(`已定位到 ${weeklyReports[weekKey].weekLabel} 的历史周报。`);
+    }
+
+    function buildWeekEntryMap() {
+      const map = {};
+
+      entries.forEach(item => {
+        const date = new Date(item.date + "T12:00:00");
+        const weekKey = getWeekKey(date);
+
+        if (!map[weekKey]) {
+          map[weekKey] = [];
+        }
+
+        map[weekKey].push(item);
+      });
+
+      Object.keys(map).forEach(key => {
+        map[key].sort((a, b) => {
+          if (a.date !== b.date) return a.date.localeCompare(b.date);
+          return a.createdAt - b.createdAt;
+        });
+      });
+
+      return map;
+    }
+
+    function renderHistoryEntryDetails(weekKey, keyword = "") {
+      const box = document.getElementById("historyEntryDetails");
+      if (!box) return;
+
+      if (!weekKey) {
+        box.innerHTML = "选择历史周报或搜索结果后，这里会显示该周的原始工作记录。";
+        return;
+      }
+
+      const weekMap = buildWeekEntryMap();
+      let weekEntries = weekMap[weekKey] || [];
+
+      if (!weekEntries.length) {
+        box.innerHTML = "该周暂无可追溯的原始工作记录，可能是历史周报导入或记录已被删除。";
+        return;
+      }
+
+      if (keyword) {
+        const lower = keyword.toLowerCase();
+        const matched = weekEntries.filter(item => {
+          return (
+            String(item.title || "").toLowerCase().includes(lower) ||
+            String(item.content || "").toLowerCase().includes(lower) ||
+            String(typeMap[item.type] || "").toLowerCase().includes(lower)
+          );
+        });
+
+        if (matched.length) {
+          weekEntries = matched;
+        }
+      }
+
+      box.innerHTML = weekEntries.map(item => {
+        const title = highlightKeyword(escapeHTML(item.title || ""), keyword);
+        const content = highlightKeyword(escapeHTML(item.content || ""), keyword);
+
+        return `
+          <div class="history-entry-item">
+            <div class="history-entry-meta">
+              <span class="tag ${tagClassMap[item.type] || ""}">${typeMap[item.type] || item.type}</span>
+              <span>${item.date}</span>
+            </div>
+            <div><strong>${title}</strong></div>
+            ${content ? `<div style="margin-top: 6px;">${content}</div>` : ""}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function extractSnippet(text, keyword) {
+      const source = String(text || "");
+      const lowerSource = source.toLowerCase();
+      const lowerKeyword = String(keyword || "").toLowerCase();
+
+      const index = lowerSource.indexOf(lowerKeyword);
+
+      if (index === -1) {
+        return source.slice(0, 120);
+      }
+
+      const start = Math.max(0, index - 40);
+      const end = Math.min(source.length, index + lowerKeyword.length + 80);
+
+      return `${start > 0 ? "……" : ""}${source.slice(start, end)}${end < source.length ? "……" : ""}`;
+    }
+
+    function highlightKeyword(htmlText, keyword) {
+      if (!keyword) return htmlText;
+
+      const safeKeyword = String(keyword).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+      if (!safeKeyword) return htmlText;
+
+      const reg = new RegExp(`(${safeKeyword})`, "gi");
+      return String(htmlText).replace(reg, "<mark>$1</mark>");
+    }
+
+    async function copyReport() {
+      const text = document.getElementById("reportOutput").value.trim();
+
+      if (!text) {
+        setStatus("当前没有可复制的周报内容。");
+        return;
+      }
+
+      await copyText(text);
+      setStatus("周报已复制到剪贴板。");
+    }
+
+    async function copyHistoryReport() {
+      const text = document.getElementById("historyReportOutput").value.trim();
+
+      if (!text) {
+        setStatus("当前没有可复制的历史周报。");
+        return;
+      }
+
+      await copyText(text);
+      setStatus("历史周报已复制到剪贴板。");
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        temp.remove();
+      }
+    }
+
+    function deleteHistoryReport() {
+      const select = document.getElementById("historySelect");
+      const weekKey = select.value;
+
+      if (!weekKey || !weeklyReports[weekKey]) {
+        setStatus("请先选择要删除的历史周报。");
+        return;
+      }
+
+      if (!confirm(`确认删除 ${weeklyReports[weekKey].weekLabel} 的历史周报？`)) {
+        return;
+      }
+
+      delete weeklyReports[weekKey];
+      saveWeeklyReports();
+      renderReportHistory();
+
+      document.getElementById("historyReportOutput").value = "";
+      document.getElementById("historyEntryDetails").innerHTML = "选择历史周报或搜索结果后，这里会显示该周的原始工作记录。";
+      document.getElementById("historySearchInput").value = "";
+      document.getElementById("historySearchResults").innerHTML = `
+        <div class="history-empty-tip">输入关键词后，可定位到包含该工作的具体周次。</div>
+      `;
+
+      setStatus("历史周报已删除。");
+    }
+
+    function exportData() {
+      const exportPayload = {
+        version: "weekly-report-tool-v3",
+        exportedAt: new Date().toISOString(),
+        entries,
+        weeklyReports
+      };
+
+      const blob = new Blob([JSON.stringify(exportPayload, null, 2)], {
+        type: "application/json;charset=utf-8"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `weekly-report-data-${formatDate(new Date())}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      setStatus("工作记录和历史周报已导出。");
+    }
+
+    function clearAllData() {
+      if (!confirm("确认清空所有工作记录和历史周报？此操作不可恢复。")) return;
+
+      entries = [];
+      weeklyReports = {};
+
+      saveEntries();
+      saveWeeklyReports();
+
+      renderEntries();
+      renderReportHistory();
+
+      document.getElementById("reportOutput").value = "";
+      document.getElementById("historyReportOutput").value = "";
+      document.getElementById("historyEntryDetails").innerHTML = "选择历史周报或搜索结果后，这里会显示该周的原始工作记录。";
+      document.getElementById("historySearchInput").value = "";
+      document.getElementById("historySearchResults").innerHTML = `
+        <div class="history-empty-tip">输入关键词后，可定位到包含该工作的具体周次。</div>
+      `;
+
+      setStatus("所有工作记录和历史周报已清空。");
+    }
+
+    function setStatus(text) {
+      document.getElementById("statusText").innerHTML = `<strong>提示：</strong>${escapeHTML(text)}`;
+    }
+
+    function escapeHTML(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function escapeJS(str) {
+      return String(str || "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, "&quot;")
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "");
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

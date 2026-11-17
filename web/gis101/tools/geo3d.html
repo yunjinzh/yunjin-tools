@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三维地形生成器</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@900&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+    
+    <style>
+        :root {
+            --base-color: #F1F0EC;
+            --card-bg: #F9F8F6;
+            --accent-color: #E07563;
+            --text-main: #1A1A1A;
+            --text-muted: #7A7A7A;
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { font-family: 'Noto Sans SC', sans-serif; background-color: var(--base-color); color: var(--text-main); height: 100vh; overflow: hidden; display: flex; }
+
+        .noise-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; opacity: 0.08; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+
+        .layout-grid { display: grid; grid-template-columns: 400px 1fr; width: 100%; height: 100%; position: relative; z-index: 1; }
+
+        .sidebar { padding: 30px; display: flex; flex-direction: column; border-right: 1px solid rgba(26, 26, 26, 0.1); background: var(--base-color); overflow-y: auto; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); }
+
+        .brand { margin-bottom: 30px; }
+        .title-en { font-family: 'Oswald', sans-serif; font-size: 4rem; font-weight: 700; line-height: 0.85; color: var(--accent-color); letter-spacing: -0.02em; margin-bottom: 10px; text-transform: uppercase; }
+        .title-zh { font-family: 'Noto Serif SC', serif; font-weight: 900; font-size: 1.2rem; color: var(--text-main); letter-spacing: 0.05em; }
+
+        .section-label { font-family: 'Oswald', sans-serif; font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 10px; margin-top: 20px; text-transform: uppercase; border-bottom: 1px solid rgba(26, 26, 26, 0.1); padding-bottom: 5px; }
+
+        .map-container { width: 100%; height: 220px; background: #ddd; margin-bottom: 10px; box-shadow: var(--shadow-2xl); border-radius: 2px; overflow: hidden; flex-shrink: 0; position: relative; }
+        #map { width: 100%; height: 100%; }
+
+        .control-group { display: flex; flex-direction: column; gap: 10px; }
+        .row { display: flex; gap: 10px; }
+
+        input[type="text"], input[type="color"] { padding: 10px; border: 1px solid rgba(26, 26, 26, 0.2); background: transparent; font-family: 'Noto Sans SC', sans-serif; outline: none; width: 100%; }
+        input[type="color"] { padding: 2px 5px; height: 40px; cursor: pointer; }
+
+        button { font-family: 'Oswald', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; padding: 10px 15px; background: transparent; color: var(--text-main); border: 1px solid var(--text-main); cursor: pointer; transition: all 0.2s; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; flex: 1; }
+        button:hover { background: var(--text-main); color: var(--base-color); }
+        button.primary { background: var(--accent-color); color: var(--base-color); border-color: var(--accent-color); font-weight: 500; }
+        button.primary:hover { background: #c96251; border-color: #c96251; transform: translateY(-2px); }
+        button.active { background: #1A1A1A; color: white; border-color: #1A1A1A; }
+
+        .file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; }
+        .file-upload-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; }
+
+        .slider-wrapper { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+        .slider-header { display: flex; justify-content: space-between; font-family: 'Oswald', sans-serif; font-size: 0.85rem; }
+        input[type="range"] { -webkit-appearance: none; width: 100%; height: 2px; background: rgba(26, 26, 26, 0.2); outline: none; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 12px; height: 12px; background: var(--accent-color); cursor: pointer; border-radius: 50%; }
+
+        .main-view { padding: 30px; display: flex; justify-content: center; align-items: center; background: var(--base-color); position: relative; }
+        .canvas-card { width: 100%; height: 100%; background: var(--card-bg); box-shadow: var(--shadow-2xl); position: relative; border-radius: 2px; overflow: hidden; }
+        #scene-container { width: 100%; height: 100%; outline: none; }
+
+        /* 3D 标签容器 */
+        #labels-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+        
+        .marker-label {
+            position: absolute; transform: translate(-50%, -100%);
+            font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 0.9rem;
+            padding: 4px 10px; background: rgba(255,255,255,0.95); border-left: 4px solid var(--label-color, #E07563);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); backdrop-filter: blur(4px);
+            color: #1A1A1A; letter-spacing: 0.05em; text-transform: uppercase;
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s;
+            pointer-events: auto; /* 允许鼠标交互 */
+            text-decoration: none; /* 去除 a 标签下划线 */
+            cursor: pointer;
+        }
+        .marker-label:hover {
+            transform: translate(-50%, -110%); /* 悬浮时轻微抬起 */
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        /* 标签底部的小三角 */
+        .marker-label::after {
+            content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+            border-width: 6px 6px 0; border-style: solid; border-color: rgba(255,255,255,0.95) transparent transparent transparent;
+        }
+        .marker-label:hover::after { border-top-color: #ffffff; }
+
+        .status-bar { position: absolute; bottom: 20px; left: 20px; font-family: 'Oswald', sans-serif; font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em; pointer-events: none; }
+        .data-overlay { position: absolute; top: 20px; right: 20px; text-align: right; pointer-events: none; }
+        .data-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--accent-color); line-height: 1; }
+        .data-label { font-family: 'Noto Sans SC', sans-serif; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+        #loading { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(241, 240, 236, 0.9); backdrop-filter: blur(4px); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
+        .loader-line { width: 100px; height: 2px; background: rgba(224, 117, 99, 0.2); position: relative; overflow: hidden; margin-bottom: 15px; }
+        .loader-line::after { content: ''; position: absolute; left: -50%; height: 100%; width: 50%; background: var(--accent-color); animation: lineAnim 1s infinite ease-in-out; }
+        @keyframes lineAnim { 0% { left: -50%; } 100% { left: 100%; } }
+        .loader-text { font-family: 'Oswald', sans-serif; letter-spacing: 0.1em; color: var(--accent-color); font-size: 0.9rem; }
+        
+        #rec-indicator { position: absolute; top: 20px; left: 20px; display: none; align-items: center; gap: 8px; font-family: 'Oswald', sans-serif; color: #E07563; font-weight: bold; letter-spacing: 0.1em; }
+        .rec-dot { width: 12px; height: 12px; background: #E07563; border-radius: 50%; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <div class="layout-grid">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="title-en">Terrain<br>Studio.</div>
+                <div class="title-zh">高精度实体地形生成系统</div>
+            </div>
+
+            <div class="section-label">01. Area & Generation</div>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+            <button class="primary" onclick="generateSolid3D()" style="margin-bottom: 10px;">
+                <span>Generate HD Model</span><span>→</span>
+            </button>
+
+            <div class="section-label">02. Single Annotation (POI)</div>
+            <div class="control-group">
+                <div class="row">
+                    <input type="text" id="markerName" placeholder="Marker Name..." value="Mount Everest">
+                    <input type="color" id="markerColor" value="#E07563" style="width: 60px;">
+                </div>
+                <div class="row">
+                    <!-- 新增超链接输入框 -->
+                    <input type="text" id="markerUrl" placeholder="Hyperlink URL (e.g. https://...)" value="https://zh.wikipedia.org/wiki/珠穆朗玛峰">
+                </div>
+                <button id="addMarkerBtn" onclick="toggleMarkerMode()"><span>[+] Place on Map</span></button>
+            </div>
+
+            <div class="section-label">03. Trajectory (.GPX / .KML)</div>
+            <div class="control-group">
+                <div class="file-upload-wrapper">
+                    <button><span>Import GPX/KML Track</span><span>📁</span></button>
+                    <input type="file" id="trackUpload" accept=".gpx,.kml" onchange="handleTrackUpload(event)">
+                </div>
+                <div class="row">
+                    <button onclick="playTrajectory()"><span>Play</span><span>▶</span></button>
+                    <button onclick="recordVideo()" style="color: #E07563; border-color: #E07563;"><span>Record Video</span><span>⏺</span></button>
+                </div>
+            </div>
+
+            <div class="section-label">04. Parameters & Export</div>
+            <div class="slider-wrapper">
+                <div class="slider-header"><span>Z-AXIS EXAGGERATION</span><span id="zScaleVal">1.5X</span></div>
+                <input type="range" id="zScale" min="0.5" max="5" step="0.1" value="1.5" oninput="updateExaggeration()">
+            </div>
+            <div class="row">
+                <button onclick="exportModel('html')"><span>.HTML</span></button>
+                <button onclick="exportModel('gltf')"><span>.GLTF</span></button>
+                <button onclick="exportModel('stl')"><span>.STL</span></button>
+            </div>
+        </aside>
+
+        <main class="main-view">
+            <div class="canvas-card">
+                <div id="loading">
+                    <div class="loader-line"></div>
+                    <div class="loader-text" id="loading-text">FETCHING DEM DATA...</div>
+                </div>
+                
+                <div id="scene-container"></div>
+                <div id="labels-container"></div>
+                
+                <div id="rec-indicator"><div class="rec-dot"></div> REC</div>
+
+                <div class="data-overlay">
+                    <div class="data-value" id="elev-range">--</div>
+                    <div class="data-label">Elevation Range (m)</div>
+                </div>
+                
+                <div class="status-bar" id="status-info">
+                    SYSTEM READY. SELECT AREA OR IMPORT TRACK.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/GLTFExporter.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/STLExporter.js"></script>
+
+    <script>
+        let selectedCenter = null;
+        let terrainMesh = null;
+        let originalHeights = [];
+        let currentRealScale = 1;
+        let centerH = 0, minH = 0, maxH = 0;
+        let demZoom = 13;
+        let tileCenterLat = 0, tileCenterLon = 0;
+        
+        // 【修改点 1】将数组改为单例状态
+        let currentMarkerData = null; 
+        let currentMarkerLayer = null; // 用于记录 2D 地图上的圆点以便清除
+        let isPlacingMarker = false;
+
+        let trackPoints = [];
+        let trackLineMesh = null;
+        let trackRunnerMesh = null;
+        let isAnimatingTrack = false;
+        let animProgress = 0;
+        let mediaRecorder = null;
+        let recordedChunks = [];
+
+        const map = L.map('map', { zoomControl: false }).setView([27.9881, 86.9250], 10); // 默认珠峰
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
+
+        const drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+        const drawControl = new L.Control.Draw({
+            edit: { featureGroup: drawnItems },
+            draw: { polygon: false, polyline: false, marker: false, circlemarker: false, circle: false, rectangle: { shapeOptions: { color: '#E07563', weight: 2, fillOpacity: 0.2, fill: true } } }
+        });
+        map.addControl(drawControl);
+
+        map.on(L.Draw.Event.CREATED, function (event) {
+            drawnItems.clearLayers();
+            drawnItems.addLayer(event.layer);
+            selectedCenter = event.layer.getBounds().getCenter();
+            document.getElementById('status-info').innerText = `AREA SELECTED: ${selectedCenter.lat.toFixed(4)}N, ${selectedCenter.lng.toFixed(4)}E`;
+        });
+
+        const container = document.getElementById('scene-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 2000);
+        camera.position.set(120, 100, 120);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setClearColor(0x000000, 0);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.outputEncoding = THREE.sRGBEncoding; 
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; controls.dampingFactor = 0.05;
+        controls.maxPolarAngle = Math.PI / 2 + 0.1;
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(100, 150, 50); dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 2048; dirLight.shadow.mapSize.height = 2048;
+        scene.add(dirLight);
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+
+        function lon2tile(lon, zoom) { return (Math.floor((lon + 180) / 360 * Math.pow(2, zoom))); }
+        function lat2tile(lat, zoom) { return (Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom))); }
+        function tile2lon(x, z) { return (x / Math.pow(2, z) * 360 - 180); }
+        function tile2lat(y, z) { const n = Math.PI - 2 * Math.PI * y / Math.pow(2, z); return (180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n)))); }
+
+        function generateSolid3D() {
+            if (!selectedCenter) { alert("Please select an area or import a track first."); return; }
+            const loading = document.getElementById('loading');
+            const loadingText = document.getElementById('loading-text');
+            loading.style.display = 'flex';
+
+            const x = lon2tile(selectedCenter.lng, demZoom);
+            const y = lat2tile(selectedCenter.lat, demZoom);
+            
+            tileCenterLon = tile2lon(x + 0.5, demZoom);
+            tileCenterLat = tile2lat(y + 0.5, demZoom);
+
+            const demUrl = `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${demZoom}/${x}/${y}.png`;
+
+            loadingText.innerText = "FETCHING DEM DATA...";
+            const img = new Image(); img.crossOrigin = "Anonymous";
+            img.onload = () => {
+                loadingText.innerText = "PROCESSING ELEVATION...";
+                const canvas = document.createElement('canvas');
+                canvas.width = 256; canvas.height = 256;
+                const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0);
+                const data = ctx.getImageData(0, 0, 256, 256).data;
+
+                originalHeights = new Float32Array(256 * 256);
+                minH = Infinity; maxH = -Infinity; let sum = 0;
+
+                for(let i = 0; i < data.length; i += 4) {
+                    const elevation = (data[i] * 256 + data[i+1] + data[i+2] / 256) - 32768;
+                    originalHeights[i/4] = elevation;
+                    sum += elevation;
+                    if(elevation < minH) minH = elevation;
+                    if(elevation > maxH) maxH = elevation;
+                }
+                centerH = sum / (256 * 256);
+                const metersPerPixel = 156543.03 * Math.cos(tileCenterLat * Math.PI / 180) / Math.pow(2, demZoom);
+                currentRealScale = 100 / (256 * metersPerPixel);
+
+                document.getElementById('elev-range').innerText = `${Math.round(minH)} - ${Math.round(maxH)}`;
+
+                fetchHighResTexture(x, y, demZoom, (hdTexture) => { buildSolidMesh(hdTexture); });
+            };
+            img.onerror = () => { loading.style.display = 'none'; alert("Failed to fetch DEM data."); };
+            img.src = demUrl;
+        }
+
+        function fetchHighResTexture(demX, demY, demZoom, callback) {
+            const imgZoom = demZoom + 3; const multiplier = 8; 
+            const startX = demX * multiplier; const startY = demY * multiplier;
+            const canvas = document.createElement('canvas');
+            canvas.width = 256 * multiplier; canvas.height = 256 * multiplier;
+            const ctx = canvas.getContext('2d');
+            let loaded = 0; const total = 64; 
+            document.getElementById('loading-text').innerText = `FETCHING HD TEXTURES (0/64)...`;
+
+            for (let dx = 0; dx < multiplier; dx++) {
+                for (let dy = 0; dy < multiplier; dy++) {
+                    const url = `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${imgZoom}/${startY + dy}/${startX + dx}`;
+                    const img = new Image(); img.crossOrigin = "Anonymous";
+                    img.onload = () => {
+                        ctx.drawImage(img, dx * 256, dy * 256, 256, 256); loaded++;
+                        document.getElementById('loading-text').innerText = `STITCHING HD TEXTURES (${loaded}/64)...`;
+                        if (loaded === total) {
+                            const texture = new THREE.CanvasTexture(canvas);
+                            texture.encoding = THREE.sRGBEncoding; 
+                            texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                            callback(texture);
+                        }
+                    };
+                    img.onerror = () => {
+                        loaded++;
+                        if (loaded === total) {
+                            const texture = new THREE.CanvasTexture(canvas);
+                            texture.encoding = THREE.sRGBEncoding; texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+                            callback(texture);
+                        }
+                    };
+                    img.src = url;
+                }
+            }
+        }
+
+        function buildSolidMesh(hdTexture) {
+            if (terrainMesh) scene.remove(terrainMesh);
+            const geometry = new THREE.BoxGeometry(100, 10, 100, 255, 1, 255);
+            const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xE8E8E8, roughness: 0.9 });
+            const topMaterial = new THREE.MeshStandardMaterial({ map: hdTexture, roughness: 0.8 });
+            terrainMesh = new THREE.Mesh(geometry, [sideMaterial, sideMaterial, topMaterial, sideMaterial, sideMaterial, sideMaterial]);
+            terrainMesh.castShadow = true; terrainMesh.receiveShadow = true;
+            scene.add(terrainMesh);
+            
+            updateExaggeration();
+            camera.position.set(80, 80, 100); controls.target.set(0, 0, 0);
+            document.getElementById('loading').style.display = 'none';
+            
+            if(trackPoints.length > 0) buildTrajectory3D();
+        }
+
+        function latLonTo3D(lat, lon) {
+            const tileWidthMeters = 100 / currentRealScale; 
+            const metersPerLat = 111320;
+            const metersPerLon = 111320 * Math.cos(tileCenterLat * Math.PI / 180);
+            const dxMeters = (lon - tileCenterLon) * metersPerLon;
+            const dzMeters = -(lat - tileCenterLat) * metersPerLat; 
+            const x = dxMeters * (100 / tileWidthMeters);
+            const z = dzMeters * (100 / tileWidthMeters);
+            return { x, z };
+        }
+
+        function getTerrainHeightAt(x, z) {
+            if(originalHeights.length === 0) return 0;
+            const exaggeration = parseFloat(document.getElementById('zScale').value);
+            let px = Math.max(0, Math.min(255, Math.floor(((x + 50) / 100) * 255)));
+            let py = Math.max(0, Math.min(255, Math.floor(((z + 50) / 100) * 255)));
+            const h = originalHeights[py * 256 + px];
+            return (h - centerH) * currentRealScale * exaggeration;
+        }
+
+        function updateExaggeration() {
+            if (!terrainMesh) return;
+            const exaggeration = parseFloat(document.getElementById('zScale').value);
+            document.getElementById('zScaleVal').innerText = exaggeration.toFixed(1) + 'X';
+            const positionAttribute = terrainMesh.geometry.attributes.position;
+            const vertex = new THREE.Vector3();
+            const baseLevel = (minH - centerH) * currentRealScale * exaggeration - 5;
+
+            for ( let i = 0; i < positionAttribute.count; i ++ ) {
+                vertex.fromBufferAttribute( positionAttribute, i );
+                if ( vertex.y > 0 ) {
+                    let px = Math.max(0, Math.min(255, Math.floor(((vertex.x + 50) / 100) * 255)));
+                    let py = Math.max(0, Math.min(255, Math.floor(((vertex.z + 50) / 100) * 255)));
+                    vertex.y = (originalHeights[py * 256 + px] - centerH) * currentRealScale * exaggeration;
+                } else {
+                    vertex.y = baseLevel;
+                }
+                positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
+            }
+            terrainMesh.geometry.attributes.position.needsUpdate = true;
+            terrainMesh.geometry.computeVertexNormals(); 
+            
+            if(trackPoints.length > 0) buildTrajectory3D();
+        }
+
+        // ==========================================
+        // 4. 单例 POI 标注系统 (支持超链接)
+        // ==========================================
+        function toggleMarkerMode() {
+            const btn = document.getElementById('addMarkerBtn');
+            isPlacingMarker = !isPlacingMarker;
+            if(isPlacingMarker) {
+                btn.classList.add('active');
+                btn.innerHTML = '<span>Click on map to place...</span>';
+                document.getElementById('map').style.cursor = 'crosshair';
+            } else {
+                btn.classList.remove('active');
+                btn.innerHTML = '<span>[+] Place on Map</span>';
+                document.getElementById('map').style.cursor = '';
+            }
+        }
+
+        map.on('click', function(e) {
+            if(!isPlacingMarker) return;
+            const name = document.getElementById('markerName').value || 'Marker';
+            const color = document.getElementById('markerColor').value;
+            const url = document.getElementById('markerUrl').value.trim();
+            
+            // 【修改点 2】清除旧的标签
+            if (currentMarkerLayer) {
+                map.removeLayer(currentMarkerLayer);
+            }
+            if (currentMarkerData && currentMarkerData.el) {
+                currentMarkerData.el.remove();
+            }
+            
+            // 2D Map Marker
+            currentMarkerLayer = L.circleMarker(e.latlng, { radius: 6, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1 }).addTo(map);
+            currentMarkerLayer.bindPopup(name).openPopup();
+            
+            // 【修改点 3】根据是否有 URL，动态创建 <a> 或 <div>
+            const el = document.createElement(url ? 'a' : 'div');
+            el.className = 'marker-label';
+            el.innerText = name;
+            el.style.setProperty('--label-color', color);
+            
+            if (url) {
+                // 确保链接带有 http 协议
+                el.href = /^https?:\/\//i.test(url) ? url : 'https://' + url;
+                el.target = '_blank';
+                el.title = "Click to open link";
+            }
+            
+            document.getElementById('labels-container').appendChild(el);
+            
+            // 保存当前状态
+            currentMarkerData = { lat: e.latlng.lat, lon: e.latlng.lng, name, color, el };
+            
+            toggleMarkerMode(); // Reset
+        });
+
+        function update3DLabels() {
+            // 【修改点 4】只更新单例标签
+            if(!terrainMesh || !currentMarkerData) return;
+            const container = document.getElementById('scene-container');
+            const halfW = container.clientWidth / 2;
+            const halfH = container.clientHeight / 2;
+
+            const pos2d = latLonTo3D(currentMarkerData.lat, currentMarkerData.lon);
+            const y = getTerrainHeightAt(pos2d.x, pos2d.z) + 2; 
+            
+            const vector = new THREE.Vector3(pos2d.x, y, pos2d.z);
+            vector.project(camera);
+            
+            if(vector.z > 1) {
+                currentMarkerData.el.style.opacity = 0;
+                currentMarkerData.el.style.pointerEvents = 'none'; // 隐藏时禁止点击
+            } else {
+                currentMarkerData.el.style.opacity = 1;
+                currentMarkerData.el.style.pointerEvents = 'auto'; // 显示时允许点击
+                const xPos = (vector.x * halfW) + halfW;
+                const yPos = -(vector.y * halfH) + halfH;
+                currentMarkerData.el.style.left = `${xPos}px`;
+                currentMarkerData.el.style.top = `${yPos}px`;
+            }
+        }
+
+        function handleTrackUpload(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const xmlStr = e.target.result;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(xmlStr, "text/xml");
+                
+                trackPoints = [];
+                if(doc.querySelector('trkpt')) {
+                    Array.from(doc.querySelectorAll('trkpt')).forEach(pt => {
+                        trackPoints.push({ lat: parseFloat(pt.getAttribute('lat')), lon: parseFloat(pt.getAttribute('lon')) });
+                    });
+                } else if(doc.querySelector('coordinates')) {
+                    const coordsText = doc.querySelector('coordinates').textContent.trim();
+                    coordsText.split(/\s+/).forEach(c => {
+                        const parts = c.split(',');
+                        if(parts.length >= 2) trackPoints.push({ lon: parseFloat(parts[0]), lat: parseFloat(parts[1]) });
+                    });
+                }
+
+                if(trackPoints.length === 0) { alert("No valid track points found."); return; }
+
+                let minLat = 90, maxLat = -90, minLon = 180, maxLon = -180;
+                trackPoints.forEach(p => {
+                    if(p.lat < minLat) minLat = p.lat; if(p.lat > maxLat) maxLat = p.lat;
+                    if(p.lon < minLon) minLon = p.lon; if(p.lon > maxLon) maxLon = p.lon;
+                });
+                
+                const bounds = L.latLngBounds([minLat, minLon], [maxLat, maxLon]);
+                map.fitBounds(bounds);
+                
+                drawnItems.clearLayers();
+                const rect = L.rectangle(bounds, { color: '#E07563', weight: 2, fillOpacity: 0.2 }).addTo(drawnItems);
+                selectedCenter = bounds.getCenter();
+                
+                const latlngs = trackPoints.map(p => [p.lat, p.lon]);
+                L.polyline(latlngs, {color: '#2196F3', weight: 3}).addTo(drawnItems);
+
+                document.getElementById('status-info').innerText = `TRACK LOADED: ${trackPoints.length} PTS. GENERATING...`;
+                generateSolid3D();
+            };
+            reader.readAsText(file);
+        }
+
+        function buildTrajectory3D() {
+            if(!terrainMesh || trackPoints.length === 0) return;
+            if(trackLineMesh) scene.remove(trackLineMesh);
+            if(trackRunnerMesh) scene.remove(trackRunnerMesh);
+
+            const points3d = [];
+            trackPoints.forEach(p => {
+                const pos = latLonTo3D(p.lat, p.lon);
+                if(pos.x >= -50 && pos.x <= 50 && pos.z >= -50 && pos.z <= 50) {
+                    const y = getTerrainHeightAt(pos.x, pos.z) + 0.5; 
+                    points3d.push(new THREE.Vector3(pos.x, y, pos.z));
+                }
+            });
+
+            if(points3d.length < 2) return;
+
+            const geometry = new THREE.BufferGeometry().setFromPoints(points3d);
+            const material = new THREE.LineBasicMaterial({ color: 0x00E5FF, linewidth: 2 });
+            trackLineMesh = new THREE.Line(geometry, material);
+            scene.add(trackLineMesh);
+
+            const runnerGeo = new THREE.SphereGeometry(1.5, 16, 16);
+            const runnerMat = new THREE.MeshBasicMaterial({ color: 0xFF1744 });
+            trackRunnerMesh = new THREE.Mesh(runnerGeo, runnerMat);
+            trackRunnerMesh.position.copy(points3d[0]);
+            scene.add(trackRunnerMesh);
+            
+            trackRunnerMesh.userData.path = points3d;
+        }
+
+        function playTrajectory() {
+            if(!trackRunnerMesh || !trackRunnerMesh.userData.path) { alert("Please import a track and generate model first."); return; }
+            isAnimatingTrack = true;
+            animProgress = 0;
+        }
+
+        function recordVideo() {
+            if(!trackRunnerMesh) { alert("Please import a track first."); return; }
+            
+            const stream = renderer.domElement.captureStream(30); 
+            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
+            recordedChunks = [];
+            
+            mediaRecorder.ondataavailable = (e) => { if(e.data.size > 0) recordedChunks.push(e.data); };
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = 'geo_trajectory.webm'; a.click();
+                document.getElementById('rec-indicator').style.display = 'none';
+            };
+            
+            document.getElementById('rec-indicator').style.display = 'flex';
+            mediaRecorder.start();
+            playTrajectory();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            
+            update3DLabels();
+
+            if(isAnimatingTrack && trackRunnerMesh) {
+                const path = trackRunnerMesh.userData.path;
+                animProgress += 0.002; 
+                
+                if(animProgress >= 1) {
+                    animProgress = 1;
+                    isAnimatingTrack = false;
+                    if(mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+                }
+                
+                const floatIndex = animProgress * (path.length - 1);
+                const index = Math.floor(floatIndex);
+                const nextIndex = Math.min(index + 1, path.length - 1);
+                const weight = floatIndex - index;
+                
+                const currentPos = new THREE.Vector3().copy(path[index]).lerp(path[nextIndex], weight);
+                trackRunnerMesh.position.copy(currentPos);
+            }
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+    </script>
+</body>
+</html>

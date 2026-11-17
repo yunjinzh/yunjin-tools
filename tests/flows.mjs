@@ -1,6 +1,6 @@
 import {chromium}from'@playwright/test';import fs from'node:fs';import path from'node:path';import {fileURLToPath}from'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const browser=await chromium.launch({...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
+const browser=await chromium.launch({...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),headless:true,args:['--no-sandbox','--disable-dev-shm-usage'],...(process.env.HTTPS_PROXY?{proxy:{server:process.env.HTTPS_PROXY,bypass:'127.0.0.1,localhost'}}:{})});
 const context=await browser.newContext({viewport:{width:1440,height:1050}}),page=await context.newPage();
 const base=process.env.APP_URL||'http://127.0.0.1:4173/yunjin-tools/';const results=[];
 await page.goto(base);await page.locator('.card').last().waitFor();

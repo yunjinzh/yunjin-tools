@@ -32,6 +32,10 @@ async function run() {
     });
     page.on('pageerror', e => errors.push(e.message));
     page.on('response', r => { if (r.status() >= 400) failures.push({ url: r.url().replace(/\?.*$/, ''), status: r.status() }); });
+    page.on('requestfailed', request => {
+      const error = request.failure()?.errorText;
+      if (error && error !== 'net::ERR_ABORTED') failures.push({ url: request.url().replace(/\?.*$/, ''), error });
+    });
     try {
       const response = await page.goto(new URL(m.url, base).href, { waitUntil: 'domcontentloaded', timeout: 40000 });
       await page.waitForTimeout(1600);

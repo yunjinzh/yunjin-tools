@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>三年级英语单词大冒险升级版</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", "Microsoft YaHei", Arial, sans-serif;
+      color: #333;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.9) 0 35px, transparent 36px),
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.9) 0 28px, transparent 29px),
+        radial-gradient(circle at 85% 16%, rgba(255,255,255,0.85) 0 40px, transparent 41px),
+        radial-gradient(circle at 92% 14%, rgba(255,255,255,0.85) 0 30px, transparent 31px),
+        linear-gradient(135deg, #fff1a8, #ffd3ec, #bff8ff);
+      background-attachment: fixed;
+    }
+
+    header {
+      position: relative;
+      background: linear-gradient(90deg, #ff8a65, #ffca28, #66bb6a);
+      color: white;
+      text-align: center;
+      padding: 20px 10px 24px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    header::before {
+      content: "⭐ 🐰 🌈 🐻 ⭐";
+      position: absolute;
+      left: 20px;
+      top: 14px;
+      font-size: 24px;
+      opacity: 0.9;
+    }
+
+    header::after {
+      content: "🚀 🏰 🎈 🐱 🚀";
+      position: absolute;
+      right: 20px;
+      bottom: 10px;
+      font-size: 24px;
+      opacity: 0.9;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 15px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.94);
+      border: 4px solid white;
+      border-radius: 22px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.13);
+    }
+
+    .stat strong {
+      display: block;
+      color: #ff7043;
+      font-size: 24px;
+      margin-top: 5px;
+    }
+
+    .map-panel {
+      background: rgba(255,255,255,0.94);
+      border: 4px solid white;
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.14);
+      margin-bottom: 15px;
+    }
+
+    .map-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .map-title h2 {
+      margin: 0 0 10px;
+      color: #7e57c2;
+    }
+
+    .map-road {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      align-items: center;
+    }
+
+    .map-node {
+      border: none;
+      border-radius: 24px;
+      padding: 12px 8px;
+      background: linear-gradient(180deg, #fff176, #ffca28);
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 5px 0 #f9a825;
+      transition: 0.15s;
+      min-height: 78px;
+    }
+
+    .map-node:hover {
+      transform: translateY(-3px);
+    }
+
+    .map-node.active {
+      background: linear-gradient(180deg, #81d4fa, #42a5f5);
+      color: white;
+      box-shadow: 0 5px 0 #1976d2;
+    }
+
+    .map-node .emoji {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 15px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.94);
+      border: 4px solid white;
+      border-radius: 26px;
+      padding: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.14);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #3f51b5;
+    }
+
+    .unit-btn,
+    .mode-btn,
+    .action-btn {
+      border: none;
+      border-radius: 18px;
+      padding: 11px 14px;
+      margin: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+      transition: 0.15s;
+    }
+
+    .unit-btn:hover,
+    .mode-btn:hover,
+    .action-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .unit-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #e3f2fd;
+      box-shadow: 0 4px 0 #90caf9;
+    }
+
+    .unit-btn.active {
+      background: linear-gradient(90deg, #42a5f5, #7e57c2);
+      color: white;
+      box-shadow: 0 4px 0 #3949ab;
+    }
+
+    .mode-btn {
+      background: #fff176;
+      box-shadow: 0 4px 0 #fbc02d;
+    }
+
+    .mode-btn.active {
+      background: #66bb6a;
+      color: white;
+      box-shadow: 0 4px 0 #388e3c;
+    }
+
+    .action-btn {
+      background: #81d4fa;
+      box-shadow: 0 4px 0 #039be5;
+    }
+
+    .danger {
+      background: #ff8a80;
+      color: white;
+      box-shadow: 0 4px 0 #e53935;
+    }
+
+    .purple {
+      background: #ce93d8;
+      color: white;
+      box-shadow: 0 4px 0 #8e24aa;
+    }
+
+    .green {
+      background: #a5d6a7;
+      box-shadow: 0 4px 0 #43a047;
+    }
+
+    .game-area {
+      background: #fffdf5;
+      border: 4px dashed #ffcc80;
+      border-radius: 24px;
+      padding: 18px;
+      min-height: 450px;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge {
+      background: #ffecb3;
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-weight: bold;
+    }
+
+    .progress {
+      height: 20px;
+      background: #eee;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0;
+      border: 2px solid white;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #66bb6a, #ffee58, #ff8a65);
+      transition: 0.25s;
+    }
+
+    .flashcard {
+      max-width: 540px;
+      height: 275px;
+      margin: 25px auto;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4) 0 25px, transparent 26px),
+        linear-gradient(135deg, #81d4fa, #b39ddb, #ffab91);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.2);
+      text-align: center;
+      padding: 20px;
+      border: 5px solid white;
+    }
+
+    .flash-word {
+      font-size: 54px;
+      font-weight: bold;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.12);
+    }
+
+    .flash-meaning {
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    .tip {
+      color: #666;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .question {
+      text-align: center;
+      font-size: 36px;
+      color: #5e35b1;
+      font-weight: bold;
+      margin: 20px 0 10px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .choice {
+      background: white;
+      border: 4px solid #ddd;
+      border-radius: 20px;
+      padding: 18px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .choice:hover {
+      transform: scale(1.02);
+      border-color: #64b5f6;
+    }
+
+    .choice.correct {
+      background: #c8e6c9;
+      border-color: #43a047;
+    }
+
+    .choice.wrong {
+      background: #ffcdd2;
+      border-color: #e53935;
+    }
+
+    .spell-box {
+      max-width: 560px;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 18px;
+      border: 4px solid #ddd;
+      font-size: 24px;
+      text-align: center;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #64b5f6;
+    }
+
+    .result {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      min-height: 34px;
+      margin-top: 14px;
+    }
+
+    .good {
+      color: #2e7d32;
+    }
+
+    .bad {
+      color: #c62828;
+    }
+
+    .word-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .word-item {
+      background: white;
+      border-radius: 16px;
+      padding: 10px;
+      border: 3px solid #eee;
+    }
+
+    .word-item strong {
+      color: #5e35b1;
+      font-size: 18px;
+    }
+
+    .wrong-card {
+      background: white;
+      border: 3px solid #ffcc80;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .wrong-card strong {
+      color: #e65100;
+      font-size: 22px;
+    }
+
+    .footer-buttons {
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 24px;
+      color: #43a047;
+      padding: 60px 10px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .map-road {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .choices {
+        grid-template-columns: 1fr;
+      }
+
+      .word-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .flash-word {
+        font-size: 40px;
+      }
+
+      header::before,
+      header::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .word-list {
+        grid-template-columns: 1fr;
+      }
+
+      .question {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>🌟 三年级英语单词大冒险 🌟</h1>
+    <p>闯地图、翻卡片、做选择、练拼写、错词听写，成为 Word Master！</p>
+  </header>
+
+  <div class="container">
+    <div class="stats">
+      <div class="stat">⭐ 星星 <strong id="stars">0</strong></div>
+      <div class="stat">✅ 答对 <strong id="correct">0</strong></div>
+      <div class="stat">📒 错词 <strong id="wrongCount">0</strong></div>
+      <div class="stat">🎯 当前 <strong id="unitName">Unit 1</strong></div>
+      <div class="stat">🎮 模式 <strong id="modeName">单词卡</strong></div>
+    </div>
+
+    <section class="map-panel">
+      <div class="map-title">
+        <h2>🗺️ 闯关地图</h2>
+        <span class="badge">点击关卡开始冒险</span>
+      </div>
+      <div class="map-road">
+        <button class="map-node active" data-unit="unit1" onclick="selectUnitFromMap('unit1')">
+          <span class="emoji">🏰</span>Unit 1<br />人物国家
+        </button>
+        <button class="map-node" data-unit="unit2" onclick="selectUnitFromMap('unit2')">
+          <span class="emoji">🐘</span>Unit 2<br />身体外貌
+        </button>
+        <button class="map-node" data-unit="unit3" onclick="selectUnitFromMap('unit3')">
+          <span class="emoji">🎒</span>Unit 3<br />文具感官
+        </button>
+        <button class="map-node" data-unit="unit4" onclick="selectUnitFromMap('unit4')">
+          <span class="emoji">🍽️</span>Unit 4<br />美食餐厅
+        </button>
+        <button class="map-node" data-unit="unit5" onclick="selectUnitFromMap('unit5')">
+          <span class="emoji">🚗</span>Unit 5<br />玩具位置
+        </button>
+        <button class="map-node" data-unit="unit6" onclick="selectUnitFromMap('unit6')">
+          <span class="emoji">🐷</span>Unit 6<br />数字商店
+        </button>
+        <button class="map-node" data-unit="all" onclick="selectUnitFromMap('all')">
+          <span class="emoji">👑</span>All<br />终极复习
+        </button>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="panel">
+        <h2>选择关卡</h2>
+        <button class="unit-btn active" data-unit="unit1" onclick="selectUnit('unit1')">🏰 第1关 人物国家</button>
+        <button class="unit-btn" data-unit="unit2" onclick="selectUnit('unit2')">🐘 第2关 身体外貌</button>
+        <button class="unit-btn" data-unit="unit3" onclick="selectUnit('unit3')">🎒 第3关 文具感官</button>
+        <button class="unit-btn" data-unit="unit4" onclick="selectUnit('unit4')">🍽️ 第4关 美食餐厅</button>
+        <button class="unit-btn" data-unit="unit5" onclick="selectUnit('unit5')">🚗 第5关 玩具位置</button>
+        <button class="unit-btn" data-unit="unit6" onclick="selectUnit('unit6')">🐷 第6关 数字商店</button>
+        <button class="unit-btn" data-unit="all" onclick="selectUnit('all')">👑 终极复习 All</button>
+
+        <hr />
+
+        <h2>游戏模式</h2>
+        <button class="mode-btn active" data-mode="card" onclick="selectMode('card')">单词卡</button>
+        <button class="mode-btn" data-mode="quiz" onclick="selectMode('quiz')">选择题</button>
+        <button class="mode-btn" data-mode="spell" onclick="selectMode('spell')">拼写</button>
+        <button class="mode-btn" data-mode="wrong" onclick="selectMode('wrong')">错题本</button>
+        <button class="mode-btn" data-mode="list" onclick="selectMode('list')">单词表</button>
+
+        <hr />
+
+        <button class="action-btn danger" onclick="resetGame()">清空积分</button>
+        <button class="action-btn purple" onclick="clearWrongBook()">清空错题本</button>
+      </aside>
+
+      <main class="panel">
+        <div class="title-row">
+          <h2 id="mainTitle">第1关：人物和国家城堡</h2>
+          <span class="badge" id="countBadge">共 24 个单词</span>
+        </div>
+
+        <div class="progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="game-area" id="gameArea"></div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const wordData = {
+      unit1: {
+        title: "第1关：人物和国家城堡",
+        name: "Unit 1",
+        words: [
+          ["where", "在哪里；到哪里"],
+          ["from", "来自；从……来"],
+          ["about", "关于；大约"],
+          ["today", "今天"],
+          ["teacher", "教师"],
+          ["student", "学生"],
+          ["after", "在……后面"],
+          ["who", "谁；什么人"],
+          ["girl", "女孩"],
+          ["neighbour", "邻居"],
+          ["boy", "男孩"],
+          ["woman", "成年女子；妇女"],
+          ["man", "成年男子；男人"],
+          ["Mr", "先生"],
+          ["classmate", "同班同学"],
+          ["he", "他"],
+          ["also", "也"],
+          ["English", "英语；英语的"],
+          ["she", "她"],
+          ["very", "很；非常"],
+          ["UK", "英国"],
+          ["China", "中国"],
+          ["Canada", "加拿大"],
+          ["USA", "美国"]
+        ]
+      },
+      unit2: {
+        title: "第2关：身体和外貌变身屋",
+        name: "Unit 2",
+        words: [
+          ["has", "有；具有"],
+          ["long", "长的"],
+          ["body", "身体"],
+          ["short", "短的；矮的"],
+          ["leg", "腿"],
+          ["right", "正确的；恰当的"],
+          ["fat", "胖的"],
+          ["thin", "瘦的"],
+          ["slow", "缓慢的"],
+          ["love", "喜爱；爱"],
+          ["tail", "尾巴"],
+          ["her", "她；她的"],
+          ["gift", "礼物"],
+          ["picture", "图画；绘画"],
+          ["card", "卡片；贺卡"],
+          ["sing", "唱歌"],
+          ["dance", "跳舞"],
+          ["talk", "说话；谈话"],
+          ["face", "脸；面孔"]
+        ]
+      },
+      unit3: {
+        title: "第3关：文具和感官学校",
+        name: "Unit 3",
+        words: [
+          ["eraser", "橡皮"],
+          ["find", "找到；找回"],
+          ["ruler", "直尺"],
+          ["pen", "钢笔"],
+          ["pencil", "铅笔"],
+          ["book", "书；书籍"],
+          ["bag", "包；袋"],
+          ["paper", "纸"],
+          ["these", "这些"],
+          ["see", "看见"],
+          ["smell", "闻"],
+          ["taste", "尝"],
+          ["hear", "听见；听到"],
+          ["touch", "触摸；碰"],
+          ["nose", "鼻子"],
+          ["tongue", "舌头"],
+          ["class", "课；班级"],
+          ["in class", "在课堂上"],
+          ["computer", "计算机；电脑"],
+          ["learn", "学习"]
+        ]
+      },
+      unit4: {
+        title: "第4关：美食餐厅",
+        name: "Unit 4",
+        words: [
+          ["breakfast", "早餐；早饭"],
+          ["time", "时间"],
+          ["bread", "面包"],
+          ["egg", "鸡蛋"],
+          ["milk", "牛奶"],
+          ["noodle", "面条"],
+          ["juice", "果汁"],
+          ["rice", "大米；米饭"],
+          ["meat", "肉"],
+          ["vegetable", "蔬菜"],
+          ["healthy", "健康的"],
+          ["plate", "盘子"],
+          ["soup", "汤"],
+          ["fruit", "水果"],
+          ["colourful", "五彩缤纷的"],
+          ["candy", "糖果"],
+          ["yummy", "很好吃的"]
+        ]
+      },
+      unit5: {
+        title: "第5关：玩具房间寻宝",
+        name: "Unit 5",
+        words: [
+          ["boat", "小船；舟"],
+          ["cool", "酷的；绝妙的"],
+          ["keep", "保有；留着"],
+          ["at", "在某处"],
+          ["home", "家；住所"],
+          ["ball", "球"],
+          ["doll", "玩偶；玩具娃娃"],
+          ["car", "小汽车；轿车"],
+          ["on", "在……上"],
+          ["shelf", "架子"],
+          ["in", "在……内；在……中"],
+          ["box", "盒子"],
+          ["cap", "帽子"],
+          ["map", "地图"],
+          ["under", "在……下面"],
+          ["still", "还是；仍然"],
+          ["put", "放；安置"],
+          ["back", "回到原处"]
+        ]
+      },
+      unit6: {
+        title: "第6关：数字商店",
+        name: "Unit 6",
+        words: [
+          ["eleven", "十一"],
+          ["twelve", "十二"],
+          ["thirteen", "十三"],
+          ["fourteen", "十四"],
+          ["fifteen", "十五"],
+          ["sixteen", "十六"],
+          ["seventeen", "十七"],
+          ["eighteen", "十八"],
+          ["nineteen", "十九"],
+          ["twenty", "二十"],
+          ["piggy bank", "猪形储钱罐"],
+          ["pay", "付费"]
+        ]
+      }
+    };
+
+    let currentUnit = "unit1";
+    let currentMode = "card";
+    let index = 0;
+    let flipped = false;
+
+    let stars = Number(localStorage.getItem("stars") || 0);
+    let correct = Number(localStorage.getItem("correct") || 0);
+    let wrongBook = JSON.parse(localStorage.getItem("wrongBook") || "[]");
+
+    const starsEl = document.getElementById("stars");
+    const correctEl = document.getElementById("correct");
+    const wrongCountEl = document.getElementById("wrongCount");
+    const unitNameEl = document.getElementById("unitName");
+    const modeNameEl = document.getElementById("modeName");
+    const mainTitleEl = document.getElementById("mainTitle");
+    const countBadgeEl = document.getElementById("countBadge");
+    const progressBarEl = document.getElementById("progressBar");
+    const gameArea = document.getElementById("gameArea");
+
+    function getWords() {
+      if (currentUnit === "all") {
+        return Object.values(wordData).flatMap(unit => unit.words);
+      }
+      return wordData[currentUnit].words;
+    }
+
+    function getTitle() {
+      if (currentMode === "wrong") return "错题本：错词听写练习";
+      if (currentUnit === "all") return "终极复习：全部单词大挑战";
+      return wordData[currentUnit].title;
+    }
+
+    function getUnitName() {
+      if (currentUnit === "all") return "All";
+      return wordData[currentUnit].name;
+    }
+
+    function saveData() {
+      localStorage.setItem("stars", stars);
+      localStorage.setItem("correct", correct);
+      localStorage.setItem("wrongBook", JSON.stringify(wrongBook));
+    }
+
+    function updateStats() {
+      starsEl.textContent = stars;
+      correctEl.textContent = correct;
+      wrongCountEl.textContent = wrongBook.length;
+      unitNameEl.textContent = getUnitName();
+
+      const modeMap = {
+        card: "单词卡",
+        quiz: "选择题",
+        spell: "拼写",
+        wrong: "错题本",
+        list: "单词表"
+      };
+
+      modeNameEl.textContent = modeMap[currentMode];
+      mainTitleEl.textContent = getTitle();
+
+      const words = currentMode === "wrong" ? wrongBook : getWords();
+      countBadgeEl.textContent = "共 " + words.length + " 个单词";
+
+      const percent = words.length ? ((index + 1) / words.length) * 100 : 0;
+      progressBarEl.style.width = Math.min(percent, 100) + "%";
+
+      document.querySelectorAll(".unit-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.unit === currentUnit);
+      });
+
+      document.querySelectorAll(".map-node").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.unit === currentUnit);
+      });
+
+      document.querySelectorAll(".mode-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.mode === currentMode);
+      });
+
+      saveData();
+    }
+
+    function selectUnit(unit) {
+      currentUnit = unit;
+      currentMode = currentMode === "wrong" ? "card" : currentMode;
+      index = 0;
+      flipped = false;
+      render();
+    }
+
+    function selectUnitFromMap(unit) {
+      selectUnit(unit);
+    }
+
+    function selectMode(mode) {
+      currentMode = mode;
+      index = 0;
+      flipped = false;
+      render();
+    }
+
+    function nextWord() {
+      const words = currentMode === "wrong" ? wrongBook : getWords();
+      if (!words.length) {
+        render();
+        return;
+      }
+      index = (index + 1) % words.length;
+      flipped = false;
+      render();
+    }
+
+    function prevWord() {
+      const words = currentMode === "wrong" ? wrongBook : getWords();
+      if (!words.length) {
+        render();
+        return;
+      }
+      index = (index - 1 + words.length) % words.length;
+      flipped = false;
+      render();
+    }
+
+    function addStar(num) {
+      stars += num;
+      correct += 1;
+      updateStats();
+    }
+
+    function normalizeWord(text) {
+      return String(text).trim().toLowerCase();
+    }
+
+    function addWrong(word, meaning) {
+      const exists = wrongBook.some(item => normalizeWord(item[0]) === normalizeWord(word));
+      if (!exists) {
+        wrongBook.push([word, meaning]);
+      }
+      saveData();
+      updateStats();
+    }
+
+    function removeWrong(word) {
+      wrongBook = wrongBook.filter(item => normalizeWord(item[0]) !== normalizeWord(word));
+      if (index >= wrongBook.length) index = 0;
+      saveData();
+      render();
+    }
+
+    function render() {
+      updateStats();
+
+      if (currentMode === "card") renderCard();
+      if (currentMode === "quiz") renderQuiz();
+      if (currentMode === "spell") renderSpell();
+      if (currentMode === "wrong") renderWrongBook();
+      if (currentMode === "list") renderList();
+    }
+
+    function renderCard() {
+      const words = getWords();
+      const word = words[index];
+
+      gameArea.innerHTML = `
+        <div class="flashcard" onclick="flipCard()">
+          <div id="cardContent">
+            <div style="font-size:42px;">🎈</div>
+            <div class="flash-word">${word[0]}</div>
+            <div class="tip">点击卡片查看中文意思</div>
+          </div>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="action-btn" onclick="prevWord()">⬅️ 上一个</button>
+          <button class="action-btn green" onclick="speakWord('${escapeText(word[0])}')">🔊 播放发音</button>
+          <button class="action-btn purple" onclick="remembered()">我记住了 ⭐</button>
+          <button class="action-btn" onclick="nextWord()">下一个 ➡️</button>
+        </div>
+      `;
+    }
+
+    function flipCard() {
+      const words = getWords();
+      const word = words[index];
+      const card = document.getElementById("cardContent");
+
+      flipped = !flipped;
+
+      if (flipped) {
+        card.innerHTML = `
+          <div style="font-size:42px;">🌟</div>
+          <div class="flash-meaning">${word[1]}</div>
+          <div class="tip">${word[0]}</div>
+        `;
+      } else {
+        card.innerHTML = `
+          <div style="font-size:42px;">🎈</div>
+          <div class="flash-word">${word[0]}</div>
+          <div class="tip">点击卡片查看中文意思</div>
+        `;
+      }
+    }
+
+    function remembered() {
+      addStar(1);
+      nextWord();
+    }
+
+    function renderQuiz() {
+      const words = getWords();
+      const answer = words[index];
+
+      let options = [answer];
+
+      while (options.length < 4 && options.length < words.length) {
+        const random = words[Math.floor(Math.random() * words.length)];
+        if (!options.some(item => item[0] === random[0])) {
+          options.push(random);
+        }
+      }
+
+      options.sort(() => Math.random() - 0.5);
+
+      gameArea.innerHTML = `
+        <div class="question">❓ ${answer[0]}</div>
+        <p class="tip">请选择正确的中文意思</p>
+        <div class="choices">
+          ${options.map(item => `
+            <button class="choice" onclick="checkQuiz(this, '${escapeText(item[0])}', '${escapeText(answer[0])}', '${escapeText(answer[1])}')">${item[1]}</button>
+          `).join("")}
+        </div>
+        <div class="result" id="result"></div>
+        <div class="footer-buttons">
+          <button class="action-btn green" onclick="speakWord('${escapeText(answer[0])}')">🔊 播放发音</button>
+          <button class="action-btn" onclick="nextWord()">跳过 ➡️</button>
+        </div>
+      `;
+    }
+
+    function checkQuiz(btn, selected, answer, meaning) {
+      const result = document.getElementById("result");
+      const choices = document.querySelectorAll(".choice");
+
+      choices.forEach(c => c.disabled = true);
+
+      if (normalizeWord(selected) === normalizeWord(answer)) {
+        btn.classList.add("correct");
+        result.innerHTML = `<span class="good">答对啦！获得 2 颗星 ⭐⭐</span>`;
+        addStar(2);
+        setTimeout(nextWord, 900);
+      } else {
+        btn.classList.add("wrong");
+        result.innerHTML = `<span class="bad">答错啦，已加入错题本。正确答案是：${answer}</span>`;
+        addWrong(answer, meaning);
+      }
+    }
+
+    function renderSpell() {
+      const words = getWords();
+      const word = words[index];
+
+      gameArea.innerHTML = `
+        <div class="question">✍️ ${word[1]}</div>
+        <p class="tip">请根据中文意思拼出英文单词</p>
+
+        <div class="spell-box">
+          <input id="spellInput" placeholder="请输入英文单词" onkeydown="if(event.key==='Enter') checkSpell()" />
+          <div class="footer-buttons">
+            <button class="action-btn purple" onclick="checkSpell()">提交答案</button>
+            <button class="action-btn green" onclick="speakWord('${escapeText(word[0])}')">🔊 播放发音</button>
+            <button class="action-btn" onclick="showAnswer()">查看答案</button>
+            <button class="action-btn" onclick="nextWord()">下一个 ➡️</button>
+          </div>
+          <div class="result" id="result"></div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        document.getElementById("spellInput").focus();
+      }, 100);
+    }
+
+    function checkSpell() {
+      const words = getWords();
+      const word = words[index];
+      const answer = normalizeWord(word[0]);
+      const input = normalizeWord(document.getElementById("spellInput").value);
+      const result = document.getElementById("result");
+
+      if (input === answer) {
+        result.innerHTML = `<span class="good">太棒了！拼写正确，获得 3 颗星 ⭐⭐⭐</span>`;
+        addStar(3);
+        setTimeout(nextWord, 900);
+      } else {
+        result.innerHTML = `<span class="bad">答错啦，已加入错题本，再试一次！</span>`;
+        addWrong(word[0], word[1]);
+      }
+    }
+
+    function showAnswer() {
+      const words = getWords();
+      const word = words[index];
+      document.getElementById("result").innerHTML = `
+        <span class="bad">正确答案：${word[0]}</span>
+      `;
+    }
+
+    function renderWrongBook() {
+      updateStats();
+
+      if (!wrongBook.length) {
+        gameArea.innerHTML = `
+          <div class="empty">
+            🎉 太棒啦！错题本是空的！<br />
+            继续去闯关吧！
+          </div>
+        `;
+        return;
+      }
+
+      const word = wrongBook[index];
+
+      gameArea.innerHTML = `
+        <div class="question">📒 错词听写</div>
+        <p class="tip">先听发音，再拼出英文单词。答对后可以从错题本移除。</p>
+
+        <div class="wrong-card">
+          <strong>中文意思：</strong> ${word[1]}<br />
+          <strong>提示：</strong> 点击“播放发音”听英文
+        </div>
+
+        <div class="spell-box">
+          <input id="wrongInput" placeholder="听发音，写单词" onkeydown="if(event.key==='Enter') checkWrongDictation()" />
+          <div class="footer-buttons">
+            <button class="action-btn green" onclick="speakWord('${escapeText(word[0])}')">🔊 播放发音</button>
+            <button class="action-btn purple" onclick="checkWrongDictation()">提交听写</button>
+            <button class="action-btn" onclick="showWrongAnswer()">查看答案</button>
+            <button class="action-btn" onclick="prevWord()">⬅️ 上一个</button>
+            <button class="action-btn" onclick="nextWord()">下一个 ➡️</button>
+          </div>
+          <div class="result" id="result"></div>
+        </div>
+
+        <hr />
+
+        <h2>错题本列表</h2>
+        <div class="word-list">
+          ${wrongBook.map(item => `
+            <div class="word-item">
+              <strong>${item[0]}</strong><br />
+              <span>${item[1]}</span><br />
+              <button class="action-btn green" onclick="speakWord('${escapeText(item[0])}')">🔊</button>
+              <button class="action-btn danger" onclick="removeWrong('${escapeText(item[0])}')">移除</button>
+            </div>
+          `).join("")}
+        </div>
+      `;
+
+      setTimeout(() => {
+        const input = document.getElementById("wrongInput");
+        if (input) input.focus();
+      }, 100);
+    }
+
+    function checkWrongDictation() {
+      if (!wrongBook.length) return;
+
+      const word = wrongBook[index];
+      const answer = normalizeWord(word[0]);
+      const input = normalizeWord(document.getElementById("wrongInput").value);
+      const result = document.getElementById("result");
+
+      if (input === answer) {
+        result.innerHTML = `<span class="good">听写正确！获得 5 颗星 ⭐⭐⭐⭐⭐，已从错题本移除！</span>`;
+        stars += 5;
+        correct += 1;
+        removeWrong(word[0]);
+      } else {
+        result.innerHTML = `<span class="bad">还不对哦，再听一次，再试一次！</span>`;
+      }
+    }
+
+    function showWrongAnswer() {
+      if (!wrongBook.length) return;
+      const word = wrongBook[index];
+      document.getElementById("result").innerHTML = `
+        <span class="bad">正确答案：${word[0]}</span>
+      `;
+    }
+
+    function renderList() {
+      const words = getWords();
+
+      gameArea.innerHTML = `
+        <p class="tip">当前单元全部单词，可以先读一遍，再去玩单词卡、选择题和拼写。</p>
+        <div class="word-list">
+          ${words.map(item => `
+            <div class="word-item">
+              <strong>${item[0]}</strong>
+              <br />
+              <span>${item[1]}</span>
+              <br />
+              <button class="action-btn green" onclick="speakWord('${escapeText(item[0])}')">🔊 发音</button>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function speakWord(text) {
+      if (!window.speechSynthesis) {
+        alert("当前浏览器不支持发音功能");
+        return;
+      }
+
+      speechSynthesis.cancel();
+
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "en-US";
+      utter.rate = 0.75;
+      utter.pitch = 1.1;
+      speechSynthesis.speak(utter);
+    }
+
+    function resetGame() {
+      if (confirm("确定要清空星星和答对数量吗？")) {
+        stars = 0;
+        correct = 0;
+        localStorage.removeItem("stars");
+        localStorage.removeItem("correct");
+        updateStats();
+      }
+    }
+
+    function clearWrongBook() {
+      if (confirm("确定要清空错题本吗？")) {
+        wrongBook = [];
+        index = 0;
+        localStorage.removeItem("wrongBook");
+        render();
+      }
+    }
+
+    function escapeText(text) {
+      return String(text).replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    }
+
+    render();
+  </script>
+</body>
+</html>
