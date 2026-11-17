@@ -1,156 +1,96 @@
 {
-  "completed_at": "2026-11-17T15:42:56+08:00",
+  "completed_at": "2026-11-17T19:47:54+08:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
-  "added": [],
-  "updated": [
-    "m143"
+  "added": [
+    "m144"
   ],
-  "source_project": "appgprj_6afbcd27f570819193859b4c241e9f8c",
-  "previous_source_version": 1,
-  "source_version": 3,
-  "source_version_id": "appgprj_6afbcd27f570819193859b4c241e9f8c~appgver_be901b8977448191a7291c400390a968",
-  "source_commit": "bf93531160fbcdff0e79072134fabd8711ad6fea",
-  "deployment_commit": "b21e34a6f0137db6dffd3ffc994d94c42b864678",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44040189442",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/index.html",
+  "updated": [],
+  "source_project": "appgprj_6afc241e19908191b37f3167e5cd721f",
+  "source_version": 1,
+  "source_version_id": "appgprj_6afc241e19908191b37f3167e5cd721f~appgver_b686480848e881918059e3a8e493db84",
+  "source_commit": "3035985654bdabd1543c1b482b6ec17235a191a7",
+  "deployment_commit": "e0356c14d01ee2ba456560fd46a406a645486ef0",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44076678424",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
   "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
-  "catalogue_count": 143,
-  "web_count": 109,
+  "catalogue_count": 144,
+  "web_count": 110,
   "discovery": {
-    "owner_sites_checked": 102,
+    "owner_sites_checked": 103,
     "pages": 3,
     "catalogue_source_changed": false
   },
-  "adaptations": [
-    "目录简介与第3版实际的2024—2026年专题政策范围一致。",
-    "PDF预览接受统一部署后的同源模块资源路径。",
-    "移动端司局列表在自身区域滚动，避免撑宽整页。",
-    "从原记录中的高校官网重新取得完整8页PDF，替换部署副本中的33字节网络错误文本；原源码快照未修改。"
-  ],
-  "repaired_file": {
-    "original_url": "https://jwc.czu.cn/_upload/article/files/f1/7d/46260b9c4611875b50aea408d586/8651856b-7bcb-443d-b0bd-3ab5070303d8.pdf",
-    "published_url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/afd10d175c18.pdf",
-    "bytes": 1041399,
-    "pages": 8,
-    "sha256": "afd10d175c18ebc048412c8f494e7111b44aa3419f38706eff009ea9e0fc3786"
-  },
   "source_snapshot_check": {
-    "unchanged_source_files": 26,
-    "matching_mapped_assets": 5
+    "unchanged_source_files": 6,
+    "unchanged_web_files": 4,
+    "original_site_modified": false
+  },
+  "upstream_checks": {
+    "result": "passed",
+    "command": "node checks/game-check.cjs",
+    "working_directory": "sources/m144",
+    "questions": 54,
+    "levels": 8
+  },
+  "incremental_sync_tests": {
+    "passed": 7
   },
   "build": {
-    "files": 3622,
-    "bytes": 643543101,
+    "files": 3627,
+    "bytes": 643615304,
     "size_limit_bytes": 996147200,
     "validated_asset_records": 2658
   },
   "local_validation": {
-    "passed": true,
-    "policy_checks": [
-      "Current source data: 18 documents and 7 departments",
-      "Topic/year filters, clear filters, and empty search state",
-      "Search, full text, summary tabs, and same-origin embedded PDF preview",
-      "Attachment full-text reading and browser document download",
-      "9 bundled PDF/Word files: real HTTP downloads, file signatures, and SHA-256 checks",
-      "CSV export contains source documents and current deployment links",
-      "390px mobile catalogue and full-text dialog"
+    "ok": true,
+    "entry": "http://127.0.0.1:4173/yunjin-tools/apps/m144/index.html",
+    "local_resource_substitution": false,
+    "checks": [
+      "Wrong-answer feedback, correction scoring, reload persistence, and mistake review",
+      "All 54 tasks and 8 levels: single/multiple choice, ordered word tiles, hints, no duplicate rewards, and 24 stars",
+      "12 achievements, persisted full progress, and downloaded learning report",
+      "Reset confirmation/cancel, persisted reset, and sound toggle state",
+      "768px and 390px map, question layout, and answer interaction"
     ],
-    "portal_checks": [
-      "Portal: 143 entries, search, empty state, category and availability filters, 390px viewport",
-      "Module storage isolation: get, set and clear",
-      "PDF reader: built-in sample action completes without a visible import/load error"
-    ]
+    "source_questions": 54,
+    "source_levels": 8,
+    "errors": [],
+    "failures": []
   },
   "browser_checks": [
     {
-      "id": "m143",
-      "name": "产教融合与教育数字化 · 教育政策索引",
+      "id": "m144",
+      "name": "语文探险岛 · 四年级上册",
       "http": 200,
       "errors": [],
       "failures": [],
-      "title": "产教融合与教育数字化 · 教育政策索引",
-      "textLength": 3497,
+      "title": "语文探险岛 · 每一点好奇都闪光",
+      "textLength": 613,
       "canvas": 0,
       "ok": true
     }
   ],
-  "policy_checks": {
+  "game_browser_checks": {
     "ok": true,
-    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m143/index.html",
-    "localAssets": false,
+    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
+    "local_resource_substitution": false,
     "checks": [
-      "Current source data: 18 documents and 7 departments",
-      "Topic/year filters, clear filters, and empty search state",
-      "Search, full text, summary tabs, and same-origin embedded PDF preview",
-      "Attachment full-text reading and browser document download",
-      "9 bundled PDF/Word files: real HTTP downloads, file signatures, and SHA-256 checks",
-      "CSV export contains source documents and current deployment links",
-      "390px mobile catalogue and full-text dialog"
+      "Wrong-answer feedback, correction scoring, reload persistence, and mistake review",
+      "All 54 tasks and 8 levels: single/multiple choice, ordered word tiles, hints, no duplicate rewards, and 24 stars",
+      "12 achievements, persisted full progress, and downloaded learning report",
+      "Reset confirmation/cancel, persisted reset, and sound toggle state",
+      "768px and 390px map, question layout, and answer interaction"
     ],
-    "resources": [
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/f942769fac8a.pdf",
-        "status": 200,
-        "bytes": 343476,
-        "sha256": "f942769fac8addc67b29bdd596d44c2545058fa9bbc93d901f776ed2f70d7ae5"
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/afd10d175c18.pdf",
-        "status": 200,
-        "bytes": 1041399,
-        "sha256": "afd10d175c18ebc048412c8f494e7111b44aa3419f38706eff009ea9e0fc3786"
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/4c9815a6d936.docx",
-        "status": 200,
-        "bytes": 141668,
-        "sha256": "4c9815a6d9362b4dc83c4d59b440e5ca6d4cc41b3b022728f621ad8e9c83c923"
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/3b79c2165fa4.docx",
-        "status": 200,
-        "bytes": 226907,
-        "sha256": "3b79c2165fa4f198c7e2d72f40d4dcb5dbcad999404c01376a3e9cc23cb128ff"
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/8eb28c08be7e.docx",
-        "status": 200,
-        "bytes": 98941,
-        "sha256": "8eb28c08be7e38360651396c6022381aed3d31162f54805128a24038d6660c74"
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/d1b242db57ec.docx",
-        "status": 200,
-        "bytes": 246449,
-        "sha256": "d1b242db57ec9da8c65449088fcd99773b70965fd33db9920ed7aa20cd96ed79"
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/f4cf4ba047ad.docx",
-        "status": 200,
-        "bytes": 119883,
-        "sha256": "f4cf4ba047ad8cb81fac959e6e63fb0a104c5170b398d767cfefc27f6c602271"
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/c4f47e28fa1c.doc",
-        "status": 200,
-        "bytes": 97792,
-        "sha256": "c4f47e28fa1ca4df159ffa15bb3ff21edcaf64a48d81a7fd12176b97b4356731"
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/files/05aaf7c73cfc.doc",
-        "status": 200,
-        "bytes": 37376,
-        "sha256": "05aaf7c73cfcac1c405298d37d6bd5634bcee82a958bd72112cf17d2f1d0a91d"
-      }
-    ],
+    "source_questions": 54,
+    "source_levels": 8,
     "errors": [],
     "failures": []
   },
   "portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 143 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 144 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
@@ -163,55 +103,52 @@
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/",
         "bytes": 3854,
-        "sha256": "fa77f1bf303eb966c41b7b584a8b6fe8f730afeb29a23eee51c44d0f23c173eb",
+        "sha256": "c521f499203457addffe3d110d1348157c3911dafe462d07abf409caef9f7b42",
         "matches_build": true
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
-        "bytes": 92569,
-        "sha256": "dd26d40420b28362aa7376f808596c67d4cf511e827714397fde5883eb563de2",
+        "bytes": 93291,
+        "sha256": "e7550a095527b27f2d4e55d8204235a2f70c0f29e5dda7208af9b852b8284fa0",
         "matches_build": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/index.html",
-        "bytes": 9587,
-        "sha256": "606217d6d4f9be72e0d1b527874de21aa94682a0a94f54a5d15600728b51fc34",
+        "url": "https://yunjinzh.github.io/yunjin-tools/runtime.js",
+        "bytes": 5207,
+        "sha256": "19c4c5ea3f45222ab8544998dffe6c188922756a41eab13b3c4bd259768665a0",
         "matches_build": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/app.js",
-        "bytes": 18161,
-        "sha256": "15786215323088f71983c9cfabab650a0f46c043fbb18dcd42b34e49f5f3e59b",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
+        "bytes": 897,
+        "sha256": "b2bfb660b17b0cb0f7ad4539dec6e070271bfba3b2c8d54d7ebf107f17a40551",
         "matches_build": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/styles.css",
-        "bytes": 36557,
-        "sha256": "7895b924b83214ffd5a3ac78e6791e83a87b32e3502ac22ce9fe96c2f5a18a8a",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/app.js",
+        "bytes": 34449,
+        "sha256": "affcca2c2a2e510c1b1ee82efe0e6b0b2309796a4a329e5ac09a903b0761a296",
         "matches_build": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/data.js",
-        "bytes": 249741,
-        "sha256": "66a30b8abd07163eacfbdd85c820d1d59a76b4ce80de2721762095b8d49c478c",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/styles.css",
+        "bytes": 23357,
+        "sha256": "816136f6d02e351bf7bf87e30e894402b1ba10a9b5fce6b018867d81930f55cd",
         "matches_build": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/index-data.json",
-        "bytes": 249718,
-        "sha256": "64adaf57ee971917ec80527428ef7887da98ce17720397bc6272a5ad50e4a1a0",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/questions.js",
+        "bytes": 12563,
+        "sha256": "a206939022f79d1b5b69f30afd4be734846a0843a9edb319547a8860740b6d7c",
         "matches_build": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/migration-config.js",
-        "bytes": 680,
-        "sha256": "bd7225efdf27598609e23accd1eb7f4b6ba6debc5deda95de4e734045a872769",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/migration-config.js",
+        "bytes": 215,
+        "sha256": "b7295739481a777a4a37ed98cd1a0a0a90c1a2057faf3ba202bd0b152c4cfb98",
         "matches_build": true
       }
     ]
-  },
-  "incremental_sync_tests": {
-    "passed": 7
   },
   "known_remaining": {
     "server_source_only": 13,
