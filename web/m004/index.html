@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <meta name="theme-color" content="#eeede6"><meta name="description" content="字里山河：把 OpenStreetMap 当前视野转为由地名构成的文字地图，调整配色、密度与图层，导出高清 PNG 和可编辑 SVG。">
+ <meta name="referrer" content="strict-origin-when-cross-origin">
+ <title>字里山河 · 文字地图工坊</title>
+ <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23293e39'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-size='43' fill='%23f4f0e6'%3E字%3C/text%3E%3C/svg%3E">
+ <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css">
+ <script src="vendor/leaflet.js" defer></script><script src="vendor/protomaps-leaflet.js" defer></script><script src="vendor/osmtogeojson.js" defer></script>
+ <script src="app.mjs" type="module"></script>
+</head>
+<body>
+<svg class="icon-bank" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6L12 3Z"/></symbol>
+<symbol id="i-map" viewBox="0 0 24 24"><path d="m3 5 6-2 6 3 6-2v15l-6 2-6-3-6 2V5Zm6-2v15m6-12v15"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16M8 3v6m8 0v6m-6 0v6"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2 7M3 4v7h7"/></symbol>
+<symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-11v2"/></symbol>
+<symbol id="i-water" viewBox="0 0 24 24"><path d="M2 7c3-4 5 4 8 0s5 4 8 0 3 0 4 0M2 12c3-4 5 4 8 0s5 4 8 0 3 0 4 0M2 17c3-4 5 4 8 0s5 4 8 0 3 0 4 0"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h7l2 3h9v11H3V6Zm0 0V4h7l2 3h8v2"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M3 9V3h6m6 0h6v6M3 15v6h6m6 0h6v-6"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="m4 15 12-12 5 5L9 20l-6 1 1-6Zm9-9 5 5"/></symbol>
+</defs></svg>
+
+<header class="topbar">
+ <a class="brand" href="./" aria-label="字里山河 首页"><span class="brand-seal">字</span><span class="brand-titles"><strong>字里山河</strong><small>WORD ATLAS STUDIO</small></span></a>
+ <div class="topbar-middle"><span class="tiny-line"></span>让地名，成为地图。</div>
+ <nav class="top-actions"><span class="osm-badge"><span></span>OpenStreetMap</span><button class="icon-button help-button" id="helpBtn" title="使用说明" aria-label="使用说明"><svg><use href="#i-info"/></svg></button><button class="button primary" id="exportBtn"><svg><use href="#i-download"/></svg><span>导出作品</span></button></nav>
+</header>
+
+<main class="workspace">
+ <aside class="sidebar" id="sidebar" aria-label="文字地图创作面板">
+  <div class="sidebar-tabs"><button class="active" data-panel="design">创作面板</button><button data-panel="features">名称编辑 <span id="featureTabCount">0</span></button><button class="icon-button mobile-close" id="closeSidebar" aria-label="收起设置"><svg><use href="#i-close"/></svg></button></div>
+  <div class="sidebar-scroll" id="designPanel">
+   <section class="control-section location-section"><div class="section-heading"><span>01</span><h2>选择一方山河</h2></div>
+    <form id="locationForm" class="location-form"><svg><use href="#i-search"/></svg><input id="locationInput" placeholder="地点预设、经纬度或 OSM 链接" aria-label="前往地点或经纬度" autocomplete="off"><button type="submit" aria-label="前往位置"><svg><use href="#i-arrow"/></svg></button></form>
+    <div class="preset-row"><button data-preset="0" class="selected">故宫北海</button><button data-preset="1">杭州西湖</button><button data-preset="2">上海外滩</button></div>
+    <div class="location-meta"><span id="locationName">北京 · 中轴线</span><button class="text-button" id="placesBtn">更多地点 <svg><use href="#i-chevron"/></svg></button></div>
+    <div class="view-metrics"><span>当前视野 <b id="areaMetric">— km²</b></span><span>缩放 <b id="zoomMetric">15</b></span></div>
+   </section>
+
+   <section class="control-section"><div class="section-heading"><span>02</span><h2>选择图面风格</h2></div>
+    <div class="theme-grid" role="group" aria-label="配色方案">
+     <button class="theme-card selected" data-theme="classic" aria-pressed="true"><span class="theme-preview classic"><i>山</i><i>水</i><i>街</i></span><span>纸上山河</span></button>
+     <button class="theme-card" data-theme="ink" aria-pressed="false"><span class="theme-preview ink"><i>山</i><i>水</i><i>街</i></span><span>水墨留白</span></button>
+     <button class="theme-card" data-theme="blueprint" aria-pressed="false"><span class="theme-preview blueprint"><i>山</i><i>水</i><i>街</i></span><span>深海蓝图</span></button>
+     <button class="theme-card" data-theme="rose" aria-pressed="false"><span class="theme-preview rose"><i>山</i><i>水</i><i>街</i></span><span>瑞士赤陶</span></button>
+    </div>
+   </section>
+
+   <section class="control-section"><div class="section-heading"><span>03</span><h2>让文字呼吸</h2><button class="icon-button mini" id="resetStyleBtn" title="重置排版" aria-label="重置排版"><svg><use href="#i-reset"/></svg></button></div>
+    <div class="slider-label"><label for="density">文字密度</label><output id="densityValue">适中</output></div><input class="range" type="range" id="density" min="0.65" max="1.65" step="0.05" value="1.05"><div class="range-captions"><span>留白</span><span>饱满</span></div>
+    <div class="slider-label spaced"><label for="fontSize">文字尺度</label><output id="fontValue">14 px</output></div><input class="range" type="range" id="fontSize" min="10" max="23" step="1" value="14">
+    <div class="select-row"><label for="language">地名语言</label><select id="language"><option value="zh">中文优先</option><option value="local">当地名称</option><option value="en">英文优先</option></select></div>
+    <label class="switch-row"><span>沿边界描排文字</span><input id="contours" type="checkbox" checked><i></i></label>
+   </section>
+
+   <section class="control-section layers-section"><div class="section-heading"><span>04</span><h2>保留想看的部分</h2></div>
+    <div class="layer-grid"><label><input type="checkbox" data-layer="road" checked><span class="layer-dot road"></span>道路<small id="count-road">—</small></label><label><input type="checkbox" data-layer="water" checked><span class="layer-dot water"></span>水域<small id="count-water">—</small></label><label><input type="checkbox" data-layer="park" checked><span class="layer-dot park"></span>园地<small id="count-park">—</small></label><label><input type="checkbox" data-layer="landmark" checked><span class="layer-dot landmark"></span>地标<small id="count-landmark">—</small></label></div>
+   </section>
+   <div class="sidebar-tools"><button class="text-button" id="saveProjectBtn"><svg><use href="#i-folder"/></svg>保存工程</button><button class="text-button" id="importProjectBtn">打开工程</button><button class="text-button" id="settingsBtn" title="数据服务设置"><svg><use href="#i-sliders"/></svg></button></div>
+  </div>
+  <div class="sidebar-scroll feature-panel hidden" id="featuresPanel"><p class="panel-intro">名称只用于它所属的要素。点击名称可修改、隐藏或恢复；更改仅影响当前作品。</p><div class="feature-search"><svg><use href="#i-search"/></svg><input id="featureSearch" placeholder="筛选地名…" aria-label="筛选地图名称"></div><div id="featureList"></div><p class="feature-note" id="featureNote"></p></div>
+  <div class="generate-area"><button id="generateBtn" class="generate-button"><svg><use href="#i-spark"/></svg><span>一键生成文字地图</span><svg class="right-arrow"><use href="#i-arrow"/></svg></button><button id="cancelBtn" class="cancel-button hidden">取消本次读取</button><p id="dataStatus">正在载入北京 OSM 示例…</p><button class="data-refresh text-button" id="refreshDataBtn">重新读取 OSM 数据</button></div>
+ </aside>
+
+ <section class="map-workspace" aria-label="地图画布">
+  <div class="stage-toolbar"><div class="view-switch" role="group" aria-label="地图显示模式"><button data-mode="base"><svg><use href="#i-map"/></svg>OSM 底图</button><button data-mode="text" class="selected"><span class="letter-icon">字</span>文字地图</button><button data-mode="compare">左右对照</button></div><button id="toggleSidebar" class="icon-button mobile-settings" aria-label="展开创作面板"><svg><use href="#i-sliders"/></svg></button><button class="icon-button fullscreen-btn" id="fullscreenBtn" title="全屏画布" aria-label="全屏画布"><svg><use href="#i-expand"/></svg></button></div>
+  <div id="mapStage" class="map-stage mode-text">
+   <div id="map" aria-label="可拖动缩放的 OpenStreetMap 地图"></div>
+   <canvas id="artCanvas" aria-label="由地图名称组成的文字地图"></canvas>
+   <div class="stage-badge"><span class="status-dot"></span><span id="sceneLabel">正在排布山河</span><span class="badge-separator">/</span><span id="sceneCount">—</span></div>
+   <div class="map-tools"><button id="zoomIn" aria-label="放大地图" title="放大地图">+</button><button id="zoomOut" aria-label="缩小地图" title="缩小地图">−</button><span></span><button id="homeViewBtn" title="返回北京示例" aria-label="返回北京示例"><svg><use href="#i-locate"/></svg></button></div>
+   <div id="compareHandle" class="compare-handle hidden"><span>OSM</span><i>↔</i><span>文字</span></div><input id="compareRange" class="compare-range hidden" type="range" min="5" max="95" value="50" aria-label="拖动调整地图对照位置">
+   <div id="loadingPanel" class="loading-panel"><div class="loading-mark">字</div><strong id="loadingTitle">正在让地名落在山河之间</strong><p id="loadingDetail">读取真实地图，准备文字画布</p><div class="loading-track"><span></span></div></div>
+   <div id="staleBanner" class="stale-banner hidden"><span>视野已移出已读取区域</span><button id="staleGenerate">生成此处地图 <svg><use href="#i-arrow"/></svg></button></div>
+   <div id="emptyArt" class="empty-art hidden"><span>此处，尚待落字</span><p>当前图层中没有可显示的命名要素。试试放大地图、开启其他图层或生成新的视野。</p></div>
+   <div id="tileWarning" class="tile-warning hidden">OSM 底图暂时未能加载，已保留文字画布。<button id="retryTiles">重试底图</button></div>
+   <div id="mapTooltip" class="map-tooltip hidden"></div>
+  </div>
+  <footer class="canvas-footer"><div><span class="footer-dot"></span><span id="renderStatus">准备画布</span></div><span id="centerReadout">39.9190° N · 116.3905° E</span><button class="text-button" id="sourceBtn">数据与署名 <svg><use href="#i-info"/></svg></button></footer>
+ </section>
+</main>
+
+<dialog id="exportDialog" class="dialog export-dialog"><form method="dialog"><button class="dialog-close icon-button" aria-label="关闭导出"><svg><use href="#i-close"/></svg></button></form><span class="eyebrow">TAKE THE LANDSCAPE WITH YOU</span><h2>把山河，带走。</h2><p class="dialog-lead">导出当前文字作品，保留细腻字形与地图署名。</p>
+ <div class="format-grid"><button data-format="png" class="format-card selected"><strong>PNG</strong><span>高清图片 · 分享与印刷</span><i>↗</i></button><button data-format="svg" class="format-card"><strong>SVG</strong><span>矢量文件 · 后期编辑</span><i>↗</i></button></div>
+ <div id="pngOptions"><label class="field-label">输出长边</label><div class="resolution-options"><button data-res="2048">2K<small>2048 px</small></button><button data-res="4096" class="selected">4K<small>4096 px</small></button><button data-res="8192">8K<small>8192 px</small></button></div></div>
+ <label class="switch-row hidden" id="embedFontRow"><span>嵌入中文字体 <small>在其他设备保留字形</small></span><input id="embedFont" type="checkbox" checked><i></i></label>
+ <label class="field-label" for="exportTitle">作品名称</label><input class="field-input" id="exportTitle" value="北京中轴线 · 字里山河" maxlength="50">
+ <label class="switch-row"><span>透明背景</span><input id="transparentExport" type="checkbox"><i></i></label>
+ <div class="export-summary"><span id="exportDimensions">—</span><span id="exportGeometry">当前视野 · 矢量重绘</span></div><button id="downloadBtn" class="button primary wide"><svg><use href="#i-download"/></svg><span>下载 PNG 图片</span></button><p id="exportStatus" class="dialog-note" aria-live="polite">OSM 数据署名将一并保留在作品底部。</p>
+</dialog>
+
+<dialog id="placesDialog" class="dialog"><form method="dialog"><button class="dialog-close icon-button" aria-label="关闭地点选择"><svg><use href="#i-close"/></svg></button></form><span class="eyebrow">FIND YOUR NEXT CANVAS</span><h2>从一座城开始</h2><p class="dialog-lead">选择内置地点，或在创作面板粘贴经纬度、OSM 位置链接。</p><div id="placesList" class="places-list"></div></dialog>
+<dialog id="featureDialog" class="dialog feature-dialog"><form method="dialog"><button class="dialog-close icon-button" aria-label="关闭名称编辑"><svg><use href="#i-close"/></svg></button></form><span class="eyebrow">A NAME BELONGS TO ITS PLACE</span><h2>编辑这个地名</h2><p id="featureOriginal" class="dialog-lead"></p><label class="field-label" for="featureNameInput">显示名称</label><input id="featureNameInput" class="field-input" maxlength="110"><label class="switch-row"><span>在文字地图中显示</span><input id="featureVisible" type="checkbox" checked><i></i></label><div class="dialog-actions"><button class="button subtle" id="restoreFeature">恢复 OSM 原名</button><button class="button primary" id="applyFeature">应用修改</button></div></dialog>
+
+<dialog id="helpDialog" class="dialog help-dialog"><form method="dialog"><button class="dialog-close icon-button" aria-label="关闭使用说明"><svg><use href="#i-close"/></svg></button></form><span class="eyebrow">MAPS, WRITTEN BY THEIR OWN NAMES</span><h2>每个名字，都有自己的位置。</h2><div class="help-steps"><article><b>01</b><div><h3>在地图上选取范围</h3><p>切换到 OSM 底图，拖动、缩放，或输入经纬度前往任意地点。</p></div></article><article><b>02</b><div><h3>一键把地名排成地图</h3><p>路名沿道路排列，水域与园地名称填入自己的轮廓。只使用 OSM 已有名称，未命名区域留白。</p></div></article><article><b>03</b><div><h3>调整，再带走</h3><p>调整密度、字号、配色和图层；在名称编辑中修改当前作品，导出 2K / 4K / 8K PNG 或嵌入字体的 SVG。</p></div></article></div><div class="source-note"><strong>地图来源与适用范围</strong><p>底图和地理要素来自 <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>，地图数据采用 ODbL 许可。地区间命名完整度不同；这是基于地图几何的文字艺术表达。数据时间与读取状态显示在创作面板中。</p><p>实时转换需要联网。已载入的数据可反复调整与导出；可保存工程，之后继续编辑。单次视野上限 85 km²，公共数据服务繁忙时请稍后重试。</p><p>底图由 <a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> 提供 OSM 矢量地图，可在设置中切换标准瓦片。使用 Leaflet、Protomaps、osmtogeojson 与 Noto Serif CJK。<a href="fonts/OFL.txt" target="_blank" rel="noopener">字体许可</a> · <a href="https://www.openstreetmap.org/fixthemap" target="_blank" rel="noopener">反馈地图问题</a></p></div></dialog>
+
+<dialog id="settingsDialog" class="dialog"><form method="dialog"><button class="dialog-close icon-button" aria-label="关闭数据设置"><svg><use href="#i-close"/></svg></button></form><span class="eyebrow">DATA SOURCES</span><h2>地图服务设置</h2><p class="dialog-lead">可配置自有数据服务。修改只保存在当前浏览器。</p><label class="field-label" for="baseProviderInput">底图来源</label><select id="baseProviderInput" class="field-input"><option value="vector">OpenFreeMap · OSM 矢量底图</option><option value="raster">OSM 标准 / 自定义瓦片</option></select><label class="field-label" for="endpointInput">Overpass 数据服务（HTTPS）</label><input class="field-input" id="endpointInput" type="url"><label class="field-label" for="tileInput">OSM 瓦片地址模板</label><input class="field-input" id="tileInput" placeholder="https://…/{z}/{x}/{y}.png"><label class="field-label" for="tileCreditInput">附加底图署名</label><input class="field-input" id="tileCreditInput" maxlength="150"><div class="dialog-actions"><button id="resetSources" class="button subtle">恢复默认</button><button id="saveSources" class="button primary">保存设置</button></div><p class="dialog-note">矢量与标准底图均使用 OSM 数据；瓦片模板仅在标准 / 自定义模式下生效。高清作品由已读取的文字与几何重新绘制。</p></dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div><input id="projectFile" type="file" accept=".json,application/json" class="hidden">
+</body></html>

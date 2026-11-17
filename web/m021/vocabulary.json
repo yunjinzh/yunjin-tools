@@ -1,0 +1,3768 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "title": "Word list",
+    "pages": [
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135
+    ],
+    "format": "User-uploaded textbook photographs",
+    "verification": "All 8 original image pages visually inspected; original unit order, British spellings, phrases and unit-specific definitions retained. Line-break hyphenation joined; Chinese punctuation normalized.",
+    "pageSources": [
+      {
+        "page": 128,
+        "libraryFileId": "libfile_34d8662afca481919a170252fedbb060"
+      },
+      {
+        "page": 129,
+        "libraryFileId": "libfile_20193d5ef8588191b0163685ee815121"
+      },
+      {
+        "page": 130,
+        "libraryFileId": "libfile_b49d37b4a9988191abd44dda396f1c40"
+      },
+      {
+        "page": 131,
+        "libraryFileId": "libfile_8c6ba30d3d488191a6c3ecf5de75416f"
+      },
+      {
+        "page": 132,
+        "libraryFileId": "libfile_f3206e66013081919edf9e44d02b9a2e"
+      },
+      {
+        "page": 133,
+        "libraryFileId": "libfile_c7400030e78c8191b782bbb80878873b"
+      },
+      {
+        "page": 134,
+        "libraryFileId": "libfile_2cfeae15732081919e89cc04f00b782d"
+      },
+      {
+        "page": 135,
+        "libraryFileId": "libfile_d2ebf8a572188191aa0d4319c9c7a3ff"
+      }
+    ],
+    "notes": [
+      "399 textbook entries; 391 distinct English spellings.",
+      "Unit 9 set 1 and set 2 remain distinct entries; both use en=set for spelling and pronunciation.",
+      "orbit, trick and west retain multiple printed parts of speech within their single textbook entries.",
+      "Textbook prints report as n. with the gloss 举报（罪案）; retained as printed.",
+      "Unit headers are original; any game-world theme is a separate design interpretation."
+    ]
+  },
+  "entryCount": 399,
+  "distinctSpellingCount": 391,
+  "units": [
+    {
+      "id": "intro",
+      "index": 0,
+      "label": "Well done, Ben and Lucy!",
+      "entries": [
+        {
+          "id": "intro-001",
+          "en": "amazing",
+          "zh": "了不起的；惊人的",
+          "pos": "adj.",
+          "order": 1,
+          "globalOrder": 1,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-002",
+          "en": "anything",
+          "zh": "任何事物，无论何事",
+          "pos": "pron.",
+          "order": 2,
+          "globalOrder": 2,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-003",
+          "en": "baddie",
+          "zh": "坏蛋",
+          "pos": "n.",
+          "order": 3,
+          "globalOrder": 3,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-004",
+          "en": "band",
+          "zh": "乐队",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 4,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-005",
+          "en": "big wheel",
+          "zh": "摩天轮",
+          "pos": "",
+          "order": 5,
+          "globalOrder": 5,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-006",
+          "en": "brave",
+          "zh": "勇敢的",
+          "pos": "adj.",
+          "order": 6,
+          "globalOrder": 6,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-007",
+          "en": "castle",
+          "zh": "城堡",
+          "pos": "n.",
+          "order": 7,
+          "globalOrder": 7,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-008",
+          "en": "closely",
+          "zh": "仔细地",
+          "pos": "adv.",
+          "order": 8,
+          "globalOrder": 8,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-009",
+          "en": "clue",
+          "zh": "线索，提示",
+          "pos": "n.",
+          "order": 9,
+          "globalOrder": 9,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-010",
+          "en": "code",
+          "zh": "密码；代码",
+          "pos": "n.",
+          "order": 10,
+          "globalOrder": 10,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-011",
+          "en": "diamond",
+          "zh": "菱形",
+          "pos": "n.",
+          "order": 11,
+          "globalOrder": 11,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-012",
+          "en": "dodgem car",
+          "zh": "碰碰车",
+          "pos": "",
+          "order": 12,
+          "globalOrder": 12,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-013",
+          "en": "excitement",
+          "zh": "兴奋",
+          "pos": "n.",
+          "order": 13,
+          "globalOrder": 13,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-014",
+          "en": "explore",
+          "zh": "探险",
+          "pos": "v.",
+          "order": 14,
+          "globalOrder": 14,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-015",
+          "en": "journalist",
+          "zh": "新闻记者",
+          "pos": "n.",
+          "order": 15,
+          "globalOrder": 15,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-016",
+          "en": "map",
+          "zh": "地图",
+          "pos": "n.",
+          "order": 16,
+          "globalOrder": 16,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-017",
+          "en": "mayor",
+          "zh": "市长",
+          "pos": "n.",
+          "order": 17,
+          "globalOrder": 17,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-018",
+          "en": "microphone",
+          "zh": "麦克风",
+          "pos": "n.",
+          "order": 18,
+          "globalOrder": 18,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-019",
+          "en": "photographer",
+          "zh": "摄影者",
+          "pos": "n.",
+          "order": 19,
+          "globalOrder": 19,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-020",
+          "en": "roller coaster",
+          "zh": "过山车",
+          "pos": "",
+          "order": 20,
+          "globalOrder": 20,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-021",
+          "en": "roundabout",
+          "zh": "旋转木马",
+          "pos": "n.",
+          "order": 21,
+          "globalOrder": 21,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-022",
+          "en": "shocked",
+          "zh": "吃惊的，震惊的",
+          "pos": "adj.",
+          "order": 22,
+          "globalOrder": 22,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-023",
+          "en": "symbol",
+          "zh": "符号",
+          "pos": "n.",
+          "order": 23,
+          "globalOrder": 23,
+          "sourcePage": 128
+        },
+        {
+          "id": "intro-024",
+          "en": "well done",
+          "zh": "做得好",
+          "pos": "",
+          "order": 24,
+          "globalOrder": 24,
+          "sourcePage": 128
+        }
+      ],
+      "count": 24
+    },
+    {
+      "id": "u1",
+      "index": 1,
+      "label": "Unit 1",
+      "entries": [
+        {
+          "id": "u1-001",
+          "en": "alarm",
+          "zh": "警报器",
+          "pos": "n.",
+          "order": 1,
+          "globalOrder": 25,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-002",
+          "en": "anthropology",
+          "zh": "人类学",
+          "pos": "n.",
+          "order": 2,
+          "globalOrder": 26,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-003",
+          "en": "bandage",
+          "zh": "绷带",
+          "pos": "n.",
+          "order": 3,
+          "globalOrder": 27,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-004",
+          "en": "belt",
+          "zh": "腰带",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 28,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-005",
+          "en": "bow and arrow",
+          "zh": "弓箭",
+          "pos": "",
+          "order": 5,
+          "globalOrder": 29,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-006",
+          "en": "bracelet",
+          "zh": "手镯",
+          "pos": "n.",
+          "order": 6,
+          "globalOrder": 30,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-007",
+          "en": "brilliant",
+          "zh": "极好的",
+          "pos": "adj.",
+          "order": 7,
+          "globalOrder": 31,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-008",
+          "en": "calendar",
+          "zh": "日历",
+          "pos": "n.",
+          "order": 8,
+          "globalOrder": 32,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-009",
+          "en": "case",
+          "zh": "橱，柜",
+          "pos": "n.",
+          "order": 9,
+          "globalOrder": 33,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-010",
+          "en": "chemical",
+          "zh": "化学品",
+          "pos": "n.",
+          "order": 10,
+          "globalOrder": 34,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-011",
+          "en": "cloakroom",
+          "zh": "衣帽寄存处",
+          "pos": "n.",
+          "order": 11,
+          "globalOrder": 35,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-012",
+          "en": "collection",
+          "zh": "收藏品",
+          "pos": "n.",
+          "order": 12,
+          "globalOrder": 36,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-013",
+          "en": "crown",
+          "zh": "王冠",
+          "pos": "n.",
+          "order": 13,
+          "globalOrder": 37,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-014",
+          "en": "culture",
+          "zh": "文化",
+          "pos": "n.",
+          "order": 14,
+          "globalOrder": 38,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-015",
+          "en": "dinosaur",
+          "zh": "恐龙",
+          "pos": "n.",
+          "order": 15,
+          "globalOrder": 39,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-016",
+          "en": "director",
+          "zh": "负责人，主管",
+          "pos": "n.",
+          "order": 16,
+          "globalOrder": 40,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-017",
+          "en": "exhibit",
+          "zh": "展品，展出物",
+          "pos": "n.",
+          "order": 17,
+          "globalOrder": 41,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-018",
+          "en": "gallery",
+          "zh": "美术馆",
+          "pos": "n.",
+          "order": 18,
+          "globalOrder": 42,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-019",
+          "en": "gold",
+          "zh": "金质的",
+          "pos": "adj.",
+          "order": 19,
+          "globalOrder": 43,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-020",
+          "en": "helmet",
+          "zh": "头盔",
+          "pos": "n.",
+          "order": 20,
+          "globalOrder": 44,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-021",
+          "en": "hide",
+          "zh": "躲藏，藏身",
+          "pos": "v.",
+          "order": 21,
+          "globalOrder": 45,
+          "sourcePage": 128
+        },
+        {
+          "id": "u1-022",
+          "en": "huge",
+          "zh": "巨大的，庞大的",
+          "pos": "adj.",
+          "order": 22,
+          "globalOrder": 46,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-023",
+          "en": "knight",
+          "zh": "骑士",
+          "pos": "n.",
+          "order": 23,
+          "globalOrder": 47,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-024",
+          "en": "lead",
+          "zh": "（牵狗的）绳子",
+          "pos": "n.",
+          "order": 24,
+          "globalOrder": 48,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-025",
+          "en": "lock",
+          "zh": "（把……）锁住",
+          "pos": "v.",
+          "order": 25,
+          "globalOrder": 49,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-026",
+          "en": "mask",
+          "zh": "面具",
+          "pos": "n.",
+          "order": 26,
+          "globalOrder": 50,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-027",
+          "en": "Mexico",
+          "zh": "墨西哥",
+          "pos": "n.",
+          "order": 27,
+          "globalOrder": 51,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-028",
+          "en": "mummy",
+          "zh": "木乃伊",
+          "pos": "n.",
+          "order": 28,
+          "globalOrder": 52,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-029",
+          "en": "National Museum",
+          "zh": "国家博物馆",
+          "pos": "",
+          "order": 29,
+          "globalOrder": 53,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-030",
+          "en": "necklace",
+          "zh": "项链",
+          "pos": "n.",
+          "order": 30,
+          "globalOrder": 54,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-031",
+          "en": "queen",
+          "zh": "女王",
+          "pos": "n.",
+          "order": 31,
+          "globalOrder": 55,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-032",
+          "en": "report",
+          "zh": "举报（罪案）",
+          "pos": "n.",
+          "order": 32,
+          "globalOrder": 56,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-033",
+          "en": "rule",
+          "zh": "统治，治理",
+          "pos": "v.",
+          "order": 33,
+          "globalOrder": 57,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-034",
+          "en": "shield",
+          "zh": "盾牌",
+          "pos": "n.",
+          "order": 34,
+          "globalOrder": 58,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-035",
+          "en": "sword",
+          "zh": "剑；刀",
+          "pos": "n.",
+          "order": 35,
+          "globalOrder": 59,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-036",
+          "en": "time capsule",
+          "zh": "时间囊",
+          "pos": "",
+          "order": 36,
+          "globalOrder": 60,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-037",
+          "en": "touch",
+          "zh": "触摸",
+          "pos": "v.",
+          "order": 37,
+          "globalOrder": 61,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-038",
+          "en": "treat",
+          "zh": "处理",
+          "pos": "v.",
+          "order": 38,
+          "globalOrder": 62,
+          "sourcePage": 129
+        },
+        {
+          "id": "u1-039",
+          "en": "wrap",
+          "zh": "（用布或纸等）包，裹（某物）",
+          "pos": "v.",
+          "order": 39,
+          "globalOrder": 63,
+          "sourcePage": 129
+        }
+      ],
+      "count": 39
+    },
+    {
+      "id": "u2",
+      "index": 2,
+      "label": "Unit 2",
+      "entries": [
+        {
+          "id": "u2-001",
+          "en": "background",
+          "zh": "背景，后景",
+          "pos": "n.",
+          "order": 1,
+          "globalOrder": 64,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-002",
+          "en": "bright",
+          "zh": "鲜艳的，鲜亮的",
+          "pos": "adj.",
+          "order": 2,
+          "globalOrder": 65,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-003",
+          "en": "careful",
+          "zh": "细心的",
+          "pos": "adj.",
+          "order": 3,
+          "globalOrder": 66,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-004",
+          "en": "classmate",
+          "zh": "同班同学",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 67,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-005",
+          "en": "dark",
+          "zh": "暗色的，深色的",
+          "pos": "adj.",
+          "order": 5,
+          "globalOrder": 68,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-006",
+          "en": "environment",
+          "zh": "环境",
+          "pos": "n.",
+          "order": 6,
+          "globalOrder": 69,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-007",
+          "en": "field",
+          "zh": "田地，田野",
+          "pos": "n.",
+          "order": 7,
+          "globalOrder": 70,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-008",
+          "en": "foreground",
+          "zh": "（图片或照片的）前景",
+          "pos": "n.",
+          "order": 8,
+          "globalOrder": 71,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-009",
+          "en": "forest",
+          "zh": "森林，林区",
+          "pos": "n.",
+          "order": 9,
+          "globalOrder": 72,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-010",
+          "en": "free time",
+          "zh": "空闲时间",
+          "pos": "",
+          "order": 10,
+          "globalOrder": 73,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-011",
+          "en": "half",
+          "zh": "一半，半",
+          "pos": "pron.",
+          "order": 11,
+          "globalOrder": 74,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-012",
+          "en": "hang out",
+          "zh": "闲逛；出去消遣",
+          "pos": "",
+          "order": 12,
+          "globalOrder": 75,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-013",
+          "en": "hike",
+          "zh": "在（乡间或山区等地）徒步旅行，远足",
+          "pos": "v.",
+          "order": 13,
+          "globalOrder": 76,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-014",
+          "en": "island",
+          "zh": "岛，岛屿",
+          "pos": "n.",
+          "order": 14,
+          "globalOrder": 77,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-015",
+          "en": "lake",
+          "zh": "湖",
+          "pos": "n.",
+          "order": 15,
+          "globalOrder": 78,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-016",
+          "en": "mountain",
+          "zh": "高山，山岳",
+          "pos": "n.",
+          "order": 16,
+          "globalOrder": 79,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-017",
+          "en": "nature",
+          "zh": "大自然，自然界",
+          "pos": "n.",
+          "order": 17,
+          "globalOrder": 80,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-018",
+          "en": "outdoors",
+          "zh": "在户外，在野外",
+          "pos": "adv.",
+          "order": 18,
+          "globalOrder": 81,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-019",
+          "en": "parasol",
+          "zh": "（遮）阳伞",
+          "pos": "n.",
+          "order": 19,
+          "globalOrder": 82,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-020",
+          "en": "path",
+          "zh": "小径，小道",
+          "pos": "n.",
+          "order": 20,
+          "globalOrder": 83,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-021",
+          "en": "place",
+          "zh": "地方",
+          "pos": "n.",
+          "order": 21,
+          "globalOrder": 84,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-022",
+          "en": "realistically",
+          "zh": "逼真地",
+          "pos": "adv.",
+          "order": 22,
+          "globalOrder": 85,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-023",
+          "en": "river",
+          "zh": "江，河",
+          "pos": "n.",
+          "order": 23,
+          "globalOrder": 86,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-024",
+          "en": "soup",
+          "zh": "汤",
+          "pos": "n.",
+          "order": 24,
+          "globalOrder": 87,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-025",
+          "en": "stairs",
+          "zh": "（复数）楼梯",
+          "pos": "n.",
+          "order": 25,
+          "globalOrder": 88,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-026",
+          "en": "sunshine",
+          "zh": "阳光，日照",
+          "pos": "n.",
+          "order": 26,
+          "globalOrder": 89,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-027",
+          "en": "table tennis",
+          "zh": "乒乓球",
+          "pos": "",
+          "order": 27,
+          "globalOrder": 90,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-028",
+          "en": "village",
+          "zh": "乡村，村庄",
+          "pos": "n.",
+          "order": 28,
+          "globalOrder": 91,
+          "sourcePage": 129
+        },
+        {
+          "id": "u2-029",
+          "en": "waiter",
+          "zh": "（餐馆的）男服务员",
+          "pos": "n.",
+          "order": 29,
+          "globalOrder": 92,
+          "sourcePage": 129
+        }
+      ],
+      "count": 29
+    },
+    {
+      "id": "u3",
+      "index": 3,
+      "label": "Unit 3",
+      "entries": [
+        {
+          "id": "u3-001",
+          "en": "accident",
+          "zh": "交通事故",
+          "pos": "n.",
+          "order": 1,
+          "globalOrder": 93,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-002",
+          "en": "ambulance",
+          "zh": "救护车",
+          "pos": "n.",
+          "order": 2,
+          "globalOrder": 94,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-003",
+          "en": "assembly hall",
+          "zh": "集会厅",
+          "pos": "",
+          "order": 3,
+          "globalOrder": 95,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-004",
+          "en": "blood",
+          "zh": "血，血液",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 96,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-005",
+          "en": "bubble",
+          "zh": "起泡，冒泡",
+          "pos": "v.",
+          "order": 5,
+          "globalOrder": 97,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-006",
+          "en": "crawl",
+          "zh": "爬，爬行",
+          "pos": "v.",
+          "order": 6,
+          "globalOrder": 98,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-007",
+          "en": "danger",
+          "zh": "危险",
+          "pos": "n.",
+          "order": 7,
+          "globalOrder": 99,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-008",
+          "en": "emergency services",
+          "zh": "应急服务机构",
+          "pos": "",
+          "order": 8,
+          "globalOrder": 100,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-009",
+          "en": "escape",
+          "zh": "逃离",
+          "pos": "v.",
+          "order": 9,
+          "globalOrder": 101,
+          "sourcePage": 129
+        },
+        {
+          "id": "u3-010",
+          "en": "escape route",
+          "zh": "逃生路线",
+          "pos": "",
+          "order": 10,
+          "globalOrder": 102,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-011",
+          "en": "extinguisher",
+          "zh": "灭火器",
+          "pos": "n.",
+          "order": 11,
+          "globalOrder": 103,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-012",
+          "en": "fall out of",
+          "zh": "从……跌落",
+          "pos": "",
+          "order": 12,
+          "globalOrder": 104,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-013",
+          "en": "fire",
+          "zh": "火；失火",
+          "pos": "n.",
+          "order": 13,
+          "globalOrder": 105,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-014",
+          "en": "fire drill",
+          "zh": "消防演习",
+          "pos": "",
+          "order": 14,
+          "globalOrder": 106,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-015",
+          "en": "fire engine",
+          "zh": "消防车",
+          "pos": "",
+          "order": 15,
+          "globalOrder": 107,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-016",
+          "en": "firefighter",
+          "zh": "消防队员",
+          "pos": "n.",
+          "order": 16,
+          "globalOrder": 108,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-017",
+          "en": "flood",
+          "zh": "洪水，水灾",
+          "pos": "n.",
+          "order": 17,
+          "globalOrder": 109,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-018",
+          "en": "gymnasium",
+          "zh": "体育馆，健身房",
+          "pos": "n.",
+          "order": 18,
+          "globalOrder": 110,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-019",
+          "en": "health",
+          "zh": "健康（状况）",
+          "pos": "n.",
+          "order": 19,
+          "globalOrder": 111,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-020",
+          "en": "hurt",
+          "zh": "弄伤",
+          "pos": "v.",
+          "order": 20,
+          "globalOrder": 112,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-021",
+          "en": "in case of",
+          "zh": "在……的时候",
+          "pos": "",
+          "order": 21,
+          "globalOrder": 113,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-022",
+          "en": "in pain",
+          "zh": "处于疼痛之中",
+          "pos": "",
+          "order": 22,
+          "globalOrder": 114,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-023",
+          "en": "main entrance",
+          "zh": "主要入口",
+          "pos": "",
+          "order": 23,
+          "globalOrder": 115,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-024",
+          "en": "operator",
+          "zh": "电话接线员",
+          "pos": "n.",
+          "order": 24,
+          "globalOrder": 116,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-025",
+          "en": "paramedic",
+          "zh": "（非医生或护士的）护理人员",
+          "pos": "n.",
+          "order": 25,
+          "globalOrder": 117,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-026",
+          "en": "police car",
+          "zh": "警车",
+          "pos": "",
+          "order": 26,
+          "globalOrder": 118,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-027",
+          "en": "police officer",
+          "zh": "警察",
+          "pos": "",
+          "order": 27,
+          "globalOrder": 119,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-028",
+          "en": "react",
+          "zh": "（作出）反应",
+          "pos": "v.",
+          "order": 28,
+          "globalOrder": 120,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-029",
+          "en": "rush",
+          "zh": "（水或其他液体）快速流动",
+          "pos": "v.",
+          "order": 29,
+          "globalOrder": 121,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-030",
+          "en": "staff room",
+          "zh": "教师办公室",
+          "pos": "",
+          "order": 30,
+          "globalOrder": 122,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-031",
+          "en": "storeroom",
+          "zh": "贮藏室",
+          "pos": "n.",
+          "order": 31,
+          "globalOrder": 123,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-032",
+          "en": "stretcher",
+          "zh": "担架",
+          "pos": "n.",
+          "order": 32,
+          "globalOrder": 124,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-033",
+          "en": "toilet",
+          "zh": "厕所",
+          "pos": "n.",
+          "order": 33,
+          "globalOrder": 125,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-034",
+          "en": "tourist",
+          "zh": "观光客，游客",
+          "pos": "n.",
+          "order": 34,
+          "globalOrder": 126,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-035",
+          "en": "tsunami",
+          "zh": "海啸",
+          "pos": "n.",
+          "order": 35,
+          "globalOrder": 127,
+          "sourcePage": 130
+        },
+        {
+          "id": "u3-036",
+          "en": "wardrobe",
+          "zh": "衣橱，衣柜",
+          "pos": "n.",
+          "order": 36,
+          "globalOrder": 128,
+          "sourcePage": 130
+        }
+      ],
+      "count": 36
+    },
+    {
+      "id": "u4",
+      "index": 4,
+      "label": "Unit 4",
+      "entries": [
+        {
+          "id": "u4-001",
+          "en": "away from",
+          "zh": "远离",
+          "pos": "",
+          "order": 1,
+          "globalOrder": 129,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-002",
+          "en": "centre",
+          "zh": "（正）中间",
+          "pos": "n.",
+          "order": 2,
+          "globalOrder": 130,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-003",
+          "en": "conductor",
+          "zh": "（火车上的）列车长",
+          "pos": "n.",
+          "order": 3,
+          "globalOrder": 131,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-004",
+          "en": "cost",
+          "zh": "费用",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 132,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-005",
+          "en": "disappear",
+          "zh": "消失，不见",
+          "pos": "v.",
+          "order": 5,
+          "globalOrder": 133,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-006",
+          "en": "drop",
+          "zh": "落下",
+          "pos": "v.",
+          "order": 6,
+          "globalOrder": 134,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-007",
+          "en": "escalator",
+          "zh": "自动扶梯",
+          "pos": "n.",
+          "order": 7,
+          "globalOrder": 135,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-008",
+          "en": "float",
+          "zh": "浮，漂",
+          "pos": "v.",
+          "order": 8,
+          "globalOrder": 136,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-009",
+          "en": "foil",
+          "zh": "（包裹食品用的）箔",
+          "pos": "n.",
+          "order": 9,
+          "globalOrder": 137,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-010",
+          "en": "force",
+          "zh": "（作用于另一个物体使其移动的）力",
+          "pos": "n.",
+          "order": 10,
+          "globalOrder": 138,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-011",
+          "en": "friction",
+          "zh": "摩擦",
+          "pos": "n.",
+          "order": 11,
+          "globalOrder": 139,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-012",
+          "en": "gravity",
+          "zh": "重力，引力",
+          "pos": "n.",
+          "order": 12,
+          "globalOrder": 140,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-013",
+          "en": "meeting point",
+          "zh": "见面地点",
+          "pos": "",
+          "order": 13,
+          "globalOrder": 141,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-014",
+          "en": "per person",
+          "zh": "每人",
+          "pos": "",
+          "order": 14,
+          "globalOrder": 142,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-015",
+          "en": "platform",
+          "zh": "站台，月台",
+          "pos": "n.",
+          "order": 15,
+          "globalOrder": 143,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-016",
+          "en": "pull",
+          "zh": "拉",
+          "pos": "v.",
+          "order": 16,
+          "globalOrder": 144,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-017",
+          "en": "push",
+          "zh": "推；推动",
+          "pos": "v.",
+          "order": 17,
+          "globalOrder": 145,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-018",
+          "en": "return ticket",
+          "zh": "往返票",
+          "pos": "",
+          "order": 18,
+          "globalOrder": 146,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-019",
+          "en": "rough",
+          "zh": "粗糙的，不平的",
+          "pos": "adj.",
+          "order": 19,
+          "globalOrder": 147,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-020",
+          "en": "rucksack",
+          "zh": "背包",
+          "pos": "n.",
+          "order": 20,
+          "globalOrder": 148,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-021",
+          "en": "sandpaper",
+          "zh": "砂纸",
+          "pos": "n.",
+          "order": 21,
+          "globalOrder": 149,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-022",
+          "en": "school trip",
+          "zh": "学校组织的旅行",
+          "pos": "",
+          "order": 22,
+          "globalOrder": 150,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-023",
+          "en": "single",
+          "zh": "仅一个的，单一的",
+          "pos": "adj.",
+          "order": 23,
+          "globalOrder": 151,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-024",
+          "en": "slide",
+          "zh": "滑梯",
+          "pos": "n.",
+          "order": 24,
+          "globalOrder": 152,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-025",
+          "en": "smooth",
+          "zh": "平滑的，光滑的",
+          "pos": "adj.",
+          "order": 25,
+          "globalOrder": 153,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-026",
+          "en": "space",
+          "zh": "太空",
+          "pos": "n.",
+          "order": 26,
+          "globalOrder": 154,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-027",
+          "en": "station",
+          "zh": "车站",
+          "pos": "n.",
+          "order": 27,
+          "globalOrder": 155,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-028",
+          "en": "still",
+          "zh": "还，仍然",
+          "pos": "adv.",
+          "order": 28,
+          "globalOrder": 156,
+          "sourcePage": 130
+        },
+        {
+          "id": "u4-029",
+          "en": "stop",
+          "zh": "（中途）停留地点",
+          "pos": "n.",
+          "order": 29,
+          "globalOrder": 157,
+          "sourcePage": 131
+        },
+        {
+          "id": "u4-030",
+          "en": "suitcase",
+          "zh": "（旅行用的）手提箱",
+          "pos": "n.",
+          "order": 30,
+          "globalOrder": 158,
+          "sourcePage": 131
+        },
+        {
+          "id": "u4-031",
+          "en": "surface",
+          "zh": "表面",
+          "pos": "n.",
+          "order": 31,
+          "globalOrder": 159,
+          "sourcePage": 131
+        },
+        {
+          "id": "u4-032",
+          "en": "ticket office",
+          "zh": "售票处",
+          "pos": "",
+          "order": 32,
+          "globalOrder": 160,
+          "sourcePage": 131
+        },
+        {
+          "id": "u4-033",
+          "en": "towards",
+          "zh": "向（着），朝（着）",
+          "pos": "prep.",
+          "order": 33,
+          "globalOrder": 161,
+          "sourcePage": 131
+        },
+        {
+          "id": "u4-034",
+          "en": "train driver",
+          "zh": "火车司机",
+          "pos": "",
+          "order": 34,
+          "globalOrder": 162,
+          "sourcePage": 131
+        },
+        {
+          "id": "u4-035",
+          "en": "train track",
+          "zh": "火车轨道",
+          "pos": "",
+          "order": 35,
+          "globalOrder": 163,
+          "sourcePage": 131
+        },
+        {
+          "id": "u4-036",
+          "en": "tunnel",
+          "zh": "（汽车、火车等通行的）隧道",
+          "pos": "n.",
+          "order": 36,
+          "globalOrder": 164,
+          "sourcePage": 131
+        }
+      ],
+      "count": 36
+    },
+    {
+      "id": "u5",
+      "index": 5,
+      "label": "Unit 5",
+      "entries": [
+        {
+          "id": "u5-001",
+          "en": "adventure",
+          "zh": "历险（经历）",
+          "pos": "n.",
+          "order": 1,
+          "globalOrder": 165,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-002",
+          "en": "Agatha Christie",
+          "zh": "阿加莎·克里斯蒂",
+          "pos": "",
+          "order": 2,
+          "globalOrder": 166,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-003",
+          "en": "almost",
+          "zh": "几乎，差不多",
+          "pos": "adv.",
+          "order": 3,
+          "globalOrder": 167,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-004",
+          "en": "beard",
+          "zh": "胡须",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 168,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-005",
+          "en": "blonde",
+          "zh": "（头发）金色的，浅色的",
+          "pos": "adj.",
+          "order": 5,
+          "globalOrder": 169,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-006",
+          "en": "book review",
+          "zh": "书评",
+          "pos": "",
+          "order": 6,
+          "globalOrder": 170,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-007",
+          "en": "comic",
+          "zh": "连环漫画，连环漫画册",
+          "pos": "n.",
+          "order": 7,
+          "globalOrder": 171,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-008",
+          "en": "compartment",
+          "zh": "（飞机、轮船或火车上的）隔间，舱",
+          "pos": "n.",
+          "order": 8,
+          "globalOrder": 172,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-009",
+          "en": "connection",
+          "zh": "联系，关联",
+          "pos": "n.",
+          "order": 9,
+          "globalOrder": 173,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-010",
+          "en": "create",
+          "zh": "创作",
+          "pos": "v.",
+          "order": 10,
+          "globalOrder": 174,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-011",
+          "en": "crime writer",
+          "zh": "犯罪小说作家",
+          "pos": "",
+          "order": 11,
+          "globalOrder": 175,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-012",
+          "en": "criminal",
+          "zh": "罪犯",
+          "pos": "n.",
+          "order": 12,
+          "globalOrder": 176,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-013",
+          "en": "curly",
+          "zh": "卷曲的",
+          "pos": "adj.",
+          "order": 13,
+          "globalOrder": 177,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-014",
+          "en": "dark",
+          "zh": "褐色的，黑色的",
+          "pos": "adj.",
+          "order": 14,
+          "globalOrder": 178,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-015",
+          "en": "dead body",
+          "zh": "尸体",
+          "pos": "",
+          "order": 15,
+          "globalOrder": 179,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-016",
+          "en": "delicious",
+          "zh": "美味的，可口的",
+          "pos": "adj.",
+          "order": 16,
+          "globalOrder": 180,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-017",
+          "en": "detective",
+          "zh": "侦探，警探",
+          "pos": "n.",
+          "order": 17,
+          "globalOrder": 181,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-018",
+          "en": "Eiffel Tower",
+          "zh": "埃菲尔铁塔",
+          "pos": "",
+          "order": 18,
+          "globalOrder": 182,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-019",
+          "en": "elderly",
+          "zh": "年老的",
+          "pos": "adj.",
+          "order": 19,
+          "globalOrder": 183,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-020",
+          "en": "enemy",
+          "zh": "敌人，仇敌",
+          "pos": "n.",
+          "order": 20,
+          "globalOrder": 184,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-021",
+          "en": "fair",
+          "zh": "浅色的；白皙的",
+          "pos": "adj.",
+          "order": 21,
+          "globalOrder": 185,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-022",
+          "en": "frightening",
+          "zh": "令人害怕的，吓人的",
+          "pos": "adj.",
+          "order": 22,
+          "globalOrder": 186,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-023",
+          "en": "funny",
+          "zh": "有趣的，使人发笑的",
+          "pos": "adj.",
+          "order": 23,
+          "globalOrder": 187,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-024",
+          "en": "Hercule Poirot",
+          "zh": "赫尔克里·波洛",
+          "pos": "",
+          "order": 24,
+          "globalOrder": 188,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-025",
+          "en": "historical",
+          "zh": "（有关）历史的",
+          "pos": "adj.",
+          "order": 25,
+          "globalOrder": 189,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-026",
+          "en": "in trouble",
+          "zh": "陷入困境",
+          "pos": "",
+          "order": 26,
+          "globalOrder": 190,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-027",
+          "en": "investigate",
+          "zh": "查明；调查",
+          "pos": "v.",
+          "order": 27,
+          "globalOrder": 191,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-028",
+          "en": "Jane Marple",
+          "zh": "简·马普尔",
+          "pos": "",
+          "order": 28,
+          "globalOrder": 192,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-029",
+          "en": "jeweller",
+          "zh": "珠宝商",
+          "pos": "n.",
+          "order": 29,
+          "globalOrder": 193,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-030",
+          "en": "juicy",
+          "zh": "多汁的，多液的",
+          "pos": "adj.",
+          "order": 30,
+          "globalOrder": 194,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-031",
+          "en": "marry",
+          "zh": "结婚；娶；嫁",
+          "pos": "v.",
+          "order": 31,
+          "globalOrder": 195,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-032",
+          "en": "mean",
+          "zh": "刻薄的",
+          "pos": "adj.",
+          "order": 32,
+          "globalOrder": 196,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-033",
+          "en": "moustache",
+          "zh": "髭，小胡子",
+          "pos": "n.",
+          "order": 33,
+          "globalOrder": 197,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-034",
+          "en": "murder",
+          "zh": "谋杀；谋杀罪",
+          "pos": "n.",
+          "order": 34,
+          "globalOrder": 198,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-035",
+          "en": "murderer",
+          "zh": "谋杀犯，凶手",
+          "pos": "n.",
+          "order": 35,
+          "globalOrder": 199,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-036",
+          "en": "mysterious",
+          "zh": "神秘的",
+          "pos": "adj.",
+          "order": 36,
+          "globalOrder": 200,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-037",
+          "en": "noise",
+          "zh": "噪声，杂音",
+          "pos": "n.",
+          "order": 37,
+          "globalOrder": 201,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-038",
+          "en": "novel",
+          "zh": "（长篇）小说",
+          "pos": "n.",
+          "order": 38,
+          "globalOrder": 202,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-039",
+          "en": "Orient Express",
+          "zh": "东方快车",
+          "pos": "",
+          "order": 39,
+          "globalOrder": 203,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-040",
+          "en": "plan",
+          "zh": "计划",
+          "pos": "n.",
+          "order": 40,
+          "globalOrder": 204,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-041",
+          "en": "poem",
+          "zh": "诗；韵文",
+          "pos": "n.",
+          "order": 41,
+          "globalOrder": 205,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-042",
+          "en": "relax",
+          "zh": "放松；休息",
+          "pos": "v.",
+          "order": 42,
+          "globalOrder": 206,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-043",
+          "en": "rob",
+          "zh": "抢劫，抢夺",
+          "pos": "v.",
+          "order": 43,
+          "globalOrder": 207,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-044",
+          "en": "scar",
+          "zh": "（伤）疤",
+          "pos": "n.",
+          "order": 44,
+          "globalOrder": 208,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-045",
+          "en": "science fiction",
+          "zh": "科幻小说",
+          "pos": "",
+          "order": 45,
+          "globalOrder": 209,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-046",
+          "en": "Scottish",
+          "zh": "苏格兰的",
+          "pos": "adj.",
+          "order": 46,
+          "globalOrder": 210,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-047",
+          "en": "seed",
+          "zh": "籽，种子",
+          "pos": "n.",
+          "order": 47,
+          "globalOrder": 211,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-048",
+          "en": "Sherlock Holmes",
+          "zh": "夏洛克·福尔摩斯",
+          "pos": "",
+          "order": 48,
+          "globalOrder": 212,
+          "sourcePage": 131
+        },
+        {
+          "id": "u5-049",
+          "en": "short story",
+          "zh": "短篇小说",
+          "pos": "",
+          "order": 49,
+          "globalOrder": 213,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-050",
+          "en": "Sir Arthur Conan Doyle",
+          "zh": "阿瑟·柯南·道尔爵士",
+          "pos": "",
+          "order": 50,
+          "globalOrder": 214,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-051",
+          "en": "solve",
+          "zh": "解决（问题）",
+          "pos": "v.",
+          "order": 51,
+          "globalOrder": 215,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-052",
+          "en": "steal",
+          "zh": "偷，窃取",
+          "pos": "v.",
+          "order": 52,
+          "globalOrder": 216,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-053",
+          "en": "straight",
+          "zh": "直的",
+          "pos": "adj.",
+          "order": 53,
+          "globalOrder": 217,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-054",
+          "en": "stupid",
+          "zh": "愚蠢的，傻的",
+          "pos": "adj.",
+          "order": 54,
+          "globalOrder": 218,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-055",
+          "en": "symbol",
+          "zh": "象征，标志",
+          "pos": "n.",
+          "order": 55,
+          "globalOrder": 219,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-056",
+          "en": "terrible",
+          "zh": "很糟的，极差的",
+          "pos": "adj.",
+          "order": 56,
+          "globalOrder": 220,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-057",
+          "en": "uniform",
+          "zh": "制服",
+          "pos": "n.",
+          "order": 57,
+          "globalOrder": 221,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-058",
+          "en": "vicarage",
+          "zh": "教区牧师的住宅",
+          "pos": "n.",
+          "order": 58,
+          "globalOrder": 222,
+          "sourcePage": 132
+        },
+        {
+          "id": "u5-059",
+          "en": "violin",
+          "zh": "小提琴",
+          "pos": "n.",
+          "order": 59,
+          "globalOrder": 223,
+          "sourcePage": 132
+        }
+      ],
+      "count": 59
+    },
+    {
+      "id": "u6",
+      "index": 6,
+      "label": "Unit 6",
+      "entries": [
+        {
+          "id": "u6-001",
+          "en": "back",
+          "zh": "背部，背脊",
+          "pos": "n.",
+          "order": 1,
+          "globalOrder": 224,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-002",
+          "en": "best",
+          "zh": "最好的",
+          "pos": "adj.",
+          "order": 2,
+          "globalOrder": 225,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-003",
+          "en": "cellar",
+          "zh": "地窖，地下贮藏室",
+          "pos": "n.",
+          "order": 3,
+          "globalOrder": 226,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-004",
+          "en": "centaur",
+          "zh": "（希腊神话中的）人头马怪兽，半人半马怪兽",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 227,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-005",
+          "en": "claw",
+          "zh": "（动物、鸟的）爪",
+          "pos": "n.",
+          "order": 5,
+          "globalOrder": 228,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-006",
+          "en": "dart frog",
+          "zh": "箭毒蛙",
+          "pos": "",
+          "order": 6,
+          "globalOrder": 229,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-007",
+          "en": "decision",
+          "zh": "决定，抉择",
+          "pos": "n.",
+          "order": 7,
+          "globalOrder": 230,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-008",
+          "en": "dinosaur",
+          "zh": "恐龙",
+          "pos": "n.",
+          "order": 8,
+          "globalOrder": 231,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-009",
+          "en": "dragon",
+          "zh": "龙",
+          "pos": "n.",
+          "order": 9,
+          "globalOrder": 232,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-010",
+          "en": "eagle",
+          "zh": "鹰",
+          "pos": "n.",
+          "order": 10,
+          "globalOrder": 233,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-011",
+          "en": "feather",
+          "zh": "羽毛",
+          "pos": "n.",
+          "order": 11,
+          "globalOrder": 234,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-012",
+          "en": "forever",
+          "zh": "永远",
+          "pos": "adv.",
+          "order": 12,
+          "globalOrder": 235,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-013",
+          "en": "fur",
+          "zh": "（猫、狗等动物的）软毛",
+          "pos": "n.",
+          "order": 13,
+          "globalOrder": 236,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-014",
+          "en": "hedgehog",
+          "zh": "刺猬",
+          "pos": "n.",
+          "order": 14,
+          "globalOrder": 237,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-015",
+          "en": "horn",
+          "zh": "（牛、羊等头上的）角",
+          "pos": "n.",
+          "order": 15,
+          "globalOrder": 238,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-016",
+          "en": "human",
+          "zh": "人",
+          "pos": "n.",
+          "order": 16,
+          "globalOrder": 239,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-017",
+          "en": "kilo",
+          "zh": "（=kilogram）千克，公斤",
+          "pos": "n.",
+          "order": 17,
+          "globalOrder": 240,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-018",
+          "en": "ladder",
+          "zh": "梯子",
+          "pos": "n.",
+          "order": 18,
+          "globalOrder": 241,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-019",
+          "en": "meat-eater",
+          "zh": "肉食者",
+          "pos": "n.",
+          "order": 19,
+          "globalOrder": 242,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-020",
+          "en": "mermaid",
+          "zh": "（传说中的）美人鱼",
+          "pos": "n.",
+          "order": 20,
+          "globalOrder": 243,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-021",
+          "en": "myth",
+          "zh": "（古代的）神话",
+          "pos": "n.",
+          "order": 21,
+          "globalOrder": 244,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-022",
+          "en": "mythical beast",
+          "zh": "神话中的野兽",
+          "pos": "",
+          "order": 22,
+          "globalOrder": 245,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-023",
+          "en": "neck",
+          "zh": "颈，脖子",
+          "pos": "n.",
+          "order": 23,
+          "globalOrder": 246,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-024",
+          "en": "owl",
+          "zh": "鸮，猫头鹰",
+          "pos": "n.",
+          "order": 24,
+          "globalOrder": 247,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-025",
+          "en": "Pegasus",
+          "zh": "飞马",
+          "pos": "",
+          "order": 25,
+          "globalOrder": 248,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-026",
+          "en": "plant-eater",
+          "zh": "素食者",
+          "pos": "n.",
+          "order": 26,
+          "globalOrder": 249,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-027",
+          "en": "poison",
+          "zh": "毒物；毒药",
+          "pos": "n.",
+          "order": 27,
+          "globalOrder": 250,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-028",
+          "en": "poisonous",
+          "zh": "有毒的；引起中毒的",
+          "pos": "adj.",
+          "order": 28,
+          "globalOrder": 251,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-029",
+          "en": "pool",
+          "zh": "水池",
+          "pos": "n.",
+          "order": 29,
+          "globalOrder": 252,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-030",
+          "en": "porcupine",
+          "zh": "豪猪，箭猪",
+          "pos": "n.",
+          "order": 30,
+          "globalOrder": 253,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-031",
+          "en": "predator",
+          "zh": "掠食动物，捕食性动物",
+          "pos": "n.",
+          "order": 31,
+          "globalOrder": 254,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-032",
+          "en": "prey",
+          "zh": "被（其他动物）捕食的动物，猎物",
+          "pos": "n.",
+          "order": 32,
+          "globalOrder": 255,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-033",
+          "en": "protection",
+          "zh": "保护",
+          "pos": "n.",
+          "order": 33,
+          "globalOrder": 256,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-034",
+          "en": "scale",
+          "zh": "（鱼、蛇等的）鳞",
+          "pos": "n.",
+          "order": 34,
+          "globalOrder": 257,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-035",
+          "en": "skin",
+          "zh": "（动物的）皮；（人的）皮肤",
+          "pos": "n.",
+          "order": 35,
+          "globalOrder": 258,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-036",
+          "en": "speed",
+          "zh": "速度；速率",
+          "pos": "n.",
+          "order": 36,
+          "globalOrder": 259,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-037",
+          "en": "spike",
+          "zh": "尖状物",
+          "pos": "n.",
+          "order": 37,
+          "globalOrder": 260,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-038",
+          "en": "survive",
+          "zh": "活下来；幸存",
+          "pos": "v.",
+          "order": 38,
+          "globalOrder": 261,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-039",
+          "en": "tail",
+          "zh": "尾巴",
+          "pos": "n.",
+          "order": 39,
+          "globalOrder": 262,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-040",
+          "en": "the Phoenix",
+          "zh": "凤凰",
+          "pos": "",
+          "order": 40,
+          "globalOrder": 263,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-041",
+          "en": "the Sphinx",
+          "zh": "狮身人面像",
+          "pos": "",
+          "order": 41,
+          "globalOrder": 264,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-042",
+          "en": "tongue",
+          "zh": "舌，舌头",
+          "pos": "n.",
+          "order": 42,
+          "globalOrder": 265,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-043",
+          "en": "trap",
+          "zh": "陷阱",
+          "pos": "n.",
+          "order": 43,
+          "globalOrder": 266,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-044",
+          "en": "treasure chest",
+          "zh": "珍宝箱",
+          "pos": "",
+          "order": 44,
+          "globalOrder": 267,
+          "sourcePage": 132
+        },
+        {
+          "id": "u6-045",
+          "en": "unicorn",
+          "zh": "独角兽",
+          "pos": "n.",
+          "order": 45,
+          "globalOrder": 268,
+          "sourcePage": 133
+        },
+        {
+          "id": "u6-046",
+          "en": "unusual",
+          "zh": "异常的，不平常的",
+          "pos": "adj.",
+          "order": 46,
+          "globalOrder": 269,
+          "sourcePage": 133
+        },
+        {
+          "id": "u6-047",
+          "en": "weapon",
+          "zh": "武器",
+          "pos": "n.",
+          "order": 47,
+          "globalOrder": 270,
+          "sourcePage": 133
+        },
+        {
+          "id": "u6-048",
+          "en": "wing",
+          "zh": "翅膀，翼",
+          "pos": "n.",
+          "order": 48,
+          "globalOrder": 271,
+          "sourcePage": 133
+        },
+        {
+          "id": "u6-049",
+          "en": "worst",
+          "zh": "最坏的，最差的",
+          "pos": "adj.",
+          "order": 49,
+          "globalOrder": 272,
+          "sourcePage": 133
+        }
+      ],
+      "count": 49
+    },
+    {
+      "id": "u7",
+      "index": 7,
+      "label": "Unit 7",
+      "entries": [
+        {
+          "id": "u7-001",
+          "en": "alone",
+          "zh": "无伴的",
+          "pos": "adj.",
+          "order": 1,
+          "globalOrder": 273,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-002",
+          "en": "bang",
+          "zh": "（短促的）一声巨响",
+          "pos": "n.",
+          "order": 2,
+          "globalOrder": 274,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-003",
+          "en": "boar",
+          "zh": "野猪",
+          "pos": "n.",
+          "order": 3,
+          "globalOrder": 275,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-004",
+          "en": "break",
+          "zh": "课间休息",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 276,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-005",
+          "en": "chaos",
+          "zh": "无秩序状态；紊乱",
+          "pos": "n.",
+          "order": 5,
+          "globalOrder": 277,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-006",
+          "en": "clap",
+          "zh": "拍手，鼓掌",
+          "pos": "v.",
+          "order": 6,
+          "globalOrder": 278,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-007",
+          "en": "concert",
+          "zh": "音乐会",
+          "pos": "n.",
+          "order": 7,
+          "globalOrder": 279,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-008",
+          "en": "conductor",
+          "zh": "（乐队、合唱队的）指挥",
+          "pos": "n.",
+          "order": 8,
+          "globalOrder": 280,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-009",
+          "en": "cymbals",
+          "zh": "（复数）铙钹",
+          "pos": "n.",
+          "order": 9,
+          "globalOrder": 281,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-010",
+          "en": "deer",
+          "zh": "鹿",
+          "pos": "n.",
+          "order": 10,
+          "globalOrder": 282,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-011",
+          "en": "drum",
+          "zh": "鼓",
+          "pos": "n.",
+          "order": 11,
+          "globalOrder": 283,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-012",
+          "en": "fall asleep",
+          "zh": "睡着",
+          "pos": "",
+          "order": 12,
+          "globalOrder": 284,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-013",
+          "en": "harp",
+          "zh": "竖琴",
+          "pos": "n.",
+          "order": 13,
+          "globalOrder": 285,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-014",
+          "en": "high",
+          "zh": "（音调）高的，尖的",
+          "pos": "adj.",
+          "order": 14,
+          "globalOrder": 286,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-015",
+          "en": "instrument",
+          "zh": "乐器",
+          "pos": "n.",
+          "order": 15,
+          "globalOrder": 287,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-016",
+          "en": "invite",
+          "zh": "邀请",
+          "pos": "v.",
+          "order": 16,
+          "globalOrder": 288,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-017",
+          "en": "junior",
+          "zh": "低年级的",
+          "pos": "adj.",
+          "order": 17,
+          "globalOrder": 289,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-018",
+          "en": "keyboard",
+          "zh": "电子琴",
+          "pos": "n.",
+          "order": 18,
+          "globalOrder": 290,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-019",
+          "en": "lighthouse",
+          "zh": "灯塔",
+          "pos": "n.",
+          "order": 19,
+          "globalOrder": 291,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-020",
+          "en": "loud",
+          "zh": "（声音）大的，响亮的",
+          "pos": "adj.",
+          "order": 20,
+          "globalOrder": 292,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-021",
+          "en": "low",
+          "zh": "（声音）轻的；低沉的",
+          "pos": "adj.",
+          "order": 21,
+          "globalOrder": 293,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-022",
+          "en": "metal spoon",
+          "zh": "金属勺子",
+          "pos": "",
+          "order": 22,
+          "globalOrder": 294,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-023",
+          "en": "musical",
+          "zh": "音乐的",
+          "pos": "adj.",
+          "order": 23,
+          "globalOrder": 295,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-024",
+          "en": "orchestra",
+          "zh": "（大型的）管弦乐队",
+          "pos": "n.",
+          "order": 24,
+          "globalOrder": 296,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-025",
+          "en": "quiet",
+          "zh": "轻声的",
+          "pos": "adj.",
+          "order": 25,
+          "globalOrder": 297,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-026",
+          "en": "rubber band",
+          "zh": "橡皮筋",
+          "pos": "",
+          "order": 26,
+          "globalOrder": 298,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-027",
+          "en": "saxophone",
+          "zh": "萨克斯管",
+          "pos": "n.",
+          "order": 27,
+          "globalOrder": 299,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-028",
+          "en": "snack",
+          "zh": "（正餐以外的）小吃，点心",
+          "pos": "n.",
+          "order": 28,
+          "globalOrder": 300,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-029",
+          "en": "sound",
+          "zh": "声响，声音",
+          "pos": "n.",
+          "order": 29,
+          "globalOrder": 301,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-030",
+          "en": "successful",
+          "zh": "成功的",
+          "pos": "adj.",
+          "order": 30,
+          "globalOrder": 302,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-031",
+          "en": "sunset",
+          "zh": "日落",
+          "pos": "n.",
+          "order": 31,
+          "globalOrder": 303,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-032",
+          "en": "tambourine",
+          "zh": "铃鼓",
+          "pos": "n.",
+          "order": 32,
+          "globalOrder": 304,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-033",
+          "en": "triangle",
+          "zh": "三角铁",
+          "pos": "n.",
+          "order": 33,
+          "globalOrder": 305,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-034",
+          "en": "trombone",
+          "zh": "长号，伸缩长号",
+          "pos": "n.",
+          "order": 34,
+          "globalOrder": 306,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-035",
+          "en": "trumpet",
+          "zh": "小号",
+          "pos": "n.",
+          "order": 35,
+          "globalOrder": 307,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-036",
+          "en": "violin",
+          "zh": "小提琴",
+          "pos": "n.",
+          "order": 36,
+          "globalOrder": 308,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-037",
+          "en": "whole wide world",
+          "zh": "整个世界",
+          "pos": "",
+          "order": 37,
+          "globalOrder": 309,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-038",
+          "en": "wind chime",
+          "zh": "风铃",
+          "pos": "",
+          "order": 38,
+          "globalOrder": 310,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-039",
+          "en": "wolf",
+          "zh": "狼",
+          "pos": "n.",
+          "order": 39,
+          "globalOrder": 311,
+          "sourcePage": 133
+        },
+        {
+          "id": "u7-040",
+          "en": "woodpecker",
+          "zh": "啄木鸟",
+          "pos": "n.",
+          "order": 40,
+          "globalOrder": 312,
+          "sourcePage": 133
+        }
+      ],
+      "count": 40
+    },
+    {
+      "id": "u8",
+      "index": 8,
+      "label": "Unit 8",
+      "entries": [
+        {
+          "id": "u8-001",
+          "en": "after that",
+          "zh": "从那以后",
+          "pos": "",
+          "order": 1,
+          "globalOrder": 313,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-002",
+          "en": "astronaut",
+          "zh": "宇航员，太空人",
+          "pos": "n.",
+          "order": 2,
+          "globalOrder": 314,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-003",
+          "en": "badly",
+          "zh": "严重地",
+          "pos": "adv.",
+          "order": 3,
+          "globalOrder": 315,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-004",
+          "en": "banner",
+          "zh": "横幅",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 316,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-005",
+          "en": "both",
+          "zh": "两者，双方",
+          "pos": "pron.",
+          "order": 5,
+          "globalOrder": 317,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-006",
+          "en": "carefully",
+          "zh": "小心地，仔细地",
+          "pos": "adv.",
+          "order": 6,
+          "globalOrder": 318,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-007",
+          "en": "comet",
+          "zh": "彗星",
+          "pos": "n.",
+          "order": 7,
+          "globalOrder": 319,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-008",
+          "en": "diameter",
+          "zh": "直径",
+          "pos": "n.",
+          "order": 8,
+          "globalOrder": 320,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-009",
+          "en": "distance",
+          "zh": "距离",
+          "pos": "n.",
+          "order": 9,
+          "globalOrder": 321,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-010",
+          "en": "Earth",
+          "zh": "地球",
+          "pos": "n.",
+          "order": 10,
+          "globalOrder": 322,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-011",
+          "en": "far",
+          "zh": "远的",
+          "pos": "adj.",
+          "order": 11,
+          "globalOrder": 323,
+          "sourcePage": 133
+        },
+        {
+          "id": "u8-012",
+          "en": "finally",
+          "zh": "最后；终于",
+          "pos": "adv.",
+          "order": 12,
+          "globalOrder": 324,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-013",
+          "en": "first",
+          "zh": "首先",
+          "pos": "adv.",
+          "order": 13,
+          "globalOrder": 325,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-014",
+          "en": "flag",
+          "zh": "旗，旗帜",
+          "pos": "n.",
+          "order": 14,
+          "globalOrder": 326,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-015",
+          "en": "grow up",
+          "zh": "长大",
+          "pos": "",
+          "order": 15,
+          "globalOrder": 327,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-016",
+          "en": "Jupiter",
+          "zh": "木星",
+          "pos": "n.",
+          "order": 16,
+          "globalOrder": 328,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-017",
+          "en": "Mars",
+          "zh": "火星",
+          "pos": "n.",
+          "order": 17,
+          "globalOrder": 329,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-018",
+          "en": "Mercury",
+          "zh": "水星",
+          "pos": "n.",
+          "order": 18,
+          "globalOrder": 330,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-019",
+          "en": "moon",
+          "zh": "月球；卫星",
+          "pos": "n.",
+          "order": 19,
+          "globalOrder": 331,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-020",
+          "en": "Neptune",
+          "zh": "海王星",
+          "pos": "n.",
+          "order": 20,
+          "globalOrder": 332,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-021",
+          "en": "object",
+          "zh": "物体，实物",
+          "pos": "n.",
+          "order": 21,
+          "globalOrder": 333,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-022",
+          "en": "orbit",
+          "zh": "沿轨道运行；（环绕地球、太阳等运行的）轨道",
+          "pos": "v.; n.",
+          "order": 22,
+          "globalOrder": 334,
+          "sourcePage": 134,
+          "senses": [
+            {
+              "pos": "v.",
+              "zh": "沿轨道运行"
+            },
+            {
+              "pos": "n.",
+              "zh": "（环绕地球、太阳等运行的）轨道"
+            }
+          ]
+        },
+        {
+          "id": "u8-023",
+          "en": "planet",
+          "zh": "行星",
+          "pos": "n.",
+          "order": 23,
+          "globalOrder": 335,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-024",
+          "en": "planetarium",
+          "zh": "天文馆",
+          "pos": "n.",
+          "order": 24,
+          "globalOrder": 336,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-025",
+          "en": "poem",
+          "zh": "诗，韵文",
+          "pos": "n.",
+          "order": 25,
+          "globalOrder": 337,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-026",
+          "en": "postcard",
+          "zh": "明信片",
+          "pos": "n.",
+          "order": 26,
+          "globalOrder": 338,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-027",
+          "en": "quickly",
+          "zh": "快速地",
+          "pos": "adv.",
+          "order": 27,
+          "globalOrder": 339,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-028",
+          "en": "quietly",
+          "zh": "悄悄地，轻声地",
+          "pos": "adv.",
+          "order": 28,
+          "globalOrder": 340,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-029",
+          "en": "rocket",
+          "zh": "火箭",
+          "pos": "n.",
+          "order": 29,
+          "globalOrder": 341,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-030",
+          "en": "Saturn",
+          "zh": "土星",
+          "pos": "n.",
+          "order": 30,
+          "globalOrder": 342,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-031",
+          "en": "shake hands",
+          "zh": "握手",
+          "pos": "",
+          "order": 31,
+          "globalOrder": 343,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-032",
+          "en": "slowly",
+          "zh": "缓慢地",
+          "pos": "adv.",
+          "order": 32,
+          "globalOrder": 344,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-033",
+          "en": "solar system",
+          "zh": "太阳系",
+          "pos": "",
+          "order": 33,
+          "globalOrder": 345,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-034",
+          "en": "space station",
+          "zh": "空间站",
+          "pos": "",
+          "order": 34,
+          "globalOrder": 346,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-035",
+          "en": "spaceship",
+          "zh": "宇宙飞船",
+          "pos": "n.",
+          "order": 35,
+          "globalOrder": 347,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-036",
+          "en": "spacesuit",
+          "zh": "航天服，宇航服",
+          "pos": "n.",
+          "order": 36,
+          "globalOrder": 348,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-037",
+          "en": "star",
+          "zh": "星；恒星",
+          "pos": "n.",
+          "order": 37,
+          "globalOrder": 349,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-038",
+          "en": "telescope",
+          "zh": "望远镜",
+          "pos": "n.",
+          "order": 38,
+          "globalOrder": 350,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-039",
+          "en": "then",
+          "zh": "接下来，然后",
+          "pos": "adv.",
+          "order": 39,
+          "globalOrder": 351,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-040",
+          "en": "trick",
+          "zh": "骗局，诡计；欺骗；愚弄",
+          "pos": "n.; v.",
+          "order": 40,
+          "globalOrder": 352,
+          "sourcePage": 134,
+          "senses": [
+            {
+              "pos": "n.",
+              "zh": "骗局，诡计"
+            },
+            {
+              "pos": "v.",
+              "zh": "欺骗；愚弄"
+            }
+          ]
+        },
+        {
+          "id": "u8-041",
+          "en": "trouble",
+          "zh": "麻烦，问题",
+          "pos": "n.",
+          "order": 41,
+          "globalOrder": 353,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-042",
+          "en": "UFO",
+          "zh": "（=Unidentified Flying Object）不明飞行物",
+          "pos": "n.",
+          "order": 42,
+          "globalOrder": 354,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-043",
+          "en": "umbrella",
+          "zh": "雨伞",
+          "pos": "n.",
+          "order": 43,
+          "globalOrder": 355,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-044",
+          "en": "Uranus",
+          "zh": "天王星",
+          "pos": "n.",
+          "order": 44,
+          "globalOrder": 356,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-045",
+          "en": "Venus",
+          "zh": "金星",
+          "pos": "n.",
+          "order": 45,
+          "globalOrder": 357,
+          "sourcePage": 134
+        },
+        {
+          "id": "u8-046",
+          "en": "zoo-keeper",
+          "zh": "动物园饲养员",
+          "pos": "n.",
+          "order": 46,
+          "globalOrder": 358,
+          "sourcePage": 134
+        }
+      ],
+      "count": 46
+    },
+    {
+      "id": "u9",
+      "index": 9,
+      "label": "Unit 9",
+      "entries": [
+        {
+          "id": "u9-001",
+          "en": "abroad",
+          "zh": "在国外；到国外",
+          "pos": "adv.",
+          "order": 1,
+          "globalOrder": 359,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-002",
+          "en": "campsite",
+          "zh": "野营地",
+          "pos": "n.",
+          "order": 2,
+          "globalOrder": 360,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-003",
+          "en": "chair lift",
+          "zh": "（载运乘客上下山的）缆车吊椅",
+          "pos": "n.",
+          "order": 3,
+          "globalOrder": 361,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-004",
+          "en": "cliff",
+          "zh": "悬崖",
+          "pos": "n.",
+          "order": 4,
+          "globalOrder": 362,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-005",
+          "en": "collect wood",
+          "zh": "捡柴火",
+          "pos": "",
+          "order": 5,
+          "globalOrder": 363,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-006",
+          "en": "compass",
+          "zh": "指南针，罗盘",
+          "pos": "n.",
+          "order": 6,
+          "globalOrder": 364,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-007",
+          "en": "cycle path",
+          "zh": "（路旁或公园里的）自行车专用道",
+          "pos": "",
+          "order": 7,
+          "globalOrder": 365,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-008",
+          "en": "dive into the water",
+          "zh": "跳入水中",
+          "pos": "",
+          "order": 8,
+          "globalOrder": 366,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-009",
+          "en": "dry your clothes",
+          "zh": "晾干衣服",
+          "pos": "",
+          "order": 9,
+          "globalOrder": 367,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-010",
+          "en": "fascinating",
+          "zh": "有极大吸引力的，迷人的",
+          "pos": "adj.",
+          "order": 10,
+          "globalOrder": 368,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-011",
+          "en": "ferry",
+          "zh": "渡船",
+          "pos": "n.",
+          "order": 11,
+          "globalOrder": 369,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-012",
+          "en": "fit",
+          "zh": "（大小、形状）合适",
+          "pos": "v.",
+          "order": 12,
+          "globalOrder": 370,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-013",
+          "en": "ghost",
+          "zh": "鬼，幽灵",
+          "pos": "n.",
+          "order": 13,
+          "globalOrder": 371,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-014",
+          "en": "grid reference",
+          "zh": "（地图上用于确定位置的）格网参照点，格网基准点",
+          "pos": "",
+          "order": 14,
+          "globalOrder": 372,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-015",
+          "en": "hire",
+          "zh": "租用",
+          "pos": "v.",
+          "order": 15,
+          "globalOrder": 373,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-016",
+          "en": "in prison",
+          "zh": "在狱中",
+          "pos": "",
+          "order": 16,
+          "globalOrder": 374,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-017",
+          "en": "key",
+          "zh": "图例，符号说明",
+          "pos": "n.",
+          "order": 17,
+          "globalOrder": 375,
+          "sourcePage": 134
+        },
+        {
+          "id": "u9-018",
+          "en": "make a fire",
+          "zh": "生火",
+          "pos": "",
+          "order": 18,
+          "globalOrder": 376,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-019",
+          "en": "make a raft",
+          "zh": "做木筏",
+          "pos": "",
+          "order": 19,
+          "globalOrder": 377,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-020",
+          "en": "mushroom",
+          "zh": "蘑菇",
+          "pos": "n.",
+          "order": 20,
+          "globalOrder": 378,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-021",
+          "en": "neighbourhood",
+          "zh": "街区",
+          "pos": "n.",
+          "order": 21,
+          "globalOrder": 379,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-022",
+          "en": "oar",
+          "zh": "桨，橹",
+          "pos": "n.",
+          "order": 22,
+          "globalOrder": 380,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-023",
+          "en": "picnic basket",
+          "zh": "野餐提篮",
+          "pos": "",
+          "order": 23,
+          "globalOrder": 381,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-024",
+          "en": "poke",
+          "zh": "戳，捅",
+          "pos": "v.",
+          "order": 24,
+          "globalOrder": 382,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-025",
+          "en": "price",
+          "zh": "价格，价钱",
+          "pos": "n.",
+          "order": 25,
+          "globalOrder": 383,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-026",
+          "en": "put in order",
+          "zh": "按顺序整理好",
+          "pos": "",
+          "order": 26,
+          "globalOrder": 384,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-027",
+          "en": "put up a tent",
+          "zh": "支起帐篷",
+          "pos": "",
+          "order": 27,
+          "globalOrder": 385,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-028",
+          "en": "remove",
+          "zh": "去掉；移走；搬走",
+          "pos": "v.",
+          "order": 28,
+          "globalOrder": 386,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-029",
+          "en": "row a boat",
+          "zh": "（用桨）划船",
+          "pos": "",
+          "order": 29,
+          "globalOrder": 387,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-030",
+          "en": "sail a boat",
+          "zh": "（用风力）驾船",
+          "pos": "",
+          "order": 30,
+          "globalOrder": 388,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-031",
+          "en": "scale",
+          "zh": "（地图的）图例，比例（尺）",
+          "pos": "n.",
+          "order": 31,
+          "globalOrder": 389,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-032",
+          "en": "scare",
+          "zh": "使（某人）惊恐，吓唬",
+          "pos": "v.",
+          "order": 32,
+          "globalOrder": 390,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-033",
+          "en": "set",
+          "zh": "（太阳）落下，下山",
+          "pos": "v.",
+          "order": 33,
+          "globalOrder": 391,
+          "sourcePage": 135,
+          "displayEn": "set 1",
+          "senseNumber": 1
+        },
+        {
+          "id": "u9-034",
+          "en": "set",
+          "zh": "设（陷阱）",
+          "pos": "v.",
+          "order": 34,
+          "globalOrder": 392,
+          "sourcePage": 135,
+          "displayEn": "set 2",
+          "senseNumber": 2
+        },
+        {
+          "id": "u9-035",
+          "en": "shine",
+          "zh": "把……照向",
+          "pos": "v.",
+          "order": 35,
+          "globalOrder": 393,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-036",
+          "en": "snare",
+          "zh": "（捕捉动物的）罗网，陷阱",
+          "pos": "n.",
+          "order": 36,
+          "globalOrder": 394,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-037",
+          "en": "stick",
+          "zh": "树枝，枝条",
+          "pos": "n.",
+          "order": 37,
+          "globalOrder": 395,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-038",
+          "en": "swing on a rope",
+          "zh": "在绳子上荡悠",
+          "pos": "",
+          "order": 38,
+          "globalOrder": 396,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-039",
+          "en": "tie",
+          "zh": "（用线、绳索等）系，捆",
+          "pos": "v.",
+          "order": 39,
+          "globalOrder": 397,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-040",
+          "en": "weekend",
+          "zh": "周末",
+          "pos": "n.",
+          "order": 40,
+          "globalOrder": 398,
+          "sourcePage": 135
+        },
+        {
+          "id": "u9-041",
+          "en": "west",
+          "zh": "朝西，向西；西方",
+          "pos": "adv.; n.",
+          "order": 41,
+          "globalOrder": 399,
+          "sourcePage": 135,
+          "senses": [
+            {
+              "pos": "adv.",
+              "zh": "朝西，向西"
+            },
+            {
+              "pos": "n.",
+              "zh": "西方"
+            }
+          ]
+        }
+      ],
+      "count": 41
+    }
+  ]
+}

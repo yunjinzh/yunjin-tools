@@ -1,0 +1,35 @@
+[
+  {
+    "file": "studio-sans.woff2",
+    "family": "Studio Sans",
+    "sourceUrl": "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf",
+    "license": "SIL Open Font License 1.1",
+    "licenseFile": "NotoSans-OFL.txt",
+    "modifications": "Subset to application glyphs; family renamed",
+    "sha256": "1dc3e5235bb29a8408fd2e23347d5adeda56088ccb4edd3cb73c513b397df931",
+    "sourceSha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+    "bytes": 231072
+  },
+  {
+    "file": "studio-serif.woff2",
+    "family": "Studio Serif",
+    "sourceUrl": "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Serif/OTF/SimplifiedChinese/NotoSerifCJKsc-SemiBold.otf",
+    "license": "SIL Open Font License 1.1",
+    "licenseFile": "NotoSerif-OFL.txt",
+    "modifications": "Subset to application glyphs; family renamed",
+    "sha256": "1618a04fe85509d6428e37ed3478be4b5651df57a8155f255a73c2ea330016a2",
+    "sourceSha256": "d627b53dbcde61e07de1498d2623a8b287f78585ffbc90cc0618d0caaa2ed6b0",
+    "bytes": 330516
+  },
+  {
+    "file": "studio-display.woff2",
+    "family": "Studio Display",
+    "sourceUrl": "https://raw.githubusercontent.com/google/fonts/main/ofl/oswald/Oswald%5Bwght%5D.ttf",
+    "license": "SIL Open Font License 1.1",
+    "licenseFile": "Oswald-OFL.txt",
+    "modifications": "Subset to application glyphs; family renamed",
+    "sha256": "985d8b710592afe5a568ccd53dd8698d22f19cffe2e33340a699fc536e0d7411",
+    "sourceSha256": "5b38c246e255a12f5712d640d56bcced0472466fc68983d2d0410ec0457c2817",
+    "bytes": 18352
+  }
+]

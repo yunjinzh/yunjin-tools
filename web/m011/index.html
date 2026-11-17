@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f0e3">
+<meta name="description" content="和108位Q版水浒人物一起闯关：看图识人、绰号配对、本领挑战，集齐你的梁山人物册。">
+<title>梁山小英雄 · 108人物奇遇记</title>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="sprites.css">
+<script defer src="data.js"></script><script defer src="engine.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<div class="paper-grain" aria-hidden="true"></div>
+<header class="site-header">
+ <a href="#home" class="brand" data-action="home"><span class="seal">水</span><span>梁山小英雄<small>108 人物奇遇记</small></span></a>
+ <nav aria-label="主导航"><button data-action="home" class="nav-btn active" id="nav-home">出发</button><button data-action="journey" class="nav-btn" id="nav-journey">营寨闯关</button><button data-action="album" class="nav-btn" id="nav-album">人物册 <span id="nav-count">0</span></button></nav>
+ <div class="header-tools"><button class="icon-button" id="sound-button" data-action="sound" aria-label="开启音效" title="开启音效"></button><button class="icon-button" data-action="help" aria-label="玩法说明" title="玩法说明">?</button></div>
+</header>
+<main id="app" tabindex="-1"></main>
+<footer class="site-footer"><span>水浒传 · 国风 Q 版互动绘本</span><span>认真观察，每一位伙伴都有自己的本领。</span><button data-action="help">怎么玩</button></footer>
+<div class="modal-backdrop" id="modal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close icon-button" data-action="close-modal" aria-label="关闭">×</button><div id="modal-content"></div></section></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<input type="file" id="import-file" accept="application/json,.json" hidden>
+<noscript><p class="noscript">这个小游戏需要启用 JavaScript。请使用 Chrome、Edge 或 Safari 打开。</p></noscript>
+</body></html>

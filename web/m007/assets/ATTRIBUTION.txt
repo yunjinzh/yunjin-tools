@@ -1,0 +1,136 @@
+EMBODIED STUDIO / VISUAL ASSET ATTRIBUTION
+Updated 2026-10-24
+
+1. UNITREE G1 ROBOT
+Source: Unitree Robotics / unitree_ros
+https://github.com/unitreerobotics/unitree_ros/tree/master/robots/g1_description
+Source model: g1_29dof.urdf and 36 referenced STL meshes.
+License: BSD 3-Clause. Full original notice is in robot/UNITREE-LICENSE.txt.
+Copyright (c) 2016-2022, HangZhou YuShu TECHNOLOGY CO.,LTD. ("Unitree Robotics").
+
+Local modifications: deduplicated indexed vertex data; 16-bit position and
+normal quantization; computed smooth normals; browser-native joint rig;
+new appearance materials and motion demonstration. The original URDF and
+SHA-256 hashes of source meshes are retained in robot/g1_29dof.urdf and g1.json.
+The G1 geometry is an official published model; this training interface,
+animations, tasks and physics assumptions are independent work. No affiliation
+with or endorsement by Unitree Robotics is claimed.
+
+2. PHOTOGRAPHED PBR MATERIALS AND HDR ENVIRONMENT
+Provider: Poly Haven, https://polyhaven.com
+License: CC0 1.0 Universal; https://polyhaven.com/license
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Concrete Floor 02 — Rob Tuytel
+https://polyhaven.com/a/concrete_floor_02
+Files: concrete_floor_02_diff_1k.jpg, concrete_floor_02_nor_gl_1k.jpg,
+concrete_floor_02_rough_1k.jpg
+
+Wood Floor Worn — Dimitrios Savva
+https://polyhaven.com/a/wood_floor_worn
+Files: wood_floor_worn_diff_1k.jpg, wood_floor_worn_nor_gl_1k.jpg,
+wood_floor_worn_rough_1k.jpg
+
+Studio Small 09 — Sergej Majboroda
+https://polyhaven.com/a/studio_small_09
+File: studio_small_09_1k.hdr
+
+Material color, UV repeats, normal intensity, roughness and environment
+exposure are configured by the application. Original downloaded maps are
+included locally; no runtime request to Poly Haven is required.
+
+3. THREE.JS
+Three.js r180 and included addons: MIT license.
+See ../vendor/THREE-LICENSE.txt for the full license.
+
+4. APPLICATION GEOMETRY
+Architecture, selected furniture and tools, interactive cups, labels,
+procedural surface maps and interface layouts are built in application code.
+The imported visual models listed below replace selected procedural geometry.
+
+5. WALL BRANDING
+User-supplied logo.svg, uploaded 2026-10-23.
+Original vector artwork is preserved unchanged in branding/logo.svg.
+Displayed on the black wall signs at its original aspect ratio.
+
+6. NVIDIA SIMREADY ASSETS
+Author / provider: NVIDIA
+Asset browser: https://huggingface.co/spaces/nvidia/simready-central
+Dataset: https://huggingface.co/datasets/nvidia/simready-assets
+Source revision: 524747d9b5e1f21b5b18b56041788c01d745f1a1
+Selected and converted: 2026-10-23
+License: Creative Commons Attribution 4.0 International (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+Full original license: simready/CC-BY-4.0.txt
+Every selected source package declares CC-BY-4.0 in its
+com.nvidia.simready.packaging.json.
+
+Selected models (local file — source asset):
+- carton.glb — box_corrugated_brown_b08
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/box_corrugated_brown_b08
+- parcel.glb — box_corrugated_white_a08
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/box_corrugated_white_a08
+- rack.glb — rack_large_empty_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/rack_large_empty_a01
+- pallet.glb — pallet_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/pallet_a01
+- pallet-jack.glb — palletJack_lowProfile_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/palletJack_lowProfile_a01
+- coffee-machine.glb — machine_coffee_vending_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/machine_coffee_vending_a01
+- fridge.glb — facilityEquipment_beverageFridge_display_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/facilityEquipment_beverageFridge_display_a01
+- kitchen.glb — facilitySystem_kitchenette_module_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/facilitySystem_kitchenette_module_a01
+- croissant.glb — food_prepared_croissant_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_croissant_a01
+- baguette.glb — food_prepared_baguette_b01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_baguette_b01
+- jug.glb — kitchenware_jug_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/kitchenware_jug_a01
+- tomato.glb — food_produce_tomato_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_produce_tomato_a01
+- steak.glb — food_prepared_steak_c01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_steak_c01
+- wine-glass.glb — dishware_glass_wine_a01
+  https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/dishware_glass_wine_a01
+
+Modifications: OpenUSD to static glTF 2.0 conversion; metre units, Y-up axes
+and floor-centred origins; geometry simplification (relative error limit
+0.001), vertex quantization, meshopt compression, material consolidation,
+UV/UDIM atlas conversion, texture resizing and JPEG/PNG encoding. Some large
+source maps use the publisher's 512-pixel mip versions; other maps are capped
+at 1024 pixels per tile (the rack atlas combines three tiles). Metallic,
+roughness, normal and emissive maps are retained when present. Transparent
+glass is an alpha approximation. The served steak uses an application shader
+that remaps the original raw-meat color to cooked browns. A source cardboard
+trim's incorrectly bound ORM-as-normal map is omitted.
+
+Application placement applies scaling to selected props to fit interaction
+settings; carton size variants are non-uniformly scaled. The floor-standing
+coffee vending appliance retains its published size. The racks receive an
+additional application-authored reachable middle shelf. Repeated static
+objects use GPU instancing; interactive cargo retains individual geometry.
+
+Source USD physics schemas, sensors and simulation metadata are NOT imported
+into the web prototype. This use does not add PhysX, Isaac Sim, MuJoCo, Newton
+or validated physical robot training. No NVIDIA affiliation or endorsement
+is claimed. Full source URLs and input/output SHA-256 hashes are recorded in
+simready/manifest.json and each model's companion JSON.
+
+7. MESHOPTIMIZER
+Browser decoder by Arseny Kapoulkine, MIT license.
+https://github.com/zeux/meshoptimizer
+Copyright (c) 2016-2026 Arseny Kapoulkine
+Full license: ../vendor/MESHOPTIMIZER-LICENSE.md
+
+
+LOCAL INTERFACE TYPEFACES (2026-10-24)
+Studio Sans: subset and renamed from Noto Sans CJK SC Regular.
+Studio Serif: subset and renamed from Noto Serif CJK SC SemiBold.
+Source: https://github.com/notofonts/noto-cjk
+Studio Display: subset and renamed from Oswald (variable weight).
+Source: https://github.com/google/fonts/tree/main/ofl/oswald
+License: SIL Open Font License 1.1; copies in assets/fonts/*-OFL.txt.
+Modified font family, full and PostScript names; glyph subsets; WOFF2 conversion.
+No font is sold by itself. Manifest records source URLs and output hashes.

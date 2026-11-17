@@ -1,0 +1,59 @@
+{
+  "id": "coffee-machine",
+  "sourceAsset": "machine_coffee_vending_a01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/machine_coffee_vending_a01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    0.7888721227645874,
+    1.8300000429153442,
+    0.8110001385211945
+  ],
+  "sourceOrigin": [
+    -0.007885515689849854,
+    3.108624482185328e-17,
+    -0.0000021606683732189325
+  ],
+  "triangles": 67818,
+  "materials": 12,
+  "bytes": 3008992,
+  "sha256": "6c14863d7c62465bec3086ff3ba773b1326198141222ec62d40125f97a4790d7",
+  "sourceFiles": {
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_rough_black_a01_tile_orm.png.png": "c9c1f4028c6171d679e3e9776a76b01dbf7556d2395d25985dd69604aa151b3b",
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_rough_black_a01_tile_nor.png.png": "eeee0c2f97ddd34636b29255432bce7b9bebb445cf5a0332b20a7f95ad61f97c",
+    "machine_coffee_vending_a01/simready_usd/Textures/t_metal_aluminiumBrushed_a01_tile_alb.png": "27f7cbc9e584a808e47bfc1fe8101f4f061f44da67de2d457e49ef83525d8892",
+    "machine_coffee_vending_a01/simready_usd/Textures/t_metal_aluminiumBrushed_a01_tile_orm.png": "66178e5699df07bf2a140dfa9b22335204d07496af39734d9c2cdd75e8adc405",
+    "machine_coffee_vending_a01/simready_usd/Textures/t_metal_aluminiumBrushed_a01_tile_nor.png": "c3f57cd1107cebd878ad0e374a2e59b4fc0ce4e7e981bc47a312dc2dd793adf7",
+    "machine_coffee_vending_a01/simready_usd/Textures/t_plastic_black_c01_tile_alb.png": "c06cc8dcf25916497a7825154c535721076eb3aeb1594ffc09e52771bc5020b3",
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_c01_tile_orm.png.png": "f9d4f1bc8e51f257f6803e8e285e535fdacc8b502e05184779172c4e9f34a31f",
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_c01_tile_nor.png.png": "43f8ea5f137b6ee951e431ba5cba279216527297b15ca7fb70c12cb9ba926b09",
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_metal_painted_gray_a01_tile_orm.png.png": "f9f12b03f22d721f39eba1b96c124a2331f16a3ee4561ef4ae3180dadf4db846",
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_metal_painted_gray_a01_tile_nor.png.png": "fa63ab2b448d150feabc6d14f8dcc5df87001e8fcc55dbc91ff43310764f6902",
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_polyurethaneRough_black_a01_tile_orm.png.png": "edf82822ad4fa537bdd09b3e8618fb923240906a4cf6f162b749a538fd01e155",
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_polyurethaneRough_black_a01_tile_nor.png.png": "6867e91a02981645d040c94d6a9085ad6026f7c2c0e52b3032160a458fe82a43",
+    "machine_coffee_vending_a01/simready_usd/Textures/t_lcd_pay_a01_alb.png": "48613a541c60cdfcb6dbda904351a7ded240692c07dcf72969933041e8ccedfb",
+    "machine_coffee_vending_a01/simready_usd/Textures/t_lcd_screen_a01_alb.png": "c4eea96b6d2a0d31da507093c861ebdca6e9288e513901ad4f5c46890c110e5c",
+    "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_emissive_a01_tile_nor.png.png": "1a8bb02d38212fc42e8b4087e4cbc0955d5a30374e80f3021b0791e8efe40e67",
+    "machine_coffee_vending_a01/simready_usd/payloads/base.usda": "94c9eba4bdd87b37919b1055fd064554462aec3d27594259e6bed77f5a23e177",
+    "machine_coffee_vending_a01/simready_usd/payloads/Physics/physics.usda": "f7e8d5dd7f744a550333cdbd2a68df4674c0e50653332bfe74a4dbce42f12cc4",
+    "machine_coffee_vending_a01/simready_usd/payloads/Newton/disabled.usda": "15003a347d02a70f199b14d143d5f2121b384accee09f9dfb6d1d21f45d2248c",
+    "machine_coffee_vending_a01/simready_usd/payloads/MuJoCo/disabled.usda": "15003a347d02a70f199b14d143d5f2121b384accee09f9dfb6d1d21f45d2248c",
+    "machine_coffee_vending_a01/simready_usd/payloads/instances_physx.usda": "bac6ab19103f6022a5fefcc45bee487fbce15fbf13116bd72318aa064e4f8b6a",
+    "machine_coffee_vending_a01/simready_usd/payloads/materials.usda": "3df913ea49cf5c7a77e74ca0deb5752ac3576175745e072c02af2cd3ed8b18b6",
+    "machine_coffee_vending_a01/simready_usd/payloads/PhysX/enabled.usda": "015c8ce22b6ed4db16420d7a12626d71af251624f8bf1e0a8d6a6b8f93118224",
+    "machine_coffee_vending_a01/simready_usd/payloads/geometries.usd": "0168181a9e496b25909a900f101a152b2a457d84382e06f5e4d6320c73fdc8bb",
+    "machine_coffee_vending_a01/simready_usd/sm_machine_coffee_vending_a01_01.usd": "9d3551387d5f527aa926f878701580925a97fbe553990a3066096ca94a060071",
+    "machine_coffee_vending_a01/simready_usd/payloads/instances.usda": "c4dd3f9890c72d5e5630b107c14fd0b852be5df71505a2057df278282c5df322",
+    "machine_coffee_vending_a01/com.nvidia.simready.packaging.json": "dde9cf872fa8363fb27574180bc3f2b2c0d9d0c88f4cc6ed034c865769064b4d",
+    "machine_coffee_vending_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 193433,
+  "originalBytes": 3935904,
+  "optimization": {
+    "targetRatio": 0.35,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

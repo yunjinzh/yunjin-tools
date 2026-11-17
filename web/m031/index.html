@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="theme-color" content="#202623">
+ <title>三十六计 · 智谋沙盘</title>
+ <meta name="description" content="用36个可操作沙盘，理解中国古典计策。观察局势、作出选择、体验结果，读懂每一计的因果与取舍。">
+ <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23a43d2e'/%3E%3Cpath d='M14 15h36v34H14zM20 22h24M20 32h24M20 42h24' stroke='%23f2e5ca' stroke-width='4' fill='none'/%3E%3C/svg%3E">
+ <link rel="preload" href="fonts/stratagem-serif-sc-600.woff" as="font" type="font/woff" crossorigin>
+ <link rel="stylesheet" href="styles.css">
+ <link rel="stylesheet" href="scene3d.css">
+ <script src="vendor/three-r160.min.js" defer></script><script src="vendor/OrbitControls.r160.js" defer></script>
+ <script src="data.js" defer></script><script src="engine.js" defer></script><script src="game-core.js" defer></script><script src="scene3d.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+ <header class="masthead">
+  <a class="brand" href="#1" aria-label="三十六计智谋沙盘首页"><span class="seal" aria-hidden="true">计</span><span>三十六计<small>智谋沙盘</small></span></a>
+  <div class="mast-note">三维推演 · 亲手改变局势</div>
+  <button class="index-trigger" id="openIndex"><span class="grid-icon" aria-hidden="true">▦</span> 三十六计总览</button>
+ </header>
+ <div class="layout">
+  <aside class="library" aria-label="计策导航">
+   <div class="library-heading"><span>兵书六卷</span><span class="small-serif">六套 · 三十六计</span></div>
+   <nav id="groupNav" class="group-nav" aria-label="六套计策"></nav>
+   <div class="volume-heading"><span id="volumeName">第一卷</span><h2 id="volumeTheme"></h2><p id="volumeDesc"></p></div>
+   <nav id="stratagemNav" class="stratagem-nav" aria-label="本套计策"></nav>
+   <div class="library-foot"><span class="foot-symbol" aria-hidden="true">卅六</span><p>观其势 · 明其理<br>亲手改变一次局势</p></div>
+  </aside>
+  <main id="main">
+   <section class="lesson-heading" aria-labelledby="strategyName">
+    <div><div class="eyebrow"><span id="groupLabel"></span><span class="eyebrow-rule"></span><span id="strategyNumber"></span></div><h1 id="strategyName" tabindex="-1"></h1><p id="tagline"></p></div>
+    <div class="lesson-pager"><button id="previous" aria-label="上一计">‹</button><span id="pageCount"></span><button id="next" aria-label="下一计">›</button></div>
+   </section>
+   <section class="arena" id="arenaFull" aria-label="交互教学沙盘">
+    <div class="arena-top"><div class="arena-title"><span class="live-mark"></span>三维局势沙盘 <span class="demo-label">虚构教学场景</span></div><button id="viewToggle" aria-pressed="false">查看对方所见</button></div>
+    <div class="board" id="board"><div class="board-image" aria-hidden="true"></div><div class="board-wash" aria-hidden="true"></div><div class="board-grid" aria-hidden="true"></div><svg id="connections" viewBox="0 0 900 420" preserveAspectRatio="none" aria-hidden="true"></svg><div id="nodes" class="nodes"></div>    <div class="world-hud" id="worldHud" hidden>
+     <div class="world-metrics"><span>模拟精力 <b id="staminaMeter">100</b></span><span>警戒 <b id="alarmMeter">0</b></span><span id="specialMetric">行动 <b id="actionMeter">0</b></span></div>
+     <div class="world-caption"><span id="worldBiome">河谷渡口</span><small>旋转：拖动空白处 · 缩放：滚轮 / 双指</small></div>
+     <div class="world-stage" id="worldStage"><span id="worldTask"></span><div id="worldActions"></div></div>
+     <div class="world-instruction" id="worldInstruction" role="status" aria-live="polite">选中蓝色队伍，点击地面规划路线。</div>
+     <div class="world-toolbar"><div><button id="routeMode">选中队伍</button><button id="executeRoute">执行路线</button><button id="clearRoute">清空路点</button><button id="cancelOrder">取消行动</button><button id="coverToggle" hidden>停止掩护</button><button id="retryWorld">重试</button></div><div><button id="topView">俯视</button><button id="homeView">复位</button><button id="fullScreen" aria-label="全屏沙盘">全屏</button></div></div>
+     <div class="world-playback"><button id="pauseGame">暂停</button><button id="stepGame">单步</button><button id="speedGame">×1</button><span id="gameMode">自由镜头</span></div>
+     <div class="token-tray" id="tokenTray" hidden><span id="tokenTitle">保护筹码</span><div id="resourceTokens"></div><button id="lessResource" aria-label="减少分配">−</button><output id="resourceCount">5</output><button id="moreResource" aria-label="增加分配">＋</button><small id="tokenHint">拖到核心增加，拖到外围减少</small></div>
+    </div>
+<div class="board-coordinate top-left" aria-hidden="true">乾 · 观势</div><div class="board-coordinate bottom-right" aria-hidden="true">坤 · 应变</div><div id="perspective" class="perspective" hidden></div><div class="board-legend"><span><i class="own-key"></i>我方 / 资源</span><span><i class="enemy-key"></i>对方</span><span><i class="neutral-key"></i>位置 / 条件</span></div></div>
+    <div class="mission"><span>此局目标</span><p id="missionGoal"></p></div>
+   </section>
+   <section class="play-console" aria-label="推演操作">
+    <div class="steps-bar" id="stepsBar"></div>
+    <div class="control-area"><div class="task-header"><div><span class="control-label" id="stageLabel"></span><h2 id="taskTitle"></h2></div><div class="utility-actions"><button id="undo" title="回到前一个阶段">撤销一步</button><button id="reset">重新推演</button></div></div><p class="task-hint" id="taskHint"></p><div class="parameter" id="parameter" hidden></div><div class="actions" id="actions"></div><div class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true"></div></div>
+   </section>
+   <section class="replay" id="replay" hidden aria-labelledby="replayTitle"><div class="replay-head"><span class="seal-outline">成</span><div><span class="eyebrow">推演完成</span><h2 id="replayTitle">从行动，回到计策</h2></div></div><div id="gameResults" class="game-results"></div><p id="replayLesson"></p><ol id="replayLog"></ol><button id="continue" class="primary-button">体验下一计</button></section>
+   <footer class="main-footer"><span>教学释义与模拟结果 · AI辅助生成并核查</span><button id="openSources">版本与内容依据</button></footer>
+  </main>
+  <aside class="reading" aria-label="计策解读">
+   <div class="reading-top"><span>计策解读</span><span class="reading-number" id="readingNumber"></span></div>
+   <div class="reading-core"><span class="section-label">一计之要</span><h2 id="readingTitle"></h2><p id="core"></p></div>
+   <div class="reading-section"><span class="section-label">设定局势</span><p id="setting"></p></div>
+   <div class="reading-section logic"><span class="section-label">因果链 · 教学提炼</span><p id="logic"></p></div>
+   <div class="reading-section boundary"><span class="section-label">理解边界</span><p id="limit"></p></div>
+   <div class="reading-source"><span>计名与分套核验</span><a href="https://www.cp.com.cn/book/530d2387-2.html" target="_blank" rel="noopener noreferrer">商务印书馆 · 2015年附录目录</a><p>匿名场景用于理解机制。图中位置、数值与结果均为演示设定。</p></div>
+  </aside>
+ </div>
+ <dialog id="indexDialog" class="index-dialog"><div class="dialog-head"><div><span class="eyebrow">六卷兵书</span><h2>三十六计总览</h2></div><button class="dialog-close" aria-label="关闭总览">×</button></div><div id="indexGrid"></div><p class="dialog-foot">选择一计，进入它的局势。</p></dialog>
+ <dialog id="sourcesDialog" class="sources-dialog"><div class="dialog-head"><div><span class="eyebrow">内容核查 · 2026年10月3日</span><h2>版本与内容依据</h2></div><button class="dialog-close" aria-label="关闭内容依据">×</button></div><div id="sourcesContent"></div></dialog>
+ <noscript><p class="no-script">请启用JavaScript，以操作36计教学沙盘。</p></noscript>
+</body>
+</html>

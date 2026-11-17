@@ -1,0 +1,45 @@
+{
+  "id": "steak",
+  "sourceAsset": "food_prepared_steak_c01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_steak_c01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    0.04484623111784458,
+    0.011352187022566795,
+    0.14502818882465363
+  ],
+  "sourceOrigin": [
+    -0.0009959163144230843,
+    0.000025260262191295624,
+    -0.001143813133239746
+  ],
+  "triangles": 3374,
+  "materials": 1,
+  "bytes": 425724,
+  "sha256": "e9c2338a10e9714419b8987561f9025b7c6ffb7a4973865e890f1967708e6e3c",
+  "sourceFiles": {
+    "food_prepared_steak_c01/simready_usd/Textures/t_stake_red_c01_alb.png": "4c6b7beaca4d0decf339e66920926f193fcd35ea2fa68169f70f7c0f6d6ea691",
+    "food_prepared_steak_c01/simready_usd/Textures/t_stake_red_c01_orm.png": "87bb78742c93b6861249cc4acf2b10fbee572a034e38a99980ff937300508f16",
+    "food_prepared_steak_c01/simready_usd/Textures/t_stake_red_c01_nor.png": "911a7cc0fab5b4dbb9279ab21796f025dae1cbca595947a546298b1b57a47eb8",
+    "food_prepared_steak_c01/simready_usd/sm_food_prepared_steak_c01_01.usda": "2af42a1f841ab99ed84ef2e68eab74d2c4208b36d2ab550d52c999c7d3a75004",
+    "food_prepared_steak_c01/simready_usd/runnables/physics/physx.usd": "ce392532beb3fd5304480bf64401d916a1d38b2a220cb0286a38913134a673f5",
+    "food_prepared_steak_c01/simready_usd/payloads/base.usda": "a2c05d3fe5cda726cae88aeae37b00adf3262c1c185f71737b17bbf4eb83cf0a",
+    "food_prepared_steak_c01/simready_usd/payloads/Physics/physics.usda": "f25d28517e6b9880649aad88431bf0de310502d914f936df30a7c4af3c1d3d67",
+    "food_prepared_steak_c01/simready_usd/payloads/instances_physx.usda": "63fca079838fe287918fb1a44b26b6eb21fcf51801fb2fb8b01626d141153cf4",
+    "food_prepared_steak_c01/simready_usd/payloads/geometries.usd": "f6b9af2279573a9792106d72b14b00a60cdfef658564892b1b17b545ad4e07c5",
+    "food_prepared_steak_c01/simready_usd/payloads/instances.usda": "02922507b7f1f31353858872dd77e556f7602e6ad9f887cdf17e028d82230b5a",
+    "food_prepared_steak_c01/simready_usd/payloads/materials.usda": "bb71e22d8cf31d560cc9507b60c423e219cb7c485acf8eee02cd07366ef2423c",
+    "food_prepared_steak_c01/com.nvidia.simready.packaging.json": "3766a641b1c7099baddd6bcf911e4aa51886416f1fa9b2c11a1f8ce4bb318017",
+    "food_prepared_steak_c01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 4820,
+  "originalBytes": 96308,
+  "optimization": {
+    "targetRatio": 0.7,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

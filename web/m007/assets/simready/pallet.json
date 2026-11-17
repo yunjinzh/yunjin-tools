@@ -1,0 +1,46 @@
+{
+  "id": "pallet",
+  "sourceAsset": "pallet_a01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/pallet_a01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    1.2042018175125122,
+    0.20864565670490265,
+    0.8003857731819153
+  ],
+  "sourceOrigin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 1436,
+  "materials": 1,
+  "bytes": 675868,
+  "sha256": "27fb1e6d3a074d7c354ffff974fed69de4dbaaad1480f36882e85f0eac92ad05",
+  "sourceFiles": {
+    "pallet_a01/simready_usd/Textures/T_Pallet_A1_Albedo.png": "7ea41b5b405ec6a115ae68d61c1911c50c507cff1d0c500797850f5b0eeeecec",
+    "pallet_a01/simready_usd/Textures/T_Pallet_A1_ORM.png": "b5fee96c46b1f2d9e2d7459690ae7e6da643225a8b0c656d52206b10ce3a5a17",
+    "pallet_a01/simready_usd/sm_pallet_a01_01.usd": "203a752fe858e92ec4dc23f9e1a5c443d89aeb5a9374982d6de59c6258bba271",
+    "pallet_a01/simready_usd/payloads/base.usda": "4790cc8c476e38e3dc40b1324a9c660925aadaf18d644e437882ffc31d9c5216",
+    "pallet_a01/simready_usd/payloads/MuJoCo/disabled.usda": "e14e1569f998a2c03c8f3555185fae2a6e17070918a8b6d181fe254ae0ed675b",
+    "pallet_a01/simready_usd/payloads/Physics/physics.usda": "86587cc08c91ea1890d1c313de3b939ae577198fef0312d7107cc57d4d009ba8",
+    "pallet_a01/simready_usd/payloads/Newton/disabled.usda": "e14e1569f998a2c03c8f3555185fae2a6e17070918a8b6d181fe254ae0ed675b",
+    "pallet_a01/simready_usd/payloads/instances_physx.usda": "3fe4d6247d26e3cbbf21deb9e9394cdb15d5aba6b5b93571901c34b015691937",
+    "pallet_a01/simready_usd/payloads/instances.usda": "aba11c0cf41659ae77902e2e185caa0c723dd70d761ebe97b7babd69ddf385dc",
+    "pallet_a01/simready_usd/payloads/geometries.usd": "f313dbaa0758ea8ca061c883a8b2c7a29de7f6d24f482383ce1ac44ec40936ef",
+    "pallet_a01/simready_usd/payloads/PhysX/enabled.usda": "483d95408811d847df8573e09bba4a562be201f32736f00572ebe84d04db1334",
+    "pallet_a01/simready_usd/payloads/materials.usda": "6ca9c82133994ee805bad4588e77544f809810274878eeb32709b17089b5c5a8",
+    "pallet_a01/com.nvidia.simready.packaging.json": "85f942eca1a8760f851b9e9c5a651a4e21681241fdeb4d4fe1f93ed1474b9350",
+    "pallet_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 2052,
+  "originalBytes": 51400,
+  "optimization": {
+    "targetRatio": 0.7,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

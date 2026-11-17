@@ -1,0 +1,47 @@
+{
+  "id": "jug",
+  "sourceAsset": "kitchenware_jug_a01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/kitchenware_jug_a01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    0.10018230229616165,
+    0.12591492384672165,
+    0.16454200446605682
+  ],
+  "sourceOrigin": [
+    -8.456408977508545e-7,
+    0.00001852959394454956,
+    0.00003187358379364014
+  ],
+  "triangles": 11876,
+  "materials": 1,
+  "bytes": 1332736,
+  "sha256": "fbab6c64fb4db73232853d3cc1600d862eacccbd891b53bf7716a8a2b55e1fc9",
+  "sourceFiles": {
+    "kitchenware_jug_a01/simready_usd/Textures/t_jug_blue_a01_alb.png": "fed7c92f133b4e11a4ad4030b3781120692b0d04a8c8f59d8ffd8b4c6c2f0d41",
+    "kitchenware_jug_a01/simready_usd/Textures/t_jug_blue_a01_orm.png": "ec04aaba34152c5b7e1ed31ddcf87c4c6c79c76246abfd9eaa21de54e80b804b",
+    "kitchenware_jug_a01/simready_usd/Textures/t_jug_blue_a01_nor.png": "458f41f6b4fca9952a1a3d566ec205e4bbf8a32d2beb9e7c63923297238f0b9c",
+    "kitchenware_jug_a01/simready_usd/sm_kitchenware_jug_a01_01.usd": "a9340574ad663b3767a472c37e9d7c3d6da0e17bed1e68ed81a8900371c52170",
+    "kitchenware_jug_a01/simready_usd/payloads/instances.usda": "8a6af0bcfcbafce2c261a77ead8cc57351952ed062c4f3235312e34e8f6f46c7",
+    "kitchenware_jug_a01/simready_usd/payloads/MuJoCo/disabled.usda": "e60f40adae34eec5f1073d63c52f9307b9e595e02a02f5c191f73b6ec5fb97d4",
+    "kitchenware_jug_a01/simready_usd/payloads/base.usda": "be282dbc70cf30862c770bfb02f7b6dd522f2731dd22e8d8e6ed68c3174dde09",
+    "kitchenware_jug_a01/simready_usd/payloads/Physics/physics.usda": "f17c3c80b96f5e37f2e65e1cf06f76639f42aa379bc96c4e30b0cebbe9482bb3",
+    "kitchenware_jug_a01/simready_usd/payloads/Newton/disabled.usda": "e60f40adae34eec5f1073d63c52f9307b9e595e02a02f5c191f73b6ec5fb97d4",
+    "kitchenware_jug_a01/simready_usd/payloads/PhysX/enabled.usda": "e0e13b3c3259d0d2c6d0622c3de564164a1595a342461738fc42bed0f632e561",
+    "kitchenware_jug_a01/simready_usd/payloads/materials.usda": "a6d31c529565a7ea1a4e702fb08b86240718fff58a346a4ae329f442c17cfca9",
+    "kitchenware_jug_a01/simready_usd/payloads/instances_physx.usda": "0588f881ef589a4b41ffcc2e2dc46b3990cd16fe22c8a4adfe970230ff1cef6c",
+    "kitchenware_jug_a01/simready_usd/payloads/geometries.usd": "f9083c047b516a57b46e9d306e932c97beb62e06d208da1e70fa06490d996fed",
+    "kitchenware_jug_a01/com.nvidia.simready.packaging.json": "319cdce0b4792b673d5cbd7b3a4ec06fff0e76476305cced8b18a57bc016da75",
+    "kitchenware_jug_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 16968,
+  "originalBytes": 321592,
+  "optimization": {
+    "targetRatio": 0.7,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

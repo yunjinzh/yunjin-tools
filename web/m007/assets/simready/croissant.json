@@ -1,0 +1,47 @@
+{
+  "id": "croissant",
+  "sourceAsset": "food_prepared_croissant_a01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_croissant_a01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    0.06687533110380173,
+    0.0432916205318179,
+    0.14004050940275192
+  ],
+  "sourceOrigin": [
+    0.0017499513924121857,
+    0.00000930987880565226,
+    -0.00030964985489845276
+  ],
+  "triangles": 5744,
+  "materials": 1,
+  "bytes": 2024804,
+  "sha256": "9c9785f62d0f08b72640cbcfb0b0325f5dd39d7a409e875f92b546901fd1fe7e",
+  "sourceFiles": {
+    "food_prepared_croissant_a01/simready_usd/Textures/t_croissant_brown_a01_alb.png": "7bfedf25988bf6dc559f1ba3e6ed85fc3c90b0adaf712747158fda438a86a770",
+    "food_prepared_croissant_a01/simready_usd/Textures/t_croissant_brown_a01_orm.png": "c4c46494b5d0d1a273c35af4cba4404f96510a6fb5c0193eb04a18833fc79ff6",
+    "food_prepared_croissant_a01/simready_usd/Textures/t_croissant_brown_a01_nor.png": "f558e9d29ea53e0b6614283e659356b1344be0f255e0f8a93f86c4885aeb22d0",
+    "food_prepared_croissant_a01/simready_usd/payloads/Newton/disabled.usda": "5af4477af6b92a2ebe46976b73c59424f2bcf5b2f60341fb5617d38a70acd467",
+    "food_prepared_croissant_a01/simready_usd/payloads/base.usda": "c6e93968c6a666a1e5e39463baacc3d27b0141beda45c91eb911769b89651a74",
+    "food_prepared_croissant_a01/simready_usd/payloads/MuJoCo/disabled.usda": "5af4477af6b92a2ebe46976b73c59424f2bcf5b2f60341fb5617d38a70acd467",
+    "food_prepared_croissant_a01/simready_usd/payloads/materials.usda": "32dde6ff8ffb5ce2539991335953c33dfc7cbaf8d5975d541698b4356f0fa5f4",
+    "food_prepared_croissant_a01/simready_usd/payloads/Physics/physics.usda": "e14b5ff4c292832cb4c7fe8bc2384d78af6fcf23ccb67559a0338842412219fb",
+    "food_prepared_croissant_a01/simready_usd/payloads/PhysX/enabled.usda": "bf01bb04f389b445458165f92f976b9322d9b5a475149ee2385562c84b275ba2",
+    "food_prepared_croissant_a01/simready_usd/sm_food_prepared_croissant_a01_01.usd": "494f55fad324f79aadc6c13f69995e01c79338130ecec0585a917be4df821166",
+    "food_prepared_croissant_a01/simready_usd/payloads/instances.usda": "12b71a2c50b7a4ac588eb36a52e565f5f0252a3c364a4af510cca911471cb07b",
+    "food_prepared_croissant_a01/simready_usd/payloads/instances_physx.usda": "ab47960afe396527f705f6e6c68fd3a7f066fef99da41b4718d26adee9bc2660",
+    "food_prepared_croissant_a01/simready_usd/payloads/geometries.usd": "2155f7040749fe3617923e3dafc920fa23ddc323076f0402e0aab508923bd3e6",
+    "food_prepared_croissant_a01/com.nvidia.simready.packaging.json": "5ecdcb91ce49a40f72ca8efd0544aa15ac0e543a0f6e79fd1801a08625cc7cbd",
+    "food_prepared_croissant_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 8206,
+  "originalBytes": 200832,
+  "optimization": {
+    "targetRatio": 0.7,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "tomato",
+  "sourceAsset": "food_produce_tomato_a01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_produce_tomato_a01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    0.0649968683719635,
+    0.05679682083427906,
+    0.0621008463203907
+  ],
+  "sourceOrigin": [
+    0.00027086585760116577,
+    0.00010551325976848602,
+    0.00007566623389720917
+  ],
+  "triangles": 6996,
+  "materials": 1,
+  "bytes": 307484,
+  "sha256": "0f76af82727c15d69c58c91eb64d96115c16bb92fa290842cd16c8185313a3d0",
+  "sourceFiles": {
+    "food_produce_tomato_a01/simready_usd/Textures/t_tomato_red_a01_alb.png": "66325e11c2b329e3746e29834ecb7b2c1f4ca92bc28a2fc776362a699d06ea04",
+    "food_produce_tomato_a01/simready_usd/Textures/t_tomato_red_a01_orm.png": "b62d379b7688a24d462149c39a99d7b4f0f906c38b00c4aef929b3989cdad086",
+    "food_produce_tomato_a01/simready_usd/Textures/t_tomato_red_a01_nor.png": "d0b73d207c7a8c17b0bdc0d6f4cdeabf6fc0336ac77a5cfa8ce78311cb92c778",
+    "food_produce_tomato_a01/simready_usd/payloads/Physics/physics.usda": "218f28f8d3dc3b804b4d1e80df47bfdef683b3eb2f3aa5859f096786d1756cf8",
+    "food_produce_tomato_a01/simready_usd/payloads/MuJoCo/disabled.usda": "e26cfb4a09cf0f0c84442da5d1ec99d5f552de80aa529b407d69ee5f653008d6",
+    "food_produce_tomato_a01/simready_usd/payloads/PhysX/enabled.usda": "27aae8a0be2f898c25ce7a1932858dff774f8d870ee645e7ccc362e9e38df7d4",
+    "food_produce_tomato_a01/simready_usd/payloads/base.usda": "9c1c31f19da366ade8845daf685f19dd8fcdae893bf944bcf4cb3de9342cca49",
+    "food_produce_tomato_a01/simready_usd/payloads/geometries.usd": "7a2eb87a05e86edafabcf94c5dcd05f24d774632155d6ee9f3eccd45c0840b84",
+    "food_produce_tomato_a01/simready_usd/payloads/instances_physx.usda": "afdfb6523e5999851c760bae2f4e21928050e793bff4b882fb6ddd567530ecdd",
+    "food_produce_tomato_a01/simready_usd/payloads/Newton/disabled.usda": "e26cfb4a09cf0f0c84442da5d1ec99d5f552de80aa529b407d69ee5f653008d6",
+    "food_produce_tomato_a01/simready_usd/payloads/instances.usda": "5d9d32efeab2389f6b1a3e63aec666791cf642d19307101bb6bfcf19e12ec473",
+    "food_produce_tomato_a01/simready_usd/sm_food_produce_tomato_a01_01.usd": "abb912f1d94561d56c524648b644bbc0c58183b830f48fe854e5f23799f6609f",
+    "food_produce_tomato_a01/simready_usd/payloads/materials.usda": "29379668dc7bc1da8e83d670c9541103a01c5002e046f4e8608599b9b5f03841",
+    "food_produce_tomato_a01/com.nvidia.simready.packaging.json": "88bced27aec430f7b9635aa67dcaffe5ffc5d1fe781088558a306e98b6ded2a5",
+    "food_produce_tomato_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 9996,
+  "originalBytes": 191140,
+  "optimization": {
+    "targetRatio": 0.7,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

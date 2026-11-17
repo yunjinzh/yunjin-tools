@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4efdf"><meta name="description" content="西游小游记：108位水彩国风角色，12站取经冒险，看图识人、线索挑战、翻牌配对与人物图鉴。">
+<title>西游小游记 · 108角色奇遇</title>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="sprites.css">
+<script defer src="data.js"></script><script defer src="engine.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到游戏内容</a>
+<header class="site-header">
+ <button class="brand" data-action="nav" data-view="home" aria-label="西游小游记首页"><span class="brand-seal">西</span><span>西游小游记<small>一百零八位，一路好故事</small></span></button>
+ <nav aria-label="主导航"><button data-action="nav" data-view="journey">取经之路</button><button data-action="nav" data-view="training">识人练习</button><button data-action="nav" data-view="match">仙缘配对</button><button data-action="nav" data-view="album">人物图鉴</button></nav>
+ <div class="header-tools"><span id="star-total" class="star-total" aria-label="已获得星星">✦ 0</span><button class="icon-btn" data-action="settings" aria-label="设置与存档" title="设置与存档">☷</button></div>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="site-footer"><span>西游小游记 · 108 位角色的国风奇遇</span><button data-action="about">玩法与故事来源</button></footer>
+<dialog id="modal" aria-labelledby="dialog-title"><button class="modal-close icon-btn" data-action="close-modal" aria-label="关闭对话框">×</button><div id="modal-body"></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="confetti" aria-hidden="true"></div>
+<input type="file" id="import-file" accept="application/json,.json" hidden>
+<noscript>请在浏览器中启用 JavaScript，即可开始西游小游记。</noscript>
+</body></html>

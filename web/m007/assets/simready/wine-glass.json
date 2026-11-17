@@ -1,0 +1,44 @@
+{
+  "id": "wine-glass",
+  "sourceAsset": "dishware_glass_wine_a01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/dishware_glass_wine_a01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    0.08181579783558846,
+    0.2270550633838866,
+    0.08181580156087875
+  ],
+  "sourceOrigin": [
+    -1.862645149230957e-9,
+    0.00035790866237604365,
+    -3.725290298461914e-9
+  ],
+  "triangles": 7256,
+  "materials": 1,
+  "bytes": 48912,
+  "sha256": "df8d8213a7780cdd47d617dfe80d8a58b160bae79124e4229e5e936c5f8ea22d",
+  "sourceFiles": {
+    "dishware_glass_wine_a01/simready_usd/payloads/Physics/physics.usda": "5d47f986503c5968d7dff2b80c7e51f05fd16ef8bdacd8e753e63fe49a594c2f",
+    "dishware_glass_wine_a01/simready_usd/payloads/materials.usda": "4b7210e3a3013f99e0d8053eb21d06b9254d445cf48ac20372950b90204bded0",
+    "dishware_glass_wine_a01/simready_usd/payloads/base.usda": "a0dc5b9ec6b28cdd0cab1454485808bd2e08a7afa81cfc1128bad6c2108731b4",
+    "dishware_glass_wine_a01/simready_usd/payloads/Newton/disabled.usda": "3512afc74cc3e5d6eeee51db0f6265357d032322d9255ed2ea9180287eff6efc",
+    "dishware_glass_wine_a01/simready_usd/payloads/MuJoCo/disabled.usda": "3512afc74cc3e5d6eeee51db0f6265357d032322d9255ed2ea9180287eff6efc",
+    "dishware_glass_wine_a01/simready_usd/payloads/PhysX/enabled.usda": "b92e4b8824b885f17732d80477de2febc5003a0744013d16ef4e0c5065636531",
+    "dishware_glass_wine_a01/simready_usd/sm_dishware_glass_wine_a01_01.usd": "d5ba68e0ffcf609761f1e0b21c3e43dbd2f93030dac6779e49b5b7fd31656a63",
+    "dishware_glass_wine_a01/simready_usd/payloads/instances_physx.usda": "e45438016a50ab3f2d94f99b915e8ff37ffe173e3c6f87fc419f138227abd9c0",
+    "dishware_glass_wine_a01/simready_usd/payloads/instances.usda": "2ae3d3e04620f9c340c04dc84f1c759e45b2526eb65ca5b2a1240a982fa24196",
+    "dishware_glass_wine_a01/simready_usd/payloads/geometries.usd": "57e30f3d51b797f52163014be3b596cf4532f11e0506f8979db934e5bd38f54d",
+    "dishware_glass_wine_a01/com.nvidia.simready.packaging.json": "e6543a06ce7cf0e958dea095c8a1e549f4ff5cfaa9a2ba65e95975240bb5b6c5",
+    "dishware_glass_wine_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 10368,
+  "originalBytes": 197100,
+  "optimization": {
+    "targetRatio": 0.7,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

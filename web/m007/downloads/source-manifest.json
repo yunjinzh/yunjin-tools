@@ -1,0 +1,22 @@
+{
+  "name": "embodied-studio-source.zip",
+  "bytes": 36570321,
+  "sha256": "8d9d533232b401a47ed8c3c1f5cae62aa67e9670669df26e70f6a82b443734a4",
+  "parts": [
+    {
+      "file": "source-1.bin",
+      "bytes": 16777216,
+      "sha256": "dcda2fef42e4cf77fccb17ffeceb5abc3bdaad79ff211d21fd30315cdcf475d1"
+    },
+    {
+      "file": "source-2.bin",
+      "bytes": 16777216,
+      "sha256": "754f30b10223fa2dac0994d233900be2b8c012a0149be6adca9bc507fe725661"
+    },
+    {
+      "file": "source-3.bin",
+      "bytes": 3015889,
+      "sha256": "828631c1251efad1bd8d71815fc3c40ca4c3e21d4915713d92715417a2e404c5"
+    }
+  ]
+}

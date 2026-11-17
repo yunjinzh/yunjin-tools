@@ -1,0 +1,47 @@
+{
+  "id": "baguette",
+  "sourceAsset": "food_prepared_baguette_b01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_baguette_b01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    0.054351966828107834,
+    0.03644058294594288,
+    0.3402406722307205
+  ],
+  "sourceOrigin": [
+    0.0022953711450099945,
+    0.000008454546332359314,
+    0.00893121212720871
+  ],
+  "triangles": 9966,
+  "materials": 1,
+  "bytes": 1168684,
+  "sha256": "3783815a40e8f6a4446952e88412a5dbae420d9e6578e180c9fcb5fcf9dfa423",
+  "sourceFiles": {
+    "food_prepared_baguette_b01/simready_usd/Textures/t_baguette_brown_b01_alb.png": "67f7572f85276e6461c222cb8fe1f1dc3588418b67985395dcff2137eda5c420",
+    "food_prepared_baguette_b01/simready_usd/Textures/t_baguette_brown_b01_orm.png": "cbf6e1308d5cce09a339bfa3941269cb724ed5a4e0fcf40a8903ac894e764216",
+    "food_prepared_baguette_b01/simready_usd/Textures/t_baguette_brown_b01_nor.png": "3d61a38b8d35151469c85fe3d840d83c43d8dfd3ee2e3e3f9aa2a515af2f979a",
+    "food_prepared_baguette_b01/simready_usd/payloads/materials.usda": "3c7badad707bcc299e0eb1fba98b74dd738abd50bb7b3ffe8d4e9be8eff4da82",
+    "food_prepared_baguette_b01/simready_usd/sm_food_prepared_baguette_b01_01.usd": "f45d5bcb058a832eb711cc106db077336d836360f9ed1ef59acad9b21794befa",
+    "food_prepared_baguette_b01/simready_usd/payloads/Newton/disabled.usda": "888e8bed1e7c23740a178d6c2d1dd635a1d3d5f332ebe7ec3bfd1d1ee43319c9",
+    "food_prepared_baguette_b01/simready_usd/payloads/Physics/physics.usda": "2f3f094ad4c85ae27fcdb93da0fd6fe05b65548ba621581bb131148324690897",
+    "food_prepared_baguette_b01/simready_usd/payloads/PhysX/enabled.usda": "9a1edc142b194d3222e7eef5a1c356ec0b89d913321343c91f53aaf23a019425",
+    "food_prepared_baguette_b01/simready_usd/payloads/base.usda": "f36ae6023b21aa536c086519daa4c60bbb8aedd5bfa15fa629c767a86c06a315",
+    "food_prepared_baguette_b01/simready_usd/payloads/MuJoCo/disabled.usda": "888e8bed1e7c23740a178d6c2d1dd635a1d3d5f332ebe7ec3bfd1d1ee43319c9",
+    "food_prepared_baguette_b01/simready_usd/payloads/geometries.usd": "e96990516bb31b2aa596567cf15346ae3d5b5fe71a77780c1aa9f0a4e8ae133b",
+    "food_prepared_baguette_b01/simready_usd/payloads/instances.usda": "ab0c28518ef8bfcc6eb7fce4fcdaaf6f43f26f30be221b5a027187b19ff62514",
+    "food_prepared_baguette_b01/simready_usd/payloads/instances_physx.usda": "de47d545c28d1d415aca56187f3c3d51a8d10fc842583470f2bb5a34c74e5a30",
+    "food_prepared_baguette_b01/com.nvidia.simready.packaging.json": "51a383a0bee368c2f0a1c4b4bfa09f4d7a341d5b2010f9f998b34e16e49ae236",
+    "food_prepared_baguette_b01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 14238,
+  "originalBytes": 261976,
+  "optimization": {
+    "targetRatio": 0.7,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}
