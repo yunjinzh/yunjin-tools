@@ -1,17 +1,18 @@
 {
-  "completed_at": "2026-11-17T19:47:54+08:00",
+  "completed_at": "2026-11-17T21:54:17+08:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
-  "added": [
+  "added": [],
+  "updated": [
     "m144"
   ],
-  "updated": [],
   "source_project": "appgprj_6afc241e19908191b37f3167e5cd721f",
-  "source_version": 1,
-  "source_version_id": "appgprj_6afc241e19908191b37f3167e5cd721f~appgver_b686480848e881918059e3a8e493db84",
-  "source_commit": "3035985654bdabd1543c1b482b6ec17235a191a7",
-  "deployment_commit": "e0356c14d01ee2ba456560fd46a406a645486ef0",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44076678424",
+  "previous_source_version": 1,
+  "source_version": 2,
+  "source_version_id": "appgprj_6afc241e19908191b37f3167e5cd721f~appgver_27c0ea43d02c8191947120a39e19c4a3",
+  "source_commit": "27e2cbb491da36bc89899de7240710357854e9e9",
+  "deployment_commit": "43241f3fa491580a7762d56abf14b34ebc51050e",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44096440022",
   "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
   "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
   "catalogue_count": 144,
@@ -21,6 +22,11 @@
     "pages": 3,
     "catalogue_source_changed": false
   },
+  "content_changes": [
+    "题目“闷雷”中的“闷”答案、解析和提示更新为 mèn（第四声）。",
+    "方以智名句排序改为“而疑人之所不疑”，同步更新词块及解析。",
+    "题库脚本增加 v=20261117-2 缓存版本标记。"
+  ],
   "source_snapshot_check": {
     "unchanged_source_files": 6,
     "unchanged_web_files": 4,
@@ -29,7 +35,7 @@
   "upstream_checks": {
     "result": "passed",
     "command": "node checks/game-check.cjs",
-    "working_directory": "sources/m144",
+    "scope": "selected Sites source commit",
     "questions": 54,
     "levels": 8
   },
@@ -38,7 +44,7 @@
   },
   "build": {
     "files": 3627,
-    "bytes": 643615304,
+    "bytes": 643615440,
     "size_limit_bytes": 996147200,
     "validated_asset_records": 2658
   },
@@ -108,8 +114,8 @@
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
-        "bytes": 93291,
-        "sha256": "e7550a095527b27f2d4e55d8204235a2f70c0f29e5dda7208af9b852b8284fa0",
+        "bytes": 93297,
+        "sha256": "aedd457202663ca0aeba3f9e83663a2d10953bd3821f5f835fe751a2c052ae55",
         "matches_build": true
       },
       {
@@ -120,8 +126,8 @@
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
-        "bytes": 897,
-        "sha256": "b2bfb660b17b0cb0f7ad4539dec6e070271bfba3b2c8d54d7ebf107f17a40551",
+        "bytes": 910,
+        "sha256": "2e94e42689a97a809088a83c61661adf97b1afd838c17accf6baba58dc26b8c2",
         "matches_build": true
       },
       {
@@ -138,8 +144,8 @@
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/questions.js",
-        "bytes": 12563,
-        "sha256": "a206939022f79d1b5b69f30afd4be734846a0843a9edb319547a8860740b6d7c",
+        "bytes": 12680,
+        "sha256": "23c1bb75415381887d1c5b75e51f664c8443beb87d6a19897142e8fa3a02298f",
         "matches_build": true
       },
       {
