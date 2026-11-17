@@ -1,0 +1,20 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { build } from 'esbuild';
+import { composeOfflineHtml } from '../lib/offline-document.mjs';
+const root=process.cwd();
+const assetDir=path.join(root,'dist/client/assets');
+const cssFiles=(await fs.readdir(assetDir)).filter(name=>name.endsWith('.css'));
+if(!cssFiles.length)throw new Error('Build the online version before creating the offline HTML.');
+const css=(await Promise.all(cssFiles.map(name=>fs.readFile(path.join(assetDir,name),'utf8')))).join('\n');
+const collection=JSON.parse(await fs.readFile(path.join(root,'app/data/collection.json'),'utf8'));
+const assets={};
+for(const art of collection){const bytes=await fs.readFile(path.join(root,'public',art.image));assets[art.image]='data:image/jpeg;base64,'+bytes.toString('base64');}
+const bundle=await build({entryPoints:[path.join(root,'offline/entry.tsx')],bundle:true,write:false,platform:'browser',format:'iife',target:['chrome100','edge100','firefox100','safari15.4'],minify:true,legalComments:'inline',define:{'process.env.NODE_ENV':'"production"'},metafile:true,tsconfig:path.join(root,'tsconfig.json')});
+if(Object.values(bundle.metafile.outputs).some(output=>output.imports.length))throw new Error('The offline bundle contains external imports.');
+const favicon='data:image/svg+xml;base64,'+(await fs.readFile(path.join(root,'public/favicon.svg'))).toString('base64');
+const html=composeOfflineHtml({css,javascript:bundle.outputFiles[0].text,data:{version:2,storageId:'atelier-gallery-v2',assets,personal:[]},favicon});
+await fs.mkdir(path.join(root,'public'),{recursive:true});
+await fs.writeFile(path.join(root,'public/offline-gallery.html'),html);
+await fs.writeFile(path.join(root,'dist/client/offline-gallery.html'),html);
+console.log(`Offline HTML built: ${(Buffer.byteLength(html)/1024/1024).toFixed(2)} MB, ${collection.length} embedded artworks, no external JS imports.`);

@@ -1,0 +1,693 @@
+[
+  {
+    "id": "temple-heaven",
+    "name": "祈年殿",
+    "englishName": "Hall of Prayer for Good Harvests",
+    "city": "北京",
+    "cityId": "beijing",
+    "category": "historic",
+    "year": "1420年初建；1896年重建",
+    "height": "38.2米",
+    "location": "北京市东城区天坛公园北部 · 天坛内东里7号",
+    "summary": "三重蓝色圆顶，把敬天祈谷的礼制写进北京天际线。",
+    "description": [
+      "祈年殿是天坛祈谷坛的核心建筑，位于北京传统中轴线东侧的皇家祭坛内。其前身始建于明永乐十八年（1420年），承担祭祀天地的礼仪功能，后来成为明清皇帝在孟春祈求五谷丰登的场所。1889年殿宇毁于雷火，今天所见主体于1896年重建完成。",
+      "大殿高38.2米，圆形殿身立在三层汉白玉台基上，三重攒尖屋顶逐层收拢，以深蓝琉璃瓦、朱红柱身和鎏金宝顶组成鲜明轮廓。圆形、蓝色和向上收束的屋顶共同表达对天的崇敬；严整木构与彩画又使礼仪秩序成为可以观看的建筑。",
+      "从祈年殿向南，丹陛桥把祈谷坛与圜丘坛连接为连续的祭祀轴线，周围大片古柏强化了殿宇的庄严感。它既是研究中国皇家祭祀制度的重要实物，也是天坛世界文化遗产中最易辨认的形象。"
+    ],
+    "highlights": [
+      "三重蓝琉璃攒尖顶",
+      "三层汉白玉圆形台基",
+      "朱柱、彩画与鎏金宝顶"
+    ],
+    "modeling": {
+      "silhouette": "圆形殿体＋三层逐级收分的圆顶＋三层白石台基",
+      "geometryNotes": [
+        "三重檐由大到小向上叠置，顶部为金色宝顶。",
+        "殿身以红色柱列和深色窗扇围成圆筒，屋檐明显外挑。",
+        "通高采用38.2米；模型比例应突出宽阔台基与轻盈圆顶。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "北京市人民政府 · 天坛公园导览",
+        "url": "https://english.beijing.gov.cn/specials/parktours/guidevisitors/templeofheaven/"
+      },
+      {
+        "title": "文化和旅游部 · 恢复清末面貌，祈年殿大修后正式开放",
+        "url": "https://www.mct.gov.cn/gtb/index.jsp?url=http%3A%2F%2Fwww.mct.gov.cn%2Fwhzx%2Ftpxw%2F200604%2Ft20060430_828301.htm"
+      },
+      {
+        "title": "北京市人民政府 · 天坛公园",
+        "url": "https://www.beijing.gov.cn/gate/big5/www.beijing.gov.cn/renwen/rwzyd/lyjq/5A/ttgy/202210/t20221018_2838152.html"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Hall_of_Prayer_for_Good_Harvest.JPG",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Hall_of_Prayer_for_Good_Harvest.JPG/960px-Hall_of_Prayer_for_Good_Harvest.JPG",
+    "photoCredit": "Fong Chen (Charlie fong)",
+    "photoLicense": "CC BY-SA 4.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Hall_of_Prayer_for_Good_Harvest.JPG",
+    "modelKey": "temple-heaven"
+  },
+  {
+    "id": "cctv",
+    "name": "央视总部大楼",
+    "englishName": "CCTV Headquarters",
+    "city": "北京",
+    "cityId": "beijing",
+    "category": "modern",
+    "year": "2012年竣工",
+    "height": "234米",
+    "location": "北京市朝阳区国贸商务区 · 东三环与光华路一带",
+    "summary": "两座倾斜塔楼在高空相接，形成可绕行观看的三维环。",
+    "description": [
+      "央视总部大楼位于北京国贸商务区，由OMA设计、奥雅纳承担工程设计，2012年完成建设。建筑把新闻、制作、演播和办公等工作空间连接在同一整体中，将电视生产的流程转化为连续的建筑组织，也为北京东部商务区留下独特的城市标记。",
+      "它的最高处为234米：两座向内倾斜的塔楼从共同基座升起，在上方通过转折的巨大悬挑相连，中央留出开阔空洞。高空悬挑长达75米，使轮廓随着观察方向显著改变；从不同街角观看，同一建筑会呈现厚重、轻巧或近似门框的不同姿态。",
+      "外立面的斜向网格也是结构表达。受力较大的部位网格更密，其他位置则更疏，从而把复杂的工程逻辑直接显示在表皮上。环形体量、倾斜塔身与不均匀斜网格共同构成其辨识度。"
+    ],
+    "highlights": [
+      "倾斜双塔与中央空洞",
+      "75米高空悬挑",
+      "随受力变化的斜向网格"
+    ],
+    "modeling": {
+      "silhouette": "两根倾斜矩形塔体＋顶部折角连体＋底部基座，形成不对称闭合环",
+      "geometryNotes": [
+        "两塔朝内倾斜，不应建成两根竖直方柱。",
+        "上方连接体具有明显厚度和转折，中央留白必须通透。",
+        "外表皮可用疏密有别的深色对角网格表现。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "OMA · CCTV – Headquarters",
+        "url": "https://www.oma.com/projects/cctv-headquarters"
+      },
+      {
+        "title": "Arup · China Central Television Headquarters",
+        "url": "https://www.arup.com/projects/china-central-television-headquarters/"
+      },
+      {
+        "title": "建筑师供稿 · CCTV Headquarters / OMA",
+        "url": "https://www.archdaily.com/236175/cctv-headquarters-oma"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/CCTV_Headquarters.jpg",
+    "localImagePath": "/workspace/scratch/landmark-assets/images/cctv.jpg",
+    "researchedOn": "2026-09-05",
+    "image": "/photos/cctv.jpg",
+    "photoCredit": "維基小霸王",
+    "photoLicense": "CC BY-SA 4.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:CCTV_Headquarters.jpg",
+    "modelKey": "cctv"
+  },
+  {
+    "id": "oriental-pearl",
+    "name": "东方明珠",
+    "englishName": "Oriental Pearl Tower",
+    "city": "上海",
+    "cityId": "shanghai",
+    "category": "modern",
+    "year": "1994年建成并开始对外营业",
+    "height": "468米",
+    "location": "上海市浦东新区陆家嘴 · 世纪大道1号",
+    "summary": "大小球体串起468米的城市坐标，隔江与外滩相望。",
+    "description": [
+      "东方明珠广播电视塔坐落在黄浦江东岸的陆家嘴，1994年建成并开始对外营业。它兼具广播电视发射、城市观光、餐饮与历史展示等功能，是浦东开发时期最鲜明的建筑形象之一。站在外滩回望，塔身的球体与天线成为辨认上海方向的坐标。",
+      "全塔高468米，大小不同的十一颗球体由三根立柱连接，底部再以三根斜撑稳定地落向地面。上下两个大球与中间的小球、顶部太空舱形成富于节奏的竖向构图；粉红色球壳、灰白支柱和细长天线，让广播设施带有强烈的太空时代想象。",
+      "观光空间分布在不同高度的球体内，电梯沿立柱组织上下交通，使结构、交通和游览相互结合。隔江的外滩历史建筑群与陆家嘴现代高楼在此同框，东方明珠因而也成为阅读上海城市变化的一处窗口。"
+    ],
+    "highlights": [
+      "十一颗大小错落的球体",
+      "三立柱与三根斜撑",
+      "太空舱与细长发射天线"
+    ],
+    "modeling": {
+      "silhouette": "三柱支撑的大小球体串联结构，顶端为小球与长针状天线",
+      "geometryNotes": [
+        "重点保留下部大球、上部大球和顶部小球，三者大小与高度应明显区分。",
+        "地面三斜撑张开，上接三根垂直圆柱。",
+        "主色为灰白支柱与粉红球壳，球面可用细分网格增强实景对应。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "上海市人民政府 · 上海东方明珠电视塔",
+        "url": "https://japanese.shanghai.gov.cn/ja-%20PlacestoGo/20240320/26b447d8e746416d9080ac00c42840bf.html"
+      },
+      {
+        "title": "Otis · 东方明珠广播电视塔",
+        "url": "https://www.otis.com/zh/cn/our-company/global-projects/project-showcase/oriental-pearl-tower"
+      },
+      {
+        "title": "陆家嘴金融网 · 东方明珠",
+        "url": "https://www.ljzfin.com/news/info/3814.html"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Oriental_Pearl_Tower_Shanghai.JPG",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Oriental_Pearl_Tower_Shanghai.JPG/500px-Oriental_Pearl_Tower_Shanghai.JPG",
+    "photoCredit": "Yoky",
+    "photoLicense": "CC BY-SA 3.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Oriental_Pearl_Tower_Shanghai.JPG",
+    "modelKey": "oriental-pearl"
+  },
+  {
+    "id": "longhua-pagoda",
+    "name": "龙华塔",
+    "englishName": "Longhua Pagoda",
+    "city": "上海",
+    "cityId": "shanghai",
+    "category": "historic",
+    "year": "977年塔身遗构；外檐历代重修",
+    "height": "40.64米",
+    "location": "上海市徐汇区龙华地区 · 龙华寺山门前",
+    "summary": "七层八角的宋代砖塔身，留下上海古老寺院的垂直标记。",
+    "description": [
+      "龙华塔位于龙华寺前，是上海少见的千年古塔。关于其初建有三国时期的传说，而现存砖塔身可追溯到北宋太平兴国二年（977年）；外部木檐、栏杆和装饰则经过历代修整。因此，今天的塔同时保留了早期结构与后世维护留下的痕迹。",
+      "塔高40.64米，为砖木结构的七层八角楼阁式塔。各层平面随高度逐步收小，外挑屋檐与翘起的檐角形成整齐的层层节奏；塔内砖身、木楼板和盘旋木梯共同组织向上的空间。每层门洞与壁龛交替布置，兼顾结构厚度和立面的轻盈。",
+      "塔顶的金色宝瓶、各层檐角的风铎以及宋式构件细节，使它在树木环抱中依然具有清晰的识别度。2021年的保养修缮继续处理木构、彩饰和风铎等部位，让这座地标以持续维护的方式保存历史。"
+    ],
+    "highlights": [
+      "七层八角楼阁式塔",
+      "逐层收分的砖木结构",
+      "金色宝瓶与檐角风铎"
+    ],
+    "modeling": {
+      "silhouette": "七层八角塔，每层屋檐宽于塔身，逐层收小，顶端金色宝瓶",
+      "geometryNotes": [
+        "严格使用七层，不可简化成五层或九层。",
+        "外部八角平面与每角翘檐是核心，砖身为暖灰或浅褐色。",
+        "屋檐可用深色瓦面，栏杆与柱列形成每层的水平节奏。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "上海市文旅推广网 · 龙华塔",
+        "url": "https://www.meet-in-shanghai.net/cn/national-key-cultural-relics-protection-unit/longhua-tower-961197/"
+      },
+      {
+        "title": "央视网上海 · 上海市中心唯一的千年佛塔",
+        "url": "https://sh.cctv.com/2021/09/03/ARTIKSUpag2qIJNDwfusUI83210903.shtml"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Longhua_Pagoda%2C_2019-10-19_01.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Longhua_Pagoda%2C_2019-10-19_01.jpg/960px-Longhua_Pagoda%2C_2019-10-19_01.jpg",
+    "photoCredit": "Siyuwj",
+    "photoLicense": "CC BY-SA 4.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Longhua_Pagoda%2C_2019-10-19_01.jpg",
+    "modelKey": "longhua-pagoda"
+  },
+  {
+    "id": "canton-tower",
+    "name": "广州塔",
+    "englishName": "Canton Tower",
+    "city": "广州",
+    "cityId": "guangzhou",
+    "category": "modern",
+    "year": "2010年对外开放",
+    "height": "600米",
+    "location": "广州市海珠区阅江西路222号 · 珠江南岸",
+    "summary": "旋转的椭圆与开放钢网，在珠江岸边收出纤细的腰身。",
+    "description": [
+      "广州塔位于广州城市新中轴线与珠江景观轴交汇处，与海心沙和珠江新城隔江相望，2010年对外开放。它把广播电视发射、观景、餐饮与游乐等功能集中到高空，是珠江两岸公共活动与城市景观的重要参照点。",
+      "塔的总高为600米，最醒目的特征是中部收紧、上下舒展的开放式钢结构。塔底和塔顶的椭圆平面彼此旋转约45度，24根倾斜柱与横向环梁、斜杆组成连续外网，围绕内部混凝土核心筒上升，令坚硬的构件呈现流动的视觉效果。",
+      "纤细腰部与扩展的上部空间之间形成强烈比例变化，建筑因而获得“小蛮腰”的昵称。白天可以观察钢网与天空的穿插，夜间灯光沿结构展开，让建筑轮廓成为珠江夜景的一部分。"
+    ],
+    "highlights": [
+      "旋转椭圆形成的纤细腰部",
+      "24根倾斜柱与环向钢网",
+      "含天线的600米总高度"
+    ],
+    "modeling": {
+      "silhouette": "双曲面感的扭转镂空塔，底宽、腰细、上部再张开，附长天线",
+      "geometryNotes": [
+        "外网由24根直而倾斜的主柱形成旋转感，辅以环梁和斜杆。",
+        "底部与顶部主椭圆相对旋转约45度；最细腰宽约22米。",
+        "采用通透外框与独立核心筒，避免做成不透明实心扭曲柱。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "广州市海珠区人民政府 · 广州塔",
+        "url": "https://www.haizhu.gov.cn/hzdt/ztlm/tzhz/rjhj/lyjd/csmp/content/post_9190964.html"
+      },
+      {
+        "title": "Hong Kong Engineer · 广州塔工程设计（Arup项目工程师撰文）",
+        "url": "https://www.hkengineer.org.hk/issue/vol40-mar2012/cover_story/"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Canton_Tower.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Canton_Tower.jpg/960px-Canton_Tower.jpg",
+    "photoCredit": "Chinatravelsavvy / ChinaTravelSavvy.Com",
+    "photoLicense": "CC BY-SA 3.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Canton_Tower.jpg",
+    "modelKey": "canton-tower"
+  },
+  {
+    "id": "zhenhai-tower",
+    "name": "镇海楼",
+    "englishName": "Zhenhai Tower",
+    "city": "广州",
+    "cityId": "guangzhou",
+    "category": "historic",
+    "year": "1380年初建；1928年修葺",
+    "height": "28米",
+    "location": "广州市越秀区越秀公园内 · 越秀山小蟠龙冈",
+    "summary": "越秀山上的五层红楼，以城防制高点见证广州城史。",
+    "description": [
+      "镇海楼始建于明洪武十三年（1380年），是广州城北界扩展到越秀山时兴建的城楼，曾名望海楼，因高五层而俗称“五层楼”。它坐落在明清城墙北段的制高点，既具有瞭望与城防意义，也长期成为广州城市形象的一部分。",
+      "建筑总高28米，五层楼阁由下向上逐步收分，红色墙身与层层出挑的深色瓦檐构成稳重轮廓。现存建筑的一、二层主要以红砂条石砌筑，三层及以上采用青砖；坚实下部与较轻上部的对比，体现了山顶城楼的结构层次。",
+      "历经多次毁坏与重修后，镇海楼于1928年修葺并筹办博物院，1929年正式对公众开放。如今广州博物馆在楼内以文物与城市历史陈列，讲述广州的城址变化、海上交流和岭南生活，使古城楼继续承担公共文化功能。"
+    ],
+    "highlights": [
+      "五层逐级收分的城楼",
+      "红砂岩基部与红色楼身",
+      "越秀山明城墙制高点"
+    ],
+    "modeling": {
+      "silhouette": "宽厚红色五层楼阁，层层水平出檐，坐落于山体和灰色城墙之上",
+      "geometryNotes": [
+        "五层结构及五道水平屋檐构成主要节奏，底层宽而厚重。",
+        "主体色红，屋檐深绿或灰黑，保留矩形楼体而非圆塔。",
+        "可用局部灰色城墙和山地台地表达其城防背景。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "广州博物馆 · 概述",
+        "url": "https://www.guangzhoumuseum.cn/website_cn/Web/Visit/Introduction.aspx"
+      },
+      {
+        "title": "广州市林业和园林局 · 镇海楼",
+        "url": "https://lyylj.gz.gov.cn/stly/gyjq/yxgy/jdjs/content/post_3037545.html"
+      },
+      {
+        "title": "广州市人民政府 · 镇海楼保养维护与建筑结构",
+        "url": "https://www.gz.gov.cn/zlgz/wlzx/content/post_10750460.html"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/%E5%B9%BF%E5%B7%9E%E9%95%87%E6%B5%B7%E6%A5%BC2019.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/%E5%B9%BF%E5%B7%9E%E9%95%87%E6%B5%B7%E6%A5%BC2019.jpg/960px-%E5%B9%BF%E5%B7%9E%E9%95%87%E6%B5%B7%E6%A5%BC2019.jpg",
+    "photoCredit": "ScareCriterion12",
+    "photoLicense": "CC BY-SA 4.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:%E5%B9%BF%E5%B7%9E%E9%95%87%E6%B5%B7%E6%A5%BC2019.jpg",
+    "modelKey": "zhenhai-tower"
+  },
+  {
+    "id": "pingan",
+    "name": "平安金融中心",
+    "englishName": "Ping An Finance Centre",
+    "city": "深圳",
+    "cityId": "shenzhen",
+    "category": "modern",
+    "year": "2017年竣工",
+    "height": "约599米",
+    "location": "深圳市福田区福田中心区 · 益田路与福华路一带",
+    "summary": "笔直竖线向塔冠汇合，塑造福田中心区的高空坐标。",
+    "description": [
+      "平安金融中心位于深圳福田中心区，2017年竣工，高约599米。由KPF设计的建筑集总部办公、商业及公共活动空间于一体，通过裙房和交通联系嵌入周边商务区，是深圳高密度城市发展中极具代表性的超高层项目。",
+      "塔身以清晰的竖向线条强调高度，立面从宽阔基部持续上升，并在顶部逐渐收束为尖削塔冠。外墙不同深度的构件与玻璃面形成细密阴影，远看轮廓简洁，近看则有丰富的立面层次；上端的收分也使塔楼在多方向视角中保持鲜明识别度。",
+      "建筑并不只在高空组织空间。低层商业裙房逐层退台，中央中庭引入自然光，为会面、购物和通行提供较开放的场所。从地面的商业活动到高处的办公与观景，它展示了深圳把多种城市功能垂直组合的方式。"
+    ],
+    "highlights": [
+      "向上收束的尖削塔冠",
+      "连续而突出的竖向构件",
+      "退台商业裙房与采光中庭"
+    ],
+    "modeling": {
+      "silhouette": "高挑方形超高层，边角与顶部逐步削收，尖削金字塔式塔冠",
+      "geometryNotes": [
+        "主体采用银灰色竖向肋和蓝灰玻璃，突出垂直感。",
+        "塔冠是楼体连续收束形成的尖顶，不添加旧设计中的独立长天线。",
+        "官方建筑师页面将高度取整为600米；城市资料为599米，展示用约599米。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "KPF · Ping An Finance Centre",
+        "url": "https://www.kpf.com/project/ping-an-finance-centre"
+      },
+      {
+        "title": "深圳市委组织部转载城市建设资料 · 特区建立44周年",
+        "url": "https://www.zzb.sz.gov.cn/news/guangdong/content/post_1194097.html"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Ping_An_Finance_Center_-_2018-11-30.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Ping_An_Finance_Center_-_2018-11-30.jpg/500px-Ping_An_Finance_Center_-_2018-11-30.jpg",
+    "photoCredit": "Mx. Granger",
+    "photoLicense": "CC0 1.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Ping_An_Finance_Center_-_2018-11-30.jpg",
+    "modelKey": "pingan"
+  },
+  {
+    "id": "dapeng-gate",
+    "name": "大鹏所城南门",
+    "englishName": "South Gate of Dapeng Fortress",
+    "city": "深圳",
+    "cityId": "shenzhen",
+    "category": "historic",
+    "year": "1394年初建；1998年重修门楼",
+    "height": "11米",
+    "location": "深圳市大鹏新区大鹏街道鹏城社区 · 南门街",
+    "summary": "一座海防所城的正门，墙体里叠着明代与现代修缮的时间。",
+    "description": [
+      "大鹏所城南门是明代大鹏守御千户所城的正门，始建于洪武二十七年（1394年），坐北朝南。所城长期承担南粤沿海防务，保存了军民聚居、海防将领家族与地方生活的历史，也与深圳“鹏城”的称谓紧密相连。",
+      "南门楼面阔25米、进深12米，通高11米，正面以宽厚城台、中央拱券、马面和城垛形成防御性外观。现状墙体可辨认出不同年代：最下方青灰色部分属于明初遗存，中部红色墙体为1984年重修，上部城垛及门楼则于1998年重修。",
+      "进入城门后，街巷和将军府第把人引向更具体的日常历史。作为大鹏新区博物馆管理的文物场馆之一，南门不仅是古城入口，也是理解深圳在现代都市兴起之前，如何与海洋、军事及深港共同历史相连的起点。"
+    ],
+    "highlights": [
+      "25米宽的砖石城台",
+      "中央拱券与城垛马面",
+      "可辨认的三段修缮层次"
+    ],
+    "modeling": {
+      "silhouette": "低宽砖石城台＋中央拱券门洞＋城垛与上部传统门楼",
+      "geometryNotes": [
+        "外轮廓约宽25米、深12米、通高11米，强调宽厚而非高耸。",
+        "墙体可分青灰基部、红褐中段和上部城垛；中央门洞必须贯穿。",
+        "门楼与城台分别表达，屋顶与柱列比例以真实照片为准。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "深圳市人民政府 · 大鹏新区博物馆（南门楼测绘与修缮史）",
+        "url": "https://www.sz.gov.cn/szzt2010/szwtt/wtcg/whcg/content/post_11171158.html"
+      },
+      {
+        "title": "深圳市人民政府 · 深圳为什么被称为鹏城",
+        "url": "https://www.sz.gov.cn/szstory/202212/content/post_10330794.html"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e8/%E5%A4%A7%E9%B9%8F%E6%89%80%E5%9F%8E%E5%8D%97%E9%97%A8%E4%B8%9C%E8%B7%AF.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/%E5%A4%A7%E9%B9%8F%E6%89%80%E5%9F%8E%E5%8D%97%E9%97%A8%E4%B8%9C%E8%B7%AF.jpg/960px-%E5%A4%A7%E9%B9%8F%E6%89%80%E5%9F%8E%E5%8D%97%E9%97%A8%E4%B8%9C%E8%B7%AF.jpg",
+    "photoCredit": "Iswzo",
+    "photoLicense": "CC BY-SA 4.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:%E5%A4%A7%E9%B9%8F%E6%89%80%E5%9F%8E%E5%8D%97%E9%97%A8%E4%B8%9C%E8%B7%AF.jpg",
+    "modelKey": "dapeng-gate"
+  },
+  {
+    "id": "raffles",
+    "name": "重庆来福士",
+    "englishName": "Raffles City Chongqing",
+    "city": "重庆",
+    "cityId": "chongqing",
+    "category": "modern",
+    "year": "2020年整体建成（建筑师项目档案）",
+    "height": "约350米（最高两塔）",
+    "location": "重庆市渝中区朝天门 · 长江与嘉陵江交汇处",
+    "summary": "八座高楼与一条空中连廊，在两江交汇处组成竖向城市。",
+    "description": [
+      "重庆来福士位于长江与嘉陵江交汇的朝天门，由萨夫迪建筑事务所设计，建筑师项目档案将整体建成年份列为2020年。基地曾是重要城门与水上贸易节点，今天的综合体继续面向两江，以办公、住宅、酒店、商业和公共空间回应山城密集而立体的生活。",
+      "项目由八座塔楼组成，六座约250米高，两座约350米高。最醒目的“水晶连廊”架设在约250米高处，长度约300米，沿四座塔楼顶部横向展开，呈现轮船甲板般的城市轮廓。内部的花园、餐饮及活动空间，让高空连接不仅是外观符号。",
+      "建筑顺应朝天门起伏的地形设置多层入口，并以穿过商业裙房的公共步行联系，把屋顶公园与广场连接起来。高楼、连廊与立体公共空间的组合，使它成为观察重庆如何利用地形和高差组织城市的一处实例。"
+    ],
+    "highlights": [
+      "八塔高低错落的组合",
+      "约300米长的水晶连廊",
+      "顺应山地的多层公共通道"
+    ],
+    "modeling": {
+      "silhouette": "八座略带弧度的高楼群，顶部横架细长弧形连廊，最高两塔突出",
+      "geometryNotes": [
+        "主塔高度层级采用六座约250米、两座约350米。",
+        "连廊位于约250米高度，长约300米，应横跨多塔而非只接两塔。",
+        "体量组合需留出塔间缝隙，底部设置大型层叠商业裙房。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "Safdie Architects · Raffles City Chongqing",
+        "url": "https://www.safdiearchitects.com/projects/raffles-city-chongqing"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Raffles_City_Chongqing_from_Yangtze_River%28cropped%29.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Raffles_City_Chongqing_from_Yangtze_River%28cropped%29.jpg/500px-Raffles_City_Chongqing_from_Yangtze_River%28cropped%29.jpg",
+    "photoCredit": "Junyi Lou",
+    "photoLicense": "CC BY-SA 4.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Raffles_City_Chongqing_from_Yangtze_River%28cropped%29.jpg",
+    "modelKey": "raffles"
+  },
+  {
+    "id": "huguang",
+    "name": "湖广会馆",
+    "englishName": "Huguang Guild Hall",
+    "city": "重庆",
+    "cityId": "chongqing",
+    "category": "historic",
+    "year": "明末清初始建；1759年重建；1846年扩建",
+    "location": "重庆市渝中区望龙门街道东正街4号",
+    "summary": "黄墙灰瓦与戏台院落，保存移民会馆的乡情和山城空间。",
+    "description": [
+      "重庆湖广会馆位于渝中半岛长江岸边，始建于明末清初，1759年重建、1846年扩建。它汇集禹王宫、齐安会所、广东会所等建筑，承载外省移民在重庆的会聚、祭祀与社会交往，是理解“湖广填四川”及城市移民文化的重要场所。",
+      "建筑群顺应山地高差展开，黄色墙体、灰黑瓦顶与起伏的院落构成强烈的地域形象。会馆以门楼戏台、殿宇、厢房和庭院组织空间，木雕题材涵盖戏曲故事、人物、动物与花卉，使公共活动与装饰艺术在同一环境中相遇。",
+      "禹王宫是核心建筑之一，其木构正殿采用歇山顶、抬梁式梁架，前檐施斗拱。今天，会馆内的移民与匾额展示把建筑本身变成历史叙事的一部分；沿台阶穿过不同院落，也能直接感受传统会馆如何适应重庆的地形。"
+    ],
+    "highlights": [
+      "黄色墙体与灰黑瓦顶",
+      "戏台、院落和精细木雕",
+      "禹王宫歇山顶木构正殿"
+    ],
+    "modeling": {
+      "silhouette": "沿坡叠置的黄墙灰瓦院落群，以高低不一的歇山与山墙屋顶组成",
+      "geometryNotes": [
+        "不要合并成单个楼阁；至少表现正殿、戏台、侧院与连接台阶。",
+        "主色为黄墙、深灰瓦面和深红木构，屋顶檐角微翘。",
+        "所选照片拍摄的是会馆内禹王宫，建模可将其作为建筑群的核心。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "重庆市文化和旅游发展委员会 · 湖广会馆",
+        "url": "https://whlyw.cq.gov.cn/zjwl/yzq/cqwlzy/zqwwzy/202405/t20240507_13182428.html"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/52/Chongqing_Huguang_Huiguan_2014.04.21_13-14-42.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Chongqing_Huguang_Huiguan_2014.04.21_13-14-42.jpg/960px-Chongqing_Huguang_Huiguan_2014.04.21_13-14-42.jpg",
+    "photoCredit": "Zhangzhugang",
+    "photoLicense": "CC BY-SA 3.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Chongqing_Huguang_Huiguan_2014.04.21_13-14-42.jpg",
+    "modelKey": "huguang"
+  },
+  {
+    "id": "tianfu-twins",
+    "name": "天府双塔",
+    "englishName": "Tianfu Twin Towers",
+    "city": "成都",
+    "cityId": "chengdu",
+    "category": "modern",
+    "year": "当代建筑（2020年已建成）",
+    "height": "218米",
+    "location": "成都市高新区天府大道北段966号 · 天府国际金融中心",
+    "summary": "两座银色高楼并肩而立，把金融城的立面变成夜间光幕。",
+    "description": [
+      "天府双塔是天府国际金融中心园区的一部分，位于成都高新区天府大道北段，与交子大道和金融城公共空间相连。园区运营方公布的双塔高度为218米，内部包含办公与高端公寓等功能，体现成都南向发展的商务区形态。",
+      "两座相近高度的塔楼并肩而立，外立面以金属镂空网格覆盖玻璃幕墙，形成细密而具有层次的“冰花”纹理。白天，规则的高层体量与闪亮网格强调秩序；夜间，沿立面设置的灯光把外墙转化为巨幅画面，建筑的视觉表情随内容不断变化。",
+      "节庆与城市活动中，双塔经常与交子之环及周边楼宇同步呈现光影，吸引人们在街道与公园停留。它的意义因此超出了办公楼本身：建筑、夜景与公共活动共同构成成都当代城市生活的一个聚点。"
+    ],
+    "highlights": [
+      "218米并置双塔",
+      "冰花状金属外网",
+      "与交子大道联动的立面光影"
+    ],
+    "modeling": {
+      "silhouette": "两座独立且等高的修长塔楼，银灰网格覆于玻璃表皮",
+      "geometryNotes": [
+        "两座塔楼保持独立，顶部不添加横向连接天桥。",
+        "可用多层菱形或不规则细网表现冰花外网，夜景以立面灯带表达。",
+        "竣工年份未在园区官方简介列明；2020年已有核实的建成实景照片，故年份使用保守标签。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "成都金融城投资发展有限责任公司 · 天府国际金融中心双塔",
+        "url": "https://www.cdjrc.com/product/146.html"
+      },
+      {
+        "title": "央广网转四川观察 · 成都高新区升起新质生产力双子星",
+        "url": "https://sc.cnr.cn/scpd/xwsd/20231123/t20231123_526495659.shtml"
+      },
+      {
+        "title": "成都高新区融媒体 · 天府双塔光影传情",
+        "url": "https://web.csp.chinamcloud.com/cms/cdgxqrmt_html/APP/fglm/4895468713.shtml"
+      }
+    ],
+    "researchNote": "未把二级资料中的2019年实体施工完成、2020年投入使用混写成唯一竣工日期；所列年份是保守说明。",
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tianfu_Financial_Center_2.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Tianfu_Financial_Center_2.jpg/960px-Tianfu_Financial_Center_2.jpg",
+    "photoCredit": "Kkkev999",
+    "photoLicense": "CC BY-SA 4.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Tianfu_Financial_Center_2.jpg",
+    "modelKey": "tianfu-twins"
+  },
+  {
+    "id": "chongli",
+    "name": "望江楼崇丽阁",
+    "englishName": "Chongli Pavilion · Wangjiang Tower",
+    "city": "成都",
+    "cityId": "chengdu",
+    "category": "historic",
+    "year": "1889年建成",
+    "height": "约27.9米",
+    "location": "成都市武侯区望江楼公园 · 锦江南岸",
+    "summary": "下方上八角的四层楼阁，把锦江水色与成都文脉连接起来。",
+    "description": [
+      "崇丽阁于清光绪十五年（1889年）在锦江南岸落成，因临江而立，后来更以“望江楼”之名为人熟知。它位于与唐代女诗人薛涛纪念传统相联系的园林中，与吟诗楼、濯锦楼等建筑共同构成成都的重要历史文化景观。",
+      "楼阁高约27.9米，采用全木穿榫结构，分四层、四重檐。下部两层为方形，上部两层转为八角形，层层收进，并在顶部以攒尖屋面与鎏金宝顶收束。朱柱、碧瓦、翘檐及雀替上的雕饰，让轮廓既稳重又轻巧。",
+      "“崇丽”二字取自左思《蜀都赋》中的文字，表达对成都城市气象与文化的赞美。楼阁与锦江、竹林和诗人纪念空间相互依存，使它不仅是一座登临建筑，也保存了晚清地方社会重视文教、延续蜀地文脉的愿望。"
+    ],
+    "highlights": [
+      "下两层方形、上两层八角",
+      "四层四重檐木构",
+      "碧瓦朱柱与鎏金宝顶"
+    ],
+    "modeling": {
+      "silhouette": "下方上八角的四层四重檐木楼，底部宽阔，顶部攒尖",
+      "geometryNotes": [
+        "前两层采用四边平面，第三和第四层采用八边平面。",
+        "高度约27.9米；不采用部分旅游网页中的39米说法。",
+        "每层檐口外挑且角部上翘，顶部小金色宝顶，木柱用红褐色。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "四川省情网 · 望江楼上望江流，是谁建起了这座楼",
+        "url": "https://scsqw.cn/whzh/slzc1/content_126466"
+      },
+      {
+        "title": "华西都市报 · 望江楼上望江流（图源望江楼公园及武侯区文体旅局）",
+        "url": "https://www.wccdaily.com.cn/wapepaper/html/20230927/201790.html"
+      },
+      {
+        "title": "四川省地方志工作办公室 · 成都记忆第二季第28集",
+        "url": "https://scdfz.sc.gov.cn/scyx/ytsc/cdjyyp/content_173188"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/da/Wangjianglou-Tower.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Wangjianglou-Tower.jpg/500px-Wangjianglou-Tower.jpg",
+    "photoCredit": "AlexHe34",
+    "photoLicense": "CC BY-SA 3.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Wangjianglou-Tower.jpg",
+    "modelKey": "chongli"
+  },
+  {
+    "id": "zifeng",
+    "name": "紫峰大厦",
+    "englishName": "Zifeng Tower",
+    "city": "南京",
+    "cityId": "nanjing",
+    "category": "modern",
+    "year": "2010年建成",
+    "height": "450米",
+    "location": "南京市鼓楼区鼓楼广场 · 中央路与北京西路一带",
+    "summary": "龙鳞般的玻璃表皮与退台塔冠，重新勾勒鼓楼的城市轮廓。",
+    "description": [
+      "紫峰大厦位于南京鼓楼广场一带，2010年建成，高450米，由SOM设计。它与较低的办公楼及商业裙房构成综合体，将办公、酒店、商业和高处观景等功能叠置在老城中心，为南京传统城市景观增加了一个鲜明的当代坐标。",
+      "建筑的三角形平面回应基地形状，并尽量展开面向山体、湖面和历史城区的视野。环绕核心筒的交错体量向上逐步退台，最终收束到细长塔冠；错列的斜向玻璃模块带来类似龙鳞的肌理，远观与近看呈现不同层次。",
+      "设计者从长江、南京园林和中国文化中的龙形意象获得灵感，把水、绿地和竖向构图转译为现代高楼。站在鼓楼及玄武湖周边，可以同时看到城墙、古建筑和紫峰，感受南京不同建设年代在同一片天际线中并存。"
+    ],
+    "highlights": [
+      "回应基地的三角形平面",
+      "错列玻璃形成龙鳞肌理",
+      "层层退台与细长塔冠"
+    ],
+    "modeling": {
+      "silhouette": "棱角分明的高楼，立面分段退台，顶部细长塔冠与尖顶",
+      "geometryNotes": [
+        "以三角或切角多边形平面为基础，保留不对称退台。",
+        "外墙用蓝灰玻璃与深色分格，局部玻璃模块错列。",
+        "采用建成高度450米；不使用早期设计叙述中458米的数据。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "SOM · 南京紫峰大厦",
+        "url": "https://www.somchina.cn/projects/%E7%B4%AB%E5%B3%B0%E5%A4%A7%E5%8E%A6/"
+      },
+      {
+        "title": "Adrian Smith + Gordon Gill · Zifeng Tower设计说明",
+        "url": "https://www.smithgill.com/work/zifeng_tower/"
+      },
+      {
+        "title": "上海市国资委 · 450米紫峰大厦城市高度资料",
+        "url": "https://www.gzw.sh.gov.cn/shgzw_zxzx_gqdt/20210831/5f8e2f7377e6414587fd214e73fbfe0d.html"
+      },
+      {
+        "title": "项目供应商坚朗 · 南京紫峰大厦工程档案",
+        "url": "https://www.kinlong.com/case-landmark/11.html"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Nanjing_Zifeng_Tower.jpg",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Nanjing_Zifeng_Tower.jpg/500px-Nanjing_Zifeng_Tower.jpg",
+    "photoCredit": "Quentin Scouflaire",
+    "photoLicense": "CC BY 2.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Nanjing_Zifeng_Tower.jpg",
+    "modelKey": "zifeng"
+  },
+  {
+    "id": "zhonghua-gate",
+    "name": "明城墙中华门",
+    "englishName": "Zhonghua Gate",
+    "city": "南京",
+    "cityId": "nanjing",
+    "category": "historic",
+    "year": "明代初年兴建；现存城台与瓮城",
+    "location": "南京市秦淮区中华路南端 · 内外秦淮河之间",
+    "summary": "三道内瓮城、四重城门，把军事防御组织成“目”字形空间。",
+    "description": [
+      "中华门原名聚宝门，是明代南京都城十三座城门之一，位于内外秦淮河之间，南连长干桥、北接镇淮桥。它处于老城南的要冲，既组织日常交通，也承担防御职责，现存城台和瓮城为理解明代都城工程保留了极完整的空间线索。",
+      "城堡东西宽118.5米、南北长128米，平面近似“目”字。主城台与三道内瓮城由四道门相贯通，内设27个藏兵洞，两侧配置马道，使驻守、储物和登城交通相互配合。厚重砖墙、拱券与层层院落共同构成其特色。",
+      "中华门也是南京近代历史的重要见证。1937年南京保卫战中，城顶原有的三重檐歇山顶城楼被炮火摧毁，此后未再复建。今天看到的开阔城台，既展示古代防御技术，也保留了战争留下的历史印记。"
+    ],
+    "highlights": [
+      "三道内瓮城与四道券门",
+      "27个藏兵洞与东西马道",
+      "现存开阔城台和厚重砖墙"
+    ],
+    "modeling": {
+      "silhouette": "低宽的灰砖城堡，三重内院串联成目字形，城台顶部现为空台",
+      "geometryNotes": [
+        "平面约118.5×128米；用四重横墙与侧墙围合三处内瓮城。",
+        "中央拱券南北贯通，城台与马道体现不同标高。",
+        "当前模型不得在主城台上复建1937年已毁的三重檐城楼。"
+      ]
+    },
+    "sources": [
+      {
+        "title": "南京市文化和旅游局／南京城墙保护管理中心 · 天下第一瓮城——南京城墙中华门",
+        "url": "https://wlj.nanjing.gov.cn/ztzl/mcq/gzqk/202302/t20230228_3838766.html"
+      }
+    ],
+    "sourceImageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Zhonghua-gate-of-Nanjing.JPG",
+    "localImagePath": null,
+    "researchedOn": "2026-09-05",
+    "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Zhonghua-gate-of-Nanjing.JPG/960px-Zhonghua-gate-of-Nanjing.JPG",
+    "photoCredit": "Ryu, Cheol",
+    "photoLicense": "CC BY-SA 3.0",
+    "photoSource": "https://commons.wikimedia.org/wiki/File:Zhonghua-gate-of-Nanjing.JPG",
+    "modelKey": "zhonghua-gate"
+  }
+]

@@ -1,0 +1,32 @@
+import * as THREE from 'three';
+// A CPU fallback for browsers where WebGL is disabled. Uses the same scene and raycasting.
+export class SoftwareRenderer{
+ onBeforeFrame?:()=>void;onAfterFrame?:()=>void;
+ domElement=document.createElement('canvas');shadowMap={enabled:false,type:0};capabilities={getMaxAnisotropy:()=>1};outputColorSpace='';toneMapping=0;toneMappingExposure=1.1;
+ private ratio=1;private width=1;private height=1;private ctx:CanvasRenderingContext2D;private worker:Worker;private pending=false;private seq=0;private force=false;private disposed=false;private revision='';
+ private cache=new Map<string,{positions:Float32Array;normals:Float32Array;uv:Float32Array;index:Uint32Array}>();private textureCache=new Map<string,{width:number;height:number;data:Uint8ClampedArray}>();private sent=new Set<string>();private sentTextures=new Set<string>();private lastTime=0;
+ constructor(){this.ctx=this.domElement.getContext('2d')!;this.worker=new Worker('/cpu-renderer.js');this.worker.onmessage=({data})=>{if(this.disposed){data.bitmap?.close();return;}this.pending=false;if(data.bitmap){this.ctx.drawImage(data.bitmap,0,0,this.domElement.width,this.domElement.height);data.bitmap.close();this.onAfterFrame?.();}};}
+ get isRendering(){return this.pending;}
+ setPixelRatio(r:number){this.ratio=Math.min(r,1.5);}
+ getPixelRatio(){return this.ratio;}
+ setSize(w:number,h:number,style=true){this.width=w;this.height=h;this.domElement.width=Math.max(1,Math.round(w*this.ratio));this.domElement.height=Math.max(1,Math.round(h*this.ratio));if(style){this.domElement.style.width=w+'px';this.domElement.style.height=h+'px';}this.force=true;}
+ getSize(v:THREE.Vector2){return v.set(this.width,this.height);}
+ get isSoftware(){return true;}
+ private geometry(g:THREE.BufferGeometry){if(this.cache.has(g.uuid))return this.cache.get(g.uuid)!;const p=g.getAttribute('position'),n=g.getAttribute('normal'),uv=g.getAttribute('uv');const ps=new Float32Array(p.count*3),ns=new Float32Array(p.count*3),us=new Float32Array(p.count*2);for(let i=0;i<p.count;i++){ps.set([p.getX(i),p.getY(i),p.getZ(i)],i*3);if(n)ns.set([n.getX(i),n.getY(i),n.getZ(i)],i*3);if(uv)us.set([uv.getX(i),uv.getY(i)],i*2);}const index=g.index?new Uint32Array(g.index.array):Uint32Array.from({length:p.count},(_,i)=>i);const result={positions:ps,normals:ns,uv:us,index};this.cache.set(g.uuid,result);return result;}
+ private texture(t:THREE.Texture){if(this.textureCache.has(t.uuid))return this.textureCache.get(t.uuid);try{const image=t.image as any;const w=image.width||image.videoWidth,h=image.height||image.videoHeight;if(!w||!h)return;const scale=Math.min(1,1024/Math.max(w,h));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*scale));c.height=Math.max(1,Math.round(h*scale));const ctx=c.getContext('2d')!;ctx.drawImage(image,0,0,c.width,c.height);const result={width:c.width,height:c.height,data:ctx.getImageData(0,0,c.width,c.height).data};this.textureCache.set(t.uuid,result);return result;}catch{return;}}
+ render(scene:THREE.Scene,camera:THREE.Camera){if(this.disposed)return;const now=performance.now();if(this.pending||(!this.force&&now-this.lastTime<70))return;camera.updateMatrixWorld();scene.updateMatrixWorld(true);const vp=new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);const meshes:any[]=[];const geometries:any[]=[];const textures:any[]=[];const lines:number[][]=[];let key=vp.elements.map(x=>x.toFixed(4)).join(',')+'|'+this.domElement.width+'x'+this.domElement.height+'|'+this.toneMappingExposure+'|'+(scene.background instanceof THREE.Color?scene.background.getHexString():'transparent');
+ scene.traverseVisible(o=>{if((o as THREE.GridHelper).isLineSegments&&o.type==='GridHelper'){const positions=(o as THREE.GridHelper).geometry.getAttribute('position');for(let i=0;i<positions.count;i+=2){const a=new THREE.Vector3().fromBufferAttribute(positions,i).applyMatrix4(o.matrixWorld).project(camera),b=new THREE.Vector3().fromBufferAttribute(positions,i+1).applyMatrix4(o.matrixWorld).project(camera);if(a.z<1&&b.z<1)lines.push([a.x,a.y,b.x,b.y]);}key+='grid';return;}const mesh=o as THREE.Mesh;if(!mesh.isMesh||!mesh.geometry||mesh.material instanceof THREE.ShadowMaterial||mesh.material instanceof THREE.MeshBasicMaterial)return;
+ const geom=this.geometry(mesh.geometry);if(!this.sent.has(mesh.geometry.uuid)){geometries.push({id:mesh.geometry.uuid,...geom});this.sent.add(mesh.geometry.uuid);}
+ const mats=(Array.isArray(mesh.material)?mesh.material:[mesh.material]) as THREE.MeshStandardMaterial[];
+ const materials=mats.map(m=>{if(m.map){const t=this.texture(m.map);if(t&&!this.sentTextures.has(m.map.uuid)){textures.push({id:m.map.uuid,...t});this.sentTextures.add(m.map.uuid);}m.map.updateMatrix();}
+ const c=m.color||new THREE.Color('#a0a0a0');const color=[c.r,c.g,c.b];key+='|'+m.uuid+':'+color.join(',')+':'+m.opacity+':'+m.map?.uuid;return{color,opacity:m.opacity,transparent:m.transparent,depthWrite:m.depthWrite,map:m.map?.uuid,flipY:m.map?.flipY,transform:m.map?.matrix.elements,roughness:m.roughness??.6,metalness:m.metalness??0};});
+ key+='|'+mesh.uuid+':'+mesh.geometry.uuid+':'+mesh.renderOrder+':'+mesh.matrixWorld.elements.join(',');meshes.push({id:mesh.geometry.uuid,matrix:mesh.matrixWorld.elements,groups:mesh.geometry.groups,materials,order:mesh.renderOrder});});
+ const active=new Set(meshes.map(m=>m.id));for(const id of this.cache.keys())if(!active.has(id)){this.cache.delete(id);this.sent.delete(id);}
+ if(key===this.revision&&!this.force)return;this.revision=key;this.force=false;this.pending=true;this.lastTime=now;
+ // Preview is capped for responsive editing; explicit exports use the requested pixel dimensions.
+ const exportSize=this.width>this.domElement.clientWidth*1.1||this.height>this.domElement.clientHeight*1.1;const scale=exportSize?1:Math.min(1,1000/Math.max(this.domElement.width,this.domElement.height));const width=Math.round(this.domElement.width*scale),height=Math.round(this.domElement.height*scale);
+ this.onBeforeFrame?.();this.worker.postMessage({seq:++this.seq,width,height,vp:vp.elements,meshes,geometries,textures,lines,background:scene.background instanceof THREE.Color?'#'+scene.background.getHexString():null,exposure:this.toneMappingExposure});
+ }
+ async flush(){const start=performance.now();while(this.pending&&performance.now()-start<20000)await new Promise(r=>setTimeout(r,20));}
+ dispose(){this.disposed=true;this.worker.terminate();this.cache.clear();this.textureCache.clear();}
+}

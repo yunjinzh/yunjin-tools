@@ -1,0 +1,868 @@
+{
+  "updated": "2026-09-29",
+  "count": 25,
+  "works": [
+    {
+      "id": "mawangdui",
+      "title": "马王堆地形图",
+      "date": "西汉早期 · 出版物扫描",
+      "image": "/maps/v2/mawangdui-64f97c0cd3-hd.jpg",
+      "credit": "原件：湖南博物院；图像：Wikimedia Commons / PericlesofAthens、Soerfm",
+      "version": "扫描自Anthony J. Barbieri-Low《Artisans in Early Imperial China》（2007）第174页；Commons版本经过亮度、颜色及裁切调整。",
+      "source": "https://commons.wikimedia.org/wiki/File:Western_Han_Mawangdui_Silk_Map.JPG",
+      "rights": "Commons标注公共领域；图像为出版物扫描，并非馆方提供的原始数字文件。",
+      "note": "观察残片、线条与文字之间的关系。保存状态也构成我们认识古地图时的证据边界。",
+      "features": [
+        {
+          "name": "帛与残片",
+          "text": "注意保存状态：图面缺失的区域不进行自动补画。",
+          "x": 30,
+          "y": 40
+        },
+        {
+          "name": "线条与文字",
+          "text": "线条和注记保留了古代制图者选择的信息。",
+          "x": 60,
+          "y": 60
+        }
+      ],
+      "region": "中国",
+      "period": "ancient",
+      "year": -168,
+      "era": 1,
+      "shortTitle": "马王堆地形图",
+      "thumb": "/maps/v2/mawangdui-64f97c0cd3-thumb.jpg",
+      "preview": "/maps/v2/mawangdui-64f97c0cd3-preview.jpg",
+      "width": 2939,
+      "height": 2839
+    },
+    {
+      "id": "huayi-1136",
+      "title": "华夷图（1903年刊本）",
+      "shortTitle": "华夷图",
+      "date": "1136年刻石 · 1903年刊图",
+      "year": 1136,
+      "era": 3,
+      "region": "中国",
+      "period": "ancient",
+      "version": "据1136年刻石拓本制作的1903年法国远东学院学报刊图；非原石照片或原始拓片。",
+      "credit": "原石：西安碑林博物馆；本刊图：美国国会图书馆 Geography and Map Division；Wikimedia Commons；Library of Congress, G7820 1136 .H8, digital ID g7820.ct000284；Bulletin de l’École Française d’Extrême-Orient 3 (1903), facing p. 214；Wikimedia Commons",
+      "source": "https://www.loc.gov/item/2002626771/",
+      "rights": "Wikimedia Commons标示Public Domain / PD-old-100-expired / PD-Art。",
+      "note": "河流轮廓、山形与地名构成平面地图，四周文字补充对地域的叙述。展品为1903年依据古代拓本刊印的图版，与1136年的刻石原作需明确区分。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "河流轮廓、山形与地名构成平面地图，四周文字补充对地域的叙述。展品为1903年依据古代拓本刊印的图版，与1136年的刻石原作需明确区分。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "据1136年刻石拓本制作的1903年法国远东学院学报刊图；非原石照片或原始拓片。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/huayi-1136-d1eb87551a-hd.jpg",
+      "preview": "/maps/v2/huayi-1136-d1eb87551a-preview.jpg",
+      "thumb": "/maps/v2/huayi-1136-d1eb87551a-thumb.jpg",
+      "width": 3840,
+      "height": 4078
+    },
+    {
+      "id": "yuji",
+      "title": "禹迹图",
+      "date": "1136年原石 · 后世拓片",
+      "image": "/maps/v2/yuji-f2d5ea680a-hd.jpg",
+      "credit": "原石：西安碑林博物馆；数字图像：美国国会图书馆",
+      "version": "美国国会图书馆馆藏拓片的数字图像；具体拓片版本参见原始图目。",
+      "source": "https://www.loc.gov/item/gm71005080/",
+      "rights": "公共领域图像；保留来源及数字化提供者。",
+      "note": "近看格网、水系与地名。原石年代、拓片年代和最初绘制年代分别理解。",
+      "features": [
+        {
+          "name": "格网",
+          "text": "贯穿图面的方格提供共同的位置参照。",
+          "x": 46,
+          "y": 43
+        },
+        {
+          "name": "河流",
+          "text": "观察水系的连接方式，与其他地物符号比较。",
+          "x": 54,
+          "y": 57
+        },
+        {
+          "name": "文字",
+          "text": "文字注记与图形共同表达地理信息。释读以原图及研究为依据。",
+          "x": 72,
+          "y": 35
+        }
+      ],
+      "region": "中国",
+      "period": "ancient",
+      "year": 1136,
+      "era": 3,
+      "shortTitle": "禹迹图",
+      "thumb": "/maps/v2/yuji-f2d5ea680a-thumb.jpg",
+      "preview": "/maps/v2/yuji-f2d5ea680a-preview.jpg",
+      "width": 2695,
+      "height": 2768
+    },
+    {
+      "id": "kangnido",
+      "title": "混一疆理历代国都之图（本光寺本）",
+      "shortTitle": "混一疆理图",
+      "date": "1402年原图 · 16世纪本光寺摹本",
+      "year": 1402,
+      "era": 3,
+      "region": "朝鲜半岛",
+      "period": "ancient",
+      "version": "本光寺现存摹本；长崎县文化财数据库断代为1513—1549年或1567—1592年。此数字图来自2005年展览图录，左侧接缝为图录跨页痕迹。",
+      "credit": "本光寺・常盘历史资料馆（日本长崎县岛原市）；数字图经Wikimedia Commons提供；本光寺・常盘历史资料馆；Dschingis Khan und seine Erben, 2005, pp. 336–337；Wikimedia Commons",
+      "source": "https://www.pref.nagasaki.jp/bunkadb/index.php/view/254",
+      "rights": "Wikimedia Commons标示Public Domain / PD-Art；古代二维作品的忠实复制。",
+      "note": "以放大的中国与朝鲜为中心，河流、山脉和红色地名符号组织起旧大陆的空间。展品是本光寺保存的后世摹本，须与1402年原图的编绘年代区分。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "以放大的中国与朝鲜为中心，河流、山脉和红色地名符号组织起旧大陆的空间。展品是本光寺保存的后世摹本，须与1402年原图的编绘年代区分。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "本光寺现存摹本；长崎县文化财数据库断代为1513—1549年或1567—1592年。此数字图来自2005年展览图录，左侧接缝为图录跨页痕迹。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/kangnido-853f0f6795-hd.jpg",
+      "preview": "/maps/v2/kangnido-853f0f6795-preview.jpg",
+      "thumb": "/maps/v2/kangnido-853f0f6795-thumb.jpg",
+      "width": 3493,
+      "height": 2814
+    },
+    {
+      "id": "fra-mauro1450",
+      "title": "弗拉·毛罗世界图",
+      "shortTitle": "弗拉·毛罗世界图",
+      "date": "约1450年（依马尔恰纳国家图书馆现行定年）",
+      "year": 1450,
+      "era": 3,
+      "region": "意大利",
+      "period": "ancient",
+      "version": "约1450年（依马尔恰纳国家图书馆现行定年）。官方馆藏说明将现存地图定为约1450年，故不采用通行的1459或Commons旧说明1460。",
+      "credit": "Biblioteca Nazionale Marciana（意大利马尔恰纳国家图书馆）；Fra Mauro. Biblioteca Nazionale Marciana; digital reproduction attributed to Piero Falchetta, via Wikimedia Commons. Public domain.",
+      "source": "https://bibliotecanazionalemarciana.cultura.gov.it/en/book-and-archival-heritage/book-and-archival-heritage/fra-mauros-world-map/",
+      "rights": "Public Domain / PD-Art；Commons原始图像条目标注忠实复制为公有领域",
+      "note": "这幅圆形世界图以南方为上；密集题记把城市、航路与旅行知识编织进同一幅图。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "这幅圆形世界图以南方为上；密集题记把城市、航路与旅行知识编织进同一幅图。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "羊皮纸贴于木质支撑上，约230×230厘米，拥有约3000处题记。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/fra-mauro1450-fb9ff0c157-hd.jpg",
+      "preview": "/maps/v2/fra-mauro1450-fb9ff0c157-preview.jpg",
+      "thumb": "/maps/v2/fra-mauro1450-fb9ff0c157-thumb.jpg",
+      "width": 3152,
+      "height": 3152
+    },
+    {
+      "id": "ptolemy1482",
+      "title": "托勒密世界图 · 乌尔姆版",
+      "shortTitle": "托勒密世界图",
+      "date": "1482年（基于公元2世纪托勒密地理体系的后世木刻版）",
+      "year": 1482,
+      "era": 3,
+      "region": "德国",
+      "period": "ancient",
+      "version": "1482年（基于公元2世纪托勒密地理体系的后世木刻版）。1482年在乌尔姆由霍勒印行，是托勒密《地理学》在意大利以外的首次印刷版本。",
+      "credit": "Barry Lawrence Ruderman Antique Maps Inc.（原数字来源）；Wikimedia Commons（开放图像平台）；Ptolemy / Lienhart Holle, 1482. Image: Barry Lawrence Ruderman Antique Maps, via Wikimedia Commons. Public domain.",
+      "source": "https://commons.wikimedia.org/wiki/File:1482_Ulm_Ptolemy_World_Map.jpg",
+      "rights": "Public Domain / PD-Art；Wikimedia Commons标注原作及忠实复制为公有领域",
+      "note": "沿经纬网观察被陆地包围的印度洋与北方突破图框的陆地；这是1482年印本，并非古罗马时代原件。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "沿经纬网观察被陆地包围的印度洋与北方突破图框的陆地；这是1482年印本，并非古罗马时代原件。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "木刻世界图署名约翰内斯·施尼策；所展示扫描来自商业古地图机构，经Commons以PD-Art提供。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/ptolemy1482-34f38ba288-hd.jpg",
+      "preview": "/maps/v2/ptolemy1482-34f38ba288-preview.jpg",
+      "thumb": "/maps/v2/ptolemy1482-34f38ba288-thumb.jpg",
+      "width": 4088,
+      "height": 2923
+    },
+    {
+      "id": "cantino1502",
+      "title": "坎蒂诺世界航海图",
+      "shortTitle": "坎蒂诺航海图",
+      "date": "1502年",
+      "year": 1502,
+      "era": 4,
+      "region": "葡萄牙",
+      "period": "early",
+      "version": "1502年。由不具名的葡萄牙制图师于1502年完成。",
+      "credit": "Biblioteca Estense Universitaria（意大利埃斯滕塞大学图书馆）；Anonymous Portuguese cartographer, 1502. Biblioteca Estense Universitaria, Modena; via Wikimedia Commons. Public domain.",
+      "source": "https://commons.wikimedia.org/wiki/File:Cantino_planisphere_(1502).jpg",
+      "rights": "Public Domain / PD-scan",
+      "note": "先看横贯图面的航向线，再比较非洲海岸、印度洋和新出现的美洲轮廓。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "先看横贯图面的航向线，再比较非洲海岸、印度洋和新出现的美洲轮廓。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "馆藏于意大利摩德纳埃斯滕塞大学图书馆；记录了15世纪末至16世纪初欧洲航海探索获知的海岸。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/cantino1502-ebca78910f-hd.jpg",
+      "preview": "/maps/v2/cantino1502-ebca78910f-preview.jpg",
+      "thumb": "/maps/v2/cantino1502-ebca78910f-thumb.jpg",
+      "width": 3840,
+      "height": 1803
+    },
+    {
+      "id": "waldseemuller1507",
+      "title": "瓦尔德泽米勒世界图",
+      "shortTitle": "瓦尔德泽米勒世界图",
+      "date": "1507年",
+      "year": 1507,
+      "era": 4,
+      "region": "欧洲",
+      "period": "early",
+      "version": "1507年。这张1507年地图首次使用America之名，将美洲与亚洲分开表现。",
+      "credit": "Library of Congress, Geography and Map Division（美国国会图书馆地理与地图部）；Martin Waldseemüller, 1507. Geography and Map Division, Library of Congress; via Wikimedia Commons. Public domain.",
+      "source": "https://www.loc.gov/item/2003626426/",
+      "rights": "Public Domain；美国国会图书馆地图数字藏品可自由使用与复用，Commons亦标注PD",
+      "note": "在左下方寻找“America”，并观察十二张印纸拼接成的大幅世界布局。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "在左下方寻找“America”，并观察十二张印纸拼接成的大幅世界布局。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "展示图由12张纸组成；数字图像取自美国国会图书馆保存的实物。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/waldseemuller1507-026a8ec481-hd.jpg",
+      "preview": "/maps/v2/waldseemuller1507-026a8ec481-preview.jpg",
+      "thumb": "/maps/v2/waldseemuller1507-026a8ec481-thumb.jpg",
+      "width": 3840,
+      "height": 2133
+    },
+    {
+      "id": "guangyu",
+      "title": "广舆图·舆地总图",
+      "date": "明 · 1558年刊本",
+      "image": "/maps/v2/guangyu-a84efa64d7-hd.jpg",
+      "credit": "美国国会图书馆；Wikimedia Commons / Happyseeu",
+      "version": "美国国会图书馆所藏1558年《广舆图》卷一图页；罗洪先依据朱思本地图修订。",
+      "source": "https://www.loc.gov/item/2008623187/",
+      "rights": "Commons标注公共领域；保留馆藏与数字化来源。",
+      "note": "观察图面格网、山川符号和地名排布，体会地图编纂与刊印的关系。",
+      "features": [
+        {
+          "name": "总图",
+          "text": "将不同区域的信息汇入一个整体图面。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "图面编排",
+          "text": "观察网格、符号、文字之间怎样安排空间。",
+          "x": 65,
+          "y": 30
+        }
+      ],
+      "region": "中国",
+      "period": "early",
+      "year": 1558,
+      "era": 4,
+      "shortTitle": "广舆图·舆地总图",
+      "thumb": "/maps/v2/guangyu-a84efa64d7-thumb.jpg",
+      "preview": "/maps/v2/guangyu-a84efa64d7-preview.jpg",
+      "width": 3715,
+      "height": 3888
+    },
+    {
+      "id": "mercator1569",
+      "title": "墨卡托世界航海图",
+      "shortTitle": "墨卡托世界图",
+      "date": "1569年（法国国家图书馆藏本数字拼合）",
+      "year": 1569,
+      "era": 4,
+      "region": "欧洲",
+      "period": "early",
+      "version": "1569年（法国国家图书馆藏本数字拼合）。图像是法国国家图书馆所藏1569年墨卡托世界图的拼合视图。",
+      "credit": "Bibliothèque nationale de France（法国国家图书馆）；Gerardus Mercator, 1569. Bibliothèque nationale de France, Gallica; composite via Wikimedia Commons. Public domain.",
+      "source": "https://gallica.bnf.fr/ark:/12148/btv1b7200344k/",
+      "rights": "Public Domain；Commons标注PD-old-100 / PD-US-expired",
+      "note": "越向两极，纬线间距越开阔；这幅航海世界图展示了后来广泛使用的墨卡托投影。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "越向两极，纬线间距越开阔；这幅航海世界图展示了后来广泛使用的墨卡托投影。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "采用BnF藏本图像，未使用另一来源对高分辨率照片主张权利的巴塞尔版本。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/mercator1569-d27f02e08d-hd.jpg",
+      "preview": "/maps/v2/mercator1569-d27f02e08d-preview.jpg",
+      "thumb": "/maps/v2/mercator1569-d27f02e08d-thumb.jpg",
+      "width": 3840,
+      "height": 2540
+    },
+    {
+      "id": "ortelius1571",
+      "title": "奥特里乌斯《世界全图》",
+      "shortTitle": "奥特里乌斯世界图",
+      "date": "1571年展示版（《世界舞台》首版1570年）",
+      "year": 1571,
+      "era": 4,
+      "region": "欧洲",
+      "period": "early",
+      "version": "1571年展示版（《世界舞台》首版1570年）。BnF来源条目把此张Typus orbis terrarum定为1571年，不能直接把图像写作1570年首版。",
+      "credit": "Bibliothèque nationale de France（法国国家图书馆）；Abraham Ortelius / Frans Hogenberg, Typus orbis terrarum, 1571. Bibliothèque nationale de France, Gallica; via Wikimedia Commons. Public domain.",
+      "source": "https://gallica.bnf.fr/ark:/12148/btv1b8446648x",
+      "rights": "Public Domain；Commons标注PD-France / PD-US-expired",
+      "note": "椭圆形世界被卷草纹包围；南半球的大面积未知大陆，保留了当时的地理假设。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "椭圆形世界被卷草纹包围；南半球的大面积未知大陆，保留了当时的地理假设。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "图像来源为BnF馆藏GED-7909 (1)，署霍根贝格镌刻与奥特里乌斯作者。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/ortelius1571-fc84b9b933-hd.jpg",
+      "preview": "/maps/v2/ortelius1571-fc84b9b933-preview.jpg",
+      "thumb": "/maps/v2/ortelius1571-fc84b9b933-thumb.jpg",
+      "width": 3840,
+      "height": 2928
+    },
+    {
+      "id": "kunyu",
+      "title": "坤舆万国全图",
+      "date": "明 · 1602年",
+      "image": "/maps/v2/kunyu-d039bfff41-hd.jpg",
+      "credit": "James Ford Bell Foundation藏本；美国国会图书馆数字化；MawaruNeko拼接",
+      "version": "1602年版本；图像由六幅扫描拼接并缩小。",
+      "source": "https://www.loc.gov/item/2010585650/",
+      "rights": "Wikimedia Commons标注公共领域；保留数字化及拼接署名。",
+      "note": "观察地名、经纬线、附图和说明文字怎样共同组织知识。",
+      "features": [
+        {
+          "name": "世界图",
+          "text": "主图以椭圆形呈现世界，配有汉字地名与说明。",
+          "x": 49,
+          "y": 48
+        },
+        {
+          "name": "附图",
+          "text": "主图周围另有天文和地理附图，题名以原图为准。",
+          "x": 9,
+          "y": 15
+        },
+        {
+          "name": "图文并置",
+          "text": "地图与文字解释被编排在同一图面上。",
+          "x": 89,
+          "y": 77
+        }
+      ],
+      "region": "中国",
+      "period": "early",
+      "year": 1602,
+      "era": 4,
+      "shortTitle": "坤舆万国全图",
+      "thumb": "/maps/v2/kunyu-d039bfff41-thumb.jpg",
+      "preview": "/maps/v2/kunyu-d039bfff41-preview.jpg",
+      "width": 3840,
+      "height": 1759
+    },
+    {
+      "id": "blaeu1664",
+      "title": "布劳双半球世界图",
+      "shortTitle": "布劳双半球世界图",
+      "date": "1664年",
+      "year": 1664,
+      "era": 5,
+      "region": "荷兰",
+      "period": "early",
+      "version": "1664年。Commons馆藏元数据明确日期1664年、作者Joan Blaeu，数字来源为西班牙国家图书馆。",
+      "credit": "Biblioteca Nacional de España（西班牙国家图书馆）；Joan Blaeu, 1664. Biblioteca Nacional de España; via Wikimedia Commons. Public domain.",
+      "source": "https://commons.wikimedia.org/wiki/File:Nova_et_Accuratissima_Terrarum_Orbis_Tabula_(J.Blaeu,_1664).jpg",
+      "rights": "Public Domain / PD-Art / PD-old-100",
+      "note": "两个半球与人物装饰并置；对照南方大陆的不完整轮廓，观察17世纪世界图的知识边界。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "两个半球与人物装饰并置；对照南方大陆的不完整轮廓，观察17世纪世界图的知识边界。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "此高清图的来源不同于该条目早期上传的荷兰Atlas van Loon图像。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/blaeu1664-890346df94-hd.jpg",
+      "preview": "/maps/v2/blaeu1664-890346df94-preview.jpg",
+      "thumb": "/maps/v2/blaeu1664-890346df94-thumb.jpg",
+      "width": 3605,
+      "height": 3167
+    },
+    {
+      "id": "kunyu-1674",
+      "title": "坤舆全图·东半球（局部）",
+      "shortTitle": "坤舆全图 · 东半球",
+      "date": "1674年原图 · 1674—1860年间藏本（局部）",
+      "year": 1674,
+      "era": 5,
+      "region": "中国",
+      "period": "early",
+      "version": "法国国家图书馆藏本，馆藏记录的制作时段为1674—1860年；本件为两幅数字图中的第1幅，仅含东半球。",
+      "credit": "法国国家图书馆 Bibliothèque nationale de France, GE C-5803 (1-6)；Wikimedia Commons；南怀仁（Ferdinand Verbiest）；Bibliothèque nationale de France, GE C-5803 (1-6), Gallica btv1b53066754n；Wikimedia Commons",
+      "source": "https://catalogue.bnf.fr/ark:/12148/cb40733999d",
+      "rights": "Wikimedia Commons标示Public Domain in France / PD-US-expired；保留作者及来源署名。",
+      "note": "圆形东半球以经纬线组织欧亚、非洲及南方陆地，四周配有汉文说明。展品只展示《坤舆全图》的一个半球，保留原纸的折痕与印刷痕迹。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "圆形东半球以经纬线组织欧亚、非洲及南方陆地，四周配有汉文说明。展品只展示《坤舆全图》的一个半球，保留原纸的折痕与印刷痕迹。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "法国国家图书馆藏本，馆藏记录的制作时段为1674—1860年；本件为两幅数字图中的第1幅，仅含东半球。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/kunyu-1674-a7dc2ba7ea-hd.jpg",
+      "preview": "/maps/v2/kunyu-1674-a7dc2ba7ea-preview.jpg",
+      "thumb": "/maps/v2/kunyu-1674-a7dc2ba7ea-thumb.jpg",
+      "width": 3066,
+      "height": 3242
+    },
+    {
+      "id": "tokaido-18c",
+      "title": "东海道分间图·卷二片段",
+      "shortTitle": "东海道分间图",
+      "date": "18世纪 · 手绘卷图片段",
+      "year": 1700,
+      "era": 5,
+      "region": "日本",
+      "period": "early",
+      "version": "美国国会图书馆18世纪笔墨水彩手绘卷图；展示卷二的一个数字分段（Image 3 of Scroll 2）。",
+      "credit": "美国国会图书馆 Geography and Map Division；Wikimedia Commons；Library of Congress, Geography and Map Division, G7964.T7P2 17-- .T6, Image 3 of Scroll 2；Wikimedia Commons",
+      "source": "https://www.loc.gov/item/2002531180/",
+      "rights": "Wikimedia Commons标示Public Domain / PD-old-100-expired / PD-Art。",
+      "note": "道路沿长卷横向延展，两侧以绘画式山水和建筑符号标识沿途环境。方向随路线变化，这是江户至京都道路图的一段，而非整部卷图。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "道路沿长卷横向延展，两侧以绘画式山水和建筑符号标识沿途环境。方向随路线变化，这是江户至京都道路图的一段，而非整部卷图。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "美国国会图书馆18世纪笔墨水彩手绘卷图；展示卷二的一个数字分段（Image 3 of Scroll 2）。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/tokaido-18c-37455193ee-hd.jpg",
+      "preview": "/maps/v2/tokaido-18c-37455193ee-preview.jpg",
+      "thumb": "/maps/v2/tokaido-18c-37455193ee-thumb.jpg",
+      "width": 3840,
+      "height": 670
+    },
+    {
+      "id": "nansen-1710",
+      "title": "南瞻部洲万国掌菓之图",
+      "shortTitle": "南瞻部洲万国图",
+      "date": "1710年 · 佛教世界图",
+      "year": 1710,
+      "era": 5,
+      "region": "日本",
+      "period": "early",
+      "version": "1710年图，UBC图书馆珍本特藏部藏本的数字图像；本文件为1920像素发布缩图。",
+      "credit": "加拿大英属哥伦比亚大学图书馆 Rare Books and Special Collections / UBC Library Digitization Centre；Wikimedia Commons；UBC Library, Rare Books and Special Collections / UBC Library Digitization Centre；via Wikimedia Commons",
+      "source": "https://digitalcollections.library.ubc.ca/cdm/singleitem/collection/tokugawa/id/282/rec/2",
+      "rights": "UBC提供者声明No known copyright restrictions，并要求注明UBC Library为图像来源。",
+      "note": "以南瞻部洲的佛教地理观组织大陆、山系与水流，印度、中国、日本构成主要空间关系。它是1710年的真实历史世界地图，记录当时的世界认识。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "以南瞻部洲的佛教地理观组织大陆、山系与水流，印度、中国、日本构成主要空间关系。它是1710年的真实历史世界地图，记录当时的世界认识。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "1710年图，UBC图书馆珍本特藏部藏本的数字图像；本文件为1920像素发布缩图。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/nansen-1710-55c62bfbb5-hd.jpg",
+      "preview": "/maps/v2/nansen-1710-55c62bfbb5-preview.jpg",
+      "thumb": "/maps/v2/nansen-1710-55c62bfbb5-thumb.jpg",
+      "width": 1920,
+      "height": 1583
+    },
+    {
+      "id": "kangxi",
+      "title": "皇舆全览图·盛京全图",
+      "date": "1721年版 · 1941年影印",
+      "image": "/maps/v2/kangxi-050df5d550-hd.jpg",
+      "credit": "美国国会图书馆地理与地图部；Wikimedia Commons转存",
+      "version": "Walter Fuchs（福克斯）1941年影印的1721年木刻版图页；配套文字卷出版于1943年。",
+      "source": "https://www.loc.gov/item/74650033/",
+      "rights": "Commons标注公共领域；展示对象为20世纪影印版。",
+      "note": "观察经纬线与地理要素的组织。此件是后世影印图，原始编绘、刊刻和影印分别标注。",
+      "features": [
+        {
+          "name": "经纬参照",
+          "text": "观察地图上的经纬线如何为地理要素提供参照。",
+          "x": 50,
+          "y": 45
+        },
+        {
+          "name": "版本传递",
+          "text": "你看到的是1721年版本经1941年影印后数字化的图像。",
+          "x": 30,
+          "y": 60
+        }
+      ],
+      "region": "中国",
+      "period": "early",
+      "year": 1721,
+      "era": 5,
+      "shortTitle": "皇舆全览图·盛京全图",
+      "thumb": "/maps/v2/kangxi-050df5d550-thumb.jpg",
+      "preview": "/maps/v2/kangxi-050df5d550-preview.jpg",
+      "width": 3840,
+      "height": 3108
+    },
+    {
+      "id": "qing-1814",
+      "title": "大清万年一统地理全图",
+      "shortTitle": "大清万年一统图",
+      "date": "1767年原图 · 1814—1816年修订本",
+      "year": 1767,
+      "era": 5,
+      "region": "中国",
+      "period": "early",
+      "version": "美国国会图书馆所藏1814—1816年修订木刻本，依据黄千人1767年原图。",
+      "credit": "美国国会图书馆 Geography and Map Division；Wikimedia Commons；Library of Congress, Geography and Map Division, digital ID g7820.ct002256；Wikimedia Commons",
+      "source": "https://www.loc.gov/item/gm71005060/",
+      "rights": "Wikimedia Commons标示Public Domain；古代地图的国会图书馆数字复制。",
+      "note": "深蓝底色衬托山川、海岸与密集的行政地名，画面保留了分幅拼接的痕迹。它呈现清代舆图中的地域组织方式，周边国家的形状并不采用现代地图比例。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "深蓝底色衬托山川、海岸与密集的行政地名，画面保留了分幅拼接的痕迹。它呈现清代舆图中的地域组织方式，周边国家的形状并不采用现代地图比例。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "美国国会图书馆所藏1814—1816年修订木刻本，依据黄千人1767年原图。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/qing-1814-05e5a0a4f3-hd.jpg",
+      "preview": "/maps/v2/qing-1814-05e5a0a4f3-preview.jpg",
+      "thumb": "/maps/v2/qing-1814-05e5a0a4f3-thumb.jpg",
+      "width": 3840,
+      "height": 2181
+    },
+    {
+      "id": "ino-hirosaki",
+      "title": "伊能大图·陆奥弘前与出羽秋田郡（第43图）",
+      "shortTitle": "伊能大图 · 弘前秋田",
+      "date": "1821年全图完成 · 1884年前摹本（推定）",
+      "year": 1821,
+      "era": 5,
+      "region": "日本",
+      "period": "early",
+      "version": "美国国会图书馆《大日本沿海舆地全图》藏本第43图；目录认为可能为日本陆军1884年前的摹本。非1821年原呈进本。",
+      "credit": "美国国会图书馆 Geography and Map Division；Wikimedia Commons；Library of Congress, Geography and Map Division, G7960 s43 .I6, sheet 43；Wikimedia Commons",
+      "source": "https://www.loc.gov/item/2001620020/",
+      "rights": "Wikimedia Commons标示Public Domain / PD-old-100-expired / PD-Art。",
+      "note": "细密的沿海线、路线和地名集中在实测走过的地带，大片留白同样构成图面的特征。这是伊能测绘体系中的区域图幅，不能把这一张当作日本全图。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "细密的沿海线、路线和地名集中在实测走过的地带，大片留白同样构成图面的特征。这是伊能测绘体系中的区域图幅，不能把这一张当作日本全图。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "美国国会图书馆《大日本沿海舆地全图》藏本第43图；目录认为可能为日本陆军1884年前的摹本。非1821年原呈进本。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/ino-hirosaki-424092f6f5-hd.jpg",
+      "preview": "/maps/v2/ino-hirosaki-424092f6f5-preview.jpg",
+      "thumb": "/maps/v2/ino-hirosaki-424092f6f5-thumb.jpg",
+      "width": 4022,
+      "height": 5000
+    },
+    {
+      "id": "snow1855",
+      "title": "斯诺伦敦霍乱地图",
+      "shortTitle": "斯诺霍乱地图",
+      "date": "1855年刊印（记录1854年霍乱）",
+      "year": 1855,
+      "era": 6,
+      "region": "英国",
+      "period": "early",
+      "version": "1855年刊印（记录1854年霍乱）。图取自1855年7月提交的圣詹姆斯教区1854年霍乱调查报告第106—107页。",
+      "credit": "Wellcome Collection（英国惠康收藏馆）；A map taken from a report by Dr. John Snow. Wellcome Collection. Public Domain Mark. Wikimedia Commons mirror CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Resized and re-encoded.",
+      "source": "https://wellcomecollection.org/works/uxgfjt62",
+      "rights": "馆方现行标记Public Domain Mark；Commons镜像曾采用CC BY 4.0，保留完整署名与许可链接",
+      "note": "沿街道寻找一排排黑色短线，再定位Broad Street水泵，观察病例的空间聚集。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "沿街道寻找一排排黑色短线，再定位Broad Street水泵，观察病例的空间聚集。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "此图展示1854年疫情，不应把刊印日期混写为1854年。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/snow1855-89acf32caa-hd.jpg",
+      "preview": "/maps/v2/snow1855-89acf32caa-preview.jpg",
+      "thumb": "/maps/v2/snow1855-89acf32caa-thumb.jpg",
+      "width": 3840,
+      "height": 3566
+    },
+    {
+      "id": "minard1869",
+      "title": "米纳尔拿破仑远征图",
+      "shortTitle": "米纳尔远征图",
+      "date": "1869年11月20日（表现1812—1813年战役）",
+      "year": 1869,
+      "era": 6,
+      "region": "法国",
+      "period": "early",
+      "version": "1869年11月20日（表现1812—1813年战役）。这是一张1869年发表的历史流向地图，表现拿破仑军队1812年远征期间的兵力、移动与归程气温。 本图是原作扫描的数字图像，不是现代重绘；此扫描图像的实物馆藏来源未明确。",
+      "credit": "Wikimedia Commons（该数字图像条目未指定实物馆藏机构）；Charles-Joseph Minard, 1869. Digitized image via Wikimedia Commons. Public domain.",
+      "source": "https://commons.wikimedia.org/wiki/File:Minard.png",
+      "rights": "Public Domain / PD-old",
+      "note": "顺着逐渐变细的浅色去程与黑色归程阅读兵力损失，再对照底部气温曲线。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "顺着逐渐变细的浅色去程与黑色归程阅读兵力损失，再对照底部气温曲线。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "本图是原作扫描的数字图像，不是现代重绘；此扫描图像的实物馆藏来源未明确。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/minard1869-7669cd8f32-hd.jpg",
+      "preview": "/maps/v2/minard1869-7669cd8f32-preview.jpg",
+      "thumb": "/maps/v2/minard1869-7669cd8f32-thumb.jpg",
+      "width": 2003,
+      "height": 955
+    },
+    {
+      "id": "taiwan-1878",
+      "title": "全台前后山舆图",
+      "shortTitle": "全台前后山舆图",
+      "date": "1878年 · 木刻印本",
+      "year": 1878,
+      "era": 6,
+      "region": "中国",
+      "period": "early",
+      "version": "1878年富文斋木刻印本；美国国会图书馆藏本的数字扫描。",
+      "credit": "美国国会图书馆 Geography and Map Division；Wikimedia Commons；Library of Congress, Geography and Map Division, G7910 1878 .Y8, digital ID g7910.ct003253；Wikimedia Commons",
+      "source": "https://www.loc.gov/item/gm71005160/",
+      "rights": "Wikimedia Commons标示Public Domain / PD-old-100-expired / PD-Art。",
+      "note": "图中北方朝左，山脉以密集的山形符号展开，岛内聚落和沿海地名沿地形分布。周边说明与里程表显示了木刻舆图兼具地理描绘和行政查考的用途。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "图中北方朝左，山脉以密集的山形符号展开，岛内聚落和沿海地名沿地形分布。周边说明与里程表显示了木刻舆图兼具地理描绘和行政查考的用途。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "1878年富文斋木刻印本；美国国会图书馆藏本的数字扫描。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/taiwan-1878-501f2c7502-hd.jpg",
+      "preview": "/maps/v2/taiwan-1878-501f2c7502-preview.jpg",
+      "thumb": "/maps/v2/taiwan-1878-501f2c7502-thumb.jpg",
+      "width": 3840,
+      "height": 2456
+    },
+    {
+      "id": "usgs1901-1944",
+      "title": "美国地质调查局《莱尔山地形图》",
+      "shortTitle": "莱尔山地形图",
+      "date": "1901年版；所展示实物为1944年重印",
+      "year": 1944,
+      "era": 6,
+      "region": "美国",
+      "period": "modern",
+      "version": "1901年版；所展示实物为1944年重印。USGS官方GeoPDF元数据标明Mt. Lyell, CA 1901，比例尺1:125,000。",
+      "credit": "United States Geological Survey（美国地质调查局）；U.S. Geological Survey. Mt. Lyell, California, 1901 edition, reprinted 1944. Historical Topographic Map Collection. Public domain.",
+      "source": "https://commons.wikimedia.org/wiki/File:CA_Mt_Lyell_299488_1901_125000_geo_(PDF).pdf",
+      "rights": "Public Domain / PD-USGS；美国联邦政府职务作品",
+      "note": "棕色等高线揭示陡坡与山谷，蓝色水系穿行其间；图下方给出1:125,000比例尺与100英尺等高距。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "棕色等高线揭示陡坡与山谷，蓝色水系穿行其间；图下方给出1:125,000比例尺与100英尺等高距。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "图面右下角清楚印有Edition of 1901, reprinted 1944；绘图依据1898—1899年的测量。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/usgs1901-1944-b5bd6c056a-hd.jpg",
+      "preview": "/maps/v2/usgs1901-1944-b5bd6c056a-preview.jpg",
+      "thumb": "/maps/v2/usgs1901-1944-b5bd6c056a-thumb.jpg",
+      "width": 3105,
+      "height": 3877
+    },
+    {
+      "id": "noaa-etopo1-2009",
+      "title": "NOAA全球地形与海底地貌图",
+      "shortTitle": "全球地形与海底地貌",
+      "date": "2009年ETOPO1模型；所展示为NOAA官方配色图",
+      "year": 2009,
+      "era": 7,
+      "region": "全球",
+      "period": "modern",
+      "version": "2009年ETOPO1模型；所展示为NOAA官方配色图。ETOPO1是1弧分分辨率的全球地形模型，整合陆地高程与海洋水深。 2009指模型与技术报告年份；官方JPG未单独标注制图日期。",
+      "credit": "National Oceanic and Atmospheric Administration, National Centers for Environmental Information（美国国家海洋和大气管理局国家环境信息中心；原NGDC）；NOAA NGDC / NCEI. ETOPO1: Amante, C. and B. W. Eakins (2009), doi:10.7289/V5C8276M. Public domain.",
+      "source": "https://www.ngdc.noaa.gov/mgg/global/relief/",
+      "rights": "Public Domain / PD-NOAA；美国联邦政府职务作品",
+      "note": "颜色与阴影同时表现陆上高程和海底水深：寻找大西洋中脊、海沟与大陆架。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "颜色与阴影同时表现陆上高程和海底水深：寻找大西洋中脊、海沟与大陆架。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "2009指模型与技术报告年份；官方JPG未单独标注制图日期。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/noaa-etopo1-2009-2a08c4716d-hd.jpg",
+      "preview": "/maps/v2/noaa-etopo1-2009-2a08c4716d-preview.jpg",
+      "thumb": "/maps/v2/noaa-etopo1-2009-2a08c4716d-thumb.jpg",
+      "width": 5000,
+      "height": 2500
+    },
+    {
+      "id": "cia-world2021",
+      "title": "世界政区图 · 2021年版",
+      "shortTitle": "世界政区图 · 2021",
+      "date": "2021年2月（图面题名）",
+      "year": 2021,
+      "era": 8,
+      "region": "全球",
+      "period": "modern",
+      "version": "2021年2月（图面题名）。实际下载图面题名是Political Map of the World, February 2021，非Commons介绍中提及的旧2015版。 本馆将其作为2021年的制图资料展示。",
+      "credit": "Central Intelligence Agency, The World Factbook（美国中央情报局《世界概况》）；Central Intelligence Agency, Political Map of the World, February 2021. The World Factbook; via Wikimedia Commons. Public domain.",
+      "source": "https://commons.wikimedia.org/wiki/File:CIA_WorldFactBook-Political_world.pdf",
+      "rights": "Public Domain / PD-USGov-CIA-WF",
+      "note": "用图例区分国家、属地与首都；罗宾森投影把政区、岛屿和经纬网组织成当时的一张世界快照。",
+      "features": [
+        {
+          "name": "图面观察",
+          "text": "用图例区分国家、属地与首都；罗宾森投影把政区、岛屿和经纬网组织成当时的一张世界快照。",
+          "x": 50,
+          "y": 50
+        },
+        {
+          "name": "版本线索",
+          "text": "本馆将其作为2021年的制图资料展示。",
+          "x": 30,
+          "y": 30
+        }
+      ],
+      "image": "/maps/v2/cia-world2021-1cb261af9c-hd.jpg",
+      "preview": "/maps/v2/cia-world2021-1cb261af9c-preview.jpg",
+      "thumb": "/maps/v2/cia-world2021-1cb261af9c-thumb.jpg",
+      "width": 3840,
+      "height": 2194
+    }
+  ]
+}

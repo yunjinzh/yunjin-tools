@@ -1,0 +1,2 @@
+import {projectContext,jsonError} from '@/lib/server/projects';
+export async function GET(){try{const{db,owner}=await projectContext();const result=await db.prepare('SELECT id, name, model_name AS modelName, revision, bytes, updated_at AS updatedAt FROM teaching_projects WHERE owner = ? ORDER BY updated_at DESC LIMIT 100').bind(owner).all();return Response.json({projects:result.results},{headers:{'Cache-Control':'no-store'}});}catch(e){return jsonError(e);}}
