@@ -1,8 +1,8 @@
 # 云金工具集
 
-[部署后访问地址](https://yunjinzh.github.io/yunjin-tools/) · [完整迁移清单](docs/MIGRATION.md) · [本地程序下载](https://github.com/yunjinzh/yunjin-tools/releases/tag/v2026.11.17)
+[在线工具入口](https://yunjinzh.github.io/yunjin-tools/) · [完整迁移清单](docs/MIGRATION.md) · [本地程序下载](https://github.com/yunjinzh/yunjin-tools/releases/tag/v2026.11.17)
 
-> 迁移准备状态（2026-11-17）：源码、静态产物和部署配置已在本地整理完成。当前 GitHub 连接创建仓库返回 403，仓库与 Pages 尚未发布。上方在线地址及 Release 地址为预定地址。见 [发布步骤](docs/DEPLOYMENT.md)。
+> 发布状态（2026-11-17）：统一入口已发布至 GitHub Pages，两个本地程序包已发布至 Releases。见 [线上验证记录](docs/validation-online.json) 和 [部署说明](docs/DEPLOYMENT.md)。
 
 统一收录 142 项网页工具、三维作品、教学应用及本地程序。已取回 123 项源码或程序包：108 项提供网页入口，13 项依赖后端，2 项提供本地安装包；19 项仍待取得原文件。详见迁移清单。
 

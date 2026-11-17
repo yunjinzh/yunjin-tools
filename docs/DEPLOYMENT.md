@@ -1,10 +1,10 @@
-# 首次发布与续传
+# 部署与更新
 
-2026-11-17：本地迁移准备及检查已完成。GitHub 连接通过 GraphQL 和 REST 创建仓库均返回 `Resource not accessible by integration`（403），因此尚未创建或上传新仓库，也未发布 Pages 或 Release。此状态是迁移准备时的记录。
+统一入口已发布至 https://yunjinzh.github.io/yunjin-tools/ ，本地程序包发布至 `v2026.11.17` Release。发布提交、工作流及线上验证结果保存在 `validation-online.json`。
 
-## 仓库准备
+## 仓库
 
-由账户所有者在 https://github.com/new 创建公开空仓库 `yunjinzh/yunjin-tools`，不初始化 README、许可证或 .gitignore。现有 GitHub 应用选择了全部仓库；创建后重新检查连接能否访问该仓库。
+源码与资源保存在 https://github.com/yunjinzh/yunjin-tools 。首次迁入其他账户时，需要先创建公开空仓库，再修改脚本和入口中的仓库名与 Pages 前缀；不要初始化会与导入历史冲突的文件。
 
 ## 上传与部署
 
@@ -36,12 +36,13 @@ npm ci
 npx playwright install chromium
 npm run smoke
 npm run flows
+node directory.mjs
 # 已安装系统 Chromium 时可设置 CHROMIUM_PATH。
 # 仅检查某项：node smoke.mjs m101
 # 发布后检查：APP_URL=https://yunjinzh.github.io/yunjin-tools/ npm run smoke
 ```
 
-本地 smoke 检查将本仓库的 Raw 资源请求映射到本地已校验文件；线上检查不做此替换。首轮 108 项初始渲染结果及范围说明见 `validation.json`。页面加载通过不代表第三方接口、所有交互或大型模型均已完成端到端验收。
+本地 smoke 检查将本仓库的 Raw 资源请求映射到本地已校验文件；线上检查不做此替换。本地首轮 108 项初始渲染结果见 `validation.json`，线上结果见 `validation-online.json`。页面加载通过不代表第三方接口、所有交互或大型模型均已完成端到端验收。
 
 ## 尚待补齐
 
