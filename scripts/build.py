@@ -82,7 +82,10 @@ for m in modules:
         body=f'<main class="detail"><a class="back" href="{PREFIX}">← 云金工具集</a><p class="eyebrow">{html.escape(m["category"])}</p><h1>{html.escape(m["name"])}</h1><p class="intro">{html.escape(m["description"])}</p><p class="notice">{html.escape(m.get("migration_note",""))}</p><div class="actions">{"".join(actions)}</div><details><summary>原版本说明</summary><p>{html.escape(m["original_status"])}</p></details></main>'
         (dest/(m['id']+'.html')).write_text(f'<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(m["name"])}</title><link rel="stylesheet" href="{PREFIX}portal/style.css"></head><body>{body}</body></html>')
 (OUT/'modules.json').write_text(json.dumps(public,ensure_ascii=False))
-shutil.copy2(ROOT/'portal/index.html',OUT/'index.html')
+portal=(ROOT/'portal/index.html').read_text()
+for name,value in {'MODULE_COUNT':len(modules),'WEB_COUNT':sum(m['kind']=='web' for m in modules),'PACKAGE_COUNT':str(sum(m['kind'] in ['extension','desktop'] for m in modules)).zfill(2)}.items():
+    portal=portal.replace('{{'+name+'}}',str(value))
+(OUT/'index.html').write_text(portal)
 report={'catalogue':len(modules),'kinds':dict(collections.Counter(x['kind'] for x in modules)),'files':sum(1 for x in OUT.rglob('*') if x.is_file()),'bytes':sum(x.stat().st_size for x in OUT.rglob('*') if x.is_file())}
 (ROOT/'docs/build-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
 print(json.dumps(report,ensure_ascii=False))

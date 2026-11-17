@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "repository": "yunjinzh/yunjin-tools",
+  "site_url": "https://yunjinzh.github.io/yunjin-tools/",
+  "timezone": "Asia/Shanghai",
+  "polling": "hourly",
+  "catalogue_project": "appgprj_6ae037bad73881918556dff32f1daa4d",
+  "scope": [
+    "owned Sites with saved published versions",
+    "new or updated delivery links in the owned Tools Atlas catalogue"
+  ],
+  "excluded_projects": {},
+  "publish_to": "main",
+  "delete_policy": "never automatically remove existing modules",
+  "failure_policy": "preserve existing working version and report the blocker once per source version",
+  "automation_id": null
+}

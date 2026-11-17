@@ -2115,5 +2115,21 @@
       "app/api/history/route.ts"
     ],
     "migration_note": "源码已迁移；该版本依赖后端、数据库或平台身份，GitHub Pages 不运行这些服务。"
+  },
+  {
+    "id": "m143",
+    "name": "教育政策 · 2026一号文件索引",
+    "description": "按27个教育部司局检索2026年公开1号文件，提供官方来源、摘要与文件详情。",
+    "category": "研究与展示",
+    "original_url": "https://moe-policy-first-2026.yunjinzh.chatgpt.site",
+    "original_status": "原站已发布；静态资料索引与检索",
+    "source": "sources/m143",
+    "source_project": "appgprj_6afbcd27f570819193859b4c241e9f8c",
+    "source_version": 1,
+    "source_commit": "fa47b62fc1cb54de50ead4590b3b86c35b418e14",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m143",
+    "entry": "index.html"
   }
 ]

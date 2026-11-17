@@ -3,9 +3,14 @@
 from pathlib import Path
 import json,hashlib,urllib.parse,sys
 ROOT=Path(__file__).resolve().parents[1]
-modules=json.loads((ROOT/'modules.json').read_text());assert len(modules)==142
-assert len({x['id'] for x in modules})==142
+modules=json.loads((ROOT/'modules.json').read_text());assert modules, 'The catalogue must not be empty'
+ids={x['id'] for x in modules}
+assert len(ids)==len(modules), 'Duplicate module IDs'
 errors=[]
+registry=ROOT/'sync/module-ids.json'
+if registry.exists():
+    missing=set(json.loads(registry.read_text()))-ids
+    if missing:errors.append('Previously registered modules were removed: '+', '.join(sorted(missing)))
 for m in modules:
     if m['kind']=='web' and not (ROOT/m['web']/m['entry']).is_file():errors.append(f"{m['id']}: missing runnable entry")
     if m.get('source') and not (ROOT/m['source']).is_dir():errors.append(f"{m['id']}: missing source")
@@ -32,6 +37,7 @@ if '--hashes' in sys.argv:
 site=ROOT/'_site'
 if site.exists():
     public=json.loads((site/'modules.json').read_text())
+    if {m['id'] for m in public}!=ids:errors.append('Published catalogue is stale; rebuild after changing modules.json')
     for m in public:
         p=site/urllib.parse.unquote(m['url'])
         if not p.is_file():errors.append(f"Broken published entry {m['id']}: {p}")

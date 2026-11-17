@@ -20,6 +20,8 @@ jobs:
           python-version: '3.12'
       - name: Validate imported modules
         run: python scripts/validate.py --hashes
+      - name: Check incremental synchronization
+        run: python tests/test_sync_tools.py
       - name: Build unified website
         run: python scripts/build.py
       - name: Verify published entry points

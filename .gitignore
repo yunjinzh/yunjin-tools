@@ -2683,3 +2683,5 @@ __pycache__/
 /tests/portal-*.png
 
 /release-packages/
+
+/sync/.stage-*/
