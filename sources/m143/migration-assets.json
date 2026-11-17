@@ -1,1 +1,7 @@
-{}
+{
+  "dist/files/f942769fac8a.pdf": "assets/f942769fac8addc67b29bdd596d44c2545058fa9bbc93d901f776ed2f70d7ae5.pdf",
+  "dist/fonts/source-han-sans-bold.woff2": "assets/2341557ab801c44f56663192db682247b6861372a35b193cb6b9a084217bc073.woff2",
+  "dist/fonts/source-han-sans-regular.woff2": "assets/df1043fda4b7035e1336f20c45b4597b68422da8ed740fcce6ff67850d08c3f9.woff2",
+  "dist/fonts/source-han-serif-bold.woff2": "assets/80f825fc79405ad5fa2e87fb03b66f63aa99cfa9997c63b3c90139eb5c7d868c.woff2",
+  "dist/fonts/source-han-serif-regular.woff2": "assets/408e985dd98848bdc0283e4891c959549b86fbe4991aacddbbdcf7f2c6f9b719.woff2"
+}

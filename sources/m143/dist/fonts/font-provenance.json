@@ -1,0 +1,13 @@
+{
+  "originalFamilies": [
+    "Adobe Source Han Sans SC",
+    "Adobe Source Han Serif SC"
+  ],
+  "sources": [
+    "https://github.com/adobe-fonts/source-han-sans",
+    "https://github.com/adobe-fonts/source-han-serif"
+  ],
+  "modification": "Glyph subset and WOFF2 conversion only; font naming changed to Policy Han Sans / Serif to respect reserved font names. Original glyph designs retained.",
+  "license": "SIL Open Font License 1.1",
+  "characters": 1345
+}
