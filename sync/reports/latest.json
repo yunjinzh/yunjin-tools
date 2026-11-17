@@ -1,0 +1,45 @@
+{
+  "completed_at": "2026-11-17T14:11:48+08:00",
+  "trigger": "Initial setup verification",
+  "result": "succeeded",
+  "added": [
+    "m143"
+  ],
+  "updated": [],
+  "source_project": "appgprj_6afbcd27f570819193859b4c241e9f8c",
+  "source_version": 1,
+  "source_commit": "fa47b62fc1cb54de50ead4590b3b86c35b418e14",
+  "deployment_commit": "666b55ca4b0e0705330ac041f7d1ceb4e5a42fb1",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44028644961",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m143/index.html",
+  "catalogue_count": 143,
+  "web_count": 109,
+  "browser_checks": [
+    {
+      "id": "m143",
+      "name": "教育政策 · 2026一号文件索引",
+      "http": 200,
+      "errors": [],
+      "failures": [],
+      "title": "2026 一号文件 · 教育政策索引",
+      "textLength": 5681,
+      "canvas": 0,
+      "ok": true
+    }
+  ],
+  "portal_checks": {
+    "ok": true,
+    "checks": [
+      "Portal: 143 entries, search, empty state, category and availability filters, 390px viewport",
+      "Module storage isolation: get, set and clear",
+      "PDF reader: built-in sample action completes without a visible import/load error"
+    ]
+  },
+  "incremental_sync_tests": {
+    "passed": 7
+  },
+  "known_remaining": {
+    "server_source_only": 13,
+    "missing_original_files": 19
+  }
+}

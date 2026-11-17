@@ -1,6 +1,6 @@
 # 部署与更新
 
-统一入口已发布至 https://yunjinzh.github.io/yunjin-tools/ ，本地程序包发布至 `v2026.11.17` Release。发布提交、工作流及线上验证结果保存在 `validation-online.json`。
+统一入口已发布至 https://yunjinzh.github.io/yunjin-tools/ ，本地程序包发布至 `v2026.11.17` Release。首次迁移的发布与验证记录保存在 `validation-online.json`，后续增量同步结果见 `../sync/reports/latest.json`。
 
 ## 仓库
 

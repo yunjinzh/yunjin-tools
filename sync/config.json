@@ -13,5 +13,12 @@
   "publish_to": "main",
   "delete_policy": "never automatically remove existing modules",
   "failure_policy": "preserve existing working version and report the blocker once per source version",
-  "automation_id": null
+  "automation": {
+    "title": "工具自动同步",
+    "enabled": true,
+    "schedule": "BEGIN:VEVENT\nDTSTART;TZID=Asia/Shanghai:20261117T150600\nRRULE:FREQ=HOURLY\nEND:VEVENT",
+    "timezone": "Asia/Shanghai",
+    "next_run_at_setup": "2026-11-17T15:06:00+08:00",
+    "managed_by": "ChatGPT Automations"
+  }
 }
