@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" role="img" aria-label="宝石小镇：原石市场、切割工坊、加工工坊和宝石商店环绕中央广场">
+<defs>
+ <linearGradient id="land" x2="0" y2="1"><stop stop-color="#cdddb4"/><stop offset="1" stop-color="#b6cda0"/></linearGradient>
+ <linearGradient id="stone" x2=".7" y2="1"><stop stop-color="#ddd1ba"/><stop offset="1" stop-color="#aa9983"/></linearGradient>
+ <linearGradient id="gem" x2=".8" y2="1"><stop stop-color="#dceee4"/><stop offset=".5" stop-color="#90c1ac"/><stop offset="1" stop-color="#5d967f"/></linearGradient>
+ <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#fff5dc"/><stop offset="1" stop-color="#ead8b9"/></linearGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="5"/></filter>
+ <filter id="shadow" x="-40%" y="-40%" width="180%" height="200%"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#4b644c" flood-opacity=".15"/></filter>
+ <g id="tree"><ellipse cy="10" rx="30" ry="13" fill="#728765" opacity=".19"/><path d="M-5 1v-54h10V1q-5 5-10 0" fill="#947f5a"/><path d="M0-125-39-43h15L-48-7Q0 17 47-8L23-43h15Z" fill="#6c9478"/><path d="M0-125v131q27-2 47-14L23-43h15Z" fill="#567e69"/><path d="m0-98-24 49 25-8Z" fill="#93ae83" opacity=".55"/></g>
+ <g id="bush"><ellipse cy="7" rx="26" ry="10" fill="#6c8561" opacity=".16"/><circle cx="-13" cy="-7" r="18" fill="#91af7f"/><circle cx="12" cy="-13" r="22" fill="#9bb888"/><circle cy="-25" r="20" fill="#abc393"/><path d="M-15 7q19 11 43-10" fill="none" stroke="#87a575" stroke-width="4" stroke-linecap="round"/></g>
+ <g id="flower"><path d="M0 0v-17m0 9 8-5" stroke="#6e9476" stroke-width="2.5"/><circle cy="-20" r="6" fill="#e3a18e"/><circle cy="-20" r="2" fill="#fff2ca"/></g>
+ <g id="crystal"><ellipse cy="5" rx="23" ry="9" fill="#658773" opacity=".16"/><path d="m0-58 20 20-2 36L0 9-19-2-23-37Z" fill="url(#gem)"/><path d="m0-58-5 28L0 9 20-38Z" fill="#b4d9c5"/><path d="m-23-37 18 7 25-8M-5-30 0 9" fill="none" stroke="#f3fbdf" stroke-opacity=".6" stroke-width="1.5"/></g>
+ <g id="pinkgem"><path d="m0-37 26 4 15 18L10 13-16-13Z" fill="#d68579"/><path d="m0-37 5 20 21-16 15 18-31 28L5-17-16-13Z" fill="#edb5a1"/><path d="M5-17 41-15M5-17 10 13M5-17 26-33" stroke="#ffded0" stroke-width="1.4" fill="none"/></g>
+ <g id="crate"><path d="m-22-20 28-15 31 17-27 16Z" fill="#d6b282"/><path d="M-22-20V9L10 27V-2Z" fill="#bd986b"/><path d="M10-2 37-18V9L10 27Z" fill="#ac845c"/><path d="M-16-13 4-2m-20-1L4 8m-20 0L4 19M16 2 31-7M16 12 31 3" stroke="#e4c394" stroke-width="3"/><path d="M-22-20 10-2 37-18" stroke="#efcfa0" stroke-width="3" fill="none"/></g>
+ <g id="lamp"><ellipse cy="6" rx="16" ry="7" fill="#637d67" opacity=".18"/><path d="M0 0v-73" stroke="#79756a" stroke-width="5"/><path d="M-10-76v-22h20v22Z" fill="#fbdf9f" stroke="#79756a" stroke-width="3"/><path d="m-14-100 14-9 14 9Z" fill="#7c8274"/><path d="M-7 1H7" stroke="#79756a" stroke-width="6" stroke-linecap="round"/></g>
+ <g id="person"><ellipse cy="5" rx="13" ry="5" fill="#687c5d" opacity=".24"/><path d="m-5-12-1 15m12-15 1 15" stroke="#6e6e64" stroke-width="5" stroke-linecap="round"/><path d="M-12-21q-2-22 12-22t12 22v10h-24Z" fill="currentColor"/><path d="M-11-36-6-25M12-35l-2 11" stroke="#f3c5a4" stroke-width="4" stroke-linecap="round"/><circle cy="-51" r="12" fill="#edbe9b"/><path d="M-12-50q-4-17 12-17 17 0 12 16-9-2-16-9 0 10-8 10" fill="#726052"/><path d="M-8-41q7 4 16 0" stroke="#fff0d0" stroke-width="4" fill="none"/></g>
+ <g id="pot"><ellipse cy="5" rx="16" ry="7" fill="#74866b" opacity=".17"/><path d="m-14-17 4 21q10 7 20 0l4-21Z" fill="#c9866f"/><ellipse cy="-17" rx="15" ry="6" fill="#e3a187"/><path d="M0-17v-28M0-25q-22-4-21-19Q-4-44 0-25m0 2q21-7 20-24Q3-47 0-23" fill="#769b7e" stroke="#66896e" stroke-width="2"/></g>
+ <g id="step"><ellipse rx="22" ry="10" fill="#94a77f" opacity=".23"/><path d="m-18-5 17-8 20 8-2 9-20 5-17-5Z" fill="#f4e9d4"/><path d="m-18 4 16 5 19-5" fill="none" stroke="#d8cfb9" stroke-width="2"/></g>
+</defs>
+<!-- island and paths -->
+<ellipse cx="604" cy="499" rx="525" ry="296" fill="#91a482" opacity=".12" filter="url(#blur)"/>
+<path d="M123 351Q100 304 164 264L479 93q87-45 178-5l399 201q95 48 40 109L752 729q-67 67-160 42L175 548q-85-46-52-115Z" fill="#a2b98c"/>
+<path d="M123 335Q100 288 164 248L479 77q87-45 178-5l399 201q95 48 40 109L752 713q-67 67-160 42L175 532q-85-46-52-115Z" fill="url(#land)"/>
+<path d="m214 367 255-128q72-35 151 6l308 154-65 70-233-127-333 186-66-39 315-178-36-16-246 131Z" fill="#ede4cd"/>
+<path d="M477 423q90-56 198 0 94 51 4 106-95 57-197-1-91-51-5-105Z" fill="#f3ead5" stroke="#e5d8bc" stroke-width="8"/>
+<path d="m476 478 101-57 108 58-108 59Z" fill="#e6dec9"/>
+<path d="m478 478 99 59 108-58M577 422v115" stroke="#f8f0df" stroke-width="3" fill="none"/>
+<g opacity=".7" fill="#8caa76"><ellipse cx="312" cy="593" rx="35" ry="12"/><ellipse cx="925" cy="346" rx="42" ry="12"/><ellipse cx="583" cy="167" rx="30" ry="12"/><ellipse cx="891" cy="614" rx="28" ry="10"/><ellipse cx="205" cy="454" rx="25" ry="8"/></g>
+<!-- rear trees -->
+<use href="#tree" transform="translate(245 258) scale(.9)"/><use href="#tree" transform="translate(303 217) scale(.72)"/><use href="#tree" transform="translate(511 129) scale(.7)"/><use href="#tree" transform="translate(600 146) scale(.83)"/><use href="#tree" transform="translate(945 322) scale(.92)"/><use href="#tree" transform="translate(1014 363) scale(.73)"/>
+<!-- market upper left -->
+<g filter="url(#shadow)">
+<path d="m295 334 145-82 145 78-143 84Z" fill="#b39a74"/>
+<path d="m295 334 147 80 143-84v16l-143 84-147-80Z" fill="#c2ab85"/>
+<path d="m319 321 3-136 101 56v138Z" fill="#f7ebd1"/>
+<path d="m423 241 116-66v133l-116 71Z" fill="#d9c6a4"/>
+<path d="m307 183 116 63 132-74-116-61Z" fill="#e1b18d"/>
+<path d="m307 183 113 7 19-79-132 72Z" fill="#d89379"/>
+<path d="m420 190 3 56 132-74-116-61Z" fill="#c67f68"/>
+<path d="m319 181 100 55 120-68" fill="none" stroke="#e9bca0" stroke-width="4"/>
+<path d="m324 244 92 51 81-46-92-49Z" fill="#e7c58c"/>
+<path d="m324 244 92 51v21l-92-51Z" fill="#d09e6d"/>
+<path d="m416 295 81-46v22l-81 45Z" fill="#bd8c60"/>
+<path d="m330 252 78 43M435 291l52-30" stroke="#edc89b" stroke-width="4"/>
+<path d="m334 263 3 64m65-25 2 65m83-96v52" stroke="#a18a61" stroke-width="6"/>
+<!-- awning stripes -->
+<path d="m305 211 96 53 92-53-21-46-88 50-66-42Z" fill="#f9e7c4"/>
+<path d="m317 173 17 9-13 38-16-9Zm33 18 18 10-14 37-17-10Zm34 24 17 10-1 39-17-10Zm17 10 18-10 22 26-21 11Zm37-21 18-10 21 27-18 10Z" fill="#c7816c"/>
+<path d="m305 211 96 53 92-53v14q-10 11-19 10-8 12-18 12-8 11-18 11-9 10-18 11-10 10-19 9-13-1-18-13-14-1-18-12-13 0-17-12-14-1-17-12-13 0-17-12Z" fill="#e6b692"/>
+<path d="m305 211 96 53 92-53" fill="none" stroke="#fce7c5" stroke-width="3"/>
+<!-- rocks on counter -->
+<path d="m349 246 10-18 18 2 9 21-17 8Z" fill="#a3937c"/><path d="m352 243 9-14 16 1-8 16Z" fill="#c9b9a0"/>
+<path d="m389 269 4-18 18-6 16 18-10 12Z" fill="#c1ab8b"/><path d="m435 260 3-17 15-8 14 15-11 18Z" fill="#ab9e8b"/>
+<use href="#crate" transform="translate(317 333) scale(.67)"/><use href="#pinkgem" transform="translate(507 303) scale(.45)"/>
+<path d="m467 297 41-23 30 17-41 24Z" fill="#d8b991"/><path d="m467 297v26l30 17v-25m0 0 41-24v26l-41 23" fill="#bc976c"/>
+</g>
+<!-- cutting house upper right -->
+<g filter="url(#shadow)">
+<path d="m676 288 124-69 146 77-122 73Z" fill="#c2ac83"/><path d="M676 288v16l148 81 122-73v-16l-122 73Z" fill="#ab9576"/>
+<path d="m690 284 1-112 129 72v112Z" fill="url(#wall)"/>
+<path d="m820 244 100-60v111l-100 61Z" fill="#dfd3b9"/>
+<path d="m676 175 136 77 126-74-136-77Z" fill="#5c8e85"/>
+<path d="m676 175 83-18 43-56 136 77-126 74-53-95Z" fill="#80a69b"/>
+<path d="m759 157 53 95 126-74-136-77Z" fill="#648f86"/>
+<path d="m684 175 126 70 119-69M762 157l52 87" stroke="#aec9b3" stroke-width="3" fill="none"/>
+<path d="m802 111 126 71M791 128l122 69M778 144l119 69" stroke="#82ab9d" stroke-width="3" fill="none"/>
+<path d="m713 232 36 21v48l-36-21Z" fill="#83aaa0" stroke="#d8c59f" stroke-width="6"/><path d="m731 242v50m-17-35 33 19" stroke="#e9d5af" stroke-width="3"/>
+<path d="m772 270 30 18v57l-30-18Z" fill="#9a9275"/><path d="m779 278 16 9v51l-16-9Z" fill="#b9ad8d"/><circle cx="791" cy="317" r="2.5" fill="#f6dc9d"/>
+<path d="m843 257 46-27v40l-46 28Z" fill="#8eb0a1" stroke="#eee0c0" stroke-width="6"/><path d="m866 244v40" stroke="#e8d8b6" stroke-width="3"/>
+<!-- circular saw workbench -->
+<path d="m668 322 56-32 67 37-55 32Z" fill="#d8c5a1"/><path d="m668 322v12l68 38 55-33v-12l-55 32Z" fill="#b29a78"/>
+<path d="M676 338v34m54-4v37m52-64v34" stroke="#a28c6e" stroke-width="7"/>
+<path d="m710 316 16-9 28 16-15 9Z" fill="#8e9a8f"/>
+<ellipse cx="726" cy="304" rx="18" ry="26" fill="#d3d8ca" stroke="#9baba1" stroke-width="4" transform="rotate(-27 726 304)"/>
+<ellipse cx="726" cy="304" rx="5" ry="8" fill="#7c9690" transform="rotate(-27 726 304)"/>
+<path d="m748 332 10-10 17 7-4 14Z" fill="#a99b84"/>
+<use href="#crystal" transform="translate(891 318) scale(.62)"/>
+</g>
+<!-- central crystal monument -->
+<g filter="url(#shadow)"><ellipse cx="577" cy="475" rx="44" ry="24" fill="#c5bc9f"/><path d="M535 463v12q40 32 85 0v-12Z" fill="#d5ccb3"/><ellipse cx="577" cy="462" rx="43" ry="24" fill="#fff1d5"/><use href="#crystal" transform="translate(576 451) scale(1.25)"/><use href="#pinkgem" transform="translate(603 457) scale(.5)"/><path d="m545 444-15-11 4-21 16-8 13 28Z" fill="#b0bdd0"/><path d="m534 412 9 11 7-19 13 28-18 12-2-21" fill="#d2d9e0"/>
+<path d="m575 358 4 10 11 3-11 4-4 10-4-10-10-4 10-3Z" fill="#fbf3d8"/>
+</g>
+<!-- crafting pavilion lower left -->
+<g filter="url(#shadow)">
+<path d="m272 540 135-76 139 76-135 80Z" fill="#c7b08b"/><path d="M272 540v17l139 80 135-80v-17l-135 80Z" fill="#ac9676"/>
+<path d="m290 531 1-114 120 65v119Z" fill="#f3e5c8"/><path d="m411 482 112-66v117l-112 68Z" fill="#e0cfaf"/>
+<path d="m271 412 140 82 134-78-139-80Z" fill="#cc8a75"/><path d="m271 412 88-17 47-59 139 80-134 78-52-99Z" fill="#dfab90"/><path d="m359 395 47-59 139 80-134 78Z" fill="#ca8871"/>
+<path d="m281 413 129 73 126-72M360 395l49 90" stroke="#efc5a3" stroke-width="4" fill="none"/>
+<path d="m399 350 130 75M388 365l125 74M375 381l122 70" stroke="#dda68c" stroke-width="3" fill="none"/>
+<!-- open workshop arched door -->
+<path d="M315 549v-67q24-29 48 26v68Z" fill="#b0a38a"/><path d="M321 549v-61q18-17 36 24v56Z" fill="#829187"/>
+<path d="m381 511 17 10v27l-17-10Z" fill="#9cb4a0" stroke="#d9c29c" stroke-width="5"/>
+<path d="m441 492 56-32v48l-56 32Z" fill="#90aaa0" stroke="#f2dfba" stroke-width="6"/><path d="m468 477v47m-27-8 55-32" stroke="#eee0be" stroke-width="3"/>
+<!-- outside crafting desk -->
+<path d="m345 570 50-30 69 38-50 31Z" fill="#ead2a6"/><path d="m345 570v11l69 40 50-32v-11l-50 31Z" fill="#c29e74"/><path d="m354 587 1 31m53-1v31m47-55v31" stroke="#a88b67" stroke-width="7"/>
+<ellipse cx="399" cy="578" rx="22" ry="12" fill="#cfad81"/><path d="m390 571 13-7 12 7-12 9Z" fill="#e7ba8f"/>
+<use href="#pinkgem" transform="translate(396 575) scale(.4)"/><path d="m426 589 10-6" stroke="#6e8e83" stroke-width="5" stroke-linecap="round"/><path d="m433 584 9-12" stroke="#a79476" stroke-width="3"/>
+<path d="m366 567 9-6 10 5-9 6Z" fill="#94bfa2"/><circle cx="439" cy="579" r="3" fill="#e8bf86"/>
+<use href="#pot" transform="translate(300 550) scale(.8)"/><use href="#crate" transform="translate(480 584) scale(.7)"/>
+</g>
+<!-- retail lower right -->
+<g filter="url(#shadow)">
+<path d="m727 576 118-70 141 77-118 74Z" fill="#c0aa83"/><path d="M727 576v17l141 82 118-74v-18l-118 74Z" fill="#ab9674"/>
+<path d="m744 567 1-114 124 69v119Z" fill="#f6e9ce"/><path d="m869 522 101-62v117l-101 64Z" fill="#e6d5b8"/>
+<path d="m727 452 141 81 121-73-140-80Z" fill="#c39f68"/>
+<path d="m727 452 82-18 40-54 140 80-121 73-59-99Z" fill="#ddbd80"/><path d="m809 434 40-54 140 80-121 73Z" fill="#c5a16b"/>
+<path d="m737 452 129 73 114-66M810 434l57 90" stroke="#f3d69a" stroke-width="4" fill="none"/>
+<path d="m842 394 129 73M830 410l125 72M819 425l120 70" stroke="#d4b27a" stroke-width="3" fill="none"/>
+<path d="m760 498 49 27v56l-49-27Z" fill="#8ca69a" stroke="#dec9a2" stroke-width="5"/><path d="m783 511v57m-23-28 49 27" stroke="#f2ddbc" stroke-width="3"/>
+<path d="m824 544 27 16v71l-27-16Z" fill="#ae8f6d"/><path d="m829 552 17 10v43l-17-10Z" fill="#a8beb0"/><circle cx="844" cy="611" r="2" fill="#eed497"/>
+<path d="m890 534 57-34v55l-57 35Z" fill="#8da99b" stroke="#f3e0bf" stroke-width="6"/>
+<path d="m897 563 42-24" stroke="#d6b57f" stroke-width="5"/>
+<use href="#crystal" transform="translate(910 552) scale(.27)"/><use href="#pinkgem" transform="translate(931 541) scale(.25)"/>
+<!-- jewelry sign and display -->
+<path d="m775 474 36 20v20l-36-20Z" fill="#f1d69b"/><path d="m784 486 10-3 10 12-10 5Z" fill="#d28c76"/><path d="m784 486 10 14v-17" fill="#edc2a4"/>
+<path d="m765 600 40-23 44 25-40 24Z" fill="#f1dfbe"/><path d="M765 600v16l44 25 40-24v-15l-40 24Z" fill="#c5a47d"/>
+<path d="m771 599 32-17 37 20-32 19Z" fill="#bdd0bc"/><ellipse cx="805" cy="600" rx="13" ry="7" fill="none" stroke="#e3c47f" stroke-width="4"/>
+<use href="#pinkgem" transform="translate(806 597) scale(.24)"/>
+<use href="#pot" transform="translate(951 592) scale(1)"/>
+</g>
+<!-- foreground and little inhabitants -->
+<use href="#lamp" transform="translate(618 310) scale(.75)"/><use href="#lamp" transform="translate(683 598) scale(.8)"/>
+<use href="#person" transform="translate(480 361)" color="#739a96"/><use href="#person" transform="translate(659 391) scale(.94)" color="#cd8b79"/>
+<use href="#person" transform="translate(477 654) scale(1.04)" color="#d8b470"/><use href="#person" transform="translate(758 670)" color="#8a99b2"/>
+<use href="#person" transform="translate(562 550) scale(.86)" color="#d49a86"/>
+<use href="#step" transform="translate(625 564)"/><use href="#step" transform="translate(601 589) scale(.85)"/><use href="#step" transform="translate(577 614) scale(.8)"/><use href="#step" transform="translate(551 641) scale(.85)"/>
+<use href="#step" transform="translate(900 388) scale(.8)"/><use href="#step" transform="translate(926 405) scale(.75)"/>
+<use href="#tree" transform="translate(198 389) scale(.85)"/><use href="#tree" transform="translate(214 521) scale(.8)"/>
+<use href="#tree" transform="translate(344 660) scale(.85)"/><use href="#tree" transform="translate(638 729) scale(.94)"/>
+<use href="#bush" transform="translate(251 413) scale(.7)"/><use href="#bush" transform="translate(555 242) scale(.75)"/><use href="#bush" transform="translate(986 462) scale(.95)"/>
+<use href="#bush" transform="translate(885 693) scale(.9)"/><use href="#bush" transform="translate(711 710) scale(.8)"/><use href="#bush" transform="translate(281 604) scale(.8)"/>
+<use href="#flower" transform="translate(305 596)"/><use href="#flower" transform="translate(321 601) scale(.75)"/><use href="#flower" transform="translate(293 584) scale(.8)"/>
+<use href="#flower" transform="translate(929 631)"/><use href="#flower" transform="translate(945 629) scale(.75)"/><use href="#flower" transform="translate(940 616) scale(.8)"/>
+<use href="#flower" transform="translate(562 173) scale(.8)"/><use href="#flower" transform="translate(546 180) scale(.7)"/>
+<use href="#flower" transform="translate(183 464) scale(.8)"/><use href="#flower" transform="translate(194 473) scale(.7)"/>
+<path d="m889 352 13-16 15 9 4 15-15 7Z" fill="#d9d4b4"/><path d="m895 351 8-15 14 9-11 13Z" fill="#eeead3"/>
+<path d="m557 690 13-11 15 7 2 13-14 6Z" fill="#d4cdb0"/>
+<g fill="#8eab79" opacity=".6"><path d="m244 464 4-11 4 11m5-3 4-12 4 12m414-240 4-11 4 11m11 4 4-10 4 10m322 232 4-12 4 12m-19-1 4-10 4 10M515 688l4-10 4 10m-10 9 4-11 4 11"/></g>
+<!-- sun flecks -->
+<g fill="#fff4d8" opacity=".75"><circle cx="594" cy="363" r="3"/><circle cx="546" cy="398" r="2.5"/><circle cx="649" cy="470" r="2"/><circle cx="300" cy="282" r="2"/><circle cx="924" cy="457" r="2.5"/></g>
+</svg>

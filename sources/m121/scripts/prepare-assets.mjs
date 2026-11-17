@@ -1,0 +1,15 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+const model = JSON.parse(await readFile('MODEL-PROVENANCE.json','utf8'));
+await mkdir('downloads',{recursive:true});
+await mkdir('dist/licenses',{recursive:true});
+const url = `https://media.githubusercontent.com/media/imgly/background-removal-js/${model.revision}/${model.path}`;
+const response = await fetch(url);
+if (!response.ok) throw new Error(`Model download failed (${response.status})`);
+const bytes = Buffer.from(await response.arrayBuffer());
+if (bytes.length !== model.bytes || createHash('sha256').update(bytes).digest('hex') !== model.sha256) throw new Error('Model integrity check failed');
+await writeFile('downloads/isnet_quint8.onnx',bytes);
+const license = await fetch('https://raw.githubusercontent.com/microsoft/onnxruntime/v1.21.0/LICENSE');
+if (!license.ok) throw new Error('ONNX license download failed');
+await writeFile('dist/licenses/ONNX-RUNTIME.txt',await license.text());
+console.log('Model downloaded and verified.');

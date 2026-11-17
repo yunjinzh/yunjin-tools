@@ -1,0 +1,11 @@
+{
+  "retrieved": "2026-10-27",
+  "owner": "IMG.LY GmbH",
+  "repository": "https://github.com/imgly/background-removal-js",
+  "revision": "12f56cc4f2a90d624e165a715748d22efc7a1d93",
+  "path": "bundle/models/isnet_quint8",
+  "sha256": "d1ca3535c21b53d08fa3b640e5949389f82e764f6376a0502d44982c35cae482",
+  "bytes": 44348940,
+  "library": "@imgly/background-removal@1.7.0",
+  "runtime": "onnxruntime-web@1.21.0"
+}

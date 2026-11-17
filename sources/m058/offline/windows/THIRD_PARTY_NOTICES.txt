@@ -1,0 +1,12 @@
+GeoPBF Third-Party Notices
+==========================
+
+OpenStreetMap data: Copyright OpenStreetMap contributors, ODbL 1.0.
+OpenStreetMap raster tiles and data: © OpenStreetMap contributors, ODbL.
+AWS Terrain Tiles: Mapzen / Tilezen terrain dataset, see provider attribution terms.
+Esri World Imagery: Esri and imagery data providers; retain the service attribution.
+
+This application includes open-source software including React, Three.js,
+Leaflet, pbf, Turf and Lucide. Their respective license texts and
+copyright notices remain applicable. Source package manifests identify the
+exact versions used by this build.

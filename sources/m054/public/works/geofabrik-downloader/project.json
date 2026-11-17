@@ -1,0 +1,22 @@
+{
+  "title": "GeoFabrik Downloader",
+  "category": "数据工具 / OSM",
+  "year": "2026",
+  "summary": "面向大规模 OSM 数据的自动下载、归档与检索工具。",
+  "description": "为需要长期维护开放街图数据的团队设计的一键式下载与管理工具，覆盖数据选择、批量任务、分级存储、更新计划和本地检索。",
+  "role": "需求分析 / 产品设计 / 工具开发",
+  "client": "空间数据生产",
+  "tags": ["OpenStreetMap", "数据下载", "自动归档", "Windows"],
+  "tone": "paper",
+  "size": "wide",
+  "featured": true,
+  "order": 4,
+  "challenge": "GeoFabrik 数据体量大、区域层级多，手工下载容易产生遗漏、路径混乱和版本不一致；在 Windows 本地盘与网络映射盘之间还存在兼容问题。",
+  "approach": "建立大洲—国家—省份—城市的统一目录规则，支持 PBF、SHP、GPKG 与说明文档组合下载，并通过本地服务处理进度、断点、更新频率和索引页面生成。",
+  "outcome": "形成面向非开发人员的桌面化工作流，数据下载结果可追踪、可检索、可更新，降低大规模 OSM 数据维护的操作成本。",
+  "metrics": [
+    { "value": "4", "label": "数据类型" },
+    { "value": "3", "label": "更新模式" },
+    { "value": "4", "label": "目录层级" }
+  ]
+}

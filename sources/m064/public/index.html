@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f6fb">
+  <title>MUSE · 资源展示平台</title>
+  <style>
+    :root {
+      --primary: #5b5ce2;
+      --primary-dark: #4946c8;
+      --primary-soft: #ececff;
+      --ink: #182033;
+      --muted: #6e7587;
+      --subtle: #969cad;
+      --canvas: #f4f6fb;
+      --paper: #ffffff;
+      --line: #e5e8f0;
+      --line-strong: #d9dde8;
+      --success: #0e9f78;
+      --success-soft: #e7f7f2;
+      --warning: #df8a16;
+      --warning-soft: #fff5df;
+      --danger: #e44e5c;
+      --danger-soft: #fff0f1;
+      --shadow-sm: 0 1px 2px rgba(20, 27, 46, .05), 0 4px 12px rgba(20, 27, 46, .04);
+      --shadow-md: 0 12px 36px rgba(31, 38, 66, .10);
+      --shadow-lg: 0 28px 80px rgba(18, 23, 41, .22);
+      --radius-sm: 10px;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --header: 74px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: Inter, "SF Pro Display", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    ::selection { color: #fff; background: var(--primary); }
+    :focus-visible { outline: 3px solid rgba(91, 92, 226, .25); outline-offset: 2px; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .icon { width: 1em; height: 1em; display: inline-block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+    .muted { color: var(--muted); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 780; letter-spacing: -.02em; }
+    .brand-mark { width: 40px; height: 40px; padding: 9px; display: flex; align-items: end; gap: 3px; border-radius: 13px; color: #fff; background: var(--primary); box-shadow: 0 9px 22px rgba(91,92,226,.24); }
+    .brand-mark i { flex: 1; border-radius: 99px; background: currentColor; }
+    .brand-mark i:nth-child(1) { height: 42%; opacity: .68; }
+    .brand-mark i:nth-child(2) { height: 72%; opacity: .84; }
+    .brand-mark i:nth-child(3) { height: 100%; }
+    .brand-copy small { display: block; margin-top: 2px; color: var(--muted); font-size: 9px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; }
+
+    .btn { min-height: 42px; border: 1px solid transparent; border-radius: 11px; padding: 0 16px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 680; cursor: pointer; transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary { color: #fff; background: var(--primary); box-shadow: 0 8px 20px rgba(91,92,226,.19); }
+    .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 12px 24px rgba(91,92,226,.25); }
+    .btn-secondary { color: var(--ink); background: var(--paper); border-color: var(--line); }
+    .btn-secondary:hover { border-color: #cbd0df; background: #fafbfe; }
+    .btn-soft { color: var(--primary-dark); background: var(--primary-soft); }
+    .btn-danger { color: var(--danger); background: var(--danger-soft); }
+    .btn-ghost { min-height: 36px; padding: 0 10px; color: var(--muted); background: transparent; }
+    .btn-ghost:hover { color: var(--ink); background: #eff1f6; }
+    .btn-icon { width: 42px; padding: 0; }
+    .btn-sm { min-height: 34px; padding: 0 11px; border-radius: 9px; font-size: 12px; }
+    .btn-wide { width: 100%; }
+    .btn[disabled] { opacity: .5; cursor: not-allowed; transform: none; }
+
+    .field { display: grid; gap: 8px; }
+    .field label { color: #3d4558; font-size: 13px; font-weight: 650; }
+    .input-wrap { position: relative; }
+    .input-wrap > .icon { position: absolute; top: 50%; left: 14px; transform: translateY(-50%); color: #9ba2b3; font-size: 18px; pointer-events: none; }
+    .input, .select, .textarea { width: 100%; border: 1px solid var(--line-strong); border-radius: 11px; color: var(--ink); background: #fbfcfe; transition: border .18s, box-shadow .18s, background .18s; }
+    .input, .select { height: 46px; padding: 0 14px; }
+    .input-wrap .input { padding-left: 43px; }
+    .input-wrap .input.has-trailing { padding-right: 44px; }
+    .textarea { min-height: 100px; padding: 12px 14px; resize: vertical; }
+    .input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(91,92,226,.10); }
+    .input::placeholder, .textarea::placeholder { color: #a9afbd; }
+    .field-note { color: var(--subtle); font-size: 11px; line-height: 1.5; }
+    .field-error { min-height: 20px; color: var(--danger); font-size: 12px; }
+    .password-toggle { position: absolute; top: 50%; right: 8px; width: 36px; height: 36px; border: 0; border-radius: 8px; display: grid; place-items: center; transform: translateY(-50%); color: var(--muted); background: transparent; cursor: pointer; }
+
+    .auth-shell { min-height: 100vh; display: grid; grid-template-columns: minmax(320px, .82fr) minmax(540px, 1.18fr); background: var(--paper); }
+    .auth-panel { position: relative; padding: 44px clamp(28px, 5vw, 78px); display: flex; flex-direction: column; overflow: hidden; }
+    .auth-panel > * { position: relative; z-index: 1; }
+    .auth-main { flex: 1; width: min(430px, 100%); margin: 10vh auto 6vh; display: flex; flex-direction: column; justify-content: center; }
+    .auth-eyebrow { margin: 0 0 12px; color: var(--primary); font-size: 11px; font-weight: 760; letter-spacing: .16em; text-transform: uppercase; }
+    .auth-title { margin: 0; font-size: clamp(34px, 4.4vw, 56px); line-height: 1.08; letter-spacing: -.055em; }
+    .auth-lead { margin: 16px 0 30px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .auth-form { display: grid; gap: 17px; }
+    .auth-switch { margin: 20px 0 0; color: var(--muted); font-size: 13px; text-align: center; }
+    .text-link { border: 0; padding: 0; color: var(--primary); background: none; font-weight: 690; cursor: pointer; }
+    .auth-foot { color: var(--subtle); font-size: 11px; }
+    .demo-credential { margin-top: 22px; padding: 12px 14px; border: 1px dashed #d7daf0; border-radius: 11px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #686e83; background: #f8f8ff; font-size: 12px; }
+    .demo-credential strong { color: #34384a; font-weight: 700; }
+    .auth-visual { position: relative; min-height: 100vh; padding: clamp(34px, 5vw, 72px); display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; color: #fff; background: #17192e; }
+    .auth-visual::before { content: ""; position: absolute; width: 76vw; height: 76vw; min-width: 780px; min-height: 780px; left: 16%; top: -34%; border-radius: 50%; border: 1px solid rgba(255,255,255,.08); box-shadow: 0 0 0 74px rgba(255,255,255,.025), 0 0 0 148px rgba(255,255,255,.018), 0 0 0 222px rgba(255,255,255,.012); }
+    .auth-visual::after { content: ""; position: absolute; inset: 0; opacity: .32; background: radial-gradient(circle at 72% 24%, #726fe8 0, transparent 33%), radial-gradient(circle at 20% 78%, #394da5 0, transparent 38%); }
+    .visual-top, .visual-copy, .visual-cards { position: relative; z-index: 1; }
+    .visual-top { display: flex; justify-content: space-between; color: rgba(255,255,255,.58); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
+    .visual-copy { max-width: 620px; margin-top: auto; }
+    .visual-copy h2 { margin: 0; max-width: 600px; font-size: clamp(44px, 6vw, 86px); line-height: .96; letter-spacing: -.065em; }
+    .visual-copy p { max-width: 520px; margin: 22px 0 0; color: rgba(255,255,255,.63); line-height: 1.8; }
+    .visual-cards { margin-top: 42px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .visual-card { min-height: 126px; padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 18px; background: rgba(255,255,255,.07); backdrop-filter: blur(12px); }
+    .visual-card b { display: block; margin-top: 30px; font-size: 24px; }
+    .visual-card span { color: rgba(255,255,255,.52); font-size: 11px; }
+
+    .pending-shell { min-height: 100vh; padding: 32px; display: grid; place-items: center; background: radial-gradient(circle at 50% 35%, #fbfbff 0, #f3f5fb 55%, #eef0f6 100%); }
+    .pending-card { width: min(520px, 100%); padding: 42px; border: 1px solid var(--line); border-radius: 26px; text-align: center; background: rgba(255,255,255,.93); box-shadow: var(--shadow-md); }
+    .pending-orbit { width: 88px; height: 88px; margin: 4px auto 26px; position: relative; display: grid; place-items: center; border-radius: 50%; color: var(--primary); background: var(--primary-soft); }
+    .pending-orbit::before { content: ""; position: absolute; inset: -8px; border: 1px dashed rgba(91,92,226,.38); border-radius: 50%; animation: rotate 12s linear infinite; }
+    .pending-orbit::after { content: ""; position: absolute; width: 8px; height: 8px; top: -10px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 5px #fff; }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    .pending-card h1 { margin: 0; font-size: 28px; letter-spacing: -.035em; }
+    .pending-card > p { margin: 14px auto 24px; max-width: 390px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .pending-status { margin: 0 0 24px; padding: 13px 16px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; color: #9b6714; background: var(--warning-soft); font-size: 12px; }
+
+    .topbar { position: sticky; z-index: 40; top: 0; height: var(--header); border-bottom: 1px solid rgba(222,225,235,.84); background: rgba(249,250,253,.88); backdrop-filter: blur(18px) saturate(1.35); }
+    .topbar-inner { width: min(1540px, calc(100% - 48px)); height: 100%; margin: 0 auto; display: grid; grid-template-columns: minmax(220px, .8fr) minmax(320px, 1.25fr) minmax(220px, .8fr); align-items: center; gap: 28px; }
+    .nav-brand .brand-mark { width: 36px; height: 36px; border-radius: 11px; }
+    .global-search { position: relative; width: 100%; }
+    .global-search > .icon { position: absolute; top: 50%; left: 16px; transform: translateY(-50%); color: #9299aa; }
+    .global-search input { width: 100%; height: 44px; padding: 0 84px 0 45px; border: 1px solid var(--line); border-radius: 13px; color: var(--ink); background: #fff; box-shadow: 0 2px 8px rgba(21,27,46,.03); }
+    .global-search input:focus { outline: none; border-color: #c7c9f6; box-shadow: 0 0 0 4px rgba(91,92,226,.08); }
+    .search-key { position: absolute; top: 50%; right: 10px; padding: 4px 7px; border: 1px solid var(--line); border-radius: 6px; transform: translateY(-50%); color: #9299aa; background: #f7f8fb; font-size: 10px; }
+    .nav-actions { display: flex; justify-content: flex-end; align-items: center; gap: 9px; }
+    .nav-divider { width: 1px; height: 28px; margin: 0 3px; background: var(--line); }
+    .user-button { border: 0; border-radius: 12px; padding: 5px 7px; display: flex; align-items: center; gap: 9px; background: transparent; cursor: pointer; }
+    .user-button:hover { background: #eff1f7; }
+    .avatar { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; color: #fff; background: linear-gradient(145deg, #7778ea, #4547c4); font-size: 13px; font-weight: 760; }
+    .user-meta { max-width: 100px; text-align: left; }
+    .user-meta b, .user-meta span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .user-meta b { font-size: 12px; }
+    .user-meta span { margin-top: 2px; color: var(--subtle); font-size: 9px; text-transform: uppercase; }
+    .user-menu-wrap { position: relative; }
+    .user-menu { position: absolute; top: calc(100% + 12px); right: 0; width: 210px; padding: 8px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: var(--shadow-md); animation: pop .16s ease-out; }
+    @keyframes pop { from { opacity: 0; transform: translateY(-6px) scale(.98); } }
+    .menu-item { width: 100%; min-height: 40px; border: 0; border-radius: 9px; padding: 0 11px; display: flex; align-items: center; gap: 10px; color: #40485b; background: transparent; font-size: 12px; cursor: pointer; }
+    .menu-item:hover { color: var(--ink); background: #f3f4f8; }
+    .menu-item.danger { color: var(--danger); }
+    .menu-sep { height: 1px; margin: 6px 4px; background: var(--line); }
+
+    .page { width: min(1540px, calc(100% - 48px)); margin: 0 auto; padding: 38px 0 72px; }
+    .hero { min-height: 240px; padding: 34px 0 40px; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr); align-items: end; gap: 30px; }
+    .hero-index { margin: 0 0 14px; color: var(--primary); font-size: 11px; font-weight: 760; letter-spacing: .18em; text-transform: uppercase; }
+    .hero h1 { margin: 0; max-width: 920px; font-size: clamp(48px, 6vw, 94px); line-height: .96; letter-spacing: -.07em; }
+    .hero h1 span { color: #adb2c2; font-weight: 500; }
+    .hero-side { align-self: end; padding: 0 0 5px 26px; border-left: 1px solid var(--line-strong); }
+    .hero-side p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .hero-count { margin-top: 20px; display: flex; align-items: baseline; gap: 8px; }
+    .hero-count strong { font-size: 28px; letter-spacing: -.04em; }
+    .hero-count span { color: var(--subtle); font-size: 11px; }
+
+    .toolbar { position: sticky; z-index: 30; top: calc(var(--header) + 10px); margin-bottom: 24px; padding: 10px; border: 1px solid rgba(222,225,235,.9); border-radius: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: rgba(255,255,255,.91); box-shadow: var(--shadow-sm); backdrop-filter: blur(15px); }
+    .filters, .view-controls { display: flex; align-items: center; gap: 7px; }
+    .filters { min-width: 0; overflow-x: auto; scrollbar-width: none; }
+    .filters::-webkit-scrollbar { display: none; }
+    .chip { height: 36px; border: 0; border-radius: 10px; padding: 0 13px; flex: 0 0 auto; color: var(--muted); background: transparent; font-size: 12px; font-weight: 650; cursor: pointer; }
+    .chip:hover { color: var(--ink); background: #f2f3f7; }
+    .chip.active { color: #fff; background: var(--ink); }
+    .segmented { padding: 3px; display: flex; border-radius: 10px; background: #f0f2f6; }
+    .segment { height: 30px; border: 0; border-radius: 8px; padding: 0 10px; display: flex; align-items: center; gap: 6px; color: var(--muted); background: transparent; font-size: 11px; font-weight: 650; cursor: pointer; }
+    .segment.active { color: var(--ink); background: #fff; box-shadow: 0 1px 4px rgba(20,27,46,.09); }
+    .control-sep { width: 1px; height: 26px; background: var(--line); }
+
+    .gallery.masonry { columns: 5; column-gap: 18px; }
+    .gallery.grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 18px; }
+    .gallery.grid .resource-card { height: 100%; }
+    .gallery.grid .resource-media { aspect-ratio: 4 / 3 !important; }
+    .resource-card { position: relative; margin: 0 0 18px; border: 1px solid var(--line); border-radius: 17px; display: inline-block; width: 100%; overflow: hidden; vertical-align: top; background: #fff; break-inside: avoid; box-shadow: 0 1px 0 rgba(20,27,46,.02); transition: transform .26s ease, box-shadow .26s ease, border-color .26s ease; }
+    .resource-card:hover { transform: translateY(-4px); border-color: #d7d9e4; box-shadow: 0 17px 38px rgba(22,29,52,.10); }
+    .resource-media { position: relative; overflow: hidden; background: #eaecf2; cursor: zoom-in; }
+    .resource-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+    .resource-card:hover .resource-media img { transform: scale(1.035); }
+    .media-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(255,255,255,.88); background: linear-gradient(145deg, #5e61dd, #252a58); }
+    .media-fallback strong { max-width: 80%; font-size: 22px; line-height: 1.08; text-align: center; letter-spacing: -.035em; }
+    .resource-badge { position: absolute; z-index: 2; top: 12px; left: 12px; height: 27px; padding: 0 9px; border: 1px solid rgba(255,255,255,.26); border-radius: 8px; display: inline-flex; align-items: center; gap: 5px; color: #fff; background: rgba(21,25,45,.66); backdrop-filter: blur(10px); font-size: 9px; font-weight: 760; letter-spacing: .08em; }
+    .card-actions { position: absolute; z-index: 3; top: 10px; right: 10px; display: flex; gap: 6px; opacity: 0; transform: translateY(-4px); transition: .2s ease; }
+    .resource-card:hover .card-actions, .resource-card:focus-within .card-actions { opacity: 1; transform: none; }
+    .floating-action { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.24); border-radius: 9px; display: grid; place-items: center; color: #fff; background: rgba(21,25,45,.65); backdrop-filter: blur(10px); cursor: pointer; }
+    .floating-action:hover { color: var(--ink); background: #fff; }
+    .floating-action.active { color: #fff; background: var(--primary); }
+    .resource-copy { padding: 15px 15px 14px; }
+    .resource-copy h3 { margin: 0; overflow: hidden; color: #252d40; font-size: 14px; line-height: 1.42; letter-spacing: -.015em; text-overflow: ellipsis; white-space: nowrap; }
+    .resource-copy p { margin: 7px 0 12px; min-height: 34px; display: -webkit-box; overflow: hidden; color: var(--muted); font-size: 11px; line-height: 1.55; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .resource-meta { padding-top: 11px; border-top: 1px solid #eef0f4; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #979dad; font-size: 10px; }
+    .stats { display: flex; align-items: center; gap: 10px; }
+    .stats span { display: inline-flex; align-items: center; gap: 4px; }
+    .resource-type { color: var(--primary); font-weight: 740; letter-spacing: .06em; }
+    .load-sentinel { min-height: 70px; display: grid; place-items: center; color: var(--subtle); font-size: 12px; }
+    .loading-dots { display: inline-flex; gap: 4px; }
+    .loading-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); animation: pulse 1s infinite alternate; }
+    .loading-dots i:nth-child(2) { animation-delay: .2s; }
+    .loading-dots i:nth-child(3) { animation-delay: .4s; }
+    @keyframes pulse { to { opacity: .25; transform: translateY(-3px); } }
+    .empty { min-height: 360px; border: 1px dashed #d8dce7; border-radius: 20px; display: grid; place-items: center; text-align: center; background: rgba(255,255,255,.52); }
+    .empty-icon { width: 66px; height: 66px; margin: 0 auto 18px; border-radius: 20px; display: grid; place-items: center; color: var(--primary); background: var(--primary-soft); font-size: 28px; }
+    .empty h3 { margin: 0; font-size: 17px; }
+    .empty p { margin: 9px 0 0; color: var(--muted); font-size: 12px; }
+
+    .section-head { min-height: 120px; display: flex; align-items: end; justify-content: space-between; gap: 24px; padding: 16px 0 30px; }
+    .section-head h1 { margin: 6px 0 0; font-size: clamp(36px, 4.5vw, 60px); line-height: 1; letter-spacing: -.055em; }
+    .breadcrumb { display: flex; align-items: center; gap: 7px; color: var(--subtle); font-size: 11px; }
+    .panel { border: 1px solid var(--line); border-radius: 18px; background: #fff; box-shadow: var(--shadow-sm); }
+    .profile-grid { display: grid; grid-template-columns: 320px minmax(0,1fr); gap: 22px; }
+    .profile-card { padding: 26px; }
+    .profile-avatar { width: 72px; height: 72px; margin-bottom: 20px; border-radius: 21px; display: grid; place-items: center; color: #fff; background: linear-gradient(145deg,#7779ed,#4446bb); font-size: 24px; font-weight: 780; }
+    .profile-card h2 { margin: 0; font-size: 22px; }
+    .profile-card > p { margin: 7px 0 23px; color: var(--muted); font-size: 12px; }
+    .status-pill { min-height: 25px; padding: 0 9px; border-radius: 99px; display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; }
+    .status-pill.active { color: #087e5f; background: var(--success-soft); }
+    .status-pill.pending { color: #93600d; background: var(--warning-soft); }
+    .status-pill.disabled, .status-pill.rejected { color: #bd3442; background: var(--danger-soft); }
+    .profile-facts { margin-top: 24px; display: grid; gap: 14px; }
+    .fact { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 11px; }
+    .fact b { color: var(--ink); font-weight: 620; text-align: right; }
+    .content-panel { min-height: 480px; overflow: hidden; }
+    .tabs { padding: 8px; border-bottom: 1px solid var(--line); display: flex; gap: 4px; overflow-x: auto; }
+    .tab { height: 40px; border: 0; border-radius: 10px; padding: 0 14px; display: flex; align-items: center; gap: 7px; color: var(--muted); background: transparent; font-size: 12px; font-weight: 650; white-space: nowrap; cursor: pointer; }
+    .tab.active { color: var(--primary-dark); background: var(--primary-soft); }
+    .panel-body { padding: 24px; }
+    .list { display: grid; gap: 9px; }
+    .list-item { min-height: 67px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; display: flex; align-items: center; gap: 12px; }
+    .list-thumb { width: 48px; height: 48px; border-radius: 9px; overflow: hidden; background: #edf0f6; flex: 0 0 auto; }
+    .list-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .list-copy { min-width: 0; flex: 1; }
+    .list-copy b, .list-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .list-copy b { font-size: 12px; }
+    .list-copy span { margin-top: 5px; color: var(--subtle); font-size: 10px; }
+
+    .admin-layout { display: grid; grid-template-columns: 214px minmax(0,1fr); gap: 22px; }
+    .admin-nav { height: fit-content; padding: 10px; position: sticky; top: calc(var(--header) + 20px); }
+    .admin-nav-title { padding: 12px 12px 16px; color: var(--subtle); font-size: 9px; font-weight: 740; letter-spacing: .14em; text-transform: uppercase; }
+    .admin-nav button { width: 100%; height: 43px; border: 0; border-radius: 10px; padding: 0 12px; display: flex; align-items: center; gap: 10px; color: var(--muted); background: transparent; font-size: 12px; font-weight: 650; cursor: pointer; }
+    .admin-nav button.active { color: var(--primary-dark); background: var(--primary-soft); }
+    .admin-nav .nav-count { margin-left: auto; min-width: 21px; height: 21px; border-radius: 7px; display: grid; place-items: center; color: var(--primary-dark); background: #fff; font-size: 9px; }
+    .admin-content { min-width: 0; }
+    .stat-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; }
+    .stat-card { min-height: 148px; padding: 20px; position: relative; overflow: hidden; }
+    .stat-icon { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; color: var(--primary); background: var(--primary-soft); }
+    .stat-card strong { display: block; margin: 20px 0 3px; font-size: 28px; line-height: 1; letter-spacing: -.045em; }
+    .stat-card span { color: var(--muted); font-size: 10px; }
+    .stat-card::after { content: ""; position: absolute; width: 90px; height: 90px; top: -40px; right: -30px; border-radius: 50%; background: var(--primary-soft); opacity: .65; }
+    .dashboard-grid { margin-top: 14px; display: grid; grid-template-columns: 1.3fr .7fr; gap: 14px; }
+    .chart-card { min-height: 300px; padding: 22px; }
+    .card-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .card-head h2 { margin: 0; font-size: 16px; }
+    .card-head p { margin: 5px 0 0; color: var(--muted); font-size: 10px; }
+    .bar-chart { height: 185px; margin-top: 26px; display: flex; align-items: end; justify-content: space-between; gap: 9px; }
+    .bar-col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: end; align-items: center; gap: 8px; color: var(--subtle); font-size: 9px; }
+    .bar { width: min(30px, 70%); min-height: 8px; border-radius: 7px 7px 3px 3px; background: linear-gradient(180deg,#7778ea,#5b5ce2); }
+    .donut-wrap { min-height: 220px; display: grid; place-items: center; }
+    .donut { width: 154px; height: 154px; position: relative; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--primary) 0 var(--image-share), #f2b559 var(--image-share) 100%); }
+    .donut::before { content: ""; position: absolute; inset: 25px; border-radius: 50%; background: #fff; }
+    .donut strong { position: relative; z-index: 1; font-size: 24px; }
+    .legend { display: flex; justify-content: center; gap: 18px; color: var(--muted); font-size: 10px; }
+    .legend i { width: 8px; height: 8px; border-radius: 3px; display: inline-block; margin-right: 5px; }
+    .admin-table-card { overflow: hidden; }
+    .table-tools { min-height: 68px; padding: 12px 16px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .table-search { width: min(280px, 100%); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 14px 16px; border-bottom: 1px solid #eef0f4; text-align: left; font-size: 11px; white-space: nowrap; }
+    th { color: var(--subtle); background: #fafbfc; font-size: 9px; font-weight: 720; letter-spacing: .06em; text-transform: uppercase; }
+    td { color: #495165; }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: #fbfbfd; }
+    .table-user { display: flex; align-items: center; gap: 9px; }
+    .table-avatar { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; color: #fff; background: #7375d9; font-size: 10px; font-weight: 700; }
+    .table-user b, .table-user span { display: block; }
+    .table-user b { color: var(--ink); font-size: 11px; }
+    .table-user span { margin-top: 2px; color: var(--subtle); font-size: 9px; }
+    .table-actions { display: flex; align-items: center; gap: 5px; }
+
+    .modal { position: fixed; z-index: 100; inset: 0; padding: 24px; display: grid; place-items: center; background: rgba(12,15,27,.72); backdrop-filter: blur(12px); animation: fade .2s ease; }
+    @keyframes fade { from { opacity: 0; } }
+    .modal-card { width: min(1120px, 100%); max-height: calc(100vh - 48px); border: 1px solid rgba(255,255,255,.12); border-radius: 23px; overflow: hidden; background: #fff; box-shadow: var(--shadow-lg); animation: modalIn .25s cubic-bezier(.2,.8,.2,1); }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(.985); } }
+    .preview-layout { display: grid; grid-template-columns: minmax(0,1.5fr) 340px; height: min(760px, calc(100vh - 48px)); }
+    .preview-stage { position: relative; min-width: 0; display: grid; place-items: center; overflow: hidden; background: #161827; }
+    .preview-stage img { max-width: 92%; max-height: 90%; object-fit: contain; transform-origin: center; transition: transform .12s ease; box-shadow: 0 18px 50px rgba(0,0,0,.28); }
+    .preview-controls { position: absolute; z-index: 3; top: 16px; left: 16px; right: 16px; display: flex; justify-content: space-between; pointer-events: none; }
+    .preview-control-group { display: flex; gap: 7px; pointer-events: auto; }
+    .dark-control { width: 39px; height: 39px; border: 1px solid rgba(255,255,255,.15); border-radius: 10px; display: grid; place-items: center; color: #fff; background: rgba(8,10,20,.58); backdrop-filter: blur(8px); cursor: pointer; }
+    .preview-arrow { position: absolute; z-index: 3; top: 50%; width: 42px; height: 50px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; display: grid; place-items: center; transform: translateY(-50%); color: #fff; background: rgba(8,10,20,.48); backdrop-filter: blur(8px); cursor: pointer; }
+    .preview-arrow.left { left: 16px; }
+    .preview-arrow.right { right: 16px; }
+    .preview-info { padding: 26px; display: flex; flex-direction: column; overflow-y: auto; }
+    .preview-type { width: fit-content; min-height: 27px; padding: 0 9px; border-radius: 7px; display: inline-flex; align-items: center; gap: 5px; color: var(--primary-dark); background: var(--primary-soft); font-size: 9px; font-weight: 740; letter-spacing: .08em; }
+    .preview-info h2 { margin: 18px 0 10px; font-size: 25px; line-height: 1.2; letter-spacing: -.035em; }
+    .preview-info > p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
+    .preview-facts { margin: 24px 0; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; gap: 13px; }
+    .preview-actions { margin-top: auto; display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    .ppt-stage { position: relative; min-width: 0; padding: 60px; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 70% 25%, #7c79ee 0, #3f438d 33%, #222643 72%); }
+    .ppt-sheet { width: min(630px, 92%); aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; transform: perspective(1000px) rotateY(2deg) rotateX(1deg); background: #eceef7; box-shadow: 0 34px 80px rgba(6,9,23,.45); }
+    .ppt-sheet img { width: 100%; height: 100%; object-fit: cover; }
+    .ppt-placeholder { width: 100%; height: 100%; padding: 8%; display: flex; flex-direction: column; justify-content: space-between; color: #fff; background: linear-gradient(135deg,#222645,#6565d9); }
+    .ppt-placeholder small { opacity: .62; letter-spacing: .12em; }
+    .ppt-placeholder strong { max-width: 78%; font-size: clamp(22px,3.2vw,46px); line-height: 1.02; letter-spacing: -.055em; }
+    .dialog-card { width: min(620px,100%); padding: 26px; border-radius: 20px; background: #fff; box-shadow: var(--shadow-lg); }
+    .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+    .dialog-head h2 { margin: 0; font-size: 22px; letter-spacing: -.03em; }
+    .dialog-head p { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
+    .dialog-form { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .dialog-form .span-2 { grid-column: 1 / -1; }
+    .dialog-actions { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; gap: 8px; }
+
+    #toast-root { position: fixed; z-index: 200; right: 22px; bottom: 22px; display: grid; gap: 9px; pointer-events: none; }
+    .toast { min-width: 260px; max-width: 380px; min-height: 52px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 13px; display: flex; align-items: center; gap: 10px; color: #fff; background: rgba(24,28,46,.94); box-shadow: var(--shadow-md); backdrop-filter: blur(12px); font-size: 12px; animation: toastIn .24s ease; pointer-events: auto; }
+    .toast.success .toast-icon { color: #64dfb8; }
+    .toast.error .toast-icon { color: #ff919c; }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(10px); } }
+
+    @media (max-width: 1440px) {
+      .gallery.masonry { columns: 4; }
+      .gallery.grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    }
+    @media (max-width: 1100px) {
+      .auth-shell { grid-template-columns: 1fr 1fr; }
+      .auth-visual { padding: 40px; }
+      .visual-cards { grid-template-columns: 1fr; }
+      .visual-card { min-height: 82px; }
+      .visual-card b { margin-top: 12px; }
+      .gallery.masonry { columns: 3; }
+      .gallery.grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .topbar-inner { grid-template-columns: auto minmax(260px,1fr) auto; }
+      .brand-copy { display: none; }
+      .stat-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 820px) {
+      :root { --header: 66px; }
+      .auth-shell { grid-template-columns: 1fr; }
+      .auth-panel { min-height: 100vh; }
+      .auth-main { margin: 7vh auto 4vh; }
+      .auth-visual { display: none; }
+      .topbar-inner { width: calc(100% - 28px); grid-template-columns: auto 1fr; gap: 12px; }
+      .global-search { grid-column: 1 / -1; position: fixed; left: 14px; right: 14px; top: 76px; width: auto; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: .18s; }
+      .global-search.mobile-open { opacity: 1; visibility: visible; transform: none; }
+      .user-meta, .nav-divider { display: none; }
+      .page { width: calc(100% - 28px); padding-top: 28px; }
+      .hero { min-height: 210px; grid-template-columns: 1fr; }
+      .hero-side { display: none; }
+      .hero h1 { font-size: clamp(46px,14vw,78px); }
+      .toolbar { top: calc(var(--header) + 8px); padding: 8px; align-items: stretch; flex-direction: column; }
+      .view-controls { justify-content: space-between; }
+      .gallery.masonry { columns: 2; column-gap: 12px; }
+      .gallery.grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+      .resource-card { margin-bottom: 12px; border-radius: 14px; }
+      .resource-copy { padding: 12px; }
+      .resource-copy p { display: none; }
+      .card-actions { opacity: 1; transform: none; }
+      .profile-grid, .admin-layout { grid-template-columns: 1fr; }
+      .admin-nav { position: static; display: flex; overflow-x: auto; }
+      .admin-nav-title { display: none; }
+      .admin-nav button { width: auto; flex: 0 0 auto; }
+      .preview-layout { grid-template-columns: 1fr; height: calc(100vh - 28px); overflow-y: auto; }
+      .preview-stage, .ppt-stage { min-height: 55vh; }
+      .preview-info { min-height: 330px; }
+      .modal { padding: 14px; }
+      .modal-card { max-height: calc(100vh - 28px); }
+    }
+    @media (max-width: 560px) {
+      .auth-panel { padding: 26px 20px; }
+      .auth-main { margin-top: 5vh; }
+      .auth-title { font-size: 40px; }
+      .demo-credential { align-items: flex-start; flex-direction: column; }
+      .pending-shell { padding: 18px; }
+      .pending-card { padding: 32px 22px; }
+      .page { width: calc(100% - 20px); }
+      .nav-actions { gap: 3px; }
+      .topbar-inner { width: calc(100% - 20px); }
+      .hero { padding-top: 20px; }
+      .hero h1 { font-size: 43px; }
+      .gallery.masonry { columns: 2; column-gap: 9px; }
+      .gallery.grid { gap: 9px; }
+      .resource-card { margin-bottom: 9px; }
+      .resource-copy h3 { font-size: 12px; }
+      .resource-meta { font-size: 9px; }
+      .stats span:nth-child(2) { display: none; }
+      .stat-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
+      .stat-card { min-height: 130px; padding: 16px; }
+      .dashboard-grid { gap: 9px; }
+      .panel-body { padding: 16px; }
+      .profile-card { padding: 20px; }
+      .section-head { min-height: 100px; }
+      .dialog-form { grid-template-columns: 1fr; }
+      .dialog-form .span-2 { grid-column: auto; }
+      .dialog-card { padding: 20px; }
+      .ppt-stage { padding: 24px; }
+      #toast-root { right: 10px; bottom: 10px; left: 10px; }
+      .toast { min-width: 0; max-width: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" aria-live="polite"></div>
+  <div id="toast-root" aria-live="assertive"></div>
+  <script>
+    (() => {
+      "use strict";
+
+      const KEYS = {
+        users: "rp_users",
+        resources: "rp_resources",
+        session: "rp_session",
+        favorites: "rp_favorites",
+        downloads: "rp_downloads",
+        hidden: "rp_hidden_resources",
+        settings: "rp_settings"
+      };
+
+      const iconPaths = {
+        search: '<circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path>',
+        user: '<path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle>',
+        lock: '<rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path>',
+        eye: '<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path><circle cx="12" cy="12" r="2.5"></circle>',
+        eyeOff: '<path d="m3 3 18 18"></path><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path><path d="M9.9 5.1A10.6 10.6 0 0 1 12 5c6.5 0 10 7 10 7a18 18 0 0 1-2.1 3.2"></path><path d="M6.6 6.6C3.7 8.4 2 12 2 12s3.5 7 10 7c1.2 0 2.3-.2 3.3-.6"></path>',
+        arrowRight: '<path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path>',
+        clock: '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>',
+        check: '<path d="m5 12 4 4L19 6"></path>',
+        x: '<path d="m6 6 12 12M18 6 6 18"></path>',
+        image: '<rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="8.5" cy="9" r="1.5"></circle><path d="m21 15-5-5L5 20"></path>',
+        file: '<path d="M6 2h8l4 4v16H6z"></path><path d="M14 2v5h5"></path><path d="M9 13h6M9 17h6"></path>',
+        download: '<path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M4 20h16"></path>',
+        heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"></path>',
+        heartFill: '<path fill="currentColor" stroke="none" d="M12 21 4.2 13.5l-1.1-1.1a5.5 5.5 0 0 1 7.8-7.8L12 5.7l1-1.1a5.5 5.5 0 0 1 7.8 7.8l-1 1.1Z"></path>',
+        flame: '<path d="M12 22c4 0 7-3 7-7 0-3-1.5-5.5-4.5-8.5.2 2.1-.8 3.6-2 4.5.2-3.3-1.9-6.3-5-8.5.2 3.4-2.5 5.8-2.5 9.5 0 5 3 10 7 10Z"></path>',
+        calendar: '<rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path>',
+        grid: '<rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect>',
+        columns: '<rect x="3" y="3" width="7" height="12" rx="1"></rect><rect x="14" y="3" width="7" height="8" rx="1"></rect><rect x="3" y="18" width="7" height="3" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect>',
+        chevronDown: '<path d="m6 9 6 6 6-6"></path>',
+        chevronLeft: '<path d="m15 18-6-6 6-6"></path>',
+        chevronRight: '<path d="m9 18 6-6-6-6"></path>',
+        zoomIn: '<circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5M10.5 8v5M8 10.5h5"></path>',
+        zoomOut: '<circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5M8 10.5h5"></path>',
+        home: '<path d="m3 11 9-8 9 8"></path><path d="M5 10v11h14V10M9 21v-7h6v7"></path>',
+        shield: '<path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path>',
+        logout: '<path d="M10 17l5-5-5-5M15 12H3"></path><path d="M15 3h5v18h-5"></path>',
+        settings: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path>',
+        users: '<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><path d="M20 8v6M23 11h-6"></path>',
+        folder: '<path d="M3 5h7l2 3h9v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path>',
+        plus: '<path d="M12 5v14M5 12h14"></path>',
+        edit: '<path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"></path>',
+        trash: '<path d="M4 7h16M9 7V4h6v3M7 7l1 14h8l1-14M10 11v6M14 11v6"></path>',
+        refresh: '<path d="M20 6v5h-5"></path><path d="M19 11a7 7 0 1 0 1 5"></path>',
+        activity: '<path d="M3 12h4l2-6 4 12 2-6h6"></path>',
+        award: '<circle cx="12" cy="8" r="6"></circle><path d="m8.5 13-1 9 4.5-3 4.5 3-1-9"></path>',
+        more: '<circle cx="5" cy="12" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle>',
+        upload: '<path d="M12 16V4M7 9l5-5 5 5"></path><path d="M4 20h16"></path>',
+        info: '<circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path>',
+        key: '<circle cx="8" cy="15" r="4"></circle><path d="m11 12 8-8M15 8l3 3M17 6l2 2"></path>',
+        copy: '<rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M15 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4"></path>'
+      };
+
+      const icon = (name, size = 18) => `<svg class="icon" width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true">${iconPaths[name] || iconPaths.info}</svg>`;
+      const esc = (value = "") => String(value).replace(/[&<>'"]/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[char]));
+      const read = (key, fallback) => { try { const value = localStorage.getItem(key); return value ? JSON.parse(value) : fallback; } catch { return fallback; } };
+      const write = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+      const uid = prefix => `${prefix}_${Date.now().toString(36)}${Math.random().toString(36).slice(2,8)}`;
+      const hashPassword = (username, password) => btoa(unescape(encodeURIComponent(`${username}:${password}`)));
+      const formatDate = value => new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "short", day: "numeric" }).format(new Date(value));
+      const formatDateTime = value => new Intl.DateTimeFormat("zh-CN", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(value));
+      const formatSize = bytes => !bytes ? "—" : bytes < 1048576 ? `${Math.max(1, Math.round(bytes/1024))} KB` : `${(bytes/1048576).toFixed(1)} MB`;
+      const heat = resource => (resource.stats?.views || 0) + (resource.stats?.downloads || 0) * 3 + (resource.stats?.favorites || 0) * 2;
+      const initials = name => String(name || "U").trim().slice(0,2).toUpperCase();
+      const safeUrl = value => {
+        const url = String(value || "").trim();
+        if (/^(https?:|blob:|data:image\/|\/|\.\/|\.\.\/)/i.test(url)) return url;
+        return "";
+      };
+      const filenameFrom = resource => resource.fileName || `${resource.title}.${resource.type === "ppt" ? "pptx" : "svg"}`;
+
+      function artData(title, colors, variant = 0) {
+        const [a,b,c] = colors;
+        const safeTitle = String(title).replace(/[&<>]/g, " ").slice(0,22);
+        const shapes = [
+          `<circle cx="680" cy="260" r="250" fill="${b}" fill-opacity=".82"/><circle cx="180" cy="930" r="360" fill="${c}" fill-opacity=".62"/><path d="M-80 620 Q310 330 880 670V1200H-80Z" fill="${a}"/>`,
+          `<rect x="90" y="110" width="650" height="900" rx="320" fill="${b}"/><circle cx="730" cy="880" r="330" fill="${c}"/><path d="M0 0h430L0 650Z" fill="${a}"/>`,
+          `<path d="M0 180 820 0v520L0 700Z" fill="${b}"/><circle cx="270" cy="860" r="300" fill="${c}"/><rect x="560" y="530" width="200" height="560" rx="100" fill="${a}"/>`,
+          `<circle cx="430" cy="580" r="430" fill="none" stroke="${b}" stroke-width="150"/><path d="M0 850 820 360v840H0Z" fill="${c}"/><circle cx="665" cy="205" r="115" fill="${a}"/>`
+        ][variant % 4];
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="820" height="1100" viewBox="0 0 820 1100"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${a}"/><stop offset="1" stop-color="${c}"/></linearGradient><filter id="n"><feTurbulence baseFrequency=".8" numOctaves="3" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .055 0"/></filter></defs><rect width="820" height="1100" fill="url(#g)"/>${shapes}<rect width="820" height="1100" filter="url(#n)" opacity=".5"/><text x="58" y="78" fill="white" fill-opacity=".68" font-family="Arial,sans-serif" font-size="18" letter-spacing="6">MUSE ARCHIVE / 2026</text><text x="58" y="980" fill="white" font-family="Arial,'Microsoft YaHei',sans-serif" font-size="54" font-weight="700">${safeTitle}</text><text x="58" y="1025" fill="white" fill-opacity=".66" font-family="Arial,sans-serif" font-size="16" letter-spacing="3">CURATED VISUAL RESOURCE</text></svg>`;
+        return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+      }
+
+      function seedResources() {
+        const palettes = [
+          ["#283056","#e57963","#7296bb"], ["#d05d53","#f1bd68","#303a59"], ["#2f6570","#7fb9ab","#e2a36c"],
+          ["#6750a4","#edc78d","#db6c76"], ["#16233c","#5b77cf","#e0dfd6"], ["#845f50","#d9ad86","#556b5d"]
+        ];
+        const items = [
+          ["空间与秩序", "网格系统中的视觉节奏研究", "image", "视觉设计", .73],
+          ["山海之间", "东方地景色彩与构图样本", "image", "摄影", 1.32],
+          ["未来教育图景", "技术、空间与学习方式的重构", "ppt", "教育", .56],
+          ["材料情绪档案", "来自纸张、金属与自然表面的灵感", "image", "灵感", 1.08],
+          ["城市更新观察", "公共空间与街区活力研究图册", "image", "城市", .82],
+          ["2026 设计趋势", "视觉系统、字体与品牌表达趋势报告", "ppt", "报告", .58],
+          ["光的十二种语言", "建筑摄影的光影叙事", "image", "摄影", 1.42],
+          ["信息如何被看见", "复杂信息的编辑化表达方法", "image", "信息设计", .78],
+          ["数字孪生校园", "从三维场景到数据驱动运营", "ppt", "数字孪生", .56],
+          ["微型建筑集", "尺度、结构与留白的形式练习", "image", "建筑", 1.18],
+          ["品牌色彩手册", "有限色盘与高识别度视觉策略", "image", "品牌", .76],
+          ["研究型封面", "安静、理性且具有思想密度的封面样本", "image", "视觉设计", 1.36],
+          ["产教融合实践", "政产研学用协同路径案例集", "ppt", "教育", .56],
+          ["地图的诗性", "空间信息中的叙事与审美", "image", "地图", .92],
+          ["空间智能白皮书", "从感知理解到具身行动", "ppt", "研究", .56],
+          ["字体与场域", "中文字体在空间导视中的应用", "image", "字体", 1.24],
+          ["静物研究 07", "日常物件的几何关系与色彩", "image", "灵感", .84],
+          ["年度成果汇报", "项目进度、成果与下一阶段计划", "ppt", "报告", .56]
+        ];
+        return items.map((item, index) => {
+          const [title, description, type, category, ratio] = item;
+          const cover = artData(title, palettes[index % palettes.length], index);
+          return {
+            id: `demo_${index+1}`,
+            title, description, type, category,
+            tags: [category, type === "ppt" ? "PPT" : "图片", "精选"],
+            filePath: type === "image" ? cover : "",
+            coverImage: cover,
+            fileName: type === "ppt" ? `${title}.pptx` : `${title}.svg`,
+            fileSize: type === "ppt" ? (4.2 + index * .31) * 1048576 : (780 + index * 37) * 1024,
+            ratio,
+            source: "demo",
+            createdAt: new Date(Date.now() - index * 19 * 3600 * 1000).toISOString(),
+            stats: { views: 68 + index * 17, downloads: 8 + (index * 7) % 38, favorites: 4 + (index * 5) % 27 }
+          };
+        });
+      }
+
+      const state = {
+        users: [], resources: [], session: null, favorites: {}, downloads: {}, hidden: [],
+        ui: {
+          route: "login", search: "", filter: "all", sort: "latest", view: "masonry", visible: 20,
+          menu: false, mobileSearch: false, modal: null, zoom: 1, adminTab: "dashboard", adminUserFilter: "all",
+          adminSearch: "", profileTab: "downloads", resourceForm: null, loginError: "", registerError: ""
+        }
+      };
+
+      const currentUser = () => state.session ? state.users.find(user => user.id === state.session.userId) : null;
+      const userFavorites = () => state.favorites[state.session?.userId] || [];
+      const userDownloads = () => state.downloads[state.session?.userId] || [];
+
+      function saveUsers() { write(KEYS.users, state.users); }
+      function saveResources() { write(KEYS.resources, state.resources); }
+      function saveFavorites() { write(KEYS.favorites, state.favorites); }
+      function saveDownloads() { write(KEYS.downloads, state.downloads); }
+      function saveSession() { state.session ? write(KEYS.session, state.session) : localStorage.removeItem(KEYS.session); }
+
+      function toast(message, type = "success") {
+        const root = document.getElementById("toast-root");
+        const node = document.createElement("div");
+        node.className = `toast ${type}`;
+        node.innerHTML = `<span class="toast-icon">${icon(type === "error" ? "x" : "check", 18)}</span><span>${esc(message)}</span>`;
+        root.appendChild(node);
+        setTimeout(() => { node.style.opacity = "0"; node.style.transform = "translateY(8px)"; }, 2900);
+        setTimeout(() => node.remove(), 3250);
+      }
+
+      function brand(showCopy = true) {
+        return `<a class="brand nav-brand" href="#home" aria-label="返回资源首页"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>${showCopy ? '<span class="brand-copy">MUSE <small>Resource archive</small></span>' : ""}</a>`;
+      }
+
+      function createSession(user) {
+        state.session = {
+          userId: user.id,
+          username: user.username,
+          role: user.role,
+          token: uid("rp_tok"),
+          loginAt: new Date().toISOString(),
+          expireAt: new Date(Date.now() + 7 * 86400000).toISOString()
+        };
+        saveSession();
+      }
+
+      function isSessionValid() {
+        if (!state.session || new Date(state.session.expireAt) <= new Date()) return false;
+        return Boolean(currentUser());
+      }
+
+      function routeName() {
+        return (location.hash.replace(/^#/, "").split("?")[0] || (state.session ? "home" : "login"));
+      }
+
+      function navigate(route) {
+        state.ui.menu = false;
+        if (location.hash === `#${route}`) render();
+        else location.hash = route;
+      }
+
+      function guardRoute(requested) {
+        const user = currentUser();
+        if (!isSessionValid()) {
+          if (state.session) { state.session = null; saveSession(); }
+          return ["login", "register"].includes(requested) ? requested : "login";
+        }
+        if (!user) return "login";
+        if (user.status === "pending") return "pending";
+        if (user.status === "disabled" || user.status === "rejected") {
+          state.session = null; saveSession();
+          return "login";
+        }
+        if (["login", "register", "pending"].includes(requested)) return user.role === "admin" ? "admin" : "home";
+        if (requested === "admin" && user.role !== "admin") return "home";
+        return ["home", "profile", "admin"].includes(requested) ? requested : "home";
+      }
+
+      function authVisual() {
+        return `<aside class="auth-visual" aria-hidden="true">
+          <div class="visual-top"><span>CURATED RESOURCE ARCHIVE</span><span>MEMBERS / 2026</span></div>
+          <div class="visual-copy">
+            <h2>Ideas worth<br>keeping.</h2>
+            <p>一个安静、有序的会员资源空间。让优秀图片、演示文稿与研究素材被看见，也被妥善收藏。</p>
+          </div>
+          <div class="visual-cards">
+            <div class="visual-card"><span>VISUAL ASSETS</span><b>高清图片</b></div>
+            <div class="visual-card"><span>PRESENTATIONS</span><b>PPT 文档</b></div>
+            <div class="visual-card"><span>CURATED ACCESS</span><b>会员审核</b></div>
+          </div>
+        </aside>`;
+      }
+
+      function loginView() {
+        return `<div class="auth-shell">
+          <section class="auth-panel">
+            ${brand(true)}
+            <div class="auth-main">
+              <p class="auth-eyebrow">MEMBER ACCESS</p>
+              <h1 class="auth-title">欢迎回来</h1>
+              <p class="auth-lead">登录已审核的会员账户，继续浏览、收藏和下载精选资源。</p>
+              <form class="auth-form" onsubmit="RP.login(event)">
+                <div class="field">
+                  <label for="login-username">用户名</label>
+                  <div class="input-wrap">${icon("user")}<input class="input" id="login-username" name="username" autocomplete="username" placeholder="请输入用户名" required></div>
+                </div>
+                <div class="field">
+                  <label for="login-password">密码</label>
+                  <div class="input-wrap">${icon("lock")}<input class="input has-trailing" id="login-password" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" required><button class="password-toggle" type="button" onclick="RP.togglePassword('login-password', this)" aria-label="显示密码">${icon("eye")}</button></div>
+                </div>
+                <div class="field-error" id="login-error">${esc(state.ui.loginError)}</div>
+                <button class="btn btn-primary btn-wide" type="submit">登录平台 ${icon("arrowRight")}</button>
+              </form>
+              <p class="auth-switch">还没有会员账户？ <button class="text-link" onclick="RP.go('register')">申请注册</button></p>
+              <div class="demo-credential"><span>演示管理员：<strong>admin / admin888</strong></span><button class="text-link" onclick="RP.fillAdmin()">一键填入</button></div>
+            </div>
+            <div class="auth-foot">MUSE RESOURCE PLATFORM · 付费会员专属访问</div>
+          </section>
+          ${authVisual()}
+        </div>`;
+      }
+
+      function registerView() {
+        return `<div class="auth-shell">
+          <section class="auth-panel">
+            ${brand(true)}
+            <div class="auth-main" style="margin-top:5vh">
+              <p class="auth-eyebrow">MEMBERSHIP REQUEST</p>
+              <h1 class="auth-title">申请会员</h1>
+              <p class="auth-lead">请在完成付费后提交账户申请。管理员线下核验后，账户将获得完整资源访问权限。</p>
+              <form class="auth-form" onsubmit="RP.register(event)">
+                <div class="field"><label for="reg-username">用户名</label><div class="input-wrap">${icon("user")}<input class="input" id="reg-username" name="username" placeholder="4–16 位字母或数字" autocomplete="username" required></div></div>
+                <div class="field"><label for="reg-nickname">昵称</label><div class="input-wrap">${icon("award")}<input class="input" id="reg-nickname" name="nickname" placeholder="资源页中显示的名称" required></div></div>
+                <div class="field"><label for="reg-password">密码</label><div class="input-wrap">${icon("lock")}<input class="input" id="reg-password" name="password" type="password" placeholder="至少 6 位" autocomplete="new-password" required></div></div>
+                <div class="field"><label for="reg-confirm">确认密码</label><div class="input-wrap">${icon("check")}<input class="input" id="reg-confirm" name="confirm" type="password" placeholder="再次输入密码" autocomplete="new-password" required></div></div>
+                <div class="field-error" id="register-error">${esc(state.ui.registerError)}</div>
+                <button class="btn btn-primary btn-wide" type="submit">提交审核申请 ${icon("arrowRight")}</button>
+              </form>
+              <p class="auth-switch">已经提交过申请？ <button class="text-link" onclick="RP.go('login')">返回登录</button></p>
+            </div>
+            <div class="auth-foot">提交即代表您同意平台会员规则与资源使用规范</div>
+          </section>
+          ${authVisual()}
+        </div>`;
+      }
+
+      function pendingView() {
+        const user = currentUser();
+        return `<div class="pending-shell"><section class="pending-card">
+          <div class="pending-orbit">${icon("clock",32)}</div>
+          <h1>账号正在审核中</h1>
+          <p><strong>${esc(user?.nickname || user?.username)}</strong>，您的会员申请已提交。管理员核验付费信息并审核通过后，即可浏览全部资源。</p>
+          <div class="pending-status">${icon("refresh",15)} 页面每 30 秒自动检查审核状态</div>
+          <button class="btn btn-secondary" onclick="RP.logout()">${icon("logout")} 退出当前账户</button>
+        </section></div>`;
+      }
+
+      function navBar() {
+        const user = currentUser();
+        return `<header class="topbar"><div class="topbar-inner">
+          ${brand(true)}
+          <div class="global-search ${state.ui.mobileSearch ? "mobile-open" : ""}">${icon("search")}<input id="global-search" value="${esc(state.ui.search)}" oninput="RP.search(this.value)" placeholder="搜索标题、描述、分类或标签…" aria-label="搜索资源"><span class="search-key">⌘ K</span></div>
+          <nav class="nav-actions" aria-label="主导航">
+            <button class="btn btn-ghost btn-icon" onclick="RP.toggleMobileSearch()" aria-label="搜索">${icon("search")}</button>
+            <button class="btn btn-ghost btn-icon" onclick="RP.go('home')" aria-label="资源首页">${icon("home")}</button>
+            ${user?.role === "admin" ? `<button class="btn btn-ghost btn-icon" onclick="RP.go('admin')" aria-label="管理后台">${icon("shield")}</button>` : ""}
+            <span class="nav-divider"></span>
+            <div class="user-menu-wrap">
+              <button class="user-button" onclick="RP.toggleMenu(event)" aria-expanded="${state.ui.menu}"><span class="avatar">${esc(initials(user?.nickname || user?.username))}</span><span class="user-meta"><b>${esc(user?.nickname || user?.username)}</b><span>${user?.role === "admin" ? "ADMINISTRATOR" : "MEMBER"}</span></span>${icon("chevronDown",14)}</button>
+              ${state.ui.menu ? `<div class="user-menu">
+                <button class="menu-item" onclick="RP.go('profile')">${icon("user")} 个人中心</button>
+                ${user?.role === "admin" ? `<button class="menu-item" onclick="RP.go('admin')">${icon("shield")} 管理后台</button>` : ""}
+                <div class="menu-sep"></div>
+                <button class="menu-item danger" onclick="RP.logout()">${icon("logout")} 退出登录</button>
+              </div>` : ""}
+            </div>
+          </nav>
+        </div></header>`;
+      }
+
+      function getFilteredResources() {
+        const query = state.ui.search.trim().toLowerCase();
+        const list = state.resources.filter(resource => {
+          const matchesFilter = state.ui.filter === "all" || resource.type === state.ui.filter || resource.category === state.ui.filter;
+          const haystack = [resource.title, resource.description, resource.category, ...(resource.tags || [])].join(" ").toLowerCase();
+          return matchesFilter && (!query || haystack.includes(query));
+        });
+        return list.sort((a,b) => state.ui.sort === "hot" ? heat(b) - heat(a) : new Date(b.createdAt) - new Date(a.createdAt));
+      }
+
+      function resourceCard(resource) {
+        const favorite = userFavorites().includes(resource.id);
+        const imageUrl = safeUrl(resource.coverImage || resource.filePath);
+        const ratio = Math.max(.55, Math.min(1.55, Number(resource.ratio) || (resource.type === "ppt" ? .56 : .9)));
+        return `<article class="resource-card">
+          <div class="resource-media" style="aspect-ratio:${ratio}" onclick="RP.openResource('${esc(resource.id)}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')RP.openResource('${esc(resource.id)}')" aria-label="查看 ${esc(resource.title)}">
+            <div class="media-fallback"><strong>${esc(resource.title)}</strong></div>
+            ${imageUrl ? `<img src="${esc(imageUrl)}" alt="${esc(resource.title)}" loading="lazy" onerror="this.style.display='none'">` : ""}
+            <span class="resource-badge">${icon(resource.type === "ppt" ? "file" : "image",13)} ${resource.type === "ppt" ? "PPT" : "IMAGE"}</span>
+            <div class="card-actions">
+              <button class="floating-action ${favorite ? "active" : ""}" onclick="event.stopPropagation();RP.favorite('${esc(resource.id)}')" aria-label="${favorite ? "取消收藏" : "收藏"}">${icon(favorite ? "heartFill" : "heart",15)}</button>
+              <button class="floating-action" onclick="event.stopPropagation();RP.download('${esc(resource.id)}')" aria-label="下载">${icon("download",15)}</button>
+            </div>
+          </div>
+          <div class="resource-copy">
+            <h3 title="${esc(resource.title)}">${esc(resource.title)}</h3>
+            <p>${esc(resource.description || "暂无资源描述")}</p>
+            <div class="resource-meta"><span class="resource-type">${esc(resource.category || (resource.type === "ppt" ? "演示文稿" : "图片"))}</span><span class="stats"><span>${icon("eye",12)} ${resource.stats?.views || 0}</span><span>${icon("download",12)} ${resource.stats?.downloads || 0}</span></span></div>
+          </div>
+        </article>`;
+      }
+
+      function homeView() {
+        const all = getFilteredResources();
+        const visible = all.slice(0, state.ui.visible);
+        const categories = [...new Set(state.resources.map(item => item.category).filter(Boolean))].slice(0,7);
+        return `${navBar()}<main class="page">
+          <section class="hero">
+            <div><p class="hero-index">MUSE COLLECTION · VOL. 01</p><h1>精选资源<br><span>持续生长。</span></h1></div>
+            <div class="hero-side"><p>为会员整理值得保存的视觉灵感与演示文稿。搜索、预览、收藏，让每一次查找都更接近答案。</p><div class="hero-count"><strong>${state.resources.length}</strong><span>份已收录资源</span></div></div>
+          </section>
+          <section class="toolbar" aria-label="资源筛选工具">
+            <div class="filters">
+              <button class="chip ${state.ui.filter === "all" ? "active" : ""}" onclick="RP.filter('all')">全部</button>
+              <button class="chip ${state.ui.filter === "image" ? "active" : ""}" onclick="RP.filter('image')">图片</button>
+              <button class="chip ${state.ui.filter === "ppt" ? "active" : ""}" onclick="RP.filter('ppt')">PPT</button>
+              ${categories.filter(item => !["图片","演示文稿"].includes(item)).map(category => `<button class="chip ${state.ui.filter === category ? "active" : ""}" onclick="RP.filterDecoded('${encodeURIComponent(category)}')">${esc(category)}</button>`).join("")}
+            </div>
+            <div class="view-controls">
+              <div class="segmented" aria-label="排序方式"><button class="segment ${state.ui.sort === "latest" ? "active" : ""}" onclick="RP.sort('latest')">${icon("calendar",13)} 最新</button><button class="segment ${state.ui.sort === "hot" ? "active" : ""}" onclick="RP.sort('hot')">${icon("flame",13)} 最热</button></div>
+              <span class="control-sep"></span>
+              <div class="segmented" aria-label="视图方式"><button class="segment ${state.ui.view === "masonry" ? "active" : ""}" onclick="RP.setView('masonry')" aria-label="瀑布流">${icon("columns",14)}</button><button class="segment ${state.ui.view === "grid" ? "active" : ""}" onclick="RP.setView('grid')" aria-label="网格">${icon("grid",14)}</button></div>
+            </div>
+          </section>
+          ${visible.length ? `<section class="gallery ${state.ui.view}" aria-label="资源列表">${visible.map(resourceCard).join("")}</section><div class="load-sentinel" id="load-sentinel">${visible.length < all.length ? '<span class="loading-dots"><i></i><i></i><i></i></span>' : `已展示全部 ${all.length} 份资源`}</div>` : `<section class="empty"><div><div class="empty-icon">${icon("search")}</div><h3>没有找到匹配资源</h3><p>试试更短的关键词，或切换到其他分类。</p></div></section>`}
+        </main>${modalView()}`;
+      }
+
+      function statusLabel(status) {
+        return ({ active: "正常", pending: "待审核", disabled: "已禁用", rejected: "已拒绝" })[status] || status;
+      }
+
+      function profileView() {
+        const user = currentUser();
+        const downloads = userDownloads();
+        const favorites = userFavorites().map(id => state.resources.find(item => item.id === id)).filter(Boolean);
+        let body = "";
+        if (state.ui.profileTab === "downloads") {
+          body = downloads.length ? `<div class="list">${downloads.slice(0,50).map(record => {
+            const resource = state.resources.find(item => item.id === record.resourceId);
+            return `<div class="list-item"><div class="list-thumb">${resource?.coverImage ? `<img src="${esc(safeUrl(resource.coverImage))}" alt="">` : ""}</div><div class="list-copy"><b>${esc(record.title || resource?.title || "已删除资源")}</b><span>${formatDateTime(record.createdAt)} · ${esc(record.fileName || "资源文件")}</span></div><button class="btn btn-ghost btn-icon" onclick="RP.openResource('${esc(record.resourceId)}')" ${resource ? "" : "disabled"} aria-label="查看">${icon("arrowRight")}</button></div>`;
+          }).join("")}</div>` : emptyInline("download", "暂无下载记录", "下载过的资源会按时间记录在这里。");
+        } else if (state.ui.profileTab === "favorites") {
+          body = favorites.length ? `<div class="list">${favorites.map(resource => `<div class="list-item"><div class="list-thumb"><img src="${esc(safeUrl(resource.coverImage || resource.filePath))}" alt=""></div><div class="list-copy"><b>${esc(resource.title)}</b><span>${esc(resource.category)} · ${resource.type === "ppt" ? "PPT" : "IMAGE"}</span></div><button class="btn btn-ghost btn-icon" onclick="RP.openResource('${esc(resource.id)}')" aria-label="查看">${icon("arrowRight")}</button><button class="btn btn-ghost btn-icon" onclick="RP.favorite('${esc(resource.id)}')" aria-label="取消收藏">${icon("heartFill")}</button></div>`).join("")}</div>` : emptyInline("heart", "还没有收藏", "遇到喜欢的内容，点击卡片上的收藏按钮即可保存。");
+        } else {
+          body = `<div style="max-width:520px"><div class="card-head"><div><h2>修改登录密码</h2><p>建议使用 8 位以上、包含字母与数字的密码。</p></div></div><form class="auth-form" style="margin-top:24px" onsubmit="RP.changePassword(event)"><div class="field"><label>当前密码</label><div class="input-wrap">${icon("lock")}<input class="input" name="current" type="password" required></div></div><div class="field"><label>新密码</label><div class="input-wrap">${icon("key")}<input class="input" name="next" type="password" minlength="6" required></div></div><div class="field"><label>确认新密码</label><div class="input-wrap">${icon("check")}<input class="input" name="confirm" type="password" minlength="6" required></div></div><div><button class="btn btn-primary" type="submit">保存新密码</button></div></form></div>`;
+        }
+        return `${navBar()}<main class="page">
+          <header class="section-head"><div><div class="breadcrumb"><span>会员中心</span>${icon("chevronRight",12)}<span>账户资料</span></div><h1>个人中心</h1></div><button class="btn btn-secondary" onclick="RP.go('home')">${icon("arrowLeft")} 返回资源库</button></header>
+          <div class="profile-grid">
+            <aside class="panel profile-card"><div class="profile-avatar">${esc(initials(user?.nickname || user?.username))}</div><h2>${esc(user?.nickname || user?.username)}</h2><p>@${esc(user?.username)}</p><span class="status-pill ${esc(user?.status)}">${icon("check",12)} ${statusLabel(user?.status)}</span><div class="profile-facts"><div class="fact"><span>会员角色</span><b>${user?.role === "admin" ? "管理员" : "付费会员"}</b></div><div class="fact"><span>注册时间</span><b>${formatDate(user?.createdAt)}</b></div><div class="fact"><span>累计下载</span><b>${downloads.length} 次</b></div><div class="fact"><span>收藏资源</span><b>${favorites.length} 份</b></div></div></aside>
+            <section class="panel content-panel"><div class="tabs"><button class="tab ${state.ui.profileTab === "downloads" ? "active" : ""}" onclick="RP.profileTab('downloads')">${icon("download")} 下载记录</button><button class="tab ${state.ui.profileTab === "favorites" ? "active" : ""}" onclick="RP.profileTab('favorites')">${icon("heart")} 我的收藏</button><button class="tab ${state.ui.profileTab === "security" ? "active" : ""}" onclick="RP.profileTab('security')">${icon("shield")} 账户安全</button></div><div class="panel-body">${body}</div></section>
+          </div>
+        </main>${modalView()}`;
+      }
+
+      function emptyInline(iconName, title, copy) {
+        return `<div class="empty" style="min-height:330px"><div><div class="empty-icon">${icon(iconName)}</div><h3>${esc(title)}</h3><p>${esc(copy)}</p></div></div>`;
+      }
+
+      function adminDashboard() {
+        const pending = state.users.filter(user => user.status === "pending").length;
+        const totalDownloads = state.resources.reduce((sum, item) => sum + (item.stats?.downloads || 0), 0);
+        const images = state.resources.filter(item => item.type === "image").length;
+        const share = state.resources.length ? Math.round(images / state.resources.length * 100) : 0;
+        const days = ["周一","周二","周三","周四","周五","周六","周日"];
+        const activity = days.map((_, index) => 32 + ((totalDownloads + index * 17) % 69));
+        return `<div class="stat-grid">
+          ${statCard("users", state.users.length, "注册用户总数")}
+          ${statCard("clock", pending, "等待审核申请")}
+          ${statCard("folder", state.resources.length, "已收录资源")}
+          ${statCard("download", totalDownloads, "累计下载次数")}
+        </div><div class="dashboard-grid">
+          <section class="panel chart-card"><div class="card-head"><div><h2>近七日访问趋势</h2><p>依据当前浏览与下载数据生成的活跃度</p></div><span class="status-pill active">${icon("activity",12)} 稳定增长</span></div><div class="bar-chart">${days.map((day,index) => `<div class="bar-col"><div class="bar" style="height:${activity[index]}%" title="${activity[index]}"></div><span>${day}</span></div>`).join("")}</div></section>
+          <section class="panel chart-card"><div class="card-head"><div><h2>资源类型占比</h2><p>图片与演示文稿的内容构成</p></div></div><div class="donut-wrap"><div class="donut" style="--image-share:${share}%"><strong>${share}%</strong></div></div><div class="legend"><span><i style="background:var(--primary)"></i>图片 ${images}</span><span><i style="background:#f2b559"></i>PPT ${state.resources.length-images}</span></div></section>
+        </div>`;
+      }
+
+      function statCard(iconName, value, label) {
+        return `<article class="panel stat-card"><div class="stat-icon">${icon(iconName)}</div><strong>${Number(value).toLocaleString("zh-CN")}</strong><span>${esc(label)}</span></article>`;
+      }
+
+      function adminUsers() {
+        const list = state.users.filter(user => state.ui.adminUserFilter === "all" || user.status === state.ui.adminUserFilter).filter(user => {
+          const query = state.ui.adminSearch.toLowerCase();
+          return !query || `${user.username} ${user.nickname}`.toLowerCase().includes(query);
+        });
+        return `<section class="panel admin-table-card"><div class="table-tools"><div class="segmented">${["all","pending","active","disabled"].map(item => `<button class="segment ${state.ui.adminUserFilter === item ? "active" : ""}" onclick="RP.adminUserFilter('${item}')">${({all:"全部",pending:"待审核",active:"正常",disabled:"禁用"})[item]}</button>`).join("")}</div><div class="input-wrap table-search">${icon("search")}<input class="input" value="${esc(state.ui.adminSearch)}" oninput="RP.adminSearch(this.value)" placeholder="搜索用户名或昵称"></div></div><div class="table-wrap"><table><thead><tr><th>用户</th><th>注册时间</th><th>角色</th><th>状态</th><th>操作</th></tr></thead><tbody>${list.length ? list.map(userRow).join("") : `<tr><td colspan="5" style="text-align:center;padding:46px;color:var(--subtle)">暂无匹配用户</td></tr>`}</tbody></table></div></section>`;
+      }
+
+      function userRow(user) {
+        const self = user.id === state.session?.userId;
+        let actions = "";
+        if (user.status === "pending") actions = `<button class="btn btn-soft btn-sm" onclick="RP.userAction('${user.id}','approve')">${icon("check",13)} 通过</button><button class="btn btn-danger btn-sm" onclick="RP.userAction('${user.id}','reject')">拒绝</button>`;
+        else if (user.status === "active" && !self) actions = `<button class="btn btn-secondary btn-sm" onclick="RP.userAction('${user.id}','disable')">禁用</button>`;
+        else if (user.status === "disabled") actions = `<button class="btn btn-soft btn-sm" onclick="RP.userAction('${user.id}','enable')">恢复</button>`;
+        if (!self) actions += `<button class="btn btn-ghost btn-icon btn-sm" onclick="RP.userAction('${user.id}','delete')" aria-label="删除">${icon("trash",14)}</button>`;
+        return `<tr><td><div class="table-user"><span class="table-avatar">${esc(initials(user.nickname || user.username))}</span><span><b>${esc(user.nickname || user.username)}</b><span>@${esc(user.username)}</span></span></div></td><td>${formatDate(user.createdAt)}</td><td>${user.role === "admin" ? "管理员" : "会员"}</td><td><span class="status-pill ${esc(user.status)}">${statusLabel(user.status)}</span></td><td><div class="table-actions">${actions || '<span class="muted">当前账户</span>'}</div></td></tr>`;
+      }
+
+      function adminResources() {
+        const query = state.ui.adminSearch.toLowerCase();
+        const list = state.resources.filter(item => !query || `${item.title} ${item.category}`.toLowerCase().includes(query));
+        return `<section class="panel admin-table-card"><div class="table-tools"><div class="input-wrap table-search">${icon("search")}<input class="input" value="${esc(state.ui.adminSearch)}" oninput="RP.adminSearch(this.value)" placeholder="搜索资源"></div><div style="display:flex;gap:8px"><button class="btn btn-secondary btn-sm" onclick="RP.syncResources()">${icon("refresh",14)} 同步目录</button><button class="btn btn-primary btn-sm" onclick="RP.editResource()">${icon("plus",14)} 新增资源</button></div></div><div class="table-wrap"><table><thead><tr><th>资源名称</th><th>类型</th><th>分类</th><th>浏览 / 下载</th><th>来源</th><th>操作</th></tr></thead><tbody>${list.length ? list.map(resourceRow).join("") : `<tr><td colspan="6" style="text-align:center;padding:46px;color:var(--subtle)">暂无匹配资源</td></tr>`}</tbody></table></div></section>`;
+      }
+
+      function resourceRow(resource) {
+        return `<tr><td><div class="table-user"><span class="list-thumb" style="width:38px;height:38px"><img src="${esc(safeUrl(resource.coverImage || resource.filePath))}" alt=""></span><span><b>${esc(resource.title)}</b><span>${esc(formatSize(resource.fileSize))} · ${formatDate(resource.createdAt)}</span></span></div></td><td><span class="status-pill ${resource.type === "image" ? "active" : "pending"}">${resource.type === "image" ? "IMAGE" : "PPT"}</span></td><td>${esc(resource.category || "未分类")}</td><td>${resource.stats?.views || 0} / ${resource.stats?.downloads || 0}</td><td>${resource.source === "scanner" ? "目录扫描" : resource.source === "demo" ? "示例" : "后台添加"}</td><td><div class="table-actions"><button class="btn btn-ghost btn-icon btn-sm" onclick="RP.editResource('${esc(resource.id)}')" aria-label="编辑">${icon("edit",14)}</button><button class="btn btn-ghost btn-icon btn-sm" onclick="RP.deleteResource('${esc(resource.id)}')" aria-label="删除">${icon("trash",14)}</button></div></td></tr>`;
+      }
+
+      function adminView() {
+        const pending = state.users.filter(user => user.status === "pending").length;
+        const content = state.ui.adminTab === "dashboard" ? adminDashboard() : state.ui.adminTab === "users" ? adminUsers() : adminResources();
+        return `${navBar()}<main class="page"><header class="section-head"><div><div class="breadcrumb"><span>平台管理</span>${icon("chevronRight",12)}<span>${({dashboard:"数据概览",users:"用户管理",resources:"资源管理"})[state.ui.adminTab]}</span></div><h1>管理后台</h1></div><button class="btn btn-secondary" onclick="RP.go('home')">${icon("arrowLeft")} 返回资源库</button></header><div class="admin-layout"><aside class="panel admin-nav"><div class="admin-nav-title">CONTROL CENTER</div><button class="${state.ui.adminTab === "dashboard" ? "active" : ""}" onclick="RP.adminTab('dashboard')">${icon("activity")} 数据看板</button><button class="${state.ui.adminTab === "users" ? "active" : ""}" onclick="RP.adminTab('users')">${icon("users")} 用户管理 ${pending ? `<span class="nav-count">${pending}</span>` : ""}</button><button class="${state.ui.adminTab === "resources" ? "active" : ""}" onclick="RP.adminTab('resources')">${icon("folder")} 资源管理 <span class="nav-count">${state.resources.length}</span></button></aside><section class="admin-content">${content}</section></div></main>${modalView()}`;
+      }
+
+      function modalView() {
+        if (state.ui.resourceForm) return resourceFormModal();
+        if (!state.ui.modal) return "";
+        const resource = state.resources.find(item => item.id === state.ui.modal);
+        if (!resource) return "";
+        const favorite = userFavorites().includes(resource.id);
+        const facts = `<div class="preview-facts"><div class="fact"><span>上传时间</span><b>${formatDate(resource.createdAt)}</b></div><div class="fact"><span>文件大小</span><b>${formatSize(resource.fileSize)}</b></div><div class="fact"><span>资源分类</span><b>${esc(resource.category || "未分类")}</b></div><div class="fact"><span>热度指数</span><b>${heat(resource)}</b></div></div>`;
+        const info = `<aside class="preview-info"><span class="preview-type">${icon(resource.type === "ppt" ? "file" : "image",13)} ${resource.type === "ppt" ? "PRESENTATION" : "HIGH-RES IMAGE"}</span><h2>${esc(resource.title)}</h2><p>${esc(resource.description || "暂无资源描述")}</p>${facts}<div class="preview-actions"><button class="btn btn-primary" onclick="RP.download('${esc(resource.id)}')">${icon("download")} 下载${resource.type === "ppt" ? " PPT" : "原图"}</button><button class="btn ${favorite ? "btn-soft" : "btn-secondary"} btn-icon" onclick="RP.favorite('${esc(resource.id)}')" aria-label="收藏">${icon(favorite ? "heartFill" : "heart")}</button></div></aside>`;
+        if (resource.type === "image") {
+          return `<div class="modal" onclick="if(event.target===this)RP.closeModal()" role="dialog" aria-modal="true" aria-label="图片预览"><div class="modal-card preview-layout"><section class="preview-stage" id="preview-stage"><div class="preview-controls"><div class="preview-control-group"><button class="dark-control" onclick="RP.closeModal()" aria-label="关闭">${icon("x")}</button></div><div class="preview-control-group"><button class="dark-control" onclick="RP.zoom(-.25)" aria-label="缩小">${icon("zoomOut")}</button><button class="dark-control" onclick="RP.zoom(.25)" aria-label="放大">${icon("zoomIn")}</button></div></div><button class="preview-arrow left" onclick="RP.nextImage(-1)" aria-label="上一张">${icon("chevronLeft")}</button><img id="preview-image" src="${esc(safeUrl(resource.filePath || resource.coverImage))}" alt="${esc(resource.title)}" style="transform:scale(${state.ui.zoom})"><button class="preview-arrow right" onclick="RP.nextImage(1)" aria-label="下一张">${icon("chevronRight")}</button></section>${info}</div></div>`;
+        }
+        const cover = safeUrl(resource.coverImage);
+        return `<div class="modal" onclick="if(event.target===this)RP.closeModal()" role="dialog" aria-modal="true" aria-label="PPT 详情"><div class="modal-card preview-layout"><section class="ppt-stage"><div class="preview-controls"><div class="preview-control-group"><button class="dark-control" onclick="RP.closeModal()" aria-label="关闭">${icon("x")}</button></div></div><div class="ppt-sheet">${cover ? `<img src="${esc(cover)}" alt="${esc(resource.title)}">` : `<div class="ppt-placeholder"><small>MUSE / PRESENTATION</small><strong>${esc(resource.title)}</strong><small>${esc(resource.category || "PPT RESOURCE")}</small></div>`}</div></section>${info}</div></div>`;
+      }
+
+      function resourceFormModal() {
+        const form = state.ui.resourceForm;
+        const editing = Boolean(form.id);
+        return `<div class="modal" onclick="if(event.target===this)RP.closeModal()" role="dialog" aria-modal="true"><form class="dialog-card" onsubmit="RP.saveResource(event)"><div class="dialog-head"><div><h2>${editing ? "编辑资源" : "新增资源"}</h2><p>填写资源信息。目录内文件也可通过“同步目录”自动加入。</p></div><button class="btn btn-ghost btn-icon" type="button" onclick="RP.closeModal()">${icon("x")}</button></div><div class="dialog-form"><div class="field"><label>资源标题</label><input class="input" name="title" value="${esc(form.title || "")}" required></div><div class="field"><label>资源类型</label><select class="select" name="type"><option value="image" ${form.type === "image" ? "selected" : ""}>图片</option><option value="ppt" ${form.type === "ppt" ? "selected" : ""}>PPT</option></select></div><div class="field"><label>分类</label><input class="input" name="category" value="${esc(form.category || "")}" placeholder="如：视觉设计" required></div><div class="field"><label>文件大小（MB）</label><input class="input" name="size" value="${form.fileSize ? (form.fileSize/1048576).toFixed(1) : ""}" inputmode="decimal" placeholder="5.2"></div><div class="field span-2"><label>文件路径或 URL</label><input class="input" name="filePath" value="${esc(form.filePath || "")}" placeholder="/resources/报告.pptx" required><span class="field-note">推荐使用 /resources/ 开头的相对路径；图片也可填写 HTTPS 地址。</span></div><div class="field span-2"><label>封面图路径</label><input class="input" name="coverImage" value="${esc(form.coverImage || "")}" placeholder="/resources/报告.jpg"></div><div class="field span-2"><label>资源描述</label><textarea class="textarea" name="description" placeholder="简要说明资源内容">${esc(form.description || "")}</textarea></div></div><div class="dialog-actions"><button class="btn btn-secondary" type="button" onclick="RP.closeModal()">取消</button><button class="btn btn-primary" type="submit">${icon("check")} 保存资源</button></div></form></div>`;
+      }
+
+      async function loadManifest(force = false) {
+        try {
+          const response = await fetch(`/resource-manifest.json${force ? `?t=${Date.now()}` : ""}`, { cache: force ? "no-store" : "default" });
+          if (!response.ok) throw new Error("manifest unavailable");
+          const manifest = await response.json();
+          const hidden = new Set(state.hidden);
+          let added = 0;
+          for (const resource of manifest.resources || []) {
+            if (hidden.has(resource.id)) continue;
+            const current = state.resources.find(item => item.id === resource.id);
+            if (current) Object.assign(current, resource, { stats: current.stats || resource.stats });
+            else { state.resources.unshift(resource); added++; }
+          }
+          saveResources();
+          return added;
+        } catch {
+          return 0;
+        }
+      }
+
+      function render() {
+        const requested = routeName();
+        const route = guardRoute(requested);
+        state.ui.route = route;
+        if (route !== requested) history.replaceState(null, "", `#${route}`);
+        clearInterval(state.ui.pendingTimer);
+        const views = { login: loginView, register: registerView, pending: pendingView, home: homeView, profile: profileView, admin: adminView };
+        document.getElementById("app").innerHTML = (views[route] || loginView)();
+        document.title = `${({login:"登录",register:"会员申请",pending:"等待审核",home:"精选资源",profile:"个人中心",admin:"管理后台"})[route]} · MUSE`;
+        document.body.style.overflow = state.ui.modal || state.ui.resourceForm ? "hidden" : "";
+        if (route === "home") setupInfiniteScroll();
+        if (route === "pending") state.ui.pendingTimer = setInterval(checkPending, 30000);
+      }
+
+      let observer;
+      function setupInfiniteScroll() {
+        observer?.disconnect();
+        const sentinel = document.getElementById("load-sentinel");
+        if (!sentinel || state.ui.visible >= getFilteredResources().length) return;
+        observer = new IntersectionObserver(entries => {
+          if (entries[0]?.isIntersecting) {
+            state.ui.visible += 20;
+            render();
+          }
+        }, { rootMargin: "300px" });
+        observer.observe(sentinel);
+      }
+
+      function checkPending() {
+        state.users = read(KEYS.users, state.users);
+        const user = currentUser();
+        if (user?.status === "active") {
+          toast("审核已通过，欢迎加入 MUSE");
+          navigate("home");
+        } else if (user?.status === "rejected" || user?.status === "disabled") {
+          toast("当前申请未通过，请联系管理员", "error");
+          state.session = null; saveSession(); navigate("login");
+        }
+      }
+
+      let searchTimer;
+      let adminSearchTimer;
+      const RP = {
+        go: navigate,
+        fillAdmin() {
+          document.getElementById("login-username").value = "admin";
+          document.getElementById("login-password").value = "admin888";
+        },
+        togglePassword(id, button) {
+          const input = document.getElementById(id);
+          input.type = input.type === "password" ? "text" : "password";
+          button.innerHTML = icon(input.type === "password" ? "eye" : "eyeOff");
+        },
+        login(event) {
+          event.preventDefault();
+          const data = new FormData(event.currentTarget);
+          const username = String(data.get("username") || "").trim();
+          const password = String(data.get("password") || "");
+          const user = state.users.find(item => item.username.toLowerCase() === username.toLowerCase());
+          if (!user || user.passwordHash !== hashPassword(user.username, password)) {
+            state.ui.loginError = "用户名或密码不正确"; render(); return;
+          }
+          if (user.status === "disabled") { state.ui.loginError = "该账号已被管理员禁用"; render(); return; }
+          if (user.status === "rejected") { state.ui.loginError = "该会员申请未通过审核"; render(); return; }
+          state.ui.loginError = "";
+          createSession(user);
+          navigate(user.status === "pending" ? "pending" : user.role === "admin" ? "admin" : "home");
+          toast(user.status === "pending" ? "已进入审核状态页" : `欢迎回来，${user.nickname || user.username}`);
+        },
+        register(event) {
+          event.preventDefault();
+          const data = new FormData(event.currentTarget);
+          const username = String(data.get("username") || "").trim();
+          const nickname = String(data.get("nickname") || "").trim();
+          const password = String(data.get("password") || "");
+          const confirm = String(data.get("confirm") || "");
+          let error = "";
+          if (!/^[A-Za-z0-9]{4,16}$/.test(username)) error = "用户名须为 4–16 位字母或数字";
+          else if (nickname.length < 2 || nickname.length > 20) error = "昵称长度须为 2–20 个字符";
+          else if (password.length < 6) error = "密码至少需要 6 位";
+          else if (password !== confirm) error = "两次输入的密码不一致";
+          else if (state.users.some(item => item.username.toLowerCase() === username.toLowerCase())) error = "该用户名已被注册";
+          if (error) { state.ui.registerError = error; render(); return; }
+          const now = new Date().toISOString();
+          const user = { id: uid("u"), username, nickname, passwordHash: hashPassword(username, password), role: "user", status: "pending", avatar: "", createdAt: now, updatedAt: now };
+          state.users.push(user); saveUsers(); createSession(user); state.ui.registerError = ""; navigate("pending"); toast("申请已提交，请等待管理员审核");
+        },
+        logout() {
+          state.session = null; saveSession(); state.ui.modal = null; state.ui.resourceForm = null; navigate("login"); toast("已安全退出账户");
+        },
+        toggleMenu(event) { event?.stopPropagation(); state.ui.menu = !state.ui.menu; render(); },
+        toggleMobileSearch() { state.ui.mobileSearch = !state.ui.mobileSearch; render(); if (state.ui.mobileSearch) setTimeout(() => document.getElementById("global-search")?.focus(), 0); },
+        search(value) {
+          state.ui.search = value; state.ui.visible = 20;
+          clearTimeout(searchTimer);
+          searchTimer = setTimeout(() => {
+            if (state.ui.route !== "home") navigate("home"); else render();
+            requestAnimationFrame(() => { const input = document.getElementById("global-search"); if (input) { input.focus(); input.setSelectionRange(input.value.length,input.value.length); } });
+          }, 180);
+        },
+        filter(value) { state.ui.filter = value; state.ui.visible = 20; render(); },
+        filterDecoded(value) { state.ui.filter = decodeURIComponent(value); state.ui.visible = 20; render(); },
+        sort(value) { state.ui.sort = value; render(); },
+        setView(value) { state.ui.view = value; write(KEYS.settings, { view: value }); render(); },
+        openResource(id) {
+          const resource = state.resources.find(item => item.id === id);
+          if (!resource) { toast("该资源已不存在", "error"); return; }
+          resource.stats = resource.stats || { views: 0, downloads: 0, favorites: 0 };
+          resource.stats.views += 1; saveResources();
+          state.ui.modal = id; state.ui.zoom = 1; render();
+        },
+        closeModal() { state.ui.modal = null; state.ui.resourceForm = null; render(); },
+        zoom(delta) { state.ui.zoom = Math.max(.5, Math.min(3, state.ui.zoom + delta)); const image = document.getElementById("preview-image"); if (image) image.style.transform = `scale(${state.ui.zoom})`; },
+        nextImage(direction) {
+          const images = state.resources.filter(item => item.type === "image");
+          const index = images.findIndex(item => item.id === state.ui.modal);
+          if (index < 0 || !images.length) return;
+          const next = images[(index + direction + images.length) % images.length];
+          next.stats.views += 1; saveResources(); state.ui.modal = next.id; state.ui.zoom = 1; render();
+        },
+        favorite(id) {
+          const userId = state.session?.userId;
+          const resource = state.resources.find(item => item.id === id);
+          if (!userId || !resource) return;
+          const list = state.favorites[userId] || [];
+          const index = list.indexOf(id);
+          resource.stats = resource.stats || { views: 0, downloads: 0, favorites: 0 };
+          if (index >= 0) { list.splice(index,1); resource.stats.favorites = Math.max(0,resource.stats.favorites-1); toast("已取消收藏"); }
+          else { list.unshift(id); resource.stats.favorites += 1; toast("已加入收藏"); }
+          state.favorites[userId] = list; saveFavorites(); saveResources(); render();
+        },
+        download(id) {
+          const resource = state.resources.find(item => item.id === id);
+          if (!resource) return;
+          const url = safeUrl(resource.filePath);
+          if (!url) { toast("这是演示条目；放入同名资源文件并同步目录后即可下载", "error"); return; }
+          const anchor = document.createElement("a");
+          anchor.href = url; anchor.download = filenameFrom(resource); anchor.rel = "noopener";
+          document.body.appendChild(anchor); anchor.click(); anchor.remove();
+          resource.stats = resource.stats || { views: 0, downloads: 0, favorites: 0 }; resource.stats.downloads += 1;
+          const userId = state.session.userId;
+          state.downloads[userId] = [{ resourceId: id, title: resource.title, fileName: filenameFrom(resource), createdAt: new Date().toISOString() }, ...(state.downloads[userId] || [])].slice(0,50);
+          saveResources(); saveDownloads(); toast("下载任务已开始"); render();
+        },
+        profileTab(tab) { state.ui.profileTab = tab; render(); },
+        changePassword(event) {
+          event.preventDefault();
+          const data = new FormData(event.currentTarget); const user = currentUser();
+          if (user.passwordHash !== hashPassword(user.username, String(data.get("current") || ""))) { toast("当前密码不正确", "error"); return; }
+          const next = String(data.get("next") || "");
+          if (next.length < 6) { toast("新密码至少需要 6 位", "error"); return; }
+          if (next !== String(data.get("confirm") || "")) { toast("两次输入的新密码不一致", "error"); return; }
+          user.passwordHash = hashPassword(user.username, next); user.updatedAt = new Date().toISOString(); saveUsers(); event.currentTarget.reset(); toast("登录密码已更新");
+        },
+        adminTab(tab) { state.ui.adminTab = tab; state.ui.adminSearch = ""; render(); },
+        adminUserFilter(filter) { state.ui.adminUserFilter = filter; render(); },
+        adminSearch(value) { state.ui.adminSearch = value; clearTimeout(adminSearchTimer); adminSearchTimer = setTimeout(() => render(), 160); },
+        userAction(id, action) {
+          const user = state.users.find(item => item.id === id); if (!user) return;
+          if (action === "delete") { if (!confirm(`确定删除用户“${user.nickname || user.username}”吗？`)) return; state.users = state.users.filter(item => item.id !== id); delete state.favorites[id]; delete state.downloads[id]; saveFavorites(); saveDownloads(); }
+          else if (action === "approve") user.status = "active";
+          else if (action === "reject") user.status = "rejected";
+          else if (action === "disable") user.status = "disabled";
+          else if (action === "enable") user.status = "active";
+          user.updatedAt = new Date().toISOString(); saveUsers(); render(); toast(({approve:"用户已审核通过",reject:"申请已拒绝",disable:"用户已禁用",enable:"用户已恢复",delete:"用户已删除"})[action]);
+        },
+        editResource(id) {
+          const resource = id ? state.resources.find(item => item.id === id) : null;
+          state.ui.resourceForm = resource ? { ...resource } : { type: "image", category: "视觉设计" }; render();
+        },
+        saveResource(event) {
+          event.preventDefault(); const data = new FormData(event.currentTarget); const existing = state.ui.resourceForm.id ? state.resources.find(item => item.id === state.ui.resourceForm.id) : null;
+          const item = existing || { id: uid("r"), createdAt: new Date().toISOString(), stats: { views:0, downloads:0, favorites:0 }, source: "admin", ratio: .8 };
+          item.title = String(data.get("title") || "").trim(); item.type = String(data.get("type")); item.category = String(data.get("category") || "未分类").trim(); item.description = String(data.get("description") || "").trim(); item.filePath = String(data.get("filePath") || "").trim(); item.coverImage = String(data.get("coverImage") || "").trim() || (item.type === "image" ? item.filePath : ""); item.fileSize = Number(data.get("size") || 0) * 1048576; item.tags = [item.category, item.type === "ppt" ? "PPT" : "图片"];
+          if (!existing) state.resources.unshift(item); saveResources(); state.ui.resourceForm = null; render(); toast(existing ? "资源信息已更新" : "资源已添加");
+        },
+        deleteResource(id) {
+          const resource = state.resources.find(item => item.id === id); if (!resource || !confirm(`确定从平台移除“${resource.title}”吗？`)) return;
+          state.resources = state.resources.filter(item => item.id !== id);
+          if (resource.source === "scanner") { state.hidden.push(id); write(KEYS.hidden, state.hidden); }
+          saveResources(); render(); toast("资源已从展示列表移除");
+        },
+        async syncResources() {
+          const added = await loadManifest(true); render(); toast(added ? `已发现并加入 ${added} 份新资源` : "目录资源已是最新状态");
+        }
+      };
+
+      window.RP = RP;
+
+      async function bootstrap() {
+        const now = new Date().toISOString();
+        state.users = read(KEYS.users, null) || [{ id: "u_admin", username: "admin", nickname: "平台管理员", passwordHash: hashPassword("admin", "admin888"), role: "admin", status: "active", avatar: "", createdAt: now, updatedAt: now }];
+        state.resources = read(KEYS.resources, null) || seedResources();
+        state.session = read(KEYS.session, null);
+        state.favorites = read(KEYS.favorites, {});
+        state.downloads = read(KEYS.downloads, {});
+        state.hidden = read(KEYS.hidden, []);
+        const settings = read(KEYS.settings, {}); state.ui.view = settings.view || "masonry";
+        saveUsers(); saveResources();
+        await loadManifest(false);
+        render();
+      }
+
+      window.addEventListener("hashchange", render);
+      window.addEventListener("storage", event => {
+        if (event.key === KEYS.users) { state.users = read(KEYS.users, state.users); checkPending(); }
+      });
+      document.addEventListener("click", event => {
+        if (state.ui.menu && !event.target.closest(".user-menu-wrap")) { state.ui.menu = false; render(); }
+      });
+      document.addEventListener("keydown", event => {
+        if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); const input = document.getElementById("global-search"); if (input) input.focus(); }
+        if (event.key === "Escape" && (state.ui.modal || state.ui.resourceForm)) RP.closeModal();
+        if (state.ui.modal && state.resources.find(item => item.id === state.ui.modal)?.type === "image") {
+          if (event.key === "ArrowLeft") RP.nextImage(-1);
+          if (event.key === "ArrowRight") RP.nextImage(1);
+        }
+      });
+      document.addEventListener("wheel", event => {
+        if (state.ui.modal && event.target.closest("#preview-stage")) { event.preventDefault(); RP.zoom(event.deltaY > 0 ? -.1 : .1); }
+      }, { passive: false });
+
+      bootstrap();
+    })();
+  </script>
+</body>
+</html>

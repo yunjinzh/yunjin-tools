@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "即梦音乐工作台 · 十曲创作",
+  "version": "1.2.0",
+  "description": "从526种类型中随机生成十组音乐提示词，在已登录的即梦页面依次创作，并管理本地下载。第三方本地工具。",
+  "minimum_chrome_version": "120",
+  "permissions": ["storage", "downloads", "alarms"],
+  "host_permissions": ["https://jimeng.jianying.com/*"],
+  "action": { "default_title": "打开音乐工作台" },
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [{
+    "matches": ["https://jimeng.jianying.com/*"],
+    "js": ["catalog.js", "core.js", "content.js"],
+    "run_at": "document_idle"
+  }],
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'" }
+}

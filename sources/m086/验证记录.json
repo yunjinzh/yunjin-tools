@@ -1,0 +1,60 @@
+{
+  "backend": {
+    "face_sample": {
+      "same_person_variants_grouped": true,
+      "different_face_separated": true,
+      "faces": [
+        {
+          "id": 1,
+          "name": "",
+          "cover_face": 1,
+          "favorite": 0,
+          "created": "2026-10-17T20:26:04",
+          "photo_count": 3,
+          "face_count": 3,
+          "confirmed_count": 0,
+          "cover": 1
+        },
+        {
+          "id": 2,
+          "name": "",
+          "cover_face": 2,
+          "favorite": 0,
+          "created": "2026-10-17T20:26:04",
+          "photo_count": 1,
+          "face_count": 1,
+          "confirmed_count": 0,
+          "cover": 2
+        }
+      ]
+    },
+    "index_scale": {
+      "rows": 10000,
+      "timeline_and_last_page_ms": 17.19,
+      "note": "synthetic index records; not 10000 full-resolution photo processing or browser rendering benchmark"
+    },
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 5.47,
+    "date": "2026-10-17",
+    "environment": "Linux Python 3.12, OpenCV 4.11, Pillow 11.3, numpy 2.2.6; Windows package not executed"
+  },
+  "interface": {
+    "passed": true,
+    "checks": 12,
+    "scope": "DOM-level UI + real local HTTP API integration; not a browser layout or Windows UI test",
+    "photo_records": 11
+  },
+  "branding_update": {
+    "date": "2026-10-17",
+    "version": "1.0.1",
+    "name": "拾光智能相册管理系统",
+    "python_syntax": true,
+    "local_http_title": true,
+    "api_version": true,
+    "backup_app_identifier_preserved": true,
+    "launcher_and_guide_name": true,
+    "scope": "Name and delivery update; prior backend/interface records are retained from v1.0.0; no Windows execution or browser layout test in this update."
+  }
+}

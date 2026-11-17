@@ -1,0 +1,75 @@
+{
+  "source_bytes": 674252,
+  "sha256": "f37bb18a857c1fcbe5e16c8db6cc87badbf60c278318cab16f0b2716e612e2c4",
+  "count": 526,
+  "groups": [
+    {
+      "name": "中国戏曲与民歌",
+      "count": 7
+    },
+    {
+      "name": "世界音乐",
+      "count": 48
+    },
+    {
+      "name": "古典声乐",
+      "count": 15
+    },
+    {
+      "name": "爵士与蓝调",
+      "count": 19
+    },
+    {
+      "name": "摇滚与民谣",
+      "count": 32
+    },
+    {
+      "name": "流行与都市",
+      "count": 26
+    },
+    {
+      "name": "嘻哈与说唱",
+      "count": 17
+    },
+    {
+      "name": "电子与节奏",
+      "count": 50
+    },
+    {
+      "name": "拉丁与加勒比",
+      "count": 40
+    },
+    {
+      "name": "情绪与听感",
+      "count": 33
+    },
+    {
+      "name": "乐器主导",
+      "count": 20
+    },
+    {
+      "name": "节庆与场景",
+      "count": 32
+    },
+    {
+      "name": "主题与文化",
+      "count": 142
+    },
+    {
+      "name": "用途与媒介",
+      "count": 45
+    }
+  ],
+  "kindCounts": {
+    "genres": 254,
+    "moods": 33,
+    "instruments": 20,
+    "occasions": 32,
+    "collections": 142,
+    "use-cases": 45
+  },
+  "source": "http://gis101.cn/web/music.html",
+  "sourceTitle": "歌曲风格听音室 · SONG ATLAS",
+  "importedAt": "2026-10-11",
+  "description": "从HTML中以JSON解析方式提取目录，仅导入类型资料，不执行来源网页脚本，不打包第三方试听音频。"
+}

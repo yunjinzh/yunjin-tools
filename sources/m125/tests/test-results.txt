@@ -1,0 +1,18 @@
+PASS new save gives 1000 and one protected tutorial order
+PASS tutorial balances and 420 revenue / 300 costs / 120 profit
+PASS transaction dedupe for purchase/cut/sell
+PASS bad answers and malformed input never alter coins or inventory
+PASS 3-level hints allow demo and preserve attempts over changed plans
+PASS changed craft quantity invalidates earlier uncommitted answer
+PASS invalid cut and excess craft fully rollback
+PASS diamond partial batch 740 / 1200, one immutable Q3
+PASS partial creation retains material value and all orders require complete quantity
+PASS cross batch orders assign Q3 to earliest eligible batch and correct lifetime profit
+PASS zero balance support pays 80/160/240 and dedicated inventory never enters bag
+PASS eight recipes / thirty complete orders maintain conservation
+PASS decor paid once, photos survive sell, names are data
+PASS backup validation rejects bad references, costs, ids, negatives, versions
+PASS save failure leaves caller state intact
+PASS order capacity, cancellation and reaccept preserve objects
+PASS all configured full-batch costs and profits match PRD
+17 test groups passed

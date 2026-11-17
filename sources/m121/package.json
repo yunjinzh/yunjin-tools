@@ -1,0 +1,19 @@
+{
+  "name": "qingdi-image-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "@imgly/background-removal": "1.7.0",
+    "onnxruntime-web": "1.21.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  },
+  "scripts": {
+    "prepare-assets": "node scripts/prepare-assets.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs && node --test scripts/test-export.mjs"
+  }
+}

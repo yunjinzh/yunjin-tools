@@ -1,0 +1,9 @@
+将图片、PPT 或 PPTX 文件放入本目录后，启动或构建站点时会自动生成资源清单。
+
+支持格式：jpg、jpeg、png、webp、gif、avif、svg、ppt、pptx。
+若要为 PPT 指定封面，请放入与 PPT 同名的图片，例如：
+
+年度报告.pptx
+年度报告.jpg
+
+子文件夹名称会自动作为资源分类。

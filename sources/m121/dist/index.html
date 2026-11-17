@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1f0ec">
+  <title>清底 Qingdi — 留下主角，移除背景</title>
+  <meta name="description" content="免费的浏览器本地图片去背景工具。AI 主体抠图、纯色去底、手动修边，下载透明 PNG。无需 API Key。">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css?v=20261028-feedback1">
+</head>
+<body>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m13 3 2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3ZM4 2v4M2 4h4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M8 4 3 9l5 5M3 9h11a6 6 0 1 1 0 12h-3"/></symbol>
+    <symbol id="i-erase" viewBox="0 0 24 24"><path d="m14 3 7 7-11 11H6l-4-4L14 3ZM6 13l7 7m-3 1h12"/></symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24"><path d="m9 13 10-11 3 3-11 10M3 21c0-4-1-8 3-8s6 6-3 8Z"/></symbol>
+    <symbol id="i-pick" viewBox="0 0 24 24"><path d="m14 4 6 6M3 21l4-1L20 7a2.1 2.1 0 0 0-3-3L4 17l-1 4ZM5 16l3 3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+  </defs></svg>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="清底首页"><span class="brand-mark"><span></span></span><strong>清底<span>QINGDI</span></strong></a>
+    <nav aria-label="导航"><a class="nav-active" href="#workspace">图片去背景</a><button id="helpOpen">使用说明 <span>↗</span></button><button id="sourceOpen">开源项目 <span>↗</span></button></nav>
+    <div class="local-badge"><i></i> 本地处理 · 保护隐私</div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="heroTitle">
+      <div><div class="eyebrow">THE FOCUS IS YOURS <span>——</span> 图片背景移除工具</div><h1 id="heroTitle">留下主角<span class="coral">。</span><span class="hero-second">让背景退场。</span></h1><p>从一张图片，到一份干净的素材。<span>上传、去底、下载，就这么简单。</span></p><button id="mobileUploadBtn" class="mobile-upload"><svg><use href="#i-upload"/></svg>上传图片，自动去背景<svg><use href="#i-arrow"/></svg></button></div>
+      <div class="hero-note"><span class="note-no">01 — 03</span><div class="steps"><span><b>01</b> 上传图片</span><i>→</i><span><b>02</b> 自动去底</span><i>→</i><span><b>03</b> 透明导出</span></div><p>人像 · 商品 · 植物 · Logo · 文字素材</p></div>
+    </section>
+
+    <section class="workspace" id="workspace" aria-label="图片编辑工作台">
+      <div class="editor">
+        <div class="editor-top"><span class="editor-name"><span class="tiny-mark"></span> 图片工作台 <span id="fileShort" class="file-short"></span></span><div class="view-switch" aria-label="视图切换"><button data-view="result" class="active" disabled>处理结果</button><button data-view="original" disabled>原图</button><button data-view="compare" disabled>对比</button></div></div>
+        <div id="stage" class="stage" tabindex="0" aria-label="图片预览画布，可拖入图片">
+          <div id="welcome" class="welcome">
+            <div class="sample-art"><div class="sample-index">A LITTLE LESS BACKGROUND<br>A LITTLE MORE POSSIBILITY.</div><button id="welcomeSample" class="sample-image" aria-label="使用植物示例并自动去背景"><img src="assets/plant.jpg" alt="浅色背景上的绿色多肉植物示例" width="900" height="599"><span class="sample-cta">试试这张图片 <svg><use href="#i-arrow"/></svg></span></button><div class="sample-caption"><span>01 / 植物与商品</span><span>示例原图</span></div></div>
+            <div class="welcome-caption"><svg><use href="#i-image"/></svg><span>把图片拖到这里，或点击“上传图片”</span><kbd>Ctrl / ⌘ + V</kbd></div>
+          </div>
+          <div id="canvasWrap" class="canvas-wrap" hidden><div id="imageFrame" class="image-frame checker"><canvas id="resultCanvas" aria-label="处理后的图片"></canvas><canvas id="originalCanvas" aria-label="原始图片" hidden></canvas><div id="compareLine" class="compare-line" hidden><span>‹ ›</span></div><div id="brushCursor" class="brush-cursor" hidden></div></div></div>
+          <div id="viewLabel" class="view-label" hidden>透明背景</div>
+          <div id="dropOverlay" class="drop-overlay" hidden><svg><use href="#i-upload"/></svg>松开鼠标，开始处理</div>
+          <div id="busyOverlay" class="busy-overlay" hidden><div class="spinner"></div><strong id="busyLabel">正在准备图片</strong><p id="busyDetail">图片始终留在你的设备中</p><div class="progress-track"><span id="progressBar"></span></div><button id="cancelBtn" class="text-button">取消处理</button></div>
+        </div>
+        <div id="compareControl" class="compare-control" hidden><span>原图</span><input id="compareSlider" type="range" min="0" max="100" value="50" aria-label="原图与结果对比比例"><span>结果</span></div>
+        <div class="editor-bottom"><span id="canvasInfo">等待上传图片</span><div class="zoom-group"><button id="zoomOut" aria-label="缩小" disabled>−</button><span id="zoomValue">适应画布</span><button id="zoomIn" aria-label="放大" disabled>+</button><button id="zoomFit" aria-label="适应画布" disabled>↙↗</button></div></div>
+        <div id="refineBar" class="refine-bar"><span class="refine-label">手动修边</span><button data-tool="erase" disabled><svg><use href="#i-erase"/></svg> 擦除</button><button data-tool="restore" disabled><svg><use href="#i-brush"/></svg> 恢复</button><button id="undoBtn" disabled aria-label="撤销上一次修边"><svg><use href="#i-undo"/></svg></button><label class="brush-control">画笔<input id="brushSize" type="range" min="4" max="120" value="32" aria-label="画笔直径"><span id="brushValue">32</span></label><button id="resetMaskBtn" class="reset-mask" disabled>重置修边</button></div>
+      </div>
+
+      <aside class="controls" aria-label="去背景设置">
+        <div class="control-head"><span class="section-number">01</span><h2>从这里开始</h2><span class="tag">免费使用</span></div>
+        <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+        <button id="uploadBtn" class="upload-button"><svg><use href="#i-upload"/></svg><span id="uploadText">上传图片</span><svg class="upload-arrow"><use href="#i-arrow"/></svg></button>
+        <p class="upload-hint">支持 JPG、PNG、WebP，单张不超过 25 MB</p>
+        <div class="try-samples"><span>没有图片？试一试</span><button id="plantSample" aria-label="使用植物示例"><img src="assets/plant.jpg" alt="植物示例"></button><button id="portraitSample" aria-label="使用人像示例"><img src="assets/portrait.jpg" alt="人像示例"></button><button id="logoSample" aria-label="使用文字图案示例"><span>字</span></button></div>
+
+        <div class="control-section"><div class="control-head"><span class="section-number">02</span><h2>选择去底方式</h2></div><div class="mode-grid"><button class="mode active" data-mode="ai"><svg><use href="#i-spark"/></svg><strong>AI 主体抠图</strong><small>人像 / 商品 / 植物</small></button><button class="mode" data-mode="color"><svg><use href="#i-pick"/></svg><strong>纯色背景</strong><small>白底 / 图标 / 文字</small></button></div>
+        <p id="modeHint" class="mode-hint">自动识别画面主体，保留轮廓与细节。首次运行需加载约 55 MB 模型及运行文件。</p>
+        <div id="aiSettings"><div class="field-label"><label for="cleanup">背景净化</label><output id="cleanupValue">24</output></div><input id="cleanup" type="range" min="0" max="80" value="24" aria-label="背景净化强度"><p class="fine-hint">提高数值清理残影；降低数值保留更多半透明细节。</p></div>
+        <div id="colorSettings" class="color-settings" hidden>
+          <div class="field-label"><label for="removeColor">要移除的颜色</label><button id="autoColorBtn" class="text-button" disabled>自动识色</button></div><div class="color-picker-row"><input type="color" id="removeColor" value="#ffffff" aria-label="要移除的背景颜色"><span id="removeColorHex">#FFFFFF</span><button id="pickColorBtn" disabled><svg><use href="#i-pick"/></svg> 从图片取色</button></div>
+          <div class="field-label"><label for="tolerance">颜色容差</label><output id="toleranceValue">24</output></div><input id="tolerance" type="range" min="0" max="120" value="24">
+          <div class="field-label"><label for="feather">边缘柔化</label><output id="featherValue">12</output></div><input id="feather" type="range" min="0" max="50" value="12">
+          <label class="select-label" for="colorScope">移除范围<select id="colorScope"><option value="edge">仅与图片边缘相连</option><option value="all">整张图片的相似颜色</option></select></label>
+        </div>
+        <button id="processBtn" class="secondary-button" disabled><svg><use href="#i-spark"/></svg><span>重新处理</span></button>
+        <div id="errorBox" class="error-box" role="alert" hidden><strong>处理尚未完成</strong><p id="errorMessage"></p><button id="retryBtn">重试</button><button id="colorFallbackBtn">使用纯色去底</button></div>
+        <div id="statusLine" class="status-line" aria-live="polite"><i></i><span>上传后自动开始处理</span></div></div>
+
+        <div class="control-section export-section"><div class="control-head"><span class="section-number">03</span><h2>预览与导出</h2></div><div class="field-label"><span>预览背景</span><small>仅用于检查效果</small></div><div class="swatches" role="group" aria-label="预览背景色"><button class="swatch checker selected" data-bg="transparent" aria-label="透明棋盘背景" title="透明"></button><button class="swatch" style="--swatch:#ffffff" data-bg="#ffffff" aria-label="白色预览背景" title="白色"></button><button class="swatch" style="--swatch:#272c2c" data-bg="#272c2c" aria-label="深色预览背景" title="深色"></button><button class="swatch" style="--swatch:#c8d7c9" data-bg="#c8d7c9" aria-label="浅绿预览背景" title="浅绿"></button><button class="swatch" style="--swatch:#ead1c6" data-bg="#ead1c6" aria-label="浅粉预览背景" title="浅粉"></button><label class="custom-swatch" title="自定义预览背景">+<input type="color" id="customBg" value="#e07563" aria-label="自定义预览背景色"></label></div>
+          <label class="check-label"><input id="trimExport" type="checkbox"><span>裁掉透明留白</span></label><label class="check-label"><input id="includeBg" type="checkbox"><span>导出时添加预览背景色</span></label>
+          <button id="downloadBtn" class="download-button" disabled><svg><use href="#i-download"/></svg>下载透明 PNG</button><p id="exportInfo" class="export-info">保留透明通道 · 无水印</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="benefits" aria-label="工具特点"><article><span class="benefit-no">01 /</span><div><h3>只留下，你需要的。</h3><p>AI 提取照片主体，纯色模式清除底色。<br>两种方式，应对不同素材。</p></div></article><article><span class="benefit-no">02 /</span><div><h3>你的图片，留在本地。</h3><p>全部处理在浏览器中完成。<br>无需填写 Key，图片不上传服务器。</p></div></article><article><span class="benefit-no">03 /</span><div><h3>透明素材，即拿即用。</h3><p>对比、修边，再导出透明 PNG。<br>用于设计、演示文稿与内容创作。</p></div></article></section>
+  </main>
+  <footer><span>清底 QINGDI <i>·</i> 给内容一点呼吸的空间</span><span>由开源技术驱动 <i>↗</i> <a href="source/qingdi-source.zip" download>获取源码</a><button id="footerSource">开源许可</button></span></footer>
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <dialog id="helpDialog"><div class="dialog-head"><span class="eyebrow">QUICK GUIDE</span><button data-close aria-label="关闭说明"><svg><use href="#i-close"/></svg></button></div><h2>三步，得到干净的素材。</h2><ol class="guide-list"><li><strong>上传与自动处理</strong><p>点击上传、拖入图片，或粘贴剪贴板中的图片。支持 JPG、PNG、WebP；一次处理一张，单张上限 25 MB。</p></li><li><strong>选择适合素材的方式</strong><p>照片使用 AI 主体抠图。Logo、文字与均匀底色使用纯色背景；选择背景色，调节容差。切换“整张图片的相似颜色”可清理文字内部的底色，也会影响主体中的同色区域。</p></li><li><strong>检查后下载</strong><p>用原图/结果/对比视图核对，放大检查边缘。擦除多余区域，恢复误删内容；支持撤销。默认导出透明 PNG，预览背景不会自动写入图片。</p></li></ol><div class="dialog-note"><strong>关于效果与性能</strong><p>AI 会识别显著主体；透明物体、复杂发丝、多个主体和细线图表需要人工检查。首次 AI 处理下载约 55 MB 模型及运行文件，耗时取决于网络和设备。为控制内存，工作图片限制为最长边 4096 px 且不超过约 8 百万像素；超过限制会明确显示缩放后的尺寸。建议使用近期桌面版 Chrome 或 Edge。</p><p>放大后可滚动查看画布；画笔大小以画布上的显示像素为单位。Ctrl / ⌘ + Z 撤销最近一次修边，最多保留 8 步。模型加载失败时可重试，或使用不需要模型的纯色模式。</p></div></dialog>
+  <dialog id="sourceDialog"><div class="dialog-head"><span class="eyebrow">BUILT WITH OPEN SOURCE</span><button data-close aria-label="关闭开源说明"><svg><use href="#i-close"/></svg></button></div><h2>把开源能力，变成好用的工具。</h2><p class="dialog-intro">2026 年 10 月 27 日核查。以下是本次比较的 GitHub 项目；本工具接入 IMG.LY，纯色去底与交互编辑为本项目实现。</p><div class="repo-list"><a href="https://github.com/imgly/background-removal-js" target="_blank" rel="noopener noreferrer"><div><strong>IMG.LY / background-removal-js</strong><span class="repo-selected">本工具使用</span></div><p>浏览器内背景移除。固定使用 @imgly/background-removal 1.7.0 与 IS-Net 量化模型，AGPL-3.0 许可。</p><span>查看 GitHub ↗</span></a><a href="https://github.com/danielgatis/rembg" target="_blank" rel="noopener noreferrer"><strong>danielgatis / rembg</strong><p>Python 库、命令行与 HTTP 服务，多模型后端。适合服务器与批量处理；本页面未接入。</p><span>查看 GitHub ↗</span></a><a href="https://github.com/ZhengPeng7/BiRefNet" target="_blank" rel="noopener noreferrer"><strong>ZhengPeng7 / BiRefNet</strong><p>高分辨率前景分割研究项目，含多个模型版本；本页面未接入。</p><span>查看 GitHub ↗</span></a></div><div class="dialog-note"><p>本项目源码以 AGPL-3.0 提供。ONNX Runtime Web 1.21.0 使用 MIT 许可。各项目的代码与模型许可应分别阅读。本页面直接提供模型与运行资源，处理过程不发送用户图片。</p><p>植物示例来自 <a href="https://images.unsplash.com/photo-1485955900006-10f4d324d411" target="_blank" rel="noopener noreferrer">Unsplash 图片素材</a>；人像示例来自 rembg 官方示例目录。</p><div class="source-links"><a href="source/qingdi-source.zip" download>下载本工具源码 ↗</a><a href="licenses/AGPL-3.0.md" target="_blank">AGPL 许可 ↗</a><a href="licenses/THIRD-PARTY.txt" target="_blank">第三方声明 ↗</a></div></div></dialog>
+  <dialog id="exportDialog"><div class="dialog-head"><span class="eyebrow">READY TO GO</span><button data-close aria-label="关闭导出预览"><svg><use href="#i-close"/></svg></button></div><h2>你的素材，准备好了。</h2><div class="export-preview checker"><img id="exportPreview" alt="将要保存的 PNG 图片"></div><p id="exportSummary" class="export-summary"></p><a id="saveExport" class="save-export" role="button" download><svg aria-hidden="true"><use id="saveExportIcon" href="#i-download"/></svg><span id="saveExportLabel">保存 PNG</span></a><div id="exportFeedback" class="export-feedback" role="status" aria-live="polite" aria-atomic="true" hidden><span class="export-feedback-mark" aria-hidden="true"><svg><use id="exportFeedbackIcon" href="#i-check"/></svg></span><div><strong id="exportFeedbackTitle"></strong><p id="exportFeedbackDetail"></p></div></div><div class="export-alternatives"><a id="directDownload" download hidden>直接下载 PNG</a><button id="copyExport" type="button" hidden>复制图片</button></div><p id="exportSaveStatus" class="fine-hint">点击保存下载 PNG；也可右键或长按上方图片保存。</p></dialog>
+  <script type="module" src="app.js?v=20261028-feedback1"></script>
+</body></html>

@@ -1,0 +1,1 @@
+{"name":"gem-little-shop","version":"2.0.0","private":true,"scripts":{"test":"node tests/core.test.cjs && node tests/navigation.test.cjs && node tests/world-assets.test.cjs","build":"python3 build.py"}}
