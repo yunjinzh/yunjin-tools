@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>具身工场 · 机器人虚拟训练系统</title><meta name="description" content="在仓储、咖啡与餐饮三种三维场景中，编排、运行和复盘具身机器人任务。"><meta name="theme-color" content="#F1F0EC"><link rel="icon" type="image/svg+xml" href="./favicon.svg"><link rel="preload" as="font" href="./assets/fonts/studio-sans.woff2" type="font/woff2" crossorigin><link rel="stylesheet" href="./styles.css"><script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script></head>
+<body>
+<a class="skip-link" href="#sceneCanvas">跳到三维训练场</a>
+<div id="app" data-environment="warehouse" data-state="loading">
+ <header class="header">
+  <a class="brand" href="./" aria-label="具身工场首页"><span class="brand-mark"><img src="./assets/branding/logo.svg" alt="飞渡科技" width="100" height="24"></span><span class="brand-wordmark"><b>具身工场<span class="version">03</span></b><small>EMBODIED STUDIO</small></span></a>
+  <nav class="topnav" aria-label="主导航"><button class="active" data-action="workspace"><span class="nav-index">01</span>训练工作台</button><button data-action="editor"><span class="nav-index">02</span>任务编排</button><button data-action="records"><span class="nav-index">03</span>训练记录<span id="recordCount" class="count">0</span></button><a href="./physics.html" class="physics-entry">04 物理验证 ↗</a></nav>
+  <div class="header-right"><span class="local-badge"><span class="dot"></span>虚拟训练空间</span><a class="download-link" href="./download.html" target="_blank" rel="noopener" title="下载离线版" aria-label="下载离线版"><i data-icon="download"></i></a><button class="icon-button" data-action="help" title="操作指南" aria-label="操作指南"><i data-icon="help"></i></button></div>
+ </header>
+ <main class="workspace">
+  <aside class="sidebar" id="sceneSidebar" aria-label="训练场景与设置">
+   <div class="section-label index-heading"><span class="rail-index">01 / ENVIRONMENTS</span><span>03</span></div><h2 class="rail-title">选择一个世界<span>从真实任务开始。</span></h2>
+   <div id="sceneCards" class="scene-cards"></div>
+   <details class="training-settings" open><summary>训练设置 <i data-icon="sliders"></i></summary>
+   <div class="section-label setting-caption">训练设置 <i data-icon="sliders"></i></div>
+   <div class="segmented mode-switch"><button data-mode="practice" class="active">自由练习</button><button data-mode="exam">训练考核</button></div>
+   <div class="setting"><label for="difficulty">场景布置</label><button class="small-link" data-action="randomize"><i data-icon="shuffle"></i>重新布置</button></div>
+   <p class="muted micro" id="seedLabel">标准场景 · SEED 001</p>
+   <button class="wide-button" data-action="exportScenario"><i data-icon="download"></i>导出场景配置</button>
+   <button class="wide-button quiet" data-action="importScenario"><i data-icon="upload"></i>导入场景配置</button>
+   </details><div class="sidebar-bottom"><div class="field-symbol" aria-hidden="true"><span></span><span></span><span></span></div><span class="tiny-mark">FROM SPACE<br>TO INTELLIGENCE.</span><small>让智能，在空间中行动。</small><a href="./download.html" target="_blank" rel="noopener">本地运行版 <i data-icon="arrowUpRight"></i></a></div>
+  </aside>
+  <section class="stage-column">
+   <div class="scene-heading"><div class="heading-copy"><div class="eyebrow"><span class="section-cross">+</span> REAL WORLD. VIRTUAL PRACTICE. <span id="sceneNumber">/ 01</span></div><h1 id="sceneTitle">仓储物流训练场</h1><p id="headingSubtitle">从识别到交付，让每一次搬运有迹可循。</p></div><div class="heading-actions"><button class="focus-button" data-shell="focus" aria-pressed="false" title="专注模式 F"><i data-icon="focus"></i><span>专注</span></button><button class="render-shortcut" data-action="renderSettings"><i data-icon="sliders"></i>画质与光照</button><button class="icon-button" data-action="screenshot" title="保存三维截图" aria-label="保存三维截图"><i data-icon="camera"></i></button><button class="icon-button" data-action="fullscreen" title="全屏场景" aria-label="全屏场景"><i data-icon="expand"></i></button></div></div>
+   <div class="viewport" id="viewport">
+    <canvas id="sceneCanvas" aria-label="可交互的三维机器人训练场景" tabindex="0"></canvas>
+    <div class="viewport-graticule" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="viewport-top"><span class="live-badge"><span class="dot"></span><span id="viewStatus">场景就绪</span></span><div class="view-toggles"><button data-toggle="labels">标注</button><button data-toggle="sensor">感知</button></div></div>
+    <div class="render-badge"><span class="robot-led"></span><span>G1 <b>/</b> 29 DOF</span></div><div class="scene-caption"><span class="tiny-mark" id="sceneEnglish">WAREHOUSE / 01</span><p id="sceneSubtitle">从识别到交付，让每一次搬运有迹可循。</p></div>
+    <div class="selection-tip" id="selectionTip" hidden><i data-icon="cube"></i><span id="selectedName"></span><button data-action="clearSelection" aria-label="取消选择">×</button></div>
+    <div class="mode-tip" id="modeTip" hidden></div>
+    <div class="viewport-bottom"><div class="camera-controls" aria-label="相机视角"><button data-camera="orbit" class="active" title="自由视角 1"><i data-icon="orbit"></i><span>自由</span></button><button data-camera="follow" title="跟随视角 2"><i data-icon="robot"></i><span>跟随</span></button><button data-camera="first" title="机器人第一视角 3"><i data-icon="eye"></i><span>第一视角</span></button><button data-camera="top" title="俯视 4"><i data-icon="top"></i><span>俯视</span></button><button data-camera="close" title="近景 5"><i data-icon="focus"></i><span>近景</span></button></div><button class="view-home" data-action="homeCamera" title="复位视角" aria-label="复位视角"><i data-icon="home"></i></button></div>
+    <div class="viewport-hint"><span>左键旋转</span><span>右键平移</span><span>滚轮缩放</span><span id="fpsLabel">— FPS</span></div>
+    <div class="loader" id="loader"><span class="loading-index">FIELD / INITIALIZING</span><div class="spinner"></div><b>正在准备你的训练空间</b><span id="assetProgress">加载 G1、场景模型、材质与 HDR 环境光…</span></div>
+   </div>
+   <div class="run-console">
+    <div class="physics-mode-note">当前为运动学编排演示。接触、刚体与约束验收请进入 <a href="./physics.html">物理验证工作区 ↗</a></div>
+    <div class="run-toolbar"><div class="run-buttons"><button class="primary" data-action="play" id="playButton"><i data-icon="play"></i><span>开始训练</span></button><button class="square-button" data-action="step" title="执行下一完整动作" aria-label="单步执行"><i data-icon="step"></i></button><button class="square-button" data-action="reset" title="重置训练" aria-label="重置训练"><i data-icon="reset"></i></button><span class="toolbar-divider"></span><label class="speed-label" for="speed">速度</label><select id="speed" aria-label="仿真速度"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></div><button class="text-button" data-action="replay" id="replayButton"><i data-icon="history"></i>轨迹回放</button></div>
+    <div class="progress-row"><span id="stepLabel">等待开始</span><span><b id="stepCount">0</b> / <span id="totalSteps">12</span> 动作</span></div>
+    <div id="stepTrack" class="step-track"></div>
+    <div id="replayControls" hidden><input type="range" id="replaySlider" min="0" max="100" value="0" aria-label="回放时间轴"><div class="replay-row"><button class="small-link" data-action="replayPlay" id="replayPlay">播放回放</button><span id="replayTime">0.0 / 0.0 s</span><button class="small-link" data-action="exitReplay">退出回放</button></div></div>
+    <div class="metrics"><div><span><em>01</em> 运行时间</span><b id="elapsed">00:00.0</b></div><div><span><em>02</em> 行走距离</span><b id="distance">0.00 <small>m</small></b></div><div><span><em>03</em> 任务进度</span><b id="completion">0 <small>%</small></b></div><div><span><em>04</em> 碰撞拦截</span><b id="collisions">0 <small>次</small></b></div></div>
+   </div>
+  </section>
+  <aside class="inspector" id="controlInspector" aria-label="训练控制"><div class="inspector-heading"><span class="rail-index">02 / CONTROL ROOM</span><button class="inspector-dismiss" data-shell="closePanel" aria-label="收起控制面板"><i data-icon="close"></i></button></div>
+   <div class="inspector-tabs"><button class="active" data-panel="task">任务</button><button data-panel="robot">机器人</button><button data-panel="environment">环境</button></div>
+   <div class="inspector-panel" id="panel-task">
+    <div class="section-label">当前任务 <span id="taskBadge" class="pill">待执行</span></div>
+    <label class="field-label" for="taskSelect">任务模板</label><select id="taskSelect"></select><p class="task-desc" id="taskDesc"></p>
+    <div class="table-field" id="tableField" hidden><label for="tableSelect">目标桌位</label><select id="tableSelect"><option value="1">01 号桌</option><option value="2" selected>02 号桌</option><option value="3">03 号桌</option></select></div>
+    <div class="task-list-heading"><b>执行序列</b><button class="small-link" data-action="editor">编排 <i data-icon="arrowUpRight"></i></button></div>
+    <ol id="taskSteps" class="task-steps"></ol>
+    <div class="command-box"><div class="section-label"><i data-icon="terminal"></i>快捷指令 <button class="icon-button small" data-action="voice" title="语音输入（取决于浏览器支持）" aria-label="语音输入"><i data-icon="mic"></i></button></div><form id="commandForm"><input id="commandInput" placeholder="试试：搬运易碎品" autocomplete="off" aria-label="输入机器人指令"><button type="submit" aria-label="执行指令"><i data-icon="arrowUp"></i></button></form><span class="micro muted">本地指令解析 · 支持文字输入</span><div id="commandChips" class="command-chips"></div></div>
+   </div>
+   <div class="inspector-panel" id="panel-robot" hidden>
+    <div class="robot-card"><div class="robot-emblem"><i data-icon="robot"></i></div><div><b>Unitree G1</b><span>官方 CAD 网格 · 29 自由度结构</span></div><span class="dot"></span></div>
+    <div class="telemetry"><div><span>X 坐标</span><b id="posX">0.00 m</b></div><div><span>Z 坐标</span><b id="posZ">3.50 m</b></div><div><span>航向角</span><b id="yaw">180°</b></div><div><span>末端持有</span><b id="held">空闲</b></div></div>
+    <button class="wide-button" data-action="manual" id="manualButton"><i data-icon="gamepad"></i>开启遥操作</button><p class="micro muted">WASD / 方向键移动 · E 抓取或放置<br>先重置训练，再进入自由操作。</p>
+    <div class="dpad"><button data-key="w" aria-label="向场景后方移动">W</button><button data-key="a" aria-label="向左移动">A</button><button data-action="interact" title="抓取 / 放置">E</button><button data-key="d" aria-label="向右移动">D</button><button data-key="s" aria-label="向场景前方移动">S</button></div>
+    <button class="wide-button" data-action="navigate"><i data-icon="pin"></i>点击地面导航</button>
+    <div class="safety-card"><i data-icon="shield"></i><div><b>几何碰撞保护</b><p>导航绕开场景障碍，遥操作遇障停止。</p></div></div><button class="danger-button" data-action="estop" id="estopButton"><i data-icon="stop"></i>机器人急停</button>
+   </div>
+   <div class="inspector-panel" id="panel-environment" hidden>
+    <div class="section-label">画质与光照 <span class="pill">REALTIME</span></div>
+    <div class="render-controls">
+     <label class="field-label" for="qualitySelect">渲染质量</label>
+     <select id="qualitySelect"><option value="performance">流畅 · 适合低功耗设备</option><option value="balanced" selected>均衡 · 推荐</option><option value="high">精细 · 高分辨率阴影</option></select>
+     <label class="field-label" for="lightingSelect">光照氛围</label>
+     <select id="lightingSelect"><option value="day">自然日光</option><option value="warm">暖调夕光</option><option value="night">夜间室内</option></select>
+     <label class="exposure-label" for="exposureRange"><span>曝光</span><output id="exposureValue">1.05</output></label>
+     <input id="exposureRange" type="range" min="0.65" max="1.65" step="0.05" value="1.05" aria-label="曝光强度">
+     <label class="switch-row">接触阴影 / 环境遮蔽 <input id="aoCheck" type="checkbox" checked></label>
+     <button class="small-link" data-action="resetRender">恢复默认画质</button>
+    </div><div class="side-divider"></div>
+
+    <div class="section-label">场景编辑 <span class="pill">14 × 10 m</span></div><p class="task-desc">添加障碍物，观察机器人自主绕行。编辑操作会保留在场景配置中。</p><button class="wide-button" data-action="addObstacle"><i data-icon="plus"></i>点击地面添加障碍</button><button class="wide-button quiet" data-action="clearObstacles"><i data-icon="trash"></i>移除添加的障碍</button><div class="setting"><span>自定义障碍</span><b id="obstacleCount">0 个</b></div>
+    <div class="side-divider"></div><div class="section-label">物体检查 <i data-icon="cube"></i></div><p class="task-desc" id="objectHint">点击三维场景中的货物、咖啡杯或餐盘，查看属性并进行交互。</p><div id="objectDetail" hidden></div>
+    <div class="side-divider"></div><div class="section-label">视图显示</div><label class="switch-row">物体标注 <input type="checkbox" id="labelsCheck"></label><label class="switch-row">模拟测距射线 <input type="checkbox" id="sensorCheck"></label><p class="micro muted">感知射线由场景几何计算，用于观察遮挡和距离。</p>
+   </div>
+   <div class="event-section"><div class="section-label">运行日志 <button class="small-link" data-action="logs">全部 <i data-icon="arrowUpRight"></i></button></div><div id="eventLog" class="event-log"></div></div>
+  </aside>
+ </main>
+ <nav class="mobile-dock" aria-label="小屏工作区切换"><button class="active" data-shell="stage" aria-pressed="true"><i data-icon="cube"></i>三维场景</button><button data-shell="scenes" aria-pressed="false"><i data-icon="layout"></i>场景设置</button><button data-shell="controls" aria-pressed="false"><i data-icon="sliders"></i>任务控制</button></nav>
+ <footer class="statusbar"><span><span class="dot"></span><b id="statusText">系统就绪</b><span class="status-divider">/</span>UNITREE G1 <span class="status-divider">/</span> SIMREADY ASSETS</span><span id="storageStatus">记录保存在当前浏览器</span><span class="shortcut-hint"><kbd>SPACE</kbd> 开始 / 暂停 <span>·</span> <kbd>F</kbd> 专注模式 <span>·</span> <kbd>1—5</kbd> 视角</span></footer>
+</div>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="modal"><div class="modal-header"><div><span class="eyebrow" id="modalEyebrow">FIELD / STUDIO</span><h2 id="modalTitle"></h2></div><button class="icon-button" data-action="closeModal" aria-label="关闭窗口"><i data-icon="close"></i></button></div><div id="modalBody"></div></dialog>
+<input type="file" id="configFile" accept="application/json,.json" hidden>
+<script type="module" src="./workspace-shell.js"></script>
+<script type="module" src="./app.js"></script>
+</body></html>

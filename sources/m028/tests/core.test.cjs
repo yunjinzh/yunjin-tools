@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict');const C=require('../dist/core.js');
+const d=(cls,x,y=10,w=45,h=110,score=.93)=>({class:cls,bbox:[x,y,w,h],score});
+let t=new C.Tracker();let first=t.update([d('person',10),d('car',220,80,140,65)],0);const ids=first.map(x=>x.id);
+assert.deepEqual(ids,['P-0001','V-0001']);assert.deepEqual(t.update([d('car',230,80,140,65),d('person',17)],.25).map(x=>x.id),['V-0001','P-0001']);assert.equal(t.records.length,2);
+t.update([], .5);assert.equal(t.update([d('person',26)],.75)[0].id,'P-0001');
+assert.equal(t.update([d('person',500)],1)[0].id,'P-0002');
+t.discontinuity();assert.equal(t.update([d('person',500)],1.25)[0].id,'P-0003');
+assert.equal(t.update([d('person',500)],4)[0].id,'P-0004');
+let many=new C.Tracker();assert.equal(new Set(many.update([d('person',0),d('person',80)],0).map(x=>x.id)).size,2);assert.equal(new Set(many.update([d('person',20),d('person',60)],.25).map(x=>x.id)).size,2);
+const normalized=C.normalizeDetails({plate:{value:'京A01234',confidence:.94},model:{value:'Unknown',confidence:.97},make:{value:'Toyota',confidence:.89},color:{value:'白色',confidence:99}},false);
+assert.equal(normalized.plate.value,'京A01234');assert.equal(normalized.make.value,'无法确认');assert.equal(normalized.model.value,'无法确认');assert.equal(normalized.color.value,'无法确认');
+assert.equal(C.colorName(255,255,255),'白色');assert.equal(C.colorName(0,0,0),'黑色');assert.equal(C.colorName(255,0,0),'红色');assert.equal(C.clock(3661.125,true),'01:01:01.125');
+console.log('PASS: tracking continuity, nonreuse across jumps/gaps, unique assignments, confidence gate, color, timestamps');

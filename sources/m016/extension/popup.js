@@ -1,0 +1,6 @@
+const el=document.getElementById('status');
+async function request(action,data){const r=await chrome.runtime.sendMessage({action,data});if(r.error)throw new Error(r.error);return r;}
+async function refresh(){try{const s=await request('GET_STATUS');el.textContent=`已采集 ${s.total} 条 · 收藏 ${s.bookmarks} · 点赞 ${s.likes}${s.pending?' · 时间待核对 '+s.pending+' 条':''}`;}catch(e){el.textContent=e.message;}}
+for(const [id,action]of [['open','OPEN_WORKBENCH'],['capture','CAPTURE_CURRENT'],['stop','STOP_COLLECTION'],['clear','CLEAR_RECORDS']])document.getElementById(id).onclick=async()=>{try{if(id==='clear'&&!confirm('清空扩展中的采集记录？已经归档到电脑的文件会保留。'))return;await request(action);await refresh();}catch(e){el.textContent=e.message;}};
+document.getElementById('json').onclick=async()=>{try{const r=await request('GET_RECORDS');const records=[...new Map([...r.records,...r.pendingRecords||[]].map(record=>[record.id,record])).values()];const url=URL.createObjectURL(new Blob([JSON.stringify({schemaVersion:2,records},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='X采集数据.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),15000);}catch(e){el.textContent=e.message;}};
+refresh();

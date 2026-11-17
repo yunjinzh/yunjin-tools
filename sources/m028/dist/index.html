@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>视析 · 视频智能分析</title>
+  <meta name="description" content="上传视频，检测人员与车辆，核对外观、车型与车牌识别结果，导出 Excel 分析记录。">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23182230'/%3E%3Cpath d='M7 13V7h6m6 0h6v6m0 6v6h-6M13 25H7v-6' fill='none' stroke='%23d3f36b' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23d3f36b'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=2">
+  <script defer src="core.js?v=2"></script><script defer src="detector.js?v=2"></script><script defer src="app.js?v=2"></script>
+</head>
+<body>
+  <svg aria-hidden="true" class="icon-defs" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M7 12h10"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="14" height="14" rx="3"/><path d="m17 10 4-3v10l-4-3"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="m4 10 2-6h12l2 6M3 17v-6l2-2h14l2 2v6ZM5 17v3m14-3v3M6 13h2m8 0h2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 13 8-13 8Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 4v16m8-16v16"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="8" cy="7" r="3"/><circle cx="16" cy="17" r="3"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></symbol>
+  </defs></svg>
+  <header class="header">
+    <a class="brand" href="./" aria-label="视析首页"><span class="brand-mark"><svg><use href="#i-scan"/></svg></span><strong>视析</strong><span class="brand-en">FRAMEWISE</span></a>
+    <span class="header-tag">视频智能分析工作台 · 2.0</span>
+    <div class="header-right"><span class="local-tag"><span></span>本地视频处理</span><button id="helpBtn" class="icon-button" aria-label="使用说明"><svg><use href="#i-info"/></svg></button></div>
+  </header>
+  <main>
+    <div class="page-heading"><div><div class="eyebrow">VIDEO ANALYSIS</div><h1>从画面，到可核对的数据<span class="heading-dot">.</span></h1></div><button id="exportBtn" class="button dark" disabled><svg><use href="#i-download"/></svg>导出 Excel</button></div>
+    <div class="workspace">
+      <aside class="sidebar">
+        <div class="panel-heading"><span class="section-no">01</span><h2>视频源</h2></div>
+        <input id="fileInput" type="file" accept="video/*,.mp4,.mov,.webm,.m4v" hidden>
+        <button class="dropzone" id="dropzone" type="button"><span class="upload-icon"><svg><use href="#i-upload"/></svg></span><strong>点击上传或拖入视频</strong><span>MP4 / MOV / WebM</span><small>建议使用 H.264 编码的 MP4</small></button>
+        <div id="fileCard" class="file-card" hidden><canvas id="thumbnail" width="480" height="270" aria-label="视频封面"></canvas><div class="file-row"><svg><use href="#i-video"/></svg><strong id="filename"></strong><button class="text-button" id="replaceBtn">更换</button></div><div class="file-meta" id="fileMeta"></div></div>
+        <div class="local-note"><svg><use href="#i-check"/></svg><span>基础分析在浏览器中进行，视频保留在本机。</span></div>
+        <div class="divider"></div>
+        <div class="panel-heading"><span class="section-no">02</span><h2>分析设置</h2></div>
+        <fieldset id="settingsFields">
+          <label class="field-label" for="scene">画面类型</label><select id="scene"><option value="auto">自动 · 高清画面分块检测</option><option value="aerial">航拍 / 远景 · 小目标增强</option><option value="normal">近景 / 普通监控 · 快速检测</option></select><label class="field-label" for="mode">分析方式</label><select id="mode"><option value="scan" selected>完整抽帧 · 画面与结果同步</option><option value="live">跟随播放 · 跳帧检测</option></select>
+          <p class="field-help" id="modeHelp">按固定间隔分析，检测期间保留已完成画面，速度取决于设备性能。</p>
+          <div class="label-line"><label class="field-label" for="threshold">检测置信度</label><output id="thresholdValue">40%</output></div>
+          <input id="threshold" type="range" min="20" max="90" value="40" step="5">
+          <div class="range-labels"><span>更多目标</span><span>更高可信度</span></div><p class="field-help">航拍增强时，人员置信度至少为 60%，以减少路牌、路灯误检。</p>
+          <label class="field-label" for="frequency">分析频率</label><select id="frequency"><option value="2">每秒 2 帧 · 均衡</option><option value="4">每秒 4 帧 · 高密度</option><option value="8">每秒 8 帧 · 高性能设备</option><option value="1" selected>每秒 1 帧 · 航拍推荐</option></select>
+          <div class="object-options"><label><input id="detectPersons" type="checkbox" checked><span class="legend person"></span>人员</label><label><input id="detectVehicles" type="checkbox" checked><span class="legend vehicle"></span>车辆</label></div>
+        </fieldset>
+        <button class="advanced-button" id="settingsBtn"><span><svg><use href="#i-settings"/></svg>精细识别设置</span><span id="enhanceBadge">未接入</span></button>
+        <p class="field-help">衣着细节、品牌型号与车牌由您接入的视觉模型识别。</p>
+        <div class="sidebar-bottom"><div id="modelStatus" class="model-status">首次分析将加载新版检测模型</div><button id="analyzeBtn" class="button primary" disabled><svg><use href="#i-scan"/></svg><span>开始分析</span></button><button id="restartBtn" class="text-button restart" hidden>清空记录并从头分析</button></div>
+      </aside>
+      <section class="analysis-area" aria-label="视频分析">
+        <div class="viewer-panel">
+          <div class="viewer-heading"><div class="viewer-title"><svg><use href="#i-video"/></svg><span id="viewerFilename">视频预览</span></div><span class="status-badge" id="analysisStatus">等待上传</span></div>
+          <div class="video-stage" id="videoStage">
+            <div id="emptyVideo" class="empty-video"><div class="empty-frame"><svg><use href="#i-scan"/></svg></div><h2>让每一个目标，都有迹可循</h2><p>上传视频后，在这里查看检测画面</p><div class="empty-legends"><span><i class="legend person"></i>人员检测</span><span><i class="legend vehicle"></i>车辆检测</span></div></div>
+            <div class="video-wrap" id="videoWrap" hidden><video id="video" playsinline muted preload="metadata"></video><canvas id="resultFrame" hidden aria-label="最近完成分析的真实视频帧"></canvas><canvas id="overlay" aria-label="目标检测框"></canvas></div>
+            <div class="counts"><div class="count person"><div><svg><use href="#i-person"/></svg><span>画面人员</span></div><strong id="personCount">—</strong></div><div class="count vehicle"><div><svg><use href="#i-car"/></svg><span>画面车辆</span></div><strong id="vehicleCount">—</strong></div></div>
+            <div id="frameBadge" class="frame-badge" hidden>分析帧 <span id="frameTime">00:00.000</span><span id="latency"></span></div>
+          </div>
+          <div id="inferenceProgress" class="inference-progress" hidden><div id="inferenceBar"></div><span id="inferenceLabel">正在分析</span></div><div class="video-controls"><button id="playBtn" class="icon-button" disabled aria-label="预览播放"><svg><use href="#i-play"/></svg></button><span id="clock" class="mono">00:00 / 00:00</span><input id="seek" type="range" min="0" max="1000" value="0" aria-label="视频播放进度" disabled><label class="layer-toggle"><input type="checkbox" id="showBoxes" checked>目标框</label><button id="fullscreenBtn" class="icon-button" aria-label="全屏查看视频"><svg><use href="#i-expand"/></svg></button></div>
+        </div>
+        <div id="notice" class="notice" role="status"><svg><use href="#i-info"/></svg><span>当前数量按分析帧统计；累计轨迹数受遮挡、离场和画面跳转影响，不等同于去重人数。</span></div>
+        <div class="results-panel">
+          <div class="results-top"><div><div class="panel-heading"><span class="section-no">03</span><h2>目标档案</h2><span id="recordCount" class="number-tag">0</span></div><p id="resultSummary">分析后显示截图、出现时间与识别详情</p></div><div class="record-metrics"><span>已分析 <b id="frameCount">0</b> 帧</span><span>累计轨迹 <b id="trackCount">0</b></span></div></div>
+          <div class="results-toolbar"><div class="tabs" role="tablist" aria-label="目标类型"><button role="tab" aria-selected="true" class="active" data-filter="all">全部目标 <span id="tabAll">0</span></button><button role="tab" aria-selected="false" data-filter="person">人员 <span id="tabPerson">0</span></button><button role="tab" aria-selected="false" data-filter="vehicle">车辆 <span id="tabVehicle">0</span></button></div><span class="table-tip">点击目标查看截图与详情</span></div>
+          <div class="table-scroll"><table><thead><tr><th>目标 / 截图</th><th>出现时间</th><th>外观特征 / 颜色</th><th>品牌 / 型号</th><th>车牌</th><th>检测置信度</th><th>精细识别</th></tr></thead><tbody id="recordsBody"></tbody></table></div>
+          <div id="emptyRecords" class="empty-records"><svg><use href="#i-person"/></svg><strong>还没有检测记录</strong><span>选择视频，点击左侧「开始分析」</span></div>
+          <div class="table-bottom"><span id="tableRange">暂无记录</span><div><button id="prevPage" class="text-button" disabled>上一页</button><span id="pageNumber">1 / 1</span><button id="nextPage" class="text-button" disabled>下一页</button></div></div>
+        </div>
+        <footer>识别结果由 AI 与图像算法生成，请结合目标截图复核。<span>颜色受光照与背景影响 · 小目标与模糊车牌无法保证识别</span></footer>
+      </section>
+    </div>
+  </main>
+  <dialog id="settingsDialog" class="settings-dialog"><form id="apiForm">
+    <div class="dialog-heading"><div><span class="eyebrow">DETAIL RECOGNITION</span><h2>精细识别设置</h2></div><button type="button" class="icon-button" data-close="settingsDialog" aria-label="关闭"><svg><use href="#i-close"/></svg></button></div>
+    <p class="dialog-intro">连接支持图片输入的视觉模型，识别可见衣着、车辆品牌型号和车牌文字。</p>
+    <label class="field-label" for="apiUrl">接口地址（完整 Chat Completions URL）</label><input id="apiUrl" type="url" placeholder="https://your-provider.example/v1/chat/completions" autocomplete="off">
+    <label class="field-label" for="apiModel">视觉模型名称</label><input id="apiModel" type="text" placeholder="填写服务商提供的视觉模型 ID" autocomplete="off">
+    <label class="field-label" for="apiKey">API Key</label><input id="apiKey" type="password" placeholder="仅保留在当前页面内存中" autocomplete="off">
+    <p class="field-help">支持 OpenAI 格式的图片消息。接口需允许浏览器跨域请求（CORS）。密钥不保存，刷新后需重新填写。</p>
+    <label class="consent"><input id="apiEnabled" type="checkbox"><span>启用精细识别，将目标截图发送至上述服务商；服务商可按调用计费。</span></label>
+    <p class="recognition-note">仅描述可见外观，不推断身份、种族、健康等个人属性。置信度不足 90% 的细节显示“无法确认”；模型置信度不代表准确率。</p>
+    <p id="apiFormError" class="error-text" role="alert"></p>
+    <div class="dialog-actions"><button class="button secondary" type="button" data-close="settingsDialog">取消</button><button class="button primary" type="submit">保存设置</button></div>
+  </form></dialog>
+  <dialog id="detailDialog" class="detail-dialog"><div class="dialog-heading"><h2 id="detailTitle">目标详情</h2><button class="icon-button" data-close="detailDialog" aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><div id="detailContent"></div><div class="dialog-actions"><button id="goToFrame" class="button secondary">定位截图时刻</button><button id="recognizeOne" class="button primary">精细识别此目标</button></div></dialog>
+  <dialog id="helpDialog" class="help-dialog"><div class="dialog-heading"><h2>使用说明</h2><button class="icon-button" data-close="helpDialog" aria-label="关闭"><svg><use href="#i-close"/></svg></button></div>
+    <ol class="help-steps"><li><strong>上传视频</strong><p>点击或拖入本机视频。基础检测模型随本站提供，视频本身不会上传。</p></li><li><strong>开始分析</strong><p>默认“完整抽帧”按设定间隔依次分析，画面与框选结果同步。航拍 / 远景使用原分辨率分块检测；“跟随播放”会跳过处理期间经过的帧。4K 航拍每帧包含多次局部推理，单帧处理需要数秒，底部进度条显示真实进度。清晰度、设备性能和目标尺寸都会影响结果。</p></li><li><strong>核对目标</strong><p>点击档案查看截图。人员外观默认提供上、下身颜色候选；车辆包含汽车、货车、客车、摩托车和自行车。轨迹 ID 只在连续画面中关联，遮挡或返回画面会产生新 ID。</p></li><li><strong>识别更多细节</strong><p>在“精细识别设置”中填写视觉模型接口、模型名和密钥并启用。系统逐个发送清晰目标截图，车牌过小或被遮挡时标为无法确认。仅填写配置不代表接口已验证。</p></li><li><strong>导出 Excel</strong><p>工作簿包含分析概要、目标档案、逐帧统计、逐帧检测与精细识别记录。车牌按文本保存。截图保留在页面中，不嵌入 Excel。</p></li></ol><p class="recognition-note">分析记录只保留在当前页面，关闭或刷新前请导出。每帧最多保留 250 个目标；每次分析最多保存 100,000 条逐帧目标记录或 1,000 条目标轨迹，达到上限会暂停，导出后可重新开始。</p>
+  </dialog>
+  <dialog id="restartDialog" class="confirm-dialog"><h2>从头重新分析？</h2><p>当前页面的检测记录将被清空。如需保留，请先导出 Excel。</p><div class="dialog-actions"><button class="button secondary" data-close="restartDialog">取消</button><button id="confirmRestart" class="button primary">清空并重新分析</button></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body></html>

@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MUSIC PROMPT — 音乐描述生成器</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   RESET
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --red:      #E07563;   /* 合欢红 */
+  --paper:    #F1F0EC;   /* 银白 — 基底 */
+  --paper-2:  #F7F6F2;   /* 卡片纸面 */
+  --paper-3:  #EAE8E3;   /* 沉色纸面 */
+  --ink:      #1A1917;   /* 主墨 */
+  --ink-2:    #4A4844;   /* 次墨 */
+  --ink-3:    #8A8781;   /* 弱墨 */
+  --line:     rgba(26,25,23,.14);
+  --line-2:   rgba(26,25,23,.08);
+  --shadow-xl:  0 25px 50px -12px rgba(26,25,23,.22);
+  --shadow-2xl: 0 35px 70px -18px rgba(26,25,23,.32);
+  --gap: clamp(12px, 1.8vw, 24px);
+}
+
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+
+body{
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Sans SC', system-ui, sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  padding: clamp(22px, 3.5vw, 52px) clamp(18px, 4.5vw, 72px) 80px;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   印刷噪点层  feTurbulence / 0.08 / multiply
+   ========================================================= */
+.grain{
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: .08;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+/* =========================================================
+   12 栏网格基座
+   ========================================================= */
+.g12{
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  column-gap: var(--gap);
+}
+
+/* =========================================================
+   MASTHEAD — 巨大标题
+   ========================================================= */
+.masthead{ margin-bottom: clamp(40px, 6vw, 90px); }
+
+.mh-top{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 18px;
+  margin-bottom: clamp(20px, 3vw, 40px);
+  border-bottom: 1px solid var(--line);
+}
+.mh-num{
+  font-family: 'Oswald', sans-serif;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+.mh-rule{
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.mh-label{
+  font-family: 'Oswald', sans-serif;
+  font-size: .72rem;
+  font-weight: 400;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.mh-swatch{
+  width: 13px; height: 13px;
+  background: var(--red);
+  flex: none;
+}
+
+/* —— 巨型标题 —— */
+.hero{
+  grid-column: 1 / 13;
+  margin-bottom: clamp(26px, 3.5vw, 48px);
+}
+.hero-l1,
+.hero-l2{
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: clamp(3.2rem, 16.5vw, 14.5rem);
+  line-height: .84;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.hero-l2{
+  padding-left: 13.5%;
+  color: var(--ink);
+}
+.hero-l2::after{
+  content: '';
+  display: inline-block;
+  width: .16em; height: .16em;
+  background: var(--red);
+  margin-left: .06em;
+  vertical-align: baseline;
+  transform: translateY(-.02em);
+}
+
+/* —— 标题下横排 —— */
+.hero-foot{
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  column-gap: var(--gap);
+  row-gap: 18px;
+  align-items: start;
+}
+.hero-cn{
+  grid-column: 3 / 9;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  font-size: clamp(1.35rem, 3vw, 2.45rem);
+  line-height: 1.25;
+  letter-spacing: .015em;
+  color: var(--ink);
+}
+.hero-desc{
+  grid-column: 9 / 13;
+  font-size: clamp(.78rem, .92vw, .88rem);
+  font-weight: 300;
+  line-height: 2.05;
+  color: var(--ink-3);
+  max-width: 34ch;
+}
+
+/* =========================================================
+   CONTROL PANEL — 非对称表单
+   ========================================================= */
+.panel{
+  grid-column: 1 / 13;
+  margin-bottom: clamp(38px, 5vw, 74px);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  column-gap: var(--gap);
+  row-gap: clamp(22px, 2.6vw, 36px);
+  padding-top: clamp(22px, 2.6vw, 34px);
+  border-top: 1px solid var(--line);
+}
+
+.field{ display: flex; flex-direction: column; }
+.field--topic{ grid-column: 1 / 8; }
+.field--mood { grid-column: 8 / 13; }
+.field--lang { grid-column: 1 / 5; }
+.field--act  { grid-column: 9 / 13; justify-content: flex-end; }
+
+.field label{
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.lb-cn{
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  color: var(--ink);
+}
+.lb-en{
+  font-family: 'Oswald', sans-serif;
+  font-size: .64rem;
+  font-weight: 400;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+input[type="text"],
+select{
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--line);
+  border-radius: 0;
+  padding: 11px 0;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: clamp(.92rem, 1.1vw, 1.02rem);
+  font-weight: 300;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .22s ease;
+}
+input[type="text"]::placeholder{ color: #B8B5AE; font-weight: 300; }
+input[type="text"]:focus,
+select:focus{ border-bottom-color: var(--red); }
+
+select{
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M0 0l5.5 7L11 0z' fill='%23E07563'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+}
+
+/* —— 提交按钮 —— */
+.submit{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 0;
+  padding: 17px 22px;
+  font-family: 'Oswald', sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .22s ease, transform .14s ease;
+}
+.submit:hover{ background: var(--red); }
+.submit:active{ transform: translateY(1px); }
+.submit .arrow{
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0;
+  transition: transform .22s ease;
+}
+.submit:hover .arrow{ transform: translateX(5px); }
+
+.panel-note{
+  grid-column: 1 / 13;
+  font-size: .72rem;
+  font-weight: 300;
+  letter-spacing: .04em;
+  color: var(--ink-3);
+  padding-top: 4px;
+}
+.panel-note b{
+  font-weight: 500;
+  color: var(--ink-2);
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .08em;
+}
+
+/* =========================================================
+   RESULTS HEAD
+   ========================================================= */
+.results{ grid-column: 1 / 13; }
+
+.res-head{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  margin-bottom: clamp(20px, 2.6vw, 34px);
+  border-bottom: 2px solid var(--ink);
+}
+.res-title{
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.res-title h2{
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  letter-spacing: .02em;
+  color: var(--ink);
+}
+.res-title span{
+  font-family: 'Oswald', sans-serif;
+  font-size: .7rem;
+  font-weight: 400;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.res-actions{ display: flex; gap: 10px; }
+
+.btn-ghost{
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 9px 18px;
+  font-family: 'Oswald', sans-serif;
+  font-size: .68rem;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.btn-ghost:hover{
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* =========================================================
+   CARD GRID — 非对称 7/5 · 5/7
+   ========================================================= */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0,1fr));
+  gap: clamp(14px, 1.7vw, 24px);
+  align-items: start;
+}
+.card:nth-child(4n+1){ grid-column: 1 / 8; }
+.card:nth-child(4n+2){ grid-column: 8 / 13; }
+.card:nth-child(4n+3){ grid-column: 1 / 6; }
+.card:nth-child(4n+4){ grid-column: 6 / 13; }
+
+/* —— 卡片 —— */
+.card{
+  position: relative;
+  background: var(--paper-2);
+  border: 1px solid var(--line-2);
+  border-radius: 0;
+  padding: clamp(20px, 2.1vw, 30px);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: cardIn .5s cubic-bezier(.2,.7,.3,1) both;
+  transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .28s ease, border-color .28s ease;
+}
+.card::before{
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 42px; height: 3px;
+  background: var(--red);
+}
+.card:hover{
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2xl);
+  border-color: rgba(224,117,99,.35);
+}
+@keyframes cardIn{
+  from{ opacity: 0; transform: translateY(14px); }
+  to  { opacity: 1; transform: translateY(0); }
+}
+
+.card-head{
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+}
+.idx{
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+.tag{
+  font-family: 'Oswald', sans-serif;
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.label{
+  margin-left: auto;
+  font-size: .7rem;
+  font-weight: 400;
+  letter-spacing: .1em;
+  color: var(--ink-3);
+}
+
+.desc{
+  font-size: clamp(.86rem, 1vw, .93rem);
+  font-weight: 300;
+  line-height: 1.95;
+  color: var(--ink-2);
+  letter-spacing: .01em;
+  flex: 1;
+}
+
+.copy{
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 8px 20px;
+  font-family: 'Oswald', sans-serif;
+  font-size: .68rem;
+  font-weight: 400;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.copy:hover{
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.copy.ok{
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--paper);
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+.empty{
+  border: 1px solid var(--line);
+  background: rgba(247,246,242,.55);
+  padding: clamp(52px, 9vw, 110px) 32px;
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+}
+.empty-idx{
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: #D8D5CE;
+  margin-bottom: 22px;
+}
+.empty p{
+  font-size: .85rem;
+  font-weight: 300;
+  line-height: 2.1;
+  color: var(--ink-3);
+  letter-spacing: .04em;
+}
+
+/* =========================================================
+   COLOPHON
+   ========================================================= */
+.colophon{
+  grid-column: 1 / 13;
+  margin-top: clamp(50px, 7vw, 100px);
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.colophon span{
+  font-family: 'Oswald', sans-serif;
+  font-size: .64rem;
+  font-weight: 300;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.colophon .dot{
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--red);
+  margin-right: 10px;
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+#toast{
+  position: fixed;
+  left: 50%;
+  bottom: 42px;
+  transform: translate(-50%, 18px);
+  z-index: 10000;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Oswald', sans-serif;
+  font-size: .72rem;
+  font-weight: 400;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  border-radius: 0;
+  box-shadow: var(--shadow-2xl);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+}
+#toast.show{
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 900px){
+  .field--topic{ grid-column: 1 / 13; }
+  .field--mood { grid-column: 1 / 13; }
+  .field--lang { grid-column: 1 / 8; }
+  .field--act  { grid-column: 8 / 13; }
+  .hero-cn  { grid-column: 1 / 13; }
+  .hero-desc{ grid-column: 1 / 13; max-width: 46ch; }
+
+  .card:nth-child(n){ grid-column: 1 / 13; }
+}
+
+@media (max-width: 620px){
+  body{ padding: 20px 16px 60px; }
+  .hero-l2{ padding-left: 8%; }
+  .field--lang,
+  .field--act{ grid-column: 1 / 13; }
+  .res-head{ align-items: flex-start; }
+  .res-actions{ width: 100%; }
+  .btn-ghost{ flex: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- 印刷噪点 -->
+<div class="grain" aria-hidden="true"></div>
+
+<div class="g12">
+
+  <!-- ================= MASTHEAD ================= -->
+  <header class="masthead" style="grid-column:1/13;">
+
+    <div class="mh-top">
+      <span class="mh-num">01</span>
+      <span class="mh-rule"></span>
+      <span class="mh-label">Music Prompt Tool</span>
+      <span class="mh-swatch"></span>
+    </div>
+
+    <div class="g12">
+      <h1 class="hero">
+        <span class="hero-l1">Music</span>
+        <span class="hero-l2">Prompt</span>
+      </h1>
+
+      <div class="hero-foot">
+        <h2 class="hero-cn">音乐描述生成器</h2>
+        <p class="hero-desc">
+          输入一个主题，即时生成十种风格迥异的音乐描述。<br>
+          每条包含风格、语言、配器、情绪与 BPM，可直接用于 AI 音乐生成或编曲沟通。
+        </p>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- ================= CONTROL PANEL ================= -->
+  <section class="panel" aria-label="生成参数">
+
+    <div class="field field--topic">
+      <label for="topic">
+        <span class="lb-cn">主题</span>
+        <span class="lb-en">Topic</span>
+      </label>
+      <input id="topic" type="text"
+             placeholder="例如：大学毕业 / 深夜便利店 / 搬家那天"
+             autocomplete="off">
+    </div>
+
+    <div class="field field--mood">
+      <label for="moods">
+        <span class="lb-cn">情绪偏好</span>
+        <span class="lb-en">Mood · 可选</span>
+      </label>
+      <input id="moods" type="text"
+             placeholder="告别、坦然、祝福"
+             autocomplete="off">
+    </div>
+
+    <div class="field field--lang">
+      <label for="lang">
+        <span class="lb-cn">语言</span>
+        <span class="lb-en">Language</span>
+      </label>
+      <select id="lang">
+        <option value="">自动分配</option>
+        <option value="中文">中文</option>
+        <option value="日语">日语</option>
+        <option value="英语">英语</option>
+        <option value="纯器乐">纯器乐</option>
+      </select>
+    </div>
+
+    <div class="field field--act">
+      <label for="gen" style="visibility:hidden;">
+        <span class="lb-cn">生成</span>
+      </label>
+      <button class="submit" id="gen">
+        <span>Generate</span>
+        <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <p class="panel-note">
+      留空主题时，将以 <b>大学毕业</b> 作为示例主题
+    </p>
+
+  </section>
+
+  <!-- ================= RESULTS ================= -->
+  <section class="results" id="results">
+    <div class="empty">
+      <span class="empty-idx">00</span>
+      <p>
+        尚未生成内容<br>
+        填写主题后点击上方按钮，一次获得 10 条不同风格的音乐描述
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= COLOPHON ================= -->
+  <footer class="colophon">
+    <span><i class="dot"></i>Music Prompt Generator</span>
+    <span>合欢红 #E07563&nbsp;&nbsp;/&nbsp;&nbsp;银白 #F1F0EC</span>
+  </footer>
+
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =========================================================
+   工具函数
+   ========================================================= */
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+
+function pickN(arr, n) {
+  const pool = [...arr], out = [];
+  n = Math.min(n, pool.length);
+  while (out.length < n) {
+    out.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+  }
+  return out;
+}
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* =========================================================
+   风格库
+   ========================================================= */
+const STYLES = [
+  {
+    tag: 'Pop Ballad', label: '流行抒情',
+    langs: ['日语', '中文', '英语'],
+    bpm: [66, 78],
+    vocals: [
+      '略带哭腔的女声，副歌有一点失控感',
+      '气声女声，主歌像在耳边呢喃，副歌推到极限',
+      '温柔男声，尾音带一点颤，克制但有力量',
+      '清亮女声，副歌加入和声堆叠'
+    ],
+    insts: [
+      '钢琴 + 原声吉他 + 轻军鼓',
+      '钢琴为主，副歌叠加弦乐与架子鼓',
+      '电钢琴 + 大提琴 + 轻打击乐'
+    ],
+    moods: ['告别', '坦然', '祝福', '不舍', '释怀', '温柔', '坚定'],
+    extras: [
+      '副歌加入和声堆叠，桥段只留钢琴与人声',
+      '最后一遍副歌升半音，尾奏让钢琴慢慢淡出',
+      '第二段主歌加入原声吉他分解和弦'
+    ],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM 控制在 {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，配器为{inst}。以「{topic}」为主题，情绪走向{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'City Pop', label: '都市流行',
+    langs: ['日语', '中文'],
+    bpm: [96, 112],
+    vocals: ['慵懒的女声，带一点鼻音', '清爽男声，和声垫在身后', '男女声交替，副歌一起唱'],
+    insts: [
+      '电钢琴 + 放克贝斯 + 萨克斯',
+      '合成器 Pad + 切分吉他 + 电子鼓',
+      '明亮的电吉他 + 铜管点缀 + 电子鼓机'
+    ],
+    moods: ['夏夜', '怀念', '轻快', '微醺', '洒脱', '都市感'],
+    extras: [
+      '间奏来一段萨克斯 solo',
+      '副歌加入女声和声呼应，尾奏做一段 fade out',
+      '第二段主歌加入拍手声'
+    ],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，编曲为{inst}。围绕「{topic}」展开，整体情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Lo-fi Hip Hop', label: '低保真嘻哈',
+    langs: ['无歌词'],
+    bpm: [70, 88],
+    vocals: [
+      '几乎无歌词，只有几句气声哼唱',
+      '中文念白，像在自言自语',
+      '采样人声切片，反复一句短句'
+    ],
+    insts: [
+      '爵士钢琴采样 + 黑胶底噪 + 松垮鼓组',
+      '电钢琴 + 低音贝斯 + 轻微摇摆的鼓'
+    ],
+    moods: ['安静', '疲惫', '温柔', '深夜', '放松'],
+    extras: [
+      '全程叠雨声与翻书声采样',
+      '中段留白两小节，只剩底噪',
+      '结尾加入一段磁带停止的音效'
+    ],
+    templates: [
+      '{tag}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag} 风格，{vocal}，以{inst}构成。围绕「{topic}」，氛围{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Folk', label: '民谣',
+    langs: ['中文', '英语'],
+    bpm: [80, 96],
+    vocals: ['略带沙哑的男声，像在讲故事', '干净的女声，气息很轻', '男女声对唱，副歌合唱'],
+    insts: [
+      '木吉他 + 口琴 + 手鼓',
+      '双木吉他 + 贝斯 + 沙锤',
+      '木吉他 + 曼陀林 + 低音提琴'
+    ],
+    moods: ['质朴', '怀念', '温暖', '坦然', '感伤'],
+    extras: [
+      '第二段主歌只留一把吉他和人声',
+      '结尾加入一段口琴独奏',
+      '最后一遍副歌放慢速度收尾'
+    ],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，编配{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Alternative Rock', label: '另类摇滚',
+    langs: ['中文', '英语'],
+    bpm: [120, 140],
+    vocals: ['略带撕裂感的男声，副歌提高八度', '女声主唱，主歌压低、副歌爆发'],
+    insts: [
+      '失真吉他墙 + 厚实贝斯 + 密集鼓点',
+      '双吉他 + 贝斯 + 架子鼓，副歌加入镲片冲击'
+    ],
+    moods: ['躁动', '不甘', '释然', '冲撞', '热血'],
+    extras: [
+      '副歌结尾来一段吉他噪音',
+      '桥段突然静音两拍再一起进入',
+      '最后一遍副歌整体提速'
+    ],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，编制为{inst}。以「{topic}」为主题，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Synthwave', label: '合成器浪潮',
+    langs: ['英语', '无歌词'],
+    bpm: [100, 118],
+    vocals: ['经过声码器处理的女声', '低沉男声，混响拉满'],
+    insts: ['模拟合成器 + 电子鼓 + 侧链 Pad', '琶音合成器 + 鼓机 + 失真贝斯'],
+    moods: ['赛博', '孤独', '向前', '复古', '辽阔'],
+    extras: [
+      '中段安排 8 小节合成器 solo',
+      '副歌叠加一层高八度琶音',
+      '结尾做一段长混响淡出'
+    ],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，音色以{inst}为主。围绕「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'R&B / Neo-soul', label: '节奏布鲁斯',
+    langs: ['中文', '英语'],
+    bpm: [72, 92],
+    vocals: [
+      '丝滑女声，大量转音与即兴',
+      '温柔男声，副歌加入假声',
+      '男女声交替，副歌和声堆叠'
+    ],
+    insts: ['电钢琴 + 无品贝斯 + 松散鼓组', 'Rhodes 电钢 + 吉他泛音 + 轻打击乐'],
+    moods: ['暧昧', '温柔', '释怀', '慵懒', '深情'],
+    extras: [
+      '结尾转调，用即兴 ad-lib 收尾',
+      '副歌加入一层和声铺底',
+      '间奏留一段贝斯 solo'
+    ],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，配器{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Chinese Traditional', label: '国风',
+    langs: ['中文'],
+    bpm: [72, 88],
+    vocals: ['清亮女声，副歌带一点戏腔', '温润男声，咬字偏古典', '女声主唱 + 童声和声'],
+    insts: ['古筝 + 竹笛 + 弦乐 + 中国大鼓', '琵琶 + 二胡 + 电子低音铺底'],
+    moods: ['悠远', '惆怅', '豁达', '思念', '辽阔'],
+    extras: ['副歌加入一段戏腔吟唱', '间奏以古筝独奏为主', '结尾只留一支竹笛'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，编制为{inst}。以「{topic}」为题，意境{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Bossa Nova', label: '波萨诺瓦爵士',
+    langs: ['中文', '日语', '英语'],
+    bpm: [90, 110],
+    vocals: ['轻声细语的女声，像在耳边', '慵懒男声，尾音松弛'],
+    insts: ['尼龙弦吉他 + 钢琴 + 刷子鼓 + 贝斯', '钢琴三重奏 + 沙锤 + 原声吉他'],
+    moods: ['慵懒', '从容', '温柔', '微醺', '释然'],
+    extras: ['间奏来一段钢琴即兴', '结尾用吉他泛音收束', '第二段加入一段口哨'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，配器{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Post-rock', label: '后摇',
+    langs: ['纯器乐'],
+    bpm: [90, 120],
+    vocals: ['纯器乐，无人声', '纯器乐，中段加入人声哼鸣'],
+    insts: ['延迟吉他 + 弦乐 + 渐强鼓组', '三把吉他 + 贝斯 + 定音鼓'],
+    moods: ['辽阔', '释放', '壮丽', '克制', '希望'],
+    extras: [
+      '用 3 分钟层层渐强，最后爆开再归于安静',
+      '结尾留下吉他延音与噪音',
+      '中段所有乐器停两拍再一起进入'
+    ],
+    templates: [
+      '{tag}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag} 器乐作品，{vocal}，以{inst}构建。围绕「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Cinematic', label: '电影配乐',
+    langs: ['纯器乐'],
+    bpm: [60, 80],
+    vocals: ['纯器乐，无人声', '无歌词，只有合唱团的气声铺底'],
+    insts: ['弦乐组 + 钢琴 + 定音鼓', '钢琴 + 弦乐 + 木管 + 低频铺底'],
+    moods: ['庄重', '克制', '希望', '壮阔', '沉思'],
+    extras: [
+      '从单件乐器逐渐叠加到全编制',
+      '结尾留一个没有解决的和弦',
+      '中段加入一段大提琴独奏'
+    ],
+    templates: [
+      '{tag}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}，{vocal}，编制{inst}。围绕「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Indie Pop', label: '独立流行',
+    langs: ['中文', '英语'],
+    bpm: [110, 128],
+    vocals: ['男女对唱，副歌一起唱', '干净的女声，唱得很随意'],
+    insts: ['明亮吉他 + 合成器 + 木琴 + 鼓机', '拨弦吉他 + 合成器 Pad + 轻盈鼓组'],
+    moods: ['轻盈', '明亮', '治愈', '青春', '洒脱'],
+    extras: ['第二段副歌加入拍手与和声', '结尾用木琴旋律收尾'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，编曲为{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Hip-hop', label: '说唱',
+    langs: ['中文'],
+    bpm: [85, 95],
+    vocals: ['低沉的男声说唱，副歌改成唱', '女声说唱，语气冷静'],
+    insts: ['808 低音 + 采样钢琴 + 搓碟', '钢琴循环 + 硬朗鼓组 + 低音贝斯'],
+    moods: ['坚定', '自省', '不甘', '释然', '力量'],
+    extras: ['最后一段 flow 加速', '副歌加入人声切片', '结尾留一段纯伴奏'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，beat 由{inst}构成。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Children Choir', label: '童声合唱',
+    langs: ['中文'],
+    bpm: [80, 96],
+    vocals: ['童声齐唱，音色干净', '童声独唱 + 全体合唱'],
+    insts: ['钢琴 + 弦乐 + 铃铛 + 轻打击乐', '钢琴 + 木吉他 + 手铃'],
+    moods: ['纯真', '温暖', '希望', '明亮'],
+    extras: ['最后一遍全体合唱，速度稍慢', '结尾加入一段童声朗诵'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，伴奏为{inst}。围绕「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Soul / Blues', label: '灵魂蓝调',
+    langs: ['英语', '中文'],
+    bpm: [68, 84],
+    vocals: ['沙哑女声，句尾带着叹息', '厚实男声，副歌加入即兴转音'],
+    insts: ['电吉他 + Hammond 风琴 + 铜管组 + 鼓', '钢琴 + 贝斯 + 铜管 + 刷子鼓'],
+    moods: ['深情', '释怀', '苦涩', '温暖', '坚定'],
+    extras: ['副歌加入铜管齐奏', '结尾一遍遍重复同一句直到淡出'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，编制为{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Future Bass', label: '电子舞曲',
+    langs: ['英语', '无歌词'],
+    bpm: [124, 132],
+    vocals: ['女声切片，被反复处理成音色', '清亮女声，副歌前留白一拍'],
+    insts: ['超级锯齿波 + 重底鼓 + 上升音效', '合成器和弦 + 打击乐 + 低频贝斯'],
+    moods: ['明亮', '释放', '向上', '绚烂'],
+    extras: ['Drop 前有 4 小节的上升与静默', 'Drop 之后加入人声和声'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，音色以{inst}为主。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Country', label: '乡村',
+    langs: ['英语', '中文'],
+    bpm: [88, 104],
+    vocals: ['带一点鼻音的男声', '清亮女声，副歌加入和声'],
+    insts: ['木吉他 + 班卓琴 + 滑棒吉他 + 提琴', '原声吉他 + 曼陀林 + 贝斯 + 鼓'],
+    moods: ['质朴', '阳光', '怀念', '坦然'],
+    extras: ['间奏来一段提琴 solo', '结尾加入一段口哨'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，伴奏为{inst}。围绕「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Ambient', label: '氛围音乐',
+    langs: ['纯器乐'],
+    bpm: [55, 70],
+    vocals: ['纯器乐，无人声', '无歌词，只有遥远的人声采样'],
+    insts: ['Pad 铺底 + 混响钢琴 + 田野录音', '持续音合成器 + 弦乐 + 环境采样'],
+    moods: ['空灵', '安静', '辽阔', '沉思', '漂浮'],
+    extras: ['几乎没有节奏，靠音色缓慢变化推进', '加入雨声与风声的田野录音'],
+    templates: [
+      '{tag}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}，{vocal}，以{inst}构成。围绕「{topic}」，氛围{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Opera Fusion', label: '国风电子',
+    langs: ['中文'],
+    bpm: [76, 92],
+    vocals: ['京剧青衣唱腔，副歌转流行唱法', '昆曲念白开头，副歌转真声'],
+    insts: ['京胡 + 电子鼓 + 低频合成器', '琵琶 + 鼓机 + 弦乐铺底'],
+    moods: ['苍凉', '决绝', '缠绵', '豁达'],
+    extras: ['副歌加入戏腔与流行的双声部', '间奏插入一段锣鼓点'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，编制为{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  },
+  {
+    tag: 'Anime OP', label: '动画主题曲',
+    langs: ['日语'],
+    bpm: [140, 170],
+    vocals: ['高音女声，副歌全力冲刺', '男女声交替，副歌全体合唱'],
+    insts: ['快速钢琴 + 摇滚乐队 + 弦乐', '电吉他 + 鼓组 + 合成器 + 弦乐'],
+    moods: ['热血', '青春', '不舍', '向前', '明亮'],
+    extras: ['前奏 4 小节直接进入副歌旋律', '结尾用钢琴独奏收束'],
+    templates: [
+      '{tag}，{lang}。{vocal}。{inst}。主题「{topic}」，情绪{moods}，BPM {bpm}。{extra}。',
+      '{tag}（{lang}）——{vocal}，编制为{inst}。围绕「{topic}」，情绪{moods}，BPM {bpm}。{extra}。'
+    ]
+  }
+];
+
+/* =========================================================
+   生成逻辑
+   ========================================================= */
+function buildDesc(style, ctx) {
+  const tpl = pick(style.templates);
+
+  const lang = (ctx.lang && style.langs.includes(ctx.lang))
+    ? ctx.lang
+    : pick(style.langs);
+
+  const bpm = randInt(style.bpm[0], style.bpm[1]);
+  const vocal = pick(style.vocals);
+  const inst = pick(style.insts);
+  const extra = pick(style.extras);
+
+  let moods;
+  if (ctx.moods.length) {
+    moods = pickN(ctx.moods, Math.min(ctx.moods.length, randInt(2, 3)));
+  } else {
+    moods = pickN(style.moods, randInt(2, 3));
+  }
+
+  return tpl
+    .replace(/\{tag\}/g, style.tag)
+    .replace(/\{lang\}/g, lang)
+    .replace(/\{vocal\}/g, vocal)
+    .replace(/\{inst\}/g, inst)
+    .replace(/\{topic\}/g, ctx.topic)
+    .replace(/\{moods\}/g, moods.join('、'))
+    .replace(/\{bpm\}/g, bpm)
+    .replace(/\{extra\}/g, extra);
+}
+
+/* =========================================================
+   渲染
+   ========================================================= */
+const resultsEl = document.getElementById('results');
+const toastEl = document.getElementById('toast');
+let toastTimer = null;
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1700);
+}
+
+async function copyText(text, btn, okLabel) {
+  let ok = false;
+  try {
+    await navigator.clipboard.writeText(text);
+    ok = true;
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    try { ok = document.execCommand('copy'); } catch (_) {}
+    document.body.removeChild(ta);
+  }
+
+  if (!ok) { showToast('Copy failed'); return; }
+
+  if (btn) {
+    const old = btn.textContent;
+    btn.textContent = okLabel || 'Copied';
+    btn.classList.add('ok');
+    setTimeout(() => {
+      btn.textContent = old;
+      btn.classList.remove('ok');
+    }, 1300);
+  } else {
+    showToast('Copied');
+  }
+}
+
+let currentList = [];
+
+function render(list) {
+  currentList = list;
+  resultsEl.innerHTML = '';
+
+  /* ---- 结果头部 ---- */
+  const head = document.createElement('div');
+  head.className = 'res-head';
+
+  const title = document.createElement('div');
+  title.className = 'res-title';
+  const h2 = document.createElement('h2');
+  h2.textContent = '生成结果';
+  const sp = document.createElement('span');
+  sp.textContent = list.length + ' Variations';
+  title.appendChild(h2);
+  title.appendChild(sp);
+
+  const actions = document.createElement('div');
+  actions.className = 'res-actions';
+
+  const btnAll = document.createElement('button');
+  btnAll.className = 'btn-ghost';
+  btnAll.textContent = 'Copy All';
+  btnAll.addEventListener('click', () => {
+    const all = currentList.map((it, i) => `${i + 1}. ${it.desc}`).join('\n\n');
+    copyText(all, btnAll, 'Copied');
+  });
+
+  const btnRe = document.createElement('button');
+  btnRe.className = 'btn-ghost';
+  btnRe.textContent = 'Regenerate';
+  btnRe.addEventListener('click', generate);
+
+  actions.appendChild(btnAll);
+  actions.appendChild(btnRe);
+  head.appendChild(title);
+  head.appendChild(actions);
+  resultsEl.appendChild(head);
+
+  /* ---- 卡片网格 ---- */
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+
+  list.forEach((item, i) => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.style.animationDelay = (i * 42) + 'ms';
+
+    const cHead = document.createElement('div');
+    cHead.className = 'card-head';
+
+    const idx = document.createElement('span');
+    idx.className = 'idx';
+    idx.textContent = String(i + 1).padStart(2, '0');
+
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = item.tag;
+
+    const label = document.createElement('span');
+    label.className = 'label';
+    label.textContent = item.label;
+
+    cHead.appendChild(idx);
+    cHead.appendChild(tag);
+    cHead.appendChild(label);
+
+    const desc = document.createElement('p');
+    desc.className = 'desc';
+    desc.textContent = item.desc;
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy';
+    copyBtn.textContent = 'Copy';
+    copyBtn.addEventListener('click', () => copyText(item.desc, copyBtn));
+
+    card.appendChild(cHead);
+    card.appendChild(desc);
+    card.appendChild(copyBtn);
+    grid.appendChild(card);
+  });
+
+  resultsEl.appendChild(grid);
+}
+
+/* =========================================================
+   主流程
+   ========================================================= */
+function generate() {
+  const topicInput = document.getElementById('topic').value.trim();
+  const topic = topicInput || '大学毕业';
+
+  const moodRaw = document.getElementById('moods').value.trim();
+  const moods = moodRaw
+    ? moodRaw.split(/[，,、\s\/]+/).filter(Boolean).slice(0, 6)
+    : [];
+
+  const lang = document.getElementById('lang').value;
+
+  const ctx = { topic, moods, lang };
+
+  const chosen = shuffle(STYLES).slice(0, 10);
+  const list = chosen.map(s => ({
+    tag: s.tag,
+    label: s.label,
+    desc: buildDesc(s, ctx)
+  }));
+
+  render(list);
+
+  const top = resultsEl.getBoundingClientRect().top + window.scrollY - 30;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+document.getElementById('gen').addEventListener('click', generate);
+document.getElementById('topic').addEventListener('keydown', e => {
+  if (e.key === 'Enter') generate();
+});
+document.getElementById('moods').addEventListener('keydown', e => {
+  if (e.key === 'Enter') generate();
+});
+</script>
+</body>
+</html>

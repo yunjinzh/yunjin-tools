@@ -1,0 +1,1245 @@
+.spatial-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0 0 22px;
+}
+.spatial-heading h1 {
+  font: 600 clamp(28px, 3vw, 44px) / 1.35 var(--serif);
+  letter-spacing: 0.02em;
+  margin: 9px 0;
+}
+.spatial-heading p {
+  font-size: 12px;
+  color: #747a70;
+}
+.spatial-heading .eyebrow {
+  font-size: 10px;
+  color: #a46757;
+}
+.version-label {
+  font: 9px monospace;
+  letter-spacing: 0.1em;
+  color: #8f9489;
+  white-space: nowrap;
+  margin-bottom: 5px;
+}
+.workshop-stage {
+  height: clamp(590px, 69vh, 810px);
+  position: relative;
+  border: 1px solid #d3d5cc;
+  border-radius: 10px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 55% 35%, #efeee7, #e3e3da);
+  box-shadow: 0 24px 60px -40px #34423540;
+}
+.workshop-scene {
+  position: absolute;
+  inset: 0;
+}
+.workshop-scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.studio-title {
+  position: absolute;
+  left: 27px;
+  top: 24px;
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  pointer-events: none;
+}
+.studio-number {
+  font: 35px/1 var(--serif);
+  color: #bf7d69;
+}
+.studio-title > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 9px;
+  color: #92988c;
+  gap: 4px;
+  border-left: 1px solid #c7cdc0;
+  padding-left: 13px;
+}
+.studio-title strong {
+  font-size: 12px;
+  font-weight: 500;
+  color: #556452;
+  letter-spacing: 0.03em;
+}
+.studio-manual {
+  position: absolute;
+  left: 28px;
+  top: 115px;
+  pointer-events: none;
+}
+.studio-manual > span {
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: #8c9982;
+}
+.studio-manual p {
+  font-size: 10px;
+  color: #7d8873;
+  line-height: 1.95;
+  margin-top: 8px;
+}
+.studio-views {
+  display: flex;
+  position: absolute;
+  right: 22px;
+  top: 24px;
+  background: #f1f0e7cd;
+  border: 1px solid #ced5c4;
+  border-radius: 5px;
+  backdrop-filter: blur(10px);
+}
+.studio-views button {
+  padding: 8px 12px;
+  font-size: 9px;
+  color: #6d7e60;
+  border-right: 1px solid #d5dccb;
+}
+.studio-views button:last-child {
+  border: 0;
+}
+.studio-views button:hover {
+  background: #e5e8dc;
+}
+.studio-component {
+  position: absolute;
+  right: 27px;
+  bottom: 170px;
+  width: 220px;
+  text-align: right;
+  border-right: 2px solid #bc8a74;
+  padding-right: 13px;
+  pointer-events: none;
+}
+.studio-component h3 {
+  font: 500 19px var(--serif);
+  margin: 8px 0;
+  color: #57634f;
+}
+.studio-component p {
+  font-size: 10px;
+  line-height: 1.85;
+  color: #7f8974;
+}
+.studio-component .eyebrow {
+  font-size: 7px;
+  color: #9a9f8e;
+}
+.studio-launch {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  bottom: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 26px;
+  background: #f2f1e9e8;
+  border: 1px solid #cdd3c4;
+  border-radius: 9px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 14px 45px #394d2c17;
+}
+.launch-label {
+  font: 8px/1.5 var(--sans);
+  letter-spacing: 0.12em;
+  color: #a76c58;
+}
+.studio-launch h2 {
+  font: 600 24px/1.5 var(--serif);
+  color: #384d3a !important;
+  margin: 5px 0 3px;
+}
+.studio-launch p {
+  font-size: 10px;
+  color: #859278 !important;
+}
+.studio-launch > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.studio-launch .btn {
+  min-height: 42px;
+  font-size: 11px;
+  padding: 12px 18px;
+}
+.simulation-source {
+  position: absolute;
+  left: 28px;
+  bottom: 170px;
+  font: 8px/1.5 var(--sans);
+  color: #8e9983;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.simulation-source i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #99ac89;
+}
+.spatial-paths {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 21px;
+}
+.spatial-paths > button {
+  display: flex;
+  text-align: left;
+  gap: 14px;
+  align-items: center;
+  background: #f7f5ed;
+  border: 1px solid #d7dacd;
+  border-radius: 7px;
+  padding: 19px 20px;
+}
+.spatial-paths > button > span {
+  font: 23px var(--serif);
+  color: #b9bfae;
+}
+.spatial-paths strong {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4e6445;
+}
+.spatial-paths small {
+  display: block;
+  font-size: 9px;
+  color: #869778;
+  margin-top: 6px;
+}
+.spatial-paths > .icon,
+.spatial-paths button > .icon {
+  margin-left: auto;
+  width: 16px;
+  color: #99a989;
+}
+.spatial-paths button:hover {
+  background: #ebece0;
+  border-color: #bdcbaa;
+}
+.scene-tooltip {
+  position: absolute;
+  z-index: 7;
+  pointer-events: none;
+  background: #3c473eea;
+  color: #f0eee4;
+  font-size: 10px;
+  border-radius: 4px;
+  padding: 7px 11px;
+  box-shadow: 0 5px 20px #27312422;
+  white-space: nowrap;
+}
+.terminal-label {
+  position: absolute;
+  pointer-events: auto;
+  transform: translate(-50%, -115%);
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font: 20px/1 Arial;
+  background: #eee9dbdd;
+  border: 1px solid #777;
+  color: #343f3e;
+  box-shadow: 0 4px 16px #33333318;
+}
+.terminal-label.pos {
+  border-color: #ca7e69;
+  color: #bc6955;
+  background: #f1ddd0eb;
+}
+.terminal-label.neg {
+  border-color: #7b8a7b;
+  color: #4b6048;
+  background: #e2e8d8eb;
+}
+.terminal-label.connected {
+  box-shadow:
+    0 0 0 4px #b6ce9b60,
+    0 4px 16px #33333318;
+}
+.terminal-label:hover {
+  filter: brightness(0.95);
+}
+.terminal-labels[hidden] {
+  display: none;
+}
+.spatial-viewport {
+  height: clamp(550px, 68vh, 800px) !important;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    #eeeee5,
+    #dedfd3
+  ) !important;
+}
+.spatial-viewport .lab-scene canvas {
+  transform: none !important;
+}
+.spatial-viewport .mission-card {
+  background: #f1f0e6c7;
+  box-shadow: 0 5px 25px #3c4b2a08;
+  max-width: 215px;
+}
+.spatial-viewport .mission-card h3 {
+  font-size: 11px;
+}
+.spatial-viewport .mission-card p {
+  font-size: 10px;
+  line-height: 1.9;
+  color: #68775a;
+}
+.spatial-viewport .scene-view-buttons {
+  top: 64px;
+}
+.spatial-viewport .component-info {
+  bottom: 142px;
+  background: #ecefe230;
+  padding: 7px 11px 7px 0;
+}
+.spatial-viewport .component-info h3 {
+  color: #5c7250;
+}
+.spatial-viewport .component-info p {
+  font-size: 9px;
+  color: #7f906f;
+}
+.spatial-state {
+  position: absolute;
+  right: 23px;
+  top: 23px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 8px;
+  pointer-events: none;
+}
+.spatial-state > span {
+  display: inline-block;
+  border: 1px solid #c6d3b8;
+  border-radius: 4px;
+  padding: 4px 7px;
+  background: #e9efe0c9;
+  color: #778b64;
+}
+.spatial-state > b {
+  font-weight: 500;
+  color: #997665;
+}
+.spatial-feedback {
+  position: absolute;
+  left: 50%;
+  bottom: 115px;
+  transform: translateX(-50%);
+  color: #70815e;
+  font-size: 10px;
+  text-align: center;
+  background: #f3f3e7d9;
+  border: 1px solid #d7dec9;
+  border-radius: 4px;
+  padding: 7px 13px;
+  max-width: 70%;
+  pointer-events: none;
+  box-shadow: 0 3px 12px #3c4b2a08;
+}
+.spatial-feedback:empty {
+  display: none;
+}
+.spatial-viewport .focus-pills {
+  bottom: 161px;
+}
+.spatial-viewport .workbench-dock {
+  bottom: 25px;
+  box-shadow: 0 15px 45px #253c2024;
+  border-color: #c8d1bb;
+  background: #ecefe1e8;
+  padding: 7px;
+}
+.spatial-viewport .workbench-dock button {
+  min-width: 86px;
+  font-size: 9px;
+  padding: 12px 10px;
+  color: #637757;
+}
+.spatial-viewport .workbench-dock button.active {
+  background: #ecd5c6;
+  color: #a8694b;
+}
+.spatial-viewport .workbench-dock button > .icon {
+  width: 21px;
+  height: 21px;
+}
+.clip-control {
+  position: absolute;
+  right: 66px;
+  top: 66px;
+  padding: 12px 14px;
+  background: #eef1e1ed;
+  border: 1px solid #cfdbbf;
+  border-radius: 5px;
+  z-index: 4;
+}
+.clip-control label {
+  font-size: 9px;
+  color: #7d9468;
+}
+.clip-control input {
+  padding: 0;
+  border: 0;
+  accent-color: #d38d70;
+}
+.thermal-legend {
+  position: absolute;
+  right: 71px;
+  top: 160px;
+  background: #eef2e3ee;
+  border: 1px solid #cedcbc;
+  padding: 12px;
+  border-radius: 5px;
+  z-index: 3;
+}
+.thermal-legend b {
+  font-size: 9px;
+  font-weight: 500;
+  color: #729060;
+  display: block;
+}
+.thermal-legend > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 8px monospace;
+  color: #809970;
+  margin: 8px 0;
+}
+.thermal-legend i {
+  display: inline-block;
+  width: 75px;
+  height: 4px;
+  background: linear-gradient(90deg, #82ada4, #c7b885, #d88165);
+}
+.thermal-legend small {
+  font-size: 7px;
+  color: #98ac83;
+}
+.clip-control[hidden],
+.thermal-legend[hidden] {
+  display: none;
+}
+.mechanical-warning {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #eee2d2;
+  border: 1px solid #e0cab0;
+  border-radius: 5px;
+  padding: 9px 13px;
+  font-size: 10px;
+  color: #a17e59;
+  margin-bottom: 17px;
+}
+.mechanical-warning > .icon {
+  width: 17px;
+}
+.mechanical-warning .btn {
+  margin-left: auto;
+  min-height: 26px;
+  padding: 3px 7px;
+  font-size: 9px;
+}
+.mechanic-tools {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin: 18px 0;
+}
+.mechanic-tools > button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px;
+  background: #ecefe1;
+  border: 1px solid #d0dcc0;
+  border-radius: 5px;
+  text-align: left;
+}
+.mechanic-tools > button > span {
+  font: 23px/1 Arial;
+  color: #8ca376;
+}
+.mechanic-tools strong {
+  font-size: 10px;
+  font-weight: 500;
+  color: #6d8656;
+}
+.mechanic-tools .selected {
+  border-color: #d4a08a;
+  background: #eadbcde6;
+  box-shadow: inset 0 0 0 1px #d4a08a44;
+}
+.mechanic-tools .selected > span,
+.mechanic-tools .selected > strong {
+  color: #a36d4e;
+}
+.assembly-controls {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 22px;
+}
+.assembly-controls h3 {
+  font-size: 11px;
+  color: #6c8557;
+  margin-bottom: 11px;
+}
+.assembly-controls h3 small {
+  font-size: 9px;
+  font-weight: 400;
+  margin-left: 10px;
+  color: #91a47e;
+}
+.connector-controls {
+  display: flex;
+  gap: 9px;
+}
+.connector-controls > button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  padding: 10px 7px;
+  font-size: 9px;
+  background: #ecf1df;
+  border: 1px solid #d1debd;
+  border-radius: 5px;
+  color: #708b58;
+}
+.connector-controls i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #94ac7c;
+}
+.connector-controls small {
+  width: 100%;
+  text-align: center;
+  font-size: 8px;
+  color: #99ad85;
+}
+.connector-controls .disconnected {
+  background: #e8e1d2;
+  border-color: #d8c6a8;
+  color: #9a805a;
+}
+.connector-controls .disconnected i {
+  background: #bc9b66;
+}
+.bolt-controls {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+}
+.bolt-controls button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 3px;
+  border: 1px solid #c9d8b6;
+  background: #e9f0dc;
+  border-radius: 5px;
+  font: 9px monospace;
+  color: #819b68;
+}
+.bolt-controls button > span {
+  font: 24px/1.2 Arial;
+  color: #81966e;
+  margin-bottom: 3px;
+}
+.bolt-controls button.removed {
+  background: #eee2d0;
+  border: 1px dashed #d2b68e;
+  color: #b09468;
+}
+.bolt-controls button.removed > span {
+  opacity: 0.3;
+}
+.bolt-controls button.tightened {
+  background: #d9e7c7;
+  border-color: #abc48f;
+}
+.assembly-actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 20px;
+  padding-top: 17px;
+  border-top: 1px solid #d7e1c8;
+  flex-wrap: wrap;
+}
+.assembly-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 1;
+  background: #e8efdc;
+  border: 1px solid #ccdcb8;
+  border-radius: 5px;
+  padding: 11px 9px;
+  font-size: 10px;
+  color: #7a955f;
+  white-space: nowrap;
+}
+.assembly-actions .icon {
+  width: 14px;
+  height: 14px;
+}
+.assembly-actions .done {
+  background: #dce9ca;
+  color: #829f65;
+}
+.mechanical-note {
+  font-size: 8px !important;
+  line-height: 1.8;
+  margin-top: 14px;
+  color: #91a27e !important;
+}
+.console-header h2 > small {
+  font: 9px var(--sans);
+  background: #e5ecd8;
+  border: 1px solid #cbdab6;
+  color: #829c66;
+  padding: 3px 7px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+.probe-controls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 17px;
+}
+.probe-leads {
+  display: flex;
+  gap: 5px;
+}
+.probe-leads button {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 8px 9px;
+  border: 1px solid #d0dcc0;
+  background: #eef3e4;
+  border-radius: 4px;
+  font-size: 9px;
+  color: #788e63;
+}
+.probe-leads i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.probe-leads .red i {
+  background: #c7795d;
+}
+.probe-leads .black i {
+  background: #40513a;
+}
+.probe-leads small {
+  font-size: 7px;
+  color: #a4b68f;
+}
+.probe-leads .armed {
+  box-shadow: 0 0 0 2px #d2ac8d70;
+  border-color: #bd9a7b;
+  background: #eee2d0;
+}
+.probe-controls > span {
+  font-size: 8px;
+  color: #a5b68f;
+}
+.terminal-btn {
+  font-size: 9px;
+  padding: 8px 9px;
+  background: #eee4d6;
+  border: 1px solid #d8bfa3;
+  border-radius: 4px;
+  color: #aa8261;
+}
+.terminal-btn.neg {
+  background: #e7ecdc;
+  border-color: #bdcdb0;
+  color: #7e9868;
+}
+.probe-hint {
+  font-size: 9px !important;
+  color: #91a57c !important;
+  margin-top: 10px;
+}
+.ability-caption {
+  font-size: 8px;
+  color: #8fa37d;
+  display: block;
+  margin-top: 14px;
+}
+.spatial-immersive .sidebar {
+  display: none;
+}
+.spatial-immersive .main-shell {
+  margin-left: 0;
+}
+.spatial-immersive .page {
+  max-width: 1800px;
+  padding: 18px 25px;
+}
+.spatial-immersive .topbar {
+  height: 50px;
+}
+.spatial-immersive .workbench-viewport {
+  height: 73vh !important;
+}
+.spatial-immersive .lab-heading h1 {
+  font-size: 23px;
+}
+.spatial-immersive .lab-heading {
+  margin-bottom: 14px;
+}
+.spatial-immersive ~ #toast {
+  left: 50%;
+}
+@media (max-width: 1200px) {
+  .studio-launch {
+    padding: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  .studio-launch h2 {
+    font-size: 22px;
+  }
+  .studio-launch .btn {
+    font-size: 10px;
+    padding: 11px 13px;
+  }
+  .spatial-paths {
+    gap: 12px;
+  }
+  .spatial-paths > button {
+    padding: 15px;
+    gap: 10px;
+  }
+  .spatial-paths strong {
+    font-size: 11px;
+  }
+  .spatial-paths small {
+    font-size: 8px;
+  }
+  .mechanic-tools {
+    gap: 7px;
+  }
+  .mechanic-tools > button {
+    gap: 5px;
+    padding: 10px 8px;
+  }
+  .mechanic-tools strong {
+    font-size: 9px;
+  }
+  .spatial-viewport .workbench-dock button {
+    min-width: 74px;
+    font-size: 8px;
+  }
+  .assembly-controls {
+    gap: 15px;
+  }
+}
+@media (max-width: 1000px) {
+  .workshop-stage {
+    height: 620px;
+  }
+  .studio-launch {
+    display: block;
+    padding: 19px 22px;
+  }
+  .studio-launch > div:last-child {
+    margin-top: 15px;
+  }
+  .studio-launch h2 {
+    font-size: 23px;
+  }
+  .simulation-source {
+    bottom: 213px;
+  }
+  .studio-component {
+    bottom: 220px;
+    width: 175px;
+  }
+  .studio-manual {
+    left: 23px;
+    top: 108px;
+  }
+  .studio-views {
+    right: 18px;
+  }
+  .studio-views button {
+    font-size: 8px;
+    padding: 7px 9px;
+  }
+  .spatial-paths {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .spatial-paths > button {
+    padding: 17px 21px;
+  }
+  .spatial-paths small {
+    font-size: 9px;
+  }
+  .spatial-viewport {
+    height: 600px !important;
+  }
+  .spatial-viewport .workbench-dock button {
+    min-width: 66px;
+    font-size: 7px;
+  }
+  .mechanic-tools {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .assembly-controls {
+    grid-template-columns: 1fr;
+  }
+  .mechanical-warning {
+    flex-wrap: wrap;
+  }
+  .spatial-state {
+    font-size: 7px;
+  }
+  .spatial-state > span {
+    padding: 3px 5px;
+  }
+  .spatial-viewport .scene-topline .mono {
+    display: none;
+  }
+  .workshop-stage .scene-pin {
+    font-size: 7px;
+  }
+  .spatial-viewport .mission-card {
+    max-width: 175px;
+  }
+  .spatial-feedback {
+    max-width: 60%;
+    font-size: 9px;
+    bottom: 124px;
+  }
+  .spatial-viewport .focus-pills {
+    bottom: 171px;
+  }
+}
+@media (max-width: 760px) {
+  .spatial-heading h1 {
+    font-size: 30px;
+  }
+  .spatial-heading .version-label {
+    display: none;
+  }
+  .spatial-heading p {
+    font-size: 10px;
+  }
+  .workshop-stage {
+    height: 620px;
+  }
+  .studio-title {
+    left: 20px;
+    top: 20px;
+  }
+  .studio-number {
+    font-size: 30px;
+  }
+  .studio-title strong {
+    font-size: 10px;
+  }
+  .studio-views {
+    top: 85px;
+    left: 20px;
+    right: auto;
+  }
+  .studio-manual {
+    top: 135px;
+    left: 20px;
+  }
+  .studio-manual p {
+    font-size: 8px;
+  }
+  .studio-manual > span {
+    font-size: 7px;
+  }
+  .studio-component {
+    width: 165px;
+    right: 19px;
+    bottom: 219px;
+  }
+  .studio-component h3 {
+    font-size: 17px;
+  }
+  .studio-component p {
+    font-size: 9px;
+  }
+  .simulation-source {
+    left: 22px;
+    font-size: 7px;
+  }
+  .studio-launch {
+    left: 16px;
+    right: 16px;
+    bottom: 20px;
+  }
+  .studio-launch h2 {
+    font-size: 22px;
+  }
+  .studio-launch p {
+    font-size: 9px;
+  }
+  .studio-launch .btn {
+    font-size: 10px;
+  }
+  .spatial-viewport {
+    height: 560px !important;
+  }
+  .spatial-viewport .workbench-dock {
+    padding: 4px;
+    bottom: 20px;
+  }
+  .spatial-viewport .workbench-dock button {
+    min-width: 0;
+    padding: 10px 5px;
+    flex: 1;
+    font-size: 7px;
+  }
+  .spatial-viewport .workbench-dock button > .icon {
+    width: 18px;
+    height: 18px;
+  }
+  .spatial-viewport .mission-card p {
+    font-size: 8px;
+  }
+  .spatial-viewport .mission-card {
+    max-width: 165px;
+  }
+  .spatial-state {
+    top: 17px;
+    right: 15px;
+  }
+  .spatial-viewport .scene-view-buttons {
+    top: 57px;
+  }
+  .spatial-feedback {
+    font-size: 8px;
+    bottom: 104px;
+    max-width: 70%;
+    width: max-content;
+    padding: 7px 10px;
+  }
+  .spatial-viewport .focus-pills {
+    bottom: 149px;
+  }
+  .spatial-viewport .component-info {
+    display: none;
+  }
+  .clip-control {
+    right: 50px;
+    top: 59px;
+  }
+  .thermal-legend {
+    right: 50px;
+    top: 159px;
+  }
+  .mechanic-tools strong {
+    font-size: 10px;
+  }
+  .mechanic-tools > button {
+    padding: 11px;
+  }
+  .mechanic-tools > button > span {
+    font-size: 24px;
+  }
+  .assembly-controls h3 {
+    font-size: 11px;
+  }
+  .assembly-actions button {
+    font-size: 9px;
+    min-width: 100px;
+  }
+  .terminal-label {
+    width: 27px;
+    height: 27px;
+    font-size: 17px;
+  }
+  .spatial-immersive .page {
+    padding: 18px;
+  }
+  .spatial-immersive .workbench-viewport {
+    height: 68vh !important;
+  }
+  .mechanical-note {
+    font-size: 7px !important;
+  }
+}
+@media (max-width: 500px) {
+  .spatial-heading h1 {
+    font-size: 28px;
+  }
+  .spatial-heading p {
+    font-size: 9px;
+  }
+  .spatial-heading .eyebrow {
+    font-size: 8px;
+  }
+  .workshop-stage {
+    height: 610px;
+  }
+  .studio-title {
+    left: 16px;
+    top: 20px;
+  }
+  .studio-number {
+    font-size: 27px;
+  }
+  .studio-title strong {
+    font-size: 9px;
+  }
+  .studio-title > div {
+    font-size: 7px;
+  }
+  .studio-views {
+    left: 15px;
+    top: 80px;
+  }
+  .studio-views button {
+    padding: 7px 8px;
+    font-size: 7px;
+  }
+  .studio-manual {
+    top: 125px;
+    left: 16px;
+  }
+  .studio-manual p {
+    font-size: 7px;
+  }
+  .studio-component {
+    display: none;
+  }
+  .simulation-source {
+    left: 18px;
+    bottom: 207px;
+    font-size: 6px;
+  }
+  .studio-launch {
+    padding: 17px;
+    left: 12px;
+    right: 12px;
+    bottom: 17px;
+  }
+  .studio-launch h2 {
+    font-size: 20px;
+  }
+  .studio-launch p {
+    font-size: 8px;
+  }
+  .studio-launch > div:last-child {
+    gap: 2px;
+  }
+  .studio-launch .btn {
+    font-size: 9px;
+    padding: 10px 13px;
+  }
+  .launch-label {
+    font-size: 7px;
+  }
+  .workshop-stage .scene-labels {
+    display: none;
+  }
+  .workshop-scene .fallback-car {
+    transform: translate(0, 2%) scale(1.2);
+  }
+  .workshop-scene .scene-fallback-caption {
+    bottom: 39%;
+    right: 10%;
+    font-size: 6px;
+  }
+  .spatial-viewport {
+    height: 530px !important;
+  }
+  .spatial-viewport .workbench-dock button {
+    font-size: 6px;
+    padding: 10px 2px;
+    gap: 6px;
+  }
+  .spatial-viewport .workbench-dock button > .icon {
+    width: 17px;
+    height: 17px;
+  }
+  .spatial-viewport .mission-card {
+    max-width: 143px;
+    top: 52px;
+  }
+  .spatial-viewport .mission-card p {
+    font-size: 8px;
+  }
+  .spatial-state {
+    display: block;
+    right: 12px;
+    top: 14px;
+  }
+  .spatial-state b {
+    display: block;
+    font-size: 6px;
+    margin-top: 4px;
+    text-align: right;
+  }
+  .spatial-state span {
+    font-size: 6px;
+  }
+  .spatial-viewport .scene-topline > span {
+    font-size: 8px;
+  }
+  .spatial-viewport .scene-topline small {
+    display: none;
+  }
+  .spatial-viewport .scene-view-buttons {
+    top: 75px;
+  }
+  .spatial-viewport .focus-pills {
+    bottom: 153px;
+  }
+  .spatial-feedback {
+    bottom: 108px;
+    max-width: 88%;
+    font-size: 7px;
+  }
+  .spatial-viewport .scene-labels .scene-pin {
+    display: none;
+  }
+  .terminal-label {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+  .mechanic-tools {
+    gap: 6px;
+    margin: 15px 0;
+  }
+  .mechanic-tools > button {
+    padding: 11px 7px;
+    gap: 6px;
+  }
+  .mechanic-tools strong {
+    font-size: 8px;
+  }
+  .mechanic-tools > button > span {
+    font-size: 22px;
+  }
+  .connector-controls {
+    gap: 6px;
+  }
+  .connector-controls > button {
+    font-size: 8px;
+    padding: 9px 5px;
+  }
+  .connector-controls small {
+    font-size: 7px;
+  }
+  .bolt-controls {
+    gap: 4px;
+  }
+  .bolt-controls button {
+    font-size: 8px;
+    padding: 7px 1px;
+  }
+  .bolt-controls button > span {
+    font-size: 20px;
+  }
+  .assembly-actions {
+    gap: 6px;
+  }
+  .assembly-actions button {
+    min-width: 85px;
+    font-size: 8px;
+    padding: 10px 7px;
+  }
+  .assembly-actions .icon {
+    width: 12px;
+  }
+  .console-header h2 > small {
+    display: inline-block;
+    font-size: 8px;
+    padding: 2px 5px;
+    margin-left: 5px;
+  }
+  .console-header h2 {
+    font-size: 12px;
+  }
+  .console-header > .pill {
+    font-size: 6px;
+  }
+  .probe-controls {
+    gap: 6px;
+  }
+  .probe-leads button {
+    font-size: 8px;
+    padding: 8px;
+  }
+  .probe-leads small {
+    font-size: 6px;
+  }
+  .probe-controls > span {
+    font-size: 7px;
+  }
+  .terminal-btn {
+    font-size: 8px;
+    padding: 8px;
+  }
+  .probe-hint {
+    font-size: 8px !important;
+  }
+  .mechanical-warning {
+    font-size: 8px;
+    padding: 9px;
+    gap: 6px;
+  }
+  .mechanical-warning .btn {
+    font-size: 8px;
+  }
+  .clip-control {
+    max-width: 140px;
+    top: 76px;
+  }
+  .thermal-legend {
+    top: 174px;
+    max-width: 155px;
+  }
+  .thermal-legend b {
+    font-size: 8px;
+  }
+  .thermal-legend small {
+    font-size: 6px;
+  }
+  .spatial-immersive .page {
+    padding: 17px 12px;
+  }
+}

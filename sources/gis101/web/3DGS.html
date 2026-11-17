@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPLAT FACTORY · 3D 高斯浏览器</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --red:#E07563;--red-deep:#C25543;
+    --paper:#F1F0EC;--paper-2:#E9E7E1;--paper-3:#DEDBD3;
+    --ink:#1A1917;--ink-soft:#6B6860;
+    --serif:'Noto Serif SC',Georgia,serif;
+    --sans:'Noto Sans SC',sans-serif;
+    --oswald:'Oswald',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.75;overflow-x:hidden}
+  #grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.06;mix-blend-mode:multiply}
+  .frame{max-width:1400px;margin:0 auto;padding:0 2.4rem}
+  header{padding:3.5rem 0 2.5rem;border-bottom:3px solid var(--ink)}
+  .header-grid{display:grid;grid-template-columns:7fr 5fr;gap:2rem;align-items:flex-end}
+  @media(max-width:860px){.header-grid{grid-template-columns:1fr}}
+  .kicker{font-family:var(--oswald);font-size:.72rem;letter-spacing:.55em;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+  .kicker i{width:13px;height:13px}
+  .huge{font-family:var(--serif);font-weight:900;font-size:clamp(2.4rem,6vw,5rem);line-height:.96;letter-spacing:-.02em}
+  .huge em{font-style:normal;color:var(--red)}
+  .huge .sub{display:block;font-family:var(--serif);font-weight:900;font-size:clamp(1rem,2.5vw,1.9rem);margin-top:.6rem;letter-spacing:.04em}
+  .header-side{display:flex;flex-direction:column;justify-content:flex-end;gap:.6rem}
+  .index-num{font-family:var(--oswald);font-size:4.5rem;font-weight:700;color:var(--red);line-height:1;opacity:.18;text-align:right;letter-spacing:-.03em}
+  .header-desc{font-size:.8rem;color:var(--ink-soft);line-height:1.7}
+  .header-desc b{font-weight:500;color:var(--ink)}
+  section{padding:2.5rem 0}
+  .sec-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.6rem;border-bottom:1px solid var(--ink);padding-bottom:.7rem}
+  .sec-no{font-family:var(--oswald);font-weight:700;font-size:2.2rem;color:var(--red);line-height:1}
+  .sec-title{font-family:var(--serif);font-weight:900;font-size:1.2rem;letter-spacing:.06em}
+  .sec-en{font-family:var(--oswald);font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;color:var(--ink-soft);margin-left:auto}
+  .panel{background:var(--paper-2);box-shadow:0 10px 30px rgba(26,25,23,.1);padding:1.6rem;position:relative}
+  .panel::before{content:'';position:absolute;top:0;left:0;width:42px;height:4px;background:var(--red)}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;font-family:var(--serif);font-weight:700;font-size:.78rem;letter-spacing:.06em;border:2px solid var(--ink);background:var(--ink);color:var(--paper);padding:.55rem 1.3rem;transition:all .2s;user-select:none;white-space:nowrap}
+  .btn i{width:14px;height:14px;flex-shrink:0}
+  .btn:hover{background:var(--red);border-color:var(--red)}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn.sm{padding:.22rem .65rem;font-size:.68rem;border-width:1.5px}
+  .btn.sm i{width:12px;height:12px}
+  .btn:disabled{opacity:.35;pointer-events:none}
+  .btn-row{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center}
+  input[type=text],input[type=url]{width:100%;border:none;border-bottom:2px solid var(--ink);background:transparent;font-family:var(--sans);font-size:.88rem;padding:.45rem .1rem;color:var(--ink);outline:none}
+  input:focus{border-bottom-color:var(--red)}
+  label.lbl{font-family:var(--serif);font-weight:700;font-size:.7rem;letter-spacing:.12em;color:var(--ink-soft);display:flex;align-items:center;gap:.35rem;margin-bottom:.3rem}
+  label.lbl i{width:12px;height:12px;color:var(--red)}
+  #dropzone{border:2px dashed var(--ink);padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--paper);margin-bottom:1.2rem}
+  #dropzone:hover,#dropzone.drag-over{border-color:var(--red);background:rgba(224,117,99,.05)}
+  #dropzone i{width:44px;height:44px;stroke-width:1;color:var(--ink-soft);margin-bottom:.7rem}
+  .dz-title{font-family:var(--serif);font-weight:900;font-size:1.1rem;margin-bottom:.3rem}
+  .dz-sub{font-size:.75rem;color:var(--ink-soft)}
+  .format-tags{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:.8rem}
+  .tag{font-family:var(--oswald);font-size:.65rem;letter-spacing:.2em;padding:.15rem .55rem;border:1.5px solid var(--ink-soft);color:var(--ink-soft)}
+  .viewer-layout{display:grid;grid-template-columns:1fr 300px;gap:1.4rem;align-items:start}
+  @media(max-width:1000px){.viewer-layout{grid-template-columns:1fr}}
+
+  /* ── 视口 ── */
+  #viewportWrap{position:relative;background:#0a0a0a;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  #renderCanvas{width:100%;height:580px;display:block;outline:none;touch-action:none}
+  @media(max-width:700px){#renderCanvas{height:360px}}
+
+  /* ── 全屏模式 ── */
+  #viewportWrap.is-fullscreen{
+    position:fixed;inset:0;z-index:10000;
+    width:100vw;height:100vh;
+    box-shadow:none;
+  }
+  #viewportWrap.is-fullscreen #renderCanvas{
+    width:100vw;height:100vh;
+  }
+
+  .viewport-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;transition:opacity .4s}
+  .viewport-overlay.hidden{opacity:0;pointer-events:none}
+  .vp-hint{font-family:var(--serif);font-weight:900;font-size:1.3rem;color:rgba(255,255,255,.28);letter-spacing:.08em}
+  .vp-sub{font-size:.72rem;color:rgba(255,255,255,.16);margin-top:.3rem}
+  .hud{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:6px;pointer-events:none}
+  .hud-badge{font-family:var(--oswald);font-size:.68rem;letter-spacing:.15em;background:rgba(0,0,0,.6);color:rgba(255,255,255,.85);padding:.2rem .55rem;backdrop-filter:blur(4px)}
+  .hud-right{position:absolute;top:12px;right:12px;display:flex;gap:6px}
+  .hud-btn{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--oswald);font-size:.65rem;letter-spacing:.12em;background:rgba(0,0,0,.6);color:rgba(255,255,255,.85);padding:.25rem .6rem;cursor:pointer;border:none;backdrop-filter:blur(4px);transition:background .15s;pointer-events:all}
+  .hud-btn:hover,.hud-btn.active{background:rgba(224,117,99,.85)}
+  .hud-btn i{width:12px;height:12px}
+  /* 全屏按钮高亮 */
+  .hud-btn.fullscreen-active{background:rgba(224,117,99,.85);}
+
+  #loadOverlay{position:absolute;inset:0;background:rgba(10,10,10,.88);display:none;flex-direction:column;align-items:center;justify-content:center;gap:.6rem}
+  .load-title{font-family:var(--serif);font-weight:900;font-size:1.3rem;color:#fff;letter-spacing:.06em}
+  .load-stage{font-family:var(--oswald);font-size:.72rem;letter-spacing:.18em;color:rgba(255,255,255,.45);min-height:1.2em}
+  .progress-bar-wrap{width:280px;height:4px;background:rgba(255,255,255,.12)}
+  .progress-bar{height:100%;background:var(--red);width:0%;transition:width .2s}
+  .load-pct{font-family:var(--oswald);font-size:.8rem;color:rgba(255,255,255,.45);letter-spacing:.2em}
+
+  /* 视角已保存提示 */
+  #savedToast{
+    position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+    font-family:var(--oswald);font-size:.7rem;letter-spacing:.18em;
+    background:rgba(127,199,154,.9);color:#0a1a0f;
+    padding:.3rem 1rem;pointer-events:none;
+    opacity:0;transition:opacity .3s;white-space:nowrap;
+  }
+  #savedToast.show{opacity:1}
+
+  #apiStatus{font-family:var(--oswald);font-size:.65rem;letter-spacing:.15em;padding:.2rem .7rem;display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem}
+  #apiStatus.ok{background:rgba(127,199,154,.15);color:#7fc79a;border:1px solid rgba(127,199,154,.3)}
+  #apiStatus.er{background:rgba(229,138,138,.15);color:#e58a8a;border:1px solid rgba(229,138,138,.3)}
+  #apiStatus i{width:11px;height:11px}
+  .ctrl-panel{display:flex;flex-direction:column;gap:1rem}
+  .ctrl-card{background:var(--paper-2);box-shadow:0 4px 16px rgba(26,25,23,.08);padding:1.2rem;position:relative}
+  .ctrl-card::before{content:'';position:absolute;top:0;left:0;width:32px;height:3px;background:var(--red)}
+  .ctrl-title{font-family:var(--serif);font-weight:900;font-size:.82rem;letter-spacing:.1em;margin-bottom:1rem;display:flex;align-items:center;gap:.4rem}
+  .ctrl-title i{width:14px;height:14px;color:var(--red)}
+  .preset-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem}
+  .preset-btn{font-family:var(--oswald);font-size:.68rem;letter-spacing:.12em;border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:.3rem .2rem;cursor:pointer;text-align:center;transition:all .15s}
+  .preset-btn:hover{background:var(--ink);color:var(--paper)}
+  .preset-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+
+  /* 保存视角按钮 */
+  .save-cam-btn{
+    width:100%;margin-top:.8rem;
+    font-family:var(--oswald);font-size:.68rem;letter-spacing:.18em;
+    border:1.5px solid var(--red);background:transparent;color:var(--red);
+    padding:.35rem;cursor:pointer;text-align:center;transition:all .15s;
+    display:flex;align-items:center;justify-content:center;gap:.4rem;
+  }
+  .save-cam-btn i{width:12px;height:12px}
+  .save-cam-btn:hover{background:var(--red);color:#fff}
+  .cam-saved-info{font-family:var(--oswald);font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:.5rem;text-align:center;min-height:1em}
+  .cam-saved-info.has-data{color:#7fc79a}
+
+  .slider-row{margin-bottom:.9rem}
+  .slider-row:last-child{margin-bottom:0}
+  .slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem}
+  .slider-name{font-family:var(--serif);font-weight:700;font-size:.7rem;letter-spacing:.08em;color:var(--ink-soft)}
+  .slider-val{font-family:var(--oswald);font-size:.82rem;color:var(--red);font-weight:600}
+  input[type=range]{width:100%;-webkit-appearance:none;height:3px;background:var(--paper-3);outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--ink);cursor:pointer}
+  input[type=range]:focus::-webkit-slider-thumb{background:var(--red)}
+
+  /* 旋转输入 */
+  .rot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:.6rem}
+  .rot-item label{font-family:var(--oswald);font-size:.62rem;letter-spacing:.18em;color:var(--ink-soft);display:block;margin-bottom:.2rem;text-align:center}
+  .rot-item input[type=number]{
+    width:100%;border:none;border-bottom:2px solid var(--ink);
+    background:transparent;font-family:var(--oswald);font-size:.9rem;
+    font-weight:600;color:var(--red);text-align:center;
+    padding:.2rem 0;outline:none;
+  }
+  .rot-item input[type=number]:focus{border-bottom-color:var(--red)}
+  .rot-reset{
+    width:100%;font-family:var(--oswald);font-size:.65rem;letter-spacing:.18em;
+    border:1.5px solid var(--ink-soft);background:transparent;color:var(--ink-soft);
+    padding:.28rem;cursor:pointer;transition:all .15s;
+  }
+  .rot-reset:hover{border-color:var(--ink);color:var(--ink)}
+
+  .color-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.3rem}
+  .color-swatch{width:26px;height:26px;cursor:pointer;border:2px solid transparent;transition:border-color .15s;flex-shrink:0}
+  .color-swatch:hover,.color-swatch.active{border-color:var(--red)}
+  .color-custom{width:26px;height:26px;cursor:pointer;border:2px solid var(--ink-soft);padding:0}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+  .stat-item{background:var(--paper);padding:.6rem .8rem}
+  .stat-label{font-family:var(--serif);font-weight:700;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);margin-bottom:.15rem}
+  .stat-value{font-family:var(--oswald);font-size:1.1rem;font-weight:700;color:var(--ink);letter-spacing:.04em}
+  .stat-value.red{color:var(--red)}
+  #log{background:var(--ink);color:#C9C6BE;font-family:'Courier New',monospace;font-size:.7rem;padding:1rem 1.2rem;height:160px;overflow-y:auto;line-height:1.65}
+  #log .t{color:var(--red)}#log .ok{color:#7fc79a}#log .er{color:#e58a8a}#log .info{color:#7ab8e8}#log .warn{color:#f0c060}
+  footer{background:var(--ink);color:rgba(255,255,255,.4);text-align:center;padding:1.1rem 2rem;margin-top:3rem;font-size:.72rem;font-family:var(--sans)}
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+  .toggle-row:last-child{margin-bottom:0}
+  .toggle-name{font-family:var(--serif);font-weight:700;font-size:.7rem;letter-spacing:.08em;color:var(--ink-soft)}
+  .toggle{position:relative;width:36px;height:20px;cursor:pointer}
+  .toggle input{opacity:0;width:0;height:0}
+  .toggle-track{position:absolute;inset:0;background:var(--paper-3);transition:.2s}
+  .toggle input:checked+.toggle-track{background:var(--red)}
+  .toggle-track::before{content:'';position:absolute;width:14px;height:14px;left:3px;top:3px;background:#fff;transition:.2s}
+  .toggle input:checked+.toggle-track::before{transform:translateX(16px)}
+  .url-row{display:grid;grid-template-columns:1fr auto;gap:.8rem;align-items:flex-end}
+</style>
+</head>
+<body>
+<svg id="grain" xmlns="http://www.w3.org/2000/svg">
+  <filter id="noiseF"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#noiseF)"/>
+</svg>
+<div class="frame">
+  <header>
+    <div class="header-grid">
+      <div>
+        <div class="kicker"><i data-lucide="box"></i>3D Gaussian Splatting Viewer</div>
+        <h1 class="huge">高斯泼溅<em>·</em>浏览器<span class="sub">Splat <em>Factory</em></span></h1>
+      </div>
+      <div class="header-side">
+        <div class="index-num">3DGS</div>
+        <p class="header-desc">支持 <b>3DGS 标准 PLY</b>（COLMAP/OpenSplat/Inria 输出）与 <b>.splat</b> 二进制格式。<br>内置 PLY→Splat 转换器，视角记忆，全屏渲染。</p>
+        <div id="apiStatus"><i data-lucide="loader"></i>检测 API…</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 01 加载 -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <span class="sec-title">加载数据</span>
+      <span class="sec-en">Load Data</span>
+    </div>
+    <div class="panel">
+      <div id="dropzone" onclick="document.getElementById('fileInput').click()">
+        <div style="display:flex;justify-content:center"><i data-lucide="upload-cloud"></i></div>
+        <div class="dz-title">拖拽文件至此 / 点击选择</div>
+        <div class="dz-sub">支持 3DGS 标准 PLY（含 f_dc / opacity / scale / rot 字段）及 .splat 二进制</div>
+        <div class="format-tags"><span class="tag">.PLY (3DGS)</span><span class="tag">.SPLAT</span></div>
+      </div>
+      <input type="file" id="fileInput" hidden accept=".ply,.splat">
+      <div style="margin-top:.4rem">
+        <label class="lbl"><i data-lucide="link"></i>远程 URL 加载</label>
+        <div class="url-row">
+          <input type="url" id="urlInput" placeholder="https://example.com/scene.splat">
+          <button class="btn" onclick="loadFromURL()"><i data-lucide="download-cloud"></i>加载</button>
+        </div>
+      </div>
+      <div style="margin-top:1.2rem">
+        <label class="lbl"><i data-lucide="package"></i>官方示例（.splat 格式）</label>
+        <div class="btn-row" style="margin-top:.5rem">
+          <button class="btn ghost sm" onclick="loadDemo('https://assets.babylonjs.com/splat/gs_Sqwaker.splat','gs_Sqwaker.splat')"><i data-lucide="bird"></i>Sqwaker</button>
+          <button class="btn ghost sm" onclick="loadDemo('https://assets.babylonjs.com/splat/gs_Skull.splat','gs_Skull.splat')"><i data-lucide="skull"></i>Skull</button>
+          <button class="btn ghost sm" onclick="loadDemo('https://assets.babylonjs.com/splat/gs_Bonsai.splat','gs_Bonsai.splat')"><i data-lucide="tree-pine"></i>Bonsai</button>
+          <button class="btn ghost sm" onclick="loadDemo('https://assets.babylonjs.com/splat/gs_Train.splat','gs_Train.splat')"><i data-lucide="train"></i>Train</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 视口 -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <span class="sec-title">三维视口</span>
+      <span class="sec-en">3D Viewport</span>
+    </div>
+    <div class="viewer-layout">
+      <div id="viewportWrap">
+        <canvas id="renderCanvas" tabindex="0"></canvas>
+
+        <!-- 空状态 -->
+        <div class="viewport-overlay" id="emptyOverlay">
+          <div style="display:flex;justify-content:center;margin-bottom:1rem">
+            <i data-lucide="box" style="width:64px;height:64px;stroke-width:.8;color:rgba(255,255,255,.2)"></i>
+          </div>
+          <div class="vp-hint">等待加载</div>
+          <div class="vp-sub">从上方选择文件或示例场景</div>
+        </div>
+
+        <!-- 加载遮罩 -->
+        <div id="loadOverlay">
+          <div class="load-title">处理中…</div>
+          <div class="load-stage" id="loadStage">初始化</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+          <div class="load-pct" id="loadPct">0%</div>
+        </div>
+
+        <!-- HUD 左 -->
+        <div class="hud" id="hud" style="display:none">
+          <div class="hud-badge" id="hudFps">FPS —</div>
+          <div class="hud-badge" id="hudFile">—</div>
+          <div class="hud-badge" id="hudSplats">—</div>
+        </div>
+
+        <!-- HUD 右：新增全屏按钮 -->
+        <div class="hud-right">
+          <button class="hud-btn" onclick="resetCamera()"><i data-lucide="home"></i>重置</button>
+          <button class="hud-btn" onclick="toggleAutoRotate()" id="btnAutoRot"><i data-lucide="rotate-cw"></i>旋转</button>
+          <button class="hud-btn" onclick="takeScreenshot()"><i data-lucide="camera"></i>截图</button>
+          <button class="hud-btn" onclick="toggleFullscreen()" id="btnFullscreen"><i data-lucide="maximize"></i>全屏</button>
+        </div>
+
+        <!-- 视角已保存 Toast -->
+        <div id="savedToast">✓ 视角已保存</div>
+      </div>
+
+      <!-- 控制栏 -->
+      <div class="ctrl-panel">
+
+        <!-- 预设视角 + 保存 -->
+        <div class="ctrl-card">
+          <div class="ctrl-title"><i data-lucide="compass"></i>预设视角</div>
+          <div class="preset-grid">
+            <button class="preset-btn" onclick="setPreset('front',this)">前视</button>
+            <button class="preset-btn" onclick="setPreset('back',this)">后视</button>
+            <button class="preset-btn" onclick="setPreset('left',this)">左视</button>
+            <button class="preset-btn" onclick="setPreset('right',this)">右视</button>
+            <button class="preset-btn" onclick="setPreset('top',this)">顶视</button>
+            <button class="preset-btn" onclick="setPreset('iso',this)">等轴</button>
+          </div>
+          <!-- 保存当前视角 -->
+          <button class="save-cam-btn" onclick="saveCurrentCamera()">
+            <i data-lucide="bookmark"></i>保存当前视角为默认
+          </button>
+          <div class="cam-saved-info" id="camSavedInfo">暂无已保存视角</div>
+        </div>
+
+        <!-- 渲染参数 -->
+        <div class="ctrl-card">
+          <div class="ctrl-title"><i data-lucide="sliders-horizontal"></i>渲染参数</div>
+          <div class="slider-row">
+            <div class="slider-label"><span class="slider-name">泼溅缩放</span><span class="slider-val" id="valScale">1.00</span></div>
+            <input type="range" id="sldScale" min="0.1" max="3" step="0.05" value="1" oninput="onSplatScale(this.value)">
+          </div>
+          <div class="slider-row">
+            <div class="slider-label"><span class="slider-name">相机速度</span><span class="slider-val" id="valSpeed">1.0</span></div>
+            <input type="range" id="sldSpeed" min="0.1" max="5" step="0.1" value="1" oninput="onCamSpeed(this.value)">
+          </div>
+          <div class="slider-row">
+            <div class="slider-label"><span class="slider-name">视场角 FOV</span><span class="slider-val" id="valFov">75°</span></div>
+            <input type="range" id="sldFov" min="30" max="120" step="1" value="75" oninput="onFov(this.value)">
+          </div>
+        </div>
+
+        <!-- ★ 数据旋转 -->
+        <div class="ctrl-card">
+          <div class="ctrl-title"><i data-lucide="refresh-cw"></i>数据旋转（°）</div>
+          <div class="rot-grid">
+            <div class="rot-item">
+              <label>X 轴</label>
+              <input type="number" id="rotX" value="0" min="-180" max="180" step="1" oninput="onRotChange()">
+            </div>
+            <div class="rot-item">
+              <label>Y 轴</label>
+              <input type="number" id="rotY" value="0" min="-180" max="180" step="1" oninput="onRotChange()">
+            </div>
+            <div class="rot-item">
+              <label>Z 轴</label>
+              <input type="number" id="rotZ" value="0" min="-180" max="180" step="1" oninput="onRotChange()">
+            </div>
+          </div>
+          <button class="rot-reset" onclick="resetRotation()">↺ 重置旋转</button>
+        </div>
+
+        <!-- 背景 -->
+        <div class="ctrl-card">
+          <div class="ctrl-title"><i data-lucide="palette"></i>背景颜色</div>
+          <div class="color-row">
+            <div class="color-swatch active" style="background:#0a0a0a" data-color="#0a0a0a" onclick="setBg(this)"></div>
+            <div class="color-swatch" style="background:#1a1a2e" data-color="#1a1a2e" onclick="setBg(this)"></div>
+            <div class="color-swatch" style="background:#2d2d2d" data-color="#2d2d2d" onclick="setBg(this)"></div>
+            <div class="color-swatch" style="background:#f1f0ec" data-color="#f1f0ec" onclick="setBg(this)"></div>
+            <div class="color-swatch" style="background:#ffffff" data-color="#ffffff" onclick="setBg(this)"></div>
+            <div class="color-swatch" style="background:#0d1b2a" data-color="#0d1b2a" onclick="setBg(this)"></div>
+            <input type="color" class="color-custom" value="#0a0a0a" onchange="setBgHex(this.value)" title="自定义">
+          </div>
+        </div>
+
+        <!-- 渲染开关 -->
+        <div class="ctrl-card">
+          <div class="ctrl-title"><i data-lucide="toggle-right"></i>渲染选项</div>
+          <div class="toggle-row">
+            <span class="toggle-name">显示坐标轴</span>
+            <label class="toggle"><input type="checkbox" id="togAxes" onchange="toggleAxes(this.checked)"><span class="toggle-track"></span></label>
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-name">显示包围盒</span>
+            <label class="toggle"><input type="checkbox" id="togBbox" onchange="toggleBbox(this.checked)"><span class="toggle-track"></span></label>
+          </div>
+        </div>
+
+        <!-- 统计 -->
+        <div class="ctrl-card">
+          <div class="ctrl-title"><i data-lucide="bar-chart-2"></i>场景统计</div>
+          <div class="stat-grid">
+            <div class="stat-item"><div class="stat-label">SPLAT 数量</div><div class="stat-value red" id="statSplats">—</div></div>
+            <div class="stat-item"><div class="stat-label">实时 FPS</div><div class="stat-value" id="statFps">—</div></div>
+            <div class="stat-item"><div class="stat-label">总耗时</div><div class="stat-value" id="statTime">—</div></div>
+            <div class="stat-item"><div class="stat-label">文件大小</div><div class="stat-value" id="statSize">—</div></div>
+            <div class="stat-item"><div class="stat-label">相机 Alpha</div><div class="stat-value" id="statAlpha">—</div></div>
+            <div class="stat-item"><div class="stat-label">相机 Beta</div><div class="stat-value" id="statBeta">—</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 日志 -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <span class="sec-title">运行日志</span>
+      <span class="sec-en">Console</span>
+    </div>
+    <div id="log"></div>
+  </section>
+</div>
+<footer>本工具基于 Babylon.js 引擎渲染，内置 PLY→Splat 转换器，所有数据仅在本地浏览器处理，不上传至任何服务器。</footer>
+
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════
+   全局状态
+══════════════════════════════════════════════════════ */
+let engine, scene, camera;
+let currentSplat = null, axesViewer = null;
+let autoRotating = false, autoRotTimer = null;
+let currentFilename = '';   // 当前加载的文件名（用于视角存储 key）
+
+/* ══════════════════════════════════════════════════════
+   日志
+══════════════════════════════════════════════════════ */
+function log(msg, cls) {
+  const t = new Date().toTimeString().slice(0,8);
+  const el = document.getElementById('log');
+  el.insertAdjacentHTML('beforeend',
+    `<div><span class="t">[${t}]</span> <span class="${cls||''}">${msg}</span></div>`);
+  el.scrollTop = el.scrollHeight;
+}
+function setStage(msg, pct) {
+  document.getElementById('loadStage').textContent = msg;
+  if (pct !== undefined) {
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('loadPct').textContent = Math.round(pct) + '%';
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   Babylon.js 初始化
+══════════════════════════════════════════════════════ */
+function initBabylon() {
+  const canvas = document.getElementById('renderCanvas');
+  engine = new BABYLON.Engine(canvas, true, {
+    preserveDrawingBuffer: true, stencil: true, adaptToDeviceRatio: true
+  });
+  scene = new BABYLON.Scene(engine);
+  scene.clearColor = new BABYLON.Color4(0.04, 0.04, 0.04, 1);
+
+  camera = new BABYLON.ArcRotateCamera('cam', -Math.PI/2, Math.PI/3, 5, BABYLON.Vector3.Zero(), scene);
+  camera.attachControl(canvas, true);
+  camera.lowerRadiusLimit = 0.01; camera.upperRadiusLimit = 500;
+  camera.wheelDeltaPercentage = 0.01; camera.minZ = 0.001; camera.maxZ = 50000;
+
+  new BABYLON.HemisphericLight('hemi', new BABYLON.Vector3(0,1,0), scene).intensity = 1;
+
+  engine.runRenderLoop(() => {
+    scene.render();
+    const fps = engine.getFps().toFixed(0);
+    document.getElementById('hudFps').textContent = `FPS ${fps}`;
+    document.getElementById('statFps').textContent = fps;
+    if (camera) {
+      document.getElementById('statAlpha').textContent = (camera.alpha*180/Math.PI).toFixed(1)+'°';
+      document.getElementById('statBeta').textContent  = (camera.beta *180/Math.PI).toFixed(1)+'°';
+    }
+  });
+  window.addEventListener('resize', () => engine.resize());
+
+  // ESC 退出全屏
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && isFullscreen()) exitFullscreen();
+  });
+  // 监听浏览器原生全屏变化
+  document.addEventListener('fullscreenchange',     onNativeFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', onNativeFullscreenChange);
+
+  const ver = BABYLON.Engine.Version || '?';
+  const hasGS = !!BABYLON.GaussianSplattingMesh;
+  const el = document.getElementById('apiStatus');
+  el.className = hasGS ? 'ok' : 'er';
+  el.innerHTML = hasGS
+    ? `<i data-lucide="check-circle"></i>Babylon.js v${ver} · GS 就绪`
+    : `<i data-lucide="x-circle"></i>v${ver} · GS 不可用`;
+  lucide.createIcons({ nodes: [el] });
+  log(`Babylon.js v${ver} 初始化完成，GaussianSplattingMesh: ${hasGS}`, 'ok');
+  log('操作提示：左键旋转 · 右键平移 · 滚轮缩放', 'info');
+}
+
+/* ══════════════════════════════════════════════════════
+   ★ 功能1：全屏
+══════════════════════════════════════════════════════ */
+function isFullscreen() {
+  return document.getElementById('viewportWrap').classList.contains('is-fullscreen');
+}
+
+function toggleFullscreen() {
+  if (isFullscreen()) exitFullscreen();
+  else enterFullscreen();
+}
+
+function enterFullscreen() {
+  const wrap = document.getElementById('viewportWrap');
+  wrap.classList.add('is-fullscreen');
+  // 同步更新按钮图标
+  const btn = document.getElementById('btnFullscreen');
+  btn.classList.add('fullscreen-active');
+  btn.innerHTML = '<i data-lucide="minimize"></i>退出';
+  lucide.createIcons({ nodes: [btn] });
+  // 尝试浏览器原生全屏（可选，部分环境受限）
+  try {
+    if (wrap.requestFullscreen) wrap.requestFullscreen();
+    else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+  } catch(e) {}
+  // 引擎 resize
+  setTimeout(() => engine && engine.resize(), 50);
+  log('已进入全屏模式。按 ESC 退出。', 'info');
+}
+
+function exitFullscreen() {
+  const wrap = document.getElementById('viewportWrap');
+  wrap.classList.remove('is-fullscreen');
+  const btn = document.getElementById('btnFullscreen');
+  btn.classList.remove('fullscreen-active');
+  btn.innerHTML = '<i data-lucide="maximize"></i>全屏';
+  lucide.createIcons({ nodes: [btn] });
+  try {
+    if (document.exitFullscreen) document.exitFullscreen();
+    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+  } catch(e) {}
+  setTimeout(() => engine && engine.resize(), 50);
+  log('已退出全屏模式。', 'info');
+}
+
+function onNativeFullscreenChange() {
+  // 浏览器原生全屏被 ESC 退出时同步 CSS 状态
+  const isNative = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  if (!isNative && isFullscreen()) {
+    document.getElementById('viewportWrap').classList.remove('is-fullscreen');
+    const btn = document.getElementById('btnFullscreen');
+    btn.classList.remove('fullscreen-active');
+    btn.innerHTML = '<i data-lucide="maximize"></i>全屏';
+    lucide.createIcons({ nodes: [btn] });
+    setTimeout(() => engine && engine.resize(), 50);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   ★ 功能3：视角记忆（localStorage）
+   key: splat_cam_{filename}
+   value: { alpha, beta, radius, targetX, targetY, targetZ }
+══════════════════════════════════════════════════════ */
+function camKey(filename) {
+  return 'splat_cam_' + filename.replace(/[^a-zA-Z0-9._-]/g, '_');
+}
+
+function saveCurrentCamera() {
+  if (!camera || !currentFilename) {
+    log('请先加载场景后再保存视角。', 'warn'); return;
+  }
+  const data = {
+    alpha:   camera.alpha,
+    beta:    camera.beta,
+    radius:  camera.radius,
+    targetX: camera.target.x,
+    targetY: camera.target.y,
+    targetZ: camera.target.z,
+    savedAt: new Date().toLocaleString()
+  };
+  localStorage.setItem(camKey(currentFilename), JSON.stringify(data));
+  log(`视角已保存：alpha=${(data.alpha*180/Math.PI).toFixed(1)}° beta=${(data.beta*180/Math.PI).toFixed(1)}° r=${data.radius.toFixed(2)}`, 'ok');
+  updateCamSavedInfo(currentFilename);
+  showSavedToast();
+}
+
+function loadSavedCamera(filename) {
+  const raw = localStorage.getItem(camKey(filename));
+  if (!raw) return false;
+  try {
+    const d = JSON.parse(raw);
+    camera.alpha  = d.alpha;
+    camera.beta   = d.beta;
+    camera.radius = d.radius;
+    camera.target = new BABYLON.Vector3(d.targetX, d.targetY, d.targetZ);
+    log(`已恢复上次保存的视角（${d.savedAt}）`, 'ok');
+    return true;
+  } catch(e) { return false; }
+}
+
+function updateCamSavedInfo(filename) {
+  const el = document.getElementById('camSavedInfo');
+  const raw = localStorage.getItem(camKey(filename));
+  if (raw) {
+    try {
+      const d = JSON.parse(raw);
+      el.textContent = `已保存：${d.savedAt}`;
+      el.className = 'cam-saved-info has-data';
+    } catch(e) { el.textContent = '暂无已保存视角'; el.className = 'cam-saved-info'; }
+  } else {
+    el.textContent = '暂无已保存视角';
+    el.className = 'cam-saved-info';
+  }
+}
+
+function showSavedToast() {
+  const t = document.getElementById('savedToast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+/* ══════════════════════════════════════════════════════
+   PLY 解析器（3DGS PLY → Splat ArrayBuffer）
+══════════════════════════════════════════════════════ */
+function sigmoid(x) { return 1 / (1 + Math.exp(-x)); }
+
+function parsePlyHeader(buffer) {
+  const bytes = new Uint8Array(buffer);
+  const enc = new TextDecoder('ascii');
+  let headerEnd = -1;
+  for (let i = 0; i < Math.min(bytes.length, 8192); i++) {
+    if (bytes[i]===101&&bytes[i+1]===110&&bytes[i+2]===100&&
+        bytes[i+3]===95 &&bytes[i+4]===104&&bytes[i+5]===101&&
+        bytes[i+6]===97 &&bytes[i+7]===100&&bytes[i+8]===101&&bytes[i+9]===114) {
+      headerEnd = i + 10;
+      while (headerEnd < bytes.length && (bytes[headerEnd]===10||bytes[headerEnd]===13)) headerEnd++;
+      break;
+    }
+  }
+  if (headerEnd < 0) throw new Error('无法找到 PLY header 结束标记 (end_header)');
+  const headerText = enc.decode(bytes.slice(0, headerEnd));
+  const vertMatch = headerText.match(/element vertex\s+(\d+)/);
+  if (!vertMatch) throw new Error('PLY header 中未找到 element vertex');
+  const vertexCount = parseInt(vertMatch[1]);
+  if (!headerText.includes('binary_little_endian') && !headerText.includes('binary_big_endian'))
+    throw new Error('仅支持 binary PLY 格式');
+  const bigEndian = headerText.includes('binary_big_endian');
+  const typeMap = {
+    'float':4,'float32':4,'double':8,'float64':8,
+    'int':4,'int32':4,'uint':4,'uint32':4,
+    'short':2,'int16':2,'ushort':2,'uint16':2,
+    'char':1,'int8':1,'uchar':1,'uint8':1
+  };
+  const fields = [];
+  const vertexSection = headerText.slice(headerText.indexOf('element vertex'));
+  const propRe = /property\s+(\w+)\s+(\w+)/g;
+  let m;
+  while ((m = propRe.exec(vertexSection)) !== null) {
+    const type = m[1], name = m[2];
+    const sz = typeMap[type];
+    if (!sz) throw new Error(`未知 PLY 类型：${type}`);
+    fields.push({ name, type, byteSize: sz });
+  }
+  const bytesPerVertex = fields.reduce((s,f)=>s+f.byteSize, 0);
+  log(`顶点数：${vertexCount.toLocaleString()}，每顶点 ${bytesPerVertex} bytes，字段：${fields.length}`, 'info');
+  return { vertexCount, byteOffset: headerEnd, fields, bytesPerVertex, bigEndian };
+}
+
+async function plyToSplatBuffer(plyBuffer) {
+  setStage('解析 PLY header…', 5); await tick();
+  const { vertexCount, byteOffset, fields, bytesPerVertex, bigEndian } = parsePlyHeader(plyBuffer);
+  const fi = {};
+  fields.forEach((f,i) => { fi[f.name] = i; });
+  const required = ['x','y','z','f_dc_0','f_dc_1','f_dc_2','opacity','scale_0','scale_1','scale_2','rot_0','rot_1','rot_2','rot_3'];
+  const missing = required.filter(n => fi[n] === undefined);
+  if (missing.length > 0)
+    throw new Error(`PLY 缺少 3DGS 必要字段：${missing.join(', ')}\n请确认这是 Gaussian Splatting 训练输出的 PLY，而非普通点云。`);
+  const fieldOffsets = [];
+  let off = 0;
+  for (const f of fields) { fieldOffsets.push(off); off += f.byteSize; }
+  const splatBuffer = new ArrayBuffer(vertexCount * 32);
+  const outF32 = new Float32Array(splatBuffer);
+  const outU8  = new Uint8Array(splatBuffer);
+  const SH_C0 = 0.28209479177387814;
+  const dataView = new DataView(plyBuffer, byteOffset);
+  const le = !bigEndian;
+  setStage('转换格式中…', 10); await tick();
+  const CHUNK = 50000;
+  for (let start = 0; start < vertexCount; start += CHUNK) {
+    const end = Math.min(start + CHUNK, vertexCount);
+    for (let i = start; i < end; i++) {
+      const base = i * bytesPerVertex;
+      const readF = (n) => dataView.getFloat32(base + fieldOffsets[fi[n]], le);
+      const x=readF('x'), y=readF('y'), z=readF('z');
+      const sx=Math.exp(readF('scale_0')), sy=Math.exp(readF('scale_1')), sz2=Math.exp(readF('scale_2'));
+      const r=Math.min(255,Math.max(0,Math.round(sigmoid(readF('f_dc_0')*SH_C0+0.5)*255)));
+      const g=Math.min(255,Math.max(0,Math.round(sigmoid(readF('f_dc_1')*SH_C0+0.5)*255)));
+      const b=Math.min(255,Math.max(0,Math.round(sigmoid(readF('f_dc_2')*SH_C0+0.5)*255)));
+      const a=Math.min(255,Math.max(0,Math.round(sigmoid(readF('opacity'))*255)));
+      let rw=readF('rot_0'),rx=readF('rot_1'),ry=readF('rot_2'),rz=readF('rot_3');
+      const rl=Math.sqrt(rw*rw+rx*rx+ry*ry+rz*rz)||1;
+      rw/=rl;rx/=rl;ry/=rl;rz/=rl;
+      const qw=Math.min(255,Math.max(0,Math.round(rw*128+128)));
+      const qx=Math.min(255,Math.max(0,Math.round(rx*128+128)));
+      const qy=Math.min(255,Math.max(0,Math.round(ry*128+128)));
+      const qz=Math.min(255,Math.max(0,Math.round(rz*128+128)));
+      const f32b = i*8;
+      outF32[f32b]=x; outF32[f32b+1]=y; outF32[f32b+2]=z;
+      outF32[f32b+3]=sx; outF32[f32b+4]=sy; outF32[f32b+5]=sz2;
+      const u8b = i*32+24;
+      outU8[u8b]=r; outU8[u8b+1]=g; outU8[u8b+2]=b; outU8[u8b+3]=a;
+      outU8[u8b+4]=qw; outU8[u8b+5]=qx; outU8[u8b+6]=qy; outU8[u8b+7]=qz;
+    }
+    setStage(`转换中 ${end.toLocaleString()} / ${vertexCount.toLocaleString()}`, 10+(end/vertexCount)*80);
+    await tick();
+  }
+  setStage('转换完成，上传 GPU…', 92); await tick();
+  return { splatBuffer, vertexCount };
+}
+
+function tick() { return new Promise(r => setTimeout(r, 0)); }
+
+/* ══════════════════════════════════════════════════════
+   主加载流程
+══════════════════════════════════════════════════════ */
+async function loadSplat(source, filename, fileSize) {
+  if (!engine || !scene) { log('引擎未就绪。','er'); return; }
+  showLoadOverlay(true);
+  const t0 = performance.now();
+  const ext = filename.split('.').pop().toLowerCase();
+  currentFilename = filename;
+  log(`▶ 开始加载：${filename}（${fileSize ? formatSize(fileSize) : '远程'}）`, 'info');
+  cleanScene();
+
+  try {
+    let splatBuffer, vertexCount;
+
+    if (ext === 'ply') {
+      setStage('读取文件…', 2);
+      let arrayBuffer;
+      if (source instanceof File || source instanceof Blob) {
+        arrayBuffer = await source.arrayBuffer();
+      } else {
+        setStage('下载文件…', 2);
+        const resp = await fetch(source);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        arrayBuffer = await resp.arrayBuffer();
+      }
+      log(`文件读取完成：${formatSize(arrayBuffer.byteLength)}`, 'info');
+      const result = await plyToSplatBuffer(arrayBuffer);
+      splatBuffer = result.splatBuffer; vertexCount = result.vertexCount;
+      log(`PLY→Splat 转换完成：${vertexCount.toLocaleString()} splats`, 'ok');
+      setStage('创建 GaussianSplattingMesh…', 93); await tick();
+      const gs = new BABYLON.GaussianSplattingMesh('splat', null, scene);
+      gs.updateData(splatBuffer);
+      currentSplat = gs;
+    } else {
+      setStage('下载 .splat 文件…', 10);
+      let objectUrl = null, rootUrl = '', sceneFile = '';
+      if (source instanceof File || source instanceof Blob) {
+        objectUrl = URL.createObjectURL(source);
+        rootUrl = objectUrl + '#'; sceneFile = filename;
+      } else {
+        const ls = source.lastIndexOf('/');
+        rootUrl = source.substring(0, ls+1); sceneFile = source.substring(ls+1);
+      }
+      const result = await BABYLON.SceneLoader.ImportMeshAsync(
+        '', rootUrl, sceneFile, scene,
+        (evt) => {
+          if (evt.lengthComputable) {
+            const p = 10 + (evt.loaded/evt.total)*80;
+            setStage(`下载中 ${formatSize(evt.loaded)} / ${formatSize(evt.total)}`, p);
+          }
+        }, '.splat'
+      );
+      if (objectUrl) setTimeout(()=>URL.revokeObjectURL(objectUrl), 5000);
+      currentSplat = result.meshes && result.meshes[0] ? result.meshes[0] : null;
+      if (!currentSplat) throw new Error('SceneLoader 返回空 meshes');
+      vertexCount = currentSplat.splatsCount || 0;
+    }
+
+    // 应用缩放
+    const sc = parseFloat(document.getElementById('sldScale').value);
+    currentSplat.scaling = new BABYLON.Vector3(sc, sc, sc);
+
+    // 应用当前旋转输入框的值
+    applyRotationFromInputs();
+
+    // 先自动对焦，再尝试恢复保存的视角
+    autoFitCamera();
+    const restored = loadSavedCamera(filename);
+    if (!restored) log('未找到已保存视角，使用自动对焦。', 'info');
+
+    // 更新 UI
+    const elapsed = ((performance.now()-t0)/1000).toFixed(2);
+    const cnt = (currentSplat.splatsCount != null ? currentSplat.splatsCount : vertexCount||0).toLocaleString();
+    document.getElementById('hudFile').textContent    = filename;
+    document.getElementById('hudSplats').textContent  = cnt + ' splats';
+    document.getElementById('statSplats').textContent = cnt;
+    document.getElementById('statTime').textContent   = elapsed + 's';
+    document.getElementById('statSize').textContent   = fileSize ? formatSize(fileSize) : '—';
+    document.getElementById('hud').style.display      = 'flex';
+    document.getElementById('emptyOverlay').classList.add('hidden');
+    updateCamSavedInfo(filename);
+
+    showLoadOverlay(false);
+    log(`✓ 加载成功：${filename}，${cnt} splats，耗时 ${elapsed}s`, 'ok');
+
+  } catch(err) {
+    showLoadOverlay(false);
+    log(`✗ 加载失败：${err.message}`, 'er');
+    if (err.message.includes('缺少') || err.message.includes('必要字段'))
+      log('提示：请确认 PLY 是 Gaussian Splatting 训练输出，而非普通点云。', 'warn');
+    console.error('[SplatViewer]', err);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   场景清理 & 自动对焦
+══════════════════════════════════════════════════════ */
+function cleanScene() {
+  if (currentSplat) { try{currentSplat.dispose();}catch(e){} currentSplat=null; }
+  if (axesViewer)   { try{axesViewer.dispose();}catch(e){}   axesViewer=null;   }
+  [...scene.meshes].forEach(m=>{try{m.dispose();}catch(e){}});
+  document.getElementById('togAxes').checked = false;
+  document.getElementById('togBbox').checked = false;
+}
+
+function autoFitCamera() {
+  if (!currentSplat||!camera) return;
+  try {
+    const bbox = currentSplat.getBoundingInfo().boundingBox;
+    const c    = bbox.centerWorld;
+    const diag = BABYLON.Vector3.Distance(bbox.minimumWorld, bbox.maximumWorld);
+    camera.target = c.clone();
+    camera.radius = Math.max(diag*1.5, 1);
+    camera.alpha  = -Math.PI/2;
+    camera.beta   = Math.PI/3;
+  } catch(e) { camera.radius=5; }
+}
+
+/* ══════════════════════════════════════════════════════
+   ★ 功能2：数据旋转
+══════════════════════════════════════════════════════ */
+function onRotChange() {
+  if (!currentSplat) return;
+  applyRotationFromInputs();
+}
+
+function applyRotationFromInputs() {
+  if (!currentSplat) return;
+  const rx = parseFloat(document.getElementById('rotX').value) || 0;
+  const ry = parseFloat(document.getElementById('rotY').value) || 0;
+  const rz = parseFloat(document.getElementById('rotZ').value) || 0;
+  const toRad = Math.PI / 180;
+    currentSplat.rotation = new BABYLON.Vector3(rx * toRad, ry * toRad, rz * toRad);
+  }
+
+  function resetRotation() {
+    document.getElementById('rotX').value = 0;
+    document.getElementById('rotY').value = 0;
+    document.getElementById('rotZ').value = 0;
+    if (currentSplat) {
+      currentSplat.rotation = new BABYLON.Vector3(0, 0, 0);
+    }
+    log('旋转已重置为 0°。');
+  }
+
+  /* ══════════════════════════════════════════════════════
+     加载入口
+  ══════════════════════════════════════════════════════ */
+  function loadFromFile(file) {
+    if (!file) return;
+    const ext = file.name.split('.').pop().toLowerCase();
+    if (!['ply','splat'].includes(ext)) { log(`不支持 .${ext}，请使用 .ply 或 .splat`,'er'); return; }
+    loadSplat(file, file.name, file.size);
+  }
+  function loadFromURL() {
+    const url = document.getElementById('urlInput').value.trim();
+    if (!url) { log('请输入有效 URL。','er'); return; }
+    loadSplat(url, url.split('/').pop()||'remote.splat', null);
+  }
+  function loadDemo(url, name) {
+    document.getElementById('urlInput').value = url;
+    loadSplat(url, name, null);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     拖拽
+  ══════════════════════════════════════════════════════ */
+  const dz = document.getElementById('dropzone');
+  dz.addEventListener('dragover',  e=>{e.preventDefault();dz.classList.add('drag-over');});
+  dz.addEventListener('dragleave', ()=>dz.classList.remove('drag-over'));
+  dz.addEventListener('drop', e=>{
+    e.preventDefault(); dz.classList.remove('drag-over');
+    const f=e.dataTransfer.files[0]; if(f) loadFromFile(f);
+  });
+  document.getElementById('fileInput').addEventListener('change', e=>{
+    if(e.target.files[0]) loadFromFile(e.target.files[0]);
+    e.target.value='';
+  });
+
+  /* ══════════════════════════════════════════════════════
+     相机控制
+  ══════════════════════════════════════════════════════ */
+  function resetCamera() { autoFitCamera(); log('相机已重置。'); }
+
+  function setPreset(view, btn) {
+    document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    const p = {
+      front: [-Math.PI/2, Math.PI/2],
+      back:  [ Math.PI/2, Math.PI/2],
+      left:  [-Math.PI,   Math.PI/2],
+      right: [0,          Math.PI/2],
+      top:   [-Math.PI/2, 0.01],
+      iso:   [-Math.PI/4, Math.PI/4]
+    }[view];
+    if (!p || !camera) return;
+    BABYLON.Animation.CreateAndStartAnimation('a', camera, 'alpha', 30, 20, camera.alpha, p[0], 0);
+    BABYLON.Animation.CreateAndStartAnimation('b', camera, 'beta',  30, 20, camera.beta,  p[1], 0);
+    log(`切换至 ${view} 视角。`);
+  }
+
+  function toggleAutoRotate() {
+    autoRotating = !autoRotating;
+    document.getElementById('btnAutoRot').classList.toggle('active', autoRotating);
+    if (autoRotating) {
+      autoRotTimer = setInterval(()=>{ if(camera) camera.alpha += 0.008; }, 16);
+      log('自动旋转已开启。');
+    } else {
+      clearInterval(autoRotTimer);
+      log('自动旋转已关闭。');
+    }
+  }
+
+  function takeScreenshot() {
+    if (!engine||!camera) { log('请先加载场景。','er'); return; }
+    BABYLON.Tools.CreateScreenshot(engine, camera, {width:1920,height:1080}, d=>{
+      const a=document.createElement('a'); a.href=d; a.download=`splat_${Date.now()}.png`; a.click();
+      log('截图已保存（1920×1080）。','ok');
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════
+     渲染参数
+  ══════════════════════════════════════════════════════ */
+  function onSplatScale(v) {
+    document.getElementById('valScale').textContent = parseFloat(v).toFixed(2);
+    if (currentSplat) currentSplat.scaling = new BABYLON.Vector3(+v, +v, +v);
+  }
+  function onCamSpeed(v) {
+    document.getElementById('valSpeed').textContent = parseFloat(v).toFixed(1);
+    if (camera) camera.wheelDeltaPercentage = 0.01 * +v;
+  }
+  function onFov(v) {
+    document.getElementById('valFov').textContent = v + '°';
+    if (camera) camera.fov = +v * Math.PI / 180;
+  }
+
+  /* ══════════════════════════════════════════════════════
+     背景色
+  ══════════════════════════════════════════════════════ */
+  function setBg(el) {
+    document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active'));
+    el.classList.add('active');
+    setBgHex(el.dataset.color);
+  }
+  function setBgHex(hex) {
+    if (!scene) return;
+    const r=parseInt(hex.slice(1,3),16)/255,
+          g=parseInt(hex.slice(3,5),16)/255,
+          b=parseInt(hex.slice(5,7),16)/255;
+    scene.clearColor = new BABYLON.Color4(r, g, b, 1);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     渲染开关
+  ══════════════════════════════════════════════════════ */
+  function toggleAxes(on) {
+    if (!scene) return;
+    if (on) {
+      axesViewer = new BABYLON.AxesViewer(scene, 1);
+      log('坐标轴已显示。');
+    } else {
+      if (axesViewer) { axesViewer.dispose(); axesViewer = null; }
+      log('坐标轴已隐藏。');
+    }
+  }
+  function toggleBbox(on) {
+    if (!currentSplat) { log('请先加载场景。','warn'); return; }
+    currentSplat.showBoundingBox = on;
+    log(on ? '包围盒已显示。' : '包围盒已隐藏。');
+  }
+
+  /* ══════════════════════════════════════════════════════
+     进度条
+  ══════════════════════════════════════════════════════ */
+  function showLoadOverlay(show) {
+    const el = document.getElementById('loadOverlay');
+    if (show) {
+      el.style.display = 'flex';
+      setStage('初始化…', 0);
+    } else {
+      setStage('完成', 100);
+      setTimeout(()=>{ el.style.display='none'; }, 600);
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════
+     工具函数
+  ══════════════════════════════════════════════════════ */
+  function formatSize(b) {
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+    return (b/1048576).toFixed(1) + ' MB';
+  }
+
+  /* ══════════════════════════════════════════════════════
+     启动
+  ══════════════════════════════════════════════════════ */
+  window.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+    initBabylon();
+    log('3D 高斯泼溅浏览器已就绪。', 'ok');
+  });
+  </script>
+  </body>
+  </html>

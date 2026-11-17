@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工业级三维模型查看器 </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #1a1a1a; font-family: 'Segoe UI', 'Roboto', sans-serif; color: #e0e0e0; user-select: none; }
+        #canvas-container { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; outline: none; }
+        
+        /* UI 面板通用 */
+        .ui-panel {
+            position: absolute;
+            background: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(12px);
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+        }
+
+        #top-bar { top: 15px; left: 50%; transform: translateX(-50%); flex-wrap: wrap; justify-content: center; max-width: 98vw; }
+        #bottom-bar { bottom: 25px; left: 25px; right: 25px; height: 130px; overflow-x: auto; overflow-y: hidden; align-items: flex-start; white-space: nowrap; padding: 10px; }
+
+        /* 侧边控制面板 (材质/剖切) */
+        .side-panel {
+            position: absolute; top: 80px; right: 20px; width: 260px;
+            flex-direction: column; align-items: stretch; display: none;
+            z-index: 100; padding: 16px;
+        }
+        .side-panel h4 { margin: 0 0 15px 0; font-size: 13px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #444; padding-bottom: 8px; display:flex; justify-content:space-between; }
+        .control-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 12px; }
+        
+        /* 按钮样式 */
+        button, .file-upload {
+            background: #2a2a2a; color: #ccc; border: 1px solid #444; padding: 0 12px;
+            border-radius: 4px; cursor: pointer; font-size: 13px; transition: all 0.2s;
+            display: flex; align-items: center; gap: 8px; height: 36px; font-weight: 500;
+        }
+        button:hover, .file-upload:hover { background: #3a3a3a; color: white; border-color: #666; }
+        button.active { background: #007acc; border-color: #007acc; color: white; }
+        
+        input[type="text"] { padding: 0 8px; height: 34px; border-radius: 4px; border: 1px solid #444; background: #111; color: white; width: 140px; }
+        input[type="file"] { display: none; }
+        input[type="range"] { width: 100px; accent-color: #007acc; cursor: pointer; }
+        input[type="checkbox"] { accent-color: #007acc; width: 16px; height: 16px; }
+        .divider { width: 1px; height: 24px; background: #444; margin: 0 2px; }
+
+        /* 缩略图 */
+        .view-item {
+            display: inline-block; width: 150px; margin-right: 10px; cursor: pointer; position: relative;
+            border: 2px solid transparent; transition: all 0.2s; background: #222; border-radius: 6px; overflow: hidden; vertical-align: top;
+        }
+        .view-item:hover { border-color: #007acc; transform: translateY(-2px); }
+        .view-item img { width: 100%; height: 85px; object-fit: cover; display: block; }
+        .view-info { padding: 5px; background: #252525; text-align: center; }
+        .view-name { display: block; font-size: 12px; color: #ddd; overflow: hidden; text-overflow: ellipsis; }
+        .delete-btn {
+            position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.6); color: #ff4d4d;
+            border: none; width: 24px; height: 24px; border-radius: 4px; font-size: 14px;
+            justify-content: center; padding: 0; opacity: 0; transition: opacity 0.2s;
+        }
+        .view-item:hover .delete-btn { opacity: 1; }
+
+        /* 标注与测量标签 */
+        .annotation, .measure-label { position: absolute; top: 0; left: 0; z-index: 50; pointer-events: none; display: none; }
+        .annotation-dot {
+            width: 20px; height: 20px; background: rgba(0, 122, 204, 0.9); border: 2px solid white;
+            border-radius: 50%; box-shadow: 0 0 15px rgba(0,122,204,0.5); cursor: pointer; pointer-events: auto; transition: transform 0.2s;
+            display: flex; justify-content: center; align-items: center; color: white; font-size: 10px;
+        }
+        .annotation-dot:hover { transform: scale(1.2); background: #0099ff; }
+        .annotation-card {
+            position: absolute; top: 30px; left: -100px; width: 220px; background: rgba(20, 20, 20, 0.95);
+            padding: 15px; border-radius: 8px; border: 1px solid #444; color: white; pointer-events: auto;
+            opacity: 0; transition: opacity 0.2s; pointer-events: none; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .annotation:hover .annotation-card { opacity: 1; pointer-events: auto; }
+        .annotation-link { color: #4db8ff; text-decoration: none; font-size: 12px; display: block; margin-top: 8px; cursor: pointer; word-break: break-all; padding-top: 5px; border-top: 1px solid #333;}
+        
+        /* 测量标签样式 */
+        .measure-label span {
+            background: rgba(0, 0, 0, 0.7); color: #4db8ff; padding: 4px 8px; border-radius: 4px;
+            border: 1px solid #4db8ff; font-size: 12px; font-weight: bold; white-space: nowrap;
+        }
+
+        /* 录制指示器 */
+        #recording-indicator {
+            position: fixed; top: 20px; right: 20px; background: rgba(200, 0, 0, 0.8); color: white;
+            padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; display: none;
+            align-items: center; gap: 8px; z-index: 200; box-shadow: 0 0 15px rgba(255,0,0,0.4);
+        }
+        .rec-dot { width: 10px; height: 10px; background: white; border-radius: 50%; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* 输入弹窗 */
+        #input-modal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: #252525; padding: 24px; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid #444; z-index: 1000; display: none; flex-direction: column; gap: 12px; width: 320px;
+        }
+        #input-modal h3 { margin: 0 0 5px 0; font-size: 16px; color: #fff; font-weight: 600; }
+        #input-modal input { width: 100%; box-sizing: border-box; padding: 10px; background: #151515; border: 1px solid #444; color: white; border-radius: 6px; font-size: 14px;}
+        #input-modal .btn-group { display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px; }
+
+        /* Loader (仅加载模型时显示) */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); display: none; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+        }
+        .spinner {
+            border: 3px solid #333; border-top: 3px solid #007acc; border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 0.8s linear infinite; margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #status-bar {
+            position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+            background: rgba(16, 185, 129, 0.9); color: white; padding: 8px 24px;
+            border-radius: 30px; font-size: 13px; z-index: 200; display: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); pointer-events: none; font-weight: 600;
+        }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #222; }
+        ::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+    </style>
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "gsap": "https://unpkg.com/gsap@3.12.5/index.js"
+            }
+        }
+    </script>
+
+    <script id="project-config" type="text/plain">DATA_PLACEHOLDER</script>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <div id="loader-text" style="color:#aaa; font-size:14px; letter-spacing: 1px;">LOADING MODEL...</div>
+    </div>
+
+    <div id="status-bar"></div>
+    <div id="recording-indicator"><div class="rec-dot"></div>REC</div>
+
+    <div id="input-modal">
+        <h3><i class="fas fa-edit"></i> 添加标注</h3>
+        <input type="text" id="note-text" placeholder="标题 (例如: 核心组件)">
+        <input type="text" id="note-url" placeholder="链接 (可选)">
+        <div class="btn-group">
+            <button onclick="app.closeModal()"><i class="fas fa-times"></i> 取消</button>
+            <button onclick="app.confirmAnnotation()" class="active"><i class="fas fa-check"></i> 确定</button>
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <!-- 顶部工具栏 -->
+    <div id="top-bar" class="ui-panel">
+        <div id="load-group" style="display:flex; gap:8px; align-items:center;">
+            <label class="file-upload" title="打开本地文件"><i class="fas fa-folder-open"></i><input type="file" id="file-input" accept=".glb,.gltf"></label>
+            <input type="text" id="url-input" placeholder="https://.../model.glb" style="width:100px;">
+            <button onclick="app.loadFromUrl()" title="加载 URL"><i class="fas fa-cloud-download-alt"></i></button>
+            <div class="divider"></div>
+        </div>
+        
+        <button id="mode-default" class="active" onclick="app.switchMode('default')" title="原色模式"><i class="fas fa-cube"></i></button>
+        <button id="mode-clay" onclick="app.switchMode('clay')" title="素模模式"><i class="fas fa-shapes"></i></button>
+        <button id="mode-wireframe" onclick="app.switchMode('wireframe')" title="线框模式"><i class="fas fa-border-all"></i></button>
+
+        <div class="divider"></div>
+        
+        <button id="btn-mat-panel" onclick="app.togglePanel('material-panel')" title="材质编辑"><i class="fas fa-wand-magic-sparkles"></i></button>
+        <button id="btn-clip-panel" onclick="app.togglePanel('clip-panel')" title="剖切工具"><i class="fas fa-cut"></i></button>
+        <button id="btn-measure" onclick="app.toggleMeasureMode()" title="测量距离"><i class="fas fa-ruler"></i></button>
+        <button id="btn-add-note" onclick="app.toggleAnnotationMode()" title="添加标注"><i class="fas fa-comment-dots"></i></button>
+        <button id="btn-helpers" onclick="app.toggleHelpers()" title="显示网格/坐标"><i class="fas fa-border-none"></i></button>
+        
+        <div class="divider"></div>
+        <button onclick="app.takeScreenshot()" title="截图"><i class="fas fa-camera-retro"></i></button>
+        <button onclick="app.saveView()" title="保存当前视角"><i class="fas fa-plus-square"></i> 存视角</button>
+        <button onclick="app.exportVideo()" title="导出漫游视频"><i class="fas fa-video"></i></button>
+        <button onclick="app.saveProject()" style="background:#005a9e; border-color:#004578;" title="保存工程"><i class="fas fa-save"></i></button>
+    </div>
+
+    <!-- 材质控制面板 -->
+    <div id="material-panel" class="side-panel ui-panel">
+        <h4><i class="fas fa-sliders-h"></i> 材质参数 (PBR) <i class="fas fa-times" style="cursor:pointer" onclick="app.togglePanel('material-panel')"></i></h4>
+        <div class="control-row">
+            <span>金属度</span>
+            <input type="range" min="0" max="1" step="0.05" id="mat-metal" value="0" oninput="app.updateMaterial()">
+        </div>
+        <div class="control-row">
+            <span>粗糙度</span>
+            <input type="range" min="0" max="1" step="0.05" id="mat-rough" value="0.5" oninput="app.updateMaterial()">
+        </div>
+        <div class="control-row">
+            <span>曝光度</span>
+            <input type="range" min="0" max="5" step="0.1" id="env-intensity" value="1" oninput="app.updateEnvironment()">
+        </div>
+        <div style="margin-top:5px; text-align:right;">
+            <button onclick="app.resetMaterial()" style="width:100%; justify-content:center; height:30px;"><i class="fas fa-undo"></i> 重置</button>
+        </div>
+    </div>
+
+    <!-- 剖切控制面板 -->
+    <div id="clip-panel" class="side-panel ui-panel">
+        <h4><i class="fas fa-cut"></i> 实时剖切 (Clipping) <i class="fas fa-times" style="cursor:pointer" onclick="app.togglePanel('clip-panel')"></i></h4>
+        <div class="control-row">
+            <span>启用剖切</span>
+            <input type="checkbox" id="clip-enabled" onchange="app.updateClipping()">
+        </div>
+        <div class="control-row">
+            <span>X 轴平面</span>
+            <input type="range" id="clip-x" step="0.1" oninput="app.updateClipping()">
+        </div>
+        <div class="control-row">
+            <span>Y 轴平面</span>
+            <input type="range" id="clip-y" step="0.1" oninput="app.updateClipping()">
+        </div>
+        <div class="control-row">
+            <span>Z 轴平面</span>
+            <input type="range" id="clip-z" step="0.1" oninput="app.updateClipping()">
+        </div>
+        <div class="control-row">
+            <span>反向剖切</span>
+            <input type="checkbox" id="clip-negate" onchange="app.updateClipping()">
+        </div>
+    </div>
+
+    <!-- 底部视角列表 -->
+    <div id="bottom-bar" class="ui-panel">
+        <div style="color: #888; font-size: 13px; margin-top: 45px; width: 100%; text-align: center;" id="empty-tip">
+            <i class="fas fa-camera" style="font-size:24px; margin-bottom:10px; display:block; opacity:0.5;"></i>
+            暂无视角。调整角度后点击“存视角”
+        </div>
+    </div>
+
+    <div id="annotation-container"></div>
+    <div id="measure-container"></div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+        import gsap from 'gsap';
+
+        class App {
+            constructor() {
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.controls = null;
+                this.raycaster = new THREE.Raycaster();
+                this.pointer = new THREE.Vector2();
+                
+                this.currentModel = null;
+                this.originalMaterials = new Map();
+                this.pendingConfig = null;
+                
+                // 功能状态
+                this.helpers = { grid: null, axes: null, visible: false };
+                this.clippingPlanes = [
+                    new THREE.Plane(new THREE.Vector3(1, 0, 0), 0),
+                    new THREE.Plane(new THREE.Vector3(0, 1, 0), 0),
+                    new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
+                ];
+                
+                // 测量相关
+                this.measurePoints = []; // [A, B]
+                this.measurements = []; // 存储所有测量线对象
+                
+                // 录制相关
+                this.mediaRecorder = null;
+                this.recordedChunks = [];
+                this.isRecording = false;
+
+                this.renderState = { metalness: 0, roughness: 0.5, exposure: 1 };
+                this.state = {
+                    views: [],
+                    annotations: [],
+                    mode: 'default',
+                    interactionMode: 'none', // 'none', 'annotation', 'measure'
+                    autoRotate: false,
+                    modelName: '',
+                    modelSize: 10
+                };
+
+                try { this.init(); } catch(e) { console.error(e); alert("Init Error: " + e.message); }
+            }
+
+            init() {
+                const container = document.getElementById('canvas-container');
+
+                this.scene = new THREE.Scene();
+                this.scene.background = new THREE.Color(0x1a1a1a);
+
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: false });
+                this.renderer.setPixelRatio(window.devicePixelRatio);
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                this.renderer.toneMappingExposure = 1;
+                this.renderer.shadowMap.enabled = true;
+                this.renderer.localClippingEnabled = true; // 开启剖切
+                container.appendChild(this.renderer.domElement);
+
+                // 灯光
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                this.scene.add(ambientLight);
+                const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+                dirLight.position.set(5, 10, 7);
+                dirLight.castShadow = true;
+                this.scene.add(dirLight);
+
+                const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+                this.scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+
+                this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 2000);
+                this.camera.position.set(5, 5, 5);
+
+                this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.enableDamping = true;
+                
+                // 辅助线
+                this.helpers.grid = new THREE.GridHelper(20, 20, 0x444444, 0x222222);
+                this.helpers.axes = new THREE.AxesHelper(10);
+                this.helpers.grid.visible = false;
+                this.helpers.axes.visible = false;
+                this.scene.add(this.helpers.grid);
+                this.scene.add(this.helpers.axes);
+
+                window.addEventListener('resize', () => this.onResize());
+                this.renderer.domElement.addEventListener('pointerdown', (e) => this.onPointerDown(e));
+                this.renderer.domElement.addEventListener('dblclick', (e) => this.onDoubleClick(e));
+                document.getElementById('file-input').addEventListener('change', (e) => this.handleFileUpload(e));
+
+                this.animate();
+                this.checkProjectConfig();
+            }
+
+            checkProjectConfig() {
+                const scriptTag = document.getElementById('project-config');
+                if (!scriptTag) return;
+                const content = scriptTag.textContent.trim();
+                if (content && content !== 'DATA_PLACEHOLDER') {
+                    try {
+                        const jsonStr = decodeURIComponent(escape(atob(content)));
+                        const config = JSON.parse(jsonStr);
+                        this.pendingConfig = config;
+                        let msg = "✅ 工程已加载";
+                        if (config.modelName) msg += `，请打开：${config.modelName}`;
+                        this.showStatus(msg);
+                    } catch (e) { console.error(e); }
+                }
+            }
+
+            // --- 交互模式切换 ---
+            setInteractionMode(mode) {
+                this.state.interactionMode = mode;
+                this.controls.enabled = (mode === 'none'); // 仅在普通模式下允许旋转
+                
+                // UI 状态更新
+                document.getElementById('btn-add-note').classList.toggle('active', mode === 'annotation');
+                document.getElementById('btn-measure').classList.toggle('active', mode === 'measure');
+                document.body.style.cursor = (mode !== 'none') ? "crosshair" : "default";
+
+                if (mode === 'annotation') this.showStatus("📍 点击模型添加标注");
+                if (mode === 'measure') this.showStatus("📏 点击两点进行测量");
+            }
+
+            toggleAnnotationMode() {
+                this.setInteractionMode(this.state.interactionMode === 'annotation' ? 'none' : 'annotation');
+            }
+
+            toggleMeasureMode() {
+                this.setInteractionMode(this.state.interactionMode === 'measure' ? 'none' : 'measure');
+                if (this.state.interactionMode === 'none') {
+                    this.measurePoints = []; // 退出时清除临时点
+                }
+            }
+
+            toggleHelpers() {
+                this.helpers.visible = !this.helpers.visible;
+                this.helpers.grid.visible = this.helpers.visible;
+                this.helpers.axes.visible = this.helpers.visible;
+                document.getElementById('btn-helpers').classList.toggle('active', this.helpers.visible);
+            }
+
+            togglePanel(id) {
+                const p = document.getElementById(id);
+                const isHidden = p.style.display === 'none' || p.style.display === '';
+                // 关闭其他面板
+                document.querySelectorAll('.side-panel').forEach(el => el.style.display = 'none');
+                document.querySelectorAll('#top-bar button').forEach(b => {
+                    if(b.id.includes('panel')) b.classList.remove('active');
+                });
+                
+                if (isHidden) {
+                    p.style.display = 'flex';
+                    if(id === 'material-panel') document.getElementById('btn-mat-panel').classList.add('active');
+                    if(id === 'clip-panel') document.getElementById('btn-clip-panel').classList.add('active');
+                }
+            }
+
+            // --- 核心交互逻辑 ---
+            onPointerDown(event) {
+                if (this.state.interactionMode === 'none' || !this.currentModel) return;
+                
+                const rect = this.renderer.domElement.getBoundingClientRect();
+                this.pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                this.pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+                
+                this.raycaster.setFromCamera(this.pointer, this.camera);
+                const intersects = this.raycaster.intersectObject(this.currentModel, true);
+                
+                if (intersects.length > 0) {
+                    const point = intersects[0].point;
+                    
+                    if (this.state.interactionMode === 'annotation') {
+                        this.tempAnnotationPoint = point;
+                        this.openModal();
+                    } else if (this.state.interactionMode === 'measure') {
+                        this.handleMeasureClick(point);
+                    }
+                }
+            }
+
+            // --- 测量逻辑 ---
+            handleMeasureClick(point) {
+                this.measurePoints.push(point);
+                
+                // 添加临时标记点
+                const dot = document.createElement('div');
+                dot.className = 'annotation-dot';
+                dot.style.background = '#ffcc00';
+                dot.style.width = '10px'; dot.style.height = '10px';
+                document.getElementById('measure-container').appendChild(dot);
+                // 临时存储以便更新位置
+                if(!this.tempMeasureDots) this.tempMeasureDots = [];
+                this.tempMeasureDots.push({ el: dot, pos: point });
+
+                if (this.measurePoints.length === 2) {
+                    const p1 = this.measurePoints[0];
+                    const p2 = this.measurePoints[1];
+                    const distance = p1.distanceTo(p2);
+                    
+                    this.createMeasurementVisuals(p1, p2, distance);
+                    
+                    // 清除临时状态，准备下一次测量
+                    this.measurePoints = [];
+                    this.tempMeasureDots = []; // 视觉上保留在 createMeasurementVisuals 中处理
+                }
+            }
+
+            createMeasurementVisuals(p1, p2, distance) {
+                // 1. 画线 (3D)
+                const geometry = new THREE.BufferGeometry().setFromPoints([p1, p2]);
+                const material = new THREE.LineBasicMaterial({ color: 0xffcc00, depthTest: false }); // 始终显示在最前
+                const line = new THREE.Line(geometry, material);
+                this.scene.add(line);
+
+                // 2. 标签 (HTML)
+                const center = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+                const div = document.createElement('div');
+                div.className = 'measure-label';
+                div.innerHTML = `<span>${distance.toFixed(3)}m <i class="fas fa-times" style="cursor:pointer;margin-left:5px;" onclick="app.deleteMeasurement(this)"></i></span>`;
+                document.getElementById('measure-container').appendChild(div);
+                
+                // 存储关联
+                div.dataset.lineUuid = line.uuid;
+                this.measurements.push({ line: line, label: div, pos: center });
+            }
+
+            deleteMeasurement(btnEl) {
+                const labelDiv = btnEl.parentElement.parentElement;
+                const uuid = labelDiv.dataset.lineUuid;
+                
+                // 删除线
+                const item = this.measurements.find(m => m.line.uuid === uuid);
+                if (item) {
+                    this.scene.remove(item.line);
+                    item.line.geometry.dispose();
+                    item.line.material.dispose();
+                }
+                
+                // 删除标签
+                labelDiv.remove();
+                this.measurements = this.measurements.filter(m => m.line.uuid !== uuid);
+                
+                // 刷新 DOM (清除之前的临时点)
+                document.getElementById('measure-container').innerHTML = '';
+                this.measurements.forEach(m => document.getElementById('measure-container').appendChild(m.label));
+            }
+
+            updateMeasurements() {
+                const container = document.getElementById('measure-container');
+                if (this.measurements.length === 0 && (!this.tempMeasureDots || this.tempMeasureDots.length === 0)) return;
+                
+                const tempV = new THREE.Vector3();
+                
+                // 更新已完成的测量标签
+                this.measurements.forEach(m => {
+                    tempV.copy(m.pos).project(this.camera);
+                    const x = (tempV.x * .5 + .5) * window.innerWidth;
+                    const y = (-(tempV.y * .5) + .5) * window.innerHeight;
+                    const isBehind = tempV.z > 1;
+                    m.label.style.display = isBehind ? 'none' : 'block';
+                    m.label.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+                });
+
+                // 更新临时点
+                if(this.tempMeasureDots) {
+                    this.tempMeasureDots.forEach(d => {
+                        tempV.copy(d.pos).project(this.camera);
+                        const x = (tempV.x * .5 + .5) * window.innerWidth;
+                        const y = (-(tempV.y * .5) + .5) * window.innerHeight;
+                        d.el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+                    });
+                }
+            }
+
+            // --- 剖切逻辑 ---
+            updateClipping() {
+                const enabled = document.getElementById('clip-enabled').checked;
+                this.renderer.localClippingEnabled = enabled;
+                
+                if (!enabled) return;
+
+                const negate = document.getElementById('clip-negate').checked ? -1 : 1;
+                const x = parseFloat(document.getElementById('clip-x').value);
+                const y = parseFloat(document.getElementById('clip-y').value);
+                const z = parseFloat(document.getElementById('clip-z').value);
+
+                this.clippingPlanes[0].constant = x * negate;
+                this.clippingPlanes[0].normal.set(negate, 0, 0);
+                
+                this.clippingPlanes[1].constant = y * negate;
+                this.clippingPlanes[1].normal.set(0, negate, 0);
+                
+                this.clippingPlanes[2].constant = z * negate;
+                this.clippingPlanes[2].normal.set(0, 0, negate);
+            }
+
+            applyClippingToModel() {
+                if (!this.currentModel) return;
+                const enabled = document.getElementById('clip-enabled').checked;
+                const planes = enabled ? this.clippingPlanes : [];
+                
+                this.currentModel.traverse((child) => {
+                    if (child.isMesh && child.material) {
+                        child.material.clippingPlanes = planes;
+                        child.material.clipShadows = true;
+                        // 必须双面渲染，否则剖切后内部是透明的
+                        child.material.side = THREE.DoubleSide; 
+                        child.material.needsUpdate = true;
+                    }
+                });
+            }
+
+            // --- 截图 ---
+            takeScreenshot() {
+                this.renderer.render(this.scene, this.camera);
+                const url = this.renderer.domElement.toDataURL('image/png');
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `screenshot-${Date.now()}.png`;
+                a.click();
+            }
+
+            // --- 核心加载与保存 ---
+            loadModel(url) {
+                document.getElementById('loader').style.display = 'flex';
+                const loader = new GLTFLoader();
+                loader.load(url, (gltf) => {
+                    if (this.currentModel) {
+                        this.scene.remove(this.currentModel);
+                        this.originalMaterials.clear();
+                    }
+                    
+                    this.currentModel = gltf.scene;
+                    const box = new THREE.Box3().setFromObject(this.currentModel);
+                    const size = box.getSize(new THREE.Vector3()).length();
+                    const center = box.getCenter(new THREE.Vector3());
+                    this.state.modelSize = size;
+
+                    // 调整位置
+                    this.currentModel.position.sub(center);
+                    this.scene.add(this.currentModel);
+
+                    // 初始化相机
+                    this.camera.near = size / 1000;
+                    this.camera.far = size * 100;
+                    this.camera.updateProjectionMatrix();
+                    this.resetCamera();
+
+                    // 初始化材质与剖切范围
+                    this.currentModel.traverse((child) => {
+                        if (child.isMesh) {
+                            child.castShadow = true;
+                            child.receiveShadow = true;
+                            child.material.side = THREE.DoubleSide; // 默认双面，适配剖切
+                            if (child.material) this.originalMaterials.set(child.uuid, child.material.clone());
+                        }
+                    });
+
+                    // 设置剖切滑块范围
+                    const halfSize = size / 2;
+                    ['x', 'y', 'z'].forEach(axis => {
+                        const el = document.getElementById(`clip-${axis}`);
+                        el.min = -halfSize;
+                        el.max = halfSize;
+                        el.value = halfSize; // 默认不切割
+                    });
+                    this.updateClipping();
+                    this.applyClippingToModel();
+
+                    if (this.pendingConfig) {
+                        this.applyProjectConfig();
+                    } else {
+                        this.switchMode('default');
+                    }
+                    
+                    document.getElementById('loader').style.display = 'none';
+                    this.showStatus('✅ 模型加载完成');
+
+                }, undefined, (err) => {
+                    console.error(err);
+                    alert('加载失败: ' + err.message);
+                    document.getElementById('loader').style.display = 'none';
+                });
+            }
+
+            saveView() {
+                if(!this.currentModel) return alert("请先加载模型");
+                this.renderer.render(this.scene, this.camera);
+                const thumb = this.renderer.domElement.toDataURL('image/jpeg', 0.5);
+                
+                const viewData = {
+                    id: Date.now(),
+                    position: this.camera.position.clone(),
+                    target: this.controls.target.clone(),
+                    thumb: thumb,
+                    mode: this.state.mode,
+                    // 材质状态
+                    metalness: parseFloat(document.getElementById('mat-metal').value),
+                    roughness: parseFloat(document.getElementById('mat-rough').value),
+                    exposure: parseFloat(document.getElementById('env-intensity').value),
+                    // 剖切状态
+                    clipEnabled: document.getElementById('clip-enabled').checked,
+                    clipX: parseFloat(document.getElementById('clip-x').value),
+                    clipY: parseFloat(document.getElementById('clip-y').value),
+                    clipZ: parseFloat(document.getElementById('clip-z').value),
+                    clipNegate: document.getElementById('clip-negate').checked
+                };
+                
+                this.state.views.push(viewData);
+                this.renderViewThumb(viewData);
+            }
+
+            restoreView(data, instant = false) {
+                // 1. 还原模式
+                this.switchMode(data.mode);
+                
+                // 2. 还原材质
+                this.renderState.metalness = data.metalness;
+                this.renderState.roughness = data.roughness;
+                this.renderState.exposure = data.exposure;
+                this.applyRenderState();
+
+                // 3. 还原剖切 (新增)
+                document.getElementById('clip-enabled').checked = data.clipEnabled || false;
+                document.getElementById('clip-x').value = data.clipX !== undefined ? data.clipX : this.state.modelSize/2;
+                document.getElementById('clip-y').value = data.clipY !== undefined ? data.clipY : this.state.modelSize/2;
+                document.getElementById('clip-z').value = data.clipZ !== undefined ? data.clipZ : this.state.modelSize/2;
+                document.getElementById('clip-negate').checked = data.clipNegate || false;
+                this.updateClipping();
+                this.applyClippingToModel();
+
+                // 4. 还原相机
+                if (instant) {
+                    this.camera.position.copy(data.position);
+                    this.controls.target.copy(data.target);
+                    this.controls.update();
+                } else {
+                    gsap.to(this.camera.position, { x: data.position.x, y: data.position.y, z: data.position.z, duration: 1 });
+                    gsap.to(this.controls.target, { x: data.target.x, y: data.target.y, z: data.target.z, duration: 1, onUpdate: () => this.controls.update() });
+                }
+            }
+
+            // ... (其他通用方法保持 V18 逻辑) ...
+            
+            switchMode(mode) {
+                if (!this.currentModel) return;
+                this.state.mode = mode;
+                document.querySelectorAll('#top-bar button[id^="mode-"]').forEach(b => b.classList.remove('active'));
+                const btn = document.getElementById(`mode-${mode}`);
+                if(btn) btn.classList.add('active');
+                const clayMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 1, metalness: 0, side: THREE.DoubleSide });
+                this.currentModel.traverse((child) => {
+                    if (child.isMesh) {
+                        if (mode === 'default') {
+                            if (this.originalMaterials.has(child.uuid)) child.material = this.originalMaterials.get(child.uuid).clone(); 
+                        } else if (mode === 'clay') {
+                            child.material = clayMat.clone();
+                        } else if (mode === 'wireframe') {
+                            child.material = clayMat.clone();
+                            child.material.wireframe = true;
+                        }
+                        // 重新应用剖切，因为更换材质会丢失 clippingPlanes 引用
+                        this.applyClippingToModel();
+                    }
+                });
+            }
+
+            applyRenderState() {
+                document.getElementById('mat-metal').value = this.renderState.metalness;
+                document.getElementById('mat-rough').value = this.renderState.roughness;
+                document.getElementById('env-intensity').value = this.renderState.exposure;
+                this.renderer.toneMappingExposure = this.renderState.exposure;
+                if (!this.currentModel) return;
+                this.currentModel.traverse((child) => {
+                    if (child.isMesh && child.material) {
+                        child.material.metalness = this.renderState.metalness;
+                        child.material.roughness = this.renderState.roughness;
+                    }
+                });
+            }
+
+            animate() {
+                requestAnimationFrame(() => this.animate());
+                if (this.state.autoRotate && this.state.interactionMode === 'none') {
+                    this.controls.autoRotate = true;
+                    this.controls.autoRotateSpeed = 2.0;
+                } else {
+                    this.controls.autoRotate = false;
+                }
+                this.controls.update();
+                this.renderer.render(this.scene, this.camera);
+                this.updateAnnotations();
+                this.updateMeasurements(); // 更新测量标签位置
+            }
+            
+            // 辅助函数：标注、文件加载、导出等 (复用 V18 逻辑，略微精简)
+            openModal() { document.getElementById('input-modal').style.display = 'flex'; document.getElementById('note-text').focus(); }
+            closeModal() { document.getElementById('input-modal').style.display = 'none'; this.setInteractionMode('none'); }
+            confirmAnnotation() {
+                const text = document.getElementById('note-text').value;
+                const url = document.getElementById('note-url').value;
+                if (!text) return alert("请输入内容");
+                const annotation = { position: { ...this.tempAnnotationPoint }, text: text, url: url, id: Date.now() };
+                this.state.annotations.push(annotation);
+                this.renderAnnotation(annotation);
+                this.closeModal();
+            }
+            renderAnnotation(data) {
+                const container = document.getElementById('annotation-container');
+                const div = document.createElement('div');
+                div.className = 'annotation'; div.id = `anno-${data.id}`;
+                let linkHtml = data.url ? `<span class="annotation-link" onclick="app.openLink('${data.url}')"><i class="fas fa-link"></i> 打开链接</span>` : '';
+                div.innerHTML = `<div class="annotation-dot"><i class="fas fa-info"></i></div><div class="annotation-card"><div style="font-weight:bold; margin-bottom:4px;">${data.text}</div>${linkHtml}<div style="text-align:right; margin-top:8px;"><button style="background:transparent; border:1px solid #555; font-size:10px; padding:2px 8px; height:auto;" onclick="app.deleteAnnotation(${data.id})"><i class="fas fa-trash"></i> 删除</button></div></div>`;
+                container.appendChild(div);
+            }
+            deleteAnnotation(id) { this.state.annotations = this.state.annotations.filter(a => a.id !== id); document.getElementById(`anno-${id}`).remove(); }
+            updateAnnotations() {
+                const container = document.getElementById('annotation-container');
+                if (container.children.length === 0) return;
+                const tempV = new THREE.Vector3();
+                this.state.annotations.forEach(anno => {
+                    const el = document.getElementById(`anno-${anno.id}`);
+                    if (!el) return;
+                    tempV.set(anno.position.x, anno.position.y, anno.position.z);
+                    tempV.project(this.camera);
+                    const x = (tempV.x * .5 + .5) * window.innerWidth;
+                    const y = (-(tempV.y * .5) + .5) * window.innerHeight;
+                    const isBehind = tempV.z > 1; 
+                    el.style.display = isBehind ? 'none' : 'block';
+                    el.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            }
+            openLink(url) { if (!url) return; if (!/^https?:\/\//i.test(url)) url = 'https://' + url; window.open(url, '_blank'); }
+            handleFileUpload(event) { const file = event.target.files[0]; if (!file) return; this.state.modelName = file.name; this.loadModel(URL.createObjectURL(file)); }
+            loadFromUrl() { const url = document.getElementById('url-input').value; if(url) { this.state.modelName = url.split('/').pop(); this.loadModel(url); } }
+            renderViewThumb(data) {
+                const tip = document.getElementById('empty-tip'); if(tip) tip.style.display = 'none';
+                const container = document.getElementById('bottom-bar');
+                const div = document.createElement('div'); div.className = 'view-item'; div.id = `view-${data.id}`;
+                div.innerHTML = `<img src="${data.thumb}"><div class="view-info"><span class="view-name">视角 ${this.state.views.length}</span></div><button class="delete-btn" onclick="event.stopPropagation(); app.deleteView(${data.id})"><i class="fas fa-times"></i></button>`;
+                div.onclick = () => this.restoreView(data);
+                container.appendChild(div); container.scrollLeft = container.scrollWidth;
+            }
+            deleteView(id) { this.state.views = this.state.views.filter(v => v.id !== id); document.getElementById(`view-${id}`).remove(); }
+            toggleAutoRotate() { this.state.autoRotate = !this.state.autoRotate; document.getElementById('btn-auto-rotate').classList.toggle('active', this.state.autoRotate); }
+            onResize() { this.camera.aspect = window.innerWidth / window.innerHeight; this.camera.updateProjectionMatrix(); this.renderer.setSize(window.innerWidth, window.innerHeight); }
+            showStatus(msg) {
+                const bar = document.getElementById('status-bar'); bar.innerText = msg; bar.style.display = 'block';
+                gsap.fromTo(bar, {y: -20, opacity: 0}, {y: 0, opacity: 1, duration: 0.3});
+                setTimeout(() => { gsap.to(bar, {y: -20, opacity: 0, duration: 0.3, onComplete: () => bar.style.display = 'none'}); }, 5000);
+            }
+            applyProjectConfig() {
+                const config = this.pendingConfig;
+                if (config.annotations) { this.state.annotations = config.annotations; this.state.annotations.forEach(a => this.renderAnnotation(a)); }
+                if (config.views) {
+                    const tip = document.getElementById('empty-tip'); if(tip) tip.style.display = 'none';
+                    config.views.forEach(v => {
+                        v.position = new THREE.Vector3(v.position.x, v.position.y, v.position.z);
+                        v.target = new THREE.Vector3(v.target.x, v.target.y, v.target.z);
+                        this.state.views.push(v); this.renderViewThumb(v);
+                    });
+                }
+                if (config.initialMode) this.switchMode(config.initialMode);
+                this.showStatus("✅ 视角与标注已还原"); this.pendingConfig = null;
+            }
+            saveProject() {
+                if(!this.currentModel) return alert("请先加载模型");
+                const config = { views: this.state.views, annotations: this.state.annotations, initialMode: this.state.mode, modelName: this.state.modelName };
+                const safeConfig = btoa(unescape(encodeURIComponent(JSON.stringify(config))));
+                let html = document.documentElement.outerHTML;
+                html = html.replace(/<div id="bottom-bar"[\s\S]*?>[\s\S]*?<\/div>/, '<div id="bottom-bar" class="ui-panel"><div style="color: #888; font-size: 13px; margin-top: 45px; width: 100%; text-align: center;" id="empty-tip"><i class="fas fa-camera" style="font-size:24px; margin-bottom:10px; display:block; opacity:0.5;"></i>暂无视角。调整角度后点击“存视角”</div></div>');
+                html = html.replace(/<div id="annotation-container">[\s\S]*?<\/div>/, '<div id="annotation-container"></div>');
+                html = html.replace(/<div id="measure-container">[\s\S]*?<\/div>/, '<div id="measure-container"></div>');
+                html = html.replace(/<script id="project-config" type="text\/plain">[\s\S]*?<\/script>/, `<script id="project-config" type="text/plain">${safeConfig}<\/script>`);
+                const blob = new Blob([html], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = 'model-project.html'; a.click(); URL.revokeObjectURL(url);
+            }
+            // 视频导出简化版 (保留功能但精简代码以适配长度)
+            exportVideo() {
+                if (!this.currentModel || this.state.views.length < 2) return alert("需至少2个视角");
+                if (this.isRecording) return;
+                if (!confirm("开始录制视频？")) return;
+                this.isRecording = true; document.getElementById('recording-indicator').style.display = 'flex';
+                const stream = this.renderer.domElement.captureStream(30);
+                this.recordedChunks = [];
+                this.mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+                this.mediaRecorder.ondataavailable = (e) => { if(e.data.size > 0) this.recordedChunks.push(e.data); };
+                this.mediaRecorder.onstop = () => {
+                    const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a'); a.href = url; a.download = `video-${Date.now()}.webm`; a.click();
+                    this.isRecording = false; document.getElementById('recording-indicator').style.display = 'none';
+                };
+                const tl = gsap.timeline({ onStart: () => this.mediaRecorder.start(), onComplete: () => this.mediaRecorder.stop() });
+                this.restoreView(this.state.views[0], true);
+                for (let i = 1; i < this.state.views.length; i++) {
+                    const v = this.state.views[i];
+                    tl.call(() => this.switchMode(v.mode));
+                    tl.to(this.camera.position, { x: v.position.x, y: v.position.y, z: v.position.z, duration: 2, ease: "power1.inOut" }, `l${i}`);
+                    tl.to(this.controls.target, { x: v.target.x, y: v.target.y, z: v.target.z, duration: 2, ease: "power1.inOut", onUpdate: () => this.controls.update() }, `l${i}`);
+                    tl.to(this.renderState, { metalness: v.metalness, roughness: v.roughness, exposure: v.exposure, duration: 2, onUpdate: () => this.applyRenderState() }, `l${i}`);
+                    tl.to({}, {duration: 0.5});
+                }
+            }
+        }
+        window.app = new App();
+    </script>
+</body>
+</html>

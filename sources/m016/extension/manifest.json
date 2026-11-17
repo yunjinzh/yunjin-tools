@@ -1,0 +1,61 @@
+{
+  "manifest_version": 3,
+  "name": "推文研究档案 采集助手",
+  "version": "1.1.0",
+  "description": "按条数和时间段读取 X 点赞与收藏，统一生成 Word 与交互式 HTML 汇编。",
+  "minimum_chrome_version": "111",
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://pbs.twimg.com/*",
+    "https://video.twimg.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "推文研究档案",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "reader.js",
+        "core.js",
+        "observer.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "x-content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://x-research-archive-yunjin.yunjinzh.chatgpt.site/*",
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+      ],
+      "js": [
+        "web-bridge.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

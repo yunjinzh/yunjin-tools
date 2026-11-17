@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字孪生技术应用 — 产学研用知识图谱</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ac:#3B82C4;--acl:#6BAAD8;--acd:#2563A8;
+  --bs:#F0F4F8;--bd:#E2E8F0;--bk:#CBD5E1;
+  --ik:#0F172A;--im:#334155;--il:#64748B;--if:#94A3B8;
+  --sm:0 4px 12px -2px rgba(15,23,42,.18);
+  --sx:0 12px 28px -6px rgba(15,23,42,.25);
+  --s2:0 25px 50px -12px rgba(15,23,42,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bs);color:var(--ik);font-family:"Noto Sans SC",sans-serif;font-weight:300;overflow-x:hidden;}
+.hd{background:var(--ik);padding:64px 80px 52px;position:relative;overflow:hidden;}
+.hd::before{content:"";position:absolute;left:-60px;bottom:-60px;width:320px;height:320px;border-radius:50%;background:var(--ac);opacity:.08;}
+.hd::after{content:"";position:absolute;right:-80px;top:-80px;width:360px;height:360px;border-radius:50%;background:var(--acl);opacity:.07;}
+.hd-lb{font-family:"Oswald",sans-serif;font-size:11px;letter-spacing:.38em;color:var(--ac);text-transform:uppercase;margin-bottom:20px;}
+.hd-tt{font-family:"Oswald",sans-serif;font-weight:700;font-size:clamp(40px,6.5vw,90px);line-height:.9;color:var(--bs);letter-spacing:-.02em;text-transform:uppercase;}
+.hd-tt span{color:var(--ac);display:block;}
+.hd-sb{font-family:"Noto Serif SC",serif;font-weight:700;font-size:20px;color:var(--bk);margin-top:22px;letter-spacing:.05em;}
+.hd-mt{display:flex;gap:36px;margin-top:34px;flex-wrap:wrap;}
+.mi{border-left:2px solid var(--ac);padding-left:14px;}
+.mi .lb{font-family:"Oswald",sans-serif;font-size:10px;letter-spacing:.2em;color:var(--if);text-transform:uppercase;}
+.mi .vl{font-size:13px;color:var(--bs);margin-top:3px;font-weight:400;}
+.main{padding:0 80px 80px;}
+.sh{display:flex;align-items:baseline;gap:22px;padding:54px 0 28px;border-bottom:1px solid var(--bk);margin-bottom:34px;}
+.sn{font-family:"Oswald",sans-serif;font-weight:700;font-size:72px;line-height:1;color:var(--bk);letter-spacing:-.04em;}
+.st{font-family:"Noto Serif SC",serif;font-weight:900;font-size:28px;color:var(--ik);letter-spacing:.04em;}
+.st em{color:var(--ac);font-style:normal;}
+.ga{display:grid;gap:20px;}
+.g23{grid-template-columns:2fr 3fr;}
+.g21{grid-template-columns:2fr 1fr;}
+.g12{grid-template-columns:1fr 2fr;}
+.g11{grid-template-columns:1fr 1fr;}
+.g111{grid-template-columns:1fr 1fr 1fr;}
+.g1111{grid-template-columns:1fr 1fr 1fr 1fr;}
+.card{background:var(--bd);padding:28px 32px;box-shadow:var(--sm);position:relative;overflow:hidden;}
+.card::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:var(--ac);}
+.cd{background:var(--ik);color:var(--bs);}
+.ca{background:var(--ac);color:var(--bs);}
+.cm{background:var(--im);color:var(--bs);}
+.cd::before,.ca::before,.cm::before{display:none;}
+.ct{padding:34px 32px;}
+.clb{font-family:"Oswald",sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ac);margin-bottom:10px;}
+.cd .clb,.cm .clb{color:var(--acl);}
+.ca .clb{color:rgba(240,244,248,.7);}
+.ctt{font-family:"Noto Serif SC",serif;font-weight:900;font-size:18px;margin-bottom:14px;letter-spacing:.03em;line-height:1.4;}
+.ca .ctt,.cd .ctt,.cm .ctt{color:var(--bs);}
+.cbd{font-size:12.5px;line-height:1.85;color:var(--im);}
+.cd .cbd,.cm .cbd{color:var(--bk);}
+.ca .cbd{color:rgba(240,244,248,.88);}
+.hn{font-family:"Oswald",sans-serif;font-weight:700;font-size:52px;line-height:1;color:var(--ac);letter-spacing:-.04em;}
+.hnl{font-size:11px;color:rgba(240,244,248,.5);margin-top:4px;letter-spacing:.1em;}
+.tag{font-family:"Oswald",sans-serif;font-size:11px;letter-spacing:.1em;padding:4px 12px;background:var(--bs);color:var(--im);border:1px solid var(--bk);display:inline-block;margin:3px;}
+.tgo{background:transparent;color:var(--bs);border-color:rgba(240,244,248,.35);}
+.tgd{background:transparent;color:var(--im);border-color:var(--bk);}
+.pq{border-left:4px solid var(--ac);padding:18px 24px;background:var(--bd);font-family:"Noto Serif SC",serif;font-weight:700;font-size:15px;line-height:1.7;color:var(--ik);box-shadow:var(--sm);}
+.dv{height:1px;background:linear-gradient(to right,var(--ac),transparent);margin:10px 0;}
+.bdg{display:inline-block;font-family:"Oswald",sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;padding:3px 9px;background:var(--ac);color:var(--bs);margin-right:5px;margin-bottom:5px;}
+.bdo{background:transparent;border:1px solid var(--ac);color:var(--ac);}
+.inn{background:var(--bd);padding:22px 24px;box-shadow:var(--sm);border-bottom:3px solid transparent;transition:border-color .2s;}
+.inn:hover{border-bottom-color:var(--ac);}
+.inn-tt{font-family:"Noto Serif SC",serif;font-weight:700;font-size:13px;color:var(--ik);margin-bottom:6px;}
+.inn-cd{font-family:"Oswald",sans-serif;font-size:11px;color:var(--ac);letter-spacing:.1em;}
+.as{background:var(--ac);padding:28px 40px;display:flex;align-items:center;gap:30px;box-shadow:var(--sx);margin:20px 0;}
+.asn{font-family:"Oswald",sans-serif;font-weight:700;font-size:56px;color:var(--bs);line-height:1;letter-spacing:-.03em;flex-shrink:0;}
+.ast{font-size:12.5px;color:rgba(240,244,248,.9);line-height:1.8;}
+.astt{font-family:"Noto Serif SC",serif;font-weight:900;font-size:18px;color:var(--bs);margin-bottom:5px;}
+.sb{margin-bottom:14px;}
+.sbl{display:flex;justify-content:space-between;font-size:12px;color:var(--im);margin-bottom:5px;}
+.sbt{height:4px;background:var(--bk);}
+.sbf{height:100%;background:var(--ac);position:relative;}
+.sbf::after{content:"";position:absolute;right:0;top:-3px;width:10px;height:10px;background:var(--ac);border-radius:50%;}
+.fw{display:flex;align-items:stretch;gap:0;margin-bottom:12px;}
+.fn2{flex:1;padding:14px 16px;background:var(--bd);border:1px solid var(--bk);font-size:12px;text-align:center;color:var(--im);}
+.fn2.act{background:var(--ac);color:var(--bs);border-color:var(--ac);font-weight:500;}
+.fn2.dk{background:var(--ik);color:var(--bs);border-color:var(--ik);}
+.fa{width:28px;text-align:center;color:var(--ac);font-size:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.ci{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid rgba(240,244,248,.1);}
+.ci:last-child{border:none;}
+.cd2{width:9px;height:9px;background:var(--ac);border-radius:50%;margin-top:5px;flex-shrink:0;}
+.ct2{font-family:"Noto Serif SC",serif;font-weight:700;font-size:13px;color:var(--bs);margin-bottom:3px;}
+.cb2{font-size:11.5px;color:rgba(240,244,248,.55);line-height:1.75;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.tbl th{font-family:"Oswald",sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;padding:12px 16px;background:var(--ik);color:var(--bs);text-align:left;}
+.tbl td{padding:11px 16px;border-bottom:1px solid var(--bk);color:var(--im);line-height:1.65;vertical-align:top;}
+.tbl tr:nth-child(even) td{background:rgba(0,0,0,.025);}
+.tbl tr:hover td{background:rgba(59,130,196,.06);}
+.cn{font-family:"Oswald",sans-serif;font-weight:700;font-size:22px;color:var(--ac);}
+.step{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid rgba(240,244,248,.1);}
+.step:last-child{border:none;}
+.step-n{font-family:"Oswald",sans-serif;font-weight:700;font-size:34px;color:rgba(240,244,248,.18);line-height:1;width:44px;flex-shrink:0;}
+.step-t{font-family:"Noto Serif SC",serif;font-weight:700;font-size:13px;color:var(--bs);margin-bottom:3px;}
+.step-d{font-size:11.5px;color:rgba(240,244,248,.52);line-height:1.75;}
+.irow{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.irow svg{width:15px;height:15px;stroke:var(--ac);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+svg.ic{display:block;margin-bottom:10px;fill:none;stroke:var(--ac);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.rcard{background:var(--bd);padding:22px 24px;box-shadow:var(--sm);border-left:3px solid var(--ac);}
+.rcard-t{font-family:"Noto Serif SC",serif;font-weight:700;font-size:14px;color:var(--ik);margin-bottom:8px;}
+.rcard-d{font-size:12px;color:var(--il);line-height:1.75;}
+.ft{background:var(--ik);padding:36px 80px;display:flex;justify-content:space-between;align-items:center;margin-top:60px;}
+.ftb{font-family:"Oswald",sans-serif;font-weight:700;font-size:20px;color:var(--bs);letter-spacing:.05em;}
+.ftb span{color:var(--ac);}
+.ftn{font-size:11px;color:var(--if);letter-spacing:.1em;font-family:"Oswald",sans-serif;}
+@media(max-width:900px){
+  .hd,.main,.ft{padding-left:24px;padding-right:24px;}
+  .g23,.g21,.g12,.g11,.g111,.g1111{grid-template-columns:1fr;}
+  .hd-tt{font-size:38px;}
+  .fw{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hd">
+  <div class="hd-lb">产学研用知识图谱 &nbsp;·&nbsp; 高等职业教育专科 &nbsp;·&nbsp; 专业代码 510210</div>
+  <h1 class="hd-tt">DIGITAL TWIN<span>TECHNOLOGY</span></h1>
+  <div class="hd-sb">数字孪生技术应用专业 — 全景产学研用知识图谱</div>
+  <div class="hd-mt">
+    <div class="mi"><div class="lb">专业大类</div><div class="vl">电子信息大类（51）</div></div>
+    <div class="mi"><div class="lb">专业类</div><div class="vl">计算机类（5102）</div></div>
+    <div class="mi"><div class="lb">修业年限</div><div class="vl">三年制</div></div>
+    <div class="mi"><div class="lb">总学时</div><div class="vl">≥ 2600 学时</div></div>
+    <div class="mi"><div class="lb">实践比例</div><div class="vl">≥ 50%</div></div>
+    <div class="mi"><div class="lb">入学要求</div><div class="vl">中职 / 高中毕业或同等学力</div></div>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- S01 专业定位 -->
+<div class="sh"><div class="sn">01</div><div class="st">专业定位与<em>培养目标</em></div></div>
+<div class="ga g23" style="margin-bottom:20px;">
+  <div class="card cd ct" style="box-shadow:var(--s2);">
+    <div class="clb">Core Mission</div>
+    <div class="ctt" style="font-size:21px;line-height:1.3;">培养数字孪生技术领域高技能复合型人才</div>
+    <div class="cbd" style="margin-top:14px;">面向制造业、建筑业、能源电力、交通运输、城市管理等行业，培养能够从事数字孪生模型构建与应用、三维建模与仿真、工业互联网数据集成、智能运维与监控、数字孪生平台开发与运营等工作的高技能人才。</div>
+    <div style="margin-top:24px;"><div class="dv"></div>
+      <div style="display:flex;gap:24px;margin-top:16px;">
+        <div><div class="hn">18</div><div class="hnl">培养规格指标</div></div>
+        <div><div class="hn">6</div><div class="hnl">专业核心课程</div></div>
+        <div><div class="hn">5</div><div class="hnl">对应行业领域</div></div>
+        <div><div class="hn">4+</div><div class="hnl">职业技能证书</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:18px;">
+    <div class="pq">"数字孪生技术是新一代信息技术与实体经济深度融合的关键载体，推动制造强国、数字中国建设，亟需大批掌握数字孪生建模、仿真分析、平台运营的高技能人才。"</div>
+    <div class="ga g111" style="gap:14px;">
+      <div class="card" style="padding:20px 22px;"><div class="clb">素质目标</div><div class="ctt" style="font-size:14px;">工匠精神</div><div class="cbd" style="font-size:11.5px;">践行社会主义核心价值观，具备精益求精的工匠精神、数字创新意识与家国情怀</div></div>
+      <div class="card" style="padding:20px 22px;"><div class="clb">知识目标</div><div class="ctt" style="font-size:14px;">技术知识体系</div><div class="cbd" style="font-size:11.5px;">掌握数字孪生建模、仿真、IoT、大数据、AI等核心理论知识体系</div></div>
+      <div class="card" style="padding:20px 22px;"><div class="clb">能力目标</div><div class="ctt" style="font-size:14px;">工程实践能力</div><div class="cbd" style="font-size:11.5px;">具备数字孪生系统设计、开发、部署、运维及行业应用的核心工程实践能力</div></div>
+    </div>
+    <div class="card ca"><div class="clb">数字素养与可持续发展</div><div class="ctt">适应新一代信息技术发展</div><div class="cbd">具有探究学习、终身学习和可持续发展的能力，掌握云计算、大数据、人工智能等新一代信息技术基础，具备适应数字化、智能化发展需求的复合型数字技能，具有就业创业能力。</div></div>
+  </div>
+</div>
+
+<!-- 18条培养规格 -->
+<div class="card cd ct" style="margin-bottom:20px;box-shadow:var(--s2);">
+  <div class="clb">Training Specifications · 培养规格</div>
+  <div class="ctt">18项培养规格指标</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:18px;">
+    <div>
+      <div class="step"><div class="step-n">01</div><div><div class="step-t">政治思想</div><div class="step-d">坚定拥护中国共产党领导，践行社会主义核心价值观，具有坚定理想信念、爱国情感与民族自豪感</div></div></div>
+      <div class="step"><div class="step-n">02</div><div><div class="step-t">职业道德</div><div class="step-d">遵守数字技术行业规范与职业道德准则，具有数据安全意识、知识产权保护意识与诚信精神</div></div></div>
+      <div class="step"><div class="step-n">03</div><div><div class="step-t">文化基础</div><div class="step-d">掌握数学、外语、信息技术等文化基础知识，具备良好的科学素养与人文修养</div></div></div>
+      <div class="step"><div class="step-n">04</div><div><div class="step-t">沟通协作</div><div class="step-d">具有良好的语言文字表达、团队协作与跨部门沟通能力，能够阅读本专业英文技术文档</div></div></div>
+      <div class="step"><div class="step-n">05</div><div><div class="step-t">数学与建模基础</div><div class="step-d">掌握高等数学、线性代数、概率统计等数学基础，具备数学建模与仿真分析能力</div></div></div>
+      <div class="step"><div class="step-n">06</div><div><div class="step-t">程序设计能力</div><div class="step-d">掌握Python、C#、JavaScript等编程语言，具有数字孪生应用程序开发与调试能力</div></div></div>
+      <div class="step"><div class="step-n">07</div><div><div class="step-t">三维建模能力</div><div class="step-d">掌握三维建模软件与技术，具有构建精细化几何模型、机理模型与行为模型的能力</div></div></div>
+      <div class="step"><div class="step-n">08</div><div><div class="step-t">仿真分析能力</div><div class="step-d">掌握物理仿真、流体动力学、结构力学等仿真技术，具有多物理场仿真分析与验证能力</div></div></div>
+      <div class="step"><div class="step-n">09</div><div><div class="step-t">IoT数据集成</div><div class="step-d">掌握物联网传感器、通信协议与数据采集技术，具有实体-虚体数据实时映射与集成能力</div></div></div>
+    </div>
+    <div>
+      <div class="step"><div class="step-n">10</div><div><div class="step-t">大数据处理</div><div class="step-d">掌握大数据采集、存储、清洗、分析技术，具有数字孪生系统数据治理与分析应用能力</div></div></div>
+      <div class="step"><div class="step-n">11</div><div><div class="step-t">AI与机器学习</div><div class="step-d">掌握机器学习、深度学习基础理论，具有将AI技术融入数字孪生预测、优化与决策的能力</div></div></div>
+      <div class="step"><div class="step-n">12</div><div><div class="step-t">可视化开发</div><div class="step-d">掌握三维可视化引擎与WebGL技术，具有数字孪生场景渲染、交互界面与大屏可视化开发能力</div></div></div>
+      <div class="step"><div class="step-n">13</div><div><div class="step-t">平台部署运维</div><div class="step-d">掌握云原生、容器化、微服务等技术，具有数字孪生平台部署、配置、监控与运维能力</div></div></div>
+      <div class="step"><div class="step-n">14</div><div><div class="step-t">行业应用能力</div><div class="step-d">掌握智能制造、智慧城市、智慧能源等典型行业数字孪生应用场景，具有行业解决方案设计能力</div></div></div>
+      <div class="step"><div class="step-n">15</div><div><div class="step-t">系统集成能力</div><div class="step-d">掌握数字孪生系统与ERP、MES、SCADA等企业信息系统的集成方法，具有系统联调与交付能力</div></div></div>
+      <div class="step"><div class="step-n">16</div><div><div class="step-t">数字安全意识</div><div class="step-d">掌握网络安全、数据安全与隐私保护基础知识，具有数字孪生系统安全防护与合规意识</div></div></div>
+      <div class="step"><div class="step-n">17</div><div><div class="step-t">终身学习能力</div><div class="step-d">具有探究学习、自主学习和可持续发展的能力，能够跟踪数字孪生领域前沿技术动态</div></div></div>
+      <div class="step"><div class="step-n">18</div><div><div class="step-t">体美劳全面发展</div><div class="step-d">达到国家大学生体质健康标准，具备一定审美能力与艺术素养，弘扬劳模精神与工匠精神</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S02 职业面向 -->
+<div class="sh"><div class="sn">02</div><div class="st">职业面向与<em>岗位群</em></div></div>
+<div class="ga g1111" style="margin-bottom:20px;gap:16px;">
+  <div class="inn">
+    <svg class="ic" width="26" height="26" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+    <div class="inn-tt">智能制造行业</div><div class="inn-cd">行业代码 C</div>
+    <div style="margin-top:10px;font-size:11.5px;color:var(--il);line-height:1.85;">数字孪生工厂建模<br>智能产线仿真优化<br>设备预测性维护<br>工业互联网应用</div>
+  </div>
+  <div class="inn">
+    <svg class="ic" width="26" height="26" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <div class="inn-tt">建筑与城市管理</div><div class="inn-cd">行业代码 E/N</div>
+    <div style="margin-top:10px;font-size:11.5px;color:var(--il);line-height:1.85;">建筑数字孪生建模<br>CIM平台建设运营<br>智慧城市运维管理<br>基础设施数字化</div>
+  </div>
+  <div class="inn">
+    <svg class="ic" width="26" height="26" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    <div class="inn-tt">能源与电力行业</div><div class="inn-cd">行业代码 D</div>
+    <div style="margin-top:10px;font-size:11.5px;color:var(--il);line-height:1.85;">电网数字孪生建设<br>新能源设备监控<br>能源系统仿真分析<br>智慧电厂运营</div>
+  </div>
+  <div class="inn">
+    <svg class="ic" width="26" height="26" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    <div class="inn-tt">交通运输行业</div><div class="inn-cd">行业代码 G</div>
+    <div style="margin-top:10px;font-size:11.5px;color:var(--il);line-height:1.85;">智慧交通仿真建模<br>自动驾驶场景测试<br>港口物流数字孪生<br>轨道交通运维</div>
+  </div>
+</div>
+
+<div class="ga g21" style="gap:20px;margin-bottom:20px;">
+  <div class="card cd ct">
+    <div class="clb">Main Positions · 主要岗位群</div>
+    <div class="ctt">六大核心岗位方向</div>
+    <div style="margin-top:16px;">
+      <div class="ci"><div class="cd2"></div><div><div class="ct2">数字孪生建模工程师</div><div class="cb2">负责几何模型、机理模型、行为模型的构建与优化，完成实体对象的数字化映射</div></div></div>
+      <div class="ci"><div class="cd2"></div><div><div class="ct2">仿真分析工程师</div><div class="cb2">运用有限元、流体动力学等仿真工具，对产品性能、工艺流程进行仿真验证与优化</div></div></div>
+      <div class="ci"><div class="cd2"></div><div><div class="ct2">数字孪生平台开发工程师</div><div class="cb2">负责数字孪生平台前后端开发、三维可视化场景搭建、API接口设计与系统集成</div></div></div>
+      <div class="ci"><div class="cd2"></div><div><div class="ct2">工业数据分析工程师</div><div class="cb2">负责IoT数据采集、清洗、分析与挖掘，构建预测性维护、质量预测等数据驱动模型</div></div></div>
+      <div class="ci"><div class="cd2"></div><div><div class="ct2">数字孪生系统运维工程师</div><div class="cb2">负责数字孪生系统的日常运维、监控告警、故障排查与性能优化，保障系统稳定运行</div></div></div>
+      <div class="ci"><div class="cd2"></div><div><div class="ct2">行业数字化解决方案工程师</div><div class="cb2">结合制造、建筑、能源等行业需求，设计数字孪生行业解决方案，推进数字化转型落地</div></div></div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <div class="card ca">
+      <div class="clb">新兴技术岗位</div><div class="ctt" style="font-size:15px;">新职业岗位标签</div>
+      <div style="margin-top:10px;">
+        <span class="tag tgo">数字孪生应用技术员</span><span class="tag tgo">工业互联网工程技术人员</span>
+        <span class="tag tgo">人工智能训练师</span><span class="tag tgo">工业数据分析师</span>
+        <span class="tag tgo">虚拟现实工程技术人员</span><span class="tag tgo">云计算工程技术人员</span>
+        <span class="tag tgo">智能制造工程技术人员</span>
+      </div>
+    </div>
+    <div class="card" style="flex:1;">
+      <div class="clb">可持续发展路径</div><div class="ctt" style="font-size:14px;">职业成长通道</div>
+      <div class="cbd" style="font-size:12px;margin-top:8px;">
+        <div class="irow"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span><strong style="color:var(--ik);">纵向深化</strong> — 高级工程师、技术专家、架构师</span></div>
+        <div class="irow"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/></svg><span><strong style="color:var(--ik);">横向拓展</strong> — AI工程师、云原生工程师、元宇宙开发</span></div>
+        <div class="irow"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg><span><strong style="color:var(--ik);">创新创业</strong> — 数字孪生SaaS产品创业</span></div>
+        <div class="irow"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span><strong style="color:var(--ik);">继续深造</strong> — 专升本、计算机/控制工程研究生</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S03 课程体系 -->
+<div class="sh"><div class="sn">03</div><div class="st">课程体系<em>全景图</em></div></div>
+<div style="margin-bottom:24px;">
+  <div class="fw">
+    <div class="fn2 dk"><div style="font-size:9px;letter-spacing:.2em;color:var(--acl);margin-bottom:4px;">FOUNDATION</div><div style="font-weight:500;font-size:13px;">公共基础课程</div><div style="font-size:10px;color:rgba(240,244,248,.4);margin-top:3px;">≥25% 总学时</div></div>
+    <div class="fa">&#8594;</div>
+    <div class="fn2"><div style="font-size:9px;letter-spacing:.2em;color:var(--ac);margin-bottom:4px;">BASIC</div><div style="font-weight:500;font-size:13px;">专业基础课程</div><div style="font-size:10px;color:var(--if);margin-top:3px;">理论与技能支撑</div></div>
+    <div class="fa">&#8594;</div>
+    <div class="fn2 act"><div style="font-size:9px;letter-spacing:.2em;color:rgba(240,244,248,.7);margin-bottom:4px;">CORE</div><div style="font-weight:500;font-size:13px;">专业核心课程</div><div style="font-size:10px;color:rgba(240,244,248,.7);margin-top:3px;">6门核心课程</div></div>
+    <div class="fa">&#8594;</div>
+    <div class="fn2"><div style="font-size:9px;letter-spacing:.2em;color:var(--ac);margin-bottom:4px;">EXPAND</div><div style="font-weight:500;font-size:13px;">专业拓展课程</div><div style="font-size:10px;color:var(--if);margin-top:3px;">≥10% 总学时</div></div>
+    <div class="fa">&#8594;</div>
+    <div class="fn2" style="background:var(--acd);color:var(--bs);border-color:var(--acd);"><div style="font-size:9px;letter-spacing:.2em;color:rgba(240,244,248,.7);margin-bottom:4px;">PRACTICE</div><div style="font-weight:500;font-size:13px;">实践性教学</div><div style="font-size:10px;color:rgba(240,244,248,.7);margin-top:3px;">≥50% 总学时</div></div>
+  </div>
+</div>
+
+<div class="card cd ct" style="margin-bottom:20px;">
+  <div class="clb">Public Foundation · 公共基础课程</div><div class="ctt">必修 + 限定选修</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+    <div>
+      <div style="font-size:10px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">REQUIRED · 必修课程</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tag tgo">思想政治理论</span><span class="tag tgo">体育</span><span class="tag tgo">军事理论与军训</span><span class="tag tgo">心理健康教育</span><span class="tag tgo">劳动教育</span></div>
+    </div>
+    <div>
+      <div style="font-size:10px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">ELECTIVE · 限定选修</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;"><span class="tag tgo">高等数学</span><span class="tag tgo">线性代数</span><span class="tag tgo">概率与统计</span><span class="tag tgo">大学英语</span><span class="tag tgo">信息技术基础</span><span class="tag tgo">创新创业教育</span><span class="tag tgo">职业发展与就业指导</span><span class="tag tgo">艺术素养</span><span class="tag tgo">国家安全教育</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="ga g12" style="gap:20px;margin-bottom:20px;">
+  <div class="card cm ct">
+    <div class="clb">Professional Basic · 专业基础课</div><div class="ctt">8大基础领域</div>
+    <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:700;font-size:18px;color:var(--ac);width:28px;">01</span><span style="font-size:12.5px;color:rgba(240,244,248,.85);">Python程序设计基础</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:700;font-size:18px;color:var(--ac);width:28px;">02</span><span style="font-size:12.5px;color:rgba(240,244,248,.85);">三维建模基础（CAD/BIM）</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:700;font-size:18px;color:var(--ac);width:28px;">03</span><span style="font-size:12.5px;color:rgba(240,244,248,.85);">数据库原理与应用</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:700;font-size:18px;color:var(--ac);width:28px;">04</span><span style="font-size:12.5px;color:rgba(240,244,248,.85);">物联网技术基础</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:700;font-size:18px;color:var(--ac);width:28px;">05</span><span style="font-size:12.5px;color:rgba(240,244,248,.85);">云计算与虚拟化技术</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:700;font-size:18px;color:var(--ac);width:28px;">06</span><span style="font-size:12.5px;color:rgba(240,244,248,.85);">计算机网络与通信协议</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:700;font-size:18px;color:var(--ac);width:28px;">07</span><span style="font-size:12.5px;color:rgba(240,244,248,.85);">工程数学与建模基础</span></div>
+      <div style="display:flex;align-items:center;gap:12px;"><span style="font-weight:700;font-size:18px;color:var(--ac);width:28px;">08</span><span style="font-size:12.5px;color:rgba(240,244,248,.85);">数字孪生技术导论</span></div>
+    </div>
+  </div>
+  <div>
+    <div style="background:var(--ik);padding:14px 20px;"><div style="font-size:9px;letter-spacing:.3em;color:var(--ac);text-transform:uppercase;margin-bottom:5px;">Professional Core Courses</div><div style="font-family:'Noto Serif SC',serif;font-weight:900;font-size:18px;color:var(--bs);">6门专业核心课程</div></div>
+    <table class="tbl">
+      <thead><tr><th>#</th><th style="width:155px;">课程名称</th><th>典型工作任务</th><th>主要教学内容与要求</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="cn">1</span></td>
+          <td><strong>数字孪生建模技术</strong><br><span class="bdg" style="font-size:9px;margin-top:5px;">几何建模</span><span class="bdg bdo" style="font-size:9px;">机理建模</span></td>
+          <td style="font-size:11px;">①使用三维建模软件构建设备、产线、建筑等实体对象的精细化几何模型<br>②建立反映物理规律的机理模型与行为逻辑模型<br>③完成数字孪生模型的精度验证与轻量化处理</td>
+          <td style="font-size:11px;">①掌握几何建模、参数化建模、逆向建模技术，具有多精度层次三维模型构建能力<br>②掌握机理建模、数据驱动建模方法，具有物理-信息融合模型设计能力<br>③掌握模型轻量化、格式转换与模型管理技术，具有模型全生命周期管理能力</td>
+        </tr>
+        <tr>
+          <td><span class="cn">2</span></td>
+          <td><strong>仿真分析技术与应用</strong><br><span class="bdg" style="font-size:9px;margin-top:5px;">物理仿真</span><span class="bdg bdo" style="font-size:9px;">过程优化</span></td>
+          <td style="font-size:11px;">①运用仿真软件对产品结构强度、热力学性能、流体动力学等进行仿真分析<br>②对生产工艺流程、物流路径进行离散事件仿真与优化<br>③基于仿真结果提出设计改进与工艺优化方案</td>
+          <td style="font-size:11px;">①掌握有限元分析（FEA）、计算流体力学（CFD）、多体动力学仿真基础理论<br>②掌握离散事件仿真、系统动力学仿真方法，具有生产系统仿真优化能力<br>③掌握仿真模型校验与确认（V&amp;V）方法，具有仿真结果分析与工程应用能力</td>
+        </tr>
+        <tr>
+          <td><span class="cn">3</span></td>
+          <td><strong>IoT数据采集与集成</strong><br><span class="bdg" style="font-size:9px;margin-top:5px;">实时映射</span><span class="bdg bdo" style="font-size:9px;">数据融合</span></td>
+          <td style="font-size:11px;">①配置传感器、PLC、工业网关等设备，实现现场数据的实时采集与传输<br>②运用MQTT、OPC-UA等工业通信协议完成数据集成与实体-虚体实时映射<br>③建立数据质量管理机制，完成多源异构数据的清洗与融合</td>
+          <td style="font-size:11px;">①掌握传感器选型、工业通信协议、边缘计算技术，具有现场数据采集与传输能力<br>②掌握数据集成中间件与工业互联网平台，具有多源数据接入与实时映射能力<br>③掌握数据清洗、时序数据处理技术，具有数字孪生数据质量保障能力</td>
+        </tr>
+        <tr>
+          <td><span class="cn">4</span></td>
+          <td><strong>数字孪生可视化开发</strong><br><span class="bdg" style="font-size:9px;margin-top:5px;">三维渲染</span><span class="bdg bdo" style="font-size:9px;">交互开发</span></td>
+          <td style="font-size:11px;">①使用三维可视化引擎搭建数字孪生场景，实现模型渲染、动画与交互<br>②开发数字孪生Web端可视化界面，集成实时数据展示与操控功能<br>③设计大屏可视化方案，实现多维度数据的直观呈现与决策支持</td>
+          <td style="font-size:11px;">①掌握DTS数字孪生平台/Unreal Engine/Three.js等引擎，具有数字孪生场景搭建与渲染能力<br>②掌握WebGL、Vue/React前端框架，具有数字孪生Web可视化应用开发能力<br>③掌握数据可视化设计原则与大屏开发技术，具有多维数据可视化呈现能力</td>
+        </tr>
+        <tr>
+          <td><span class="cn">5</span></td>
+          <td><strong>工业大数据与AI应用</strong><br><span class="bdg" style="font-size:9px;margin-top:5px;">预测分析</span><span class="bdg bdo" style="font-size:9px;">智能决策</span></td>
+          <td style="font-size:11px;">①对设备运行数据进行特征提取与分析，构建设备健康状态评估模型<br>②运用机器学习算法建立故障预测、质量预测等数据驱动模型<br>③将AI模型集成到数字孪生系统，实现智能预警与辅助决策</td>
+          <td style="font-size:11px;">①掌握时序数据分析、特征工程、异常检测技术，具有工业数据深度挖掘能力<br>②掌握机器学习、深度学习基础算法，具有预测性维护与质量预测模型构建能力<br>③掌握AI模型部署与推理优化技术，具有AI与数字孪生系统集成应用能力</td>
+        </tr>
+        <tr>
+          <td><span class="cn">6</span></td>
+          <td><strong>数字孪生平台运营与管理</strong><br><span class="bdg" style="font-size:9px;margin-top:5px;">平台运维</span><span class="bdg bdo" style="font-size:9px;">项目管理</span></td>
+          <td style="font-size:11px;">①负责数字孪生平台的日常运维、版本迭代与性能监控<br>②参与数字孪生项目的需求分析、方案设计、实施交付与验收<br>③制定平台使用规范与数据安全管理制度，保障系统安全稳定运行</td>
+          <td style="font-size:11px;">①掌握云原生、容器化（Docker/K8s）、微服务架构，具有数字孪生平台部署与运维能力<br>②掌握数字孪生项目管理方法论（敏捷/PMBOK），具有项目全生命周期管理能力<br>③掌握数据安全、网络安全基础知识，具有数字孪生系统安全防护与合规管理能力</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="as"><div class="asn">12+</div><div><div class="astt">专业拓展课程领域</div><div class="ast">增强现实（AR）与混合现实（MR）技术 · 数字孪生与元宇宙应用 · 工业机器人数字孪生 · 自动驾驶仿真测试 · 智慧城市CIM平台应用 · 能源系统数字孪生 · 供应链数字孪生优化 · 数字孪生标准与规范 · 低代码/无代码平台开发 · 边缘计算与实时系统 · 数字孪生安全与隐私保护 · 数字孪生项目实战综合训练</div></div></div>
+
+<div class="ga g1111" style="gap:16px;margin-top:20px;margin-bottom:20px;">
+  <div class="card ca" style="text-align:center;padding:28px 20px;"><div style="font-weight:700;font-size:48px;color:var(--bs);line-height:1;">2600</div><div style="font-size:11px;color:rgba(240,244,248,.7);margin-top:6px;letter-spacing:.1em;">总学时（一般为）</div></div>
+  <div class="card" style="text-align:center;padding:28px 20px;"><div style="font-weight:700;font-size:48px;color:var(--ac);line-height:1;">50%</div><div style="font-size:11px;color:var(--il);margin-top:6px;letter-spacing:.1em;">实践性教学学时（≥）</div></div>
+  <div class="card" style="text-align:center;padding:28px 20px;"><div style="font-weight:700;font-size:48px;color:var(--ac);line-height:1;">25%</div><div style="font-size:11px;color:var(--il);margin-top:6px;letter-spacing:.1em;">公共基础课学时（≥）</div></div>
+  <div class="card" style="text-align:center;padding:28px 20px;"><div style="font-weight:700;font-size:48px;color:var(--ac);line-height:1;">6月</div><div style="font-size:11px;color:var(--il);margin-top:6px;letter-spacing:.1em;">累计实习时间</div></div>
+</div>
+
+<!-- S04 核心技能图谱 -->
+<div class="sh"><div class="sn">04</div><div class="st">核心技能<em>图谱</em></div></div>
+<div class="ga g11" style="gap:20px;margin-bottom:20px;">
+  <div class="card ct">
+    <div class="clb">Skill Matrix · 技能熟练度要求</div><div class="ctt">专业技术技能矩阵</div>
+    <div style="margin-top:18px;">
+      <div class="sb"><div class="sbl"><span>三维建模与数字孪生模型构建</span><span style="color:var(--ac);font-size:11px;">核心</span></div><div class="sbt"><div class="sbf" style="width:95%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>仿真分析（FEA/CFD/离散事件）</span><span style="color:var(--ac);font-size:11px;">核心</span></div><div class="sbt"><div class="sbf" style="width:90%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>IoT数据采集与实时映射</span><span style="color:var(--ac);font-size:11px;">核心</span></div><div class="sbt"><div class="sbf" style="width:90%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>三维可视化与交互开发</span><span style="color:var(--ac);font-size:11px;">核心</span></div><div class="sbt"><div class="sbf" style="width:88%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>工业大数据分析与AI应用</span><span style="color:var(--ac);font-size:11px;">核心</span></div><div class="sbt"><div class="sbf" style="width:85%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>数字孪生平台部署与运维</span><span style="color:var(--ac);font-size:11px;">核心</span></div><div class="sbt"><div class="sbf" style="width:85%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>Python/C#编程开发</span><span style="color:var(--il);font-size:11px;">基础</span></div><div class="sbt"><div class="sbf" style="width:82%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>云原生与容器化技术</span><span style="color:var(--il);font-size:11px;">基础</span></div><div class="sbt"><div class="sbf" style="width:75%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>AR/VR/MR沉浸式应用开发</span><span style="color:var(--il);font-size:11px;">拓展</span></div><div class="sbt"><div class="sbf" style="width:68%;"></div></div></div>
+      <div class="sb"><div class="sbl"><span>数字孪生安全与合规管理</span><span style="color:var(--il);font-size:11px;">拓展</span></div><div class="sbt"><div class="sbf" style="width:62%;"></div></div></div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <div class="card cd ct">
+      <div class="clb">Technology Stack · 技术栈</div><div class="ctt">核心软件工具体系</div>
+      <div style="margin-top:14px;">
+        <div style="margin-bottom:14px;"><div style="font-size:10px;letter-spacing:.2em;color:var(--acl);margin-bottom:8px;">三维建模平台</div><div style="display:flex;flex-wrap:wrap;gap:5px;"><span class="tag tgo">3ds Max</span><span class="tag tgo">Blender</span><span class="tag tgo">Revit</span><span class="tag tgo">CATIA</span><span class="tag tgo">SolidWorks</span><span class="tag tgo">UG NX</span></div></div>
+        <div style="margin-bottom:14px;"><div style="font-size:10px;letter-spacing:.2em;color:var(--acl);margin-bottom:8px;">仿真分析平台</div><div style="display:flex;flex-wrap:wrap;gap:5px;"><span class="tag tgo">ANSYS</span><span class="tag tgo">Abaqus</span><span class="tag tgo">COMSOL</span><span class="tag tgo">Simcenter</span><span class="tag tgo">FlexSim</span></div></div>
+        <div style="margin-bottom:14px;"><div style="font-size:10px;letter-spacing:.2em;color:var(--acl);margin-bottom:8px;">可视化引擎</div><div style="display:flex;flex-wrap:wrap;gap:5px;"><span class="tag tgo">Unity3D</span><span class="tag tgo">Unreal Engine</span><span class="tag tgo">Three.js</span><span class="tag tgo">Cesium</span><span class="tag tgo">ECharts</span></div></div>
+        <div style="margin-bottom:14px;"><div style="font-size:10px;letter-spacing:.2em;color:var(--acl);margin-bottom:8px;">数字孪生平台</div><div style="display:flex;flex-wrap:wrap;gap:5px;"><span class="tag tgo">飞渡科技DTS数字孪生平台</span><span class="tag tgo">AWS IoT TwinMaker</span><span class="tag tgo">华为iDME</span><span class="tag tgo">西门子Xcelerator</span><span class="tag tgo">阿里云数字孪生</span></div></div>
+        <div><div style="font-size:10px;letter-spacing:.2em;color:var(--acl);margin-bottom:8px;">数据与AI工具</div><div style="display:flex;flex-wrap:wrap;gap:5px;"><span class="tag tgo">Python/Pandas</span><span class="tag tgo">TensorFlow</span><span class="tag tgo">PyTorch</span><span class="tag tgo">Kafka</span><span class="tag tgo">InfluxDB</span><span class="tag tgo">Grafana</span></div></div>
+      </div>
+    </div>
+    <div class="card ca" style="padding:24px 28px;">
+      <div class="clb">Certification · 职业技能等级证书</div><div class="ctt">四大核心证书方向</div>
+      <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:rgba(0,0,0,.15);padding:14px 16px;">
+          <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.15em;color:rgba(240,244,248,.6);margin-bottom:5px;">CERT 01</div>
+          <div style="font-size:13px;font-weight:500;color:var(--bs);">数字孪生应用技术员</div>
+          <div style="font-size:11px;color:rgba(240,244,248,.65);margin-top:4px;">数字孪生建模与平台应用</div>
+        </div>
+        <div style="background:rgba(0,0,0,.15);padding:14px 16px;">
+          <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.15em;color:rgba(240,244,248,.6);margin-bottom:5px;">CERT 02</div>
+          <div style="font-size:13px;font-weight:500;color:var(--bs);">工业互联网工程技术人员</div>
+          <div style="font-size:11px;color:rgba(240,244,248,.65);margin-top:4px;">IoT数据集成与工业网络</div>
+        </div>
+        <div style="background:rgba(0,0,0,.15);padding:14px 16px;">
+          <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.15em;color:rgba(240,244,248,.6);margin-bottom:5px;">CERT 03</div>
+          <div style="font-size:13px;font-weight:500;color:var(--bs);">人工智能训练师</div>
+          <div style="font-size:11px;color:rgba(240,244,248,.65);margin-top:4px;">AI模型训练与工业数据分析</div>
+        </div>
+        <div style="background:rgba(0,0,0,.15);padding:14px 16px;">
+          <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.15em;color:rgba(240,244,248,.6);margin-bottom:5px;">CERT 04</div>
+          <div style="font-size:13px;font-weight:500;color:var(--bs);">云计算工程技术人员</div>
+          <div style="font-size:11px;color:rgba(240,244,248,.65);margin-top:4px;">云原生平台部署与运维</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S05 产业链生态 -->
+<div class="sh"><div class="sn">05</div><div class="st">产业链<em>生态图</em></div></div>
+<div class="ga g11" style="gap:20px;margin-bottom:20px;">
+  <div class="card cd ct">
+    <div class="clb">Upstream · 上游供给侧</div><div class="ctt">技术与平台供给</div>
+    <div style="margin-top:16px;">
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">三维建模与仿真软件供应商</div>
+          <div class="cb2">达索系统（CATIA/SIMULIA）· 西门子（NX/Simcenter）· PTC（Creo）· ANSYS · COMSOL · Autodesk · Dassault</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">数字孪生平台供应商</div>
+          <div class="cb2">西门子Xcelerator· 飞渡科技DTS数字孪生平台 · 微软Azure Digital Twins · AWS IoT TwinMaker · 华为iDME · 阿里云  · 腾讯云  </div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">工业互联网与IoT设备</div>
+          <div class="cb2">华为工业互联网 · 海尔卡奥斯 · 航天云网 · 树根互联 · 西门子MindSphere · 施耐德电气 · 研华科技</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">可视化引擎与渲染技术</div>
+          <div class="cb2">Unity Technologies · Epic Games（Unreal）· NVIDIA Omniverse · 飞渡科技DTS数字孪生平台 · 51WORLD · 优锘科技（uino）· 数字冰雹</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">AI与大数据基础设施</div>
+          <div class="cb2">NVIDIA GPU计算平台 · 华为昇腾AI · 百度飞桨 · 阿里云PAI · 腾讯TI平台 · InfluxDB时序数据库 · Apache Kafka</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card cm ct">
+    <div class="clb">Downstream · 下游应用侧</div><div class="ctt">数字孪生典型应用场景</div>
+    <div style="margin-top:16px;">
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">智能制造与工业4.0</div>
+          <div class="cb2">数字孪生工厂 · 智能产线仿真优化 · 设备预测性维护 · 产品全生命周期管理 · 柔性制造调度</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">智慧城市与建筑</div>
+          <div class="cb2">城市信息模型（CIM）· 建筑数字孪生（BIM+IoT）· 智慧园区运营 · 地下管网数字化 · 城市应急指挥</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">能源与电力</div>
+          <div class="cb2">电网数字孪生 · 风电/光伏智慧运维 · 核电设备仿真 · 综合能源系统优化 · 碳排放数字化监测</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">交通与物流</div>
+          <div class="cb2">自动驾驶仿真测试 · 智慧港口数字孪生 · 轨道交通运维 · 航空发动机健康管理 · 供应链数字孪生</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">医疗与生命科学</div>
+          <div class="cb2">数字人体器官孪生 · 医疗设备智能运维 · 医院运营仿真优化 · 药物研发虚拟仿真 · 手术机器人辅助</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card ct" style="margin-bottom:20px;">
+  <div class="clb">Digital Twin Architecture · 数字孪生技术架构</div><div class="ctt">五层技术体系全景</div>
+  <div style="margin-top:20px;display:flex;align-items:stretch;gap:0;flex-wrap:wrap;">
+    <div style="flex:1;min-width:110px;background:var(--ik);color:var(--bs);padding:16px 14px;text-align:center;">
+      <div style="font-size:10px;letter-spacing:.15em;color:var(--acl);margin-bottom:6px;">LAYER 1</div>
+      <div style="font-size:12.5px;font-weight:500;">物理实体层</div>
+      <div style="font-size:10.5px;color:rgba(240,244,248,.5);margin-top:5px;line-height:1.6;">传感器<br>执行器<br>工业设备<br>物理环境</div>
+    </div>
+    <div style="color:var(--ac);font-size:20px;padding:0 6px;display:flex;align-items:center;">&#8594;</div>
+    <div style="flex:1;min-width:110px;background:var(--im);color:var(--bs);padding:16px 14px;text-align:center;">
+      <div style="font-size:10px;letter-spacing:.15em;color:var(--acl);margin-bottom:6px;">LAYER 2</div>
+      <div style="font-size:12.5px;font-weight:500;">数据采集层</div>
+      <div style="font-size:10.5px;color:rgba(240,244,248,.5);margin-top:5px;line-height:1.6;">IoT网关<br>OPC-UA<br>MQTT<br>边缘计算</div>
+    </div>
+    <div style="color:var(--ac);font-size:20px;padding:0 6px;display:flex;align-items:center;">&#8594;</div>
+    <div style="flex:1;min-width:110px;background:var(--ac);color:var(--bs);padding:16px 14px;text-align:center;">
+      <div style="font-size:10px;letter-spacing:.15em;color:rgba(240,244,248,.7);margin-bottom:6px;">LAYER 3</div>
+      <div style="font-size:12.5px;font-weight:500;">孪生模型层</div>
+      <div style="font-size:10.5px;color:rgba(240,244,248,.75);margin-top:5px;line-height:1.6;">几何模型<br>机理模型<br>数据模型<br>行为模型</div>
+    </div>
+    <div style="color:var(--ac);font-size:20px;padding:0 6px;display:flex;align-items:center;">&#8594;</div>
+    <div style="flex:1;min-width:110px;background:var(--bd);padding:16px 14px;text-align:center;border:1px solid var(--bk);">
+      <div style="font-size:10px;letter-spacing:.15em;color:var(--ac);margin-bottom:6px;">LAYER 4</div>
+      <div style="font-size:12.5px;font-weight:500;color:var(--ik);">分析决策层</div>
+      <div style="font-size:10.5px;color:var(--il);margin-top:5px;line-height:1.6;">仿真分析<br>AI预测<br>优化算法<br>知识图谱</div>
+    </div>
+    <div style="color:var(--ac);font-size:20px;padding:0 6px;display:flex;align-items:center;">&#8594;</div>
+    <div style="flex:1;min-width:110px;background:var(--bd);padding:16px 14px;text-align:center;border:1px solid var(--bk);border-left:3px solid var(--ac);">
+      <div style="font-size:10px;letter-spacing:.15em;color:var(--ac);margin-bottom:6px;">LAYER 5</div>
+      <div style="font-size:12.5px;font-weight:500;color:var(--ik);">可视交互层</div>
+      <div style="font-size:10.5px;color:var(--il);margin-top:5px;line-height:1.6;">三维可视化<br>AR/VR/MR<br>大屏展示<br>移动端应用</div>
+    </div>
+  </div>
+  <div style="margin-top:14px;padding:12px 18px;background:var(--bd);border-left:3px solid var(--ac);font-size:12px;color:var(--im);">
+    <strong style="color:var(--ac);">双向数据流：</strong>物理实体 &#8594; 数字孪生（感知映射）&nbsp;&nbsp;|&nbsp;&nbsp; 数字孪生 &#8594; 物理实体（优化反控）&nbsp;&nbsp;|&nbsp;&nbsp; 实现物理-信息空间的实时同步与闭环优化
+  </div>
+</div>
+
+<!-- S06 科研创新生态 -->
+<div class="sh"><div class="sn">06</div><div class="st">科研创新<em>生态</em></div></div>
+<div class="ga g1111" style="gap:16px;margin-bottom:20px;">
+  <div class="rcard">
+    <div class="rcard-t">数字孪生基础理论研究</div>
+    <div class="rcard-d">多保真度建模理论 · 模型不确定性量化 · 物理信息融合神经网络（PINN）· 数字孪生标准体系 · 孪生模型可信度评估方法</div>
+  </div>
+  <div class="rcard">
+    <div class="rcard-t">智能制造数字孪生</div>
+    <div class="rcard-d">数字孪生驱动的工艺优化 · 柔性制造系统仿真 · 刀具磨损预测模型 · 产品质量数字孪生 · 工业元宇宙应用研究</div>
+  </div>
+  <div class="rcard">
+    <div class="rcard-t">城市与基础设施孪生</div>
+    <div class="rcard-d">城市级数字孪生架构 · BIM-IoT-GIS融合技术 · 城市韧性仿真评估 · 地下空间数字孪生 · 智慧建筑能耗优化</div>
+  </div>
+  <div class="rcard">
+    <div class="rcard-t">AI驱动的数字孪生</div>
+    <div class="rcard-d">大模型赋能数字孪生 · 强化学习优化控制 · 图神经网络建模 · 联邦学习隐私保护 · 生成式AI辅助建模</div>
+  </div>
+</div>
+
+<div class="ga g11" style="gap:20px;margin-bottom:20px;">
+  <div class="card cd ct">
+    <div class="clb">Research Ecosystem · 科研协同体系</div><div class="ctt">产学研用协同创新机制</div>
+    <div style="margin-top:16px;">
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">高校科研平台</div>
+          <div class="cb2">数字孪生技术研究中心 · 工业互联网实验室 · 智能制造联合实验室 · 虚拟仿真实验教学中心 · 产教融合实训基地</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">头部企业合作</div>
+          <div class="cb2">与西门子、华为、飞渡科技、阿里云、51WORLD、优锘科技等头部企业共建联合实验室，推进"1+X"证书制度，引入真实工程项目进课堂</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">科研成果转化</div>
+          <div class="cb2">参与国家数字孪生标准制定 · 承接地方政府数字化转型咨询 · 横向科研项目 · 软件著作权与专利申报 · 创新创业孵化</div>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="cd2"></div>
+        <div>
+          <div class="ct2">数字化转型支撑</div>
+          <div class="cb2">支撑制造业数字化转型 · 助力智慧城市CIM平台建设 · 参与工业互联网标识解析体系 · 赋能中小企业数字孪生落地</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;">
+    <div class="card ca">
+      <div class="clb">Innovation Competition · 创新竞赛</div><div class="ctt">主要赛事平台</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:rgba(0,0,0,.12);padding:10px 14px;"><div style="font-size:12.5px;font-weight:500;color:var(--bs);">全国职业院校技能大赛</div><div style="font-size:11px;color:rgba(240,244,248,.65);margin-top:3px;">工业互联网应用 · 数字孪生建模 · 智能制造仿真</div></div>
+        <div style="background:rgba(0,0,0,.12);padding:10px 14px;"><div style="font-size:12.5px;font-weight:500;color:var(--bs);">"互联网+"大学生创新创业大赛</div><div style="font-size:11px;color:rgba(240,244,248,.65);margin-top:3px;">数字孪生SaaS产品 · 工业智能化解决方案</div></div>
+        <div style="background:rgba(0,0,0,.12);padding:10px 14px;"><div style="font-size:12.5px;font-weight:500;color:var(--bs);">西门子工业软件大赛</div><div style="font-size:11px;color:rgba(240,244,248,.65);margin-top:3px;">NX建模 · Simcenter仿真 · MindSphere应用开发</div></div>
+        <div style="background:rgba(0,0,0,.12);padding:10px 14px;"><div style="font-size:12.5px;font-weight:500;color:var(--bs);">工业互联网创新应用大赛</div><div style="font-size:11px;color:rgba(240,244,248,.65);margin-top:3px;">数字孪生应用场景 · 工业APP开发 · 数据分析</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="clb">Research Direction · 前沿研究方向</div><div class="ctt" style="font-size:14px;">新兴技术融合</div>
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
+        <span class="tag tgd">工业元宇宙</span><span class="tag tgd">生成式AI建模</span><span class="tag tgd">量子计算仿真</span>
+        <span class="tag tgd">数字孪生安全</span><span class="tag tgd">具身智能</span><span class="tag tgd">数字孪生标准</span>
+        <span class="tag tgd">PINN物理神经网络</span><span class="tag tgd">低空经济孪生</span><span class="tag tgd">碳中和仿真</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S07 教学实施保障 -->
+<div class="sh"><div class="sn">07</div><div class="st">教学实施与<em>质量保障</em></div></div>
+<div class="ga g111" style="gap:16px;margin-bottom:20px;">
+  <div class="card cd ct">
+    <div class="clb">Teaching Staff · 师资队伍</div><div class="ctt">双师型教师要求</div>
+    <div style="margin-top:16px;">
+      <div style="display:flex;justify-content:space-around;text-align:center;margin-bottom:18px;">
+        <div><div class="hn">60%</div><div class="hnl">双师型占比（≥）</div></div>
+        <div><div class="hn">20%</div><div class="hnl">高级职称占比（≥）</div></div>
+      </div>
+      <div class="dv"></div>
+      <div style="margin-top:14px;">
+        <div class="irow"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><span style="font-size:12px;color:var(--bk);">专任教师须具备计算机、软件工程、机械工程等相关专业本科及以上学历，持有教师资格证，具有工程实践经历</span></div>
+        <div class="irow"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span style="font-size:12px;color:var(--bk);">每年至少1个月赴企业实践或参与数字孪生应用技术研究，持续提升工程实践能力</span></div>
+        <div class="irow"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span style="font-size:12px;color:var(--bk);">兼职教师须具备相关专业中级及以上职称或工程师资格，近5年在西门子、华为、阿里云等头部企业有丰富数字孪生项目经验</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card ct">
+    <div class="clb">Training Facilities · 实训条件</div><div class="ctt">专业实训室体系</div>
+    <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bd);border-left:3px solid var(--ac);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <div><div style="font-size:12.5px;font-weight:500;color:var(--ik);">三维建模与仿真实训室</div><div style="font-size:11px;color:var(--il);">配备高性能工作站、CATIA/SolidWorks/ANSYS正版软件、3D打印机</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bd);border-left:3px solid var(--ac);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <div><div style="font-size:12.5px;font-weight:500;color:var(--ik);">数字孪生可视化开发实训室</div><div style="font-size:11px;color:var(--il);">配备DTS数字孪生平台/Unreal Engine、大屏可视化系统、VR头显设备</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bd);border-left:3px solid var(--ac);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <div><div style="font-size:12.5px;font-weight:500;color:var(--ik);">工业互联网与IoT实训室</div><div style="font-size:11px;color:var(--il);">配备PLC、传感器、工业网关、MQTT/OPC-UA通信测试环境</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bd);border-left:3px solid var(--ac);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <div><div style="font-size:12.5px;font-weight:500;color:var(--ik);">大数据与AI实训室</div><div style="font-size:11px;color:var(--il);">配备GPU服务器集群、Hadoop/Spark大数据平台、TensorFlow/PyTorch环境</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bd);border-left:3px solid var(--ac);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ac)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        <div><div style="font-size:12.5px;font-weight:500;color:var(--ik);">数字孪生综合应用实训室</div><div style="font-size:11px;color:var(--il);">配备西门子Xcelerator/DTS数字孪生平台、数字孪生沙盘、综合项目实战环境</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card ca ct">
+    <div class="clb">Quality Assurance · 质量保障</div><div class="ctt">综合评价体系</div>
+    <div style="margin-top:16px;">
+      <div style="background:rgba(0,0,0,.12);padding:14px 16px;margin-bottom:10px;">
+        <div style="font-size:12.5px;font-weight:500;color:var(--bs);margin-bottom:5px;">&#9679; 过程性评价</div>
+        <div style="font-size:11.5px;color:rgba(240,244,248,.7);line-height:1.7;">课堂表现 · 建模作品 · 仿真报告 · 代码提交 · 阶段项目成果 · 团队协作</div>
+      </div>
+      <div style="background:rgba(0,0,0,.12);padding:14px 16px;margin-bottom:10px;">
+        <div style="font-size:12.5px;font-weight:500;color:var(--bs);margin-bottom:5px;">&#9679; 增值性评价</div>
+        <div style="font-size:11.5px;color:rgba(240,244,248,.7);line-height:1.7;">技能成长档案 · 作品集（Portfolio）· 创新能力培育 · 职业素养发展轨迹</div>
+      </div>
+      <div style="background:rgba(0,0,0,.12);padding:14px 16px;margin-bottom:10px;">
+        <div style="font-size:12.5px;font-weight:500;color:var(--bs);margin-bottom:5px;">&#9679; 社会性评价</div>
+        <div style="font-size:11.5px;color:rgba(240,244,248,.7);line-height:1.7;">用人单位满意度 · 毕业生就业质量跟踪 · 行业认可度 · 第三方评估机构</div>
+      </div>
+      <div style="background:rgba(0,0,0,.12);padding:14px 16px;">
+        <div style="font-size:12.5px;font-weight:500;color:var(--bs);margin-bottom:5px;">&#9679; 专业诊断改进</div>
+        <div style="font-size:11.5px;color:rgba(240,244,248,.7);line-height:1.7;">年度专业自评报告 · 课程质量诊断 · 教学标准动态修订 · 行业专家咨询委员会</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S08 产教融合路径 -->
+<div class="sh"><div class="sn">08</div><div class="st">产教融合<em>路径图</em></div></div>
+<div class="card cd ct" style="margin-bottom:20px;box-shadow:var(--s2);">
+  <div class="clb">Industry-Education Integration · 产教融合全路径</div><div class="ctt">校企协同育人机制</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:24px;">
+    <div style="padding:20px 18px;border-right:1px solid rgba(240,244,248,.1);">
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">PHASE 01</div>
+      <div style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:15px;color:var(--bs);margin-bottom:10px;">人才培养方案共制</div>
+      <div style="font-size:11.5px;color:rgba(240,244,248,.55);line-height:1.8;">西门子、华为、飞渡科技等企业专家参与培养方案制定 · 岗位需求调研 · 课程标准联合开发 · 工程案例教材编写</div>
+    </div>
+    <div style="padding:20px 18px;border-right:1px solid rgba(240,244,248,.1);">
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">PHASE 02</div>
+      <div style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:15px;color:var(--bs);margin-bottom:10px;">教学资源共建</div>
+      <div style="font-size:11.5px;color:rgba(240,244,248,.55);line-height:1.8;">真实工程项目案例引入 · 企业数据与平台资源共享 · 在线开放课程建设 · 虚拟仿真实训平台共建</div>
+    </div>
+    <div style="padding:20px 18px;border-right:1px solid rgba(240,244,248,.1);">
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">PHASE 03</div>
+      <div style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:15px;color:var(--bs);margin-bottom:10px;">实习实训共管</div>
+      <div style="font-size:11.5px;color:rgba(240,244,248,.55);line-height:1.8;">校内生产性实训基地 · 企业认知实习 · 跟岗实习 · 顶岗实习全过程双导师管理</div>
+    </div>
+    <div style="padding:20px 18px;">
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">PHASE 04</div>
+      <div style="font-family:'Noto Serif SC',serif;font-weight:700;font-size:15px;color:var(--bs);margin-bottom:10px;">就业创业共促</div>
+      <div style="font-size:11.5px;color:rgba(240,244,248,.55);line-height:1.8;">订单班定向培养 · 就业推荐绿色通道 · 数字孪生创新创业孵化 · 毕业生跟踪反馈机制</div>
+    </div>
+  </div>
+</div>
+
+<div class="ga g11" style="gap:20px;margin-bottom:20px;">
+  <div class="card ct">
+    <div class="clb">Cooperative Enterprises · 合作企业类型</div><div class="ctt">产教融合合作伙伴</div>
+    <table class="tbl" style="margin-top:14px;">
+      <thead><tr><th>企业类型</th><th>代表性企业</th><th>合作形式</th></tr></thead>
+      <tbody>
+        <tr><td><span class="bdg" style="font-size:9px;">工业软件</span></td><td style="font-size:12px;">西门子、达索系统、PTC、ANSYS、Autodesk</td><td style="font-size:12px;">软件授权 · 联合实验室 · 认证培训</td></tr>
+        <tr><td><span class="bdg" style="font-size:9px;">数字孪生平台</span></td><td style="font-size:12px;">飞渡科技DTS数字孪生平台、华为iDME、51WORLD、优锘科技、数字冰雹</td><td style="font-size:12px;">平台共建 · 项目合作 · 订单培养</td></tr>
+        <tr><td><span class="bdg" style="font-size:9px;">工业互联网</span></td><td style="font-size:12px;">海尔卡奥斯、树根互联、航天云网、研华</td><td style="font-size:12px;">实习基地 · 技术培训 · 兼职教师</td></tr>
+        <tr><td><span class="bdg" style="font-size:9px;">云计算/AI</span></td><td style="font-size:12px;">阿里云、腾讯云、华为云、百度智能云</td><td style="font-size:12px;">云资源支持 · 认证考试 · 技术赋能</td></tr>
+        <tr><td><span class="bdg" style="font-size:9px;">制造业用户</span></td><td style="font-size:12px;">中国一汽、三一重工、海尔、格力、比亚迪</td><td style="font-size:12px;">顶岗实习 · 课题研究 · 就业推荐</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card cm ct">
+    <div class="clb">Implementation Path · 实施路径</div><div class="ctt">三年学习路径规划</div>
+    <div style="margin-top:16px;">
+      <div style="margin-bottom:18px;">
+        <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">YEAR ONE · 第一学年</div>
+        <div style="font-size:12px;color:rgba(240,244,248,.75);line-height:1.8;">公共基础课程 + 专业基础课程 · 建立数字孪生专业认知 · 掌握Python编程、三维建模基础、数据库应用 · 参加认知实习（1周）· 考取Python/云计算基础证书</div>
+      </div>
+      <div style="height:1px;background:rgba(240,244,248,.1);margin-bottom:18px;"></div>
+      <div style="margin-bottom:18px;">
+        <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">YEAR TWO · 第二学年</div>
+        <div style="font-size:12px;color:rgba(240,244,248,.75);line-height:1.8;">专业核心课程全面展开 · 掌握建模仿真/IoT集成/可视化开发/AI应用核心技能 · 参加跟岗实习（4周）· 考取数字孪生应用技术员、工业互联网工程技术人员等职业技能证书</div>
+      </div>
+      <div style="height:1px;background:rgba(240,244,248,.1);margin-bottom:18px;"></div>
+      <div>
+        <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--acl);margin-bottom:10px;">YEAR THREE · 第三学年</div>
+        <div style="font-size:12px;color:rgba(240,244,248,.75);line-height:1.8;">专业拓展课程 + 顶岗实习（6个月）· 综合数字孪生项目实战 · 毕业设计（完整数字孪生系统交付）· 考取人工智能训练师等高级证书 · 就业或专升本深造</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCENT STRIP FINAL -->
+<div class="as" style="margin-top:30px;">
+  <div class="asn">510210</div>
+  <div>
+    <div class="astt">数字孪生技术应用专业 — 产学研用知识图谱</div>
+    <div class="ast">专业代码 510210 · 电子信息大类 · 计算机类 · 高等职业教育专科 · 修业年限三年 · 总学时≥2600 · 实践比例≥50% · 双师型教师≥60% · 覆盖智能制造/智慧城市/能源/交通四大行业</div>
+  </div>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <div>
+    <div class="ftb">DIGITAL TWIN <span>TECHNOLOGY</span></div>
+    <div class="ftn" style="margin-top:6px;">数字孪生技术应用专业（510210）产学研用知识图谱 · 基于教学标准构建</div>
+  </div>
+  <div style="text-align:right;">
+    <div class="ftn">覆盖领域：三维建模 · 仿真分析 · IoT集成 · 可视化开发 · 工业大数据 · AI应用 · 平台运维</div>
+    <div class="ftn" style="margin-top:5px;">© 2026 · 高等职业教育专科教学标准 · 产学研用全景知识图谱</div>
+  </div>
+</footer>
+
+</body>
+</html>
+

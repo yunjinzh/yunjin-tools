@@ -1,0 +1,2795 @@
+[
+  {
+    "id": "w001",
+    "unit": 0,
+    "page": 128,
+    "en": "amazing",
+    "zh": "了不起的；惊人的"
+  },
+  {
+    "id": "w002",
+    "unit": 0,
+    "page": 128,
+    "en": "anything",
+    "zh": "任何事物；无论何事"
+  },
+  {
+    "id": "w003",
+    "unit": 0,
+    "page": 128,
+    "en": "baddie",
+    "zh": "坏蛋"
+  },
+  {
+    "id": "w004",
+    "unit": 0,
+    "page": 128,
+    "en": "band",
+    "zh": "乐队"
+  },
+  {
+    "id": "w005",
+    "unit": 0,
+    "page": 128,
+    "en": "big wheel",
+    "zh": "摩天轮"
+  },
+  {
+    "id": "w006",
+    "unit": 0,
+    "page": 128,
+    "en": "brave",
+    "zh": "勇敢的"
+  },
+  {
+    "id": "w007",
+    "unit": 0,
+    "page": 128,
+    "en": "castle",
+    "zh": "城堡"
+  },
+  {
+    "id": "w008",
+    "unit": 0,
+    "page": 128,
+    "en": "closely",
+    "zh": "仔细地"
+  },
+  {
+    "id": "w009",
+    "unit": 0,
+    "page": 128,
+    "en": "clue",
+    "zh": "线索；提示"
+  },
+  {
+    "id": "w010",
+    "unit": 0,
+    "page": 128,
+    "en": "code",
+    "zh": "密码；代码"
+  },
+  {
+    "id": "w011",
+    "unit": 0,
+    "page": 128,
+    "en": "diamond",
+    "zh": "菱形"
+  },
+  {
+    "id": "w012",
+    "unit": 0,
+    "page": 128,
+    "en": "dodgem car",
+    "zh": "碰碰车"
+  },
+  {
+    "id": "w013",
+    "unit": 0,
+    "page": 128,
+    "en": "excitement",
+    "zh": "兴奋"
+  },
+  {
+    "id": "w014",
+    "unit": 0,
+    "page": 128,
+    "en": "explore",
+    "zh": "探险"
+  },
+  {
+    "id": "w015",
+    "unit": 0,
+    "page": 128,
+    "en": "journalist",
+    "zh": "新闻记者"
+  },
+  {
+    "id": "w016",
+    "unit": 0,
+    "page": 128,
+    "en": "map",
+    "zh": "地图"
+  },
+  {
+    "id": "w017",
+    "unit": 0,
+    "page": 128,
+    "en": "mayor",
+    "zh": "市长"
+  },
+  {
+    "id": "w018",
+    "unit": 0,
+    "page": 128,
+    "en": "microphone",
+    "zh": "麦克风"
+  },
+  {
+    "id": "w019",
+    "unit": 0,
+    "page": 128,
+    "en": "photographer",
+    "zh": "摄影者"
+  },
+  {
+    "id": "w020",
+    "unit": 0,
+    "page": 128,
+    "en": "roller coaster",
+    "zh": "过山车"
+  },
+  {
+    "id": "w021",
+    "unit": 0,
+    "page": 128,
+    "en": "roundabout",
+    "zh": "旋转木马"
+  },
+  {
+    "id": "w022",
+    "unit": 0,
+    "page": 128,
+    "en": "shocked",
+    "zh": "吃惊的；震惊的"
+  },
+  {
+    "id": "w023",
+    "unit": 0,
+    "page": 128,
+    "en": "symbol",
+    "zh": "符号"
+  },
+  {
+    "id": "w024",
+    "unit": 0,
+    "page": 128,
+    "en": "well done",
+    "zh": "做得好"
+  },
+  {
+    "id": "w025",
+    "unit": 1,
+    "page": 128,
+    "en": "alarm",
+    "zh": "警报器"
+  },
+  {
+    "id": "w026",
+    "unit": 1,
+    "page": 128,
+    "en": "anthropology",
+    "zh": "人类学"
+  },
+  {
+    "id": "w027",
+    "unit": 1,
+    "page": 128,
+    "en": "bandage",
+    "zh": "绷带"
+  },
+  {
+    "id": "w028",
+    "unit": 1,
+    "page": 128,
+    "en": "belt",
+    "zh": "腰带"
+  },
+  {
+    "id": "w029",
+    "unit": 1,
+    "page": 128,
+    "en": "bow and arrow",
+    "zh": "弓箭"
+  },
+  {
+    "id": "w030",
+    "unit": 1,
+    "page": 128,
+    "en": "bracelet",
+    "zh": "手镯"
+  },
+  {
+    "id": "w031",
+    "unit": 1,
+    "page": 128,
+    "en": "brilliant",
+    "zh": "极好的"
+  },
+  {
+    "id": "w032",
+    "unit": 1,
+    "page": 128,
+    "en": "calendar",
+    "zh": "日历"
+  },
+  {
+    "id": "w033",
+    "unit": 1,
+    "page": 128,
+    "en": "case",
+    "zh": "橱；柜"
+  },
+  {
+    "id": "w034",
+    "unit": 1,
+    "page": 128,
+    "en": "chemical",
+    "zh": "化学品"
+  },
+  {
+    "id": "w035",
+    "unit": 1,
+    "page": 128,
+    "en": "cloakroom",
+    "zh": "衣帽寄存处"
+  },
+  {
+    "id": "w036",
+    "unit": 1,
+    "page": 128,
+    "en": "collection",
+    "zh": "收藏品"
+  },
+  {
+    "id": "w037",
+    "unit": 1,
+    "page": 128,
+    "en": "crown",
+    "zh": "王冠"
+  },
+  {
+    "id": "w038",
+    "unit": 1,
+    "page": 128,
+    "en": "culture",
+    "zh": "文化"
+  },
+  {
+    "id": "w039",
+    "unit": 1,
+    "page": 128,
+    "en": "dinosaur",
+    "zh": "恐龙"
+  },
+  {
+    "id": "w040",
+    "unit": 1,
+    "page": 128,
+    "en": "director",
+    "zh": "负责人；主管"
+  },
+  {
+    "id": "w041",
+    "unit": 1,
+    "page": 128,
+    "en": "exhibit",
+    "zh": "展品；展出物"
+  },
+  {
+    "id": "w042",
+    "unit": 1,
+    "page": 128,
+    "en": "gallery",
+    "zh": "美术馆"
+  },
+  {
+    "id": "w043",
+    "unit": 1,
+    "page": 128,
+    "en": "gold",
+    "zh": "金质的"
+  },
+  {
+    "id": "w044",
+    "unit": 1,
+    "page": 128,
+    "en": "helmet",
+    "zh": "头盔"
+  },
+  {
+    "id": "w045",
+    "unit": 1,
+    "page": 128,
+    "en": "hide",
+    "zh": "躲藏；藏身"
+  },
+  {
+    "id": "w046",
+    "unit": 1,
+    "page": 129,
+    "en": "huge",
+    "zh": "巨大的；庞大的"
+  },
+  {
+    "id": "w047",
+    "unit": 1,
+    "page": 129,
+    "en": "knight",
+    "zh": "骑士"
+  },
+  {
+    "id": "w048",
+    "unit": 1,
+    "page": 129,
+    "en": "lead",
+    "zh": "（牵狗的）绳子"
+  },
+  {
+    "id": "w049",
+    "unit": 1,
+    "page": 129,
+    "en": "lock",
+    "zh": "锁住"
+  },
+  {
+    "id": "w050",
+    "unit": 1,
+    "page": 129,
+    "en": "mask",
+    "zh": "面具"
+  },
+  {
+    "id": "w051",
+    "unit": 1,
+    "page": 129,
+    "en": "Mexico",
+    "zh": "墨西哥"
+  },
+  {
+    "id": "w052",
+    "unit": 1,
+    "page": 129,
+    "en": "mummy",
+    "zh": "木乃伊"
+  },
+  {
+    "id": "w053",
+    "unit": 1,
+    "page": 129,
+    "en": "National Museum",
+    "zh": "国家博物馆"
+  },
+  {
+    "id": "w054",
+    "unit": 1,
+    "page": 129,
+    "en": "necklace",
+    "zh": "项链"
+  },
+  {
+    "id": "w055",
+    "unit": 1,
+    "page": 129,
+    "en": "queen",
+    "zh": "女王"
+  },
+  {
+    "id": "w056",
+    "unit": 1,
+    "page": 129,
+    "en": "report",
+    "zh": "举报（罪案）"
+  },
+  {
+    "id": "w057",
+    "unit": 1,
+    "page": 129,
+    "en": "rule",
+    "zh": "统治；治理"
+  },
+  {
+    "id": "w058",
+    "unit": 1,
+    "page": 129,
+    "en": "shield",
+    "zh": "盾牌"
+  },
+  {
+    "id": "w059",
+    "unit": 1,
+    "page": 129,
+    "en": "sword",
+    "zh": "剑；刀"
+  },
+  {
+    "id": "w060",
+    "unit": 1,
+    "page": 129,
+    "en": "time capsule",
+    "zh": "时间囊"
+  },
+  {
+    "id": "w061",
+    "unit": 1,
+    "page": 129,
+    "en": "touch",
+    "zh": "触摸"
+  },
+  {
+    "id": "w062",
+    "unit": 1,
+    "page": 129,
+    "en": "treat",
+    "zh": "处理"
+  },
+  {
+    "id": "w063",
+    "unit": 1,
+    "page": 129,
+    "en": "wrap",
+    "zh": "（用布或纸等）包；裹"
+  },
+  {
+    "id": "w064",
+    "unit": 2,
+    "page": 129,
+    "en": "background",
+    "zh": "背景；后景"
+  },
+  {
+    "id": "w065",
+    "unit": 2,
+    "page": 129,
+    "en": "bright",
+    "zh": "鲜艳的；鲜亮的"
+  },
+  {
+    "id": "w066",
+    "unit": 2,
+    "page": 129,
+    "en": "careful",
+    "zh": "细心的"
+  },
+  {
+    "id": "w067",
+    "unit": 2,
+    "page": 129,
+    "en": "classmate",
+    "zh": "同班同学"
+  },
+  {
+    "id": "w068",
+    "unit": 2,
+    "page": 129,
+    "en": "dark",
+    "zh": "暗色的；深色的"
+  },
+  {
+    "id": "w069",
+    "unit": 2,
+    "page": 129,
+    "en": "environment",
+    "zh": "环境"
+  },
+  {
+    "id": "w070",
+    "unit": 2,
+    "page": 129,
+    "en": "field",
+    "zh": "田地；田野"
+  },
+  {
+    "id": "w071",
+    "unit": 2,
+    "page": 129,
+    "en": "foreground",
+    "zh": "（图片或照片的）前景"
+  },
+  {
+    "id": "w072",
+    "unit": 2,
+    "page": 129,
+    "en": "forest",
+    "zh": "森林；林区"
+  },
+  {
+    "id": "w073",
+    "unit": 2,
+    "page": 129,
+    "en": "free time",
+    "zh": "空闲时间"
+  },
+  {
+    "id": "w074",
+    "unit": 2,
+    "page": 129,
+    "en": "half",
+    "zh": "一半；半"
+  },
+  {
+    "id": "w075",
+    "unit": 2,
+    "page": 129,
+    "en": "hang out",
+    "zh": "闲逛；出去消遣"
+  },
+  {
+    "id": "w076",
+    "unit": 2,
+    "page": 129,
+    "en": "hike",
+    "zh": "徒步旅行；远足"
+  },
+  {
+    "id": "w077",
+    "unit": 2,
+    "page": 129,
+    "en": "island",
+    "zh": "岛；岛屿"
+  },
+  {
+    "id": "w078",
+    "unit": 2,
+    "page": 129,
+    "en": "lake",
+    "zh": "湖"
+  },
+  {
+    "id": "w079",
+    "unit": 2,
+    "page": 129,
+    "en": "mountain",
+    "zh": "高山；山岳"
+  },
+  {
+    "id": "w080",
+    "unit": 2,
+    "page": 129,
+    "en": "nature",
+    "zh": "大自然；自然界"
+  },
+  {
+    "id": "w081",
+    "unit": 2,
+    "page": 129,
+    "en": "outdoors",
+    "zh": "在户外；在野外"
+  },
+  {
+    "id": "w082",
+    "unit": 2,
+    "page": 129,
+    "en": "parasol",
+    "zh": "（遮）阳伞"
+  },
+  {
+    "id": "w083",
+    "unit": 2,
+    "page": 129,
+    "en": "path",
+    "zh": "小径；小道"
+  },
+  {
+    "id": "w084",
+    "unit": 2,
+    "page": 129,
+    "en": "place",
+    "zh": "地方"
+  },
+  {
+    "id": "w085",
+    "unit": 2,
+    "page": 129,
+    "en": "realistically",
+    "zh": "逼真地"
+  },
+  {
+    "id": "w086",
+    "unit": 2,
+    "page": 129,
+    "en": "river",
+    "zh": "江；河"
+  },
+  {
+    "id": "w087",
+    "unit": 2,
+    "page": 129,
+    "en": "soup",
+    "zh": "汤"
+  },
+  {
+    "id": "w088",
+    "unit": 2,
+    "page": 129,
+    "en": "stairs",
+    "zh": "楼梯"
+  },
+  {
+    "id": "w089",
+    "unit": 2,
+    "page": 129,
+    "en": "sunshine",
+    "zh": "阳光；日照"
+  },
+  {
+    "id": "w090",
+    "unit": 2,
+    "page": 129,
+    "en": "table tennis",
+    "zh": "乒乓球"
+  },
+  {
+    "id": "w091",
+    "unit": 2,
+    "page": 129,
+    "en": "village",
+    "zh": "乡村；村庄"
+  },
+  {
+    "id": "w092",
+    "unit": 2,
+    "page": 129,
+    "en": "waiter",
+    "zh": "（餐馆的）男服务员"
+  },
+  {
+    "id": "w093",
+    "unit": 3,
+    "page": 129,
+    "en": "accident",
+    "zh": "交通事故"
+  },
+  {
+    "id": "w094",
+    "unit": 3,
+    "page": 129,
+    "en": "ambulance",
+    "zh": "救护车"
+  },
+  {
+    "id": "w095",
+    "unit": 3,
+    "page": 129,
+    "en": "assembly hall",
+    "zh": "集会厅"
+  },
+  {
+    "id": "w096",
+    "unit": 3,
+    "page": 129,
+    "en": "blood",
+    "zh": "血；血液"
+  },
+  {
+    "id": "w097",
+    "unit": 3,
+    "page": 129,
+    "en": "bubble",
+    "zh": "起泡；冒泡"
+  },
+  {
+    "id": "w098",
+    "unit": 3,
+    "page": 129,
+    "en": "crawl",
+    "zh": "爬；爬行"
+  },
+  {
+    "id": "w099",
+    "unit": 3,
+    "page": 129,
+    "en": "danger",
+    "zh": "危险"
+  },
+  {
+    "id": "w100",
+    "unit": 3,
+    "page": 129,
+    "en": "emergency services",
+    "zh": "应急服务机构"
+  },
+  {
+    "id": "w101",
+    "unit": 3,
+    "page": 129,
+    "en": "escape",
+    "zh": "逃离"
+  },
+  {
+    "id": "w102",
+    "unit": 3,
+    "page": 130,
+    "en": "escape route",
+    "zh": "逃生路线"
+  },
+  {
+    "id": "w103",
+    "unit": 3,
+    "page": 130,
+    "en": "extinguisher",
+    "zh": "灭火器"
+  },
+  {
+    "id": "w104",
+    "unit": 3,
+    "page": 130,
+    "en": "fall out of",
+    "zh": "从……跌落"
+  },
+  {
+    "id": "w105",
+    "unit": 3,
+    "page": 130,
+    "en": "fire",
+    "zh": "火；失火"
+  },
+  {
+    "id": "w106",
+    "unit": 3,
+    "page": 130,
+    "en": "fire drill",
+    "zh": "消防演习"
+  },
+  {
+    "id": "w107",
+    "unit": 3,
+    "page": 130,
+    "en": "fire engine",
+    "zh": "消防车"
+  },
+  {
+    "id": "w108",
+    "unit": 3,
+    "page": 130,
+    "en": "firefighter",
+    "zh": "消防队员"
+  },
+  {
+    "id": "w109",
+    "unit": 3,
+    "page": 130,
+    "en": "flood",
+    "zh": "洪水；水灾"
+  },
+  {
+    "id": "w110",
+    "unit": 3,
+    "page": 130,
+    "en": "gymnasium",
+    "zh": "体育馆；健身房"
+  },
+  {
+    "id": "w111",
+    "unit": 3,
+    "page": 130,
+    "en": "health",
+    "zh": "健康（状况）"
+  },
+  {
+    "id": "w112",
+    "unit": 3,
+    "page": 130,
+    "en": "hurt",
+    "zh": "弄伤"
+  },
+  {
+    "id": "w113",
+    "unit": 3,
+    "page": 130,
+    "en": "in case of",
+    "zh": "在……的时候"
+  },
+  {
+    "id": "w114",
+    "unit": 3,
+    "page": 130,
+    "en": "in pain",
+    "zh": "处于痛苦之中"
+  },
+  {
+    "id": "w115",
+    "unit": 3,
+    "page": 130,
+    "en": "main entrance",
+    "zh": "主要入口"
+  },
+  {
+    "id": "w116",
+    "unit": 3,
+    "page": 130,
+    "en": "operator",
+    "zh": "电话接线员"
+  },
+  {
+    "id": "w117",
+    "unit": 3,
+    "page": 130,
+    "en": "paramedic",
+    "zh": "（非医生或护士的）护理人员"
+  },
+  {
+    "id": "w118",
+    "unit": 3,
+    "page": 130,
+    "en": "police car",
+    "zh": "警车"
+  },
+  {
+    "id": "w119",
+    "unit": 3,
+    "page": 130,
+    "en": "police officer",
+    "zh": "警察"
+  },
+  {
+    "id": "w120",
+    "unit": 3,
+    "page": 130,
+    "en": "react",
+    "zh": "（作出）反应"
+  },
+  {
+    "id": "w121",
+    "unit": 3,
+    "page": 130,
+    "en": "rush",
+    "zh": "（水或其他液体）快速流动"
+  },
+  {
+    "id": "w122",
+    "unit": 3,
+    "page": 130,
+    "en": "staff room",
+    "zh": "教师办公室"
+  },
+  {
+    "id": "w123",
+    "unit": 3,
+    "page": 130,
+    "en": "storeroom",
+    "zh": "贮藏室"
+  },
+  {
+    "id": "w124",
+    "unit": 3,
+    "page": 130,
+    "en": "stretcher",
+    "zh": "担架"
+  },
+  {
+    "id": "w125",
+    "unit": 3,
+    "page": 130,
+    "en": "toilet",
+    "zh": "厕所"
+  },
+  {
+    "id": "w126",
+    "unit": 3,
+    "page": 130,
+    "en": "tourist",
+    "zh": "观光客；游客"
+  },
+  {
+    "id": "w127",
+    "unit": 3,
+    "page": 130,
+    "en": "tsunami",
+    "zh": "海啸"
+  },
+  {
+    "id": "w128",
+    "unit": 3,
+    "page": 130,
+    "en": "wardrobe",
+    "zh": "衣橱；衣柜"
+  },
+  {
+    "id": "w129",
+    "unit": 4,
+    "page": 130,
+    "en": "away from",
+    "zh": "远离"
+  },
+  {
+    "id": "w130",
+    "unit": 4,
+    "page": 130,
+    "en": "centre",
+    "zh": "（正）中间"
+  },
+  {
+    "id": "w131",
+    "unit": 4,
+    "page": 130,
+    "en": "conductor",
+    "zh": "（火车上的）列车长"
+  },
+  {
+    "id": "w132",
+    "unit": 4,
+    "page": 130,
+    "en": "cost",
+    "zh": "费用"
+  },
+  {
+    "id": "w133",
+    "unit": 4,
+    "page": 130,
+    "en": "disappear",
+    "zh": "消失；不见"
+  },
+  {
+    "id": "w134",
+    "unit": 4,
+    "page": 130,
+    "en": "drop",
+    "zh": "落下"
+  },
+  {
+    "id": "w135",
+    "unit": 4,
+    "page": 130,
+    "en": "escalator",
+    "zh": "自动扶梯"
+  },
+  {
+    "id": "w136",
+    "unit": 4,
+    "page": 130,
+    "en": "float",
+    "zh": "浮；漂"
+  },
+  {
+    "id": "w137",
+    "unit": 4,
+    "page": 130,
+    "en": "foil",
+    "zh": "（包裹食品用的）箔"
+  },
+  {
+    "id": "w138",
+    "unit": 4,
+    "page": 130,
+    "en": "force",
+    "zh": "（使物体移动的）力"
+  },
+  {
+    "id": "w139",
+    "unit": 4,
+    "page": 130,
+    "en": "friction",
+    "zh": "摩擦"
+  },
+  {
+    "id": "w140",
+    "unit": 4,
+    "page": 130,
+    "en": "gravity",
+    "zh": "重力；引力"
+  },
+  {
+    "id": "w141",
+    "unit": 4,
+    "page": 130,
+    "en": "meeting point",
+    "zh": "见面地点"
+  },
+  {
+    "id": "w142",
+    "unit": 4,
+    "page": 130,
+    "en": "per person",
+    "zh": "每人"
+  },
+  {
+    "id": "w143",
+    "unit": 4,
+    "page": 130,
+    "en": "platform",
+    "zh": "站台；月台"
+  },
+  {
+    "id": "w144",
+    "unit": 4,
+    "page": 130,
+    "en": "pull",
+    "zh": "拉"
+  },
+  {
+    "id": "w145",
+    "unit": 4,
+    "page": 130,
+    "en": "push",
+    "zh": "推；推动"
+  },
+  {
+    "id": "w146",
+    "unit": 4,
+    "page": 130,
+    "en": "return ticket",
+    "zh": "往返票"
+  },
+  {
+    "id": "w147",
+    "unit": 4,
+    "page": 130,
+    "en": "rough",
+    "zh": "粗糙的；不平的"
+  },
+  {
+    "id": "w148",
+    "unit": 4,
+    "page": 130,
+    "en": "rucksack",
+    "zh": "背包"
+  },
+  {
+    "id": "w149",
+    "unit": 4,
+    "page": 130,
+    "en": "sandpaper",
+    "zh": "砂纸"
+  },
+  {
+    "id": "w150",
+    "unit": 4,
+    "page": 130,
+    "en": "school trip",
+    "zh": "学校组织的旅行"
+  },
+  {
+    "id": "w151",
+    "unit": 4,
+    "page": 130,
+    "en": "single",
+    "zh": "仅一个的；单一的"
+  },
+  {
+    "id": "w152",
+    "unit": 4,
+    "page": 130,
+    "en": "slide",
+    "zh": "滑梯"
+  },
+  {
+    "id": "w153",
+    "unit": 4,
+    "page": 130,
+    "en": "smooth",
+    "zh": "平滑的；光滑的"
+  },
+  {
+    "id": "w154",
+    "unit": 4,
+    "page": 130,
+    "en": "space",
+    "zh": "太空"
+  },
+  {
+    "id": "w155",
+    "unit": 4,
+    "page": 130,
+    "en": "station",
+    "zh": "车站"
+  },
+  {
+    "id": "w156",
+    "unit": 4,
+    "page": 130,
+    "en": "still",
+    "zh": "还；仍然"
+  },
+  {
+    "id": "w157",
+    "unit": 4,
+    "page": 131,
+    "en": "stop",
+    "zh": "（中途）停留地点"
+  },
+  {
+    "id": "w158",
+    "unit": 4,
+    "page": 131,
+    "en": "suitcase",
+    "zh": "（旅行用的）手提箱"
+  },
+  {
+    "id": "w159",
+    "unit": 4,
+    "page": 131,
+    "en": "surface",
+    "zh": "表面"
+  },
+  {
+    "id": "w160",
+    "unit": 4,
+    "page": 131,
+    "en": "ticket office",
+    "zh": "售票处"
+  },
+  {
+    "id": "w161",
+    "unit": 4,
+    "page": 131,
+    "en": "towards",
+    "zh": "向（着）；朝（着）"
+  },
+  {
+    "id": "w162",
+    "unit": 4,
+    "page": 131,
+    "en": "train driver",
+    "zh": "火车司机"
+  },
+  {
+    "id": "w163",
+    "unit": 4,
+    "page": 131,
+    "en": "train track",
+    "zh": "火车轨道"
+  },
+  {
+    "id": "w164",
+    "unit": 4,
+    "page": 131,
+    "en": "tunnel",
+    "zh": "（汽车、火车等通行的）隧道"
+  },
+  {
+    "id": "w165",
+    "unit": 5,
+    "page": 131,
+    "en": "adventure",
+    "zh": "历险（经历）"
+  },
+  {
+    "id": "w166",
+    "unit": 5,
+    "page": 131,
+    "en": "Agatha Christie",
+    "zh": "阿加莎·克里斯蒂"
+  },
+  {
+    "id": "w167",
+    "unit": 5,
+    "page": 131,
+    "en": "almost",
+    "zh": "几乎；差不多"
+  },
+  {
+    "id": "w168",
+    "unit": 5,
+    "page": 131,
+    "en": "beard",
+    "zh": "胡须"
+  },
+  {
+    "id": "w169",
+    "unit": 5,
+    "page": 131,
+    "en": "blonde",
+    "zh": "（头发）金色的；浅色的"
+  },
+  {
+    "id": "w170",
+    "unit": 5,
+    "page": 131,
+    "en": "book review",
+    "zh": "书评"
+  },
+  {
+    "id": "w171",
+    "unit": 5,
+    "page": 131,
+    "en": "comic",
+    "zh": "连环漫画；连环漫画册"
+  },
+  {
+    "id": "w172",
+    "unit": 5,
+    "page": 131,
+    "en": "compartment",
+    "zh": "（飞机、轮船或火车上的）隔间；舱"
+  },
+  {
+    "id": "w173",
+    "unit": 5,
+    "page": 131,
+    "en": "connection",
+    "zh": "联系；关联"
+  },
+  {
+    "id": "w174",
+    "unit": 5,
+    "page": 131,
+    "en": "create",
+    "zh": "创作"
+  },
+  {
+    "id": "w175",
+    "unit": 5,
+    "page": 131,
+    "en": "crime writer",
+    "zh": "犯罪小说作家"
+  },
+  {
+    "id": "w176",
+    "unit": 5,
+    "page": 131,
+    "en": "criminal",
+    "zh": "罪犯"
+  },
+  {
+    "id": "w177",
+    "unit": 5,
+    "page": 131,
+    "en": "curly",
+    "zh": "卷曲的"
+  },
+  {
+    "id": "w178",
+    "unit": 5,
+    "page": 131,
+    "en": "dark",
+    "zh": "褐色的；黑色的"
+  },
+  {
+    "id": "w179",
+    "unit": 5,
+    "page": 131,
+    "en": "dead body",
+    "zh": "尸体"
+  },
+  {
+    "id": "w180",
+    "unit": 5,
+    "page": 131,
+    "en": "delicious",
+    "zh": "美味的；可口的"
+  },
+  {
+    "id": "w181",
+    "unit": 5,
+    "page": 131,
+    "en": "detective",
+    "zh": "侦探；警探"
+  },
+  {
+    "id": "w182",
+    "unit": 5,
+    "page": 131,
+    "en": "Eiffel Tower",
+    "zh": "埃菲尔铁塔"
+  },
+  {
+    "id": "w183",
+    "unit": 5,
+    "page": 131,
+    "en": "elderly",
+    "zh": "年老的"
+  },
+  {
+    "id": "w184",
+    "unit": 5,
+    "page": 131,
+    "en": "enemy",
+    "zh": "敌人；仇敌"
+  },
+  {
+    "id": "w185",
+    "unit": 5,
+    "page": 131,
+    "en": "fair",
+    "zh": "浅色的；白皙的"
+  },
+  {
+    "id": "w186",
+    "unit": 5,
+    "page": 131,
+    "en": "frightening",
+    "zh": "令人害怕的；吓人的"
+  },
+  {
+    "id": "w187",
+    "unit": 5,
+    "page": 131,
+    "en": "funny",
+    "zh": "有趣的；使人发笑的"
+  },
+  {
+    "id": "w188",
+    "unit": 5,
+    "page": 131,
+    "en": "Hercule Poirot",
+    "zh": "赫尔克里·波洛"
+  },
+  {
+    "id": "w189",
+    "unit": 5,
+    "page": 131,
+    "en": "historical",
+    "zh": "（有关）历史的"
+  },
+  {
+    "id": "w190",
+    "unit": 5,
+    "page": 131,
+    "en": "in trouble",
+    "zh": "陷入困境"
+  },
+  {
+    "id": "w191",
+    "unit": 5,
+    "page": 131,
+    "en": "investigate",
+    "zh": "查明；调查"
+  },
+  {
+    "id": "w192",
+    "unit": 5,
+    "page": 131,
+    "en": "Jane Marple",
+    "zh": "简·马普尔"
+  },
+  {
+    "id": "w193",
+    "unit": 5,
+    "page": 131,
+    "en": "jeweller",
+    "zh": "珠宝商"
+  },
+  {
+    "id": "w194",
+    "unit": 5,
+    "page": 131,
+    "en": "juicy",
+    "zh": "多汁的；多液的"
+  },
+  {
+    "id": "w195",
+    "unit": 5,
+    "page": 131,
+    "en": "marry",
+    "zh": "结婚；娶；嫁"
+  },
+  {
+    "id": "w196",
+    "unit": 5,
+    "page": 131,
+    "en": "mean",
+    "zh": "刻薄的"
+  },
+  {
+    "id": "w197",
+    "unit": 5,
+    "page": 131,
+    "en": "moustache",
+    "zh": "髭；小胡子"
+  },
+  {
+    "id": "w198",
+    "unit": 5,
+    "page": 131,
+    "en": "murder",
+    "zh": "谋杀；谋杀罪"
+  },
+  {
+    "id": "w199",
+    "unit": 5,
+    "page": 131,
+    "en": "murderer",
+    "zh": "谋杀犯；凶手"
+  },
+  {
+    "id": "w200",
+    "unit": 5,
+    "page": 131,
+    "en": "mysterious",
+    "zh": "神秘的"
+  },
+  {
+    "id": "w201",
+    "unit": 5,
+    "page": 131,
+    "en": "noise",
+    "zh": "噪声；杂音"
+  },
+  {
+    "id": "w202",
+    "unit": 5,
+    "page": 131,
+    "en": "novel",
+    "zh": "（长篇）小说"
+  },
+  {
+    "id": "w203",
+    "unit": 5,
+    "page": 131,
+    "en": "Orient Express",
+    "zh": "东方快车"
+  },
+  {
+    "id": "w204",
+    "unit": 5,
+    "page": 131,
+    "en": "plan",
+    "zh": "计划"
+  },
+  {
+    "id": "w205",
+    "unit": 5,
+    "page": 131,
+    "en": "poem",
+    "zh": "诗；韵文"
+  },
+  {
+    "id": "w206",
+    "unit": 5,
+    "page": 131,
+    "en": "relax",
+    "zh": "放松；休息"
+  },
+  {
+    "id": "w207",
+    "unit": 5,
+    "page": 131,
+    "en": "rob",
+    "zh": "抢劫；抢夺"
+  },
+  {
+    "id": "w208",
+    "unit": 5,
+    "page": 131,
+    "en": "scar",
+    "zh": "（伤）疤"
+  },
+  {
+    "id": "w209",
+    "unit": 5,
+    "page": 131,
+    "en": "science fiction",
+    "zh": "科幻小说"
+  },
+  {
+    "id": "w210",
+    "unit": 5,
+    "page": 131,
+    "en": "Scottish",
+    "zh": "苏格兰的"
+  },
+  {
+    "id": "w211",
+    "unit": 5,
+    "page": 131,
+    "en": "seed",
+    "zh": "种；种子"
+  },
+  {
+    "id": "w212",
+    "unit": 5,
+    "page": 131,
+    "en": "Sherlock Holmes",
+    "zh": "夏洛克·福尔摩斯"
+  },
+  {
+    "id": "w213",
+    "unit": 5,
+    "page": 132,
+    "en": "short story",
+    "zh": "短篇小说"
+  },
+  {
+    "id": "w214",
+    "unit": 5,
+    "page": 132,
+    "en": "Sir Arthur Conan Doyle",
+    "zh": "阿瑟·柯南·道尔爵士"
+  },
+  {
+    "id": "w215",
+    "unit": 5,
+    "page": 132,
+    "en": "solve",
+    "zh": "解决（问题）"
+  },
+  {
+    "id": "w216",
+    "unit": 5,
+    "page": 132,
+    "en": "steal",
+    "zh": "偷；窃取"
+  },
+  {
+    "id": "w217",
+    "unit": 5,
+    "page": 132,
+    "en": "straight",
+    "zh": "直的"
+  },
+  {
+    "id": "w218",
+    "unit": 5,
+    "page": 132,
+    "en": "stupid",
+    "zh": "愚蠢的；傻的"
+  },
+  {
+    "id": "w219",
+    "unit": 5,
+    "page": 132,
+    "en": "symbol",
+    "zh": "象征；标志"
+  },
+  {
+    "id": "w220",
+    "unit": 5,
+    "page": 132,
+    "en": "terrible",
+    "zh": "很糟的；极差的"
+  },
+  {
+    "id": "w221",
+    "unit": 5,
+    "page": 132,
+    "en": "uniform",
+    "zh": "制服"
+  },
+  {
+    "id": "w222",
+    "unit": 5,
+    "page": 132,
+    "en": "vicarage",
+    "zh": "教区牧师的住宅"
+  },
+  {
+    "id": "w223",
+    "unit": 5,
+    "page": 132,
+    "en": "violin",
+    "zh": "小提琴"
+  },
+  {
+    "id": "w224",
+    "unit": 6,
+    "page": 132,
+    "en": "back",
+    "zh": "背部；背脊"
+  },
+  {
+    "id": "w225",
+    "unit": 6,
+    "page": 132,
+    "en": "best",
+    "zh": "最好的"
+  },
+  {
+    "id": "w226",
+    "unit": 6,
+    "page": 132,
+    "en": "cellar",
+    "zh": "地窖；地下贮藏室"
+  },
+  {
+    "id": "w227",
+    "unit": 6,
+    "page": 132,
+    "en": "centaur",
+    "zh": "（希腊神话中的）半人半马怪兽"
+  },
+  {
+    "id": "w228",
+    "unit": 6,
+    "page": 132,
+    "en": "claw",
+    "zh": "（动物、鸟的）爪"
+  },
+  {
+    "id": "w229",
+    "unit": 6,
+    "page": 132,
+    "en": "dart frog",
+    "zh": "箭毒蛙"
+  },
+  {
+    "id": "w230",
+    "unit": 6,
+    "page": 132,
+    "en": "decision",
+    "zh": "决定；抉择"
+  },
+  {
+    "id": "w231",
+    "unit": 6,
+    "page": 132,
+    "en": "dinosaur",
+    "zh": "恐龙"
+  },
+  {
+    "id": "w232",
+    "unit": 6,
+    "page": 132,
+    "en": "dragon",
+    "zh": "龙"
+  },
+  {
+    "id": "w233",
+    "unit": 6,
+    "page": 132,
+    "en": "eagle",
+    "zh": "鹰"
+  },
+  {
+    "id": "w234",
+    "unit": 6,
+    "page": 132,
+    "en": "feather",
+    "zh": "羽毛"
+  },
+  {
+    "id": "w235",
+    "unit": 6,
+    "page": 132,
+    "en": "forever",
+    "zh": "永远"
+  },
+  {
+    "id": "w236",
+    "unit": 6,
+    "page": 132,
+    "en": "fur",
+    "zh": "（猫、狗等动物的）软毛"
+  },
+  {
+    "id": "w237",
+    "unit": 6,
+    "page": 132,
+    "en": "hedgehog",
+    "zh": "刺猬"
+  },
+  {
+    "id": "w238",
+    "unit": 6,
+    "page": 132,
+    "en": "horn",
+    "zh": "（牛、羊等头上的）角"
+  },
+  {
+    "id": "w239",
+    "unit": 6,
+    "page": 132,
+    "en": "human",
+    "zh": "人"
+  },
+  {
+    "id": "w240",
+    "unit": 6,
+    "page": 132,
+    "en": "kilo",
+    "zh": "千克；公斤"
+  },
+  {
+    "id": "w241",
+    "unit": 6,
+    "page": 132,
+    "en": "ladder",
+    "zh": "梯子"
+  },
+  {
+    "id": "w242",
+    "unit": 6,
+    "page": 132,
+    "en": "meat-eater",
+    "zh": "肉食者"
+  },
+  {
+    "id": "w243",
+    "unit": 6,
+    "page": 132,
+    "en": "mermaid",
+    "zh": "（传说中的）美人鱼"
+  },
+  {
+    "id": "w244",
+    "unit": 6,
+    "page": 132,
+    "en": "myth",
+    "zh": "（古代的）神话"
+  },
+  {
+    "id": "w245",
+    "unit": 6,
+    "page": 132,
+    "en": "mythical beast",
+    "zh": "神话中的野兽"
+  },
+  {
+    "id": "w246",
+    "unit": 6,
+    "page": 132,
+    "en": "neck",
+    "zh": "颈；脖子"
+  },
+  {
+    "id": "w247",
+    "unit": 6,
+    "page": 132,
+    "en": "owl",
+    "zh": "鸮；猫头鹰"
+  },
+  {
+    "id": "w248",
+    "unit": 6,
+    "page": 132,
+    "en": "Pegasus",
+    "zh": "飞马"
+  },
+  {
+    "id": "w249",
+    "unit": 6,
+    "page": 132,
+    "en": "plant-eater",
+    "zh": "素食者"
+  },
+  {
+    "id": "w250",
+    "unit": 6,
+    "page": 132,
+    "en": "poison",
+    "zh": "毒物；毒药"
+  },
+  {
+    "id": "w251",
+    "unit": 6,
+    "page": 132,
+    "en": "poisonous",
+    "zh": "有毒的；引起中毒的"
+  },
+  {
+    "id": "w252",
+    "unit": 6,
+    "page": 132,
+    "en": "pool",
+    "zh": "水池"
+  },
+  {
+    "id": "w253",
+    "unit": 6,
+    "page": 132,
+    "en": "porcupine",
+    "zh": "豪猪；箭猪"
+  },
+  {
+    "id": "w254",
+    "unit": 6,
+    "page": 132,
+    "en": "predator",
+    "zh": "掠食动物；捕食性动物"
+  },
+  {
+    "id": "w255",
+    "unit": 6,
+    "page": 132,
+    "en": "prey",
+    "zh": "被其他动物捕食的动物；猎物"
+  },
+  {
+    "id": "w256",
+    "unit": 6,
+    "page": 132,
+    "en": "protection",
+    "zh": "保护"
+  },
+  {
+    "id": "w257",
+    "unit": 6,
+    "page": 132,
+    "en": "scale",
+    "zh": "（鱼、蛇等的）鳞"
+  },
+  {
+    "id": "w258",
+    "unit": 6,
+    "page": 132,
+    "en": "skin",
+    "zh": "（动物的）皮；（人的）皮肤"
+  },
+  {
+    "id": "w259",
+    "unit": 6,
+    "page": 132,
+    "en": "speed",
+    "zh": "速度；速率"
+  },
+  {
+    "id": "w260",
+    "unit": 6,
+    "page": 132,
+    "en": "spike",
+    "zh": "尖状物"
+  },
+  {
+    "id": "w261",
+    "unit": 6,
+    "page": 132,
+    "en": "survive",
+    "zh": "活下来；幸存"
+  },
+  {
+    "id": "w262",
+    "unit": 6,
+    "page": 132,
+    "en": "tail",
+    "zh": "尾巴"
+  },
+  {
+    "id": "w263",
+    "unit": 6,
+    "page": 132,
+    "en": "the Phoenix",
+    "zh": "凤凰"
+  },
+  {
+    "id": "w264",
+    "unit": 6,
+    "page": 132,
+    "en": "the Sphinx",
+    "zh": "狮身人面像"
+  },
+  {
+    "id": "w265",
+    "unit": 6,
+    "page": 132,
+    "en": "tongue",
+    "zh": "舌；舌头"
+  },
+  {
+    "id": "w266",
+    "unit": 6,
+    "page": 132,
+    "en": "trap",
+    "zh": "陷阱"
+  },
+  {
+    "id": "w267",
+    "unit": 6,
+    "page": 132,
+    "en": "treasure chest",
+    "zh": "珍宝箱"
+  },
+  {
+    "id": "w268",
+    "unit": 6,
+    "page": 133,
+    "en": "unicorn",
+    "zh": "独角兽"
+  },
+  {
+    "id": "w269",
+    "unit": 6,
+    "page": 133,
+    "en": "unusual",
+    "zh": "异常的；不平常的"
+  },
+  {
+    "id": "w270",
+    "unit": 6,
+    "page": 133,
+    "en": "weapon",
+    "zh": "武器"
+  },
+  {
+    "id": "w271",
+    "unit": 6,
+    "page": 133,
+    "en": "wing",
+    "zh": "翅膀；翼"
+  },
+  {
+    "id": "w272",
+    "unit": 6,
+    "page": 133,
+    "en": "worst",
+    "zh": "最坏的；最差的"
+  },
+  {
+    "id": "w273",
+    "unit": 7,
+    "page": 133,
+    "en": "alone",
+    "zh": "无伴的"
+  },
+  {
+    "id": "w274",
+    "unit": 7,
+    "page": 133,
+    "en": "bang",
+    "zh": "（短促的）一声巨响"
+  },
+  {
+    "id": "w275",
+    "unit": 7,
+    "page": 133,
+    "en": "boar",
+    "zh": "野猪"
+  },
+  {
+    "id": "w276",
+    "unit": 7,
+    "page": 133,
+    "en": "break",
+    "zh": "课间休息"
+  },
+  {
+    "id": "w277",
+    "unit": 7,
+    "page": 133,
+    "en": "chaos",
+    "zh": "无秩序状态；紊乱"
+  },
+  {
+    "id": "w278",
+    "unit": 7,
+    "page": 133,
+    "en": "clap",
+    "zh": "拍手；鼓掌"
+  },
+  {
+    "id": "w279",
+    "unit": 7,
+    "page": 133,
+    "en": "concert",
+    "zh": "音乐会"
+  },
+  {
+    "id": "w280",
+    "unit": 7,
+    "page": 133,
+    "en": "conductor",
+    "zh": "（乐队、合唱队的）指挥"
+  },
+  {
+    "id": "w281",
+    "unit": 7,
+    "page": 133,
+    "en": "cymbals",
+    "zh": "铙钹"
+  },
+  {
+    "id": "w282",
+    "unit": 7,
+    "page": 133,
+    "en": "deer",
+    "zh": "鹿"
+  },
+  {
+    "id": "w283",
+    "unit": 7,
+    "page": 133,
+    "en": "drum",
+    "zh": "鼓"
+  },
+  {
+    "id": "w284",
+    "unit": 7,
+    "page": 133,
+    "en": "fall asleep",
+    "zh": "睡着"
+  },
+  {
+    "id": "w285",
+    "unit": 7,
+    "page": 133,
+    "en": "harp",
+    "zh": "竖琴"
+  },
+  {
+    "id": "w286",
+    "unit": 7,
+    "page": 133,
+    "en": "high",
+    "zh": "（音调）高的；尖的"
+  },
+  {
+    "id": "w287",
+    "unit": 7,
+    "page": 133,
+    "en": "instrument",
+    "zh": "乐器"
+  },
+  {
+    "id": "w288",
+    "unit": 7,
+    "page": 133,
+    "en": "invite",
+    "zh": "邀请"
+  },
+  {
+    "id": "w289",
+    "unit": 7,
+    "page": 133,
+    "en": "junior",
+    "zh": "低年级的"
+  },
+  {
+    "id": "w290",
+    "unit": 7,
+    "page": 133,
+    "en": "keyboard",
+    "zh": "电子琴"
+  },
+  {
+    "id": "w291",
+    "unit": 7,
+    "page": 133,
+    "en": "lighthouse",
+    "zh": "灯塔"
+  },
+  {
+    "id": "w292",
+    "unit": 7,
+    "page": 133,
+    "en": "loud",
+    "zh": "（声音）大的；响亮的"
+  },
+  {
+    "id": "w293",
+    "unit": 7,
+    "page": 133,
+    "en": "low",
+    "zh": "（声音）轻的；低沉的"
+  },
+  {
+    "id": "w294",
+    "unit": 7,
+    "page": 133,
+    "en": "metal spoon",
+    "zh": "金属勺子"
+  },
+  {
+    "id": "w295",
+    "unit": 7,
+    "page": 133,
+    "en": "musical",
+    "zh": "音乐的"
+  },
+  {
+    "id": "w296",
+    "unit": 7,
+    "page": 133,
+    "en": "orchestra",
+    "zh": "（大型的）管弦乐队"
+  },
+  {
+    "id": "w297",
+    "unit": 7,
+    "page": 133,
+    "en": "quiet",
+    "zh": "轻声的"
+  },
+  {
+    "id": "w298",
+    "unit": 7,
+    "page": 133,
+    "en": "rubber band",
+    "zh": "橡皮筋"
+  },
+  {
+    "id": "w299",
+    "unit": 7,
+    "page": 133,
+    "en": "saxophone",
+    "zh": "萨克斯管"
+  },
+  {
+    "id": "w300",
+    "unit": 7,
+    "page": 133,
+    "en": "snack",
+    "zh": "（正餐以外的）小吃；点心"
+  },
+  {
+    "id": "w301",
+    "unit": 7,
+    "page": 133,
+    "en": "sound",
+    "zh": "声响；声音"
+  },
+  {
+    "id": "w302",
+    "unit": 7,
+    "page": 133,
+    "en": "successful",
+    "zh": "成功的"
+  },
+  {
+    "id": "w303",
+    "unit": 7,
+    "page": 133,
+    "en": "sunset",
+    "zh": "日落"
+  },
+  {
+    "id": "w304",
+    "unit": 7,
+    "page": 133,
+    "en": "tambourine",
+    "zh": "铃鼓"
+  },
+  {
+    "id": "w305",
+    "unit": 7,
+    "page": 133,
+    "en": "triangle",
+    "zh": "三角铁"
+  },
+  {
+    "id": "w306",
+    "unit": 7,
+    "page": 133,
+    "en": "trombone",
+    "zh": "长号；伸缩长号"
+  },
+  {
+    "id": "w307",
+    "unit": 7,
+    "page": 133,
+    "en": "trumpet",
+    "zh": "小号"
+  },
+  {
+    "id": "w308",
+    "unit": 7,
+    "page": 133,
+    "en": "violin",
+    "zh": "小提琴"
+  },
+  {
+    "id": "w309",
+    "unit": 7,
+    "page": 133,
+    "en": "whole wide world",
+    "zh": "整个世界"
+  },
+  {
+    "id": "w310",
+    "unit": 7,
+    "page": 133,
+    "en": "wind chime",
+    "zh": "风铃"
+  },
+  {
+    "id": "w311",
+    "unit": 7,
+    "page": 133,
+    "en": "wolf",
+    "zh": "狼"
+  },
+  {
+    "id": "w312",
+    "unit": 7,
+    "page": 133,
+    "en": "woodpecker",
+    "zh": "啄木鸟"
+  },
+  {
+    "id": "w313",
+    "unit": 8,
+    "page": 133,
+    "en": "after that",
+    "zh": "从那以后"
+  },
+  {
+    "id": "w314",
+    "unit": 8,
+    "page": 133,
+    "en": "astronaut",
+    "zh": "宇航员；太空人"
+  },
+  {
+    "id": "w315",
+    "unit": 8,
+    "page": 133,
+    "en": "badly",
+    "zh": "严重地"
+  },
+  {
+    "id": "w316",
+    "unit": 8,
+    "page": 133,
+    "en": "banner",
+    "zh": "横幅"
+  },
+  {
+    "id": "w317",
+    "unit": 8,
+    "page": 133,
+    "en": "both",
+    "zh": "两者；双方"
+  },
+  {
+    "id": "w318",
+    "unit": 8,
+    "page": 133,
+    "en": "carefully",
+    "zh": "小心地；仔细地"
+  },
+  {
+    "id": "w319",
+    "unit": 8,
+    "page": 133,
+    "en": "comet",
+    "zh": "彗星"
+  },
+  {
+    "id": "w320",
+    "unit": 8,
+    "page": 133,
+    "en": "diameter",
+    "zh": "直径"
+  },
+  {
+    "id": "w321",
+    "unit": 8,
+    "page": 133,
+    "en": "distance",
+    "zh": "距离"
+  },
+  {
+    "id": "w322",
+    "unit": 8,
+    "page": 133,
+    "en": "Earth",
+    "zh": "地球"
+  },
+  {
+    "id": "w323",
+    "unit": 8,
+    "page": 133,
+    "en": "far",
+    "zh": "远的"
+  },
+  {
+    "id": "w324",
+    "unit": 8,
+    "page": 134,
+    "en": "finally",
+    "zh": "最后；终于"
+  },
+  {
+    "id": "w325",
+    "unit": 8,
+    "page": 134,
+    "en": "first",
+    "zh": "首先"
+  },
+  {
+    "id": "w326",
+    "unit": 8,
+    "page": 134,
+    "en": "flag",
+    "zh": "旗；旗帜"
+  },
+  {
+    "id": "w327",
+    "unit": 8,
+    "page": 134,
+    "en": "grow up",
+    "zh": "长大"
+  },
+  {
+    "id": "w328",
+    "unit": 8,
+    "page": 134,
+    "en": "Jupiter",
+    "zh": "木星"
+  },
+  {
+    "id": "w329",
+    "unit": 8,
+    "page": 134,
+    "en": "Mars",
+    "zh": "火星"
+  },
+  {
+    "id": "w330",
+    "unit": 8,
+    "page": 134,
+    "en": "Mercury",
+    "zh": "水星"
+  },
+  {
+    "id": "w331",
+    "unit": 8,
+    "page": 134,
+    "en": "moon",
+    "zh": "月球；卫星"
+  },
+  {
+    "id": "w332",
+    "unit": 8,
+    "page": 134,
+    "en": "Neptune",
+    "zh": "海王星"
+  },
+  {
+    "id": "w333",
+    "unit": 8,
+    "page": 134,
+    "en": "object",
+    "zh": "物体；实物"
+  },
+  {
+    "id": "w334",
+    "unit": 8,
+    "page": 134,
+    "en": "orbit",
+    "zh": "沿轨道运行；轨道"
+  },
+  {
+    "id": "w335",
+    "unit": 8,
+    "page": 134,
+    "en": "planet",
+    "zh": "行星"
+  },
+  {
+    "id": "w336",
+    "unit": 8,
+    "page": 134,
+    "en": "planetarium",
+    "zh": "天文馆"
+  },
+  {
+    "id": "w337",
+    "unit": 8,
+    "page": 134,
+    "en": "poem",
+    "zh": "诗；韵文"
+  },
+  {
+    "id": "w338",
+    "unit": 8,
+    "page": 134,
+    "en": "postcard",
+    "zh": "明信片"
+  },
+  {
+    "id": "w339",
+    "unit": 8,
+    "page": 134,
+    "en": "quickly",
+    "zh": "快速地"
+  },
+  {
+    "id": "w340",
+    "unit": 8,
+    "page": 134,
+    "en": "quietly",
+    "zh": "悄悄地；轻声地"
+  },
+  {
+    "id": "w341",
+    "unit": 8,
+    "page": 134,
+    "en": "rocket",
+    "zh": "火箭"
+  },
+  {
+    "id": "w342",
+    "unit": 8,
+    "page": 134,
+    "en": "Saturn",
+    "zh": "土星"
+  },
+  {
+    "id": "w343",
+    "unit": 8,
+    "page": 134,
+    "en": "shake hands",
+    "zh": "握手"
+  },
+  {
+    "id": "w344",
+    "unit": 8,
+    "page": 134,
+    "en": "slowly",
+    "zh": "缓慢地"
+  },
+  {
+    "id": "w345",
+    "unit": 8,
+    "page": 134,
+    "en": "solar system",
+    "zh": "太阳系"
+  },
+  {
+    "id": "w346",
+    "unit": 8,
+    "page": 134,
+    "en": "space station",
+    "zh": "空间站"
+  },
+  {
+    "id": "w347",
+    "unit": 8,
+    "page": 134,
+    "en": "spaceship",
+    "zh": "宇宙飞船"
+  },
+  {
+    "id": "w348",
+    "unit": 8,
+    "page": 134,
+    "en": "spacesuit",
+    "zh": "航天服；宇航服"
+  },
+  {
+    "id": "w349",
+    "unit": 8,
+    "page": 134,
+    "en": "star",
+    "zh": "星；恒星"
+  },
+  {
+    "id": "w350",
+    "unit": 8,
+    "page": 134,
+    "en": "telescope",
+    "zh": "望远镜"
+  },
+  {
+    "id": "w351",
+    "unit": 8,
+    "page": 134,
+    "en": "then",
+    "zh": "接下来；然后"
+  },
+  {
+    "id": "w352",
+    "unit": 8,
+    "page": 134,
+    "en": "trick",
+    "zh": "骗局；诡计；欺骗；愚弄"
+  },
+  {
+    "id": "w353",
+    "unit": 8,
+    "page": 134,
+    "en": "trouble",
+    "zh": "麻烦；问题"
+  },
+  {
+    "id": "w354",
+    "unit": 8,
+    "page": 134,
+    "en": "UFO",
+    "zh": "不明飞行物"
+  },
+  {
+    "id": "w355",
+    "unit": 8,
+    "page": 134,
+    "en": "umbrella",
+    "zh": "雨伞"
+  },
+  {
+    "id": "w356",
+    "unit": 8,
+    "page": 134,
+    "en": "Uranus",
+    "zh": "天王星"
+  },
+  {
+    "id": "w357",
+    "unit": 8,
+    "page": 134,
+    "en": "Venus",
+    "zh": "金星"
+  },
+  {
+    "id": "w358",
+    "unit": 8,
+    "page": 134,
+    "en": "zoo-keeper",
+    "zh": "动物园饲养员"
+  },
+  {
+    "id": "w359",
+    "unit": 9,
+    "page": 134,
+    "en": "abroad",
+    "zh": "在国外；到国外"
+  },
+  {
+    "id": "w360",
+    "unit": 9,
+    "page": 134,
+    "en": "campsite",
+    "zh": "野营地"
+  },
+  {
+    "id": "w361",
+    "unit": 9,
+    "page": 134,
+    "en": "chair lift",
+    "zh": "缆车吊椅"
+  },
+  {
+    "id": "w362",
+    "unit": 9,
+    "page": 134,
+    "en": "cliff",
+    "zh": "悬崖"
+  },
+  {
+    "id": "w363",
+    "unit": 9,
+    "page": 134,
+    "en": "collect wood",
+    "zh": "捡柴火"
+  },
+  {
+    "id": "w364",
+    "unit": 9,
+    "page": 134,
+    "en": "compass",
+    "zh": "指南针；罗盘"
+  },
+  {
+    "id": "w365",
+    "unit": 9,
+    "page": 134,
+    "en": "cycle path",
+    "zh": "自行车专用道"
+  },
+  {
+    "id": "w366",
+    "unit": 9,
+    "page": 134,
+    "en": "dive into the water",
+    "zh": "跳入水中"
+  },
+  {
+    "id": "w367",
+    "unit": 9,
+    "page": 134,
+    "en": "dry your clothes",
+    "zh": "晾干衣服"
+  },
+  {
+    "id": "w368",
+    "unit": 9,
+    "page": 134,
+    "en": "fascinating",
+    "zh": "有极大吸引力的；迷人的"
+  },
+  {
+    "id": "w369",
+    "unit": 9,
+    "page": 134,
+    "en": "ferry",
+    "zh": "渡船"
+  },
+  {
+    "id": "w370",
+    "unit": 9,
+    "page": 134,
+    "en": "fit",
+    "zh": "（大小、形状）合适"
+  },
+  {
+    "id": "w371",
+    "unit": 9,
+    "page": 134,
+    "en": "ghost",
+    "zh": "鬼；幽灵"
+  },
+  {
+    "id": "w372",
+    "unit": 9,
+    "page": 134,
+    "en": "grid reference",
+    "zh": "（地图上用于确定位置的）格网参照点"
+  },
+  {
+    "id": "w373",
+    "unit": 9,
+    "page": 134,
+    "en": "hire",
+    "zh": "租用"
+  },
+  {
+    "id": "w374",
+    "unit": 9,
+    "page": 134,
+    "en": "in prison",
+    "zh": "在狱中"
+  },
+  {
+    "id": "w375",
+    "unit": 9,
+    "page": 134,
+    "en": "key",
+    "zh": "图例；符号说明"
+  },
+  {
+    "id": "w376",
+    "unit": 9,
+    "page": 135,
+    "en": "make a fire",
+    "zh": "生火"
+  },
+  {
+    "id": "w377",
+    "unit": 9,
+    "page": 135,
+    "en": "make a raft",
+    "zh": "做木筏"
+  },
+  {
+    "id": "w378",
+    "unit": 9,
+    "page": 135,
+    "en": "mushroom",
+    "zh": "蘑菇"
+  },
+  {
+    "id": "w379",
+    "unit": 9,
+    "page": 135,
+    "en": "neighbourhood",
+    "zh": "街区"
+  },
+  {
+    "id": "w380",
+    "unit": 9,
+    "page": 135,
+    "en": "oar",
+    "zh": "桨；橹"
+  },
+  {
+    "id": "w381",
+    "unit": 9,
+    "page": 135,
+    "en": "picnic basket",
+    "zh": "野餐提篮"
+  },
+  {
+    "id": "w382",
+    "unit": 9,
+    "page": 135,
+    "en": "poke",
+    "zh": "戳；捅"
+  },
+  {
+    "id": "w383",
+    "unit": 9,
+    "page": 135,
+    "en": "price",
+    "zh": "价格；价钱"
+  },
+  {
+    "id": "w384",
+    "unit": 9,
+    "page": 135,
+    "en": "put in order",
+    "zh": "按顺序整理好"
+  },
+  {
+    "id": "w385",
+    "unit": 9,
+    "page": 135,
+    "en": "put up a tent",
+    "zh": "支起帐篷"
+  },
+  {
+    "id": "w386",
+    "unit": 9,
+    "page": 135,
+    "en": "remove",
+    "zh": "去掉；移走；搬走"
+  },
+  {
+    "id": "w387",
+    "unit": 9,
+    "page": 135,
+    "en": "row a boat",
+    "zh": "（用桨）划船"
+  },
+  {
+    "id": "w388",
+    "unit": 9,
+    "page": 135,
+    "en": "sail a boat",
+    "zh": "（用风力）驾船"
+  },
+  {
+    "id": "w389",
+    "unit": 9,
+    "page": 135,
+    "en": "scale",
+    "zh": "（地图的）图例；比例（尺）"
+  },
+  {
+    "id": "w390",
+    "unit": 9,
+    "page": 135,
+    "en": "scare",
+    "zh": "使某人惊恐；吓唬"
+  },
+  {
+    "id": "w391",
+    "unit": 9,
+    "page": 135,
+    "en": "set",
+    "zh": "（太阳）落下；下山"
+  },
+  {
+    "id": "w392",
+    "unit": 9,
+    "page": 135,
+    "en": "set",
+    "zh": "设（陷阱）"
+  },
+  {
+    "id": "w393",
+    "unit": 9,
+    "page": 135,
+    "en": "shine",
+    "zh": "把……照向"
+  },
+  {
+    "id": "w394",
+    "unit": 9,
+    "page": 135,
+    "en": "snare",
+    "zh": "（捕捉动物的）罗网；陷阱"
+  },
+  {
+    "id": "w395",
+    "unit": 9,
+    "page": 135,
+    "en": "stick",
+    "zh": "树枝；枝条"
+  },
+  {
+    "id": "w396",
+    "unit": 9,
+    "page": 135,
+    "en": "swing on a rope",
+    "zh": "在绳子上荡悠"
+  },
+  {
+    "id": "w397",
+    "unit": 9,
+    "page": 135,
+    "en": "tie",
+    "zh": "（用线、绳索等）系；捆"
+  },
+  {
+    "id": "w398",
+    "unit": 9,
+    "page": 135,
+    "en": "weekend",
+    "zh": "周末"
+  },
+  {
+    "id": "w399",
+    "unit": 9,
+    "page": 135,
+    "en": "west",
+    "zh": "朝西；向西；西方"
+  }
+]

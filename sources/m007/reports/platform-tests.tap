@@ -1,0 +1,69 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> embodied-studio@3.0.0 test
+> node --test tests/*.test.js
+
+✔ cup remains on counter until actual hand contact; attachment preserves world pose (802.925013ms)
+✔ cup stays rigidly attached to real hand during lift, walking and processing; releases on table (322.347338ms)
+✔ right arm meshes clear the counter during the pick motion (551.377716ms)
+✔ manual E uses the same walk/reach/contact/lift sequence and table release (178.144495ms)
+✔ pause, emergency stop and replay preserve the hand/cup relationship mid-lift (213.550279ms)
+✔ unreachable grasp never attracts or attaches cup (248.918996ms)
+✔ blocked docking and reset while holding leave no orphan cup on robot (271.829285ms)
+✔ precise table approach remains reachable when rounding lands inside inflated obstacle (0.663956ms)
+✔ complete warehouse/sort/table-2 (562.001475ms)
+✔ complete warehouse/fragile/table-2 (240.249858ms)
+✔ complete warehouse/restock/table-2 (167.773274ms)
+✔ complete cafe/latte/table-1 (245.377799ms)
+✔ complete cafe/latte/table-2 (209.124119ms)
+✔ complete cafe/latte/table-3 (191.874605ms)
+✔ complete cafe/americano/table-1 (198.016225ms)
+✔ complete cafe/americano/table-2 (229.694908ms)
+✔ complete cafe/americano/table-3 (173.96545ms)
+✔ complete cafe/cappuccino/table-1 (141.204956ms)
+✔ complete cafe/cappuccino/table-2 (143.486762ms)
+✔ complete cafe/cappuccino/table-3 (135.128813ms)
+✔ complete cafe/espresso/table-1 (122.888093ms)
+✔ complete cafe/espresso/table-2 (138.662007ms)
+✔ complete cafe/espresso/table-3 (148.706738ms)
+✔ complete restaurant/service/table-2 (237.966311ms)
+✔ complete restaurant/single/table-1 (130.407209ms)
+✔ complete restaurant/single/table-2 (167.183443ms)
+✔ complete restaurant/single/table-3 (143.469627ms)
+✔ complete restaurant/return/table-1 (219.049935ms)
+✔ complete restaurant/return/table-2 (166.081267ms)
+✔ complete restaurant/return/table-3 (133.236659ms)
+✔ each of nine warehouse objects is reachable and delivered (1326.609035ms)
+✔ pause, single complete action, emergency stop and reset with held object (83.728019ms)
+✔ replay restores initial and final scene transforms and resumes completed state (139.843716ms)
+✔ record replay preserves task and deliveries (169.527914ms)
+✔ A* routes around solid obstacle without diagonal corner clipping (2.69988ms)
+✔ unreachable task stops with an explicit error and no teleportation (56.504157ms)
+✔ custom reachable obstacle changes route and still completes (328.623158ms)
+✔ manual collision protection and pick/drop (56.255542ms)
+✔ invalid plan rejected and score penalizes incomplete/unsafe run (55.598866ms)
+✔ workbench controls bind to the actual task engine in an in-memory DOM (2179.999447ms)
+✔ offline download reconstructs the complete ZIP exactly from hosted transport parts (2163.26042ms)
+✔ offline download rejects incomplete data instead of offering a corrupt archive (2.192193ms)
+✔ all 14 optimized GLBs match provenance hashes and contain their images and buffers locally (26.915078ms)
+✔ real decoded meshes retain metre dimensions, grounded origins and finite usable attributes (34.18593ms)
+✔ SimReady instancing preserves transformed bounds while leaving interactive copies independent (15.518139ms)
+✔ imported warehouse cargo fits its interactive envelope and starts on its declared support (147.406015ms)
+✔ floor-standing coffee appliance retains its actual size and faces the work area (203.034418ms)
+✔ repeated scene changes preserve shared imported materials, geometry and cup contact points (426.134986ms)
+✔ official G1 geometry decodes to a 29-joint human-scale model standing on the floor (529.383683ms)
+✔ G1 locomotion and reach solve stay within every published joint limit (442.851378ms)
+✔ bundled HDR environment decodes as finite radiance data (147.405477ms)
+✔ static mesh batching preserves world bounds and excludes selectable cargo and floor (8.215401ms)
+✔ desktop focus mode hides sidebars from interaction and Escape restores them (220.836227ms)
+✔ compact panels disable obscured stage controls and restore accessible navigation (58.792634ms)
+✔ focus shortcut never steals typing, modified keys, held keys or modal input (108.873667ms)
+✔ opening controls from a scene shortcut exits focus and adapts after resizing (162.554095ms)
+ℹ tests 56
+ℹ suites 0
+ℹ pass 56
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9020.876725

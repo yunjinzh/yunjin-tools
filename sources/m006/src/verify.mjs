@@ -1,0 +1,22 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const app=fs.readFileSync(new URL('./app.js',import.meta.url),'utf8');
+const starts=['const buildings=','const nodes=','const edges=','const cim=','const dt=','function shortestPath(','function cimResult(','function sample('];
+const functions=starts.map(prefix=>app.split('\n').find(l=>l.startsWith(prefix))).join('\n');
+vm.runInNewContext(functions+`
+assert.equal(shortestPath(4,false).distance,280);
+assert.equal(shortestPath(4,true).distance,520);
+assert.equal(shortestPath(8,false).distance,560);
+assert.equal(cimResult().objects.length,4);
+cim.radius=200;assert.equal(cimResult().objects.length,6);
+cim.radius=140;cim.fault=true;assert.equal(cimResult().objects.length,3);
+const normal=sample(20);dt.fault='unit';assert.equal(sample(20).pressure,normal.pressure*1000);
+dt.repaired=true;assert.equal(sample(20).pressure,normal.pressure);
+dt.repaired=false;dt.fault='offline';assert.equal(sample(20).pressure,null);
+dt.repaired=true;assert.equal(sample(20).pressure,normal.pressure);
+dt.repaired=false;dt.fault='wear';assert.equal(sample(20).pressure,normal.pressure*.65);
+assert.equal(sample(20).flow,normal.flow*.55);
+dt.repaired=true;assert.equal(sample(20).pressure,normal.pressure*.65);
+`,{assert,Math,Array,Set,Infinity});
+console.log('12 checks passed: CIM network/query/fault and twin units/offline/wear semantics.');

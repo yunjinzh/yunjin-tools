@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>小小识字家 - 汉字启蒙</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;700;900&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ═══════════════════════════════════════
+           瑞士主义设计系统
+           ═══════════════════════════════════════ */
+        
+        :root {
+            /* 色彩策略 */
+            --accent-red: #E07563;
+            --accent-red-light: #E89385;
+            --base-silver: #F1F0EC;
+            --base-warm: #E8E6E1;
+            --text-primary: #2C2C2C;
+            --text-secondary: #6B6B6B;
+            --text-light: #9B9B9B;
+            --white-soft: #FAFAF8;
+            --shadow-deep: rgba(0, 0, 0, 0.12);
+            --shadow-soft: rgba(0, 0, 0, 0.06);
+            
+            /* 字体栈 */
+            --font-display: 'Oswald', sans-serif;
+            --font-serif: 'Noto Serif SC', serif;
+            --font-sans: 'Noto Sans SC', sans-serif;
+            
+            /* 间距系统 - 基于黄金比例 */
+            --space-xs: 0.5rem;
+            --space-sm: 0.809rem;
+            --space-md: 1.309rem;
+            --space-lg: 2.118rem;
+            --space-xl: 3.427rem;
+            --space-2xl: 5.545rem;
+            --space-3xl: 8.972rem;
+            
+            /* 动画 */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html {
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background: var(--base-silver);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 印刷质感 - feTurbulence 噪点滤镜 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.08;
+            mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+        }
+        
+        /* ═══════════════════════════════════════
+           非对称网格布局系统
+           ═══════════════════════════════════════ */
+        
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            position: relative;
+        }
+        
+        /* 头部区域 */
+        .header {
+            padding: var(--space-lg) var(--space-xl);
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-red);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-serif);
+            font-weight: 900;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 24px rgba(224, 117, 99, 0.3);
+        }
+        
+        .logo-text {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            letter-spacing: 0.05em;
+        }
+        
+        .progress-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .progress-text {
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em;
+        }
+        
+        .progress-bar {
+            width: 120px;
+            height: 4px;
+            background: var(--base-warm);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-red);
+            border-radius: 2px;
+            transition: width 0.6s var(--ease-out-expo);
+        }
+        
+        .controls-area {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-sm);
+        }
+        
+        .control-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: var(--white-soft);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px var(--shadow-soft);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow-deep);
+        }
+        
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* 主内容区域 - 非对称网格 */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1.618fr;
+            gap: var(--space-xl);
+            padding: 0 var(--space-xl) var(--space-xl);
+            align-items: center;
+            min-height: 0;
+        }
+        
+        /* 左侧 - 汉字展示区 */
+        .character-display {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--space-lg);
+            padding: var(--space-xl);
+            background: var(--white-soft);
+            border-radius: 24px;
+            box-shadow: 
+                0 20px 60px var(--shadow-deep),
+                0 1px 3px var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .character-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(224, 117, 99, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .character-number {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: var(--text-light);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        
+        .character-main {
+            font-family: var(--font-serif);
+            font-weight: 900;
+            font-size: clamp(8rem, 15vw, 12rem);
+            line-height: 1;
+            color: var(--text-primary);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s var(--ease-out-expo);
+            user-select: none;
+        }
+        
+        .character-main:hover {
+            transform: scale(1.05);
+        }
+        
+        .character-main::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: var(--accent-red);
+            border-radius: 2px;
+            transition: width 0.6s var(--ease-out-expo);
+        }
+        
+        .character-main.active::after {
+            width: 100%;
+        }
+        
+        .pinyin {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--accent-red);
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+        
+        .meaning {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+        }
+        
+        .action-btn {
+            padding: var(--space-sm) var(--space-lg);
+            border: none;
+            border-radius: 16px;
+            font-family: var(--font-sans);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            transition: all 0.3s var(--ease-out-expo);
+            box-shadow: 0 4px 12px var(--shadow-soft);
+        }
+        
+        .action-btn-primary {
+            background: var(--accent-red);
+            color: white;
+        }
+        
+        .action-btn-primary:hover {
+            background: var(--accent-red-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(224, 117, 99, 0.3);
+        }
+        
+        .action-btn-secondary {
+            background: var(--base-warm);
+            color: var(--text-primary);
+        }
+        
+        .action-btn-secondary:hover {
+            background: var(--base-silver);
+            transform: translateY(-2px);
+        }
+        
+        /* 右侧 - 3D场景区 */
+        .scene-container {
+            position: relative;
+            height: 100%;
+            min-height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 60px var(--shadow-deep),
+                0 1px 3px var(--shadow-soft);
+            background: linear-gradient(135deg, var(--white-soft) 0%, var(--base-silver) 100%);
+        }
+        
+        #three-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        .scene-overlay {
+            position: absolute;
+            bottom: var(--space-lg);
+            left: var(--space-lg);
+            right: var(--space-lg);
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            box-shadow: 0 4px 16px var(--shadow-soft);
+        }
+        
+        .scene-title {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .scene-desc {
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.5;
+        }
+        
+        /* 导航区域 */
+        .navigation {
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-btn {
+            width: 64px;
+            height: 64px;
+            border: 2px solid var(--base-warm);
+            background: var(--white-soft);
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            transition: all 0.3s var(--ease-out-expo);
+            box-shadow: 0 4px 12px var(--shadow-soft);
+        }
+        
+        .nav-btn:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+            transform: translateX(-4px);
+            box-shadow: 0 8px 24px var(--shadow-deep);
+        }
+        
+        .nav-btn.next:hover {
+            transform: translateX(4px);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .nav-indicators {
+            display: flex;
+            gap: var(--space-xs);
+        }
+        
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--base-warm);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        
+        .nav-dot.active {
+            background: var(--accent-red);
+            transform: scale(1.3);
+        }
+        
+        /* 手势提示 */
+        .gesture-hint {
+            position: fixed;
+            bottom: var(--space-xl);
+            left: 50%;
+            transform: translateX(-50%);
+            padding: var(--space-sm) var(--space-md);
+            background: rgba(44, 44, 44, 0.85);
+            backdrop-filter: blur(12px);
+            color: white;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 300;
+            opacity: 0;
+            transition: opacity 0.5s var(--ease-out-expo);
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .gesture-hint.show {
+            opacity: 1;
+        }
+        
+        /* 庆祝粒子画布 */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        /* 汉字演变时间轴 */
+        .evolution-timeline {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--base-warm);
+        }
+        
+        .evolution-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: transform 0.3s var(--ease-out-expo);
+        }
+        
+        .evolution-step:hover {
+            transform: translateY(-4px);
+        }
+        
+        .evolution-char {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+        
+        .evolution-step.active .evolution-char {
+            color: var(--accent-red);
+            font-weight: 700;
+        }
+        
+        .evolution-label {
+            font-size: 0.625rem;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+        }
+        
+        .evolution-arrow {
+            color: var(--base-warm);
+            font-size: 0.875rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+            
+            .header {
+                grid-template-columns: 1fr 1fr;
+                padding: var(--space-md);
+            }
+            
+            .progress-area {
+                display: none;
+            }
+            
+            .character-main {
+                font-size: 6rem;
+            }
+            
+            .scene-container {
+                min-height: 300px;
+            }
+            
+            .character-display {
+                padding: var(--space-md);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .evolution-timeline {
+                gap: var(--space-xs);
+            }
+            
+            .evolution-char {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* 触摸优化 */
+        @media (pointer: coarse) {
+            .control-btn, .nav-btn, .action-btn {
+                min-height: 48px;
+                min-width: 48px;
+            }
+            
+            .character-main {
+                padding: var(--space-md);
+            }
+        }
+        
+        /* 减少动画偏好 */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* 加载动画 */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--base-silver);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s var(--ease-out-expo), visibility 0.8s;
+        }
+        
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+        
+        .loading-logo {
+            font-family: var(--font-serif);
+            font-weight: 900;
+            font-size: 4rem;
+            color: var(--accent-red);
+            margin-bottom: var(--space-md);
+            animation: pulse 2s var(--ease-in-out-sine) infinite;
+        }
+        
+        .loading-text {
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* 笔画动画 */
+        .stroke-animate {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawStroke 2s var(--ease-out-expo) forwards;
+        }
+        
+        @keyframes drawStroke {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 加载画面 -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-logo">文</div>
+        <div class="loading-text">正在准备奇妙的汉字世界...</div>
+    </div>
+    
+    <!-- 粒子画布 -->
+    <canvas id="particle-canvas"></canvas>
+    
+    <!-- 手势提示 -->
+    <div class="gesture-hint" id="gesture-hint">👋 挥手可以翻页哦</div>
+    
+    <div class="app-container">
+        <!-- 头部 -->
+        <header class="header">
+            <div class="logo-area">
+                <div class="logo-icon">文</div>
+                <span class="logo-text">小小识字家</span>
+            </div>
+            <div class="progress-area">
+                <span class="progress-text" id="progress-text">01 / 30</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 3.33%"></div>
+                </div>
+            </div>
+            <div class="controls-area">
+                <button class="control-btn" id="sound-btn" title="开关声音">🔊</button>
+                <button class="control-btn" id="help-btn" title="帮助">❓</button>
+            </div>
+        </header>
+        
+        <!-- 主内容 -->
+        <main class="main-content">
+            <!-- 左侧汉字展示 -->
+            <div class="character-display">
+                <span class="character-number" id="char-number">NO. 01</span>
+                <div class="character-main" id="char-main">日</div>
+                <div class="pinyin" id="char-pinyin">rì</div>
+                <div class="meaning" id="char-meaning">太阳，白天</div>
+                
+                <!-- 汉字演变 -->
+                <div class="evolution-timeline" id="evolution-timeline">
+                    <div class="evolution-step active" data-era="oracle">
+                        <span class="evolution-char">☉</span>
+                        <span class="evolution-label">甲骨文</span>
+                    </div>
+                    <span class="evolution-arrow">→</span>
+                    <div class="evolution-step" data-era="bronze">
+                        <span class="evolution-char">日</span>
+                        <span class="evolution-label">金文</span>
+                    </div>
+                    <span class="evolution-arrow">→</span>
+                    <div class="evolution-step" data-era="seal">
+                        <span class="evolution-char">日</span>
+                        <span class="evolution-label">小篆</span>
+                    </div>
+                    <span class="evolution-arrow">→</span>
+                    <div class="evolution-step" data-era="regular">
+                        <span class="evolution-char">日</span>
+                        <span class="evolution-label">楷书</span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn action-btn-primary" id="read-btn">
+                        <span>🔊</span> 读给我听
+                    </button>
+                    <button class="action-btn action-btn-secondary" id="evolve-btn">
+                        <span>✨</span> 看演变
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 右侧3D场景 -->
+            <div class="scene-container">
+                <canvas id="three-canvas"></canvas>
+                <div class="scene-overlay">
+                    <div class="scene-title" id="scene-title">太阳升起</div>
+                    <div class="scene-desc" id="scene-desc">
+                        早晨，太阳从东方慢慢升起，照亮了大地。这就是"日"字，像圆圆的太阳。
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- 导航 -->
+        <nav class="navigation">
+            <button class="nav-btn prev" id="prev-btn">◀</button>
+            <div class="nav-indicators" id="nav-indicators"></div>
+            <button class="nav-btn next" id="next-btn">▶</button>
+        </nav>
+    </div>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- MediaPipe Hands -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    
+    <script>
+        // ═══════════════════════════════════════
+        // 汉字数据库 - 30个基础象形字
+        // ═══════════════════════════════════════
+        const characterDatabase = [
+            {
+                char: '日',
+                pinyin: 'rì',
+                meaning: '太阳，白天',
+                scene: '太阳升起',
+                description: '早晨，太阳从东方慢慢升起，照亮了大地。这就是"日"字，像圆圆的太阳。',
+                evolution: {
+                    oracle: '☉',
+                    bronze: '日',
+                    seal: '日',
+                    regular: '日'
+                },
+                sceneType: 'sun',
+                color: '#E07563'
+            },
+            {
+                char: '月',
+                pinyin: 'yuè',
+                meaning: '月亮，月份',
+                scene: '弯弯的月亮',
+                description: '晚上，弯弯的月亮挂在天上，像一艘小船。这就是"月"字。',
+                evolution: {
+                    oracle: '🌙',
+                    bronze: '月',
+                    seal: '月',
+                    regular: '月'
+                },
+                sceneType: 'moon',
+                color: '#6B8E9F'
+            },
+            {
+                char: '水',
+                pinyin: 'shuǐ',
+                meaning: '水流，液体',
+                scene: '小河流水',
+                description: '清清的小河水，哗啦啦地流向远方。这就是"水"字。',
+                evolution: {
+                    oracle: '≈',
+                    bronze: '水',
+                    seal: '水',
+                    regular: '水'
+                },
+                sceneType: 'water',
+                color: '#4A90A4'
+            },
+            {
+                char: '火',
+                pinyin: 'huǒ',
+                meaning: '火焰，燃烧',
+                scene: '温暖的火焰',
+                description: '红红的火焰跳动着，给我们带来温暖和光明。这就是"火"字。',
+                evolution: {
+                    oracle: '🔥',
+                    bronze: '火',
+                    seal: '火',
+                    regular: '火'
+                },
+                sceneType: 'fire',
+                color: '#C84A3E'
+            },
+            {
+                char: '木',
+                pinyin: 'mù',
+                meaning: '树木，木头',
+                scene: '大树成长',
+                description: '小树苗慢慢长大，变成了参天大树。这就是"木"字。',
+                evolution: {
+                    oracle: '🌳',
+                    bronze: '木',
+                    seal: '木',
+                    regular: '木'
+                },
+                sceneType: 'tree',
+                color: '#5A8F5A'
+            },
+            {
+                char: '山',
+                pinyin: 'shān',
+                meaning: '山峰，高山',
+                scene: '高山耸立',
+                description: '高高的山峰耸入云端，雄伟壮观。这就是"山"字。',
+                evolution: {
+                    oracle: '▲',
+                    bronze: '山',
+                    seal: '山',
+                    regular: '山'
+                },
+                sceneType: 'mountain',
+                color: '#7A8B6E'
+            },
+            {
+                char: '人',
+                pinyin: 'rén',
+                meaning: '人类，人们',
+                scene: '小朋友',
+                description: '一个可爱的小朋友张开双臂，想要拥抱世界。这就是"人"字。',
+                evolution: {
+                    oracle: '🚶',
+                    bronze: '人',
+                    seal: '人',
+                    regular: '人'
+                },
+                sceneType: 'person',
+                color: '#8B7355'
+            },
+            {
+                char: '口',
+                pinyin: 'kǒu',
+                meaning: '嘴巴，入口',
+                scene: '张开的嘴巴',
+                description: '张开的嘴巴，可以说话、吃饭、笑。这就是"口"字。',
+                evolution: {
+                    oracle: '○',
+                    bronze: '口',
+                    seal: '口',
+                    regular: '口'
+                },
+                sceneType: 'mouth',
+                color: '#D4A574'
+            },
+            {
+                char: '手',
+                pinyin: 'shǒu',
+                meaning: '手掌，手部',
+                scene: '小小手',
+                description: '我们的小手可以拿东西、画画、拥抱。这就是"手"字。',
+                evolution: {
+                    oracle: '✋',
+                    bronze: '手',
+                    seal: '手',
+                    regular: '手'
+                },
+                sceneType: 'hand',
+                color: '#C4956A'
+            },
+            {
+                char: '田',
+                pinyin: 'tián',
+                meaning: '田地，农田',
+                scene: '绿色田野',
+                description: '一块块整齐的田地，种满了庄稼。这就是"田"字。',
+                evolution: {
+                    oracle: '⊞',
+                    bronze: '田',
+                    seal: '田',
+                    regular: '田'
+                },
+                sceneType: 'field',
+                color: '#7BA05B'
+            }
+        ];
+        
+        // 扩展更多汉字
+        const moreCharacters = [
+            { char: '土', pinyin: 'tǔ', meaning: '土地，泥土', scene: '大地母亲', description: '厚厚的土地，万物生长的基础。这就是"土"字。', evolution: { oracle: '═', bronze: '土', seal: '土', regular: '土' }, sceneType: 'earth', color: '#8B6914' },
+            { char: '石', pinyin: 'shí', meaning: '石头，岩石', scene: '坚硬石头', description: '坚硬的石头，可以用来盖房子。这就是"石"字。', evolution: { oracle: '◆', bronze: '石', seal: '石', regular: '石' }, sceneType: 'stone', color: '#7A7A7A' },
+            { char: '上', pinyin: 'shàng', meaning: '上面，向上', scene: '向上爬', description: '向上爬，越来越高。这就是"上"字。', evolution: { oracle: '↑', bronze: '上', seal: '上', regular: '上' }, sceneType: 'up', color: '#6B8E9F' },
+            { char: '下', pinyin: 'xià', meaning: '下面，向下', scene: '向下看', description: '向下看，地面就在脚下。这就是"下"字。', evolution: { oracle: '↓', bronze: '下', seal: '下', regular: '下' }, sceneType: 'down', color: '#6B8E9F' },
+            { char: '大', pinyin: 'dà', meaning: '大的，巨大', scene: '大象', description: '大大的大象，是陆地上最大的动物。这就是"大"字。', evolution: { oracle: '🧍', bronze: '大', seal: '大', regular: '大' }, sceneType: 'big', color: '#8B7355' },
+            { char: '小', pinyin: 'xiǎo', meaning: '小的，微小', scene: '小蚂蚁', description: '小小的蚂蚁，却能搬动比自己还大的食物。这就是"小"字。', evolution: { oracle: '•', bronze: '小', seal: '小', regular: '小' }, sceneType: 'small', color: '#7A8B6E' },
+            { char: '天', pinyin: 'tiān', meaning: '天空，天气', scene: '蓝天白云', description: '蓝蓝的天空，飘着朵朵白云。这就是"天"字。', evolution: { oracle: '☁', bronze: '天', seal: '天', regular: '天' }, sceneType: 'sky', color: '#4A90A4' },
+            { char: '牛', pinyin: 'niú', meaning: '牛，奶牛', scene: '奶牛吃草', description: '温顺的奶牛在草地上吃草，给我们提供牛奶。这就是"牛"字。', evolution: { oracle: '🐂', bronze: '牛', seal: '牛', regular: '牛' }, sceneType: 'cow', color: '#6B5B4F' },
+            { char: '羊', pinyin: 'yáng', meaning: '羊，绵羊', scene: '绵羊群', description: '白白的绵羊，毛茸茸的真可爱。这就是"羊"字。', evolution: { oracle: '🐑', bronze: '羊', seal: '羊', regular: '羊' }, sceneType: 'sheep', color: '#E8DCC8' },
+            { char: '马', pinyin: 'mǎ', meaning: '马，骏马', scene: '骏马奔腾', description: '骏马在草原上奔腾，跑得飞快。这就是"马"字。', evolution: { oracle: '🐴', bronze: '马', seal: '马', regular: '马' }, sceneType: 'horse', color: '#8B4513' },
+            { char: '鸟', pinyin: 'niǎo', meaning: '鸟，小鸟', scene: '小鸟飞翔', description: '小鸟在天空中自由飞翔，叽叽喳喳唱歌。这就是"鸟"字。', evolution: { oracle: '🐦', bronze: '鸟', seal: '鸟', regular: '鸟' }, sceneType: 'bird', color: '#6B8E9F' },
+            { char: '鱼', pinyin: 'yú', meaning: '鱼，鱼儿', scene: '鱼儿游水', description: '鱼儿在水中快乐地游来游去。这就是"鱼"字。', evolution: { oracle: '🐟', bronze: '鱼', seal: '鱼', regular: '鱼' }, sceneType: 'fish', color: '#4A90A4' },
+            { char: '虫', pinyin: 'chóng', meaning: '虫子，昆虫', scene: '蝴蝶飞舞', description: '美丽的蝴蝶在花丛中飞舞。这就是"虫"字。', evolution: { oracle: '🐛', bronze: '虫', seal: '虫', regular: '虫' }, sceneType: 'bug', color: '#7BA05B' },
+            { char: '花', pinyin: 'huā', meaning: '花朵，鲜花', scene: '花朵盛开', description: '五颜六色的花朵盛开了，真漂亮！这就是"花"字。', evolution: { oracle: '🌸', bronze: '花', seal: '花', regular: '花' }, sceneType: 'flower', color: '#E07563' },
+            { char: '草', pinyin: 'cǎo', meaning: '草地，青草', scene: '青青草地', description: '青青的草地，软软的真舒服。这就是"草"字。', evolution: { oracle: '🌿', bronze: '草', seal: '草', regular: '草' }, sceneType: 'grass', color: '#5A8F5A' },
+            { char: '父', pinyin: 'fù', meaning: '父亲，爸爸', scene: '爸爸和孩子', description: '爸爸牵着孩子的手，一起散步。这就是"父"字。', evolution: { oracle: '👨', bronze: '父', seal: '父', regular: '父' }, sceneType: 'father', color: '#6B5B4F' },
+            { char: '母', pinyin: 'mǔ', meaning: '母亲，妈妈', scene: '妈妈怀抱', description: '妈妈温暖的怀抱，最安全的港湾。这就是"母"字。', evolution: { oracle: '👩', bronze: '母', seal: '母', regular: '母' }, sceneType: 'mother', color: '#C4956A' },
+            { char: '子', pinyin: 'zǐ', meaning: '孩子，儿子', scene: '可爱宝宝', description: '可爱的宝宝，是爸爸妈妈的宝贝。这就是"子"字。', evolution: { oracle: '👶', bronze: '子', seal: '子', regular: '子' }, sceneType: 'child', color: '#D4A574' },
+            { char: '女', pinyin: 'nǚ', meaning: '女孩，女儿', scene: '小女孩', description: '可爱的小女孩，扎着两个小辫子。这就是"女"字。', evolution: { oracle: '👧', bronze: '女', seal: '女', regular: '女' }, sceneType: 'girl', color: '#E89385' },
+            { char: '雨', pinyin: 'yǔ', meaning: '雨水，下雨', scene: '春雨绵绵', description: '细细的春雨从天而降，滋润着大地。这就是"雨"字。', evolution: { oracle: '🌧', bronze: '雨', seal: '雨', regular: '雨' }, sceneType: 'rain', color: '#6B8E9F' }
+        ];
+        
+        characterDatabase.push(...moreCharacters);
+        
+        // ═══════════════════════════════════════
+        // 应用状态
+        // ═══════════════════════════════════════
+        let currentIndex = 0;
+        let soundEnabled = true;
+        let scene, camera, renderer, currentMesh;
+        let particles = [];
+        let animationId;
+        
+        // ═══════════════════════════════════════
+        // DOM 元素
+        // ═══════════════════════════════════════
+        const charMain = document.getElementById('char-main');
+        const charNumber = document.getElementById('char-number');
+        const charPinyin = document.getElementById('char-pinyin');
+        const charMeaning = document.getElementById('char-meaning');
+        const sceneTitle = document.getElementById('scene-title');
+        const sceneDesc = document.getElementById('scene-desc');
+        const progressText = document.getElementById('progress-text');
+        const progressFill = document.getElementById('progress-fill');
+        const navIndicators = document.getElementById('nav-indicators');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const readBtn = document.getElementById('read-btn');
+        const soundBtn = document.getElementById('sound-btn');
+        const gestureHint = document.getElementById('gesture-hint');
+        const loadingScreen = document.getElementById('loading-screen');
+        
+        // ═══════════════════════════════════════
+        // 初始化
+        // ═══════════════════════════════════════
+        function init() {
+            try {
+                initThreeJS();
+                initParticles();
+                createNavIndicators();
+                updateDisplay();
+                setupEventListeners();
+                
+                // 隐藏加载画面 - 确保DOM已更新
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        if(loadingScreen) {
+                            loadingScreen.classList.add('hidden');
+                            showGestureHint();
+                        }
+                    }, 1500);
+                });
+            } catch(error) {
+                console.error('初始化失败:', error);
+                if(loadingScreen) {
+                    loadingScreen.innerHTML = `
+                        <div style="text-align: center; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">😅</div>
+                            <div style="font-family: var(--font-sans); color: var(--text-secondary); font-size: 1rem;">
+                                加载出错了，请刷新页面重试<br>
+                                <small style="font-size: 0.75rem; color: var(--text-light);">错误: ${error.message}</small>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
+        
+        // ═══════════════════════════════════════
+        // Three.js 3D场景
+        // ═══════════════════════════════════════
+        function initThreeJS() {
+            const canvas = document.getElementById('three-canvas');
+            if(!canvas) {
+                console.warn('Three.js canvas not found');
+                return;
+            }
+            
+            const container = canvas.parentElement;
+            if(!container) {
+                console.warn('Canvas container not found');
+                return;
+            }
+            
+            // 检查WebGL支持
+            try {
+                const testCanvas = document.createElement('canvas');
+                const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+                if(!gl) {
+                    console.warn('WebGL not supported');
+                    container.innerHTML = `
+                        <div style="display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column; gap: 1rem;">
+                            <div style="font-size: 4rem;">🎨</div>
+                            <div style="font-family: var(--font-sans); color: var(--text-secondary); font-size: 1rem; text-align: center;">
+                                您的浏览器不支持3D渲染<br>
+                                <small style="font-size: 0.875rem;">但不影响学习汉字哦！</small>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+            } catch(e) {
+                console.warn('WebGL check failed:', e);
+            }
+            
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xF1F0EC);
+            
+            camera = new THREE.PerspectiveCamera(
+                45,
+                container.clientWidth / container.clientHeight || 1,
+                0.1,
+                1000
+            );
+            camera.position.z = 5;
+            
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas,
+                antialias: true,
+                alpha: true 
+            });
+            renderer.setSize(container.clientWidth || 400, container.clientHeight || 300);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            
+            // 灯光
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(5, 5, 5);
+            directionalLight.castShadow = true;
+            scene.add(directionalLight);
+            
+            const pointLight = new THREE.PointLight(0xE07563, 0.5, 100);
+            pointLight.position.set(-3, 2, 3);
+            scene.add(pointLight);
+            
+            // 创建初始场景
+            createScene(characterDatabase[0].sceneType, characterDatabase[0].color);
+            
+            // 动画循环
+            animate();
+            
+            // 响应式
+            window.addEventListener('resize', onWindowResize);
+        }
+        
+        function createScene(type, color) {
+            // 清除旧场景
+            while(scene.children.length > 3) {
+                scene.remove(scene.children[3]);
+            }
+            
+            const mainColor = new THREE.Color(color);
+            const secondaryColor = new THREE.Color(color).multiplyScalar(0.8);
+            
+            switch(type) {
+                case 'sun':
+                    createSunScene(mainColor, secondaryColor);
+                    break;
+                case 'moon':
+                    createMoonScene(mainColor, secondaryColor);
+                    break;
+                case 'water':
+                    createWaterScene(mainColor, secondaryColor);
+                    break;
+                case 'fire':
+                    createFireScene(mainColor, secondaryColor);
+                    break;
+                case 'tree':
+                    createTreeScene(mainColor, secondaryColor);
+                    break;
+                case 'mountain':
+                    createMountainScene(mainColor, secondaryColor);
+                    break;
+                case 'person':
+                    createPersonScene(mainColor, secondaryColor);
+                    break;
+                case 'mouth':
+                    createMouthScene(mainColor, secondaryColor);
+                    break;
+                case 'hand':
+                    createHandScene(mainColor, secondaryColor);
+                    break;
+                case 'field':
+                    createFieldScene(mainColor, secondaryColor);
+                    break;
+                default:
+                    createDefaultScene(mainColor, secondaryColor);
+            }
+        }
+        
+        // 太阳场景
+        function createSunScene(color, secondaryColor) {
+            // 太阳主体
+            const sunGeometry = new THREE.SphereGeometry(1.2, 32, 32);
+            const sunMaterial = new THREE.MeshPhongMaterial({
+                color: color,
+                emissive: color,
+                emissiveIntensity: 0.3,
+                shininess: 100
+            });
+            const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+            sun.position.set(0, 0.5, 0);
+            sun.castShadow = true;
+            scene.add(sun);
+            currentMesh = sun;
+            
+            // 光芒
+            for(let i = 0; i < 8; i++) {
+                const rayGeometry = new THREE.ConeGeometry(0.1, 0.8, 8);
+                const rayMaterial = new THREE.MeshPhongMaterial({ color: color });
+                const ray = new THREE.Mesh(rayGeometry, rayMaterial);
+                const angle = (i / 8) * Math.PI * 2;
+                ray.position.set(
+                    Math.cos(angle) * 1.8,
+                    Math.sin(angle) * 1.8 + 0.5,
+                    0
+                );
+                ray.rotation.z = angle - Math.PI / 2;
+                scene.add(ray);
+            }
+            
+            // 地面
+            const groundGeometry = new THREE.PlaneGeometry(10, 3);
+            const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x7BA05B });
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.position.set(0, -2, -1);
+            ground.receiveShadow = true;
+            scene.add(ground);
+            
+            // 云朵
+            createClouds();
+        }
+        
+        // 月亮场景
+        function createMoonScene(color, secondaryColor) {
+            // 月亮
+            const moonGeometry = new THREE.SphereGeometry(1, 32, 32);
+            const moonMaterial = new THREE.MeshPhongMaterial({
+                color: 0xF5F5DC,
+                emissive: 0xF5F5DC,
+                emissiveIntensity: 0.2
+            });
+            const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+            moon.position.set(1, 1, 0);
+            scene.add(moon);
+            currentMesh = moon;
+            
+            // 星星
+            for(let i = 0; i < 20; i++) {
+                const starGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+                const starMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
+                const star = new THREE.Mesh(starGeometry, starMaterial);
+                star.position.set(
+                    (Math.random() - 0.5) * 8,
+                    (Math.random() - 0.5) * 4 + 1,
+                    (Math.random() - 0.5) * 4
+                );
+                scene.add(star);
+            }
+            
+            // 夜空背景
+            const skyGeometry = new THREE.PlaneGeometry(15, 8);
+            const skyMaterial = new THREE.MeshBasicMaterial({ color: 0x1a1a3e });
+            const sky = new THREE.Mesh(skyGeometry, skyMaterial);
+            sky.position.set(0, 0, -3);
+            scene.add(sky);
+        }
+        
+        // 水场景
+        function createWaterScene(color, secondaryColor) {
+            // 河流 - 使用多个波浪形平面
+            for(let i = 0; i < 5; i++) {
+                const waveGeometry = new THREE.PlaneGeometry(3, 0.5, 16, 4);
+                const waveMaterial = new THREE.MeshPhongMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.8,
+                    side: THREE.DoubleSide
+                });
+                const wave = new THREE.Mesh(waveGeometry, waveMaterial);
+                wave.position.set(0, -0.5 + i * 0.3, -i * 0.5);
+                wave.rotation.x = -Math.PI / 2;
+                scene.add(wave);
+            }
+            
+            // 水滴
+            for(let i = 0; i < 10; i++) {
+                const dropGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+                const dropMaterial = new THREE.MeshPhongMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.6
+                });
+                const drop = new THREE.Mesh(dropGeometry, dropMaterial);
+                drop.userData = { isDrop: true, index: i };
+                drop.position.set(
+                    (Math.random() - 0.5) * 4,
+                    Math.random() * 2,
+                    (Math.random() - 0.5) * 2
+                );
+                scene.add(drop);
+            }
+            
+            // 河岸
+            const bankGeometry = new THREE.BoxGeometry(8, 0.5, 2);
+            const bankMaterial = new THREE.MeshLambertMaterial({ color: 0x8B7355 });
+            const bank = new THREE.Mesh(bankGeometry, bankMaterial);
+            bank.position.set(0, -1.5, 0);
+            scene.add(bank);
+        }
+        
+        // 火场景
+        function createFireScene(color, secondaryColor) {
+            // 火焰 - 多个锥形
+            for(let i = 0; i < 5; i++) {
+                const flameGeometry = new THREE.ConeGeometry(0.3 - i * 0.04, 0.8 - i * 0.1, 8);
+                const flameMaterial = new THREE.MeshPhongMaterial({
+                    color: i < 2 ? color : 0xFF8C00,
+                    emissive: i < 2 ? color : 0xFF8C00,
+                    emissiveIntensity: 0.4,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                const flame = new THREE.Mesh(flameGeometry, flameMaterial);
+                flame.userData = { isFlame: true, index: i };
+                flame.position.set(
+                    (Math.random() - 0.5) * 0.5,
+                    i * 0.3,
+                    0
+                );
+                scene.add(flame);
+            }
+            
+            // 木柴
+            const logGeometry = new THREE.CylinderGeometry(0.15, 0.15, 1.5, 8);
+            const logMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+            const log1 = new THREE.Mesh(logGeometry, logMaterial);
+            log1.rotation.z = Math.PI / 2;
+            log1.position.set(0, -0.5, 0);
+            scene.add(log1);
+            
+            const log2 = new THREE.Mesh(logGeometry, logMaterial);
+            log2.rotation.z = Math.PI / 2;
+            log2.rotation.y = Math.PI / 3;
+            log2.position.set(0, -0.5, 0);
+            scene.add(log2);
+        }
+        
+        // 树场景
+        function createTreeScene(color, secondaryColor) {
+            // 树干
+            const trunkGeometry = new THREE.CylinderGeometry(0.3, 0.4, 2, 8);
+            const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+            const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+            trunk.position.set(0, -0.5, 0);
+            trunk.castShadow = true;
+            scene.add(trunk);
+            
+            // 树冠 - 多层球体
+            for(let i = 0; i < 3; i++) {
+                const crownGeometry = new THREE.SphereGeometry(1 - i * 0.2, 16, 16);
+                const crownMaterial = new THREE.MeshPhongMaterial({
+                    color: i === 0 ? color : secondaryColor,
+                    shininess: 30
+                });
+                const crown = new THREE.Mesh(crownGeometry, crownMaterial);
+                crown.position.set(0, 1 + i * 0.5, 0);
+                crown.castShadow = true;
+                scene.add(crown);
+            }
+            
+            // 地面
+            const groundGeometry = new THREE.CircleGeometry(4, 32);
+            const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x7BA05B });
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.set(0, -1.5, 0);
+            ground.receiveShadow = true;
+            scene.add(ground);
+        }
+        
+        // 山场景
+        function createMountainScene(color, secondaryColor) {
+            // 主峰
+            const peakGeometry = new THREE.ConeGeometry(1.5, 3, 4);
+            const peakMaterial = new THREE.MeshPhongMaterial({ color: color });
+            const peak = new THREE.Mesh(peakGeometry, peakMaterial);
+            peak.position.set(0, 0, 0);
+            peak.castShadow = true;
+            scene.add(peak);
+            
+            // 侧峰
+            for(let i = 0; i < 2; i++) {
+                const sideGeometry = new THREE.ConeGeometry(1, 2, 4);
+                const sideMaterial = new THREE.MeshPhongMaterial({ color: secondaryColor });
+                const side = new THREE.Mesh(sideGeometry, sideMaterial);
+                side.position.set(i === 0 ? -2 : 2, -0.5, -0.5);
+                side.castShadow = true;
+                scene.add(side);
+            }
+            
+            // 山脚
+            const baseGeometry = new THREE.CylinderGeometry(3, 3, 0.5, 32);
+            const baseMaterial = new THREE.MeshLambertMaterial({ color: 0x7BA05B });
+            const base = new THREE.Mesh(baseGeometry, baseMaterial);
+            base.position.set(0, -1.5, 0);
+            base.receiveShadow = true;
+            scene.add(base);
+        }
+        
+        // 人场景
+        function createPersonScene(color, secondaryColor) {
+            // 头
+            const headGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+            const headMaterial = new THREE.MeshPhongMaterial({ color: 0xF5DEB3 });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            head.position.set(0, 1.5, 0);
+            scene.add(head);
+            
+            // 身体
+            const bodyGeometry = new THREE.CylinderGeometry(0.4, 0.5, 1.2, 8);
+            const bodyMaterial = new THREE.MeshPhongMaterial({ color: color });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.position.set(0, 0.4, 0);
+            scene.add(body);
+            
+            // 手臂
+            for(let i = 0; i < 2; i++) {
+                const armGeometry = new THREE.CylinderGeometry(0.1, 0.1, 0.8, 8);
+                const armMaterial = new THREE.MeshPhongMaterial({ color: 0xF5DEB3 });
+                const arm = new THREE.Mesh(armGeometry, armMaterial);
+                arm.position.set(i === 0 ? -0.7 : 0.7, 0.8, 0);
+                arm.rotation.z = i === 0 ? Math.PI / 4 : -Math.PI / 4;
+                scene.add(arm);
+            }
+            
+            // 腿
+            for(let i = 0; i < 2; i++) {
+                const legGeometry = new THREE.CylinderGeometry(0.15, 0.15, 0.8, 8);
+                const legMaterial = new THREE.MeshPhongMaterial({ color: 0x2C2C2C });
+                const leg = new THREE.Mesh(legGeometry, legMaterial);
+                leg.position.set(i === 0 ? -0.25 : 0.25, -0.6, 0);
+                scene.add(leg);
+            }
+        }
+        
+        // 口场景
+        function createMouthScene(color, secondaryColor) {
+            // 嘴唇 - 使用圆环
+            const lipGeometry = new THREE.TorusGeometry(0.8, 0.2, 16, 32, Math.PI);
+            const lipMaterial = new THREE.MeshPhongMaterial({ color: color });
+            const lip = new THREE.Mesh(lipGeometry, lipMaterial);
+            lip.rotation.x = Math.PI;
+            scene.add(lip);
+            
+            // 口腔内部
+            const innerGeometry = new THREE.SphereGeometry(0.7, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+            const innerMaterial = new THREE.MeshPhongMaterial({ color: 0x8B0000 });
+            const inner = new THREE.Mesh(innerGeometry, innerMaterial);
+            inner.rotation.x = Math.PI;
+            inner.position.set(0, 0, -0.1);
+            scene.add(inner);
+        }
+        
+        // 手场景
+        function createHandScene(color, secondaryColor) {
+            // 手掌
+            const palmGeometry = new THREE.BoxGeometry(1.2, 0.3, 0.8);
+            const palmMaterial = new THREE.MeshPhongMaterial({ color: 0xF5DEB3 });
+            const palm = new THREE.Mesh(palmGeometry, palmMaterial);
+            palm.position.set(0, 0, 0);
+            scene.add(palm);
+            
+            // 手指
+            for(let i = 0; i < 4; i++) {
+                const fingerGeometry = new THREE.CylinderGeometry(0.1, 0.1, 0.6, 8);
+                const fingerMaterial = new THREE.MeshPhongMaterial({ color: 0xF5DEB3 });
+                const finger = new THREE.Mesh(fingerGeometry, fingerMaterial);
+                finger.position.set(-0.4 + i * 0.27, 0.4, 0);
+                scene.add(finger);
+            }
+            
+            // 拇指
+            const thumbGeometry = new THREE.CylinderGeometry(0.12, 0.12, 0.5, 8);
+            const thumbMaterial = new THREE.MeshPhongMaterial({ color: 0xF5DEB3 });
+            const thumb = new THREE.Mesh(thumbGeometry, thumbMaterial);
+            thumb.position.set(-0.7, 0.2, 0);
+            thumb.rotation.z = Math.PI / 3;
+            scene.add(thumb);
+        }
+        
+        // 田场景
+        function createFieldScene(color, secondaryColor) {
+            // 田地 - 使用网格
+            const fieldGeometry = new THREE.PlaneGeometry(3, 3, 2, 2);
+            const fieldMaterial = new THREE.MeshPhongMaterial({
+                color: color,
+                side: THREE.DoubleSide,
+                wireframe: false
+            });
+            const field = new THREE.Mesh(fieldGeometry, fieldMaterial);
+            field.rotation.x = -Math.PI / 2;
+            field.position.set(0, -0.5, 0);
+            scene.add(field);
+            
+            // 田埂
+            for(let i = 0; i < 3; i++) {
+                const ridgeGeometry = new THREE.BoxGeometry(3, 0.1, 0.05);
+                const ridgeMaterial = new THREE.MeshLambertMaterial({ color: 0x8B7355 });
+                const ridge = new THREE.Mesh(ridgeGeometry, ridgeMaterial);
+                ridge.position.set(0, -0.4, -1 + i);
+                scene.add(ridge);
+                
+                const ridge2Geometry = new THREE.BoxGeometry(0.05, 0.1, 3);
+                const ridge2 = new THREE.Mesh(ridge2Geometry, ridgeMaterial);
+                ridge2.position.set(-1 + i, -0.4, 0);
+                scene.add(ridge2);
+            }
+            
+            // 庄稼
+            for(let i = 0; i < 9; i++) {
+                const plantGeometry = new THREE.ConeGeometry(0.1, 0.4, 6);
+                const plantMaterial = new THREE.MeshPhongMaterial({ color: 0x7BA05B });
+                const plant = new THREE.Mesh(plantGeometry, plantMaterial);
+                plant.position.set(
+                    -0.7 + (i % 3) * 0.7,
+                    -0.2,
+                    -0.7 + Math.floor(i / 3) * 0.7
+                );
+                scene.add(plant);
+            }
+        }
+        
+        // 默认场景
+        function createDefaultScene(color, secondaryColor) {
+            const geometry = new THREE.IcosahedronGeometry(1, 0);
+            const material = new THREE.MeshPhongMaterial({
+                color: color,
+                wireframe: true
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+            currentMesh = mesh;
+        }
+        
+        // 创建云朵
+        function createClouds() {
+            for(let i = 0; i < 3; i++) {
+                const cloudGroup = new THREE.Group();
+                cloudGroup.userData = { isCloud: true };
+                for(let j = 0; j < 5; j++) {
+                    const cloudGeometry = new THREE.SphereGeometry(0.3 + Math.random() * 0.2, 8, 8);
+                    const cloudMaterial = new THREE.MeshBasicMaterial({
+                        color: 0xFFFFFF,
+                        transparent: true,
+                        opacity: 0.8
+                    });
+                    const cloudPart = new THREE.Mesh(cloudGeometry, cloudMaterial);
+                    cloudPart.position.set(
+                        (Math.random() - 0.5) * 1.5,
+                        (Math.random() - 0.5) * 0.3,
+                        (Math.random() - 0.5) * 0.5
+                    );
+                    cloudGroup.add(cloudPart);
+                }
+                cloudGroup.position.set(
+                    (Math.random() - 0.5) * 6,
+                    2 + Math.random(),
+                    -2 + Math.random()
+                );
+                scene.add(cloudGroup);
+            }
+        }
+        
+        // 动画循环
+        // ═══════════════════════════════════════
+        // 动画循环 - 性能优化
+        // ═══════════════════════════════════════
+        let lastTime = 0;
+        const targetFPS = 60;
+        const frameInterval = 1000 / targetFPS;
+        
+        function animate(currentTime) {
+            animationId = requestAnimationFrame(animate);
+            
+            // 帧率控制
+            const delta = currentTime - lastTime;
+            if(delta < frameInterval) return;
+            lastTime = currentTime - (delta % frameInterval);
+            
+            const time = currentTime * 0.001;
+            
+            // 旋转当前主要物体
+            if(currentMesh) {
+                currentMesh.rotation.y = time * 0.3;
+            }
+            
+            // 场景特定动画 - 使用userData标记优化性能
+            scene.children.forEach((child) => {
+                if(child.userData && child.userData.isCloud) {
+                    child.position.x += 0.002;
+                    if(child.position.x > 5) child.position.x = -5;
+                }
+                
+                // 火焰动画
+                if(child.userData && child.userData.isFlame) {
+                    child.scale.y = 1 + Math.sin(time * 5 + child.userData.index) * 0.2;
+                    if(child.material) {
+                        child.material.opacity = 0.6 + Math.sin(time * 3 + child.userData.index) * 0.2;
+                    }
+                }
+                
+                // 水滴动画
+                if(child.userData && child.userData.isDrop) {
+                    child.position.y += Math.sin(time * 2 + child.userData.index) * 0.002;
+                }
+            });
+            
+            renderer.render(scene, camera);
+        }
+        
+        function onWindowResize() {
+            const canvas = document.getElementById('three-canvas');
+            if(!canvas) return;
+            
+            const container = canvas.parentElement;
+            if(!container || !camera || !renderer) return;
+            
+            const width = container.clientWidth || 400;
+            const height = container.clientHeight || 300;
+            
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+        
+        // ═══════════════════════════════════════
+        // 粒子系统 - 庆祝效果
+        // ═══════════════════════════════════════
+        function initParticles() {
+            const canvas = document.getElementById('particle-canvas');
+            if(!canvas) {
+                console.warn('Particle canvas not found');
+                return;
+            }
+            
+            const ctx = canvas.getContext('2d');
+            if(!ctx) {
+                console.warn('Could not get 2D context');
+                return;
+            }
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+            
+            function createParticle(x, y) {
+                const colors = ['#E07563', '#F1F0EC', '#FFD700', '#7BA05B', '#4A90A4'];
+                return {
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 10,
+                    vy: (Math.random() - 0.5) * 10 - 5,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    life: 1,
+                    decay: 0.02
+                };
+            }
+            
+            function updateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles = particles.filter(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.2; // 重力
+                    p.life -= p.decay;
+                    
+                    if(p.life > 0) {
+                        ctx.globalAlpha = p.life;
+                        ctx.fillStyle = p.color;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                        return true;
+                    }
+                    return false;
+                });
+                
+                requestAnimationFrame(updateParticles);
+            }
+            updateParticles();
+        }
+        
+        function celebrate(x, y) {
+            for(let i = 0; i < 30; i++) {
+                particles.push(createParticle(x || window.innerWidth / 2, y || window.innerHeight / 2));
+            }
+        }
+        
+        // ═══════════════════════════════════════
+        // 导航指示器
+        // ═══════════════════════════════════════
+        function createNavIndicators() {
+            navIndicators.innerHTML = '';
+            characterDatabase.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = `nav-dot ${index === 0 ? 'active' : ''}`;
+                dot.addEventListener('click', () => goToCharacter(index));
+                navIndicators.appendChild(dot);
+            });
+        }
+        
+        // ═══════════════════════════════════════
+        // 更新显示
+        // ═══════════════════════════════════════
+        function updateDisplay() {
+            const char = characterDatabase[currentIndex];
+            
+            // 更新文字内容
+            charMain.textContent = char.char;
+            charNumber.textContent = `NO. ${String(currentIndex + 1).padStart(2, '0')}`;
+            charPinyin.textContent = char.pinyin;
+            charMeaning.textContent = char.meaning;
+            sceneTitle.textContent = char.scene;
+            sceneDesc.textContent = char.description;
+            
+            // 更新进度
+            progressText.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${characterDatabase.length}`;
+            progressFill.style.width = `${((currentIndex + 1) / characterDatabase.length) * 100}%`;
+            
+            // 更新导航指示器
+            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+            
+            // 更新按钮状态
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === characterDatabase.length - 1;
+            
+            // 更新演变时间轴
+            updateEvolutionTimeline(char);
+            
+            // 更新3D场景
+            try {
+                createScene(char.sceneType, char.color);
+            } catch(e) {
+                console.warn('3D scene update failed:', e);
+            }
+            
+            // 播放读音
+            if(soundEnabled) {
+                speak(char.char);
+            }
+            
+            // 触发粒子庆祝
+            try {
+                celebrate();
+            } catch(e) {
+                console.warn('Particle celebration failed:', e);
+            }
+        }
+        
+        function updateEvolutionTimeline(char) {
+            const timeline = document.getElementById('evolution-timeline');
+            timeline.innerHTML = `
+                <div class="evolution-step active" data-era="oracle">
+                    <span class="evolution-char">${char.evolution.oracle}</span>
+                    <span class="evolution-label">甲骨文</span>
+                </div>
+                <span class="evolution-arrow">→</span>
+                <div class="evolution-step" data-era="bronze">
+                    <span class="evolution-char">${char.evolution.bronze}</span>
+                    <span class="evolution-label">金文</span>
+                </div>
+                <span class="evolution-arrow">→</span>
+                <div class="evolution-step" data-era="seal">
+                    <span class="evolution-char">${char.evolution.seal}</span>
+                    <span class="evolution-label">小篆</span>
+                </div>
+                <span class="evolution-arrow">→</span>
+                <div class="evolution-step" data-era="regular">
+                    <span class="evolution-char">${char.evolution.regular}</span>
+                    <span class="evolution-label">楷书</span>
+                </div>
+            `;
+        }
+        
+        // ═══════════════════════════════════════
+        // 导航功能
+        // ═══════════════════════════════════════
+        function goToCharacter(index) {
+            if(index >= 0 && index < characterDatabase.length) {
+                currentIndex = index;
+                updateDisplay();
+            }
+        }
+        
+        function nextCharacter() {
+            if(currentIndex < characterDatabase.length - 1) {
+                currentIndex++;
+                updateDisplay();
+            }
+        }
+        
+        function prevCharacter() {
+            if(currentIndex > 0) {
+                currentIndex--;
+                updateDisplay();
+            }
+        }
+        
+        // ═══════════════════════════════════════
+        // 语音功能
+        // ═══════════════════════════════════════
+        function speak(text) {
+            if('speechSynthesis' in window && soundEnabled) {
+                // 取消之前的语音
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.8;
+                utterance.pitch = 1.1;
+                utterance.volume = 1;
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+        
+        // ═══════════════════════════════════════
+        // 手势提示
+        // ═══════════════════════════════════════
+        function showGestureHint() {
+            gestureHint.classList.add('show');
+            setTimeout(() => {
+                gestureHint.classList.remove('show');
+            }, 4000);
+        }
+        
+        // ═══════════════════════════════════════
+        // 事件监听
+        // ═══════════════════════════════════════
+        function setupEventListeners() {
+            // 导航按钮
+            prevBtn.addEventListener('click', prevCharacter);
+            nextBtn.addEventListener('click', nextCharacter);
+            
+            // 读音按钮
+            readBtn.addEventListener('click', () => {
+                speak(characterDatabase[currentIndex].char);
+                celebrate(window.innerWidth / 2, window.innerHeight / 2);
+            });
+            
+            // 声音开关
+            soundBtn.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                soundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+            });
+            
+            // 汉字点击
+            charMain.addEventListener('click', () => {
+                speak(characterDatabase[currentIndex].char);
+                charMain.classList.add('active');
+                setTimeout(() => charMain.classList.remove('active'), 600);
+            });
+            
+            // 键盘导航
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'ArrowLeft') prevCharacter();
+                if(e.key === 'ArrowRight') nextCharacter();
+                if(e.key === ' ') {
+                    e.preventDefault();
+                    speak(characterDatabase[currentIndex].char);
+                }
+            });
+            
+            // 触摸滑动
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if(Math.abs(diff) > swipeThreshold) {
+                    if(diff > 0) {
+                        nextCharacter();
+                    } else {
+                        prevCharacter();
+                    }
+                }
+            }
+            
+            // 演变按钮
+            document.getElementById('evolve-btn').addEventListener('click', () => {
+                const steps = document.querySelectorAll('.evolution-step');
+                steps.forEach((step, index) => {
+                    setTimeout(() => {
+                        step.classList.add('active');
+                        setTimeout(() => step.classList.remove('active'), 500);
+                    }, index * 300);
+                });
+            });
+            
+            // 帮助按钮
+            document.getElementById('help-btn').addEventListener('click', () => {
+                showHelpModal();
+            });
+        }
+        
+        // ═══════════════════════════════════════
+        // 帮助模态框
+        // ═══════════════════════════════════════
+        function showHelpModal() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10001;
+                backdrop-filter: blur(8px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: var(--white-soft);
+                    padding: var(--space-xl);
+                    border-radius: 24px;
+                    max-width: 500px;
+                    width: 90%;
+                    box-shadow: 0 20px 60px var(--shadow-deep);
+                    font-family: var(--font-sans);
+                ">
+                    <h2 style="
+                        font-family: var(--font-serif);
+                        font-weight: 700;
+                        font-size: 1.5rem;
+                        color: var(--text-primary);
+                        margin-bottom: var(--space-md);
+                    ">使用帮助</h2>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">👆</span>
+                            <span style="color: var(--text-secondary); font-size: 0.9375rem;">点击汉字可以听到读音</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">👈👉</span>
+                            <span style="color: var(--text-secondary); font-size: 0.9375rem;">点击箭头或左右滑动切换汉字</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">👋</span>
+                            <span style="color: var(--text-secondary); font-size: 0.9375rem;">对着摄像头挥手也可以翻页</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">✋</span>
+                            <span style="color: var(--text-secondary); font-size: 0.9375rem;">张开手掌可以朗读当前汉字</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--space-sm);">
+                            <span style="font-size: 1.5rem;">✨</span>
+                            <span style="color: var(--text-secondary); font-size: 0.9375rem;">点击"看演变"观看汉字演变动画</span>
+                        </div>
+                    </div>
+                    <button onclick="this.closest('.modal').remove()" style="
+                        margin-top: var(--space-lg);
+                        width: 100%;
+                        padding: var(--space-sm);
+                        background: var(--accent-red);
+                        color: white;
+                        border: none;
+                        border-radius: 16px;
+                        font-family: var(--font-sans);
+                        font-size: 1rem;
+                        font-weight: 500;
+                        cursor: pointer;
+                        transition: all 0.3s var(--ease-out-expo);
+                    ">知道了</button>
+                </div>
+            `;
+            
+            modal.className = 'modal';
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) modal.remove();
+            });
+            
+            document.body.appendChild(modal);
+        }
+        
+        // ═══════════════════════════════════════
+        // MediaPipe 手势识别
+        // ═══════════════════════════════════════
+        let hands;
+        let camera_utils;
+        let gestureState = {
+            lastX: null,
+            lastTime: 0,
+            cooldown: 1500,
+            isTracking: false
+        };
+        
+        function initMediaPipe() {
+            // 检查是否支持摄像头
+            if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                console.log('摄像头不支持，跳过手势识别');
+                showCameraFallback();
+                return;
+            }
+            
+            // 先询问用户是否启用手势
+            showCameraPrompt();
+        }
+        
+        function showCameraPrompt() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10002;
+                backdrop-filter: blur(8px);
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: var(--white-soft);
+                    padding: var(--space-xl);
+                    border-radius: 24px;
+                    max-width: 420px;
+                    width: 90%;
+                    box-shadow: 0 20px 60px var(--shadow-deep);
+                    font-family: var(--font-sans);
+                    text-align: center;
+                ">
+                    <div style="font-size: 3rem; margin-bottom: var(--space-md);">👋</div>
+                    <h2 style="
+                        font-family: var(--font-serif);
+                        font-weight: 700;
+                        font-size: 1.25rem;
+                        color: var(--text-primary);
+                        margin-bottom: var(--space-sm);
+                    ">启用手势控制？</h2>
+                    <p style="
+                        color: var(--text-secondary);
+                        font-size: 0.9375rem;
+                        line-height: 1.6;
+                        margin-bottom: var(--space-lg);
+                    ">
+                        允许使用摄像头后，你可以通过挥手来翻页，张开手掌来朗读汉字。
+                    </p>
+                    <div style="display: flex; gap: var(--space-sm); flex-direction: column;">
+                        <button id="enable-camera-btn" style="
+                            width: 100%;
+                            padding: var(--space-sm);
+                            background: var(--accent-red);
+                            color: white;
+                            border: none;
+                            border-radius: 16px;
+                            font-family: var(--font-sans);
+                            font-size: 1rem;
+                            font-weight: 500;
+                            cursor: pointer;
+                            transition: all 0.3s var(--ease-out-expo);
+                        ">✅ 启用手势</button>
+                        <button id="skip-camera-btn" style="
+                            width: 100%;
+                            padding: var(--space-sm);
+                            background: transparent;
+                            color: var(--text-secondary);
+                            border: 2px solid var(--base-warm);
+                            border-radius: 16px;
+                            font-family: var(--font-sans);
+                            font-size: 1rem;
+                            font-weight: 500;
+                            cursor: pointer;
+                            transition: all 0.3s var(--ease-out-expo);
+                        ">🖱️ 使用鼠标/键盘</button>
+                    </div>
+                </div>
+            `;
+            
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) modal.remove();
+            });
+            
+            document.body.appendChild(modal);
+            
+            document.getElementById('enable-camera-btn').addEventListener('click', () => {
+                modal.remove();
+                startCamera();
+            });
+            
+            document.getElementById('skip-camera-btn').addEventListener('click', () => {
+                modal.remove();
+                showCameraFallback();
+            });
+        }
+        
+        function startCamera() {
+            // 创建手势识别实例
+            hands = new Hands({
+                locateFile: (file) => {
+                    return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+                }
+            });
+            
+            hands.setOptions({
+                maxNumHands: 1,
+                modelComplexity: 1,
+                minDetectionConfidence: 0.7,
+                minTrackingConfidence: 0.5
+            });
+            
+            hands.onResults(onHandsResults);
+            
+            // 启动摄像头
+            const videoElement = document.createElement('video');
+            videoElement.style.display = 'none';
+            document.body.appendChild(videoElement);
+            
+            camera_utils = new Camera(videoElement, {
+                onFrame: async () => {
+                    await hands.send({ image: videoElement });
+                },
+                width: 320,
+                height: 240
+            });
+            
+            camera_utils.start()
+                .then(() => {
+                    gestureState.isTracking = true;
+                    console.log('手势识别已启动');
+                    showGestureFeedback('👋 手势识别已启动');
+                })
+                .catch(err => {
+                    console.log('摄像头启动失败:', err);
+                    showCameraFallback();
+                });
+        }
+        
+        function showCameraFallback() {
+            // 显示一个提示，告诉用户可以使用鼠标/键盘
+            const hint = document.getElementById('gesture-hint');
+            hint.textContent = '🖱️ 使用鼠标点击或键盘方向键操作';
+            hint.classList.add('show');
+            setTimeout(() => {
+                hint.classList.remove('show');
+                hint.textContent = '👋 挥手可以翻页哦';
+            }, 4000);
+        }
+        
+        function onHandsResults(results) {
+            if(!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
+                gestureState.lastX = null;
+                return;
+            }
+            
+            const now = Date.now();
+            if(now - gestureState.lastTime < gestureState.cooldown) {
+                return;
+            }
+            
+            const landmarks = results.multiHandLandmarks[0];
+            const wrist = landmarks[0];
+            const middleTip = landmarks[12];
+            
+            // 检测挥手动作 - 使用手腕水平移动
+            if(gestureState.lastX !== null) {
+                const deltaX = wrist.x - gestureState.lastX;
+                const speed = Math.abs(deltaX);
+                
+                // 快速水平移动检测
+                if(speed > 0.15) {
+                    if(deltaX > 0) {
+                        // 向右挥手 -> 上一页
+                        prevCharacter();
+                        showGestureFeedback('👈 上一页');
+                    } else {
+                        // 向左挥手 -> 下一页
+                        nextCharacter();
+                        showGestureFeedback('下一页 👉');
+                    }
+                    gestureState.lastTime = now;
+                }
+            }
+            
+            gestureState.lastX = wrist.x;
+            
+            // 检测手掌张开（停止手势）
+            const isPalmOpen = detectPalmOpen(landmarks);
+            if(isPalmOpen) {
+                // 手掌张开时朗读当前汉字
+                speak(characterDatabase[currentIndex].char);
+                showGestureFeedback('👋 朗读');
+                gestureState.lastTime = now;
+            }
+        }
+        
+        function detectPalmOpen(landmarks) {
+            // 检测手指是否伸展
+            const fingerTips = [8, 12, 16, 20]; // 食指、中指、无名指、小指指尖
+            const fingerBases = [5, 9, 13, 17]; // 对应指根
+            
+            let extendedFingers = 0;
+            for(let i = 0; i < fingerTips.length; i++) {
+                const tip = landmarks[fingerTips[i]];
+                const base = landmarks[fingerBases[i]];
+                const wrist = landmarks[0];
+                
+                // 如果指尖距离手腕比指根距离手腕远，则手指伸展
+                const tipDist = Math.hypot(tip.x - wrist.x, tip.y - wrist.y);
+                const baseDist = Math.hypot(base.x - wrist.x, base.y - wrist.y);
+                
+                if(tipDist > baseDist * 1.3) {
+                    extendedFingers++;
+                }
+            }
+            
+            return extendedFingers >= 3;
+        }
+        
+        function showGestureFeedback(text) {
+            const hint = document.getElementById('gesture-hint');
+            hint.textContent = text;
+            hint.classList.add('show');
+            setTimeout(() => {
+                hint.classList.remove('show');
+                hint.textContent = '👋 挥手可以翻页哦';
+            }, 2000);
+        }
+        
+        // ═══════════════════════════════════════
+        // 启动应用
+        // ═══════════════════════════════════════
+        if(document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                init();
+                initMediaPipe();
+            });
+        } else {
+            // DOM已经加载完成
+            init();
+            initMediaPipe();
+        }
+    </script>
+</body>
+</html>

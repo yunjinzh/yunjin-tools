@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320" role="img" aria-label="昆冶实训基地：分区厂房、无人机、实训电脑和数字孪生展示大屏">
+<rect width="560" height="320" fill="#E4E8DC"/><circle cx="450" cy="66" r="93" fill="#F5EEDF"/><ellipse cx="282" cy="280" rx="217" ry="22" fill="#6F8D7A" opacity=".17"/>
+<path d="m62 220 234-94 208 85-234 94Z" fill="#B7C7B0" stroke="#7D9984" stroke-width="2"/><path d="M62 220V102l234-67v91Z" fill="#F0EADB"/><path d="M296 35 504 104v107l-208-85Z" fill="#D2DCCB"/>
+<path d="M69 216V105l112-49 120 35v86M168 252V140l112-49 120 35v91M267 289V176l112-49 120 35v49" fill="none" stroke="#789581" stroke-width="6" stroke-linejoin="round"/>
+<path d="m69 105 198 71m-86-120 198 71m-78-36 198 71" fill="none" stroke="#A1B3A0" stroke-width="3"/>
+<path d="m93 215 73-29 66 25-73 29Z" fill="#DFCEAB"/><path d="m181 180 73-29 66 25-73 29Z" fill="#B4C8B6"/><path d="m279 156 45-17 66 26-45 18Z" fill="#C8BEA9"/><path d="m180 249 72-29 66 25-72 29Z" fill="#C0CEB4"/><path d="m267 215 73-29 66 25-73 29Z" fill="#D2B99C"/><path d="m353 180 51-20 67 27-51 21Z" fill="#AFC6BC"/>
+<g stroke="#819982" stroke-width="2" fill="#F1EAD9"><path d="m187 180 41-16 35 13-41 17Z"/><path d="m276 214 41-16 35 14-41 17Z"/><path d="m198 249 41-16 35 14-41 17Z"/></g>
+<g fill="#617F70" stroke="#F0EAD9" stroke-width="2"><path d="m207 160 24 9v-23l-24-9Z"/><path d="m294 194 24 9v-23l-24-9Z"/><path d="m217 229 24 9v-23l-24-9Z"/></g>
+<g fill="none" stroke="#D1DDBF" stroke-width="2"><path d="m211 153 6-5 6 8m75 38 5-10 7 8m-91 35 5-8 9 11"/></g>
+<g fill="#809B82"><path d="m216 190 17 6v10l-17-6Z"/><path d="m306 224 17 6v10l-17-6Z"/><path d="m227 259 17 6v10l-17-6Z"/></g>
+<path d="m337 77 117 40v67l-117-40Z" fill="#55786A"/><path d="m345 89 101 35v46l-101-35Z" fill="#D7E0CF"/><path d="m350 133 22-20 20 26 22-14 25 40Z" fill="#8EA78C"/><path d="m356 137 17-7 14 14 16-6 30 23" fill="none" stroke="#F5EAD2" stroke-width="3"/><g fill="#C3A783"><path d="m395 132 9 3v15l-9-3Z"/><path d="m408 137 9 3v15l-9-3Z"/></g>
+<g fill="none" stroke="#AD8066" stroke-width="3" stroke-linecap="round"><path d="m104 179 39 16m-35 17 32-44"/><ellipse cx="104" cy="179" rx="14" ry="5"/><ellipse cx="143" cy="195" rx="14" ry="5"/><ellipse cx="108" cy="212" rx="14" ry="5"/><ellipse cx="140" cy="168" rx="14" ry="5"/></g><path d="m118 181 16 7-8 12-16-7Z" fill="#D5B18A"/><circle cx="124" cy="196" r="4" fill="#617E6C"/>
+<g transform="translate(443 244)"><rect x="-8" y="-13" width="50" height="50" rx="9" fill="#F3E8D4" stroke="#B3AE91"/><path d="M3 24V9m9 15V0m9 24V14m9 10V5" stroke="#8BA18A" stroke-width="5"/><path d="M7-4q9-10 18 0m-14 5q5-5 10 0" fill="none" stroke="#BE866E" stroke-width="2.5"/></g>
+</svg>

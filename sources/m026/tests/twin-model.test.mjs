@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {computePlans,cleanRows,rawRows,replaySnapshot,assets} from '../lib/twin-model.ts';
+test('工厂对象唯一且清洗引用存在的设备',()=>{assert.equal(new Set(assets.map(x=>x.id)).size,13);assert.equal(assets.filter(x=>x.kind==='device').length,6)});
+test('基准方案：155/158/89.7 min，并行方案满足140分钟交期',()=>{const p=computePlans({quantity:60,repair:35,reserve:24,deadline:140});assert.deepEqual(p.map(p=>p.time),[155,158,89.7]);assert.equal(p.find(p=>p.recommended).id,'parallel');assert.equal(p[0].late,15);assert.equal(p[2].late,0)});
+test('宽松交期优先低能耗；紧迫交期优先最快完成',()=>{assert.equal(computePlans({quantity:60,repair:35,reserve:24,deadline:200}).find(p=>p.recommended).id,'wait');assert.equal(computePlans({quantity:60,repair:35,reserve:24,deadline:60}).find(p=>p.recommended).id,'parallel')});
+test('主线早于备用线恢复时分段计算；小订单可在第二条线开机前完成',()=>{const p=computePlans({quantity:2,repair:0,reserve:24,deadline:60});assert.equal(p.find(p=>p.id==='parallel').time,4);const q=computePlans({quantity:2,repair:90,reserve:48,deadline:60});assert.equal(q.find(p=>p.id==='parallel').time,10.5)});
+test('异常参数显式拒绝',()=>{assert.throws(()=>computePlans({quantity:60,repair:35,reserve:0,deadline:140}));assert.throws(()=>computePlans({quantity:NaN,repair:35,reserve:24,deadline:140}))});
+test('真实清洗6条有效4条隔离，华氏131度转55摄氏度且保留原始记录',()=>{const source=JSON.stringify(rawRows);const rows=cleanRows(rawRows);assert.equal(rows.filter(r=>r.valid).length,6);assert.equal(rows[1].cleanTemp,55);assert.equal(rows[1].temp,131);assert.equal(rows[3].valid,false);assert.equal(rows[4].valid,false);assert.equal(rows[5].valid,false);assert.equal(rows[8].valid,false);assert.equal(JSON.stringify(rawRows),source)});
+test('回放边界与随机跳转一致性',()=>{assert.equal(replaySnapshot(24).fault,false);assert.equal(replaySnapshot(25).fault,true);assert.equal(replaySnapshot(89).fault,true);assert.equal(replaySnapshot(90).fault,false);assert.deepEqual(replaySnapshot(63),replaySnapshot(63));assert.equal(replaySnapshot(999).second,120);assert.equal(replaySnapshot(-10).second,0)});

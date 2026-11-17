@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30个在线制图工具精选 - 订阅用户分享版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-item { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen">
+
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <h1 class="text-3xl font-bold text-gray-900 text-center tracking-tight">30个在线制图工具精选</h1>
+            <p class="mt-2 text-center text-gray-500">点击缩略图查看工具详情、操作指南及直达网址，如有问题加微信yunjinzh</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+            <div class="w-full sm:w-1/2 relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                </div>
+                <input type="text" id="search-input" placeholder="搜索工具名称或关键词..." class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors">
+            </div>
+            <div class="w-full sm:w-auto flex items-center gap-3">
+                <label for="sort-select" class="text-sm font-medium text-gray-700 whitespace-nowrap">排序方式:</label>
+                <select id="sort-select" class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-lg bg-gray-50 cursor-pointer transition-colors">
+                    <option value="newest">最新添加 (默认)</option>
+                    <option value="oldest">最早添加</option>
+                    <option value="name">名称 A-Z</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+        <div id="empty-state" class="hidden text-center py-12">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">未找到相关工具</h3>
+        </div>
+    </main>
+
+    <div id="modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div id="modal-backdrop" class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity opacity-0 duration-300"></div>
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div id="modal-panel" class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 duration-300">
+                    <button id="close-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors z-10 bg-white/80 rounded-full p-1">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                    <div class="bg-white">
+                        <div class="w-full bg-gray-100 flex justify-center items-center border-b border-gray-100">
+                            <img id="modal-img" src="" alt="" class="w-full max-h-[60vh] object-contain">
+                        </div>
+                        <div class="px-6 py-6 sm:p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 id="modal-title" class="text-2xl font-bold text-gray-900"></h3>
+                                <span id="modal-badge" class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 whitespace-nowrap ml-4"></span>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="text-sm font-semibold text-gray-900 mb-2">工具介绍与操作指南</h4>
+                                <div id="modal-desc" class="text-gray-600 leading-relaxed whitespace-pre-line text-sm"></div>
+                            </div>
+                            <div class="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-3">
+                                <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex w-full justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 sm:w-auto transition-colors">
+                                    访问工具网站
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const toolsData = [
+            {
+                id: 1, name: "01 - 海岛图", shortDesc: "制作多种样式的海岛图，按回车键即可自动生成不同的地图效果。",
+                fullDesc: "无需登录注册，进入后系统会随机给你一幅好看的地图。鼠标右键点击会出现对应的菜单：\n1）通过【New region】或回车，切换不同区域地图；\n2）在地图内部右键选择【Add town】添加城市/村庄；\n3）通过【Parameters】设置复杂参数生成不同风格；\n4）通过【Style】设置地物要素、标注颜色、边框粗细；\n5）通过【Elements】控制指北针、云朵等要素显示；\n6）成果可导出为 png 或 svg 再次编辑。",
+                url: "https://watabou.github.io/perilous-shores", rights: "无需登录注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%873.PNG"
+            },
+            {
+                id: 2, name: "02 - 城镇图", shortDesc: "制作多种样式的城镇图，支持多种要素编辑与颜色配置。",
+                fullDesc: "鼠标在空白处右键弹出菜单，可进行相关操作：\n1）点击【New City】或回车，创建新地图；\n2）点击【Warp】可对要素进行编辑，提供 8 种模式；\n3）点击【Color Scheme】对各种要素进行颜色参数设置；\n4）点击【Export as PNG】导出为 png 成果；\n5）点击【Generate】勾选要素生成不同样式、3 种规模的地图；\n6）点击【Style】对元素、建筑、边界、文本效果进行设置。",
+                url: "https://watabou.github.io/city-generator", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%874.PNG"
+            },
+            {
+                id: 3, name: "03 - 街区图", shortDesc: "制作多种样式的街区图，支持关键词生成与图层控制。",
+                fullDesc: "1）点击【New Map】或回车生成新地图；\n2）点击【Roatate map】旋转地图角度；\n3）点击【Rename】重新设置名称；\n4）点击【tag】选择不同关键词创建不同样式；\n5）点击【Layers】设置呈现哪些图层信息；\n6）点击【Style Settings】设置地图样式，推荐系统默认样式；\n7）点击【Permalink】生成永久链接分享；\n8）点击【Export as】将结果导出为 png、svg 和 json。",
+                url: "https://watabou.itch.io/neighbourhood", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%875.PNG"
+            },
+            {
+                id: 4, name: "04 - 乡村图", shortDesc: "制作多种样式的乡村图，内置多种精美预设样式。",
+                fullDesc: "1）点击【New village】或回车键新建地图；\n2）通过【Reroll】更改地图效果；\n3）通过【Rename】更改地图名称；\n4）通过【tag】选择不同关键词创建不同效果；\n5）通过【style settings】设置样式，推荐 Preset 下拉菜单中的默认样式；\n6）可将结果导出为 png、svg 和 json。",
+                url: "https://watabou.github.io/village-generator", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%876.PNG"
+            },
+            {
+                id: 5, name: "05 - 虚拟城市地图", shortDesc: "制作不同风格的虚拟城市地图，支持导出3D模型文件。",
+                fullDesc: "1）点击右侧【generate】随机生成不同地图；\n2）点击【Map】展开层级菜单，可细致设置水系、道路、公园、建筑等，或单独创建某类别要素；\n3）点击【Style】设置 13 种不同样式风格；\n4）点击【Download】导出 png、svg，或 stl 三维文件、height map；\n5）注意：建筑高度相同，适合作为底图装饰，文字标注可借助 PPT 添加。",
+                url: "https://probabletrain.itch.io/city-generator", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%877.PNG"
+            },
+            {
+                id: 6, name: "06 - 梦幻城镇地图", shortDesc: "制作不同风格的梦幻城镇地图，支持详细的人口与建筑设定。",
+                fullDesc: "1）可创建账号，或直接点击【Create temporary settlement】免登录使用；\n2）初始面板可设置名称、人口规模，或在【All Settings】设置性别、年龄、教育、建筑类型等；\n3）点击地图要素会展示对应详细信息；\n4）点击顶部【Edit】编辑添加道路、建筑、水系等要素；\n5）点击【District】对各区域名称、属性进行编辑；\n6）点击【Download】下载为 Png、Svg 等格式。",
+                url: "https://www.fantasytowngenerator.com/", rights: "可选注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%878.PNG"
+            },
+            {
+                id: 7, name: "07 - 虚拟地球", shortDesc: "制作不同风格的虚拟地球，支持动态交互与截图。",
+                fullDesc: "1）打开后直接使用；\n2）左侧创建不同的要素：建筑、森林、陆地等；\n3）左下角多边形控制创建要素的大小；\n4）右侧设置整个地球的大小效果；\n5）设置好后直接截图保存，想要动态交互可直接录屏；\n6）在地球上鼠标右键，可以去除已创建的效果。",
+                url: "https://oskarstalberg.com/game/planet/planet.html", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%879.PNG"
+            },
+            {
+                id: 8, name: "08 - 未知欢乐风格地图", shortDesc: "快速制作 Unknown Pleasures 抽象线条风格地图。",
+                fullDesc: "界面非常简单，内容较为抽象：\n1）默认显示 OG Cover 效果，点击右上角【OG Cover】或刷新浏览器可恢复默认；\n2）点击【Draw】即可直接在线条上绘制所需效果（建议不要太复杂）；\n3）点击【Gifit】可将当前效果录制成 gif 图（只能录制一次，再次录制需刷新浏览器）。",
+                url: "https://garrettfinucane.com/unknownpleasures/", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8710.PNG"
+            },
+            {
+                id: 9, name: "09 - 奇幻地图生成器", shortDesc: "功能极其强大的奇幻地图生成器，支持3D球面展示。",
+                fullDesc: "1）推荐点击【Install】创建桌面快捷方式；\n2）点击左上角箭头弹出设置面板，鼠标悬停有功能说明；\n3）国内汉化版网址：https://www.8desk.top/ ；\n4）【Layer】面板设置要素，支持平面、三维或三维球面显示；\n5）点击地图标注可直接编辑文本、样式、位置等；\n6）【Style】面板设置全局或局部样式；\n7）【Option】设置尺寸、国家省份数量等；\n8）支持导出 svg、png、jpg，或保存为 .map 文件供后续载入修改。",
+                url: "https://azgaar.github.io/Fantasy-Map-Generator/", rights: "免费开源",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8711.PNG"
+            },
+            {
+                id: 10, name: "10 - 宝岛地图制作", shortDesc: "DIY 制作不同效果的宝岛地图，支持填海造陆与盖章式添加要素。",
+                fullDesc: "1）需保持网络畅通，注册登录后使用；\n2）提供免费/付费版本，免费版可创建 10 幅 2K 分辨率地图；\n3）进入后选择样式地图；\n4）【Mask Tool】功能相当于填海造陆，【Brush Tool】效果类似但更柔化；\n5）【Stamp Tool】像盖章一样添加山川河流、城堡、船只等要素；\n6）成果可保存并导出图片，或直接使用高清显示器截图。",
+                url: "https://inkarnate.com/", rights: "需注册 / 免费基础版",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8712.PNG"
+            },
+            {
+                id: 11, name: "11 - OD 图制作", shortDesc: "使用 Kepler.gl 轻松制作酷炫的 OD (起点-终点) 连线图。",
+                fullDesc: "Kepler.gl 是非常强大的可视化制图工具。要制作 OD 图，需要每一行有 2 对坐标，可以是 csv 或 geojson 格式，直接上传即可。\n如果没有数据，可以使用自带练习数据。在类别中选择 Arc 或者 Line，然后选择对应的坐标字段即可制作对应的 OD 效果。",
+                url: "https://kepler.gl/demo", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8713.PNG"
+            },
+            {
+                id: 12, name: "12 - 点密度图制作", shortDesc: "基于 Unfolded.ai (现 Foursquare) 的强大点密度及综合可视化平台。",
+                fullDesc: "1）工具使用必须要注册，必须要确保网络畅通无阻。\n2）登录后点击【New Map】创建新地图。\n3）支持上传 CSV, JSON, GeoJSON, 和 Shapefiles，也可添加各种标准服务及 FourSquare 数据。\n4）右侧功能丰富，可基于数据进行统计、基础标注。\n5）成果可通过【Export】导出图片、视频或地图 JSON，也可通过【Share】共享或内嵌网站。",
+                url: "https://studio.foursquare.com/home", rights: "需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8714.PNG"
+            },
+            {
+                id: 13, name: "13 - 运动轨迹图", shortDesc: "查看和下载不同城市的运动轨迹热力图。",
+                fullDesc: "1）通过左上角面板中的【热图颜色】设置运动轨迹热力图颜色。\n2）在【活动类型】中选择关注的轨迹类别（骑行、跑步、游泳、滑冰等）。\n3）建议选择默认的暗景深色底图或者光照浅色底图凸显轨迹数据。\n特别说明：底图数据中国界显示有问题，公开使用需特别注意，最好只制作城市级数据。",
+                url: "https://www.strava.com/", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8715.PNG"
+            },
+            {
+                id: 14, name: "14 - 城市地图定制", shortDesc: "轻松制作全球任意城市的地图，提供多种艺术样式。",
+                fullDesc: "1）需保证网络畅通。\n2）通过【Location】输入城市名称快速定位，支持中文。\n3）【Style】提供 16 种地图样式。\n4）【Size/Layout】设置地图布局风格尺寸。\n5）【Edit text】对文字标签进行设置，支持中文。\n6）成果只能截图下载（邮件获取的预览图带logo且效果较差）。",
+                url: "https://www.mapify.cc/editor/create", rights: "免费截图",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8716.PNG"
+            },
+            {
+                id: 15, name: "14 - 城市地图定制 2", shortDesc: "另一款城市地图定制工具，支持自定义底图颜色。",
+                fullDesc: "1）在【Location】输入城市（不支持中文，国内城市可用拼音）。\n2）通过【Size】选择横版或竖版。\n3）默认 7 种底图风格，可通过 DIY 对道路、地面和水系颜色进行设置。\n4）在【Details】面板添加标记、修改标题（支持中文）。\n5）定制实物需付费，直接截图白嫖即可。",
+                url: "https://customaps.com/pages/create-a-map", rights: "免费截图",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8717.PNG"
+            },
+            {
+                id: 16, name: "15 - 爱心房屋地图制作", shortDesc: "制作全球任意区域的爱心形状房屋地图。",
+                fullDesc: "1）通过 location 输入框用城市名称快速定位（不支持中文）。\n2）选择地图样式、尺寸及横竖版式。\n3）在【Style】中设置风格样式和底图（4种样式）。\n4）通过【Personalize】编辑标题、信息，可切换不同字体。\n提示：想制作特殊样式，可将地图作为素材与其他形状做布尔运算。",
+                url: "https://custom.modernmapart.com/", rights: "免费截图",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8718.PNG"
+            },
+            {
+                id: 17, name: "16 - 异地恋地图制作", shortDesc: "轻松制作一份双城连线的异地恋地图。",
+                fullDesc: "1）提供三种样式设置，推荐带边框的（Framed）。\n2）底图提供 4 种样式，可勾选 Show Place Names 显示城市名。\n3）点击 Place1、Place2 搜寻位置，或点击 Edit 手动缩放移动。\n4）在 Title 和 Message 中输入文案（英文效果较好，中文建议用PPT后期添加）。\n特别说明：需网络畅通；截图时可截两张拼接以避开 Edit 按钮。",
+                url: "https://ld.modernmapart.com/", rights: "免费截图",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8719.PNG"
+            },
+            {
+                id: 18, name: "17 - 城市路网地图制作", shortDesc: "制作全球任意城市的纯路网线条地图，支持导出矢量。",
+                fullDesc: "1）打开即用（需网络畅通）。\n2）输入城市名称即可生成，中英文皆可（数据量大需等待加载）。\n3）点击【Customize...】设置道路、背景及城市名称颜色。\n4）点击【As an image】导出 png 图片。\n5）点击【As a vector】导出 svg 文件，方便在 PS、PPT 中二次编辑。",
+                url: "https://anvaka.github.io/city-roads", rights: "免费开源",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8720.PNG"
+            },
+            {
+                id: 19, name: "18 - 流向地图制作", shortDesc: "轻松制作数据流向地图，支持动画与自动聚合。",
+                fullDesc: "1）无需注册登录，准备好数据即可展示。\n2）若想永久存在，可将数据放至网络路径通过 URL 访问。\n3）支持调整底图效果、开启动画效果、设置自动聚合效果。",
+                url: "https://flowmap.blue/", rights: "无需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8721.PNG"
+            },
+            {
+                id: 20, name: "19 - 图表地图制作", shortDesc: "Flourish 平台，制作精美的动态图表与 3D 交互地图。",
+                fullDesc: "1）需注册登录。提供 Projection map、3D Map、3D Globe 等多种地图模板。\n2）在 Data 面板中编辑修改数据，在 Preview 面板中实时预览。\n3）右侧面板可对地球效果、箭头颜色、字体等进行细致设置。\n4）免费用户可通过 Export&publish 生成分享网址或内嵌代码。付费会员可导出本地 HTML。",
+                url: "https://flourish.studio/", rights: "需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8722.PNG"
+            },
+            {
+                id: 21, name: "20 - 各式各样的世界地图制作", shortDesc: "提供 20 余种坐标投影，快速制作出各种奇特视角的全球地图。",
+                fullDesc: "1）通过【SelectProjection】选择 20 余种不同的坐标投影。\n2）通过【MoveCenter】或【SetCenter】变换地图中心位置。\n3）在【GEO-Layers】中勾选湖泊、河流、经纬网、城市等图层。\n4）支持为不同类别要素自定义颜色。\n5）导出图片较慢，建议直接截图。非常适合配合 PPT 制作全球视角的展示图。",
+                url: "http://worldmapcreator.com/", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8723.PNG"
+            },
+            {
+                id: 22, name: "21 - 标识地图制作", shortDesc: "Datawrapper 提供的向导式标识地图制作工具。",
+                fullDesc: "1）点击【Create a locator map】进入向导。\n2）搜索城市区域（支持中英文），可将地区添加为区域标记并设置填充。\n3）在【设计地图】中选择样式，添加指北针、比例尺等要素。\n4）在【添加注释】中添加名称、图例、数据源。\n5）免登录只能截图；注册后可下载高清原图或获取内嵌代码。",
+                url: "https://www.datawrapper.de/maps/locator-map", rights: "可选注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8724.PNG"
+            },
+            {
+                id: 23, name: "22 - 交互地图制作", shortDesc: "Visme 平台，像做 PPT 一样通过模板快速制作交互地图。",
+                fullDesc: "1）需注册登录，确保网络畅通。\n2）可从模板开始或空白创建，Data 菜单中提供 8 个区域地图。\n3）支持随意拖拽设置，可添加文字、图表、图片等素材。\n4）成果可下载为 png、jpg 或 PPT 文件，也可在线发布分享链接。",
+                url: "https://www.visme.co/map-generator/", rights: "需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8725.PNG"
+            },
+            {
+                id: 24, name: "23 - 世界地图制作", shortDesc: "交互体验更好的多投影世界地图生成器。",
+                fullDesc: "1）第一步【Centering】设置地图中心位置。\n2）第二步【Projection】选择投影，直观预览不同样式。\n3）第三步【GeoLayers】选择展示图层（默认即可）。\n4）第四步【Design】在几十种预设样式中选择。\n5）支持导出 jpg、png、svg 格式，可自定义图片尺寸。",
+                url: "https://www.worldmapgenerator.com/", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8726.PNG"
+            },
+            {
+                id: 25, name: "24 - 倾斜视角地图制作", shortDesc: "制作具有倾斜视角的 3D 质感地图，附带参照图。",
+                fullDesc: "1）需注册登录。可框选任意区域。\n2）点击【Add Elements】添加要素，支持平面或球形参考图。\n3）点击【Base Map Setting】切换 7 种底图样式。\n4）可自由调整地图的倾角、旋转角度，极具表现力。\n5）白嫖用户直接截图即可，付费可导出高清尺寸。",
+                url: "https://online.mapcreator.io/", rights: "需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8727.PNG"
+            },
+            {
+                id: 26, name: "25 - 城市艺术地图制作", shortDesc: "一键生成基于 OSM 数据的漂亮城市艺术地图 (PrettyMaps)。",
+                fullDesc: "1）无需注册，打开即用（需网络畅通）。\n2）提供四种风格样式选择。\n3）输入城市地点点击提交即可自动生成。\n4）通过 Customize 进行个性化设置。\n5）结果可另存为 png，要素可导出为 geojson。",
+                url: "https://prettymapp.streamlit.app/", rights: "无需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8728.PNG"
+            },
+            {
+                id: 27, name: "26 - 像素化地图制作", shortDesc: "制作复古像素风地图，支持圆形、菱形、六边形等像素样式。",
+                fullDesc: "1）打开即用。提供 6 种地图投影。\n2）支持全球、大洲或具体国家尺度。\n3）可自定义海洋、陆地及行政单元颜色，支持添加文本/图标。\n4）提供圆形、矩形、菱形和蜂窝六边形 4 种像素风格。\n5）导出 svg、html、png（注意：含中文导出 html 需自行处理乱码）。",
+                url: "https://pixelmap.amcharts.com/", rights: "无需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8729.PNG"
+            },
+            {
+                id: 28, name: "27 - 动态气象地图制作", shortDesc: "实时查看全球风、洋流、气温等动态气象数据。",
+                fullDesc: "1）打开即用。点击左下角【Earth】切换不同气象要素。\n2）支持切换为中文版。\n3）可设置具体日期查看历史气象数据。\n4）提供 8 种不同的坐标投影方便局部展示。\n5）适合截图或录屏作为 PPT 或视频素材。",
+                url: "https://earth.nullschool.net/", rights: "无需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8730.PNG"
+            },
+            {
+                id: 29, name: "28 - 城市变化地图制作", shortDesc: "Google Earth Engine 延时摄影，查看 1984-2022 地表变化。",
+                fullDesc: "1）无需注册，需确保网络畅通。\n2）提供 1984 年到 2022 年的全球卫星影像。\n3）点击播放按钮可动态展示城市发展、冰川消融等变迁过程。\n4）非常适合通过录屏获取动态素材用于演示说明。",
+                url: "https://earthengine.google.com/timelapse/", rights: "无需注册",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8731.PNG"
+            },
+            {
+                id: 30, name: "29 - 导航轨迹地图制作", shortDesc: "利用高德/百度地图 APP 将历史导航记录生成动态轨迹视频。",
+                fullDesc: "以高德地图 APP 为例：\n1）切换到【我的】->【出行里程】。\n2）切换到【里程】下，点击全部记录，选择某次导航记录。\n3）点击页面上的播放按钮，自动生成导航轨迹预览视频。\n4）点击【分享视频】保存到手机相册。\n（跑步骑行也可使用 Keep 或行者等 APP）。",
+                url: "手机 APP (高德/百度地图)", rights: "免费",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8732.PNG"
+            },
+            {
+                id: 31, name: "30 - 旅行轨迹地图制作", shortDesc: "使用 TravelBoast 等 APP 制作酷炫的 3D 旅行路线动画。",
+                fullDesc: "推荐 APP：TravelBoast (国外) 或 旅行足迹 (国内)。以 TravelBoast 为例：\n1）设置起点和终点，添加并拖动途径节点。\n2）长按节点可更换交通工具模型（飞机、汽车等）、添加特效或注释。\n3）点击播放预览动画，可调整视频长度和模型大小。\n4）满意后直接保存视频到相册，路线也可保存供后续使用。",
+                url: "手机 APP (TravelBoast / 旅行足迹)", rights: "免费/付费高级功能",
+                image: "https://raw.githubusercontent.com/yunjinzh/30maptools/refs/heads/main/%E5%B9%BB%E7%81%AF%E7%89%8733.PNG"
+            }
+        ];
+
+        const gallery = document.getElementById('gallery');
+        const emptyState = document.getElementById('empty-state');
+        const searchInput = document.getElementById('search-input');
+        const sortSelect = document.getElementById('sort-select');
+        const modal = document.getElementById('modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const closeBtn = document.getElementById('close-btn');
+
+        function updateAndRenderGallery() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const sortMethod = sortSelect.value;
+            let filteredData = toolsData.filter(tool => tool.name.toLowerCase().includes(searchTerm) || tool.shortDesc.toLowerCase().includes(searchTerm) || tool.fullDesc.toLowerCase().includes(searchTerm));
+            filteredData.sort((a, b) => {
+                if (sortMethod === 'newest') return b.id - a.id;
+                if (sortMethod === 'oldest') return a.id - b.id;
+                if (sortMethod === 'name') return a.name.localeCompare(b.name, 'zh-CN');
+                return 0;
+            });
+
+            if (filteredData.length === 0) {
+                gallery.innerHTML = '';
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                gallery.innerHTML = filteredData.map(tool => `
+                    <div class="card-item bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer group flex flex-col" onclick="openModal(${tool.id})">
+                        <div class="w-full bg-gray-100 relative overflow-hidden border-b border-gray-100 shrink-0">
+                            <img src="${tool.image}" alt="${tool.name}" class="w-full h-auto block group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-gray-700 shadow-sm z-10">${tool.rights.split('/')[0].trim()}</div>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col">
+                            <h3 class="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">${tool.name}</h3>
+                            <p class="text-sm text-gray-500 line-clamp-2">${tool.shortDesc}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        searchInput.addEventListener('input', updateAndRenderGallery);
+        sortSelect.addEventListener('change', updateAndRenderGallery);
+
+        window.openModal = function(id) {
+            const tool = toolsData.find(t => t.id === id);
+            if (!tool) return;
+            document.getElementById('modal-img').src = tool.image;
+            document.getElementById('modal-title').textContent = tool.name;
+            document.getElementById('modal-badge').textContent = tool.rights;
+            document.getElementById('modal-desc').textContent = tool.fullDesc;
+            const linkBtn = document.getElementById('modal-link');
+            if (tool.url.startsWith('http')) {
+                linkBtn.href = tool.url;
+                linkBtn.innerHTML = `访问工具网站`;
+            } else {
+                linkBtn.href = '#';
+                linkBtn.innerHTML = `请在手机应用商店搜索下载`;
+            }
+            modal.classList.remove('hidden');
+            void modal.offsetWidth; 
+            modalBackdrop.classList.remove('opacity-0');
+            modalBackdrop.classList.add('opacity-100');
+            modalPanel.classList.remove('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+            modalPanel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
+            document.body.style.overflow = 'hidden'; 
+        };
+
+        function closeModal() {
+            modalBackdrop.classList.remove('opacity-100');
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
+            modalPanel.classList.add('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = ''; }, 300);
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        modalBackdrop.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal(); });
+
+        updateAndRenderGallery();
+    </script>
+</body>
+</html>

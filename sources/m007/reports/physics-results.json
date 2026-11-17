@@ -1,0 +1,1280 @@
+{
+  "generatedAt": "2026-10-26T13:15:18.978Z",
+  "scope": "simulation-only; 20 seeded end-to-end trials plus deterministic faults and invariants",
+  "versions": {
+    "three": "0.180.0",
+    "rapier": "0.17.3"
+  },
+  "passed": 42,
+  "total": 42,
+  "results": [
+    {
+      "id": "cup: reproducible pick-carry-place seed 1",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "SUCCESS",
+      "seconds": 38.341666666665134,
+      "metrics": {
+        "maxStep": 0.002668678763191091,
+        "maxPenetration": 0.0010900938650593162,
+        "maxSlip": 0.002629050750675449,
+        "maxGripAngle": 0.0006903766744944207,
+        "maxSpeed": 0.3189453966705713,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          25.33029153943062,
+          25.330919176340103
+        ],
+        "positionError": 0.00021682374707168543,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 5.31850097653304
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 2",
+      "passed": true,
+      "kind": "cup",
+      "seed": 2,
+      "state": "SUCCESS",
+      "seconds": 38.283333333331804,
+      "metrics": {
+        "maxStep": 0.0026691015621704774,
+        "maxPenetration": 0.0010796639835461974,
+        "maxSlip": 0.002628690295998894,
+        "maxGripAngle": 0.0006903948713350856,
+        "maxSpeed": 0.31818159297988313,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          25.267431512475014,
+          25.256308391690254
+        ],
+        "positionError": 0.0002167866670039288,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.743910523892111
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 3",
+      "passed": true,
+      "kind": "cup",
+      "seed": 3,
+      "state": "SUCCESS",
+      "seconds": 38.41666666666513,
+      "metrics": {
+        "maxStep": 0.002669005154975956,
+        "maxPenetration": 0.001071493374183774,
+        "maxSlip": 0.0026290424906612706,
+        "maxGripAngle": 0.0006904206197302019,
+        "maxSpeed": 0.3186509868855671,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          25.32644033432007,
+          25.32601162791252
+        ],
+        "positionError": 0.0002165458636084913,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.321216047939025
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 4",
+      "passed": true,
+      "kind": "cup",
+      "seed": 4,
+      "state": "SUCCESS",
+      "seconds": 38.341666666665134,
+      "metrics": {
+        "maxStep": 0.002668149296603624,
+        "maxPenetration": 0.0012912442907691002,
+        "maxSlip": 0.0026290268725758076,
+        "maxGripAngle": 0.000003110026204155893,
+        "maxSpeed": 0.31892220951605393,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          24.5212921500206,
+          24.51051726937294
+        ],
+        "positionError": 0.0002178907787253726,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.748524640197374
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 5",
+      "passed": true,
+      "kind": "cup",
+      "seed": 5,
+      "state": "SUCCESS",
+      "seconds": 38.26666666666514,
+      "metrics": {
+        "maxStep": 0.002668828504127852,
+        "maxPenetration": 0.0010631782934069633,
+        "maxSlip": 0.0026285776076633623,
+        "maxGripAngle": 0.0006902777217024641,
+        "maxSpeed": 0.31814124045381564,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          25.324427112936974,
+          25.324912145733833
+        ],
+        "positionError": 0.0002166449703841423,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.837453934771098
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 6",
+      "passed": true,
+      "kind": "cup",
+      "seed": 6,
+      "state": "SUCCESS",
+      "seconds": 38.4083333333318,
+      "metrics": {
+        "maxStep": 0.0026689035694544526,
+        "maxPenetration": 0.001297968439757824,
+        "maxSlip": 0.002628958076896073,
+        "maxGripAngle": 0.000004324726715302659,
+        "maxSpeed": 0.3191015365987517,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          24.925633817911148,
+          24.928582906723022
+        ],
+        "positionError": 0.000010466019924147843,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.577962601720483
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 7",
+      "passed": true,
+      "kind": "cup",
+      "seed": 7,
+      "state": "SUCCESS",
+      "seconds": 38.316666666665135,
+      "metrics": {
+        "maxStep": 0.0026691531193164743,
+        "maxPenetration": 0.001298937015235424,
+        "maxSlip": 0.002628818936105922,
+        "maxGripAngle": 0.000002017333269211193,
+        "maxSpeed": 0.3184643499918605,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          24.91756573319435,
+          24.92289550602436
+        ],
+        "positionError": 0.0002175460687300938,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.713622564047848
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 8",
+      "passed": true,
+      "kind": "cup",
+      "seed": 8,
+      "state": "SUCCESS",
+      "seconds": 38.27499999999847,
+      "metrics": {
+        "maxStep": 0.0026694474170216058,
+        "maxPenetration": 0.001260600984096527,
+        "maxSlip": 0.0026284691221193945,
+        "maxGripAngle": 0.0006904367295167441,
+        "maxSpeed": 0.3179499041241109,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          24.924718737602234,
+          24.92486983537674
+        ],
+        "positionError": 0.00021665180701367824,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.192815590357446
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 9",
+      "passed": true,
+      "kind": "cup",
+      "seed": 9,
+      "state": "SUCCESS",
+      "seconds": 38.374999999998465,
+      "metrics": {
+        "maxStep": 0.002668480160627914,
+        "maxPenetration": 0.001301146112382412,
+        "maxSlip": 0.002629027818514837,
+        "maxGripAngle": 0.000006856607040775567,
+        "maxSpeed": 0.31898977921302324,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          24.918537586927414,
+          24.925207570195198
+        ],
+        "positionError": 0.00021707186545547166,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.854364478816181
+      },
+      "failures": []
+    },
+    {
+      "id": "cup: reproducible pick-carry-place seed 10",
+      "passed": true,
+      "kind": "cup",
+      "seed": 10,
+      "state": "SUCCESS",
+      "seconds": 38.29999999999847,
+      "metrics": {
+        "maxStep": 0.0026691931636154834,
+        "maxPenetration": 0.0012969477102160454,
+        "maxSlip": 0.0026287675393373887,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.31837258144065433,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          24.92312103509903,
+          24.92341160774231
+        ],
+        "positionError": 0.0002171638039332933,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 4.111850983253699
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 1",
+      "passed": true,
+      "kind": "box",
+      "seed": 1,
+      "state": "SUCCESS",
+      "seconds": 37.791666666665165,
+      "metrics": {
+        "maxStep": 0.0026670228849857308,
+        "maxPenetration": 0.002330123446881771,
+        "maxSlip": 0.0026294419233393617,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.31962082738957703,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.70986732840538,
+          20.71938693523407
+        ],
+        "positionError": 0.0002239996355720044,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 7.230575263672584
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 2",
+      "passed": true,
+      "kind": "box",
+      "seed": 2,
+      "state": "SUCCESS",
+      "seconds": 37.758333333331834,
+      "metrics": {
+        "maxStep": 0.0026667868515602862,
+        "maxPenetration": 0.0023310473188757896,
+        "maxSlip": 0.0026293437025764186,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.31936526463267817,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.800897479057312,
+          20.643889904022217
+        ],
+        "positionError": 0.00020235263454087673,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 6.646358003729006
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 3",
+      "passed": true,
+      "kind": "box",
+      "seed": 3,
+      "state": "SUCCESS",
+      "seconds": 37.88333333333183,
+      "metrics": {
+        "maxStep": 0.0026667130389112664,
+        "maxPenetration": 0.0023415526375174522,
+        "maxSlip": 0.0026292951211665722,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.3190429693429153,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.761246383190155,
+          20.65914586186409
+        ],
+        "positionError": 0.00020273508600989758,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 8.191851754221904
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 4",
+      "passed": true,
+      "kind": "box",
+      "seed": 4,
+      "state": "SUCCESS",
+      "seconds": 37.816666666665164,
+      "metrics": {
+        "maxStep": 0.002666962047089811,
+        "maxPenetration": 0.0023359647020697594,
+        "maxSlip": 0.002629427660113642,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.3196299498018567,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.795066356658936,
+          20.640822798013687
+        ],
+        "positionError": 0.0002030899376385253,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 9.821048220066615
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 5",
+      "passed": true,
+      "kind": "box",
+      "seed": 5,
+      "state": "SUCCESS",
+      "seconds": 37.733333333331835,
+      "metrics": {
+        "maxStep": 0.0026673133925961146,
+        "maxPenetration": 0.002327590249478817,
+        "maxSlip": 0.0026291025060835756,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.31763033289113124,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.795368552207947,
+          20.644992738962173
+        ],
+        "positionError": 0.0002030135394053067,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 6.446381256252275
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 6",
+      "passed": true,
+      "kind": "box",
+      "seed": 6,
+      "state": "SUCCESS",
+      "seconds": 37.874999999998494,
+      "metrics": {
+        "maxStep": 0.0026667244109257497,
+        "maxPenetration": 0.0023397495970129967,
+        "maxSlip": 0.0026292752286683077,
+        "maxGripAngle": 0.0000024644196140085854,
+        "maxSpeed": 0.31914465304970197,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.780735313892365,
+          20.66071853041649
+        ],
+        "positionError": 0.00020209740596731167,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 7.881454910073961
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 7",
+      "passed": true,
+      "kind": "box",
+      "seed": 7,
+      "state": "SUCCESS",
+      "seconds": 37.791666666665165,
+      "metrics": {
+        "maxStep": 0.0026670209154904022,
+        "maxPenetration": 0.002335919998586178,
+        "maxSlip": 0.0026293637161618187,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.3193810807474638,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.808746963739395,
+          20.629411339759827
+        ],
+        "positionError": 0.00020306891218115856,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 7.026376292490948
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 8",
+      "passed": true,
+      "kind": "box",
+      "seed": 8,
+      "state": "SUCCESS",
+      "seconds": 37.74166666666517,
+      "metrics": {
+        "maxStep": 0.002666749059893761,
+        "maxPenetration": 0.002326815389096737,
+        "maxSlip": 0.0026293005232739973,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.3193536660994472,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.774138867855072,
+          20.62638446688652
+        ],
+        "positionError": 0.00022236469960726713,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 6.242907684121331
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 9",
+      "passed": true,
+      "kind": "box",
+      "seed": 9,
+      "state": "SUCCESS",
+      "seconds": 37.86666666666516,
+      "metrics": {
+        "maxStep": 0.0026667252948660344,
+        "maxPenetration": 0.00234042014926672,
+        "maxSlip": 0.002629197311105736,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.31879927822177634,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.756633430719376,
+          20.655969232320786
+        ],
+        "positionError": 0.00022225308704416203,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 7.686617397150437
+      },
+      "failures": []
+    },
+    {
+      "id": "box: reproducible pick-carry-place seed 10",
+      "passed": true,
+      "kind": "box",
+      "seed": 10,
+      "state": "SUCCESS",
+      "seconds": 37.76666666666517,
+      "metrics": {
+        "maxStep": 0.0026670758190403864,
+        "maxPenetration": 0.002331986092031002,
+        "maxSlip": 0.0026294538206736396,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.32016392803447025,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          20.80047681927681,
+          20.643218010663986
+        ],
+        "positionError": 0.0002030487520132022,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 6.793518545518491
+      },
+      "failures": []
+    },
+    {
+      "id": "payload remains still before bilateral contact and attachment has no snap",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "LIFT",
+      "seconds": 19.333333333332877,
+      "metrics": {
+        "maxStep": 0.00000858306884765625,
+        "maxPenetration": 0.000586378388106823,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.0006786335655766165,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          24.927221685647964,
+          24.92734931409359
+        ],
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 27.215515124559403
+      },
+      "failures": []
+    },
+    {
+      "id": "low friction rejects grasp instead of magnetically holding",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 21.158333333332774,
+      "metrics": {
+        "maxStep": 0.000010371208190917969,
+        "maxPenetration": 0.0005963100120425224,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.0007711187433258345,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "GRIP_CAPACITY",
+          "description": "实测接触力与摩擦预算不足",
+          "t": 21.158333333332774,
+          "evidence": {
+            "contact": {
+              "pair": [
+                {
+                  "touch": true,
+                  "force": 24.855973720550537,
+                  "penetration": 0.0005962615832686424,
+                  "n": {
+                    "x": 1,
+                    "y": -0.000045672324631595984,
+                    "z": 0.000045863111154176295
+                  }
+                },
+                {
+                  "touch": true,
+                  "force": 24.950759187340736,
+                  "penetration": 0.0005164407193660736,
+                  "n": {
+                    "x": -1,
+                    "y": 0.000048729725676821545,
+                    "z": 0.00011858379730256274
+                  }
+                }
+              ],
+              "opposed": true,
+              "both": true,
+              "capacity": {
+                "available": 1.4913584232330321,
+                "required": 5.15025,
+                "ok": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "empty grasp never creates a joint",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 20.949999999999452,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 7.860362529754639e-7,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.0000624485667679126,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "GRASP_FAILED",
+          "description": "双侧接触未成立",
+          "t": 20.949999999999452,
+          "evidence": {
+            "contact": {
+              "pair": [
+                {
+                  "touch": false,
+                  "force": 0,
+                  "penetration": 0,
+                  "n": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  }
+                },
+                {
+                  "touch": false,
+                  "force": 0,
+                  "penetration": 0,
+                  "n": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                  }
+                }
+              ],
+              "opposed": false,
+              "both": false,
+              "capacity": {
+                "available": 0,
+                "required": 5.15025,
+                "ok": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "overloaded box fails measured friction capacity",
+      "passed": true,
+      "kind": "box",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 20.641666666666136,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 0.0009404709562659264,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.00007956216643234086,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "GRIP_CAPACITY",
+          "description": "实测接触力与摩擦预算不足",
+          "t": 20.641666666666136,
+          "evidence": {
+            "contact": {
+              "pair": [
+                {
+                  "touch": true,
+                  "force": 20.865806490182877,
+                  "penetration": 0.0009404709562659264,
+                  "n": {
+                    "x": 1,
+                    "y": 2.5042533025043667e-7,
+                    "z": -0.000002071049948426662
+                  }
+                },
+                {
+                  "touch": true,
+                  "force": 20.876116454601288,
+                  "penetration": 0.0009401282295584679,
+                  "n": {
+                    "x": -1,
+                    "y": -0.0000012668992894759867,
+                    "z": -0.0000026395468921691645
+                  }
+                }
+              ],
+              "opposed": true,
+              "both": true,
+              "capacity": {
+                "available": 27.12554843723774,
+                "required": 73.575,
+                "ok": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "missing target fails before movement",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 0.008333333333333333,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 7.860362529754639e-7,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.00006244847011299794,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "NO_TARGET",
+          "description": "目标缺失或识别置信度不足",
+          "t": 0.008333333333333333,
+          "evidence": {
+            "confidence": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "stale observation fails before planning",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 0.008333333333333333,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 7.860362529754639e-7,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.00006244847011299794,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "STALE_TARGET",
+          "description": "目标观测已过期",
+          "t": 0.008333333333333333,
+          "evidence": {
+            "age": 10.008333333333333
+          }
+        }
+      ]
+    },
+    {
+      "id": "blocked docking fails without moving the object",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 0.016666666666666666,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 7.860362529754639e-7,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.00006244850277993484,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "NO_PATH",
+          "description": "底盘路径不可达",
+          "t": 0.016666666666666666,
+          "evidence": {
+            "to": {
+              "x": -1.0477,
+              "z": -0.030000000000000027
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "unreachable target is rejected",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 0.016666666666666666,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 8.977949619293213e-7,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.00005883719860823228,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "UNREACHABLE",
+          "description": "机械臂无法到达目标姿态",
+          "t": 0.016666666666666666,
+          "evidence": {
+            "target": {
+              "x": -1.25,
+              "y": 2.5,
+              "z": 0.72
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "object teleport is detected before solver can hide it",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 0.008333333333333333,
+      "metrics": {
+        "maxStep": 0.30000001192092896,
+        "maxPenetration": 7.860362529754639e-7,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.000053787705680478345,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "TELEPORT",
+          "description": "单步位移与速度不一致",
+          "t": 0,
+          "evidence": {
+            "reason": "pose-written-between-physics-steps",
+            "before": {
+              "x": -1.2500003576278687,
+              "y": 1.0849995613098145,
+              "z": 0.7199996709823608
+            },
+            "after": {
+              "x": -0.9500003457069397,
+              "y": 1.0849995613098145,
+              "z": 0.7199996709823608
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "interpenetration is detected by narrow phase geometry",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 0,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 0.07999591529369354,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.00006244848630800885,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "PENETRATION",
+          "description": "物体穿透超过容差",
+          "t": 0,
+          "evidence": {
+            "other": "penetration-probe",
+            "depth": 0.07999591529369354,
+            "method": "shape-distance"
+          }
+        }
+      ]
+    },
+    {
+      "id": "unreasonable impulse is detected",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 0.008333333333333333,
+      "metrics": {
+        "maxStep": 0.06643104778104873,
+        "maxPenetration": 0.000016529113054275513,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 7.940286857118626,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "UNREASONABLE_MOTION",
+          "description": "速度或姿态变化超限",
+          "t": 0.008333333333333333,
+          "evidence": {
+            "speed": 7.940286857118626,
+            "angularSpeed": 0.14031778811210177
+          }
+        }
+      ]
+    },
+    {
+      "id": "new obstacle during transport blocks the swept payload",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 22.349999999999373,
+      "metrics": {
+        "maxStep": 0.001336014174838949,
+        "maxPenetration": 0.000515877443831414,
+        "maxSlip": 0.001326478645596729,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.16135272529443864,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          25.33029153943062,
+          25.330919176340103
+        ],
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 26.79536620459976
+      },
+      "failures": [
+        {
+          "code": "SWEEP_BLOCKED",
+          "description": "机器人或负载的扫掠体被障碍阻挡",
+          "t": 22.349999999999373,
+          "evidence": {
+            "body": "base",
+            "obstacle": "carry-obstacle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "friction loss breaks grasp and diagnoses capacity",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 22.524999999999363,
+      "metrics": {
+        "maxStep": 0.0026667309302282564,
+        "maxPenetration": 0.0012653162702918053,
+        "maxSlip": 0.002626420353108144,
+        "maxGripAngle": 0.000011103395062035393,
+        "maxSpeed": 0.3128416792258712,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          24.927221685647964,
+          24.92734931409359
+        ],
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": -6.695176022980014
+      },
+      "failures": [
+        {
+          "code": "GRIP_CAPACITY",
+          "description": "实测接触力与摩擦预算不足",
+          "t": 22.524999999999363,
+          "evidence": {
+            "contact": {
+              "pair": [
+                {
+                  "touch": true,
+                  "force": 26.81069003418088,
+                  "penetration": 0.0007080761715769768,
+                  "n": {
+                    "x": 0.9999998211860657,
+                    "y": 0.0006192036671563983,
+                    "z": -0.000004024006557301618
+                  }
+                },
+                {
+                  "touch": true,
+                  "force": 21.739132404327393,
+                  "penetration": 0,
+                  "n": {
+                    "x": -1,
+                    "y": 0.00006708468572469428,
+                    "z": -0.000008394830729230307
+                  }
+                }
+              ],
+              "opposed": true,
+              "both": true,
+              "capacity": {
+                "available": 0.21739132404327394,
+                "required": 5.15025,
+                "ok": false
+              }
+            },
+            "acceleration": 0.00016740497586372618,
+            "capacity": {
+              "available": 0.21739132404327394,
+              "required": 5.150337887612328,
+              "ok": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "missing constraint cannot silently continue transport",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 22.349999999999373,
+      "metrics": {
+        "maxStep": 0.001336014174838949,
+        "maxPenetration": 0.000515877443831414,
+        "maxSlip": 0.001326478645596729,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.16135272529443864,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          25.33029153943062,
+          25.330919176340103
+        ],
+        "positionError": null,
+        "maxFreeAccelerationError": 0.004087328880712417,
+        "minCarryCapacityMargin": 26.79536620459976
+      },
+      "failures": [
+        {
+          "code": "CONTACT_LOST",
+          "description": "夹持过程中丢失双侧接触",
+          "t": 22.349999999999373,
+          "evidence": {
+            "reason": "missing-grasp-constraint"
+          }
+        }
+      ]
+    },
+    {
+      "id": "release without table support is rejected",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 22.34166666666604,
+      "metrics": {
+        "maxStep": 0.001336014174838949,
+        "maxPenetration": 0.000515877443831414,
+        "maxSlip": 0.001326478645596729,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.16135272529443864,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          25.33029153943062,
+          25.330919176340103
+        ],
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 26.79536620459976
+      },
+      "failures": [
+        {
+          "code": "NO_SUPPORT",
+          "description": "释放前目标台面支撑未成立",
+          "t": 22.34166666666604,
+          "evidence": {
+            "evidence": {
+              "touch": false,
+              "force": 0,
+              "penetration": 0,
+              "n": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "valid": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "unsupported dynamic object follows gravity without position animation",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "IDLE",
+      "seconds": 0,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 0,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": []
+    },
+    {
+      "id": "actual contact with a forbidden support is rejected",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "FAILED",
+      "seconds": 0.008333333333333333,
+      "metrics": {
+        "maxStep": 0,
+        "maxPenetration": 7.860362529754639e-7,
+        "maxSlip": 0,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.00006244847011299794,
+        "maxJointSpeed": 0,
+        "forbiddenContacts": 1,
+        "attachJump": 0,
+        "graspForce": null,
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": null
+      },
+      "failures": [
+        {
+          "code": "WRONG_COLLISION",
+          "description": "发生未许可接触",
+          "t": 0.008333333333333333,
+          "evidence": {
+            "other": "source",
+            "state": "PLAN_PICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ccd-thin-wall-80mps",
+      "passed": true,
+      "enabledX": -0.012483716011047363,
+      "disabledX": 0.36666667461395264
+    },
+    {
+      "id": "emergency stop holds robot command but physics continues",
+      "passed": true,
+      "kind": "cup",
+      "seed": 1,
+      "state": "E_STOP",
+      "seconds": 23.341666666665983,
+      "metrics": {
+        "maxStep": 0.001336014174838949,
+        "maxPenetration": 0.000515877443831414,
+        "maxSlip": 0.001326478645596729,
+        "maxGripAngle": 0,
+        "maxSpeed": 0.16135272529443864,
+        "maxJointSpeed": 1.200000000000001,
+        "forbiddenContacts": 0,
+        "attachJump": 0,
+        "graspForce": [
+          25.33029153943062,
+          25.330919176340103
+        ],
+        "positionError": null,
+        "maxFreeAccelerationError": 0,
+        "minCarryCapacityMargin": 26.79536620459976
+      },
+      "failures": []
+    },
+    {
+      "id": "contact-policy",
+      "passed": true
+    },
+    {
+      "id": "continuity-capacity",
+      "passed": true
+    },
+    {
+      "id": "fixed-clock",
+      "passed": true,
+      "counts": [
+        1200,
+        1200,
+        1200
+      ]
+    }
+  ]
+}

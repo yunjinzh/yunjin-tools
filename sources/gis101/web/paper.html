@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAPER FACTORY · 论文精读工坊</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #E07563; --red-deep: #C25543;
+    --paper: #F1F0EC; --paper-2: #E9E7E1; --paper-3: #DEDBD3;
+    --ink: #1A1917; --ink-soft: #6B6860;
+    --serif: 'Noto Serif SC', Georgia, serif;
+    --sans: 'Noto Sans SC', sans-serif;
+    --oswald: 'Oswald', sans-serif;
+    --shadow-2xl: 0 25px 50px -12px rgba(26,25,23,.28);
+    --shadow-md: 0 4px 16px -2px rgba(26,25,23,.14);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.75; overflow-x: hidden; }
+  #grain { position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: .08; mix-blend-mode: multiply; }
+  .frame { max-width: 1280px; margin: 0 auto; padding: 0 2.4rem; }
+  .asym-r { display: grid; grid-template-columns: 7fr 5fr; gap: 2.5rem; }
+  @media(max-width: 900px){ .asym-r { grid-template-columns: 1fr; } }
+  header { padding: 4.5rem 0 3rem; border-bottom: 3px solid var(--ink); }
+  .kicker { font-family: var(--oswald); font-size: .75rem; letter-spacing: .55em; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
+  .kicker i { width: 14px; height: 14px; }
+  .huge { font-family: var(--serif); font-weight: 900; font-size: clamp(3rem, 8vw, 7rem); line-height: .96; letter-spacing: -.02em; }
+  .huge em { font-style: normal; color: var(--red); }
+  .huge .sub { display: block; font-family: var(--serif); font-weight: 900; font-size: clamp(1.4rem, 3.5vw, 2.6rem); margin-top: .7rem; letter-spacing: .04em; }
+  .huge .sub em { color: var(--red); }
+  .header-side { display: flex; flex-direction: column; justify-content: flex-end; gap: .8rem; }
+  .index-num { font-family: var(--oswald); font-size: 5.5rem; font-weight: 700; color: var(--red); line-height: 1; opacity: .2; text-align: right; letter-spacing: -.03em; }
+  .header-desc { font-size: .82rem; color: var(--ink-soft); line-height: 1.7; }
+  .header-desc b { font-weight: 500; color: var(--ink); }
+  section { padding: 3.5rem 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 1.2rem; margin-bottom: 1.8rem; border-bottom: 1px solid var(--ink); padding-bottom: .8rem; }
+  .sec-no { font-family: var(--oswald); font-weight: 700; font-size: 2.4rem; color: var(--red); line-height: 1; }
+  .sec-title { font-family: var(--serif); font-weight: 900; font-size: 1.3rem; letter-spacing: .06em; }
+  .sec-en { font-family: var(--oswald); font-size: .7rem; letter-spacing: .35em; text-transform: uppercase; color: var(--ink-soft); margin-left: auto; }
+  .panel { background: var(--paper-2); box-shadow: var(--shadow-2xl); padding: 1.8rem; position: relative; }
+  .panel::before { content: ''; position: absolute; top: 0; left: 0; width: 46px; height: 5px; background: var(--red); }
+  label { display: flex; align-items: center; gap: .4rem; font-family: var(--serif); font-weight: 700; font-size: .72rem; letter-spacing: .12em; color: var(--ink-soft); margin: 1.1rem 0 .35rem; }
+  label i { width: 13px; height: 13px; color: var(--red); flex-shrink: 0; }
+  input[type=text], input[type=password], select { width: 100%; border: none; border-bottom: 2px solid var(--ink); background: transparent; font-family: var(--sans); font-size: .9rem; padding: .45rem .1rem; color: var(--ink); outline: none; border-radius: 0; appearance: none; -webkit-appearance: none; }
+  input:focus, select:focus { border-bottom-color: var(--red); }
+  select { cursor: pointer; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 14px) 55%, calc(100% - 8px) 55%; background-size: 6px 6px; background-repeat: no-repeat; }
+  .hint { font-size: .72rem; color: var(--ink-soft); margin-top: .6rem; line-height: 1.6; }
+  .btn { display: inline-flex; align-items: center; gap: .55rem; cursor: pointer; font-family: var(--serif); font-weight: 700; font-size: .8rem; letter-spacing: .08em; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); padding: .65rem 1.5rem; transition: all .2s ease; user-select: none; white-space: nowrap; }
+  .btn i { width: 15px; height: 15px; flex-shrink: 0; }
+  .btn:hover { background: var(--red); border-color: var(--red); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.ghost:hover { background: var(--ink); color: var(--paper); }
+  .btn.red { background: var(--red); border-color: var(--red); }
+  .btn.red:hover { background: var(--red-deep); border-color: var(--red-deep); }
+  .btn.sm { padding: .28rem .75rem; font-size: .7rem; border-width: 1.5px; }
+  .btn.sm i { width: 13px; height: 13px; }
+  .btn:disabled { opacity: .35; pointer-events: none; }
+  #dropzone { border: 2.5px dashed var(--ink); padding: 3.5rem 2rem; text-align: center; cursor: pointer; transition: all .25s ease; background: var(--paper-2); }
+  #dropzone.dragover { border-color: var(--red); background: #EFE3DF; }
+  .dz-icon { display: flex; justify-content: center; margin-bottom: 1rem; }
+  .dz-icon i { width: 48px; height: 48px; color: var(--ink-soft); stroke-width: 1.2; }
+  #dropzone.dragover .dz-icon i { color: var(--red); }
+  .dz-title { font-family: var(--serif); font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.6rem); line-height: 1.1; letter-spacing: .02em; }
+  .dz-title em { font-style: normal; color: var(--red); }
+  #dropzone p { font-size: .8rem; color: var(--ink-soft); margin-top: .6rem; }
+  .file-row { display: grid; grid-template-columns: 56px 1fr 180px 290px; gap: 1rem; align-items: center; background: var(--paper-2); box-shadow: var(--shadow-md); padding: 1rem 1.4rem; margin-bottom: .8rem; position: relative; }
+  @media(max-width: 900px){ .file-row { grid-template-columns: 1fr; } }
+  .file-no { font-family: var(--oswald); font-weight: 700; font-size: 1.7rem; color: var(--red); }
+  .file-icon { display: flex; align-items: center; gap: .6rem; }
+  .file-icon i { width: 18px; height: 18px; color: var(--red); flex-shrink: 0; }
+  .file-name { font-family: var(--serif); font-weight: 700; font-size: .88rem; word-break: break-all; }
+  .file-meta { font-size: .7rem; color: var(--ink-soft); font-family: var(--oswald); letter-spacing: .1em; margin-top: .15rem; }
+  .file-title-preview { font-size: .7rem; color: var(--red); font-family: var(--serif); margin-top: .2rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .file-status { display: flex; align-items: center; gap: .4rem; font-family: var(--oswald); font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; }
+  .file-status i { width: 14px; height: 14px; flex-shrink: 0; }
+  .st-idle { color: var(--ink-soft); } .st-work { color: var(--red); animation: blink 1.1s infinite; } .st-done { color: #2f7d4f; } .st-err { color: #b91c1c; }
+  @keyframes blink { 50% { opacity: .3; } }
+  .file-actions { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: flex-end; }
+  .progress-line { position: absolute; bottom: 0; left: 0; height: 3px; background: var(--red); width: 0%; transition: width .4s ease; }
+  .toolbar { display: flex; gap: .8rem; flex-wrap: wrap; margin: 1.6rem 0; align-items: center; }
+  .toolbar .stat { margin-left: auto; font-family: var(--oswald); font-size: .78rem; letter-spacing: .18em; color: var(--ink-soft); }
+  .toolbar .stat b { color: var(--red); font-size: 1.2rem; }
+  #log { background: var(--ink); color: #C9C6BE; font-family: 'Courier New', monospace; font-size: .72rem; padding: 1.2rem 1.4rem; height: 170px; overflow-y: auto; box-shadow: var(--shadow-2xl); line-height: 1.65; }
+  #log .t { color: var(--red); } #log .ok { color: #7fc79a; } #log .er { color: #e58a8a; }
+  #previewMask { position: fixed; inset: 0; background: rgba(26,25,23,.7); z-index: 10000; display: none; padding: 3vh 4vw; }
+  #previewMask.on { display: block; }
+  #previewBox { background: var(--paper); width: 100%; height: 100%; box-shadow: var(--shadow-2xl); display: flex; flex-direction: column; }
+  #previewBar { display: flex; align-items: center; gap: .8rem; padding: .65rem 1.2rem; border-bottom: 2px solid var(--ink); flex-shrink: 0; }
+  .pv-title { font-family: var(--serif); font-weight: 900; font-size: .82rem; letter-spacing: .08em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 60%; }
+  #previewFrame { flex: 1; border: none; width: 100%; background: #fff; }
+  footer { border-top: 3px solid var(--ink); padding: 2.2rem 0 3rem; margin-top: 3rem; font-size: .72rem; color: var(--ink-soft); }
+  .foot-huge { font-family: var(--serif); font-weight: 900; font-size: 2rem; letter-spacing: .04em; color: var(--ink); }
+  .foot-huge em { font-style: normal; color: var(--red); }
+  .cfg-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.8rem; }
+  @media(max-width: 760px){ .cfg-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<svg id="grain" xmlns="http://www.w3.org/2000/svg">
+  <filter id="noiseF"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#noiseF)"/>
+</svg>
+<div class="frame">
+  <header>
+    <div class="asym-r">
+      <div>
+        <div class="kicker"><i data-lucide="layers"></i>Paper → HTML · Batch Pipeline</div>
+        <h1 class="huge">论文精读<span class="sub">Paper <em>Factory</em></span></h1>
+      </div>
+      <div class="header-side">
+        <div class="index-num" id="counterBig">00</div>
+        <p class="header-desc">上传 <b>PDF 论文</b>，自动提取文本，调用大模型按统一规范生成<b>单页精读 HTML</b>。<br>支持 <b>DeepSeek / 智谱 / 千问</b> 与 <b>OpenAI / Gemini / Claude</b>，可单篇或批量下载。</p>
+      </div>
+    </div>
+  </header>
+  <section>
+    <div class="sec-head"><span class="sec-no">01</span><span class="sec-title">模型配置</span><span class="sec-en">Model &amp; Key</span></div>
+    <div class="panel">
+      <div class="cfg-grid">
+        <div>
+          <label><i data-lucide="cpu"></i>服务提供商 Provider</label>
+          <select id="provider">
+            <optgroup label="国内">
+              <option value="deepseek">DeepSeek（深度求索）</option>
+              <option value="zhipu">智谱 GLM</option>
+              <option value="qwen">通义千问 Qwen</option>
+            </optgroup>
+            <optgroup label="国外">
+              <option value="openai">OpenAI</option>
+              <option value="gemini">Google Gemini</option>
+              <option value="claude">Anthropic Claude</option>
+            </optgroup>
+          </select>
+        </div>
+        <div>
+          <label><i data-lucide="key-round"></i>API Key</label>
+          <input type="password" id="apiKey" placeholder="sk-...">
+          <div class="hint">Key 仅存于浏览器 localStorage，不经过任何第三方服务器。</div>
+        </div>
+        <div>
+          <label><i data-lucide="settings-2"></i>模型名称 Model</label>
+          <input type="text" id="modelName" placeholder="自动填充，可手动修改">
+          <div class="hint">切换 Provider 后自动更新，如需指定版本可手动修改。</div>
+        </div>
+      </div>
+      <div style="margin-top:1.4rem">
+        <button class="btn ghost sm" onclick="saveConfig()"><i data-lucide="save"></i>保存配置</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="sec-head"><span class="sec-no">02</span><span class="sec-title">上传队列</span><span class="sec-en">Upload Queue</span></div>
+    <div id="dropzone">
+      <div class="dz-icon"><i data-lucide="file-up"></i></div>
+      <div class="dz-title">拖拽 <em>PDF</em> 至此</div>
+      <p>或点击此处选择文件（支持多选批量上传）</p>
+      <input type="file" id="fileInput" accept="application/pdf" multiple hidden>
+    </div>
+    <div class="toolbar">
+      <button class="btn red" id="btnGenAll" onclick="generateAll()"><i data-lucide="play-circle"></i>批量生成全部</button>
+      <button class="btn ghost" id="btnDlAll" onclick="downloadAll()" disabled><i data-lucide="archive"></i>批量下载 ZIP</button>
+      <button class="btn ghost" onclick="clearAll()"><i data-lucide="trash-2"></i>清空队列</button>
+      <div class="stat">完成 <b id="doneCount">0</b> / <span id="totalCount">0</span></div>
+    </div>
+    <div id="fileList"></div>
+  </section>
+  <section>
+    <div class="sec-head"><span class="sec-no">03</span><span class="sec-title">运行日志</span><span class="sec-en">Console</span></div>
+    <div id="log"></div>
+  </section>
+  <footer>
+    <div class="foot-huge">论文精读<em>·</em>工坊</div>
+    <p style="margin-top:.6rem">所有处理均在浏览器本地完成 · API Key 不经过第三方服务器 · 生成内容由 AI 自动产出，仅供参考。</p>
+  </footer>
+</div>
+<div id="previewMask">
+  <div id="previewBox">
+    <div id="previewBar">
+      <i data-lucide="file-text" style="width:16px;height:16px;color:var(--red);flex-shrink:0"></i>
+      <span class="pv-title" id="pvTitle">预览</span>
+      <button class="btn sm" style="margin-left:auto" onclick="downloadCurrent()"><i data-lucide="download"></i>下载此页</button>
+      <button class="btn ghost sm" onclick="closePreview()"><i data-lucide="x"></i>关闭</button>
+    </div>
+    <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+  </div>
+</div>
+
+<script>
+const DEFAULT_JOURNAL   = '学术期刊';
+const DEFAULT_START_NO  = 1;
+const DEFAULT_MAX_CHARS = 24000;
+
+/* ══════════════════════════════════════════════════════════════
+   System Prompt v3.4
+   修改点：
+   1. 导航 brand 左侧固定"地球信息科学学报"，右侧菜单锚点保留且可跳转
+   2. 页面右下角固定"保存为图片"按钮，使用 html2canvas 截全页
+   3. Hero 区 padding 改为上下各 150px，取消 min-height:100vh
+══════════════════════════════════════════════════════════════ */
+const SYSTEM_PROMPT = `你是一位学术论文精读助手，负责将论文文本转化为一个完整的、独立可运行的单页 HTML 精读页面。
+
+## 输出要求（最高优先级）
+- 只输出完整 HTML 源代码，从 <!DOCTYPE html> 到 </html>，不含任何解释或 markdown 围栏。
+- 所有 CSS 与 JavaScript 必须内联。
+- 输出完整可运行版本，不得省略任何代码。
+- <title> 标签内容必须是论文的完整中文标题（不含编号、期刊名等前缀），作为文件命名依据。
+
+## ★ 字体加载（必须严格执行）★
+在 <head> 内，紧跟 <meta charset> 之后，必须逐字复制以下两行：
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+
+## ★ CSS 变量（必须逐字复制）★
+:root {
+--bg: #f8f5ef;
+--surface: #ffffff;
+--ink: #17120c;
+--ink-soft: #5b5147;
+--border: #e3d8c8;
+--serif: 'Noto Serif SC', Georgia, serif;
+--sans: 'Noto Sans SC', Arial, sans-serif;
+--mono: 'Courier New', monospace;
+}
+
+## ★ 标题字体规则（必须严格执行）★
+以下所有元素必须同时满足：font-family: 'Noto Serif SC', Georgia, serif; font-weight: 900;
+禁止仅用 var(--serif) 代替，必须在每个标题元素的 CSS 规则中直接写明。
+涉及元素：导航栏品牌名、Hero 大标题、各 section 大标题、卡片标题、指标标签、表头、引用框文字。
+
+## ★ 标题自然断行规则（必须严格执行）★
+Hero 大标题及各 section 大标题必须应用：
+word-break: break-word; overflow-wrap: break-word; white-space: normal; hyphens: auto;
+禁止对标题设置 white-space: nowrap 或 overflow: hidden + text-overflow: ellipsis。
+
+## ★ 导航栏规范（必须严格执行）★
+导航栏结构要求：
+- 左侧品牌名：固定显示文字"地球信息科学学报"，不得使用论文标题或任何论文相关文字。
+样式：font-family:'Noto Serif SC',Georgia,serif; font-weight:900; font-size:1rem; color:var(--accent); text-decoration:none;
+- 右侧导航链接：保留4个章节锚点链接，文字分别对应页面四个 section 的标题（如"研究背景""方法架构""实验结果""结论展望"）。
+每个链接必须是 <a href="#section对应id"> 形式，点击后平滑滚动至对应 section。
+样式：font-family:'Noto Serif SC',Georgia,serif; font-size:0.85rem; color:var(--ink); text-decoration:none; padding:0 0.8rem;
+hover 时 color 变为 var(--accent)。
+- 在 <760px 屏幕宽度时，右侧链接隐藏（display:none）。
+- 导航栏整体：position:fixed; top:0; left:0; right:0; height:56px; backdrop-filter:blur(14px); background:rgba(248,245,239,0.85); z-index:1000; display:flex; align-items:center; justify-content:space-between; padding:0 2rem; border-bottom:1px solid var(--border);
+
+## ★ Hero 首屏规范（必须严格执行）★
+Hero 区禁止使用 min-height:100vh，改用以下紧凑布局：
+padding: 150px 2rem 150px;（上下各 150px，左右 2rem）
+display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+Hero 区只允许包含以下内容：
+1. 论文标题（Noto Serif SC 900，clamp(1.75rem,4vw,2.75rem)，word-break:break-word，max-width:860px，核心词用 em 标注 accent 色）
+2. 精炼摘要（不超过120字，左侧3px accent竖线，font-size:0.9rem，max-width:720px，margin:1.5rem auto 0，text-align:left）
+3. 研究领域标签（2~4个圆角胶囊，仅写领域方向，margin-top:1.2rem）
+4. 向下滚动提示（bounce 动画 + "向下探索"，margin-top:2rem）
+禁止出现：作者、单位、DOI、期刊名、年份、关键词列表、任何元信息胶囊。
+禁止设置 min-height:100vh 或任何导致 Hero 区过高的固定高度。
+
+
+
+## ★ 页脚 Footer（必须严格执行）★
+页脚只允许包含以下一行免责声明，不得添加任何其他内容（品牌名、标题、logo、链接等）：
+以上内容由 AI 自动生成，内容仅供参考。对于因使用本网站以上内容产生的相关后果，本网站不承担任何商业和法律责任。
+样式：background:#17120c; color:rgba(255,255,255,0.55); text-align:center; padding:1.2rem 2rem;
+font-size:clamp(0.65rem,1.5vw,0.8rem); font-family:var(--sans); white-space:nowrap;
+@media(max-width:600px){ white-space:normal; }
+
+## 主题配色（--accent/--accent2/--accent3 按论文领域选择）
+- 砖红-蓝-绿(通用/地理/遥感): #9a3412 / #2563eb / #0f766e
+- 深蓝-青-橙(海洋/气象/水文): #1e3a5f / #0891b2 / #c2410c
+- 森绿-棕-金(生态/植被/农业): #166534 / #92400e / #b45309
+- 深紫-玫红-蓝(人文/社会/城市): #5b21b6 / #be185d / #1d4ed8
+- 炭灰-蓝-绿(CV/深度学习/AI): #1f2937 / #2563eb / #059669
+- 赭石-深绿-金(考古/文化遗产): #7c2d12 / #14532d / #a16207
+- 深红-藏蓝-铜(建筑/规划): #991b1b / #1e3a5f / #b45309
+跨领域以方法论领域为准。在 <head> 顶部注释中注明所选主题。
+
+## 页面必备组件
+1. 顶部 3px 滚动进度条（id="pf-progress"），三色渐变 linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))。
+2. 固定导航栏（见上方★导航栏规范★）。
+3. Hero 首屏（见上方★Hero 首屏规范★，padding 上下各 150px，禁止 min-height:100vh）。
+4. 四个内容 section（各有唯一 id 供锚点跳转），之间用 <hr class="divider"> 分隔，每个 section 含眉标、Noto Serif SC 900 大标题（word-break:break-word）、描述段。
+5. 数字指标行：4列网格(移动端2列)，数值 monospace accent 色加粗，标签 Noto Serif SC。
+6. 方法步骤卡片：顶部4px三色渐变条，每步含编号徽章+Noto Serif SC 900标题+描述+技术标签。
+7. 对比表格：overflow-x:auto，表头 Noto Serif SC 900，min-width:680px。
+8. 三列/两列卡片网格(移动端单列)，前三张卡片顶部色条分别为 accent/accent2/accent3，卡片标题 Noto Serif SC 900。
+9. 核心发现引用框：左侧4px accent 粗竖线，浅色渐变背景，Noto Serif SC。
+ 10. 页脚（见上方★页脚规范★，只含免责声明一行）。
+
+## 交互脚本
+- 滚动进度条（id="pf-progress"）实时更新宽度。
+- 导航锚点平滑滚动：各 <a href="#id"> 对应 section 的 id，确保点击后准确定位。
+- IntersectionObserver 淡入：.fade-in{opacity:0;transform:translateY(24px);transition:.6s} → .visible{opacity:1;transform:none}。
+
+## 内容组织（四个 section 必须各有唯一 id）
+- id="s1" 01 研究背景与问题：三列痛点卡片 + 数字指标行。
+- id="s2" 02 方法架构：总体描述 + 3~5步方法卡片 + 两列补充卡片。
+- id="s3" 03 实验结果：指标行 + 对比表格 + 三列发现卡片 + 核心发现引用框。
+- id="s4" 04 结论与展望：三列贡献卡片 + 两列卡片(应用价值/局限与未来)。
+
+## 内容提炼原则
+提取：标题、3个研究痛点、3-5个方法模块、4-8个关键定量结果、对比数据、结论与展望。
+忽略参考文献与致谢。数据必须忠于原文，不得编造。`;
+
+/* ── Provider 配置 ── */
+const PROVIDERS = {
+  deepseek: { name: 'DeepSeek', url: 'https://api.deepseek.com/chat/completions',                                      type: 'openai', model: 'deepseek-chat' },
+  zhipu:    { name: '智谱 GLM',  url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',                          type: 'openai', model: 'glm-4-plus' },
+  qwen:     { name: '通义千问',  url: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',             type: 'openai', model: 'qwen-max' },
+  openai:   { name: 'OpenAI',   url: 'https://api.openai.com/v1/chat/completions',                                      type: 'openai', model: 'gpt-4o' },
+  gemini:   { name: 'Gemini',   url: 'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent', type: 'gemini', model: 'gemini-1.5-pro' },
+  claude:   { name: 'Claude',   url: 'https://api.anthropic.com/v1/messages',                                           type: 'claude', model: 'claude-sonnet-4-20250514' }
+};
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let files = [], currentPreviewId = null, uid = 0;
+const $ = id => document.getElementById(id);
+
+/* ── 配置持久化 ── */
+function saveConfig() {
+  localStorage.setItem('pf_cfg', JSON.stringify({
+    provider: $('provider').value, apiKey: $('apiKey').value, modelName: $('modelName').value
+  }));
+  log('配置已保存至本地浏览器。', 'ok');
+}
+function loadConfig() {
+  try {
+    const cfg = JSON.parse(localStorage.getItem('pf_cfg') || '{}');
+    if (cfg.provider) $('provider').value = cfg.provider;
+    if (cfg.apiKey)   $('apiKey').value   = cfg.apiKey;
+    $('modelName').value = cfg.modelName || PROVIDERS[$('provider').value].model;
+  } catch(e) { $('modelName').value = PROVIDERS[$('provider').value].model; }
+}
+$('provider').addEventListener('change', () => { $('modelName').value = PROVIDERS[$('provider').value].model; });
+loadConfig();
+
+/* ── 日志 ── */
+function log(msg, cls) {
+  const t = new Date().toTimeString().slice(0,8);
+  $('log').insertAdjacentHTML('beforeend',
+    `<div><span class="t">[${t}]</span> <span class="${cls||''}">${msg}</span></div>`);
+  $('log').scrollTop = $('log').scrollHeight;
+}
+log('论文精读工坊已就绪。请配置模型 Key 并上传 PDF。');
+
+/* ── 上传交互 ── */
+const dz = $('dropzone');
+dz.addEventListener('click', () => $('fileInput').click());
+$('fileInput').addEventListener('change', e => { addFiles(e.target.files); e.target.value=''; });
+['dragover','dragenter'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('dragover'); }));
+['dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('dragover'); }));
+dz.addEventListener('drop', e => addFiles(e.dataTransfer.files));
+
+function addFiles(list) {
+  for (const f of list) {
+    if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) {
+      log(`已跳过非 PDF 文件：${f.name}`, 'er'); continue;
+    }
+    files.push({ id: ++uid, file: f, name: f.name, size: f.size, status: 'idle', html: null, htmlTitle: null });
+    log(`加入队列：${f.name}（${(f.size/1024/1024).toFixed(2)} MB）`);
+  }
+  render();
+}
+function clearAll() { files = []; render(); log('队列已清空。'); }
+
+/* ── 从 HTML 提取 <title> ── */
+function extractTitleFromHTML(html) {
+  const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  if (m && m[1]) {
+    return m[1].trim()
+      .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'")
+      .replace(/[\\/:*?"<>|]/g,'_').replace(/\s+/g,' ').trim() || null;
+  }
+  return null;
+}
+
+/* ══════════════════════════════════════════
+   后备补丁注入（四合一）
+   ① 思源宋体字体链接
+   ② 标题断行 + 字体强制覆盖
+   ③ Brand 替换为"地球信息科学学报"（只改左侧文字，不动右侧链接）
+   ④ Footer 清理 + 保存图片按钮注入
+   ⑤ Hero 高度收紧（移除 min-height:100vh）
+══════════════════════════════════════════ */
+const FONT_LINK = `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">`;
+
+const PATCH_STYLE = `
+<style id="pf-patch">
+/* 思源宋体强制覆盖 */
+h1,h2,h3,h4,
+.nav-brand,.nav-title,.brand,
+.hero-title,.paper-title,
+.section-title,.sec-title,.section-heading,
+.card-title,.card-heading,.step-title,
+.metric-label,.stat-label,
+th,thead td {
+font-family: 'Noto Serif SC', Georgia, serif !important;
+font-weight: 900 !important;
+}
+/* 标题自然断行 */
+h1,.hero-title,.paper-title,
+h2,.section-title,.sec-title,.section-heading {
+word-break: break-word !important;
+overflow-wrap: break-word !important;
+white-space: normal !important;
+hyphens: auto !important;
+}
+/* Hero 高度收紧：移除 min-height:100vh，改为 padding 上下 150px */
+section.hero, .hero, #hero, [class*="hero"] {
+min-height: unset !important;
+height: auto !important;
+padding-top: 150px !important;
+padding-bottom: 150px !important;
+}
+/* Footer 只保留免责声明 */
+footer .foot-brand, footer .footer-brand,
+footer h1, footer h2, footer h3,
+footer .logo, footer .brand-name { display: none !important; }
+footer p, footer .disclaimer {
+text-align: center !important;
+white-space: nowrap !important;
+font-size: clamp(0.65rem, 1.5vw, 0.8rem) !important;
+}
+@media(max-width:600px){
+footer p, footer .disclaimer { white-space: normal !important; }
+h1,.hero-title,.paper-title { font-size: clamp(1.4rem,6vw,2.2rem) !important; }
+}
+/* 导航右侧链接 hover */
+nav a:not(.nav-brand):not(.brand):hover { color: var(--accent, #9a3412) !important; }
+</style>`;
+
+
+
+/* Brand 替换脚本（只替换左侧 brand 文字，不动右侧链接） */
+const BRAND_FIX_SCRIPT = `
+<script id="pf-brand-fix">
+(function(){
+var BRAND = '地球信息科学学报';
+function fix(){
+  // 精准定位：nav 内第一个 a 或 .nav-brand / .brand
+  var nav = document.querySelector('nav');
+  if(!nav) return;
+  // 优先找明确的 brand 类
+  var brandEl = nav.querySelector('.nav-brand,.brand,.logo-text,.site-title');
+  if(!brandEl){
+    // 退而求其次：nav 内第一个 a 标签（通常是 brand）
+    var links = nav.querySelectorAll('a');
+    if(links.length > 0) brandEl = links[0];
+  }
+  if(brandEl){
+    // 只替换文本内容，保留子图标元素
+    var textNodes = [];
+    brandEl.childNodes.forEach(function(n){
+      if(n.nodeType===3 && n.textContent.trim()) textNodes.push(n);
+    });
+    if(textNodes.length > 0){
+      textNodes.forEach(function(n,i){ n.textContent = i===0 ? BRAND : ''; });
+    } else if(brandEl.children.length===0){
+      brandEl.textContent = BRAND;
+    }
+  }
+  /* Footer 清理：只保留免责声明 */
+  var footer = document.querySelector('footer');
+  if(footer){
+    var DISC = '以上内容由 AI 自动生成，内容仅供参考。对于因使用本网站以上内容产生的相关后果，本网站不承担任何商业和法律责任。';
+    var hasDisc = footer.textContent.includes('AI 自动生成');
+    Array.from(footer.children).forEach(function(c){
+      if(!c.textContent.includes('AI 自动生成') && !c.textContent.includes('不承担任何商业')){
+        c.style.display='none';
+      }
+    });
+    if(!hasDisc){
+      footer.innerHTML='';
+      var p=document.createElement('p');
+      p.textContent=DISC;
+      p.style.cssText='text-align:center;font-size:clamp(0.65rem,1.5vw,0.8rem);color:rgba(255,255,255,0.55);white-space:nowrap;padding:1.2rem 2rem;';
+      footer.appendChild(p);
+    }
+  }
+  
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',fix);
+else fix();
+})();
+<\/script>`;
+
+function injectPatches(html) {
+  /* 1. 字体链接 */
+  if (!html.includes('Noto+Serif+SC') && !html.includes('Noto Serif SC')) {
+    html = html.replace(/(<head[^>]*>)/i, `$1\n${FONT_LINK}`);
+    log('⚠ 已自动补入 Google Fonts 思源宋体链接。');
+  }
+  /* 2. 样式补丁 */
+  html = html.replace(/<\/head>/i, `${PATCH_STYLE}\n</head>`);
+ 
+  /* 4. Brand 修复脚本 */
+  html = html.replace(/<\/body>/i, `${BRAND_FIX_SCRIPT}\n</body>`);
+  return html;
+}
+
+function outName(f) {
+  const base = f.htmlTitle ? f.htmlTitle : f.name.replace(/\.pdf$/i,'');
+  return (base.length > 120 ? base.slice(0,120)+'…' : base) + '.html';
+}
+
+/* ── 渲染列表 ── */
+const STATUS_ICON = { idle:'clock', extract:'loader', call:'brain-circuit', done:'circle-check', error:'circle-x' };
+const STATUS_TEXT = { idle:'待生成', extract:'提取文本中', call:'模型生成中', done:'已完成', error:'生成失败' };
+const STATUS_CLS  = { idle:'st-idle', extract:'st-work', call:'st-work', done:'st-done', error:'st-err' };
+
+function render() {
+  $('fileList').innerHTML = files.map((f,i) => `
+    <div class="file-row" id="row-${f.id}">
+      <div class="file-no">${String(i+1).padStart(2,'0')}</div>
+      <div style="min-width:0">
+        <div class="file-icon"><i data-lucide="file-text"></i><span class="file-name">${f.name}</span></div>
+        <div class="file-meta">${(f.size/1024/1024).toFixed(2)} MB · #${DEFAULT_START_NO+i}</div>
+        ${f.htmlTitle?`<div class="file-title-preview" title="${f.htmlTitle}">→ ${f.htmlTitle}</div>`:''}
+      </div>
+      <div class="file-status ${STATUS_CLS[f.status]}">
+        <i data-lucide="${STATUS_ICON[f.status]}"></i>${STATUS_TEXT[f.status]}
+      </div>
+      <div class="file-actions">
+        <button class="btn sm red" onclick="generateOne(${f.id})" ${f.status==='extract'||f.status==='call'?'disabled':''}>
+          <i data-lucide="${f.status==='done'?'refresh-cw':'play'}"></i>${f.status==='done'?'重新生成':'生成'}
+        </button>
+        <button class="btn sm ghost" onclick="preview(${f.id})" ${f.html?'':'disabled'}><i data-lucide="eye"></i>预览</button>
+        <button class="btn sm ghost" onclick="downloadOne(${f.id})" ${f.html?'':'disabled'}><i data-lucide="download"></i>下载</button>
+        <button class="btn sm ghost" onclick="removeOne(${f.id})"><i data-lucide="x"></i>移除</button>
+      </div>
+      <div class="progress-line" id="prog-${f.id}" style="width:${f.status==='done'?'100':'0'}%"></div>
+    </div>`).join('');
+  const done = files.filter(f=>f.status==='done').length;
+  $('doneCount').textContent = done;
+  $('totalCount').textContent = files.length;
+  $('counterBig').textContent = String(files.length).padStart(2,'0');
+  $('btnDlAll').disabled = done === 0;
+  lucide.createIcons();
+}
+
+function removeOne(id) { files = files.filter(f=>f.id!==id); render(); }
+function setStatus(f, s, prog) {
+  f.status = s; render();
+  if (prog !== undefined) { const p = $('prog-'+f.id); if(p) p.style.width = prog+'%'; }
+}
+
+/* ── PDF 文本提取 ── */
+async function extractText(f) {
+  const buf = await f.file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  let text = '';
+  const maxChars = DEFAULT_MAX_CHARS;
+  for (let p = 1; p <= pdf.numPages; p++) {
+    const page = await pdf.getPage(p);
+    const tc = await page.getTextContent();
+    text += tc.items.map(it=>it.str).join(' ') + '\n\n';
+    const pr = $('prog-'+f.id); if(pr) pr.style.width = Math.round(p/pdf.numPages*40)+'%';
+    if (text.length > maxChars*1.2) break;
+  }
+  text = text.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n');
+  const refIdx = text.search(/\n\s*(参考文献|References|REFERENCES)\s*[\n:：]/);
+  if (refIdx > maxChars*0.5) text = text.slice(0, refIdx);
+  return text.slice(0, maxChars);
+}
+
+/* ── LLM 调用 ── */
+function buildUserPrompt(f, idx, text) {
+  return `【论文编号】#${DEFAULT_START_NO+idx}
+【期刊信息】${DEFAULT_JOURNAL}
+【配色主题】请根据论文领域自动选择
+【论文文本（自 PDF 提取，可能含噪声，请自行识别结构）】
+${text}`;
+}
+
+async function callLLM(userPrompt) {
+  const pv = PROVIDERS[$('provider').value];
+  const key = $('apiKey').value.trim();
+  const model = $('modelName').value.trim() || pv.model;
+  if (!key) throw new Error('请先填写 API Key');
+ 
+  if (pv.type === 'openai') {
+    const res = await fetch(pv.url, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+      body: JSON.stringify({ model, temperature:0.4, max_tokens:8192,
+        messages:[{role:'system',content:SYSTEM_PROMPT},{role:'user',content:userPrompt}] })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}：${(await res.text()).slice(0,300)}`);
+    return (await res.json()).choices[0].message.content;
+  }
+  if (pv.type === 'claude') {
+    const res = await fetch(pv.url, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,
+        'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body: JSON.stringify({ model, max_tokens:8192, system:SYSTEM_PROMPT,
+        messages:[{role:'user',content:userPrompt}] })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}：${(await res.text()).slice(0,300)}`);
+    return (await res.json()).content.map(c=>c.text||'').join('');
+  }
+  if (pv.type === 'gemini') {
+    const url = pv.url.replace('{model}',model)+'?key='+encodeURIComponent(key);
+    const res = await fetch(url, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        systemInstruction:{parts:[{text:SYSTEM_PROMPT}]},
+        contents:[{role:'user',parts:[{text:userPrompt}]}],
+        generationConfig:{temperature:0.4,maxOutputTokens:8192}
+      })
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}：${(await res.text()).slice(0,300)}`);
+    return (await res.json()).candidates[0].content.parts.map(p=>p.text||'').join('');
+  }
+}
+
+function extractHTML(raw) {
+  const fence = raw.match(/```(?:html)?\s*([\s\S]*?)```/);
+  let s = fence ? fence[1] : raw;
+  const start = s.indexOf('<!DOCTYPE'); const start2 = start===-1?s.indexOf('<html'):start;
+  if (start!==-1) s=s.slice(start); else if(start2!==-1) s='<!DOCTYPE html>\n'+s.slice(start2);
+  const end = s.lastIndexOf('</html>');
+  if (end!==-1) s=s.slice(0,end+7);
+  if (!s.includes('</html>')) throw new Error('模型返回内容不完整（缺少 </html>），请重试');
+  return s.trim();
+}
+
+/* ── 生成流程 ── */
+async function generateOne(id) {
+  const f = files.find(x=>x.id===id); if(!f) return;
+  const idx = files.indexOf(f);
+  try {
+    setStatus(f,'extract',5);
+    log(`「${f.name}」开始提取 PDF 文本…`);
+    const text = await extractText(f);
+    log(`「${f.name}」提取完成，共 ${text.length} 字符。`);
+
+    setStatus(f,'call',45);
+    log(`「${f.name}」调用 ${PROVIDERS[$('provider').value].name} · ${$('modelName').value} 生成中…`);
+    const raw = await callLLM(buildUserPrompt(f,idx,text));
+    let html = extractHTML(raw);
+
+    /* ★ 后备补丁注入 ★ */
+    html = injectPatches(html);
+
+    /* ★ 提取 title 作为文件名 ★ */
+    f.htmlTitle = extractTitleFromHTML(html);
+    f.html = html;
+
+    if (f.htmlTitle) log(`「${f.name}」识别标题：${f.htmlTitle}`, 'ok');
+    else log(`「${f.name}」未能提取 title，将使用 PDF 文件名。`);
+
+    setStatus(f,'done',100);
+    log(`「${f.name}」生成成功（${(f.html.length/1024).toFixed(1)} KB）→ 「${outName(f)}」`, 'ok');
+  } catch(err) {
+    setStatus(f,'error',0);
+    log(`「${f.name}」失败：${err.message}`, 'er');
+  }
+}
+
+async function generateAll() {
+  if (!files.length) { log('队列为空，请先上传 PDF。','er'); return; }
+  $('btnGenAll').disabled = true;
+  log(`▶ 批量任务开始，共 ${files.length} 篇（串行执行以避免限流）。`);
+  for (const f of files) { if(f.status==='done') continue; await generateOne(f.id); }
+  $('btnGenAll').disabled = false;
+  log('▶ 批量任务结束。','ok');
+}
+
+/* ── 下载 & 预览 ── */
+function downloadBlob(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+}
+function downloadOne(id) {
+  const f = files.find(x=>x.id===id);
+  if (f&&f.html) {
+    downloadBlob(new Blob([f.html],{type:'text/html;charset=utf-8'}),outName(f));
+    log(`已下载：${outName(f)}`,'ok');
+  }
+}
+async function downloadAll() {
+  const done = files.filter(f=>f.html); if(!done.length) return;
+  const zip = new JSZip();
+  done.forEach(f=>zip.file(outName(f),f.html));
+  const blob = await zip.generateAsync({type:'blob'});
+  downloadBlob(blob,`论文精读合集_${new Date().toISOString().slice(0,10)}.zip`);
+  log(`已打包下载 ${done.length} 个页面 (ZIP)。`,'ok');
+}
+function preview(id) {
+  const f = files.find(x=>x.id===id); if(!f||!f.html) return;
+  currentPreviewId = id;
+  $('pvTitle').textContent = outName(f);
+  $('previewFrame').srcdoc = f.html;
+  $('previewMask').classList.add('on');
+}
+function closePreview() { $('previewMask').classList.remove('on'); $('previewFrame').srcdoc=''; }
+function downloadCurrent() { if(currentPreviewId) downloadOne(currentPreviewId); }
+$('previewMask').addEventListener('click', e=>{ if(e.target.id==='previewMask') closePreview(); });
+
+lucide.createIcons();
+</script>
+</body>
+</html>

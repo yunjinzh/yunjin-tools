@@ -1,0 +1,53 @@
+{
+  "id": "rack",
+  "sourceAsset": "rack_large_empty_a01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/rack_large_empty_a01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    3.999977231025696,
+    3.010000705718994,
+    2.0665810108184814
+  ],
+  "sourceOrigin": [
+    1.7881393432617188e-7,
+    0,
+    -1.1920928955078125e-7
+  ],
+  "triangles": 28666,
+  "materials": 2,
+  "bytes": 1878972,
+  "sha256": "971fd785887f52fa141ed5f9008fbd7850c69c0521253dae2da6a466e2bca7e1",
+  "sourceFiles": {
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Albedo.1001.png": "1f3b1ee631115cd2ffe389442c1b6f5e0041becbc865b38f01cea5a2c9e6ec44",
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Albedo.1002.png": "0b3c783cb03ab77943730160b78b7fac621e4fa552631bbd126794e59d765252",
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Albedo.1003.png": "e0c01a4ba682ee2bf4cda07e11baa5152fe53b98294ef3e08328d574b4a5f50e",
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_ORM.1001.png": "9aeaec1344f78d91f2c9b8a8ddf013391fe35a9b750cd3dbc44e4ba244ad430e",
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_ORM.1002.png": "aae6964b5267c79efd87aaf1ef097ec9adf414f0bdcb6d556b05e0122f21e4d4",
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_ORM.1003.png": "9988e4cf51cdae795cb3a1015335eabff89aadef23b0e938258efc24e1a3bf20",
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Normal.1001.png": "9e3bd93830222341e2c8c212ef1b782b1f1650391018a843396e7714d8cc2e95",
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Normal.1002.png": "9ecaf8e47a51aea09a77ab45d1440e20095306fa3624db46d68c15473da2d6c9",
+    "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Normal.1003.png": "8d3c25f625366abb09686c5478092b0231e19c0974c539ab8b355ff803f98c7e",
+    "rack_large_empty_a01/simready_usd/payloads/materials.usda": "e739052fece8deb39bb4373df9c24d42a887855970b2418e393cbe829b6f67ca",
+    "rack_large_empty_a01/simready_usd/sm_rack_large_empty_a01_01.usd": "55b2b06e2578f9f6fe96b8abb6a88776c05dedc747be7a710df3a898188f8e14",
+    "rack_large_empty_a01/simready_usd/payloads/instances_physx.usda": "2b08340378b4a4ec569321f984d8db243ae05ca751fbc279bccbd0ec0f6bb8bf",
+    "rack_large_empty_a01/simready_usd/payloads/instances.usda": "e2d7745083be72fb7e2050c5f6a848f86e2ef123b1d40432e646fa3122c49343",
+    "rack_large_empty_a01/simready_usd/payloads/geometries.usd": "900dfcc15582dc9b73ed74118b2a7dcd6b761a6586efcd6c949402f94e7c0e6e",
+    "rack_large_empty_a01/simready_usd/payloads/base.usda": "46defc3b435d387c9d51219be41de969e43a9bd6f8b176f899c1597523ea3c19",
+    "rack_large_empty_a01/simready_usd/payloads/Newton/disabled.usda": "2a286341c809d2aeff8def56ed65433f017fac4126ab8522891b407292340469",
+    "rack_large_empty_a01/simready_usd/payloads/Physics/physics.usda": "a6932bd0c3deb6808ce0896c7046229a2a6cf03953c9eb75cd0a9733b1dcd3b7",
+    "rack_large_empty_a01/simready_usd/payloads/MuJoCo/disabled.usda": "2a286341c809d2aeff8def56ed65433f017fac4126ab8522891b407292340469",
+    "rack_large_empty_a01/simready_usd/payloads/PhysX/enabled.usda": "d98c3f5566393f61148acd0cbe45bc12f325d1562239dc39e965cb9e93044a93",
+    "rack_large_empty_a01/com.nvidia.simready.packaging.json": "ca1305dbfc75e548198620bdeb70d7c1db7f43d70c3ea44033b3a0aff7d6ab1f",
+    "rack_large_empty_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 44104,
+  "originalBytes": 1236864,
+  "optimization": {
+    "targetRatio": 0.65,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

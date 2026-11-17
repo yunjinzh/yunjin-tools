@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {normalizeGeoJSON,SAMPLE_BOUNDS} from '../dist/data.mjs';
+const ctx={window:{}};vm.runInNewContext(fs.readFileSync('dist/vendor/osmtogeojson.js','utf8'),ctx);
+if(!process.argv[2])throw new Error('Usage: node scripts/prepare-sample.mjs /absolute/path/to/overpass-response.json');
+const raw=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+const result=normalizeGeoJSON(ctx.window.osmtogeojson(raw,{flatProperties:false}));
+const payload={...result,bounds:SAMPLE_BOUNDS,source:'OpenStreetMap',timestamp:raw.osm3s.timestamp_osm_base,retrievedAt:new Date().toISOString(),endpoint:'https://overpass-api.de/api/interpreter',sample:true};
+fs.writeFileSync('dist/data/beijing.json',JSON.stringify(payload));
+console.log(JSON.stringify({features:result.features.length,skipped:result.skipped,bytes:fs.statSync('dist/data/beijing.json').size,categories:result.features.reduce((o,f)=>(o[f.category]=(o[f.category]||0)+1,o),{})}));

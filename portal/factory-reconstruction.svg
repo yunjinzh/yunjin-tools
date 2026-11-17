@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320" role="img" aria-label="厂房空间复原：梁柱屋架、实训设施与室内漫游路线的功能示意">
+<rect width="560" height="320" fill="#E0E7DF"/><circle cx="461" cy="67" r="91" fill="#F5F0E4"/><ellipse cx="279" cy="278" rx="218" ry="22" fill="#799184" opacity=".18"/>
+<path d="M61 227 302 153 501 217 263 295Z" fill="#C4D0BF" stroke="#93AB98" stroke-width="2"/>
+<path d="M68 219V104l234-61v111L68 219Z" fill="#F2ECDD"/><path d="M302 43 492 105v109l-190-60Z" fill="#D5DFD0"/>
+<g fill="#ABC2B7" stroke="#8DA79B" stroke-width="2"><path d="M85 112 132 100v28l-47 13Z"/><path d="m150 95 48-12v28l-48 13Z"/><path d="m218 77 48-12v28l-48 13Z"/><path d="m331 68 43 14v27l-43-14Z"/><path d="m397 90 43 14v27l-43-14Z"/></g>
+<g fill="none" stroke="#658674" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M77 224V102l113-53 123 31v146M153 247V126l113-53 123 31v145M231 273V150l113-53 123 31v140"/><path d="M77 102 231 150M190 49 344 97M313 80 467 128"/></g>
+<g fill="none" stroke="#8FA996" stroke-width="3"><path d="m77 102 61-17 52-36 54 50 69-19M153 126l61-17 52-36 54 50 69-19M231 150l61-17 52-36 54 50 69-19"/><path d="m77 102 236-22m-160 46 236-22m-158 46 236-22"/></g>
+<path d="m201 54 16-4 151 48-18 5Z" fill="#F8F4E5" opacity=".95"/><path d="m350 103-133-53-28 183 110 35Z" fill="#FFF5D4" opacity=".15"/>
+<g stroke="#879A88" stroke-width="2"><path d="m110 202 46-14 43 15-47 15Z" fill="#ECE4CF"/><path d="m110 202 42 16v26l-42-16Z" fill="#A8B99C"/><path d="m152 218 47-15v26l-47 15Z" fill="#809E88"/><path d="m343 193 44-14 46 15-44 15Z" fill="#EFE5D0"/><path d="m343 193 46 16v29l-46-16Z" fill="#A8B99C"/><path d="m389 209 44-15v29l-44 15Z" fill="#809E88"/></g>
+<path d="M302 275q25-29-8-44t-11-43" fill="none" stroke="#BE866E" stroke-width="5" stroke-dasharray="7 7" stroke-linecap="round"/><circle cx="302" cy="275" r="9" fill="#F8F1E1" stroke="#BE866E" stroke-width="4"/><path d="m272 190 12-8 5 13" fill="none" stroke="#BE866E" stroke-width="4" stroke-linecap="round"/>
+<g transform="rotate(7 468 256)"><rect x="420" y="222" width="90" height="65" rx="7" fill="#F8F0DF" stroke="#B4AA90" stroke-width="2"/><rect x="431" y="235" width="68" height="39" rx="3" fill="#BBCFC0"/><path d="m438 265 19-17 13 9 14-16 10 24Z" fill="#7E9C8B"/><circle cx="445" cy="244" r="5" fill="#F5E4BE"/></g>
+</svg>

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高等职业教育专科专业教学标准目录</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ======= RESET & BASE ======= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --accent: #E07563;
+  --accent-dark: #C25A48;
+  --bg: #F1F0EC;
+  --bg-dark: #E8E6E1;
+  --bg-deeper: #DDD9D2;
+  --text: #1A1916;
+  --text-muted: #6B6760;
+  --text-light: #9A9590;
+  --border: #D0CCC5;
+  --border-dark: #B8B3AB;
+  --white: #FAF9F6;
+  --shadow-sm: 0 2px 8px rgba(26,25,22,0.08);
+  --shadow-md: 0 4px 16px rgba(26,25,22,0.12);
+  --shadow-xl: 0 12px 40px rgba(26,25,22,0.18);
+  --shadow-2xl: 0 24px 64px rgba(26,25,22,0.22);
+  --font-display: 'Oswald', sans-serif;
+  --font-heading: 'Noto Serif SC', serif;
+  --font-body: 'Noto Sans SC', sans-serif;
+  --sidebar-w: 220px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ======= LAYOUT ======= */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ======= SIDEBAR ======= */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--text);
+  color: var(--bg);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 28px 20px 20px;
+  border-bottom: 1px solid rgba(241,240,236,0.12);
+}
+
+.sidebar-header .logo-text {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.sidebar-header h2 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--bg);
+}
+
+.sidebar-header .sub {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(241,240,236,0.45);
+  margin-top: 6px;
+  font-weight: 300;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 12px 0;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border-left: 2px solid transparent;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(241,240,236,0.65);
+  position: relative;
+}
+
+.nav-item:hover {
+  background: rgba(241,240,236,0.07);
+  color: var(--bg);
+  border-left-color: rgba(224,117,99,0.5);
+}
+
+.nav-item.active {
+  background: rgba(224,117,99,0.12);
+  color: var(--bg);
+  border-left-color: var(--accent);
+}
+
+.nav-item.active .nav-icon svg {
+  stroke: var(--accent);
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.nav-icon svg {
+  width: 100%;
+  height: 100%;
+  transition: stroke 0.15s;
+}
+
+.nav-label {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-count {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.8;
+  min-width: 24px;
+  text-align: right;
+}
+
+.nav-all {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  color: rgba(241,240,236,0.65);
+  border-left: 2px solid transparent;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(241,240,236,0.1);
+  margin-bottom: 4px;
+  transition: background 0.15s;
+}
+.nav-all:hover { background: rgba(241,240,236,0.07); color: var(--bg); }
+.nav-all.active { border-left-color: var(--accent); color: var(--bg); background: rgba(224,117,99,0.12); }
+
+/* ======= MAIN CONTENT ======= */
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ======= HEADER ======= */
+.header {
+  background: var(--bg);
+  padding: 0 48px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 24px;
+  height: 72px;
+}
+
+.header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.header-eyebrow {
+  font-family: var(--font-display);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.header-h1 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.search-wrap {
+  position: relative;
+}
+
+.search-wrap svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-light);
+  pointer-events: none;
+}
+
+#searchInput {
+  width: 300px;
+  height: 40px;
+  padding: 0 16px 0 42px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#searchInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(224,117,99,0.15);
+}
+
+#searchInput::placeholder {
+  color: var(--text-light);
+  font-weight: 300;
+}
+
+.header-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+/* ======= HERO BAND ======= */
+.hero-band {
+  background: var(--text);
+  padding: 24px 48px;
+  display: flex;
+  align-items: baseline;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-band::after {
+  content: 'VOC';
+  font-family: var(--font-display);
+  font-size: 180px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.03);
+  position: absolute;
+  right: 40px;
+  bottom: -30px;
+  line-height: 1;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-right: 1px solid rgba(241,240,236,0.12);
+  padding-right: 40px;
+}
+.hero-stat:last-child { border-right: none; padding-right: 0; }
+
+.hero-num {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hero-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(241,240,236,0.5);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ======= FILTER CHIPS ======= */
+.filter-bar {
+  padding: 16px 48px;
+  background: var(--bg-dark);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-family: var(--font-display);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.chip {
+  height: 28px;
+  padding: 0 12px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(224,117,99,0.06);
+}
+
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+  font-weight: 500;
+}
+
+/* ======= TABLE AREA ======= */
+.table-area {
+  flex: 1;
+  padding: 32px 48px 48px;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title .accent-bar {
+  display: inline-block;
+  width: 3px;
+  height: 16px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.result-count {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+}
+
+thead tr {
+  background: var(--text);
+}
+
+th {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(241,240,236,0.7);
+  padding: 14px 16px;
+  text-align: left;
+  white-space: nowrap;
+  border-right: 1px solid rgba(241,240,236,0.08);
+}
+th:last-child { border-right: none; }
+
+th.th-accent {
+  color: var(--accent);
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: rgba(224,117,99,0.04);
+}
+
+tbody tr:hover .td-num {
+  color: var(--accent);
+}
+
+td {
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text);
+  vertical-align: middle;
+  border-right: 1px solid rgba(26,25,22,0.04);
+}
+td:last-child { border-right: none; }
+
+.td-num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+  transition: color 0.12s;
+  width: 48px;
+}
+
+.td-bigclass {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.td-bigclass .class-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 400;
+  background: var(--bg-dark);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.td-bigclass .class-badge svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.td-subclass {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.td-code {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.td-name {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text);
+  min-width: 160px;
+}
+
+.highlight {
+  background: rgba(224,117,99,0.25);
+  color: var(--text);
+  border-radius: 1px;
+}
+
+.td-size {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+  background: var(--bg);
+}
+
+.link-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+
+.link-btn svg {
+  width: 11px;
+  height: 11px;
+}
+
+.link-btn + .link-btn {
+  margin-left: 6px;
+}
+
+/* ======= EMPTY STATE ======= */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  display: none;
+}
+
+.empty-state .empty-num {
+  font-family: var(--font-display);
+  font-size: 80px;
+  font-weight: 700;
+  color: var(--bg-deeper);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.empty-state p {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  font-weight: 300;
+}
+
+/* ======= SCROLLBAR ======= */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--border-dark); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 1024px) {
+  .sidebar { width: 64px; }
+  .nav-label, .nav-count, .sidebar-header h2, .sidebar-header .sub, .sidebar-header .logo-text { display: none; }
+  .nav-item { padding: 10px 0; justify-content: center; }
+  .nav-icon { width: 20px; height: 20px; }
+  .header-inner { grid-template-columns: 1fr auto; }
+  .header { padding: 0 24px; }
+  .table-area { padding: 20px 24px 40px; }
+  .hero-band { padding: 20px 24px; }
+  .filter-bar { padding: 12px 24px; }
+}
+
+@media (max-width: 640px) {
+  #searchInput { width: 200px; }
+  .hero-num { font-size: 32px; }
+  .hero-stat { padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-text">Ministry of Education</div>
+    <h2>高等职业教育<br>专科专业目录</h2>
+    <div class="sub">教学标准 · 2025版</div>
+  </div>
+  <ul class="nav-list">
+    <li class="nav-all active" data-class="all">
+      <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+      <span class="nav-label">全部大类</span>
+      <span class="nav-count">465</span>
+    </li>
+    <li class="nav-item" data-class="农林牧渔大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8 2 5 6 5 10c0 3 2 5.5 5 6.5V20h4v-3.5c3-1 5-3.5 5-6.5 0-4-3-8-7-8z"/><line x1="12" y1="2" x2="12" y2="8"/></svg></span><span class="nav-label">农林牧渔</span><span class="nav-count">30</span></li>
+<li class="nav-item" data-class="资源环境与安全大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,20 2,20"/><line x1="12" y1="8" x2="12" y2="14"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></span><span class="nav-label">资源环境与安全</span><span class="nav-count">29</span></li>
+<li class="nav-item" data-class="能源动力与材料大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H13L13 2z"/></svg></span><span class="nav-label">能源动力与材料</span><span class="nav-count">27</span></li>
+<li class="nav-item" data-class="土木建筑大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="10" width="18" height="11"/><polyline points="3,10 12,3 21,10"/><rect x="9" y="14" width="6" height="7"/></svg></span><span class="nav-label">土木建筑</span><span class="nav-count">25</span></li>
+<li class="nav-item" data-class="水利大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 16c1-2 3-3 4-1s3 3 5 1 3-2 4-1"/><path d="M3 20c1-2 3-3 4-1s3 3 5 1 3-2 4-1"/><path d="M12 3v8M9 6l3-3 3 3"/></svg></span><span class="nav-label">水利</span><span class="nav-count">6</span></li>
+<li class="nav-item" data-class="装备制造大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M21 12h-3M6 12H3M12 21v-3M12 6V3"/></svg></span><span class="nav-label">装备制造</span><span class="nav-count">52</span></li>
+<li class="nav-item" data-class="生物与化工大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v8L4 19h16L15 11V3"/><line x1="9" y1="3" x2="15" y2="3"/><circle cx="8" cy="17" r="1" fill="currentColor"/><circle cx="14" cy="15" r="1" fill="currentColor"/></svg></span><span class="nav-label">生物与化工</span><span class="nav-count">10</span></li>
+<li class="nav-item" data-class="轻工纺织大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3h12l-2 7H8L6 3z"/><path d="M8 10l-2 11h12L16 10"/><line x1="5" y1="7" x2="19" y2="7"/></svg></span><span class="nav-label">轻工纺织</span><span class="nav-count">7</span></li>
+<li class="nav-item" data-class="食品药品与粮食大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5C9 3.9 9.9 3 11 3h2c1.1 0 2 .9 2 2v3H9V5z"/><rect x="6" y="8" width="12" height="13" rx="1"/><line x1="12" y1="11" x2="12" y2="18"/><line x1="9" y1="14" x2="15" y2="14"/></svg></span><span class="nav-label">食品药品与粮食</span><span class="nav-count">19</span></li>
+<li class="nav-item" data-class="交通运输大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="8" width="22" height="10" rx="2"/><path d="M16 8V6a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span><span class="nav-label">交通运输</span><span class="nav-count">42</span></li>
+<li class="nav-item" data-class="电子与信息大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="8" y1="6" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="18"/><line x1="2" y1="12" x2="22" y2="12"/></svg></span><span class="nav-label">电子与信息</span><span class="nav-count">32</span></li>
+<li class="nav-item" data-class="医药卫生大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><span class="nav-label">医药卫生</span><span class="nav-count">28</span></li>
+<li class="nav-item" data-class="财经商贸大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span><span class="nav-label">财经商贸</span><span class="nav-count">33</span></li>
+<li class="nav-item" data-class="旅游大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg></span><span class="nav-label">旅游</span><span class="nav-count">18</span></li>
+<li class="nav-item" data-class="文化艺术大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19l-7-7 7-7"/><path d="M19 19l-7-7 7-7"/></svg></span><span class="nav-label">文化艺术</span><span class="nav-count">36</span></li>
+<li class="nav-item" data-class="新闻传播大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2V9"/><line x1="10" y1="7" x2="16" y2="7"/><line x1="10" y1="11" x2="16" y2="11"/><line x1="10" y1="15" x2="14" y2="15"/></svg></span><span class="nav-label">新闻传播</span><span class="nav-count">13</span></li>
+<li class="nav-item" data-class="教育与体育大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span class="nav-label">教育与体育</span><span class="nav-count">40</span></li>
+<li class="nav-item" data-class="公安与司法大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="nav-label">公安与司法</span><span class="nav-count">7</span></li>
+<li class="nav-item" data-class="公共管理与服务大类"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span><span class="nav-label">公共管理与服务</span><span class="nav-count">11</span></li>
+
+  </ul>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-title">
+        <div class="header-eyebrow">Vocational Education · Standard Catalog</div>
+        <h1 class="header-h1">高等职业教育专科专业教学标准目录</h1>
+      </div>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="搜索专业名称或代码…" autocomplete="off">
+      </div>
+      <div class="header-stats">
+        <div class="stat-num" id="displayCount">465</div>
+        <div class="stat-label">当前显示专业</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BAND -->
+  <div class="hero-band">
+    <div class="hero-stat">
+      <div class="hero-num">465</div>
+      <div class="hero-label">专业总数</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-num">19</div>
+      <div class="hero-label">专业大类</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-num">89</div>
+      <div class="hero-label">专业小类</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-num">465</div>
+      <div class="hero-label">PDF已收录</div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" id="filterBar">
+    <span class="filter-label">筛选</span>
+    <!-- chips injected by JS -->
+  </div>
+
+  <!-- TABLE AREA -->
+  <div class="table-area">
+    <div class="section-header">
+      <div class="section-title">
+        <span class="accent-bar"></span>
+        <span id="sectionLabel">专业教学标准总目录</span>
+      </div>
+      <div class="result-count">共 <span id="resultCount">465</span> 条</div>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>大类</th>
+            <th>小类</th>
+            <th class="th-accent">专业代码</th>
+            <th>专业名称</th>
+            <th>文件大小</th>
+            <th>教学标准</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      <div class="empty-num">0</div>
+      <p>未找到匹配的专业，请调整搜索条件</p>
+    </div>
+  </div>
+</main>
+</div>
+
+<script>
+const RAW_DATA = [{"num": "1", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410102", "name": "作物生产与经营管理", "size": "351.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207513945119934.pdf", "localUrl": "./农林牧渔大类/农业类/410102 作物生产与经营管理.pdf"}, {"num": "2", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410103", "name": "现代农业技术", "size": "338.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207513521959802.pdf", "localUrl": "./农林牧渔大类/农业类/410103 现代农业技术.pdf"}, {"num": "3", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410105", "name": "园艺技术", "size": "350.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207513230956686.pdf", "localUrl": "./农林牧渔大类/农业类/410105 园艺技术.pdf"}, {"num": "4", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410106", "name": "植物保护与检疫技术", "size": "342.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207512973899768.pdf", "localUrl": "./农林牧渔大类/农业类/410106 植物保护与检疫技术.pdf"}, {"num": "5", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410107", "name": "茶叶生产与加工技术", "size": "345.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207512696920472.pdf", "localUrl": "./农林牧渔大类/农业类/410107 茶叶生产与加工技术.pdf"}, {"num": "6", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410108", "name": "中草药栽培与加工技术", "size": "411.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207512401962606.pdf", "localUrl": "./农林牧渔大类/农业类/410108 中草药栽培与加工技术.pdf"}, {"num": "7", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410110", "name": "饲草生产技术", "size": "343.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207512172891498.pdf", "localUrl": "./农林牧渔大类/农业类/410110 饲草生产技术.pdf"}, {"num": "8", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410111", "name": "食用菌生产与加工技术", "size": "359.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207511953262900.pdf", "localUrl": "./农林牧渔大类/农业类/410111 食用菌生产与加工技术.pdf"}, {"num": "9", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410113", "name": "现代农业装备应用技术", "size": "342.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207511722416713.pdf", "localUrl": "./农林牧渔大类/农业类/410113 现代农业装备应用技术.pdf"}, {"num": "10", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410114", "name": "农产品加工与质量检测", "size": "367.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207511451306420.pdf", "localUrl": "./农林牧渔大类/农业类/410114 农产品加工与质量检测.pdf"}, {"num": "11", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410115", "name": "绿色食品生产技术", "size": "354.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207511163141253.pdf", "localUrl": "./农林牧渔大类/农业类/410115 绿色食品生产技术.pdf"}, {"num": "12", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410117", "name": "棉花加工与经营管理", "size": "330.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207510877860624.pdf", "localUrl": "./农林牧渔大类/农业类/410117 棉花加工与经营管理.pdf"}, {"num": "13", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410118", "name": "休闲农业经营与管理", "size": "348.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207510428642862.pdf", "localUrl": "./农林牧渔大类/农业类/410118 休闲农业经营与管理.pdf"}, {"num": "14", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410119", "name": "现代农业经济管理", "size": "341.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207510107617427.pdf", "localUrl": "./农林牧渔大类/农业类/410119 现代农业经济管理.pdf"}, {"num": "15", "bigClass": "农林牧渔大类", "subClass": "农业类", "code": "410120", "name": "农村新型经济组织管理", "size": "344.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_nyl/202502/P020250207509130045237.pdf", "localUrl": "./农林牧渔大类/农业类/410120 农村新型经济组织管理.pdf"}, {"num": "16", "bigClass": "农林牧渔大类", "subClass": "林业类", "code": "410202", "name": "园林技术", "size": "341.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_lyl/202502/P020250207516722497211.pdf", "localUrl": "./农林牧渔大类/林业类/410202 园林技术.pdf"}, {"num": "17", "bigClass": "农林牧渔大类", "subClass": "林业类", "code": "410204", "name": "花卉生产与花艺", "size": "344.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_lyl/202502/P020250207516003932749.pdf", "localUrl": "./农林牧渔大类/林业类/410204 花卉生产与花艺.pdf"}, {"num": "18", "bigClass": "农林牧渔大类", "subClass": "林业类", "code": "410206", "name": "森林和草原资源保护", "size": "327.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_lyl/202502/P020250207515603921044.pdf", "localUrl": "./农林牧渔大类/林业类/410206 森林和草原资源保护.pdf"}, {"num": "19", "bigClass": "农林牧渔大类", "subClass": "林业类", "code": "410207", "name": "林草生态保护与修复", "size": "349.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_lyl/202502/P020250207515011024367.pdf", "localUrl": "./农林牧渔大类/林业类/410207 林草生态保护与修复.pdf"}, {"num": "20", "bigClass": "农林牧渔大类", "subClass": "林业类", "code": "410210", "name": "森林生态旅游与康养", "size": "317.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_lyl/202502/P020250207514693236940.pdf", "localUrl": "./农林牧渔大类/林业类/410210 森林生态旅游与康养.pdf"}, {"num": "21", "bigClass": "农林牧渔大类", "subClass": "林业类", "code": "410211", "name": "林业信息技术应用", "size": "352.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_lyl/202502/P020250207514387417657.pdf", "localUrl": "./农林牧渔大类/林业类/410211 林业信息技术应用.pdf"}, {"num": "22", "bigClass": "农林牧渔大类", "subClass": "畜牧业类", "code": "410301", "name": "动物医学", "size": "355.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_xmyl/202502/P020250207521200573443.pdf", "localUrl": "./农林牧渔大类/畜牧业类/410301 动物医学.pdf"}, {"num": "23", "bigClass": "农林牧渔大类", "subClass": "畜牧业类", "code": "410302", "name": "动物药学", "size": "350.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_xmyl/202502/P020250207520898037685.pdf", "localUrl": "./农林牧渔大类/畜牧业类/410302 动物药学.pdf"}, {"num": "24", "bigClass": "农林牧渔大类", "subClass": "畜牧业类", "code": "410303", "name": "畜牧兽医", "size": "346.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_xmyl/202502/P020250207520502285384.pdf", "localUrl": "./农林牧渔大类/畜牧业类/410303 畜牧兽医.pdf"}, {"num": "25", "bigClass": "农林牧渔大类", "subClass": "畜牧业类", "code": "410304", "name": "中兽医", "size": "355.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_xmyl/202502/P020250207520234679268.pdf", "localUrl": "./农林牧渔大类/畜牧业类/410304 中兽医.pdf"}, {"num": "26", "bigClass": "农林牧渔大类", "subClass": "畜牧业类", "code": "410305", "name": "宠物医疗技术", "size": "344.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_xmyl/202502/P020250207519926085986.pdf", "localUrl": "./农林牧渔大类/畜牧业类/410305 宠物医疗技术.pdf"}, {"num": "27", "bigClass": "农林牧渔大类", "subClass": "畜牧业类", "code": "410307", "name": "畜禽智能化养殖", "size": "354.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_xmyl/202502/P020250207518554453309.pdf", "localUrl": "./农林牧渔大类/畜牧业类/410307 畜禽智能化养殖.pdf"}, {"num": "28", "bigClass": "农林牧渔大类", "subClass": "畜牧业类", "code": "410309", "name": "宠物养护与驯导", "size": "375.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_xmyl/202502/P020250207517907799582.pdf", "localUrl": "./农林牧渔大类/畜牧业类/410309 宠物养护与驯导.pdf"}, {"num": "29", "bigClass": "农林牧渔大类", "subClass": "畜牧业类", "code": "410310", "name": "动物营养与饲料", "size": "337.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_xmyl/202502/P020250207517552032356.pdf", "localUrl": "./农林牧渔大类/畜牧业类/410310 动物营养与饲料.pdf"}, {"num": "30", "bigClass": "农林牧渔大类", "subClass": "渔业类", "code": "410401", "name": "水产养殖技术", "size": "343.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nlmydl/nlmydl_yyl/202502/P020250207521749752647.pdf", "localUrl": "./农林牧渔大类/渔业类/410401 水产养殖技术.pdf"}, {"num": "31", "bigClass": "资源环境与安全大类", "subClass": "资源勘查类", "code": "420103", "name": "生态地质调查", "size": "349.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_zykcl/202502/P020250207504022888834.pdf", "localUrl": "./资源环境与安全大类/资源勘查类/420103 生态地质调查.pdf"}, {"num": "32", "bigClass": "资源环境与安全大类", "subClass": "资源勘查类", "code": "420107", "name": "宝玉石鉴定与加工", "size": "343.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_zykcl/202502/P020250207503812736288.pdf", "localUrl": "./资源环境与安全大类/资源勘查类/420107 宝玉石鉴定与加工.pdf"}, {"num": "33", "bigClass": "资源环境与安全大类", "subClass": "地质类", "code": "420209", "name": "城市地质勘查", "size": "350.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_dzl/202502/P020250207504247725132.pdf", "localUrl": "./资源环境与安全大类/地质类/420209 城市地质勘查.pdf"}, {"num": "34", "bigClass": "资源环境与安全大类", "subClass": "测绘地理信息类", "code": "420301", "name": "工程测量技术", "size": "340.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hcdlxxl/202502/P020250207505875304431.pdf", "localUrl": "./资源环境与安全大类/测绘地理信息类/420301 工程测量技术.pdf"}, {"num": "35", "bigClass": "资源环境与安全大类", "subClass": "测绘地理信息类", "code": "420302", "name": "测绘工程技术", "size": "341.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hcdlxxl/202502/P020250207505709210099.pdf", "localUrl": "./资源环境与安全大类/测绘地理信息类/420302 测绘工程技术.pdf"}, {"num": "36", "bigClass": "资源环境与安全大类", "subClass": "测绘地理信息类", "code": "420304", "name": "摄影测量与遥感技术", "size": "345.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hcdlxxl/202502/P020250207505542661902.pdf", "localUrl": "./资源环境与安全大类/测绘地理信息类/420304 摄影测量与遥感技术.pdf"}, {"num": "37", "bigClass": "资源环境与安全大类", "subClass": "测绘地理信息类", "code": "420305", "name": "地籍测绘与土地管理", "size": "351.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hcdlxxl/202502/P020250207505364562715.pdf", "localUrl": "./资源环境与安全大类/测绘地理信息类/420305 地籍测绘与土地管理.pdf"}, {"num": "38", "bigClass": "资源环境与安全大类", "subClass": "测绘地理信息类", "code": "420306", "name": "国土空间规划与测绘", "size": "334.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hcdlxxl/202502/P020250207505152458069.pdf", "localUrl": "./资源环境与安全大类/测绘地理信息类/420306 国土空间规划与测绘.pdf"}, {"num": "39", "bigClass": "资源环境与安全大类", "subClass": "测绘地理信息类", "code": "420307", "name": "无人机测绘技术", "size": "335.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hcdlxxl/202502/P020250207504954681273.pdf", "localUrl": "./资源环境与安全大类/测绘地理信息类/420307 无人机测绘技术.pdf"}, {"num": "40", "bigClass": "资源环境与安全大类", "subClass": "测绘地理信息类", "code": "420308", "name": "矿山测量", "size": "354.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hcdlxxl/202502/P020250207504756718943.pdf", "localUrl": "./资源环境与安全大类/测绘地理信息类/420308 矿山测量.pdf"}, {"num": "41", "bigClass": "资源环境与安全大类", "subClass": "测绘地理信息类", "code": "420310", "name": "空间数字建模与应用技术", "size": "335.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hcdlxxl/202502/P020250207504592182016.pdf", "localUrl": "./资源环境与安全大类/测绘地理信息类/420310 空间数字建模与应用技术.pdf"}, {"num": "42", "bigClass": "资源环境与安全大类", "subClass": "石油与天然气类", "code": "420401", "name": "油气储运技术", "size": "341.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_syytrql/202502/P020250207506619731817.pdf", "localUrl": "./资源环境与安全大类/石油与天然气类/420401 油气储运技术.pdf"}, {"num": "43", "bigClass": "资源环境与安全大类", "subClass": "石油与天然气类", "code": "420402", "name": "油气地质勘探技术", "size": "315.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_syytrql/202502/P020250207506369193758.pdf", "localUrl": "./资源环境与安全大类/石油与天然气类/420402 油气地质勘探技术.pdf"}, {"num": "44", "bigClass": "资源环境与安全大类", "subClass": "石油与天然气类", "code": "420404", "name": "油气智能开采技术", "size": "343.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_syytrql/202502/P020250207506149604191.pdf", "localUrl": "./资源环境与安全大类/石油与天然气类/420404 油气智能开采技术.pdf"}, {"num": "45", "bigClass": "资源环境与安全大类", "subClass": "煤炭类", "code": "420501", "name": "煤矿智能开采技术", "size": "335.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_mtl/202502/P020250207507382626432.pdf", "localUrl": "./资源环境与安全大类/煤炭类/420501 煤矿智能开采技术.pdf"}, {"num": "46", "bigClass": "资源环境与安全大类", "subClass": "煤炭类", "code": "420503", "name": "通风技术与安全管理", "size": "335.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_mtl/202502/P020250207507209698396.pdf", "localUrl": "./资源环境与安全大类/煤炭类/420503 通风技术与安全管理.pdf"}, {"num": "47", "bigClass": "资源环境与安全大类", "subClass": "煤炭类", "code": "420504", "name": "矿山机电与智能装备", "size": "337.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_mtl/202502/P020250207507046853893.pdf", "localUrl": "./资源环境与安全大类/煤炭类/420504 矿山机电与智能装备.pdf"}, {"num": "48", "bigClass": "资源环境与安全大类", "subClass": "煤炭类", "code": "420505", "name": "煤炭清洁利用技术", "size": "349.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_mtl/202502/P020250207506870162061.pdf", "localUrl": "./资源环境与安全大类/煤炭类/420505 煤炭清洁利用技术.pdf"}, {"num": "49", "bigClass": "资源环境与安全大类", "subClass": "金属与非金属矿类", "code": "420601", "name": "矿山智能开采技术", "size": "358.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_jsyfjskl/202502/P020250207507717503867.pdf", "localUrl": "./资源环境与安全大类/金属与非金属矿类/420601 矿山智能开采技术.pdf"}, {"num": "50", "bigClass": "资源环境与安全大类", "subClass": "环境保护类", "code": "420801", "name": "环境监测技术", "size": "333.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hjbhl/202502/P020250207508723794615.pdf", "localUrl": "./资源环境与安全大类/环境保护类/420801 环境监测技术.pdf"}, {"num": "51", "bigClass": "资源环境与安全大类", "subClass": "环境保护类", "code": "420802", "name": "环境工程技术", "size": "331.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hjbhl/202502/P020250207508565301583.pdf", "localUrl": "./资源环境与安全大类/环境保护类/420802 环境工程技术.pdf"}, {"num": "52", "bigClass": "资源环境与安全大类", "subClass": "环境保护类", "code": "420805", "name": "环境管理与评价", "size": "316.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hjbhl/202502/P020250207508422222871.pdf", "localUrl": "./资源环境与安全大类/环境保护类/420805 环境管理与评价.pdf"}, {"num": "53", "bigClass": "资源环境与安全大类", "subClass": "环境保护类", "code": "420806", "name": "生态环境修复技术", "size": "326.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hjbhl/202502/P020250207508258158744.pdf", "localUrl": "./资源环境与安全大类/环境保护类/420806 生态环境修复技术.pdf"}, {"num": "54", "bigClass": "资源环境与安全大类", "subClass": "环境保护类", "code": "420808", "name": "资源综合利用技术", "size": "348.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hjbhl/202502/P020250207508108257388.pdf", "localUrl": "./资源环境与安全大类/环境保护类/420808 资源综合利用技术.pdf"}, {"num": "55", "bigClass": "资源环境与安全大类", "subClass": "环境保护类", "code": "420811", "name": "智能环保装备技术", "size": "332.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_hjbhl/202502/P020250207507941696792.pdf", "localUrl": "./资源环境与安全大类/环境保护类/420811 智能环保装备技术.pdf"}, {"num": "56", "bigClass": "资源环境与安全大类", "subClass": "安全类", "code": "420901", "name": "安全技术与管理", "size": "338.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_aql/202502/P020250207509466294960.pdf", "localUrl": "./资源环境与安全大类/安全类/420901 安全技术与管理.pdf"}, {"num": "57", "bigClass": "资源环境与安全大类", "subClass": "安全类", "code": "420905", "name": "应急救援技术", "size": "334.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_aql/202502/P020250207509278822780.pdf", "localUrl": "./资源环境与安全大类/安全类/420905 应急救援技术.pdf"}, {"num": "58", "bigClass": "资源环境与安全大类", "subClass": "安全类", "code": "420906", "name": "消防救援技术", "size": "342.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_aql/202502/P020250207509122027868.pdf", "localUrl": "./资源环境与安全大类/安全类/420906 消防救援技术.pdf"}, {"num": "59", "bigClass": "资源环境与安全大类", "subClass": "安全类", "code": "420908", "name": "职业健康安全技术", "size": "343.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zyhjyaqdl/zyhjyaqdl_aql/202502/P020250207508978786410.pdf", "localUrl": "./资源环境与安全大类/安全类/420908 职业健康安全技术.pdf"}, {"num": "60", "bigClass": "能源动力与材料大类", "subClass": "电力技术类", "code": "430104", "name": "分布式发电与智能微电网技术", "size": "329.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_dljsl/202502/P020250207503024584406.pdf", "localUrl": "./能源动力与材料大类/电力技术类/430104 分布式发电与智能微电网技术.pdf"}, {"num": "61", "bigClass": "能源动力与材料大类", "subClass": "电力技术类", "code": "430105", "name": "电力系统自动化技术", "size": "336.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_dljsl/202502/P020250207503650930772.pdf", "localUrl": "./能源动力与材料大类/电力技术类/430105 电力系统自动化技术.pdf"}, {"num": "62", "bigClass": "能源动力与材料大类", "subClass": "电力技术类", "code": "430106", "name": "电力系统继电保护技术", "size": "335.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_dljsl/202502/P020250207504487131679.pdf", "localUrl": "./能源动力与材料大类/电力技术类/430106 电力系统继电保护技术.pdf"}, {"num": "63", "bigClass": "能源动力与材料大类", "subClass": "电力技术类", "code": "430107", "name": "输配电工程技术", "size": "330.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_dljsl/202502/P020250207506285729165.pdf", "localUrl": "./能源动力与材料大类/电力技术类/430107 输配电工程技术.pdf"}, {"num": "64", "bigClass": "能源动力与材料大类", "subClass": "电力技术类", "code": "430108", "name": "供用电技术", "size": "342.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_dljsl/202502/P020250207506725755514.pdf", "localUrl": "./能源动力与材料大类/电力技术类/430108 供用电技术.pdf"}, {"num": "65", "bigClass": "能源动力与材料大类", "subClass": "热能与发电工程类", "code": "430201", "name": "热能动力工程技术", "size": "330.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_rnyfdgcl/202502/P020250207507511603875.pdf", "localUrl": "./能源动力与材料大类/热能与发电工程类/430201 热能动力工程技术.pdf"}, {"num": "66", "bigClass": "能源动力与材料大类", "subClass": "热能与发电工程类", "code": "430203", "name": "地热开发技术", "size": "339.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_rnyfdgcl/202502/P020250207507864656760.pdf", "localUrl": "./能源动力与材料大类/热能与发电工程类/430203 地热开发技术.pdf"}, {"num": "67", "bigClass": "能源动力与材料大类", "subClass": "热能与发电工程类", "code": "430204", "name": "太阳能光热技术与应用", "size": "339.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_rnyfdgcl/202502/P020250207508238402496.pdf", "localUrl": "./能源动力与材料大类/热能与发电工程类/430204 太阳能光热技术与应用.pdf"}, {"num": "68", "bigClass": "能源动力与材料大类", "subClass": "热能与发电工程类", "code": "430205", "name": "发电运行技术", "size": "334.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_rnyfdgcl/202502/P020250207508867937376.pdf", "localUrl": "./能源动力与材料大类/热能与发电工程类/430205 发电运行技术.pdf"}, {"num": "69", "bigClass": "能源动力与材料大类", "subClass": "热能与发电工程类", "code": "430206", "name": "热工自动化技术", "size": "339.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_rnyfdgcl/202502/P020250207509307809080.pdf", "localUrl": "./能源动力与材料大类/热能与发电工程类/430206 热工自动化技术.pdf"}, {"num": "70", "bigClass": "能源动力与材料大类", "subClass": "新能源发电工程类", "code": "430301", "name": "光伏工程技术", "size": "375.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_xnyfdgcl/202502/P020250207510770251032.pdf", "localUrl": "./能源动力与材料大类/新能源发电工程类/430301 光伏工程技术.pdf"}, {"num": "71", "bigClass": "能源动力与材料大类", "subClass": "新能源发电工程类", "code": "430302", "name": "风力发电工程技术", "size": "367.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_xnyfdgcl/202502/P020250207511297922058.pdf", "localUrl": "./能源动力与材料大类/新能源发电工程类/430302 风力发电工程技术.pdf"}, {"num": "72", "bigClass": "能源动力与材料大类", "subClass": "新能源发电工程类", "code": "430303", "name": "生物质能应用技术", "size": "339.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_xnyfdgcl/202502/P020250207511606803032.pdf", "localUrl": "./能源动力与材料大类/新能源发电工程类/430303 生物质能应用技术.pdf"}, {"num": "73", "bigClass": "能源动力与材料大类", "subClass": "新能源发电工程类", "code": "430305", "name": "工业节能技术", "size": "336.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_xnyfdgcl/202502/P020250207512000649994.pdf", "localUrl": "./能源动力与材料大类/新能源发电工程类/430305 工业节能技术.pdf"}, {"num": "74", "bigClass": "能源动力与材料大类", "subClass": "新能源发电工程类", "code": "430306", "name": "节电技术与管理", "size": "310.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_xnyfdgcl/202502/P020250207512988228820.pdf", "localUrl": "./能源动力与材料大类/新能源发电工程类/430306 节电技术与管理.pdf"}, {"num": "75", "bigClass": "能源动力与材料大类", "subClass": "新能源发电工程类", "code": "430307", "name": "新能源材料应用技术", "size": "350.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_xnyfdgcl/202502/P020250207513445795853.pdf", "localUrl": "./能源动力与材料大类/新能源发电工程类/430307 新能源材料应用技术.pdf"}, {"num": "76", "bigClass": "能源动力与材料大类", "subClass": "黑色金属材料类", "code": "430401", "name": "钢铁智能冶金技术", "size": "334.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_hsjscll/202502/P020250207514777962226.pdf", "localUrl": "./能源动力与材料大类/黑色金属材料类/430401 钢铁智能冶金技术.pdf"}, {"num": "77", "bigClass": "能源动力与材料大类", "subClass": "黑色金属材料类", "code": "430402", "name": "智能轧钢技术", "size": "315.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_hsjscll/202502/P020250207515093582676.pdf", "localUrl": "./能源动力与材料大类/黑色金属材料类/430402 智能轧钢技术.pdf"}, {"num": "78", "bigClass": "能源动力与材料大类", "subClass": "有色金属材料类", "code": "430501", "name": "有色金属智能冶金技术", "size": "331.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_ysjscll/202502/P020250207515715029214.pdf", "localUrl": "./能源动力与材料大类/有色金属材料类/430501 有色金属智能冶金技术.pdf"}, {"num": "79", "bigClass": "能源动力与材料大类", "subClass": "有色金属材料类", "code": "430505", "name": "稀土材料技术", "size": "352.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_ysjscll/202502/P020250207516038159261.pdf", "localUrl": "./能源动力与材料大类/有色金属材料类/430505 稀土材料技术.pdf"}, {"num": "80", "bigClass": "能源动力与材料大类", "subClass": "非金属材料类", "code": "430601", "name": "材料工程技术", "size": "328.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_fjscll/202502/P020250207516967907475.pdf", "localUrl": "./能源动力与材料大类/非金属材料类/430601 材料工程技术.pdf"}, {"num": "81", "bigClass": "能源动力与材料大类", "subClass": "非金属材料类", "code": "430602", "name": "高分子材料智能制造技术", "size": "314.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_fjscll/202502/P020250207517389976190.pdf", "localUrl": "./能源动力与材料大类/非金属材料类/430602 高分子材料智能制造技术.pdf"}, {"num": "82", "bigClass": "能源动力与材料大类", "subClass": "非金属材料类", "code": "430603", "name": "复合材料智能制造技术", "size": "348.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_fjscll/202502/P020250207517745776698.pdf", "localUrl": "./能源动力与材料大类/非金属材料类/430603 复合材料智能制造技术.pdf"}, {"num": "83", "bigClass": "能源动力与材料大类", "subClass": "非金属材料类", "code": "430604", "name": "航空复合材料成型与加工技术", "size": "336.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_fjscll/202502/P020250207518040921888.pdf", "localUrl": "./能源动力与材料大类/非金属材料类/430604 航空复合材料成型与加工技术.pdf"}, {"num": "84", "bigClass": "能源动力与材料大类", "subClass": "非金属材料类", "code": "430607", "name": "硅材料制备技术", "size": "325.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_fjscll/202502/P020250207518401651008.pdf", "localUrl": "./能源动力与材料大类/非金属材料类/430607 硅材料制备技术.pdf"}, {"num": "85", "bigClass": "能源动力与材料大类", "subClass": "建筑材料类", "code": "430701", "name": "建筑材料工程技术", "size": "370.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_jzcll/202502/P020250207519062840169.pdf", "localUrl": "./能源动力与材料大类/建筑材料类/430701 建筑材料工程技术.pdf"}, {"num": "86", "bigClass": "能源动力与材料大类", "subClass": "建筑材料类", "code": "430705", "name": "装配式建筑构件智能制造技术", "size": "366.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_nydlycldl/zyhjyaqdl_jzcll/202502/P020250207519428164089.pdf", "localUrl": "./能源动力与材料大类/建筑材料类/430705 装配式建筑构件智能制造技术.pdf"}, {"num": "87", "bigClass": "土木建筑大类", "subClass": "建筑设计类", "code": "440101", "name": "建筑设计", "size": "333.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jzsjl/202502/P020250207511714826105.pdf", "localUrl": "./土木建筑大类/建筑设计类/440101 建筑设计.pdf"}, {"num": "88", "bigClass": "土木建筑大类", "subClass": "建筑设计类", "code": "440102", "name": "建筑装饰工程技术", "size": "330.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jzsjl/202502/P020250207511550044763.pdf", "localUrl": "./土木建筑大类/建筑设计类/440102 建筑装饰工程技术.pdf"}, {"num": "89", "bigClass": "土木建筑大类", "subClass": "建筑设计类", "code": "440104", "name": "园林工程技术", "size": "310.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jzsjl/202502/P020250207511303403849.pdf", "localUrl": "./土木建筑大类/建筑设计类/440104 园林工程技术.pdf"}, {"num": "90", "bigClass": "土木建筑大类", "subClass": "建筑设计类", "code": "440105", "name": "风景园林设计", "size": "324.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jzsjl/202502/P020250207511147379970.pdf", "localUrl": "./土木建筑大类/建筑设计类/440105 风景园林设计.pdf"}, {"num": "91", "bigClass": "土木建筑大类", "subClass": "建筑设计类", "code": "440106", "name": "建筑室内设计", "size": "340.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jzsjl/202502/P020250207510956512603.pdf", "localUrl": "./土木建筑大类/建筑设计类/440106 建筑室内设计.pdf"}, {"num": "92", "bigClass": "土木建筑大类", "subClass": "建筑设计类", "code": "440107", "name": "建筑动画技术", "size": "305.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jzsjl/202502/P020250207510684748451.pdf", "localUrl": "./土木建筑大类/建筑设计类/440107 建筑动画技术.pdf"}, {"num": "93", "bigClass": "土木建筑大类", "subClass": "城乡规划与管理类", "code": "440201", "name": "城乡规划", "size": "338.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_cxghygll/202502/P020250207512125239738.pdf", "localUrl": "./土木建筑大类/城乡规划与管理类/440201 城乡规划.pdf"}, {"num": "94", "bigClass": "土木建筑大类", "subClass": "城乡规划与管理类", "code": "440202", "name": "智慧城市管理技术", "size": "377.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_cxghygll/202502/P020250207511944433089.pdf", "localUrl": "./土木建筑大类/城乡规划与管理类/440202 智慧城市管理技术.pdf"}, {"num": "95", "bigClass": "土木建筑大类", "subClass": "土建施工类", "code": "440301", "name": "建筑工程技术", "size": "330.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_tjsgl/202502/P020250207513243977643.pdf", "localUrl": "./土木建筑大类/土建施工类/440301 建筑工程技术.pdf"}, {"num": "96", "bigClass": "土木建筑大类", "subClass": "土建施工类", "code": "440302", "name": "装配式建筑工程技术", "size": "331.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_tjsgl/202502/P020250207513100241395.pdf", "localUrl": "./土木建筑大类/土建施工类/440302 装配式建筑工程技术.pdf"}, {"num": "97", "bigClass": "土木建筑大类", "subClass": "土建施工类", "code": "440303", "name": "建筑钢结构工程技术", "size": "334.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_tjsgl/202502/P020250207512938561499.pdf", "localUrl": "./土木建筑大类/土建施工类/440303 建筑钢结构工程技术.pdf"}, {"num": "98", "bigClass": "土木建筑大类", "subClass": "土建施工类", "code": "440304", "name": "智能建造技术", "size": "332.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_tjsgl/202502/P020250207512764318855.pdf", "localUrl": "./土木建筑大类/土建施工类/440304 智能建造技术.pdf"}, {"num": "99", "bigClass": "土木建筑大类", "subClass": "土建施工类", "code": "440305", "name": "地下与隧道工程技术", "size": "381.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_tjsgl/202502/P020250207512579714743.pdf", "localUrl": "./土木建筑大类/土建施工类/440305 地下与隧道工程技术.pdf"}, {"num": "100", "bigClass": "土木建筑大类", "subClass": "土建施工类", "code": "440306", "name": "土木工程检测技术", "size": "343.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_tjsgl/202502/P020250207512418461477.pdf", "localUrl": "./土木建筑大类/土建施工类/440306 土木工程检测技术.pdf"}, {"num": "101", "bigClass": "土木建筑大类", "subClass": "建筑设备类", "code": "440404", "name": "建筑智能化工程技术", "size": "338.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jzsbl/202502/P020250207513618372652.pdf", "localUrl": "./土木建筑大类/建筑设备类/440404 建筑智能化工程技术.pdf"}, {"num": "102", "bigClass": "土木建筑大类", "subClass": "建筑设备类", "code": "440406", "name": "建筑消防技术", "size": "341.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jzsbl/202502/P020250207513457532878.pdf", "localUrl": "./土木建筑大类/建筑设备类/440406 建筑消防技术.pdf"}, {"num": "103", "bigClass": "土木建筑大类", "subClass": "建设工程管理类", "code": "440501", "name": "工程造价", "size": "323.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jsgcgll/202502/P020250207514680118756.pdf", "localUrl": "./土木建筑大类/建设工程管理类/440501 工程造价.pdf"}, {"num": "104", "bigClass": "土木建筑大类", "subClass": "建设工程管理类", "code": "440502", "name": "建设工程管理", "size": "335.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jsgcgll/202502/P020250207514340063467.pdf", "localUrl": "./土木建筑大类/建设工程管理类/440502 建设工程管理.pdf"}, {"num": "105", "bigClass": "土木建筑大类", "subClass": "建设工程管理类", "code": "440503", "name": "建筑经济信息化管理", "size": "324.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jsgcgll/202502/P020250207514123904563.pdf", "localUrl": "./土木建筑大类/建设工程管理类/440503 建筑经济信息化管理.pdf"}, {"num": "106", "bigClass": "土木建筑大类", "subClass": "建设工程管理类", "code": "440504", "name": "建设工程监理", "size": "331.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_jsgcgll/202502/P020250207513958155811.pdf", "localUrl": "./土木建筑大类/建设工程管理类/440504 建设工程监理.pdf"}, {"num": "107", "bigClass": "土木建筑大类", "subClass": "市政工程类", "code": "440601", "name": "市政工程技术", "size": "340.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_szgcl/202502/P020250207515254075781.pdf", "localUrl": "./土木建筑大类/市政工程类/440601 市政工程技术.pdf"}, {"num": "108", "bigClass": "土木建筑大类", "subClass": "市政工程类", "code": "440604", "name": "市政管网智能检测与维护", "size": "336.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_szgcl/202502/P020250207514909523369.pdf", "localUrl": "./土木建筑大类/市政工程类/440604 市政管网智能检测与维护.pdf"}, {"num": "109", "bigClass": "土木建筑大类", "subClass": "房地产类", "code": "440701", "name": "房地产经营与管理", "size": "329.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_fdcl/202502/P020250207515780960229.pdf", "localUrl": "./土木建筑大类/房地产类/440701 房地产经营与管理.pdf"}, {"num": "110", "bigClass": "土木建筑大类", "subClass": "房地产类", "code": "440702", "name": "房地产智能检测与估价", "size": "336.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_fdcl/202502/P020250207515610905061.pdf", "localUrl": "./土木建筑大类/房地产类/440702 房地产智能检测与估价.pdf"}, {"num": "111", "bigClass": "土木建筑大类", "subClass": "房地产类", "code": "440703", "name": "现代物业管理", "size": "345.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_tmjzdl/tmjzdl_fdcl/202502/P020250207515446679094.pdf", "localUrl": "./土木建筑大类/房地产类/440703 现代物业管理.pdf"}, {"num": "112", "bigClass": "水利大类", "subClass": "水文水资源类", "code": "450101", "name": "水文与水资源技术", "size": "337.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_sldl/sldl_swszyl/202502/P020250207516158708849.pdf", "localUrl": "./水利大类/水文水资源类/450101 水文与水资源技术.pdf"}, {"num": "113", "bigClass": "水利大类", "subClass": "水利工程与管理类", "code": "450202", "name": "智慧水利技术", "size": "345.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_sldl/sldl_slgcygll/202502/P020250207516627589995.pdf", "localUrl": "./水利大类/水利工程与管理类/450202 智慧水利技术.pdf"}, {"num": "114", "bigClass": "水利大类", "subClass": "水利工程与管理类", "code": "450204", "name": "水利水电工程智能管理", "size": "338.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_sldl/sldl_slgcygll/202502/P020250207516497382379.pdf", "localUrl": "./水利大类/水利工程与管理类/450204 水利水电工程智能管理.pdf"}, {"num": "115", "bigClass": "水利大类", "subClass": "水利工程与管理类", "code": "450208", "name": "智能水务管理", "size": "325.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_sldl/sldl_slgcygll/202502/P020250207516352947557.pdf", "localUrl": "./水利大类/水利工程与管理类/450208 智能水务管理.pdf"}, {"num": "116", "bigClass": "水利大类", "subClass": "水土保持与水环境类", "code": "450401", "name": "水土保持技术", "size": "330.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_sldl/sldl_stbcyshjl/202502/P020250207517066279124.pdf", "localUrl": "./水利大类/水土保持与水环境类/450401 水土保持技术.pdf"}, {"num": "117", "bigClass": "水利大类", "subClass": "水土保持与水环境类", "code": "450403", "name": "水生态修复技术", "size": "348.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_sldl/sldl_stbcyshjl/202502/P020250207516907205219.pdf", "localUrl": "./水利大类/水土保持与水环境类/450403 水生态修复技术.pdf"}, {"num": "118", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460101", "name": "机械设计与制造", "size": "339.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207522292941420.pdf", "localUrl": "./装备制造大类/机械设计制造类/460101 机械设计与制造.pdf"}, {"num": "119", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460102", "name": "数字化设计与制造技术", "size": "334.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207522150759734.pdf", "localUrl": "./装备制造大类/机械设计制造类/460102 数字化设计与制造技术.pdf"}, {"num": "120", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460103", "name": "数控技术", "size": "340.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207522001246931.pdf", "localUrl": "./装备制造大类/机械设计制造类/460103 数控技术.pdf"}, {"num": "121", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460104", "name": "机械制造及自动化", "size": "340.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207521767506887.pdf", "localUrl": "./装备制造大类/机械设计制造类/460104 机械制造及自动化.pdf"}, {"num": "122", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460105", "name": "工业设计", "size": "327.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207521569193404.pdf", "localUrl": "./装备制造大类/机械设计制造类/460105 工业设计.pdf"}, {"num": "123", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460107", "name": "材料成型及控制技术", "size": "343.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207521406183473.pdf", "localUrl": "./装备制造大类/机械设计制造类/460107 材料成型及控制技术.pdf"}, {"num": "124", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460110", "name": "智能焊接技术", "size": "343.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207521217866718.pdf", "localUrl": "./装备制造大类/机械设计制造类/460110 智能焊接技术.pdf"}, {"num": "125", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460111", "name": "工业材料表面处理技术", "size": "346.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207521005981440.pdf", "localUrl": "./装备制造大类/机械设计制造类/460111 工业材料表面处理技术.pdf"}, {"num": "126", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460112", "name": "增材制造技术", "size": "341.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207520781405987.pdf", "localUrl": "./装备制造大类/机械设计制造类/460112 增材制造技术.pdf"}, {"num": "127", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460113", "name": "模具设计与制造", "size": "338.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207520582247179.pdf", "localUrl": "./装备制造大类/机械设计制造类/460113 模具设计与制造.pdf"}, {"num": "128", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460114", "name": "特种加工技术", "size": "338.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207520260036526.pdf", "localUrl": "./装备制造大类/机械设计制造类/460114 特种加工技术.pdf"}, {"num": "129", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460115", "name": "智能光电制造技术", "size": "333.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207519990535107.pdf", "localUrl": "./装备制造大类/机械设计制造类/460115 智能光电制造技术.pdf"}, {"num": "130", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460116", "name": "电线电缆制造技术", "size": "347.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207519322488900.pdf", "localUrl": "./装备制造大类/机械设计制造类/460116 电线电缆制造技术.pdf"}, {"num": "131", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460118", "name": "机械装备制造技术", "size": "340.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207518953377554.pdf", "localUrl": "./装备制造大类/机械设计制造类/460118 机械装备制造技术.pdf"}, {"num": "132", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460119", "name": "工业产品质量检测技术", "size": "318.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207518583988209.pdf", "localUrl": "./装备制造大类/机械设计制造类/460119 工业产品质量检测技术.pdf"}, {"num": "133", "bigClass": "装备制造大类", "subClass": "机械设计制造类", "code": "460120", "name": "理化测试与质检技术", "size": "339.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jxsjzzl/202502/P020250207518345526728.pdf", "localUrl": "./装备制造大类/机械设计制造类/460120 理化测试与质检技术.pdf"}, {"num": "134", "bigClass": "装备制造大类", "subClass": "机电设备类", "code": "460201", "name": "智能制造装备技术", "size": "343.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jdsbl/202502/P020250207523132834023.pdf", "localUrl": "./装备制造大类/机电设备类/460201 智能制造装备技术.pdf"}, {"num": "135", "bigClass": "装备制造大类", "subClass": "机电设备类", "code": "460202", "name": "机电设备技术", "size": "340.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jdsbl/202502/P020250207522977570730.pdf", "localUrl": "./装备制造大类/机电设备类/460202 机电设备技术.pdf"}, {"num": "136", "bigClass": "装备制造大类", "subClass": "机电设备类", "code": "460203", "name": "电机与电器技术", "size": "343.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jdsbl/202502/P020250207522795244144.pdf", "localUrl": "./装备制造大类/机电设备类/460203 电机与电器技术.pdf"}, {"num": "137", "bigClass": "装备制造大类", "subClass": "机电设备类", "code": "460204", "name": "新能源装备技术", "size": "332.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jdsbl/202502/P020250207522651602718.pdf", "localUrl": "./装备制造大类/机电设备类/460204 新能源装备技术.pdf"}, {"num": "138", "bigClass": "装备制造大类", "subClass": "机电设备类", "code": "460206", "name": "电梯工程技术", "size": "328.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_jdsbl/202502/P020250207522521063992.pdf", "localUrl": "./装备制造大类/机电设备类/460206 电梯工程技术.pdf"}, {"num": "139", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460301", "name": "机电一体化技术", "size": "335.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207525314104497.pdf", "localUrl": "./装备制造大类/自动化类/460301 机电一体化技术.pdf"}, {"num": "140", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460302", "name": "智能机电技术", "size": "345.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207525125369656.pdf", "localUrl": "./装备制造大类/自动化类/460302 智能机电技术.pdf"}, {"num": "141", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460303", "name": "智能控制技术", "size": "353.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207524950667082.pdf", "localUrl": "./装备制造大类/自动化类/460303 智能控制技术.pdf"}, {"num": "142", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460304", "name": "智能机器人技术", "size": "339.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207524709773761.pdf", "localUrl": "./装备制造大类/自动化类/460304 智能机器人技术.pdf"}, {"num": "143", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460305", "name": "工业机器人技术", "size": "339.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207524455884017.pdf", "localUrl": "./装备制造大类/自动化类/460305 工业机器人技术.pdf"}, {"num": "144", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460306", "name": "电气自动化技术", "size": "330.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207524248703966.pdf", "localUrl": "./装备制造大类/自动化类/460306 电气自动化技术.pdf"}, {"num": "145", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460307", "name": "工业过程自动化技术", "size": "346.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207524099196484.pdf", "localUrl": "./装备制造大类/自动化类/460307 工业过程自动化技术.pdf"}, {"num": "146", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460308", "name": "工业自动化仪表技术", "size": "332.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207523895093236.pdf", "localUrl": "./装备制造大类/自动化类/460308 工业自动化仪表技术.pdf"}, {"num": "147", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460309", "name": "液压与气动技术", "size": "330.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207523647690638.pdf", "localUrl": "./装备制造大类/自动化类/460309 液压与气动技术.pdf"}, {"num": "148", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460310", "name": "工业互联网应用", "size": "338.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207523505902572.pdf", "localUrl": "./装备制造大类/自动化类/460310 工业互联网应用.pdf"}, {"num": "149", "bigClass": "装备制造大类", "subClass": "自动化类", "code": "460311", "name": "计量测试与应用技术", "size": "335.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_zdhl/202502/P020250207523346568833.pdf", "localUrl": "./装备制造大类/自动化类/460311 计量测试与应用技术.pdf"}, {"num": "150", "bigClass": "装备制造大类", "subClass": "轨道装备类", "code": "460401", "name": "铁道机车车辆制造与维护", "size": "340.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_gdzbl/202502/P020250207525868408805.pdf", "localUrl": "./装备制造大类/轨道装备类/460401 铁道机车车辆制造与维护.pdf"}, {"num": "151", "bigClass": "装备制造大类", "subClass": "轨道装备类", "code": "460402", "name": "高速铁路动车组制造与维护", "size": "334.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_gdzbl/202502/P020250207525698280806.pdf", "localUrl": "./装备制造大类/轨道装备类/460402 高速铁路动车组制造与维护.pdf"}, {"num": "152", "bigClass": "装备制造大类", "subClass": "轨道装备类", "code": "460403", "name": "城市轨道交通车辆制造与维护", "size": "345.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_gdzbl/202502/P020250207525546854319.pdf", "localUrl": "./装备制造大类/轨道装备类/460403 城市轨道交通车辆制造与维护.pdf"}, {"num": "153", "bigClass": "装备制造大类", "subClass": "船舶与海洋工程装备类", "code": "460501", "name": "船舶工程技术", "size": "351.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_cbyhygczbl/202502/P020250207526923768815.pdf", "localUrl": "./装备制造大类/船舶与海洋工程装备类/460501 船舶工程技术.pdf"}, {"num": "154", "bigClass": "装备制造大类", "subClass": "船舶与海洋工程装备类", "code": "460502", "name": "船舶动力工程技术", "size": "339.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_cbyhygczbl/202502/P020250207526791131181.pdf", "localUrl": "./装备制造大类/船舶与海洋工程装备类/460502 船舶动力工程技术.pdf"}, {"num": "155", "bigClass": "装备制造大类", "subClass": "船舶与海洋工程装备类", "code": "460503", "name": "船舶电气工程技术", "size": "335.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_cbyhygczbl/202502/P020250207526619170876.pdf", "localUrl": "./装备制造大类/船舶与海洋工程装备类/460503 船舶电气工程技术.pdf"}, {"num": "156", "bigClass": "装备制造大类", "subClass": "船舶与海洋工程装备类", "code": "460504", "name": "船舶智能焊接技术", "size": "339.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_cbyhygczbl/202502/P020250207526406876067.pdf", "localUrl": "./装备制造大类/船舶与海洋工程装备类/460504 船舶智能焊接技术.pdf"}, {"num": "157", "bigClass": "装备制造大类", "subClass": "船舶与海洋工程装备类", "code": "460508", "name": "游艇设计与制造", "size": "331.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_cbyhygczbl/202502/P020250207526241906346.pdf", "localUrl": "./装备制造大类/船舶与海洋工程装备类/460508 游艇设计与制造.pdf"}, {"num": "158", "bigClass": "装备制造大类", "subClass": "船舶与海洋工程装备类", "code": "460509", "name": "邮轮内装技术", "size": "354.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_cbyhygczbl/202502/P020250207526096931394.pdf", "localUrl": "./装备制造大类/船舶与海洋工程装备类/460509 邮轮内装技术.pdf"}, {"num": "159", "bigClass": "装备制造大类", "subClass": "航空装备类", "code": "460601", "name": "飞行器数字化制造技术", "size": "332.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_hkzbl/202502/P020250207527930122935.pdf", "localUrl": "./装备制造大类/航空装备类/460601 飞行器数字化制造技术.pdf"}, {"num": "160", "bigClass": "装备制造大类", "subClass": "航空装备类", "code": "460602", "name": "飞行器数字化装配技术", "size": "337.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_hkzbl/202502/P020250207527787342412.pdf", "localUrl": "./装备制造大类/航空装备类/460602 飞行器数字化装配技术.pdf"}, {"num": "161", "bigClass": "装备制造大类", "subClass": "航空装备类", "code": "460605", "name": "飞机机载设备装配调试技术", "size": "337.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_hkzbl/202502/P020250207527632926667.pdf", "localUrl": "./装备制造大类/航空装备类/460605 飞机机载设备装配调试技术.pdf"}, {"num": "162", "bigClass": "装备制造大类", "subClass": "航空装备类", "code": "460606", "name": "航空装备表面处理技术", "size": "328.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_hkzbl/202502/P020250207527479052938.pdf", "localUrl": "./装备制造大类/航空装备类/460606 航空装备表面处理技术.pdf"}, {"num": "163", "bigClass": "装备制造大类", "subClass": "航空装备类", "code": "460607", "name": "飞行器维修技术", "size": "354.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_hkzbl/202502/P020250207527324936581.pdf", "localUrl": "./装备制造大类/航空装备类/460607 飞行器维修技术.pdf"}, {"num": "164", "bigClass": "装备制造大类", "subClass": "航空装备类", "code": "460609", "name": "无人机应用技术", "size": "333.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_hkzbl/202502/P020250207527168340391.pdf", "localUrl": "./装备制造大类/航空装备类/460609 无人机应用技术.pdf"}, {"num": "165", "bigClass": "装备制造大类", "subClass": "汽车制造类", "code": "460701", "name": "汽车制造与试验技术", "size": "331.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_qczzl/202502/P020250207528835215404.pdf", "localUrl": "./装备制造大类/汽车制造类/460701 汽车制造与试验技术.pdf"}, {"num": "166", "bigClass": "装备制造大类", "subClass": "汽车制造类", "code": "460702", "name": "新能源汽车技术", "size": "351.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_qczzl/202502/P020250207528684826334.pdf", "localUrl": "./装备制造大类/汽车制造类/460702 新能源汽车技术.pdf"}, {"num": "167", "bigClass": "装备制造大类", "subClass": "汽车制造类", "code": "460703", "name": "汽车电子技术", "size": "339.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_qczzl/202502/P020250207528543453836.pdf", "localUrl": "./装备制造大类/汽车制造类/460703 汽车电子技术.pdf"}, {"num": "168", "bigClass": "装备制造大类", "subClass": "汽车制造类", "code": "460704", "name": "智能网联汽车技术", "size": "351.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_qczzl/202502/P020250207528412902948.pdf", "localUrl": "./装备制造大类/汽车制造类/460704 智能网联汽车技术.pdf"}, {"num": "169", "bigClass": "装备制造大类", "subClass": "汽车制造类", "code": "460705", "name": "汽车造型与改装技术", "size": "348.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_zbzzdl/zbzzdl_qczzl/202502/P020250207528238489234.pdf", "localUrl": "./装备制造大类/汽车制造类/460705 汽车造型与改装技术.pdf"}, {"num": "170", "bigClass": "生物与化工大类", "subClass": "生物技术类", "code": "470101", "name": "食品生物技术", "size": "351.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_swjsl/202502/P020250207520998255022.pdf", "localUrl": "./生物与化工大类/生物技术类/470101 食品生物技术.pdf"}, {"num": "171", "bigClass": "生物与化工大类", "subClass": "生物技术类", "code": "470102", "name": "药品生物技术", "size": "342.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_swjsl/202502/P020250207521381867895.pdf", "localUrl": "./生物与化工大类/生物技术类/470102 药品生物技术.pdf"}, {"num": "172", "bigClass": "生物与化工大类", "subClass": "生物技术类", "code": "470103", "name": "农业生物技术", "size": "346.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_swjsl/202502/P020250207521853674028.pdf", "localUrl": "./生物与化工大类/生物技术类/470103 农业生物技术.pdf"}, {"num": "173", "bigClass": "生物与化工大类", "subClass": "生物技术类", "code": "470105", "name": "生物产品检验检疫", "size": "341.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_swjsl/202502/P020250207522188890652.pdf", "localUrl": "./生物与化工大类/生物技术类/470105 生物产品检验检疫.pdf"}, {"num": "174", "bigClass": "生物与化工大类", "subClass": "生物技术类", "code": "470106", "name": "绿色生物制造技术", "size": "336.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_swjsl/202502/P020250207522505889646.pdf", "localUrl": "./生物与化工大类/生物技术类/470106 绿色生物制造技术.pdf"}, {"num": "175", "bigClass": "生物与化工大类", "subClass": "生物技术类", "code": "470107", "name": "生物信息技术", "size": "341.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_swjsl/202502/P020250207522870843571.pdf", "localUrl": "./生物与化工大类/生物技术类/470107 生物信息技术.pdf"}, {"num": "176", "bigClass": "生物与化工大类", "subClass": "化工技术类", "code": "470201", "name": "应用化工技术", "size": "338.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_hgjsl/202502/P020250207523467068832.pdf", "localUrl": "./生物与化工大类/化工技术类/470201 应用化工技术.pdf"}, {"num": "177", "bigClass": "生物与化工大类", "subClass": "化工技术类", "code": "470208", "name": "分析检验技术", "size": "345.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_hgjsl/202502/P020250207523915873912.pdf", "localUrl": "./生物与化工大类/化工技术类/470208 分析检验技术.pdf"}, {"num": "178", "bigClass": "生物与化工大类", "subClass": "化工技术类", "code": "470209", "name": "化工智能制造技术", "size": "347.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_hgjsl/202502/P020250207524220107895.pdf", "localUrl": "./生物与化工大类/化工技术类/470209 化工智能制造技术.pdf"}, {"num": "179", "bigClass": "生物与化工大类", "subClass": "化工技术类", "code": "470210", "name": "化工装备技术", "size": "351.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_swyhgdl/zbzzdl_hgjsl/202502/P020250207524606338993.pdf", "localUrl": "./生物与化工大类/化工技术类/470210 化工装备技术.pdf"}, {"num": "180", "bigClass": "轻工纺织大类", "subClass": "轻化工类", "code": "480103", "name": "家具设计与制造", "size": "327.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_qgfzdl/qgfzdl_qhgl/202502/P020250207523063727447.pdf", "localUrl": "./轻工纺织大类/轻化工类/480103 家具设计与制造.pdf"}, {"num": "181", "bigClass": "轻工纺织大类", "subClass": "轻化工类", "code": "480108", "name": "皮具制作与工艺", "size": "313.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_qgfzdl/qgfzdl_qhgl/202502/P020250207522833678064.pdf", "localUrl": "./轻工纺织大类/轻化工类/480108 皮具制作与工艺.pdf"}, {"num": "182", "bigClass": "轻工纺织大类", "subClass": "印刷类", "code": "480302", "name": "印刷媒体技术", "size": "363.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_qgfzdl/qgfzdl_ysl/202502/P020250207523665789782.pdf", "localUrl": "./轻工纺织大类/印刷类/480302 印刷媒体技术.pdf"}, {"num": "183", "bigClass": "轻工纺织大类", "subClass": "印刷类", "code": "480303", "name": "印刷数字图文技术", "size": "336.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_qgfzdl/qgfzdl_ysl/202502/P020250207523461026882.pdf", "localUrl": "./轻工纺织大类/印刷类/480303 印刷数字图文技术.pdf"}, {"num": "184", "bigClass": "轻工纺织大类", "subClass": "纺织服装类", "code": "480402", "name": "服装设计与工艺", "size": "328.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_qgfzdl/qgfzdl_fzfzl/202502/P020250207524541432409.pdf", "localUrl": "./轻工纺织大类/纺织服装类/480402 服装设计与工艺.pdf"}, {"num": "185", "bigClass": "轻工纺织大类", "subClass": "纺织服装类", "code": "480405", "name": "数字化染整技术", "size": "350.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_qgfzdl/qgfzdl_fzfzl/202502/P020250207524295140566.pdf", "localUrl": "./轻工纺织大类/纺织服装类/480405 数字化染整技术.pdf"}, {"num": "186", "bigClass": "轻工纺织大类", "subClass": "纺织服装类", "code": "480409", "name": "现代非织造技术", "size": "334.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_qgfzdl/qgfzdl_fzfzl/202502/P020250207524087593358.pdf", "localUrl": "./轻工纺织大类/纺织服装类/480409 现代非织造技术.pdf"}, {"num": "187", "bigClass": "食品药品与粮食大类", "subClass": "食品类", "code": "490101", "name": "食品智能加工技术", "size": "370.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_spl/202502/P020250207526318199733.pdf", "localUrl": "./食品药品与粮食大类/食品类/490101 食品智能加工技术.pdf"}, {"num": "188", "bigClass": "食品药品与粮食大类", "subClass": "食品类", "code": "490102", "name": "食品质量与安全", "size": "357.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_spl/202502/P020250207526074646023.pdf", "localUrl": "./食品药品与粮食大类/食品类/490102 食品质量与安全.pdf"}, {"num": "189", "bigClass": "食品药品与粮食大类", "subClass": "食品类", "code": "490103", "name": "食品营养与健康", "size": "356.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_spl/202502/P020250207525797928021.pdf", "localUrl": "./食品药品与粮食大类/食品类/490103 食品营养与健康.pdf"}, {"num": "190", "bigClass": "食品药品与粮食大类", "subClass": "食品类", "code": "490104", "name": "食品检验检测技术", "size": "357.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_spl/202502/P020250207525558989236.pdf", "localUrl": "./食品药品与粮食大类/食品类/490104 食品检验检测技术.pdf"}, {"num": "191", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490201", "name": "药品生产技术", "size": "346.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207529914464449.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490201 药品生产技术.pdf"}, {"num": "192", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490202", "name": "生物制药技术", "size": "353.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207529694641840.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490202 生物制药技术.pdf"}, {"num": "193", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490203", "name": "药物制剂技术", "size": "325.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207529491755456.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490203 药物制剂技术.pdf"}, {"num": "194", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490204", "name": "化学制药技术", "size": "348.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207529277642915.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490204 化学制药技术.pdf"}, {"num": "195", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490206", "name": "药品质量与安全", "size": "339.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207529055295257.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490206 药品质量与安全.pdf"}, {"num": "196", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490207", "name": "制药设备应用技术", "size": "340.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207528847078464.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490207 制药设备应用技术.pdf"}, {"num": "197", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490208", "name": "药品经营与管理", "size": "344.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207528635083862.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490208 药品经营与管理.pdf"}, {"num": "198", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490209", "name": "食品药品监督管理", "size": "338.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207528394815234.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490209 食品药品监督管理.pdf"}, {"num": "199", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490210", "name": "智能医疗装备技术", "size": "331.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207527864807640.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490210 智能医疗装备技术.pdf"}, {"num": "200", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490211", "name": "医用电子仪器技术", "size": "325.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207527622952545.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490211 医用电子仪器技术.pdf"}, {"num": "201", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490214", "name": "医疗器械经营与服务", "size": "336.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207527346501536.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490214 医疗器械经营与服务.pdf"}, {"num": "202", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490215", "name": "康复工程技术", "size": "328.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207527130502451.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490215 康复工程技术.pdf"}, {"num": "203", "bigClass": "食品药品与粮食大类", "subClass": "药品与医疗器械类", "code": "490218", "name": "化妆品质量与安全", "size": "348.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_ypyylqxl/202502/P020250207526886676706.pdf", "localUrl": "./食品药品与粮食大类/药品与医疗器械类/490218 化妆品质量与安全.pdf"}, {"num": "204", "bigClass": "食品药品与粮食大类", "subClass": "粮食类", "code": "490301", "name": "粮食工程技术与管理", "size": "357.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_lsl/202502/P020250207530692988770.pdf", "localUrl": "./食品药品与粮食大类/粮食类/490301 粮食工程技术与管理.pdf"}, {"num": "205", "bigClass": "食品药品与粮食大类", "subClass": "粮食类", "code": "490302", "name": "粮食储运与质量安全", "size": "350.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_spypylsdl/spypylsdl_lsl/202502/P020250207530462034658.pdf", "localUrl": "./食品药品与粮食大类/粮食类/490302 粮食储运与质量安全.pdf"}, {"num": "206", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500101", "name": "铁道工程技术", "size": "350.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207526720920093.pdf", "localUrl": "./交通运输大类/铁道运输类/500101 铁道工程技术.pdf"}, {"num": "207", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500102", "name": "高速铁路施工与维护", "size": "347.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207527043331235.pdf", "localUrl": "./交通运输大类/铁道运输类/500102 高速铁路施工与维护.pdf"}, {"num": "208", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500103", "name": "铁道桥梁隧道工程技术", "size": "358.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207528283583666.pdf", "localUrl": "./交通运输大类/铁道运输类/500103 铁道桥梁隧道工程技术.pdf"}, {"num": "209", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500104", "name": "铁道养路机械应用技术", "size": "403.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207528796950393.pdf", "localUrl": "./交通运输大类/铁道运输类/500104 铁道养路机械应用技术.pdf"}, {"num": "210", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500105", "name": "铁道机车运用与维护", "size": "349.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207529084204705.pdf", "localUrl": "./交通运输大类/铁道运输类/500105 铁道机车运用与维护.pdf"}, {"num": "211", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500106", "name": "铁道车辆技术", "size": "344.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207529496672785.pdf", "localUrl": "./交通运输大类/铁道运输类/500106 铁道车辆技术.pdf"}, {"num": "212", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500109", "name": "高速铁路综合维修技术", "size": "343.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207529921846646.pdf", "localUrl": "./交通运输大类/铁道运输类/500109 高速铁路综合维修技术.pdf"}, {"num": "213", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500112", "name": "铁道交通运营管理", "size": "331.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207530310574624.pdf", "localUrl": "./交通运输大类/铁道运输类/500112 铁道交通运营管理.pdf"}, {"num": "214", "bigClass": "交通运输大类", "subClass": "铁道运输类", "code": "500113", "name": "高速铁路客运服务", "size": "335.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tdysl/202502/P020250207530679579352.pdf", "localUrl": "./交通运输大类/铁道运输类/500113 高速铁路客运服务.pdf"}, {"num": "215", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500201", "name": "道路与桥梁工程技术", "size": "352.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207531349970858.pdf", "localUrl": "./交通运输大类/道路运输类/500201 道路与桥梁工程技术.pdf"}, {"num": "216", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500203", "name": "智能工程机械运用技术", "size": "334.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207531650591270.pdf", "localUrl": "./交通运输大类/道路运输类/500203 智能工程机械运用技术.pdf"}, {"num": "217", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500204", "name": "道路工程检测技术", "size": "345.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207532005559902.pdf", "localUrl": "./交通运输大类/道路运输类/500204 道路工程检测技术.pdf"}, {"num": "218", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500205", "name": "道路工程造价", "size": "345.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207532312900255.pdf", "localUrl": "./交通运输大类/道路运输类/500205 道路工程造价.pdf"}, {"num": "219", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500207", "name": "智能交通技术", "size": "340.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207532780415882.pdf", "localUrl": "./交通运输大类/道路运输类/500207 智能交通技术.pdf"}, {"num": "220", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500208", "name": "道路运输管理", "size": "325.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207533095792023.pdf", "localUrl": "./交通运输大类/道路运输类/500208 道路运输管理.pdf"}, {"num": "221", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500209", "name": "交通运营管理", "size": "337.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207533514021264.pdf", "localUrl": "./交通运输大类/道路运输类/500209 交通运营管理.pdf"}, {"num": "222", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500210", "name": "汽车技术服务与营销", "size": "338.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207534169626718.pdf", "localUrl": "./交通运输大类/道路运输类/500210 汽车技术服务与营销.pdf"}, {"num": "223", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500211", "name": "汽车检测与维修技术", "size": "338.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207534872340549.pdf", "localUrl": "./交通运输大类/道路运输类/500211 汽车检测与维修技术.pdf"}, {"num": "224", "bigClass": "交通运输大类", "subClass": "道路运输类", "code": "500212", "name": "新能源汽车检测与维修技术", "size": "342.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_tlysl/202502/P020250207535331180638.pdf", "localUrl": "./交通运输大类/道路运输类/500212 新能源汽车检测与维修技术.pdf"}, {"num": "225", "bigClass": "交通运输大类", "subClass": "水上运输类", "code": "500302", "name": "港口与航道工程技术", "size": "345.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_ssysl/202502/P020250207536027517906.pdf", "localUrl": "./交通运输大类/水上运输类/500302 港口与航道工程技术.pdf"}, {"num": "226", "bigClass": "交通运输大类", "subClass": "水上运输类", "code": "500304", "name": "国际邮轮乘务管理", "size": "333.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_ssysl/202502/P020250207536327520707.pdf", "localUrl": "./交通运输大类/水上运输类/500304 国际邮轮乘务管理.pdf"}, {"num": "227", "bigClass": "交通运输大类", "subClass": "水上运输类", "code": "500305", "name": "水路运输安全管理", "size": "347.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_ssysl/202502/P020250207536592177123.pdf", "localUrl": "./交通运输大类/水上运输类/500305 水路运输安全管理.pdf"}, {"num": "228", "bigClass": "交通运输大类", "subClass": "水上运输类", "code": "500306", "name": "港口机械与智能控制", "size": "339.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_ssysl/202502/P020250207537011659093.pdf", "localUrl": "./交通运输大类/水上运输类/500306 港口机械与智能控制.pdf"}, {"num": "229", "bigClass": "交通运输大类", "subClass": "水上运输类", "code": "500308", "name": "船舶电子电气技术", "size": "338.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_ssysl/202502/P020250207537315081133.pdf", "localUrl": "./交通运输大类/水上运输类/500308 船舶电子电气技术.pdf"}, {"num": "230", "bigClass": "交通运输大类", "subClass": "水上运输类", "code": "500310", "name": "集装箱运输管理", "size": "368.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_ssysl/202502/P020250207537620565174.pdf", "localUrl": "./交通运输大类/水上运输类/500310 集装箱运输管理.pdf"}, {"num": "231", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500401", "name": "民航运输服务", "size": "328.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207542305663212.pdf", "localUrl": "./交通运输大类/航空运输类/500401 民航运输服务.pdf"}, {"num": "232", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500405", "name": "空中乘务", "size": "392.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207542782977878.pdf", "localUrl": "./交通运输大类/航空运输类/500405 空中乘务.pdf"}, {"num": "233", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500406", "name": "民航安全技术管理", "size": "343.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207543403809445.pdf", "localUrl": "./交通运输大类/航空运输类/500406 民航安全技术管理.pdf"}, {"num": "234", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500407", "name": "民航空中安全保卫", "size": "343.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207545431865867.pdf", "localUrl": "./交通运输大类/航空运输类/500407 民航空中安全保卫.pdf"}, {"num": "235", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500408", "name": "机场运行服务与管理", "size": "326.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207547047426500.pdf", "localUrl": "./交通运输大类/航空运输类/500408 机场运行服务与管理.pdf"}, {"num": "236", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500409", "name": "飞机机电设备维修", "size": "367.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207548180109913.pdf", "localUrl": "./交通运输大类/航空运输类/500409 飞机机电设备维修.pdf"}, {"num": "237", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500412", "name": "通用航空器维修", "size": "354.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207549151169777.pdf", "localUrl": "./交通运输大类/航空运输类/500412 通用航空器维修.pdf"}, {"num": "238", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500414", "name": "航空地面设备维修", "size": "335.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207549461991154.pdf", "localUrl": "./交通运输大类/航空运输类/500414 航空地面设备维修.pdf"}, {"num": "239", "bigClass": "交通运输大类", "subClass": "航空运输类", "code": "500416", "name": "通用航空航务技术", "size": "335.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_hkysl/202502/P020250207549819283474.pdf", "localUrl": "./交通运输大类/航空运输类/500416 通用航空航务技术.pdf"}, {"num": "240", "bigClass": "交通运输大类", "subClass": "城市轨道交通类", "code": "500601", "name": "城市轨道交通工程技术", "size": "379.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_csgdjtl/202502/P020250207550528356303.pdf", "localUrl": "./交通运输大类/城市轨道交通类/500601 城市轨道交通工程技术.pdf"}, {"num": "241", "bigClass": "交通运输大类", "subClass": "城市轨道交通类", "code": "500602", "name": "城市轨道车辆应用技术", "size": "336.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_csgdjtl/202502/P020250207550838820938.pdf", "localUrl": "./交通运输大类/城市轨道交通类/500602 城市轨道车辆应用技术.pdf"}, {"num": "242", "bigClass": "交通运输大类", "subClass": "城市轨道交通类", "code": "500603", "name": "城市轨道交通机电技术", "size": "334.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_csgdjtl/202502/P020250207551144536867.pdf", "localUrl": "./交通运输大类/城市轨道交通类/500603 城市轨道交通机电技术.pdf"}, {"num": "243", "bigClass": "交通运输大类", "subClass": "城市轨道交通类", "code": "500604", "name": "城市轨道交通通信信号技术", "size": "330.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_csgdjtl/202502/P020250207551424605334.pdf", "localUrl": "./交通运输大类/城市轨道交通类/500604 城市轨道交通通信信号技术.pdf"}, {"num": "244", "bigClass": "交通运输大类", "subClass": "城市轨道交通类", "code": "500605", "name": "城市轨道交通供配电技术", "size": "313.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_csgdjtl/202502/P020250207551893050449.pdf", "localUrl": "./交通运输大类/城市轨道交通类/500605 城市轨道交通供配电技术.pdf"}, {"num": "245", "bigClass": "交通运输大类", "subClass": "城市轨道交通类", "code": "500606", "name": "城市轨道交通运营管理", "size": "335.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_csgdjtl/202502/P020250207552230162085.pdf", "localUrl": "./交通运输大类/城市轨道交通类/500606 城市轨道交通运营管理.pdf"}, {"num": "246", "bigClass": "交通运输大类", "subClass": "邮政类", "code": "500701", "name": "邮政快递运营管理", "size": "338.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_yzl/202502/P020250207552820960248.pdf", "localUrl": "./交通运输大类/邮政类/500701 邮政快递运营管理.pdf"}, {"num": "247", "bigClass": "交通运输大类", "subClass": "邮政类", "code": "500702", "name": "邮政快递智能技术", "size": "336.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jtysdl/jtysdl_yzl/202502/P020250207553125520250.pdf", "localUrl": "./交通运输大类/邮政类/500702 邮政快递智能技术.pdf"}, {"num": "248", "bigClass": "电子与信息大类", "subClass": "电子信息类", "code": "510101", "name": "电子信息工程技术", "size": "342.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_dzxxl/202502/P020250207530885821856.pdf", "localUrl": "./电子与信息大类/电子信息类/510101 电子信息工程技术.pdf"}, {"num": "249", "bigClass": "电子与信息大类", "subClass": "电子信息类", "code": "510102", "name": "物联网应用技术", "size": "335.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_dzxxl/202502/P020250516598419967636.pdf", "localUrl": "./电子与信息大类/电子信息类/510102 物联网应用技术.pdf"}, {"num": "250", "bigClass": "电子与信息大类", "subClass": "电子信息类", "code": "510103", "name": "应用电子技术", "size": "345.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_dzxxl/202502/P020250207530574248008.pdf", "localUrl": "./电子与信息大类/电子信息类/510103 应用电子技术.pdf"}, {"num": "251", "bigClass": "电子与信息大类", "subClass": "电子信息类", "code": "510104", "name": "电子产品制造技术", "size": "345.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_dzxxl/202502/P020250207530378851973.pdf", "localUrl": "./电子与信息大类/电子信息类/510104 电子产品制造技术.pdf"}, {"num": "252", "bigClass": "电子与信息大类", "subClass": "电子信息类", "code": "510105", "name": "电子产品检测技术", "size": "377.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_dzxxl/202502/P020250207530170176461.pdf", "localUrl": "./电子与信息大类/电子信息类/510105 电子产品检测技术.pdf"}, {"num": "253", "bigClass": "电子与信息大类", "subClass": "电子信息类", "code": "510106", "name": "移动互联应用技术", "size": "339.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_dzxxl/202502/P020250207529945327359.pdf", "localUrl": "./电子与信息大类/电子信息类/510106 移动互联应用技术.pdf"}, {"num": "254", "bigClass": "电子与信息大类", "subClass": "电子信息类", "code": "510107", "name": "汽车智能技术", "size": "358.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_dzxxl/202502/P020250207529806114127.pdf", "localUrl": "./电子与信息大类/电子信息类/510107 汽车智能技术.pdf"}, {"num": "255", "bigClass": "电子与信息大类", "subClass": "电子信息类", "code": "510108", "name": "智能产品开发与应用", "size": "335.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_dzxxl/202502/P020250207529676018674.pdf", "localUrl": "./电子与信息大类/电子信息类/510108 智能产品开发与应用.pdf"}, {"num": "256", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510201", "name": "计算机应用技术", "size": "352.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207533801162064.pdf", "localUrl": "./电子与信息大类/计算机类/510201 计算机应用技术.pdf"}, {"num": "257", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510202", "name": "计算机网络技术", "size": "329.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207533459609558.pdf", "localUrl": "./电子与信息大类/计算机类/510202 计算机网络技术.pdf"}, {"num": "258", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510203", "name": "软件技术", "size": "342.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207533323690137.pdf", "localUrl": "./电子与信息大类/计算机类/510203 软件技术.pdf"}, {"num": "259", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510204", "name": "数字媒体技术", "size": "340.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207533156662261.pdf", "localUrl": "./电子与信息大类/计算机类/510204 数字媒体技术.pdf"}, {"num": "260", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510205", "name": "大数据技术", "size": "345.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207532993683513.pdf", "localUrl": "./电子与信息大类/计算机类/510205 大数据技术.pdf"}, {"num": "261", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510206", "name": "云计算技术应用", "size": "335.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207532853321417.pdf", "localUrl": "./电子与信息大类/计算机类/510206 云计算技术应用.pdf"}, {"num": "262", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510207", "name": "信息安全技术应用", "size": "349.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207532704599869.pdf", "localUrl": "./电子与信息大类/计算机类/510207 信息安全技术应用.pdf"}, {"num": "263", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510208", "name": "虚拟现实技术应用", "size": "336.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207532574519964.pdf", "localUrl": "./电子与信息大类/计算机类/510208 虚拟现实技术应用.pdf"}, {"num": "264", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510209", "name": "人工智能技术应用", "size": "348.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207532415004946.pdf", "localUrl": "./电子与信息大类/计算机类/510209 人工智能技术应用.pdf"}, {"num": "265", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510210", "name": "嵌入式技术应用", "size": "355.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207532273794538.pdf", "localUrl": "./电子与信息大类/计算机类/510210 嵌入式技术应用.pdf"}, {"num": "266", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510211", "name": "工业互联网技术", "size": "333.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207532128727510.pdf", "localUrl": "./电子与信息大类/计算机类/510211 工业互联网技术.pdf"}, {"num": "267", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510212", "name": "区块链技术应用", "size": "335.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207531933489319.pdf", "localUrl": "./电子与信息大类/计算机类/510212 区块链技术应用.pdf"}, {"num": "268", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510213", "name": "移动应用开发", "size": "351.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207531781244062.pdf", "localUrl": "./电子与信息大类/计算机类/510213 移动应用开发.pdf"}, {"num": "269", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510214", "name": "工业软件开发技术", "size": "349.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207531557565344.pdf", "localUrl": "./电子与信息大类/计算机类/510214 工业软件开发技术.pdf"}, {"num": "270", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510215", "name": "动漫制作技术", "size": "346.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207531376738356.pdf", "localUrl": "./电子与信息大类/计算机类/510215 动漫制作技术.pdf"}, {"num": "271", "bigClass": "电子与信息大类", "subClass": "计算机类", "code": "510216", "name": "密码技术应用", "size": "336.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_jsjl/202502/P020250207531206979122.pdf", "localUrl": "./电子与信息大类/计算机类/510216 密码技术应用.pdf"}, {"num": "272", "bigClass": "电子与信息大类", "subClass": "通信类", "code": "510301", "name": "现代通信技术", "size": "364.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_txl/202502/P020250207535356609887.pdf", "localUrl": "./电子与信息大类/通信类/510301 现代通信技术.pdf"}, {"num": "273", "bigClass": "电子与信息大类", "subClass": "通信类", "code": "510302", "name": "现代移动通信技术", "size": "346.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_txl/202502/P020250207535185426042.pdf", "localUrl": "./电子与信息大类/通信类/510302 现代移动通信技术.pdf"}, {"num": "274", "bigClass": "电子与信息大类", "subClass": "通信类", "code": "510303", "name": "通信软件技术", "size": "351.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_txl/202502/P020250207534966444348.pdf", "localUrl": "./电子与信息大类/通信类/510303 通信软件技术.pdf"}, {"num": "275", "bigClass": "电子与信息大类", "subClass": "通信类", "code": "510304", "name": "卫星通信与导航技术", "size": "335.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_txl/202502/P020250207534649449828.pdf", "localUrl": "./电子与信息大类/通信类/510304 卫星通信与导航技术.pdf"}, {"num": "276", "bigClass": "电子与信息大类", "subClass": "通信类", "code": "510306", "name": "通信系统运行管理", "size": "353.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_txl/202502/P020250207534496886298.pdf", "localUrl": "./电子与信息大类/通信类/510306 通信系统运行管理.pdf"}, {"num": "277", "bigClass": "电子与信息大类", "subClass": "通信类", "code": "510307", "name": "智能互联网络技术", "size": "335.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_txl/202502/P020250207534340052855.pdf", "localUrl": "./电子与信息大类/通信类/510307 智能互联网络技术.pdf"}, {"num": "278", "bigClass": "电子与信息大类", "subClass": "通信类", "code": "510308", "name": "网络规划与优化技术", "size": "336.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_txl/202502/P020250207534173719602.pdf", "localUrl": "./电子与信息大类/通信类/510308 网络规划与优化技术.pdf"}, {"num": "279", "bigClass": "电子与信息大类", "subClass": "通信类", "code": "510309", "name": "电信服务与管理", "size": "339.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_dzyxxdl/dzxxdl_txl/202502/P020250207534036966667.pdf", "localUrl": "./电子与信息大类/通信类/510309 电信服务与管理.pdf"}, {"num": "280", "bigClass": "医药卫生大类", "subClass": "临床医学类", "code": "520101K", "name": "临床医学", "size": "368.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_lcyxl/202502/P020250207532476574372.pdf", "localUrl": "./医药卫生大类/临床医学类/520101K 临床医学.pdf"}, {"num": "281", "bigClass": "医药卫生大类", "subClass": "临床医学类", "code": "520102K", "name": "口腔医学", "size": "347.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_lcyxl/202502/P020250207532117813547.pdf", "localUrl": "./医药卫生大类/临床医学类/520102K 口腔医学.pdf"}, {"num": "282", "bigClass": "医药卫生大类", "subClass": "护理类", "code": "520201", "name": "护理", "size": "346.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_hll/202502/P020250207533183854585.pdf", "localUrl": "./医药卫生大类/护理类/520201 护理.pdf"}, {"num": "283", "bigClass": "医药卫生大类", "subClass": "护理类", "code": "520202", "name": "助产", "size": "346.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_hll/202502/P020250207532975079267.pdf", "localUrl": "./医药卫生大类/护理类/520202 助产.pdf"}, {"num": "284", "bigClass": "医药卫生大类", "subClass": "药学类", "code": "520301", "name": "药学", "size": "353.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_yxl/202502/P020250207533553493396.pdf", "localUrl": "./医药卫生大类/药学类/520301 药学.pdf"}, {"num": "285", "bigClass": "医药卫生大类", "subClass": "中医药类", "code": "520403K", "name": "针灸推拿", "size": "336.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_zyyl/202502/P020250207535714216570.pdf", "localUrl": "./医药卫生大类/中医药类/520403K 针灸推拿.pdf"}, {"num": "286", "bigClass": "医药卫生大类", "subClass": "中医药类", "code": "520410", "name": "中药学", "size": "354.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_zyyl/202502/P020250207535418367068.pdf", "localUrl": "./医药卫生大类/中医药类/520410 中药学.pdf"}, {"num": "287", "bigClass": "医药卫生大类", "subClass": "中医药类", "code": "520414", "name": "中药材生产与加工", "size": "345.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_zyyl/202502/P020250207535189271508.pdf", "localUrl": "./医药卫生大类/中医药类/520414 中药材生产与加工.pdf"}, {"num": "288", "bigClass": "医药卫生大类", "subClass": "中医药类", "code": "520415", "name": "中药制药", "size": "339.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_zyyl/202502/P020250207534898851265.pdf", "localUrl": "./医药卫生大类/中医药类/520415 中药制药.pdf"}, {"num": "289", "bigClass": "医药卫生大类", "subClass": "中医药类", "code": "520416", "name": "中医康复技术", "size": "331.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_zyyl/202502/P020250207534483733385.pdf", "localUrl": "./医药卫生大类/中医药类/520416 中医康复技术.pdf"}, {"num": "290", "bigClass": "医药卫生大类", "subClass": "中医药类", "code": "520417", "name": "中医养生保健", "size": "330.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_zyyl/202502/P020250207534131088647.pdf", "localUrl": "./医药卫生大类/中医药类/520417 中医养生保健.pdf"}, {"num": "291", "bigClass": "医药卫生大类", "subClass": "中医药类", "code": "520418", "name": "药膳与食疗", "size": "346.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_zyyl/202502/P020250207533910187677.pdf", "localUrl": "./医药卫生大类/中医药类/520418 药膳与食疗.pdf"}, {"num": "292", "bigClass": "医药卫生大类", "subClass": "医学技术类", "code": "520501", "name": "医学检验技术", "size": "332.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_yxjsl/202502/P020250207539424195317.pdf", "localUrl": "./医药卫生大类/医学技术类/520501 医学检验技术.pdf"}, {"num": "293", "bigClass": "医药卫生大类", "subClass": "医学技术类", "code": "520502", "name": "医学影像技术", "size": "320.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_yxjsl/202502/P020250207539193661811.pdf", "localUrl": "./医药卫生大类/医学技术类/520502 医学影像技术.pdf"}, {"num": "294", "bigClass": "医药卫生大类", "subClass": "医学技术类", "code": "520503", "name": "医学生物技术", "size": "354.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_yxjsl/202502/P020250207538914697146.pdf", "localUrl": "./医药卫生大类/医学技术类/520503 医学生物技术.pdf"}, {"num": "295", "bigClass": "医药卫生大类", "subClass": "医学技术类", "code": "520504", "name": "口腔医学技术", "size": "379.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_yxjsl/202502/P020250207538674570916.pdf", "localUrl": "./医药卫生大类/医学技术类/520504 口腔医学技术.pdf"}, {"num": "296", "bigClass": "医药卫生大类", "subClass": "医学技术类", "code": "520507", "name": "医学美容技术", "size": "355.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_yxjsl/202502/P020250207538447365017.pdf", "localUrl": "./医药卫生大类/医学技术类/520507 医学美容技术.pdf"}, {"num": "297", "bigClass": "医药卫生大类", "subClass": "康复治疗类", "code": "520601", "name": "康复治疗技术", "size": "351.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_kfzll/202502/P020250207539797507117.pdf", "localUrl": "./医药卫生大类/康复治疗类/520601 康复治疗技术.pdf"}, {"num": "298", "bigClass": "医药卫生大类", "subClass": "公共卫生与卫生管理类", "code": "520701", "name": "公共卫生管理", "size": "341.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_ggwsywsgll/202502/P020250207541199236372.pdf", "localUrl": "./医药卫生大类/公共卫生与卫生管理类/520701 公共卫生管理.pdf"}, {"num": "299", "bigClass": "医药卫生大类", "subClass": "公共卫生与卫生管理类", "code": "520703K", "name": "预防医学", "size": "338.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_ggwsywsgll/202502/P020250207540329542046.pdf", "localUrl": "./医药卫生大类/公共卫生与卫生管理类/520703K 预防医学.pdf"}, {"num": "300", "bigClass": "医药卫生大类", "subClass": "公共卫生与卫生管理类", "code": "520704", "name": "健康大数据管理与服务", "size": "355.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_ggwsywsgll/202502/P020250207540106860372.pdf", "localUrl": "./医药卫生大类/公共卫生与卫生管理类/520704 健康大数据管理与服务.pdf"}, {"num": "301", "bigClass": "医药卫生大类", "subClass": "健康管理与促进类", "code": "520801", "name": "健康管理", "size": "333.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_jkglycjl/202502/P020250207543569178135.pdf", "localUrl": "./医药卫生大类/健康管理与促进类/520801 健康管理.pdf"}, {"num": "302", "bigClass": "医药卫生大类", "subClass": "健康管理与促进类", "code": "520802", "name": "婴幼儿托育服务与管理", "size": "365.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_jkglycjl/202502/P020250207542415972694.pdf", "localUrl": "./医药卫生大类/健康管理与促进类/520802 婴幼儿托育服务与管理.pdf"}, {"num": "303", "bigClass": "医药卫生大类", "subClass": "健康管理与促进类", "code": "520803", "name": "老年保健与管理", "size": "343.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_jkglycjl/202502/P020250207542149570626.pdf", "localUrl": "./医药卫生大类/健康管理与促进类/520803 老年保健与管理.pdf"}, {"num": "304", "bigClass": "医药卫生大类", "subClass": "健康管理与促进类", "code": "520804", "name": "心理咨询", "size": "336.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_jkglycjl/202502/P020250207541922159170.pdf", "localUrl": "./医药卫生大类/健康管理与促进类/520804 心理咨询.pdf"}, {"num": "305", "bigClass": "医药卫生大类", "subClass": "眼视光类", "code": "520901", "name": "眼视光技术", "size": "340.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_ysgl/202502/P020250208389519309034.pdf", "localUrl": "./医药卫生大类/眼视光类/520901 眼视光技术.pdf"}, {"num": "306", "bigClass": "医药卫生大类", "subClass": "眼视光类", "code": "520902", "name": "眼视光仪器技术", "size": "330.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_ysgl/202502/P020250207545978962639.pdf", "localUrl": "./医药卫生大类/眼视光类/520902 眼视光仪器技术.pdf"}, {"num": "307", "bigClass": "医药卫生大类", "subClass": "眼视光类", "code": "520903", "name": "视觉训练与康复", "size": "341.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_yywsdl/yywsdl_ysgl/202502/P020250208389140449842.pdf", "localUrl": "./医药卫生大类/眼视光类/520903 视觉训练与康复.pdf"}, {"num": "308", "bigClass": "财经商贸大类", "subClass": "财政税务类", "code": "530101", "name": "财税大数据应用", "size": "386.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_czswl/202502/P020250207536495240932.pdf", "localUrl": "./财经商贸大类/财政税务类/530101 财税大数据应用.pdf"}, {"num": "309", "bigClass": "财经商贸大类", "subClass": "金融类", "code": "530201", "name": "金融服务与管理", "size": "349.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jrl/202502/P020250207537478444864.pdf", "localUrl": "./财经商贸大类/金融类/530201 金融服务与管理.pdf"}, {"num": "310", "bigClass": "财经商贸大类", "subClass": "金融类", "code": "530202", "name": "金融科技应用", "size": "330.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jrl/202502/P020250207537316253287.pdf", "localUrl": "./财经商贸大类/金融类/530202 金融科技应用.pdf"}, {"num": "311", "bigClass": "财经商贸大类", "subClass": "金融类", "code": "530203", "name": "保险实务", "size": "333.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jrl/202502/P020250207537177316523.pdf", "localUrl": "./财经商贸大类/金融类/530203 保险实务.pdf"}, {"num": "312", "bigClass": "财经商贸大类", "subClass": "金融类", "code": "530205", "name": "财富管理", "size": "327.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jrl/202502/P020250207537035417339.pdf", "localUrl": "./财经商贸大类/金融类/530205 财富管理.pdf"}, {"num": "313", "bigClass": "财经商贸大类", "subClass": "金融类", "code": "530206", "name": "证券实务", "size": "304.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jrl/202502/P020250207536893047075.pdf", "localUrl": "./财经商贸大类/金融类/530206 证券实务.pdf"}, {"num": "314", "bigClass": "财经商贸大类", "subClass": "金融类", "code": "530208", "name": "农村金融", "size": "333.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jrl/202502/P020250207536762360758.pdf", "localUrl": "./财经商贸大类/金融类/530208 农村金融.pdf"}, {"num": "315", "bigClass": "财经商贸大类", "subClass": "财务会计类", "code": "530301", "name": "大数据与财务管理", "size": "328.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_cwkjl/202502/P020250207538181154911.pdf", "localUrl": "./财经商贸大类/财务会计类/530301 大数据与财务管理.pdf"}, {"num": "316", "bigClass": "财经商贸大类", "subClass": "财务会计类", "code": "530302", "name": "大数据与会计", "size": "348.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_cwkjl/202502/P020250207538044820150.pdf", "localUrl": "./财经商贸大类/财务会计类/530302 大数据与会计.pdf"}, {"num": "317", "bigClass": "财经商贸大类", "subClass": "财务会计类", "code": "530303", "name": "大数据与审计", "size": "324.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_cwkjl/202502/P020250207537833291309.pdf", "localUrl": "./财经商贸大类/财务会计类/530303 大数据与审计.pdf"}, {"num": "318", "bigClass": "财经商贸大类", "subClass": "财务会计类", "code": "530304", "name": "会计信息管理", "size": "331.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_cwkjl/202502/P020250207537700760215.pdf", "localUrl": "./财经商贸大类/财务会计类/530304 会计信息管理.pdf"}, {"num": "319", "bigClass": "财经商贸大类", "subClass": "统计类", "code": "530401", "name": "统计与大数据分析", "size": "321.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_tjl/202502/P020250207539162364092.pdf", "localUrl": "./财经商贸大类/统计类/530401 统计与大数据分析.pdf"}, {"num": "320", "bigClass": "财经商贸大类", "subClass": "统计类", "code": "530403", "name": "市场调查与统计分析", "size": "350.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_tjl/202502/P020250207539014668581.pdf", "localUrl": "./财经商贸大类/统计类/530403 市场调查与统计分析.pdf"}, {"num": "321", "bigClass": "财经商贸大类", "subClass": "经济贸易类", "code": "530501", "name": "国际经济与贸易", "size": "338.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jjmyl/202502/P020250207539714114779.pdf", "localUrl": "./财经商贸大类/经济贸易类/530501 国际经济与贸易.pdf"}, {"num": "322", "bigClass": "财经商贸大类", "subClass": "经济贸易类", "code": "530502", "name": "国际商务", "size": "359.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jjmyl/202502/P020250207539570623593.pdf", "localUrl": "./财经商贸大类/经济贸易类/530502 国际商务.pdf"}, {"num": "323", "bigClass": "财经商贸大类", "subClass": "经济贸易类", "code": "530503", "name": "关务与外贸服务", "size": "334.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_jjmyl/202502/P020250207539441891773.pdf", "localUrl": "./财经商贸大类/经济贸易类/530503 关务与外贸服务.pdf"}, {"num": "324", "bigClass": "财经商贸大类", "subClass": "工商管理类", "code": "530601", "name": "工商企业管理", "size": "321.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_gsggl/202502/P020250207541483550769.pdf", "localUrl": "./财经商贸大类/工商管理类/530601 工商企业管理.pdf"}, {"num": "325", "bigClass": "财经商贸大类", "subClass": "工商管理类", "code": "530602", "name": "连锁经营与管理", "size": "333.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_gsggl/202502/P020250207540463735777.pdf", "localUrl": "./财经商贸大类/工商管理类/530602 连锁经营与管理.pdf"}, {"num": "326", "bigClass": "财经商贸大类", "subClass": "工商管理类", "code": "530603", "name": "商务管理", "size": "315.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_gsggl/202502/P020250207540315338930.pdf", "localUrl": "./财经商贸大类/工商管理类/530603 商务管理.pdf"}, {"num": "327", "bigClass": "财经商贸大类", "subClass": "工商管理类", "code": "530604", "name": "中小企业创业与经营", "size": "340.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_gsggl/202502/P020250207540138120226.pdf", "localUrl": "./财经商贸大类/工商管理类/530604 中小企业创业与经营.pdf"}, {"num": "328", "bigClass": "财经商贸大类", "subClass": "工商管理类", "code": "530605", "name": "市场营销", "size": "337.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_gsggl/202502/P020250207539950943391.pdf", "localUrl": "./财经商贸大类/工商管理类/530605 市场营销.pdf"}, {"num": "329", "bigClass": "财经商贸大类", "subClass": "电子商务类", "code": "530701", "name": "电子商务", "size": "349.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_dzswl/202502/P020250207542604495307.pdf", "localUrl": "./财经商贸大类/电子商务类/530701 电子商务.pdf"}, {"num": "330", "bigClass": "财经商贸大类", "subClass": "电子商务类", "code": "530702", "name": "跨境电子商务", "size": "337.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_dzswl/202502/P020250207542467420725.pdf", "localUrl": "./财经商贸大类/电子商务类/530702 跨境电子商务.pdf"}, {"num": "331", "bigClass": "财经商贸大类", "subClass": "电子商务类", "code": "530703", "name": "移动商务", "size": "332.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_dzswl/202502/P020250207542306648526.pdf", "localUrl": "./财经商贸大类/电子商务类/530703 移动商务.pdf"}, {"num": "332", "bigClass": "财经商贸大类", "subClass": "电子商务类", "code": "530704", "name": "网络营销与直播电商", "size": "335.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_dzswl/202502/P020250207542166351483.pdf", "localUrl": "./财经商贸大类/电子商务类/530704 网络营销与直播电商.pdf"}, {"num": "333", "bigClass": "财经商贸大类", "subClass": "电子商务类", "code": "530705", "name": "农村电子商务", "size": "349.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_dzswl/202502/P020250207541892624991.pdf", "localUrl": "./财经商贸大类/电子商务类/530705 农村电子商务.pdf"}, {"num": "334", "bigClass": "财经商贸大类", "subClass": "电子商务类", "code": "530706", "name": "商务数据分析与应用", "size": "336.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_dzswl/202502/P020250207541733654070.pdf", "localUrl": "./财经商贸大类/电子商务类/530706 商务数据分析与应用.pdf"}, {"num": "335", "bigClass": "财经商贸大类", "subClass": "物流类", "code": "530802", "name": "现代物流管理", "size": "373.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_wll/202502/P020250207543564416038.pdf", "localUrl": "./财经商贸大类/物流类/530802 现代物流管理.pdf"}, {"num": "336", "bigClass": "财经商贸大类", "subClass": "物流类", "code": "530803", "name": "航空物流管理", "size": "336.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_wll/202502/P020250207543390916417.pdf", "localUrl": "./财经商贸大类/物流类/530803 航空物流管理.pdf"}, {"num": "337", "bigClass": "财经商贸大类", "subClass": "物流类", "code": "530804", "name": "铁路物流管理", "size": "339.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_wll/202502/P020250207543247806721.pdf", "localUrl": "./财经商贸大类/物流类/530804 铁路物流管理.pdf"}, {"num": "338", "bigClass": "财经商贸大类", "subClass": "物流类", "code": "530806", "name": "港口物流管理", "size": "327.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_wll/202502/P020250207543098764667.pdf", "localUrl": "./财经商贸大类/物流类/530806 港口物流管理.pdf"}, {"num": "339", "bigClass": "财经商贸大类", "subClass": "物流类", "code": "530809", "name": "智能物流技术", "size": "358.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_wll/202502/P020250207542961145488.pdf", "localUrl": "./财经商贸大类/物流类/530809 智能物流技术.pdf"}, {"num": "340", "bigClass": "财经商贸大类", "subClass": "物流类", "code": "530810", "name": "供应链运营", "size": "335.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_cjsmdl/cjsmdl_wll/202502/P020250207542822991588.pdf", "localUrl": "./财经商贸大类/物流类/530810 供应链运营.pdf"}, {"num": "341", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540101", "name": "旅游管理", "size": "346.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207546565208630.pdf", "localUrl": "./旅游大类/旅游类/540101 旅游管理.pdf"}, {"num": "342", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540102", "name": "导游", "size": "332.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207546414632408.pdf", "localUrl": "./旅游大类/旅游类/540102 导游.pdf"}, {"num": "343", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540103", "name": "旅行社经营与管理", "size": "319.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207546276489909.pdf", "localUrl": "./旅游大类/旅游类/540103 旅行社经营与管理.pdf"}, {"num": "344", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540104", "name": "定制旅行管理与服务", "size": "343.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207546146796713.pdf", "localUrl": "./旅游大类/旅游类/540104 定制旅行管理与服务.pdf"}, {"num": "345", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540105", "name": "研学旅行管理与服务", "size": "319.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207546004445387.pdf", "localUrl": "./旅游大类/旅游类/540105 研学旅行管理与服务.pdf"}, {"num": "346", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540106", "name": "酒店管理与数字化运营", "size": "351.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207545833502724.pdf", "localUrl": "./旅游大类/旅游类/540106 酒店管理与数字化运营.pdf"}, {"num": "347", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540107", "name": "民宿管理与运营", "size": "333.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207545659877782.pdf", "localUrl": "./旅游大类/旅游类/540107 民宿管理与运营.pdf"}, {"num": "348", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540108", "name": "葡萄酒文化与营销", "size": "359.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207545504669842.pdf", "localUrl": "./旅游大类/旅游类/540108 葡萄酒文化与营销.pdf"}, {"num": "349", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540109", "name": "茶艺与茶文化", "size": "318.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207545320514690.pdf", "localUrl": "./旅游大类/旅游类/540109 茶艺与茶文化.pdf"}, {"num": "350", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540110", "name": "智慧景区开发与管理", "size": "334.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207545091577643.pdf", "localUrl": "./旅游大类/旅游类/540110 智慧景区开发与管理.pdf"}, {"num": "351", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540111", "name": "智慧旅游技术应用", "size": "331.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207544852459145.pdf", "localUrl": "./旅游大类/旅游类/540111 智慧旅游技术应用.pdf"}, {"num": "352", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540112", "name": "会展策划与管理", "size": "331.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207544713511961.pdf", "localUrl": "./旅游大类/旅游类/540112 会展策划与管理.pdf"}, {"num": "353", "bigClass": "旅游大类", "subClass": "旅游类", "code": "540113", "name": "休闲服务与管理", "size": "332.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_lyl/202502/P020250207544557769223.pdf", "localUrl": "./旅游大类/旅游类/540113 休闲服务与管理.pdf"}, {"num": "354", "bigClass": "旅游大类", "subClass": "餐饮类", "code": "540201", "name": "餐饮智能管理", "size": "368.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_cyl/202502/P020250207547330723331.pdf", "localUrl": "./旅游大类/餐饮类/540201 餐饮智能管理.pdf"}, {"num": "355", "bigClass": "旅游大类", "subClass": "餐饮类", "code": "540202", "name": "烹饪工艺与营养", "size": "370.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_cyl/202502/P020250207547199067653.pdf", "localUrl": "./旅游大类/餐饮类/540202 烹饪工艺与营养.pdf"}, {"num": "356", "bigClass": "旅游大类", "subClass": "餐饮类", "code": "540203", "name": "中西面点工艺", "size": "342.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_cyl/202502/P020250207547062265052.pdf", "localUrl": "./旅游大类/餐饮类/540203 中西面点工艺.pdf"}, {"num": "357", "bigClass": "旅游大类", "subClass": "餐饮类", "code": "540204", "name": "西式烹饪工艺", "size": "333.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_cyl/202502/P020250207546934193749.pdf", "localUrl": "./旅游大类/餐饮类/540204 西式烹饪工艺.pdf"}, {"num": "358", "bigClass": "旅游大类", "subClass": "餐饮类", "code": "540205", "name": "营养配餐", "size": "392.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_lydl/lydl_cyl/202502/P020250207546796672533.pdf", "localUrl": "./旅游大类/餐饮类/540205 营养配餐.pdf"}, {"num": "359", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550101", "name": "艺术设计", "size": "323.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207554664351796.pdf", "localUrl": "./文化艺术大类/艺术设计类/550101 艺术设计.pdf"}, {"num": "360", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550102", "name": "视觉传达设计", "size": "336.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207554444051937.pdf", "localUrl": "./文化艺术大类/艺术设计类/550102 视觉传达设计.pdf"}, {"num": "361", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550103", "name": "数字媒体艺术设计", "size": "351.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207554206255746.pdf", "localUrl": "./文化艺术大类/艺术设计类/550103 数字媒体艺术设计.pdf"}, {"num": "362", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550104", "name": "产品艺术设计", "size": "329.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207553930760438.pdf", "localUrl": "./文化艺术大类/艺术设计类/550104 产品艺术设计.pdf"}, {"num": "363", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550105", "name": "服装与服饰设计", "size": "316.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207553715742446.pdf", "localUrl": "./文化艺术大类/艺术设计类/550105 服装与服饰设计.pdf"}, {"num": "364", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550106", "name": "环境艺术设计", "size": "332.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207553469835107.pdf", "localUrl": "./文化艺术大类/艺术设计类/550106 环境艺术设计.pdf"}, {"num": "365", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550107", "name": "书画艺术", "size": "308.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207553125494008.pdf", "localUrl": "./文化艺术大类/艺术设计类/550107 书画艺术.pdf"}, {"num": "366", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550108", "name": "公共艺术设计", "size": "331.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207552822972031.pdf", "localUrl": "./文化艺术大类/艺术设计类/550108 公共艺术设计.pdf"}, {"num": "367", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550109", "name": "游戏艺术设计", "size": "323.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207552602050699.pdf", "localUrl": "./文化艺术大类/艺术设计类/550109 游戏艺术设计.pdf"}, {"num": "368", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550110", "name": "展示艺术设计", "size": "330.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207552345561338.pdf", "localUrl": "./文化艺术大类/艺术设计类/550110 展示艺术设计.pdf"}, {"num": "369", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550111", "name": "美容美体艺术", "size": "345.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207552036335542.pdf", "localUrl": "./文化艺术大类/艺术设计类/550111 美容美体艺术.pdf"}, {"num": "370", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550112", "name": "工艺美术品设计", "size": "343.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207551808839895.pdf", "localUrl": "./文化艺术大类/艺术设计类/550112 工艺美术品设计.pdf"}, {"num": "371", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550113", "name": "广告艺术设计", "size": "335.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207551582132154.pdf", "localUrl": "./文化艺术大类/艺术设计类/550113 广告艺术设计.pdf"}, {"num": "372", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550114", "name": "室内艺术设计", "size": "309.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207551258888487.pdf", "localUrl": "./文化艺术大类/艺术设计类/550114 室内艺术设计.pdf"}, {"num": "373", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550115", "name": "家具艺术设计", "size": "339.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207551007737581.pdf", "localUrl": "./文化艺术大类/艺术设计类/550115 家具艺术设计.pdf"}, {"num": "374", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550116", "name": "动漫设计", "size": "351.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207550727050012.pdf", "localUrl": "./文化艺术大类/艺术设计类/550116 动漫设计.pdf"}, {"num": "375", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550117", "name": "人物形象设计", "size": "316.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207550443970280.pdf", "localUrl": "./文化艺术大类/艺术设计类/550117 人物形象设计.pdf"}, {"num": "376", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550118", "name": "摄影与摄像艺术", "size": "342.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207550118690896.pdf", "localUrl": "./文化艺术大类/艺术设计类/550118 摄影与摄像艺术.pdf"}, {"num": "377", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550119", "name": "雕刻艺术设计", "size": "334.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207549745310395.pdf", "localUrl": "./文化艺术大类/艺术设计类/550119 雕刻艺术设计.pdf"}, {"num": "378", "bigClass": "文化艺术大类", "subClass": "艺术设计类", "code": "550120", "name": "皮具艺术设计", "size": "315.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_yssjl/202502/P020250207549522830781.pdf", "localUrl": "./文化艺术大类/艺术设计类/550120 皮具艺术设计.pdf"}, {"num": "379", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550201", "name": "音乐表演", "size": "343.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207558813638310.pdf", "localUrl": "./文化艺术大类/表演艺术类/550201 音乐表演.pdf"}, {"num": "380", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550202", "name": "舞蹈表演", "size": "334.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207558625464122.pdf", "localUrl": "./文化艺术大类/表演艺术类/550202 舞蹈表演.pdf"}, {"num": "381", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550204", "name": "表演艺术", "size": "347.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207558372699135.pdf", "localUrl": "./文化艺术大类/表演艺术类/550204 表演艺术.pdf"}, {"num": "382", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550205", "name": "戏剧影视表演", "size": "323.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207558168123103.pdf", "localUrl": "./文化艺术大类/表演艺术类/550205 戏剧影视表演.pdf"}, {"num": "383", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550206", "name": "歌舞表演", "size": "327.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207557944541064.pdf", "localUrl": "./文化艺术大类/表演艺术类/550206 歌舞表演.pdf"}, {"num": "384", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550209", "name": "国际标准舞", "size": "335.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207557729217198.pdf", "localUrl": "./文化艺术大类/表演艺术类/550209 国际标准舞.pdf"}, {"num": "385", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550210", "name": "现代流行音乐", "size": "365.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207557419914306.pdf", "localUrl": "./文化艺术大类/表演艺术类/550210 现代流行音乐.pdf"}, {"num": "386", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550211", "name": "戏曲音乐", "size": "326.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207557201159386.pdf", "localUrl": "./文化艺术大类/表演艺术类/550211 戏曲音乐.pdf"}, {"num": "387", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550212", "name": "音乐制作", "size": "325.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207556965399714.pdf", "localUrl": "./文化艺术大类/表演艺术类/550212 音乐制作.pdf"}, {"num": "388", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550214", "name": "钢琴调律", "size": "327.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207556581486902.pdf", "localUrl": "./文化艺术大类/表演艺术类/550214 钢琴调律.pdf"}, {"num": "389", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550217", "name": "时尚表演与传播", "size": "328.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207556334893090.pdf", "localUrl": "./文化艺术大类/表演艺术类/550217 时尚表演与传播.pdf"}, {"num": "390", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550218", "name": "舞台艺术设计与制作", "size": "336.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207556023479149.pdf", "localUrl": "./文化艺术大类/表演艺术类/550218 舞台艺术设计与制作.pdf"}, {"num": "391", "bigClass": "文化艺术大类", "subClass": "表演艺术类", "code": "550220", "name": "现代魔术设计与表演", "size": "322.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_byysl/202502/P020250207555645562259.pdf", "localUrl": "./文化艺术大类/表演艺术类/550220 现代魔术设计与表演.pdf"}, {"num": "392", "bigClass": "文化艺术大类", "subClass": "民族文化艺术类", "code": "550303", "name": "民族服装与饰品", "size": "302.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_mzwhysl/202502/P020250207559296386790.pdf", "localUrl": "./文化艺术大类/民族文化艺术类/550303 民族服装与饰品.pdf"}, {"num": "393", "bigClass": "文化艺术大类", "subClass": "文化服务类", "code": "550402", "name": "文化产业经营与管理", "size": "329.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_whfwl/202502/P020250207559898464726.pdf", "localUrl": "./文化艺术大类/文化服务类/550402 文化产业经营与管理.pdf"}, {"num": "394", "bigClass": "文化艺术大类", "subClass": "文化服务类", "code": "550408", "name": "石窟寺保护技术", "size": "346.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_whysdl/whysdl_whfwl/202502/P020250207559684959392.pdf", "localUrl": "./文化艺术大类/文化服务类/550408 石窟寺保护技术.pdf"}, {"num": "395", "bigClass": "新闻传播大类", "subClass": "新闻出版类", "code": "560105", "name": "数字出版", "size": "330.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_xwcbl/202502/P020250207547670738031.pdf", "localUrl": "./新闻传播大类/新闻出版类/560105 数字出版.pdf"}, {"num": "396", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560201", "name": "播音与主持", "size": "336.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207549510438568.pdf", "localUrl": "./新闻传播大类/广播影视类/560201 播音与主持.pdf"}, {"num": "397", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560202", "name": "广播影视节目制作", "size": "328.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207549350192351.pdf", "localUrl": "./新闻传播大类/广播影视类/560202 广播影视节目制作.pdf"}, {"num": "398", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560203", "name": "数字广播电视技术", "size": "338.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207549213139228.pdf", "localUrl": "./新闻传播大类/广播影视类/560203 数字广播电视技术.pdf"}, {"num": "399", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560204", "name": "影视编导", "size": "345.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207549088054966.pdf", "localUrl": "./新闻传播大类/广播影视类/560204 影视编导.pdf"}, {"num": "400", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560205", "name": "新闻采编与制作", "size": "325.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207548927436229.pdf", "localUrl": "./新闻传播大类/广播影视类/560205 新闻采编与制作.pdf"}, {"num": "401", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560206", "name": "影视动画", "size": "343.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207548806817547.pdf", "localUrl": "./新闻传播大类/广播影视类/560206 影视动画.pdf"}, {"num": "402", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560208", "name": "影视多媒体技术", "size": "361.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207548653461901.pdf", "localUrl": "./新闻传播大类/广播影视类/560208 影视多媒体技术.pdf"}, {"num": "403", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560211", "name": "录音技术与艺术", "size": "340.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207548470835589.pdf", "localUrl": "./新闻传播大类/广播影视类/560211 录音技术与艺术.pdf"}, {"num": "404", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560212", "name": "摄影摄像技术", "size": "333.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207548312445049.pdf", "localUrl": "./新闻传播大类/广播影视类/560212 摄影摄像技术.pdf"}, {"num": "405", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560213", "name": "融媒体技术与运营", "size": "348.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207548141306012.pdf", "localUrl": "./新闻传播大类/广播影视类/560213 融媒体技术与运营.pdf"}, {"num": "406", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560214", "name": "网络直播与运营", "size": "306.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207548006258101.pdf", "localUrl": "./新闻传播大类/广播影视类/560214 网络直播与运营.pdf"}, {"num": "407", "bigClass": "新闻传播大类", "subClass": "广播影视类", "code": "560216", "name": "全媒体广告策划与营销", "size": "334.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_xwcbdl/xwcbdl_gbysl/202502/P020250207547851716976.pdf", "localUrl": "./新闻传播大类/广播影视类/560216 全媒体广告策划与营销.pdf"}, {"num": "408", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570101K", "name": "早期教育", "size": "341.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207552369858391.pdf", "localUrl": "./教育与体育大类/教育类/570101K 早期教育.pdf"}, {"num": "409", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570102K", "name": "学前教育", "size": "331.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207552226994375.pdf", "localUrl": "./教育与体育大类/教育类/570102K 学前教育.pdf"}, {"num": "410", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570103K", "name": "小学教育", "size": "327.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207552089033724.pdf", "localUrl": "./教育与体育大类/教育类/570103K 小学教育.pdf"}, {"num": "411", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570104K", "name": "小学语文教育", "size": "337.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207551935185111.pdf", "localUrl": "./教育与体育大类/教育类/570104K 小学语文教育.pdf"}, {"num": "412", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570105K", "name": "小学数学教育", "size": "330.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207551779857595.pdf", "localUrl": "./教育与体育大类/教育类/570105K 小学数学教育.pdf"}, {"num": "413", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570106K", "name": "小学英语教育", "size": "330.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207551632854003.pdf", "localUrl": "./教育与体育大类/教育类/570106K 小学英语教育.pdf"}, {"num": "414", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570107K", "name": "小学科学教育", "size": "342.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207551469205184.pdf", "localUrl": "./教育与体育大类/教育类/570107K 小学科学教育.pdf"}, {"num": "415", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570108K", "name": "音乐教育", "size": "339.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207551312797179.pdf", "localUrl": "./教育与体育大类/教育类/570108K 音乐教育.pdf"}, {"num": "416", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570109K", "name": "美术教育", "size": "338.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207551182737258.pdf", "localUrl": "./教育与体育大类/教育类/570109K 美术教育.pdf"}, {"num": "417", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570110K", "name": "体育教育", "size": "341.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207550974309382.pdf", "localUrl": "./教育与体育大类/教育类/570110K 体育教育.pdf"}, {"num": "418", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570111K", "name": "小学道德与法治教育", "size": "328.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207550833223045.pdf", "localUrl": "./教育与体育大类/教育类/570111K 小学道德与法治教育.pdf"}, {"num": "419", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570112K", "name": "舞蹈教育", "size": "326.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207550660632909.pdf", "localUrl": "./教育与体育大类/教育类/570112K 舞蹈教育.pdf"}, {"num": "420", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570113K", "name": "艺术教育", "size": "334.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207550488138999.pdf", "localUrl": "./教育与体育大类/教育类/570113K 艺术教育.pdf"}, {"num": "421", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570114K", "name": "特殊教育", "size": "328.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207550334803573.pdf", "localUrl": "./教育与体育大类/教育类/570114K 特殊教育.pdf"}, {"num": "422", "bigClass": "教育与体育大类", "subClass": "教育类", "code": "570115K", "name": "现代教育技术", "size": "339.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_jyl/202502/P020250207550203578214.pdf", "localUrl": "./教育与体育大类/教育类/570115K 现代教育技术.pdf"}, {"num": "423", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570201", "name": "商务英语", "size": "340.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207554543068266.pdf", "localUrl": "./教育与体育大类/语言类/570201 商务英语.pdf"}, {"num": "424", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570202", "name": "应用英语", "size": "326.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207554325602528.pdf", "localUrl": "./教育与体育大类/语言类/570202 应用英语.pdf"}, {"num": "425", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570203", "name": "旅游英语", "size": "332.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207554206806460.pdf", "localUrl": "./教育与体育大类/语言类/570203 旅游英语.pdf"}, {"num": "426", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570204", "name": "应用韩语", "size": "330.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207554037937743.pdf", "localUrl": "./教育与体育大类/语言类/570204 应用韩语.pdf"}, {"num": "427", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570205", "name": "商务日语", "size": "336.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207553894679190.pdf", "localUrl": "./教育与体育大类/语言类/570205 商务日语.pdf"}, {"num": "428", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570206", "name": "应用日语", "size": "335.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207553725698114.pdf", "localUrl": "./教育与体育大类/语言类/570206 应用日语.pdf"}, {"num": "429", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570207", "name": "旅游日语", "size": "333.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207553577664362.pdf", "localUrl": "./教育与体育大类/语言类/570207 旅游日语.pdf"}, {"num": "430", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570210", "name": "应用俄语", "size": "332.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207553440081615.pdf", "localUrl": "./教育与体育大类/语言类/570210 应用俄语.pdf"}, {"num": "431", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570211", "name": "应用法语", "size": "329.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207553283148114.pdf", "localUrl": "./教育与体育大类/语言类/570211 应用法语.pdf"}, {"num": "432", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570212", "name": "应用西班牙语", "size": "332.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207553125582710.pdf", "localUrl": "./教育与体育大类/语言类/570212 应用西班牙语.pdf"}, {"num": "433", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570213", "name": "应用德语", "size": "332.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207552882455306.pdf", "localUrl": "./教育与体育大类/语言类/570213 应用德语.pdf"}, {"num": "434", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570214", "name": "应用泰语", "size": "335.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207552735872087.pdf", "localUrl": "./教育与体育大类/语言类/570214 应用泰语.pdf"}, {"num": "435", "bigClass": "教育与体育大类", "subClass": "语言类", "code": "570215", "name": "应用越南语", "size": "325.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_yyl/202502/P020250207552588185250.pdf", "localUrl": "./教育与体育大类/语言类/570215 应用越南语.pdf"}, {"num": "436", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570301", "name": "社会体育", "size": "337.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207556346780340.pdf", "localUrl": "./教育与体育大类/体育类/570301 社会体育.pdf"}, {"num": "437", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570302", "name": "休闲体育", "size": "348.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207556195554292.pdf", "localUrl": "./教育与体育大类/体育类/570302 休闲体育.pdf"}, {"num": "438", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570303", "name": "运动训练", "size": "348.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207556070362776.pdf", "localUrl": "./教育与体育大类/体育类/570303 运动训练.pdf"}, {"num": "439", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570304", "name": "民族传统体育", "size": "330.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207555950251049.pdf", "localUrl": "./教育与体育大类/体育类/570304 民族传统体育.pdf"}, {"num": "440", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570307", "name": "健身指导与管理", "size": "337.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207555816008610.pdf", "localUrl": "./教育与体育大类/体育类/570307 健身指导与管理.pdf"}, {"num": "441", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570308", "name": "运动健康指导", "size": "337.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207555636188450.pdf", "localUrl": "./教育与体育大类/体育类/570308 运动健康指导.pdf"}, {"num": "442", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570309", "name": "运动数据分析", "size": "326.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207555452824177.pdf", "localUrl": "./教育与体育大类/体育类/570309 运动数据分析.pdf"}, {"num": "443", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570310", "name": "体能训练", "size": "327.8 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207555320806340.pdf", "localUrl": "./教育与体育大类/体育类/570310 体能训练.pdf"}, {"num": "444", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570311", "name": "体育运营与管理", "size": "325.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207555189281817.pdf", "localUrl": "./教育与体育大类/体育类/570311 体育运营与管理.pdf"}, {"num": "445", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570312", "name": "电子竞技运动与管理", "size": "322.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207555046593720.pdf", "localUrl": "./教育与体育大类/体育类/570312 电子竞技运动与管理.pdf"}, {"num": "446", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570314", "name": "冰雪运动与管理", "size": "337.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207554889741156.pdf", "localUrl": "./教育与体育大类/体育类/570314 冰雪运动与管理.pdf"}, {"num": "447", "bigClass": "教育与体育大类", "subClass": "体育类", "code": "570316", "name": "体育艺术表演", "size": "326.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_jyytydl/jyytydl_tyl/202502/P020250207554753674432.pdf", "localUrl": "./教育与体育大类/体育类/570316 体育艺术表演.pdf"}, {"num": "448", "bigClass": "公安与司法大类", "subClass": "法律实务类", "code": "580401", "name": "法律事务", "size": "327.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_gaysfdl/gaysfdl_flswl/202502/P020250207554127095580.pdf", "localUrl": "./公安与司法大类/法律实务类/580401 法律事务.pdf"}, {"num": "449", "bigClass": "公安与司法大类", "subClass": "法律实务类", "code": "580402", "name": "法律文秘", "size": "357.7 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_gaysfdl/gaysfdl_flswl/202502/P020250207554374837804.pdf", "localUrl": "./公安与司法大类/法律实务类/580402 法律文秘.pdf"}, {"num": "450", "bigClass": "公安与司法大类", "subClass": "法律执行类", "code": "580505", "name": "社区矫正", "size": "334.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_gaysfdl/gaysfdl_flzxl/202502/P020250207555597515256.pdf", "localUrl": "./公安与司法大类/法律执行类/580505 社区矫正.pdf"}, {"num": "451", "bigClass": "公安与司法大类", "subClass": "司法技术类", "code": "580603", "name": "司法鉴定技术", "size": "335.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_gaysfdl/gaysfdl_sfjsl/202502/P020250207556267164080.pdf", "localUrl": "./公安与司法大类/司法技术类/580603 司法鉴定技术.pdf"}, {"num": "452", "bigClass": "公安与司法大类", "subClass": "安全防范类", "code": "580701", "name": "安全防范技术", "size": "330.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_gaysfdl/gaysfdl_aqffl/202502/P020250207556635945873.pdf", "localUrl": "./公安与司法大类/安全防范类/580701 安全防范技术.pdf"}, {"num": "453", "bigClass": "公安与司法大类", "subClass": "安全防范类", "code": "580702", "name": "安全保卫管理", "size": "380.2 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_gaysfdl/gaysfdl_aqffl/202502/P020250207556945236411.pdf", "localUrl": "./公安与司法大类/安全防范类/580702 安全保卫管理.pdf"}, {"num": "454", "bigClass": "公安与司法大类", "subClass": "安全防范类", "code": "580703", "name": "智能安防运营管理", "size": "364.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_gaysfdl/gaysfdl_aqffl/202502/P020250207557262705232.pdf", "localUrl": "./公安与司法大类/安全防范类/580703 智能安防运营管理.pdf"}, {"num": "455", "bigClass": "公共管理与服务大类", "subClass": "公共事业类", "code": "590101", "name": "社会工作", "size": "300.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_ggsyl/202502/P020250207557219470920.pdf", "localUrl": "./公共管理与服务大类/公共事业类/590101 社会工作.pdf"}, {"num": "456", "bigClass": "公共管理与服务大类", "subClass": "公共事业类", "code": "590102", "name": "党务工作", "size": "337.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_ggsyl/202502/P020250207557086650382.pdf", "localUrl": "./公共管理与服务大类/公共事业类/590102 党务工作.pdf"}, {"num": "457", "bigClass": "公共管理与服务大类", "subClass": "公共事业类", "code": "590104", "name": "社区管理与服务", "size": "311.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_ggsyl/202502/P020250207556944006785.pdf", "localUrl": "./公共管理与服务大类/公共事业类/590104 社区管理与服务.pdf"}, {"num": "458", "bigClass": "公共管理与服务大类", "subClass": "公共管理类", "code": "590202", "name": "人力资源管理", "size": "328.9 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_gggll/202502/P020250207557906950427.pdf", "localUrl": "./公共管理与服务大类/公共管理类/590202 人力资源管理.pdf"}, {"num": "459", "bigClass": "公共管理与服务大类", "subClass": "公共管理类", "code": "590209", "name": "职业指导与服务", "size": "338.3 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_gggll/202502/P020250207557541169430.pdf", "localUrl": "./公共管理与服务大类/公共管理类/590209 职业指导与服务.pdf"}, {"num": "460", "bigClass": "公共管理与服务大类", "subClass": "公共管理类", "code": "590210", "name": "标准化技术", "size": "319.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_gggll/202502/P020250207557392141051.pdf", "localUrl": "./公共管理与服务大类/公共管理类/590210 标准化技术.pdf"}, {"num": "461", "bigClass": "公共管理与服务大类", "subClass": "公共服务类", "code": "590301", "name": "现代家政服务与管理", "size": "313.4 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_ggfwl/202502/P020250207558766671083.pdf", "localUrl": "./公共管理与服务大类/公共服务类/590301 现代家政服务与管理.pdf"}, {"num": "462", "bigClass": "公共管理与服务大类", "subClass": "公共服务类", "code": "590302", "name": "智慧健康养老服务与管理", "size": "348.6 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_ggfwl/202502/P020250207558594318394.pdf", "localUrl": "./公共管理与服务大类/公共服务类/590302 智慧健康养老服务与管理.pdf"}, {"num": "463", "bigClass": "公共管理与服务大类", "subClass": "公共服务类", "code": "590304", "name": "婚庆服务与管理", "size": "339.5 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_ggfwl/202502/P020250207558219204044.pdf", "localUrl": "./公共管理与服务大类/公共服务类/590304 婚庆服务与管理.pdf"}, {"num": "464", "bigClass": "公共管理与服务大类", "subClass": "公共服务类", "code": "590306", "name": "殡葬设备维护技术", "size": "333.0 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_ggfwl/202502/P020250207558079948407.pdf", "localUrl": "./公共管理与服务大类/公共服务类/590306 殡葬设备维护技术.pdf"}, {"num": "465", "bigClass": "公共管理与服务大类", "subClass": "文秘类", "code": "590401", "name": "现代文秘", "size": "349.1 KB", "onlineUrl": "http://www.moe.gov.cn/s78/A07/zcs_ztzl/2017_zt06/17zt06_bznr/bznr_zyjyzyjxbz/gdzyjy_zk/zk_ggglyfwdl/ggglyfwdl_wml/202502/P020250207558949382819.pdf", "localUrl": "./公共管理与服务大类/文秘类/590401 现代文秘.pdf"}];
+
+const BIG_CLASS_ICONS = {
+"农林牧渔大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8 2 5 6 5 10c0 3 2 5.5 5 6.5V20h4v-3.5c3-1 5-3.5 5-6.5 0-4-3-8-7-8z"/><line x1="12" y1="2" x2="12" y2="8"/></svg>`,
+"资源环境与安全大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 22,20 2,20"/><line x1="12" y1="8" x2="12" y2="14"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg>`,
+"能源动力与材料大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H13L13 2z"/></svg>`,
+"土木建筑大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="10" width="18" height="11"/><polyline points="3,10 12,3 21,10"/><rect x="9" y="14" width="6" height="7"/></svg>`,
+"水利大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 16c1-2 3-3 4-1s3 3 5 1 3-2 4-1"/><path d="M3 20c1-2 3-3 4-1s3 3 5 1 3-2 4-1"/><path d="M12 3v8M9 6l3-3 3 3"/></svg>`,
+"装备制造大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M21 12h-3M6 12H3M12 21v-3M12 6V3"/></svg>`,
+"生物与化工大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v8L4 19h16L15 11V3"/><line x1="9" y1="3" x2="15" y2="3"/><circle cx="8" cy="17" r="1" fill="currentColor"/><circle cx="14" cy="15" r="1" fill="currentColor"/></svg>`,
+"轻工纺织大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3h12l-2 7H8L6 3z"/><path d="M8 10l-2 11h12L16 10"/><line x1="5" y1="7" x2="19" y2="7"/></svg>`,
+"食品药品与粮食大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5C9 3.9 9.9 3 11 3h2c1.1 0 2 .9 2 2v3H9V5z"/><rect x="6" y="8" width="12" height="13" rx="1"/><line x1="12" y1="11" x2="12" y2="18"/><line x1="9" y1="14" x2="15" y2="14"/></svg>`,
+"交通运输大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="8" width="22" height="10" rx="2"/><path d="M16 8V6a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>`,
+"电子与信息大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="8" y1="6" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="18"/><line x1="2" y1="12" x2="22" y2="12"/></svg>`,
+"医药卫生大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+"财经商贸大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>`,
+"旅游大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>`,
+"文化艺术大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19l-7-7 7-7"/><path d="M19 19l-7-7 7-7"/></svg>`,
+"新闻传播大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2V9"/><line x1="10" y1="7" x2="16" y2="7"/><line x1="10" y1="11" x2="16" y2="11"/><line x1="10" y1="15" x2="14" y2="15"/></svg>`,
+"教育与体育大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
+"公安与司法大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+"公共管理与服务大类":`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>`
+};
+
+let currentClass = 'all';
+let currentSearch = '';
+let currentSub = '';
+
+// Build subclass filter chips per big class
+const subClassMap = {};
+RAW_DATA.forEach(d => {
+  if (!subClassMap[d.bigClass]) subClassMap[d.bigClass] = new Set();
+  subClassMap[d.bigClass].add(d.subClass);
+});
+
+function getFiltered() {
+  return RAW_DATA.filter(d => {
+    const matchClass = currentClass === 'all' || d.bigClass === currentClass;
+    const matchSub = !currentSub || d.subClass === currentSub;
+    const q = currentSearch.toLowerCase();
+    const matchSearch = !q || d.name.toLowerCase().includes(q) || d.code.includes(q) || d.bigClass.includes(q) || d.subClass.includes(q);
+    return matchClass && matchSub && matchSearch;
+  });
+}
+
+function hl(text, query) {
+  if (!query) return text;
+  const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return text.replace(re, '<mark class="highlight">$1</mark>');
+}
+
+function renderTable() {
+  const data = getFiltered();
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('emptyState');
+  const table = document.getElementById('mainTable');
+  const q = currentSearch;
+  
+  document.getElementById('displayCount').textContent = data.length;
+  document.getElementById('resultCount').textContent = data.length;
+  
+  if (data.length === 0) {
+    tbody.innerHTML = '';
+    table.style.display = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+  
+  table.style.display = '';
+  empty.style.display = 'none';
+  
+  tbody.innerHTML = data.map(d => {
+    const icon = BIG_CLASS_ICONS[d.bigClass] || '';
+    const shortBig = d.bigClass.replace('大类','');
+    return `<tr>
+      <td class="td-num">${d.num}</td>
+      <td class="td-bigclass"><span class="class-badge">${icon}<span>${hl(shortBig, q)}</span></span></td>
+      <td class="td-subclass">${hl(d.subClass.replace('类',''), q)}</td>
+      <td class="td-code">${hl(d.code, q)}</td>
+      <td class="td-name">${hl(d.name, q)}</td>
+      <td class="td-size">${d.size}</td>
+      <td>
+        <a class="link-btn" href="${d.onlineUrl}" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          在线查看
+        </a>
+        <a class="link-btn" href="${d.localUrl}" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          本地
+        </a>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderFilterBar() {
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = '<span class="filter-label">小类筛选</span>';
+  
+  if (currentClass === 'all') return;
+  
+  const subs = subClassMap[currentClass] ? Array.from(subClassMap[currentClass]) : [];
+  if (subs.length === 0) return;
+  
+  const allChip = document.createElement('span');
+  allChip.className = 'chip' + (currentSub === '' ? ' active' : '');
+  allChip.textContent = '全部小类';
+  allChip.onclick = () => { currentSub = ''; renderFilterBar(); renderTable(); updateSection(); };
+  bar.appendChild(allChip);
+  
+  subs.forEach(sub => {
+    const chip = document.createElement('span');
+    chip.className = 'chip' + (currentSub === sub ? ' active' : '');
+    chip.textContent = sub;
+    chip.onclick = () => { currentSub = sub; renderFilterBar(); renderTable(); updateSection(); };
+    bar.appendChild(chip);
+  });
+}
+
+function updateSection() {
+  const lbl = document.getElementById('sectionLabel');
+  if (currentClass === 'all') {
+    lbl.textContent = '专业教学标准总目录';
+  } else if (currentSub) {
+    lbl.textContent = currentClass + ' · ' + currentSub;
+  } else {
+    lbl.textContent = currentClass;
+  }
+}
+
+// Sidebar clicks
+document.querySelectorAll('.nav-all, .nav-item').forEach(el => {
+  el.addEventListener('click', function() {
+    document.querySelectorAll('.nav-all, .nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+    currentClass = this.dataset.class;
+    currentSub = '';
+    renderFilterBar();
+    renderTable();
+    updateSection();
+  });
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', function() {
+  currentSearch = this.value.trim();
+  renderTable();
+});
+
+// Init
+renderTable();
+renderFilterBar();
+</script>
+</body>
+</html>

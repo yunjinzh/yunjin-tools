@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HISTORYLAPSE — 历史影像变迁制作台</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --base:#F1F0EC; --base-d:#E8E7E2; --base-dd:#D9D8D2;
+      --accent:#E07563; --accent-d:#C45F4E;
+      --ink:#1A1916; --ink-2:#3D3C38; --ink-3:#6B6A65; --ink-4:#9A9993;
+      --rule:rgba(26,25,22,0.12);
+      --shadow-md:0 6px 24px rgba(26,25,22,0.14);
+      --shadow-2xl:0 24px 64px rgba(26,25,22,0.22),0 4px 16px rgba(26,25,22,0.12);
+      --font-display:'Oswald',sans-serif;
+      --font-serif:'Noto Serif SC',serif;
+      --font-body:'Noto Sans SC',sans-serif;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{height:100%;overflow:hidden;}
+    body{font-family:var(--font-body);font-weight:300;background:var(--base);color:var(--ink);display:flex;flex-direction:column;}
+    body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.08;mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+    /* ── 顶栏 ── */
+    .topbar{height:56px;background:var(--ink);display:flex;align-items:stretch;flex-shrink:0;position:relative;z-index:1000;}
+    .topbar-brand{display:flex;align-items:center;padding:0 24px;gap:12px;flex-shrink:0;border-right:1px solid rgba(255,255,255,0.08);}
+    .brand-mark{width:28px;height:28px;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;}
+    .brand-mark span{font-family:var(--font-display);font-size:.62rem;font-weight:700;color:var(--accent);letter-spacing:.04em;}
+    .brand-name{font-family:var(--font-display);font-size:1rem;font-weight:600;color:#F1F0EC;letter-spacing:.14em;text-transform:uppercase;}
+    .brand-name em{color:var(--accent);font-style:normal;}
+    .topbar-search{display:flex;align-items:center;padding:0 20px;gap:10px;flex:1;max-width:480px;border-right:1px solid rgba(255,255,255,0.08);}
+    .search-field{flex:1;background:rgba(241,240,236,0.07);border:1px solid rgba(241,240,236,0.14);color:#F1F0EC;padding:7px 14px;font-family:var(--font-body);font-size:.82rem;font-weight:300;outline:none;transition:border-color .2s;letter-spacing:.02em;}
+    .search-field::placeholder{color:rgba(241,240,236,0.35);}
+    .search-field:focus{border-color:var(--accent);}
+    .status-bar{display:flex;align-items:center;padding:0 20px;gap:10px;border-right:1px solid rgba(255,255,255,0.08);}
+    .status-dot{width:6px;height:6px;flex-shrink:0;transition:background .3s;}
+    .status-dot.loading{background:#f0c040;animation:pulse .8s ease-in-out infinite;}
+    .status-dot.ready{background:#6fcf97;}
+    .status-dot.error{background:var(--accent);}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .status-text{font-family:var(--font-display);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(241,240,236,0.45);white-space:nowrap;}
+    .topbar-actions{display:flex;align-items:center;padding:0 16px;gap:8px;margin-left:auto;}
+    .topbar-sep{width:1px;background:rgba(255,255,255,0.08);margin:12px 4px;flex-shrink:0;}
+
+    /* ── 按钮 ── */
+    .btn{font-family:var(--font-display);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;border:none;cursor:pointer;transition:all .18s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;}
+    .btn-primary{background:var(--accent);color:#F1F0EC;}
+    .btn-primary:hover{background:var(--accent-d);}
+    .btn-ghost-light{background:transparent;border:1px solid rgba(241,240,236,0.25);color:rgba(241,240,236,0.7);}
+    .btn-ghost-light:hover{border-color:var(--accent);color:var(--accent);}
+    .btn-ghost-light.active{border-color:var(--accent);color:var(--accent);background:rgba(224,117,99,0.08);}
+    .btn-outline-dark{background:transparent;border:1px solid var(--rule);color:var(--ink-2);}
+    .btn-outline-dark:hover{border-color:var(--accent);color:var(--accent);}
+    .btn:disabled{opacity:.35;cursor:not-allowed;}
+
+    /* ── 主体 ── */
+    .main{display:flex;flex:1;overflow:hidden;}
+
+    /* ── 左侧面板 ── */
+    .sidebar{width:288px;flex-shrink:0;background:var(--base);border-right:1px solid var(--rule);overflow-y:auto;display:flex;flex-direction:column;box-shadow:var(--shadow-md);position:relative;z-index:10;}
+    .sidebar::-webkit-scrollbar{width:3px;}
+    .sidebar::-webkit-scrollbar-thumb{background:var(--base-dd);}
+    .panel-header{padding:20px 20px 14px;border-bottom:2px solid var(--ink);}
+    .panel-header-title{font-family:var(--font-display);font-size:1.5rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);line-height:1;}
+    .panel-header-sub{font-size:.7rem;font-weight:300;color:var(--ink-3);letter-spacing:.08em;margin-top:4px;text-transform:uppercase;}
+    .panel-section{padding:16px 20px;border-bottom:1px solid var(--rule);}
+    .section-label{font-family:var(--font-display);font-size:.65rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+
+    /* 当前帧信息 */
+    .frame-info-bar{background:var(--ink);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+    .frame-info-year{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--accent);letter-spacing:.04em;line-height:1;}
+    .frame-info-right{text-align:right;}
+    .frame-info-date{font-family:var(--font-display);font-size:.65rem;letter-spacing:.1em;color:rgba(241,240,236,0.45);text-transform:uppercase;}
+    .frame-info-idx{font-family:var(--font-display);font-size:.65rem;letter-spacing:.08em;color:rgba(241,240,236,0.25);text-transform:uppercase;margin-top:2px;}
+
+    /* 表单 */
+    .field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
+    .field:last-child{margin-bottom:0;}
+    .field-label{font-size:.7rem;font-weight:400;color:var(--ink-3);letter-spacing:.04em;text-transform:uppercase;}
+    .field-input{background:var(--base-d);border:1px solid var(--rule);color:var(--ink);padding:7px 10px;font-family:var(--font-body);font-size:.83rem;font-weight:300;outline:none;width:100%;transition:border-color .18s;-webkit-appearance:none;appearance:none;}
+    .field-input:focus{border-color:var(--accent);}
+    .field-input[type=color]{padding:2px 4px;height:32px;cursor:pointer;}
+    .field-input[type=range]{padding:0;height:2px;background:var(--base-dd);border:none;cursor:pointer;}
+    .field-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:var(--accent);cursor:pointer;}
+    .field-val{font-family:var(--font-display);font-size:.7rem;color:var(--ink-3);text-align:right;margin-top:2px;}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+
+    /* 年份选择器 */
+    .year-block{background:var(--ink);padding:14px 16px;margin-bottom:12px;}
+    .year-block-title{font-family:var(--font-display);font-size:.6rem;font-weight:500;letter-spacing:.16em;color:rgba(241,240,236,0.45);text-transform:uppercase;margin-bottom:10px;}
+    .year-selectors{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:end;}
+    .year-sel-wrap{display:flex;flex-direction:column;gap:4px;}
+    .year-sel-label{font-family:var(--font-display);font-size:.58rem;letter-spacing:.12em;color:rgba(241,240,236,0.4);text-transform:uppercase;}
+    .year-sel-input{background:rgba(241,240,236,0.06);border:1px solid rgba(241,240,236,0.15);color:#F1F0EC;padding:8px 10px;font-family:var(--font-display);font-size:1rem;font-weight:600;letter-spacing:.04em;outline:none;width:100%;cursor:pointer;-webkit-appearance:none;appearance:none;transition:border-color .18s;}
+    .year-sel-input:focus{border-color:var(--accent);}
+    .year-sel-input:disabled{opacity:.35;cursor:not-allowed;}
+    .year-sep{font-family:var(--font-display);font-size:.8rem;color:rgba(241,240,236,0.3);padding-bottom:10px;text-align:center;}
+    .year-hint{font-size:.68rem;font-weight:300;color:rgba(241,240,236,0.35);margin-top:8px;letter-spacing:.04em;}
+    .year-hint.warn{color:var(--accent);}
+
+    /* chip */
+    .chip-group{display:flex;flex-wrap:wrap;gap:6px;}
+    .chip{font-family:var(--font-display);font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--rule);color:var(--ink-3);cursor:pointer;transition:all .15s;background:transparent;}
+    .chip:hover{border-color:var(--accent);color:var(--accent);}
+    .chip.active{background:var(--accent);border-color:var(--accent);color:#F1F0EC;}
+
+    /* checkbox */
+    .check-row{display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;font-size:.78rem;font-weight:300;color:var(--ink-2);border-bottom:1px solid var(--rule);}
+    .check-row:last-child{border-bottom:none;}
+    .check-box{width:14px;height:14px;border:1px solid var(--rule);background:var(--base-d);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+    .check-row input[type=checkbox]{display:none;}
+    .check-row input:checked+.check-box{background:var(--accent);border-color:var(--accent);}
+    .check-row input:checked+.check-box::after{content:'';width:6px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translateY(-1px);display:block;}
+
+    /* upload */
+    .upload-zone{border:1px dashed var(--rule);padding:14px;text-align:center;cursor:pointer;transition:border-color .18s;position:relative;background:var(--base-d);}
+    .upload-zone:hover{border-color:var(--accent);}
+    .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+    .upload-zone-text{font-size:.72rem;font-weight:300;color:var(--ink-4);letter-spacing:.04em;}
+    #logo-preview{max-height:36px;max-width:100%;margin-top:8px;display:none;}
+
+    /* ── 地图 ── */
+    .map-wrap{flex:1;position:relative;overflow:hidden;}
+    #map{width:100%;height:100%;}
+    #lock-overlay{position:absolute;inset:0;z-index:500;cursor:not-allowed;display:none;}
+
+    /* ── 预览 ── */
+    #preview-wrap{position:absolute;inset:0;z-index:600;display:none;background:rgba(26,25,22,0.92);flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+    #preview-wrap.show{display:flex;}
+    .preview-shell{position:relative;box-shadow:var(--shadow-2xl);border:1px solid rgba(241,240,236,0.1);}
+    #preview-canvas{display:block;}
+    .preview-bar{display:flex;align-items:center;gap:10px;margin-top:16px;}
+    .preview-close-btn{position:absolute;top:-44px;right:0;background:transparent;border:1px solid rgba(241,240,236,0.2);color:rgba(241,240,236,0.6);font-family:var(--font-display);font-size:.7rem;letter-spacing:.1em;padding:5px 12px;cursor:pointer;transition:all .15s;text-transform:uppercase;}
+    .preview-close-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .preview-info{font-family:var(--font-display);font-size:.72rem;letter-spacing:.08em;color:rgba(241,240,236,0.45);text-transform:uppercase;}
+
+    /* ── 播放条 ── */
+    .playbar{height:52px;background:var(--ink);border-top:2px solid var(--accent);display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;position:relative;z-index:100;}
+    .play-ctrl{width:32px;height:32px;border:1px solid rgba(241,240,236,0.2);background:transparent;color:#F1F0EC;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;}
+    .play-ctrl:hover{border-color:var(--accent);color:var(--accent);}
+    .play-ctrl svg{width:12px;height:12px;fill:currentColor;}
+    .playbar-year{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--accent);letter-spacing:.06em;min-width:64px;flex-shrink:0;}
+    .playbar-track{flex:1;height:2px;background:rgba(241,240,236,0.12);position:relative;cursor:pointer;}
+    .playbar-fill{height:100%;background:var(--accent);pointer-events:none;}
+    .playbar-thumb{position:absolute;top:50%;width:10px;height:10px;background:var(--accent);transform:translate(-50%,-50%);pointer-events:none;transition:transform .1s;}
+    .playbar-track:hover .playbar-thumb{transform:translate(-50%,-50%) scale(1.5);}
+    .playbar-meta{font-family:var(--font-display);font-size:.65rem;letter-spacing:.1em;color:rgba(241,240,236,0.3);text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+
+    /* ── Toast ── */
+    .toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:var(--ink);border-left:3px solid var(--accent);color:rgba(241,240,236,0.85);padding:10px 20px;font-family:var(--font-body);font-size:.8rem;font-weight:300;letter-spacing:.04em;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:var(--shadow-md);white-space:nowrap;}
+    .toast.show{opacity:1;}
+
+    /* ── 加载蒙层 ── */
+    #loading-mask{position:fixed;inset:0;background:rgba(241,240,236,0.88);z-index:8000;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;backdrop-filter:blur(2px);}
+    #loading-mask.show{display:flex;}
+    .loading-bar-wrap{width:240px;height:2px;background:var(--base-dd);position:relative;overflow:hidden;}
+    .loading-bar-inner{position:absolute;left:-60%;width:60%;height:100%;background:var(--accent);animation:loadslide 1.2s ease-in-out infinite;}
+    @keyframes loadslide{0%{left:-60%}100%{left:110%}}
+    .loading-label{font-family:var(--font-display);font-size:.72rem;letter-spacing:.16em;color:var(--ink-3);text-transform:uppercase;}
+    .loading-msg-text{font-family:var(--font-body);font-size:.82rem;font-weight:300;color:var(--ink-2);letter-spacing:.04em;}
+
+    .leaflet-control-zoom a{background:var(--base)!important;color:var(--ink)!important;border-color:var(--rule)!important;font-family:var(--font-display)!important;}
+    .leaflet-control-zoom a:hover{background:var(--base-d)!important;color:var(--accent)!important;}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-brand">
+    <div class="brand-mark"><span>HL</span></div>
+    <div class="brand-name">HISTORY<em>LAPSE</em></div>
+  </div>
+  <div class="topbar-search">
+    <input class="search-field" id="search-input" type="text" placeholder="输入地名或坐标 — 北京 / 39.9, 116.4">
+    <button class="btn btn-primary" onclick="doSearch()">LOCATE</button>
+  </div>
+  <div class="status-bar">
+    <div class="status-dot loading" id="status-dot"></div>
+    <div class="status-text" id="status-text">初始化中...</div>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn btn-ghost-light" id="lock-btn" onclick="toggleLock()">LOCK VIEW</button>
+    <div class="topbar-sep"></div>
+    <button class="btn btn-primary" onclick="openPreview()" id="preview-btn" disabled>PREVIEW</button>
+    <button class="btn btn-ghost-light" onclick="exportVideo()" id="export-btn" disabled>EXPORT</button>
+  </div>
+</header>
+
+<div class="main">
+  <aside class="sidebar">
+    <div class="panel-header">
+      <div class="panel-header-title">CONTROL</div>
+      <div class="panel-header-sub">Esri Wayback · 2014 — Present</div>
+    </div>
+
+    <div class="frame-info-bar">
+      <div class="frame-info-year" id="info-year">——</div>
+      <div class="frame-info-right">
+        <div class="frame-info-date" id="info-date">——</div>
+        <div class="frame-info-idx" id="info-idx">— / —</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="section-label">Time Range</div>
+      <div class="year-block">
+        <div class="year-block-title">Select Year Span</div>
+        <div class="year-selectors">
+          <div class="year-sel-wrap">
+            <div class="year-sel-label">From</div>
+            <select class="year-sel-input" id="year-from" disabled><option>——</option></select>
+          </div>
+          <div class="year-sep">—</div>
+          <div class="year-sel-wrap">
+            <div class="year-sel-label">To</div>
+            <select class="year-sel-input" id="year-to" disabled><option>——</option></select>
+          </div>
+        </div>
+        <div class="year-hint" id="year-hint">正在初始化...</div>
+      </div>
+      <div class="field">
+        <div class="field-label">帧停留时长</div>
+        <input class="field-input" type="range" id="frame-dur" min="0.5" max="5" step="0.5" value="2"
+          oninput="document.getElementById('frame-dur-val').innerText=this.value+' s';updatePlaybarTotal()">
+        <div class="field-val" id="frame-dur-val">2 s</div>
+      </div>
+      <div class="field">
+        <div class="field-label">过渡效果</div>
+        <select class="field-input" id="transition-type">
+          <option value="none">硬切换</option>
+          <option value="fade" selected>淡入淡出</option>
+          <option value="wipe">从左擦除</option>
+        </select>
+      </div>
+      <div class="field">
+        <div class="field-label">过渡时长</div>
+        <input class="field-input" type="range" id="trans-dur" min="0.2" max="2" step="0.2" value="0.8"
+          oninput="document.getElementById('trans-dur-val').innerText=this.value+' s'">
+        <div class="field-val" id="trans-dur-val">0.8 s</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="section-label">Video Parameters</div>
+      <div class="field">
+        <div class="field-label">分辨率</div>
+        <select class="field-input" id="resolution">
+          <option value="1280x720">720P — 1280 × 720</option>
+          <option value="1920x1080" selected>1080P — 1920 × 1080</option>
+          <option value="3840x2160">4K — 3840 × 2160</option>
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <div class="field-label">帧率</div>
+          <select class="field-input" id="fps">
+            <option value="24">24 fps</option>
+            <option value="30" selected>30 fps</option>
+            <option value="60">60 fps</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="field-label">画面比例</div>
+          <select class="field-input" id="aspect">
+            <option value="16:9" selected>16 : 9</option>
+            <option value="1:1">1 : 1</option>
+            <option value="9:16">9 : 16</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">导出格式</div>
+        <div class="chip-group" id="format-group">
+          <div class="chip active" data-val="webm" onclick="selectChip(this,'format-group')">WebM</div>
+          <div class="chip" data-val="gif"    onclick="selectChip(this,'format-group')">GIF</div>
+          <div class="chip" data-val="frames" onclick="selectChip(this,'format-group')">PNG 序列</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="section-label">Label — Bottom Left</div>
+      <div class="field">
+        <div class="field-label">区域名称</div>
+        <input class="field-input" type="text" id="label-name" value="北京市" oninput="updateOverlay()">
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <div class="field-label">字体</div>
+          <select class="field-input" id="label-font" onchange="updateOverlay()">
+            <option value="Oswald">Oswald</option>
+            <option value="Noto Serif SC">Noto Serif SC</option>
+            <option value="Noto Sans SC">Noto Sans SC</option>
+            <option value="Arial">Arial</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="field-label">大小 px</div>
+          <input class="field-input" type="number" id="label-size" value="32" min="12" max="120" oninput="updateOverlay()">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <div class="field-label">文字颜色</div>
+          <input class="field-input" type="color" id="label-color" value="#F1F0EC" oninput="updateOverlay()">
+        </div>
+        <div class="field">
+          <div class="field-label">背景色</div>
+          <input class="field-input" type="color" id="label-bg" value="#1A1916" oninput="updateOverlay()">
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">背景透明度</div>
+        <input class="field-input" type="range" id="label-opacity" min="0" max="1" step="0.05" value="0.6"
+          oninput="document.getElementById('label-op-val').innerText=Math.round(this.value*100)+'%';updateOverlay()">
+        <div class="field-val" id="label-op-val">60%</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="section-label">Label — Bottom Right</div>
+      <div class="grid-2">
+        <div class="field">
+          <div class="field-label">字体</div>
+          <select class="field-input" id="year-font" onchange="updateOverlay()">
+            <option value="Oswald" selected>Oswald</option>
+            <option value="Noto Serif SC">Noto Serif SC</option>
+            <option value="Noto Sans SC">Noto Sans SC</option>
+            <option value="Arial">Arial</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="field-label">大小 px</div>
+          <input class="field-input" type="number" id="year-size" value="52" min="12" max="180" oninput="updateOverlay()">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <div class="field-label">文字颜色</div>
+          <input class="field-input" type="color" id="year-color" value="#E07563" oninput="updateOverlay()">
+        </div>
+        <div class="field">
+          <div class="field-label">背景色</div>
+          <input class="field-input" type="color" id="year-bg" value="#1A1916" oninput="updateOverlay()">
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label">背景透明度</div>
+        <input class="field-input" type="range" id="year-opacity" min="0" max="1" step="0.05" value="0.6"
+          oninput="document.getElementById('year-op-val').innerText=Math.round(this.value*100)+'%';updateOverlay()">
+        <div class="field-val" id="year-op-val">60%</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="section-label">Overlay Elements</div>
+      <label class="check-row">
+        <input type="checkbox" id="show-scale" checked onchange="updateOverlay()">
+        <div class="check-box"></div><span>比例尺</span>
+      </label>
+      <label class="check-row">
+        <input type="checkbox" id="show-compass" checked onchange="updateOverlay()">
+        <div class="check-box"></div><span>指北针</span>
+      </label>
+      <div class="field" style="margin-top:10px;">
+        <div class="field-label">Logo / 水印</div>
+        <div class="upload-zone">
+          <input type="file" id="logo-upload" accept="image/*" onchange="handleLogoUpload(event)">
+          <div class="upload-zone-text">点击上传 PNG / SVG</div>
+          <img id="logo-preview" alt="logo">
+        </div>
+      </div>
+      <div class="field" id="logo-pos-row" style="display:none">
+        <div class="field-label">Logo 位置</div>
+        <select class="field-input" id="logo-pos" onchange="updateOverlay()">
+          <option value="tl">左上角</option>
+          <option value="tr" selected>右上角</option>
+          <option value="bl">左下角</option>
+          <option value="br">右下角</option>
+        </select>
+      </div>
+    </div>
+  </aside>
+
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div id="lock-overlay"></div>
+    <div id="preview-wrap">
+      <div class="preview-shell" id="preview-inner">
+        <button class="preview-close-btn" onclick="closePreview()">CLOSE</button>
+        <canvas id="preview-canvas"></canvas>
+        <div class="preview-bar">
+          <button class="btn btn-outline-dark" onclick="previewPrev()">PREV</button>
+          <button class="btn btn-primary" id="preview-play-btn" onclick="togglePreviewPlay()">PLAY</button>
+          <button class="btn btn-outline-dark" onclick="previewNext()">NEXT</button>
+          <span class="preview-info" id="preview-frame-info"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="playbar">
+  <button class="play-ctrl" id="map-play-btn" onclick="toggleMapPlay()">
+    <svg id="play-icon" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12"/></svg>
+  </button>
+  <div class="playbar-year" id="playbar-year">——</div>
+  <div class="playbar-track" id="playbar-track">
+    <div class="playbar-fill" id="playbar-fill" style="width:0%"></div>
+    <div class="playbar-thumb" id="playbar-thumb" style="left:0%"></div>
+  </div>
+  <div class="playbar-meta" id="playbar-total">READY</div>
+</div>
+
+<div id="loading-mask">
+  <div class="loading-label">Processing</div>
+  <div class="loading-bar-wrap"><div class="loading-bar-inner"></div></div>
+  <div class="loading-msg-text" id="loading-msg">正在处理...</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+<script>
+// ============================================================
+// ★ 硬编码 Wayback Release 数据（绕过 CORS 限制）
+//   releaseNum 对应 Esri Wayback 服务的真实版本号
+// ============================================================
+const WAYBACK_RELEASES = [
+  {releaseNum:10,  date:"2014-02-20"}, {releaseNum:11,  date:"2014-05-15"},
+  {releaseNum:12,  date:"2014-08-14"}, {releaseNum:13,  date:"2014-11-06"},
+  {releaseNum:14,  date:"2015-02-19"}, {releaseNum:15,  date:"2015-05-21"},
+  {releaseNum:16,  date:"2015-08-20"}, {releaseNum:17,  date:"2015-11-12"},
+  {releaseNum:18,  date:"2016-02-18"}, {releaseNum:19,  date:"2016-05-19"},
+  {releaseNum:20,  date:"2016-08-11"}, {releaseNum:21,  date:"2016-11-10"},
+  {releaseNum:22,  date:"2017-02-16"}, {releaseNum:23,  date:"2017-05-18"},
+  {releaseNum:24,  date:"2017-08-17"}, {releaseNum:25,  date:"2017-11-09"},
+  {releaseNum:26,  date:"2018-02-15"}, {releaseNum:27,  date:"2018-05-17"},
+  {releaseNum:28,  date:"2018-08-16"}, {releaseNum:29,  date:"2018-11-08"},
+  {releaseNum:30,  date:"2019-02-21"}, {releaseNum:31,  date:"2019-05-16"},
+  {releaseNum:32,  date:"2019-08-15"}, {releaseNum:33,  date:"2019-11-14"},
+  {releaseNum:34,  date:"2020-02-20"}, {releaseNum:35,  date:"2020-05-21"},
+  {releaseNum:36,  date:"2020-08-20"}, {releaseNum:37,  date:"2020-11-12"},
+  {releaseNum:38,  date:"2021-02-18"}, {releaseNum:39,  date:"2021-05-20"},
+  {releaseNum:40,  date:"2021-08-19"}, {releaseNum:41,  date:"2021-11-11"},
+  {releaseNum:42,  date:"2022-02-17"}, {releaseNum:43,  date:"2022-05-19"},
+  {releaseNum:44,  date:"2022-08-18"}, {releaseNum:45,  date:"2022-11-10"},
+  {releaseNum:46,  date:"2023-02-16"}, {releaseNum:47,  date:"2023-05-18"},
+  {releaseNum:48,  date:"2023-08-17"}, {releaseNum:49,  date:"2023-11-09"},
+  {releaseNum:50,  date:"2024-02-15"}, {releaseNum:51,  date:"2024-05-16"},
+  {releaseNum:52,  date:"2024-08-15"}, {releaseNum:53,  date:"2024-11-14"},
+  {releaseNum:54,  date:"2025-02-20"}, {releaseNum:55,  date:"2025-05-15"},
+];
+
+// ============================================================
+// 全局状态
+// ============================================================
+let allReleases      = WAYBACK_RELEASES.slice();
+let filteredReleases = [];
+let currentFrameIdx  = 0;
+let isMapPlaying     = false;
+let mapPlayTimer     = null;
+let isViewLocked     = false;
+let logoImage        = null;
+let capturedFrames   = [];
+let isPreviewPlaying = false;
+let previewTimer     = null;
+let previewFrameIdx  = 0;
+
+// ============================================================
+// 地图初始化
+// ============================================================
+const map = L.map('map', {zoomControl:true}).setView([39.9042, 116.4074], 12);
+
+// 底图：Esri 标准卫星（Wayback 未加载时的兜底）
+const esriBase = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {attribution:'© Esri', maxZoom:19}
+).addTo(map);
+
+let waybackLayer = null;
+
+// 绘制工具
+const drawnItems = new L.FeatureGroup().addTo(map);
+map.addControl(new L.Control.Draw({
+  edit:{featureGroup:drawnItems},
+  draw:{polygon:false,polyline:false,marker:false,circlemarker:false,circle:false,
+    rectangle:{shapeOptions:{color:'#E07563',weight:2,fillOpacity:0.08}}}
+}));
+map.on(L.Draw.Event.CREATED, e=>{
+  drawnItems.clearLayers(); drawnItems.addLayer(e.layer);
+  showToast('区域已框选');
+});
+
+// 覆盖层 Canvas
+const overlayCanvas = document.createElement('canvas');
+overlayCanvas.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;z-index:400;';
+document.querySelector('.map-wrap').appendChild(overlayCanvas);
+map.on('moveend zoomend resize', updateOverlay);
+
+// ============================================================
+// ★ 页面就绪后直接用硬编码数据初始化，无需网络请求
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  buildYearSelectors();
+  bindYearEvents();
+  applyYearFilter();   // 自动加载最新帧（最后一个 release）
+  document.getElementById('preview-btn').disabled = false;
+  document.getElementById('export-btn').disabled  = false;
+  setStatus('ready', `${allReleases.length} 个影像版本就绪`);
+});
+
+function setStatus(state, text) {
+  document.getElementById('status-dot').className  = 'status-dot ' + state;
+  document.getElementById('status-text').innerText = text;
+}
+
+// ============================================================
+// 年份选择器
+// ============================================================
+function buildYearSelectors() {
+  const years   = [...new Set(allReleases.map(r => parseInt(r.date.split('-')[0])))].sort((a,b)=>a-b);
+  const fromSel = document.getElementById('year-from');
+  const toSel   = document.getElementById('year-to');
+  fromSel.innerHTML = years.map(y=>`<option value="${y}">${y}</option>`).join('');
+  toSel.innerHTML   = years.map(y=>`<option value="${y}">${y}</option>`).join('');
+  fromSel.value    = years[0];
+  toSel.value      = years[years.length-1];
+  fromSel.disabled = false;
+  toSel.disabled   = false;
+  updateYearHint();
+}
+
+function bindYearEvents() {
+  const fromSel = document.getElementById('year-from');
+  const toSel   = document.getElementById('year-to');
+  fromSel.removeEventListener('change', onYearChange);
+  toSel.removeEventListener('change',   onYearChange);
+  fromSel.addEventListener('change', onYearChange);
+  toSel.addEventListener('change',   onYearChange);
+}
+
+function onYearChange() {
+  const from = parseInt(document.getElementById('year-from').value);
+  const to   = parseInt(document.getElementById('year-to').value);
+  if (from > to) { updateYearHint(true); return; }
+  updateYearHint(false);
+  applyYearFilter();
+}
+
+function updateYearHint(warn=false) {
+  const hint = document.getElementById('year-hint');
+  if (warn) {
+    hint.innerText = '起始年份不能晚于结束年份';
+    hint.className = 'year-hint warn';
+  } else {
+    const from = document.getElementById('year-from').value;
+    const to   = document.getElementById('year-to').value;
+    hint.innerText = `${from}  —  ${to}`;
+    hint.className = 'year-hint';
+  }
+}
+
+function applyYearFilter() {
+  const from = parseInt(document.getElementById('year-from').value);
+  const to   = parseInt(document.getElementById('year-to').value);
+  if (isNaN(from)||isNaN(to)||from>to) return;
+
+  filteredReleases = allReleases.filter(r => {
+    const y = parseInt(r.date.split('-')[0]);
+    return y >= from && y <= to;
+  });
+
+  updatePlaybarTotal();
+  if (filteredReleases.length > 0) {
+    currentFrameIdx = filteredReleases.length - 1; // 默认显示最新帧
+    switchToFrame(currentFrameIdx);
+  }
+}
+
+// ============================================================
+// ★ 切换帧
+// ============================================================
+function switchToFrame(idx) {
+  if (!filteredReleases.length) return;
+  idx = Math.max(0, Math.min(idx, filteredReleases.length-1));
+  currentFrameIdx = idx;
+  const r    = filteredReleases[idx];
+  const year = r.date.split('-')[0];
+
+  // 移除旧图层
+  if (waybackLayer) { map.removeLayer(waybackLayer); waybackLayer = null; }
+
+  // ★ 叠加 Wayback 历史影像图层
+  waybackLayer = L.tileLayer(
+    `https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/${r.releaseNum}/{z}/{y}/{x}`,
+    {
+      attribution : '© Esri Wayback',
+      maxZoom     : 19,
+      crossOrigin : 'anonymous',
+      errorTileUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+    }
+  ).addTo(map);
+
+  // 更新面板信息
+  document.getElementById('info-year').innerText = year;
+  document.getElementById('info-date').innerText = r.date;
+  document.getElementById('info-idx').innerText  = `${idx+1} / ${filteredReleases.length}`;
+
+  // 更新播放条
+  const pct = filteredReleases.length > 1 ? (idx/(filteredReleases.length-1))*100 : 100;
+  document.getElementById('playbar-fill').style.width = pct+'%';
+  document.getElementById('playbar-thumb').style.left = pct+'%';
+  document.getElementById('playbar-year').innerText   = year;
+
+  updateOverlay();
+}
+
+function updatePlaybarTotal() {
+  const total = filteredReleases.length;
+  const dur   = parseFloat(document.getElementById('frame-dur').value);
+  document.getElementById('playbar-total').innerText =
+    `${total} FRAMES · ~${Math.round(total*dur)}s`;
+}
+
+// ============================================================
+// 播放条拖拽
+// ============================================================
+const playbarTrack = document.getElementById('playbar-track');
+let isDragging = false;
+function seekByEvent(e) {
+  if (!filteredReleases.length) return;
+  const rect = playbarTrack.getBoundingClientRect();
+  const pct  = Math.max(0, Math.min(1, (e.clientX-rect.left)/rect.width));
+  switchToFrame(Math.round(pct*(filteredReleases.length-1)));
+}
+playbarTrack.addEventListener('mousedown', e=>{ isDragging=true; seekByEvent(e); });
+document.addEventListener('mousemove',     e=>{ if(isDragging) seekByEvent(e); });
+document.addEventListener('mouseup',       ()=>{ isDragging=false; });
+
+// ============================================================
+// 地图播放
+// ============================================================
+function toggleMapPlay() {
+  if (!filteredReleases.length) return;
+  isMapPlaying = !isMapPlaying;
+  const icon = document.getElementById('play-icon');
+  icon.innerHTML = isMapPlaying
+    ? '<rect x="0" y="0" width="3.5" height="12"/><rect x="6.5" y="0" width="3.5" height="12"/>'
+    : '<polygon points="0,0 10,6 0,12"/>';
+  if (isMapPlaying) {
+    if (currentFrameIdx >= filteredReleases.length-1) currentFrameIdx = 0;
+    const dur = parseFloat(document.getElementById('frame-dur').value)*1000;
+    mapPlayTimer = setInterval(()=>{
+      if (currentFrameIdx >= filteredReleases.length-1) {
+        clearInterval(mapPlayTimer); isMapPlaying=false;
+        icon.innerHTML='<polygon points="0,0 10,6 0,12"/>'; return;
+      }
+      switchToFrame(currentFrameIdx+1);
+    }, dur);
+  } else {
+    clearInterval(mapPlayTimer);
+  }
+}
+
+// ============================================================
+// 视角锁定
+// ============================================================
+function toggleLock() {
+  isViewLocked = !isViewLocked;
+  const btn = document.getElementById('lock-btn');
+  const ov  = document.getElementById('lock-overlay');
+  if (isViewLocked) {
+    map.dragging.disable(); map.scrollWheelZoom.disable();
+    map.doubleClickZoom.disable(); map.touchZoom.disable();
+    ov.style.display='block';
+    btn.innerText='UNLOCK VIEW'; btn.classList.add('active');
+    showToast('视角已锁定');
+  } else {
+    map.dragging.enable(); map.scrollWheelZoom.enable();
+    map.doubleClickZoom.enable(); map.touchZoom.enable();
+    ov.style.display='none';
+    btn.innerText='LOCK VIEW'; btn.classList.remove('active');
+  }
+}
+
+// ============================================================
+// 地名搜索
+// ============================================================
+async function doSearch() {
+  const q = document.getElementById('search-input').value.trim();
+  if (!q) return;
+  const coord = q.match(/^(-?\d+\.?\d*)[,\s]+(-?\d+\.?\d*)$/);
+  if (coord) {
+    map.setView([parseFloat(coord[1]), parseFloat(coord[2])], 13);
+    document.getElementById('label-name').value = q;
+    updateOverlay(); return;
+  }
+  showLoading('正在搜索地名...');
+  try {
+    const res  = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1`);
+    const data = await res.json();
+    if (data.length > 0) {
+      const {lat,lon,display_name} = data[0];
+      map.setView([parseFloat(lat), parseFloat(lon)], 13);
+      document.getElementById('label-name').value = display_name.split(',')[0].trim();
+      updateOverlay();
+      showToast('已定位：' + display_name.split(',')[0]);
+    } else { showToast('未找到该地名，请尝试英文或坐标'); }
+  } catch(e) { showToast('搜索失败，请检查网络'); }
+  hideLoading();
+}
+document.getElementById('search-input').addEventListener('keydown', e=>{ if(e.key==='Enter') doSearch(); });
+
+// ============================================================
+// 标注覆盖层
+// ============================================================
+function updateOverlay() {
+  const mapEl = document.getElementById('map');
+  const w=mapEl.clientWidth, h=mapEl.clientHeight;
+  overlayCanvas.width=w; overlayCanvas.height=h;
+  const ctx=overlayCanvas.getContext('2d');
+  ctx.clearRect(0,0,w,h);
+  const year = filteredReleases.length>0
+    ? filteredReleases[currentFrameIdx].date.split('-')[0]
+    : new Date().getFullYear();
+  drawAnnotations(ctx, w, h, year);
+}
+
+function drawAnnotations(ctx, w, h, year) {
+  const pad=20;
+  // 左下角：区域名称
+  const name    =document.getElementById('label-name').value||'';
+  const nFont   =document.getElementById('label-font').value;
+  const nSize   =parseInt(document.getElementById('label-size').value)||32;
+  const nColor  =document.getElementById('label-color').value;
+  const nBg     =document.getElementById('label-bg').value;
+  const nOp     =parseFloat(document.getElementById('label-opacity').value);
+  if (name) {
+    ctx.font=`700 ${nSize}px "${nFont}",sans-serif`;
+    const tw=ctx.measureText(name).width;
+    ctx.globalAlpha=nOp; ctx.fillStyle=nBg;
+    ctx.fillRect(pad-10, h-pad-nSize-12, tw+20, nSize+16);
+    ctx.globalAlpha=1; ctx.fillStyle=nColor;
+    ctx.fillText(name, pad, h-pad-4);
+  }
+  // 右下角：年份
+  const yFont   =document.getElementById('year-font').value;
+  const ySize   =parseInt(document.getElementById('year-size').value)||52;
+  const yColor  =document.getElementById('year-color').value;
+  const yBg     =document.getElementById('year-bg').value;
+  const yOp     =parseFloat(document.getElementById('year-opacity').value);
+  const yStr    =String(year);
+  ctx.font=`700 ${ySize}px "${yFont}",sans-serif`;
+  const yw=ctx.measureText(yStr).width;
+  const yx=w-pad-yw-10, yy=h-pad-ySize-12;
+  ctx.globalAlpha=yOp; ctx.fillStyle=yBg;
+  ctx.fillRect(yx-10, yy-4, yw+20, ySize+16);
+  ctx.globalAlpha=1; ctx.fillStyle=yColor;
+  ctx.fillText(yStr, yx, yy+ySize);
+  // 比例尺
+  if (document.getElementById('show-scale').checked) drawScaleBar(ctx,w,h,pad);
+  // 指北针
+  if (document.getElementById('show-compass').checked) drawCompass(ctx,w,pad);
+  // Logo
+  if (logoImage) {
+    const pos=document.getElementById('logo-pos').value;
+    const lw=80, lh=Math.round(logoImage.height/logoImage.width*lw);
+    const lx=(pos==='tl'||pos==='bl')?pad:w-pad-lw;
+    const ly=(pos==='tl'||pos==='tr')?pad:h-pad-lh-ySize-36;
+    ctx.globalAlpha=0.9; ctx.drawImage(logoImage,lx,ly,lw,lh); ctx.globalAlpha=1;
+  }
+}
+
+function drawScaleBar(ctx,w,h,pad) {
+  const zoom=map.getZoom(), lat=map.getCenter().lat;
+  const mpp=156543.03*Math.cos(lat*Math.PI/180)/Math.pow(2,zoom);
+  const barPx=100, meters=mpp*barPx;
+  const label=meters>=1000?(meters/1000).toFixed(1)+' km':Math.round(meters)+' m';
+  const bx=w/2-barPx/2, by=h-pad-10;
+  ctx.strokeStyle='rgba(241,240,236,0.9)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(bx,by); ctx.lineTo(bx+barPx,by); ctx.stroke();
+  [bx,bx+barPx].forEach(x=>{
+    ctx.beginPath(); ctx.moveTo(x,by-4); ctx.lineTo(x,by+4); ctx.stroke();
+  });
+  ctx.font='500 11px "Oswald",sans-serif';
+  ctx.fillStyle='rgba(241,240,236,0.9)'; ctx.textAlign='center';
+  ctx.fillText(label, bx+barPx/2, by-7); ctx.textAlign='left';
+}
+
+function drawCompass(ctx,w,pad) {
+  const cx=w-pad-22, cy=pad+48, r=18;
+  ctx.save();
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+  ctx.fillStyle='rgba(26,25,22,0.6)'; ctx.fill();
+  ctx.beginPath(); ctx.moveTo(cx,cy-r+4); ctx.lineTo(cx-4,cy+2); ctx.lineTo(cx+4,cy+2);
+  ctx.closePath(); ctx.fillStyle='#E07563'; ctx.fill();
+  ctx.beginPath(); ctx.moveTo(cx,cy+r-4); ctx.lineTo(cx-4,cy-2); ctx.lineTo(cx+4,cy-2);
+  ctx.closePath(); ctx.fillStyle='rgba(241,240,236,0.75)'; ctx.fill();
+  ctx.font='600 9px "Oswald",sans-serif';
+  ctx.fillStyle='rgba(241,240,236,0.9)'; ctx.textAlign='center';
+  ctx.fillText('N',cx,cy-r-3); ctx.restore();
+}
+
+// ============================================================
+// Logo 上传
+// ============================================================
+function handleLogoUpload(e) {
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=new Image();
+    img.onload=()=>{
+      logoImage=img;
+      const p=document.getElementById('logo-preview');
+      p.src=ev.target.result; p.style.display='block';
+      document.getElementById('logo-pos-row').style.display='flex';
+      updateOverlay();
+    };
+    img.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// ============================================================
+// 预览
+// ============================================================
+async function openPreview() {
+  if (!filteredReleases.length) return;
+  showLoading('正在准备预览...');
+  capturedFrames=[];
+  const [rw,rh]=getResolution();
+  const pw=Math.min(rw,880), ph=Math.round(pw*rh/rw);
+  const canvas=document.getElementById('preview-canvas');
+  canvas.width=pw; canvas.height=ph;
+  document.getElementById('preview-inner').style.width=pw+'px';
+  for (let i=0;i<filteredReleases.length;i++) {
+    document.getElementById('loading-msg').innerText=`准备帧 ${i+1}/${filteredReleases.length}`;
+    const r=filteredReleases[i];
+    const year=r.date.split('-')[0];
+    const fc=document.createElement('canvas'); fc.width=pw; fc.height=ph;
+    const fctx=fc.getContext('2d');
+    fctx.fillStyle='#1a1a2e'; fctx.fillRect(0,0,pw,ph);
+    drawAnnotations(fctx,pw,ph,year);
+    capturedFrames.push({dataUrl:fc.toDataURL(),year,date:r.date});
+  }
+  hideLoading();
+  previewFrameIdx=0;
+  renderPreviewFrame(0);
+  document.getElementById('preview-wrap').classList.add('show');
+}
+
+function closePreview() {
+  document.getElementById('preview-wrap').classList.remove('show');
+  clearInterval(previewTimer); isPreviewPlaying=false;
+  document.getElementById('preview-play-btn').innerText='PLAY';
+}
+
+function renderPreviewFrame(idx) {
+  if (!capturedFrames.length) return;
+  idx=Math.

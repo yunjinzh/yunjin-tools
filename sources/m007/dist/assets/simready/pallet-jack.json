@@ -1,0 +1,48 @@
+{
+  "id": "pallet-jack",
+  "sourceAsset": "palletJack_lowProfile_a01",
+  "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/palletJack_lowProfile_a01",
+  "author": "NVIDIA",
+  "license": "CC-BY-4.0",
+  "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "size": [
+    0.6531078815460205,
+    1.273739419878483,
+    1.6297080963850021
+  ],
+  "sourceOrigin": [
+    0.00015273690223693848,
+    0.000019915397957537273,
+    0.6347632184624672
+  ],
+  "triangles": 63261,
+  "materials": 16,
+  "bytes": 1380000,
+  "sha256": "17ffe2b28d3a1f805faf97853ba7339c469aab2a5b509a17ec74cdc8d7bd9511",
+  "sourceFiles": {
+    "palletJack_lowProfile_a01/simready_usd/Textures/T_LowProfilePalletTruck_A01_Albedo.png": "22896a1ef2c6aeedd0a142aa5c1f3e9919225a668167b0c2886569371d754db6",
+    "palletJack_lowProfile_a01/simready_usd/Textures/T_LowProfilePalletTruck_A01_ORM.png": "2b64ffc75db269e043e4b9158967692007d9fd48018152da636f0ead23a14931",
+    "palletJack_lowProfile_a01/simready_usd/Textures/T_LowProfilePalletTruck_A01_Decals_Albedo.png": "7c2c92e088c736c3201df476fdffe34b56044884f8e7b30dc3049aae6e1dc72f",
+    "palletJack_lowProfile_a01/simready_usd/Textures/T_LowProfilePalletTruck_A01_Decals_ORM.png": "f9eccad699f90769f2a7e683e8bb2d21a53741782cae32547d842c2ba1e85873",
+    "palletJack_lowProfile_a01/simready_usd/payloads/Physics/physics.usda": "4d5904eaedad862b85a126debb7a38a54900469f39050163f43e5b029e23f315",
+    "palletJack_lowProfile_a01/simready_usd/payloads/MuJoCo/disabled.usda": "ab3ba3d2fdf987dc532e2a0f32ef05ab92858c82393218f8167b2464357a6477",
+    "palletJack_lowProfile_a01/simready_usd/payloads/Newton/disabled.usda": "ab3ba3d2fdf987dc532e2a0f32ef05ab92858c82393218f8167b2464357a6477",
+    "palletJack_lowProfile_a01/simready_usd/sm_palletJack_lowProfile_a01_01.usd": "9ab841bba88d8c1ff3afa75051c250491afe2b66d7f4df05b3b55851bbad0d00",
+    "palletJack_lowProfile_a01/simready_usd/payloads/base.usda": "40165aee10dafc76ff78cddbf897cdf07a9617bbcd349f46f2e42fc591c6b9b5",
+    "palletJack_lowProfile_a01/simready_usd/payloads/PhysX/enabled.usda": "8541f93f428b262455e62b667d9909e28514d3f454f1d373450a558b15e81c5c",
+    "palletJack_lowProfile_a01/simready_usd/payloads/instances_physx.usda": "321196e03fca84f4315dc2563d035b8e447d6caa709552aeb524f73530ca1312",
+    "palletJack_lowProfile_a01/simready_usd/payloads/geometries.usd": "c22dcc440ad316930966156d3fa87ef80191e7ae7b89184e077cd2b1277dee20",
+    "palletJack_lowProfile_a01/simready_usd/payloads/instances.usda": "ad84f422db1d458cca8bc54d36d7e0c853e81fdf5200a85135cdc28a4d738b36",
+    "palletJack_lowProfile_a01/simready_usd/payloads/materials.usda": "af52218b44f0081faeecf74b29bb2a12901c85b4938f6a55e69e1fea4fe789ce",
+    "palletJack_lowProfile_a01/com.nvidia.simready.packaging.json": "7cd850dbb779abcc1581093a831a9ce4246e2aea3ea0aca683a0f0239c8c467a",
+    "palletJack_lowProfile_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+  },
+  "originalTriangles": 180737,
+  "originalBytes": 3919044,
+  "optimization": {
+    "targetRatio": 0.35,
+    "maxRelativeError": 0.001,
+    "compression": "EXT_meshopt_compression",
+    "textureMaxSize": 1024
+  }
+}

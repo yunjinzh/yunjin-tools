@@ -1,0 +1,8 @@
+Tesla 2018 Model 3
+Author: Ameer Studio (https://sketchfab.com/uchiha.321abc)
+Source: https://sketchfab.com/3d-models/tesla-2018-model-3-5ef9b845aaf44203b6d04e2c677e444f
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Source and license are recorded in the user-supplied GLB asset metadata.
+Original GLB bytes are unchanged. Runtime modifications: scale, orientation, paint/glass materials, grouping and teaching animations.
+Compatibility derivative: mesh decimation, hidden interior omitted and texture colours averaged for Canvas rendering.
+Battery / high-voltage teaching components are independent generic illustrations, not verified Tesla service geometry.

@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>普通高等学校本科专业目录（2026年）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════
+   TOKENS — 瑞士主义设计系统
+═══════════════════════════════════════ */
+:root {
+  /* Color */
+  --c-accent:     #E07563;   /* 合欢红 */
+  --c-accent-dk:  #C4503E;
+  --c-base:       #F1F0EC;   /* 银白 */
+  --c-base-02:    #E8E6E0;
+  --c-base-03:    #DAD8D1;
+  --c-ink:        #1C1B19;
+  --c-ink-60:     #5E5C57;
+  --c-ink-30:     #9E9C96;
+  --c-ink-10:     #D4D2CC;
+
+  /* Tag colors — desaturated */
+  --c-tag-t-bg:   #FAE8DE;
+  --c-tag-t:      #A0492D;
+  --c-tag-k-bg:   #E4DFF5;
+  --c-tag-k:      #5A3E8C;
+  --c-tag-tk-bg:  #DCF0EC;
+  --c-tag-tk:     #1D6B58;
+
+  /* Typography */
+  --f-display:    'Oswald', 'Noto Serif SC', sans-serif;
+  --f-heading:    'Noto Serif SC', serif;
+  --f-body:       'Noto Sans SC', 'PingFang SC', sans-serif;
+  --f-mono:       'Oswald', 'SF Mono', monospace;
+
+  /* Shadow */
+  --shadow-sm:    0 1px 3px rgba(28,27,25,0.10), 0 1px 2px rgba(28,27,25,0.06);
+  --shadow-md:    0 4px 12px rgba(28,27,25,0.10), 0 2px 6px rgba(28,27,25,0.06);
+  --shadow-2xl:   0 24px 60px rgba(28,27,25,0.18), 0 8px 20px rgba(28,27,25,0.10);
+
+  /* Grid */
+  --header-h:     148px;
+  --sidebar-w:    220px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--f-body);
+  background: var(--c-base);
+  color: var(--c-ink);
+  min-height: 100vh;
+  font-weight: 300;
+  line-height: 1.6;
+  /* Noise texture overlay */
+  position: relative;
+}
+
+/* ── Global SVG noise filter (paper texture) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+/* ══════════════════════════════════════
+   HEADER — 非对称网格 + 工业感
+══════════════════════════════════════ */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--c-ink);
+  color: var(--c-base);
+  height: var(--header-h);
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  box-shadow: var(--shadow-2xl);
+  border-bottom: 3px solid var(--c-accent);
+}
+
+/* Left brand column */
+.header-brand {
+  padding: 20px 24px;
+  border-right: 1px solid rgba(241,240,236,0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.header-brand::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--c-accent);
+}
+.brand-year {
+  font-family: var(--f-display);
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--c-accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.brand-label {
+  font-family: var(--f-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: rgba(241,240,236,0.45);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Right search column */
+.header-search {
+  padding: 16px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.header-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.header-title {
+  font-family: var(--f-heading);
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--c-base);
+  line-height: 1.2;
+}
+.header-meta {
+  font-size: 0.7rem;
+  color: rgba(241,240,236,0.4);
+  letter-spacing: 0.1em;
+  font-weight: 300;
+}
+
+/* Search row */
+.search-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.search-wrap {
+  flex: 1;
+  position: relative;
+}
+.search-wrap svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--c-ink-30);
+  pointer-events: none;
+  width: 16px; height: 16px;
+}
+.search-input {
+  width: 100%;
+  background: rgba(241,240,236,0.08);
+  border: 1px solid rgba(241,240,236,0.15);
+  border-radius: 3px;
+  padding: 9px 12px 9px 38px;
+  font-family: var(--f-body);
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--c-base);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.search-input::placeholder { color: rgba(241,240,236,0.3); }
+.search-input:focus {
+  border-color: var(--c-accent);
+  background: rgba(224,117,99,0.08);
+}
+.cat-select {
+  background: rgba(241,240,236,0.08);
+  border: 1px solid rgba(241,240,236,0.15);
+  border-radius: 3px;
+  padding: 9px 12px;
+  font-family: var(--f-body);
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--c-base);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  min-width: 120px;
+}
+.cat-select:focus { border-color: var(--c-accent); }
+.cat-select option { background: var(--c-ink); color: var(--c-base); }
+
+/* Filter pills row */
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.filter-label {
+  font-size: 0.68rem;
+  color: rgba(241,240,236,0.35);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin-right: 2px;
+}
+.filter-btn {
+  background: transparent;
+  border: 1px solid rgba(241,240,236,0.2);
+  color: rgba(241,240,236,0.55);
+  border-radius: 2px;
+  padding: 4px 12px;
+  font-family: var(--f-body);
+  font-size: 0.75rem;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.18s;
+  letter-spacing: 0.05em;
+}
+.filter-btn:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+}
+.filter-btn.active {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: #fff;
+  font-weight: 500;
+}
+.result-count {
+  font-family: var(--f-display);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--c-accent);
+  letter-spacing: 0.05em;
+  margin-left: auto;
+}
+
+/* ══════════════════════════════════════
+   MAIN LAYOUT
+══════════════════════════════════════ */
+.main {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height: calc(100vh - var(--header-h));
+}
+
+/* ══════════════════════════════════════
+   SIDEBAR — 非对称排版
+══════════════════════════════════════ */
+.sidebar {
+  background: var(--c-base-02);
+  border-right: 1px solid var(--c-base-03);
+  padding: 0;
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--c-ink-10); border-radius: 2px; }
+
+.sidebar-heading {
+  padding: 18px 20px 10px;
+  font-family: var(--f-display);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-ink-30);
+  border-bottom: 1px solid var(--c-base-03);
+}
+
+.cat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+  position: relative;
+}
+.cat-item:hover {
+  background: var(--c-base);
+  border-left-color: var(--c-ink-10);
+}
+.cat-item.active {
+  background: var(--c-base);
+  border-left-color: var(--c-accent);
+}
+.cat-item-text {
+  font-family: var(--f-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--c-ink-60);
+  transition: color 0.15s;
+  line-height: 1.3;
+}
+.cat-item.active .cat-item-text { color: var(--c-ink); font-weight: 500; }
+.cat-item:hover .cat-item-text { color: var(--c-ink); }
+.cat-num {
+  font-family: var(--f-display);
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--c-ink-30);
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+.cat-item.active .cat-num { color: var(--c-accent); }
+
+/* ══════════════════════════════════════
+   CONTENT AREA
+══════════════════════════════════════ */
+.content {
+  padding: 32px 36px 60px;
+  background: var(--c-base);
+}
+
+/* Stats bar — inline strip */
+.stats-strip {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--c-base-03);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+.stat-cell {
+  flex: 1;
+  padding: 14px 18px;
+  border-right: 1px solid var(--c-base-03);
+  background: var(--c-base-02);
+  transition: background 0.15s;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell:hover { background: var(--c-base); }
+.stat-num {
+  font-family: var(--f-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--c-ink);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-cell:first-child .stat-num { color: var(--c-accent); }
+.stat-lbl {
+  font-family: var(--f-body);
+  font-size: 0.68rem;
+  font-weight: 300;
+  color: var(--c-ink-30);
+  letter-spacing: 0.08em;
+  margin-top: 3px;
+}
+
+/* Section header — 瑞士主义分隔线 */
+.section-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  margin-top: 36px;
+}
+.section-header:first-of-type { margin-top: 0; }
+.section-cat {
+  font-family: var(--f-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  white-space: nowrap;
+  padding-right: 4px;
+}
+.section-rule {
+  height: 1px;
+  background: var(--c-base-03);
+}
+.section-sub {
+  font-family: var(--f-heading);
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--c-ink);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  padding: 0 4px;
+}
+.section-count {
+  font-family: var(--f-display);
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: var(--c-ink-30);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* ── Card grid ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.card {
+  background: var(--c-base-02);
+  border: 1px solid var(--c-base-03);
+  border-radius: 3px;
+  padding: 14px 16px 12px;
+  cursor: pointer;
+  transition: box-shadow 0.18s, transform 0.15s, background 0.15s, border-color 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0;
+  background: var(--c-accent);
+  transition: width 0.2s;
+}
+.card:hover {
+  background: #fff;
+  border-color: var(--c-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.card:hover::before { width: 3px; }
+.card-code {
+  font-family: var(--f-display);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--c-ink-30);
+  letter-spacing: 0.1em;
+  margin-bottom: 5px;
+}
+.card-name {
+  font-family: var(--f-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--c-ink);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.card-sub {
+  font-family: var(--f-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--c-ink-30);
+  letter-spacing: 0.02em;
+}
+.card-tags {
+  position: absolute;
+  top: 10px; right: 10px;
+  display: flex; gap: 3px;
+}
+.tag {
+  font-family: var(--f-display);
+  font-size: 0.62rem;
+  font-weight: 600;
+  border-radius: 2px;
+  padding: 2px 6px;
+  letter-spacing: 0.08em;
+}
+.tag-T  { background: var(--c-tag-t-bg);  color: var(--c-tag-t); }
+.tag-K  { background: var(--c-tag-k-bg);  color: var(--c-tag-k); }
+.tag-TK { background: var(--c-tag-tk-bg); color: var(--c-tag-tk); }
+
+/* highlight */
+mark {
+  background: rgba(224,117,99,0.22);
+  color: var(--c-accent-dk);
+  border-radius: 1px;
+  padding: 0 1px;
+  font-weight: 500;
+}
+
+/* ── Empty state ── */
+.empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--c-ink-30);
+}
+.empty-icon {
+  margin-bottom: 16px;
+  opacity: 0.35;
+}
+.empty-icon svg { width: 48px; height: 48px; }
+.empty-text {
+  font-family: var(--f-body);
+  font-size: 0.88rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════
+   MODAL — 特种纸感
+══════════════════════════════════════ */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(28,27,25,0.6);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--c-base);
+  border-radius: 3px;
+  padding: 36px 40px 32px;
+  max-width: 540px;
+  width: 92vw;
+  box-shadow: var(--shadow-2xl);
+  position: relative;
+  border-top: 4px solid var(--c-accent);
+  animation: modalIn 0.22s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes modalIn {
+  from { transform: translateY(16px) scale(0.98); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+/* Modal close btn */
+.modal-close {
+  position: absolute;
+  top: 14px; right: 16px;
+  background: none;
+  border: 1px solid var(--c-base-03);
+  border-radius: 2px;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--c-ink-30);
+  transition: all 0.15s;
+}
+.modal-close:hover { border-color: var(--c-accent); color: var(--c-accent); }
+.modal-close svg { width: 13px; height: 13px; }
+
+.modal-code {
+  font-family: var(--f-display);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--c-ink-30);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.modal-name {
+  font-family: var(--f-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--c-ink);
+  line-height: 1.15;
+  margin-bottom: 20px;
+  letter-spacing: 0.01em;
+}
+.modal-rule {
+  height: 1px;
+  background: var(--c-base-03);
+  margin: 20px 0;
+}
+.modal-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  row-gap: 10px;
+  column-gap: 16px;
+  align-items: start;
+}
+.modal-label {
+  font-family: var(--f-display);
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--c-ink-30);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding-top: 1px;
+}
+.modal-value {
+  font-family: var(--f-body);
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--c-ink);
+  line-height: 1.5;
+}
+.modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 2px;
+  padding: 5px 12px;
+  font-family: var(--f-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.modal-footer-note {
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: var(--c-base-02);
+  border-left: 2px solid var(--c-base-03);
+  border-radius: 0 2px 2px 0;
+  font-size: 0.72rem;
+  color: var(--c-ink-60);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ── Responsive ── */
+@media (max-width: 800px) {
+  :root { --sidebar-w: 0px; --header-h: 160px; }
+  header { grid-template-columns: 1fr; }
+  .header-brand { display: none; }
+  .main { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .content { padding: 20px 16px 40px; }
+  .cards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+}
+@media (max-width: 480px) {
+  .cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SVG Noise Filter (inline, for extra fidelity) -->
+<svg style="position:fixed;width:0;height:0;pointer-events:none" aria-hidden="true">
+  <defs>
+    <filter id="paper-noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch" result="noiseOut"/>
+      <feColorMatrix type="saturate" values="0" in="noiseOut" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blended"/>
+      <feComposite in="blended" in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <!-- Brand / Year -->
+  <div class="header-brand">
+    <div class="brand-year">2026</div>
+    <div class="brand-label">Ministry of Education · PRC</div>
+  </div>
+
+  <!-- Search / Controls -->
+  <div class="header-search">
+    <div class="header-title-row">
+      <div class="header-title">普通高等学校本科专业目录</div>
+      <div class="header-meta">教育部 · 14门类 · 全量收录</div>
+    </div>
+    <div class="search-row">
+      <div class="search-wrap">
+        <!-- Search icon (Lucide: search) -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="搜索专业名称、代码或关键词…" autocomplete="off">
+      </div>
+      <select id="catFilter" class="cat-select">
+        <option value="">全部门类</option>
+        <option value="哲学">01 哲学</option>
+        <option value="经济学">02 经济学</option>
+        <option value="法学">03 法学</option>
+        <option value="教育学">04 教育学</option>
+        <option value="文学">05 文学</option>
+        <option value="历史学">06 历史学</option>
+        <option value="理学">07 理学</option>
+        <option value="工学">08 工学</option>
+        <option value="农学">09 农学</option>
+        <option value="医学">10 医学</option>
+        <option value="管理学">12 管理学</option>
+        <option value="艺术学">13 艺术学</option>
+        <option value="交叉学科">14 交叉学科</option>
+      </select>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">专业性质</span>
+      <button class="filter-btn active" data-type="all"   onclick="setTypeFilter('all',this)">全部</button>
+      <button class="filter-btn"        data-type="basic" onclick="setTypeFilter('basic',this)">基本专业</button>
+      <button class="filter-btn"        data-type="T"     onclick="setTypeFilter('T',this)">特设 T</button>
+      <button class="filter-btn"        data-type="K"     onclick="setTypeFilter('K',this)">国控 K</button>
+      <button class="filter-btn"        data-type="TK"    onclick="setTypeFilter('TK',this)">特设国控 TK</button>
+      <span class="result-count" id="resultCount"></span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-heading">学科门类</div>
+    <div id="catList"></div>
+  </nav>
+
+  <!-- Content -->
+  <main class="content">
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+      <div class="stat-cell">
+        <div class="stat-num" id="statTotal">—</div>
+        <div class="stat-lbl">本次显示</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" id="statBasic">—</div>
+        <div class="stat-lbl">基本专业</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" id="statT">—</div>
+        <div class="stat-lbl">特设 T</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" id="statK">—</div>
+        <div class="stat-lbl">国控 K</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" id="statTK">—</div>
+        <div class="stat-lbl">特设国控 TK</div>
+      </div>
+    </div>
+
+    <div id="resultsContainer"></div>
+  </main>
+</div>
+
+<!-- ═══ DETAIL MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalBg(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalBtn()" aria-label="关闭">
+      <!-- Lucide: x -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+    <div class="modal-code" id="mCode"></div>
+    <div class="modal-name" id="mName"></div>
+    <div class="modal-rule"></div>
+    <div class="modal-grid">
+      <span class="modal-label">门类</span>
+      <span class="modal-value" id="mCat"></span>
+      <span class="modal-label">专业类</span>
+      <span class="modal-value" id="mSub"></span>
+      <span class="modal-label" id="mNoteLabel" style="display:none">备注</span>
+      <span class="modal-value"  id="mNote"      style="display:none"></span>
+      <span class="modal-label">性质</span>
+      <span class="modal-value" id="mType"></span>
+    </div>
+    <div id="mFooter"></div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════
+   DATA (inline for standalone use)
+══════════════════════════════════ */
+const MAJORS_DATA = [
+  {code:"010101",name:"哲学",category:"哲学",subcategory:"哲学类",tags:""},
+  {code:"010102",name:"逻辑学",category:"哲学",subcategory:"哲学类",tags:""},
+  {code:"010103K",name:"宗教学",category:"哲学",subcategory:"哲学类",tags:"K"},
+  {code:"010104T",name:"伦理学",category:"哲学",subcategory:"哲学类",tags:"T"},
+  {code:"020101",name:"经济学",category:"经济学",subcategory:"经济学类",tags:""},
+  {code:"020102",name:"经济统计学",category:"经济学",subcategory:"经济学类",tags:""},
+  {code:"020103T",name:"国民经济管理",category:"经济学",subcategory:"经济学类",tags:"T"},
+  {code:"020104T",name:"资源与环境经济学",category:"经济学",subcategory:"经济学类",tags:"T"},
+  {code:"020105T",name:"商务经济学",category:"经济学",subcategory:"经济学类",tags:"T"},
+  {code:"020106T",name:"能源经济",category:"经济学",subcategory:"经济学类",tags:"T"},
+  {code:"020107T",name:"劳动经济学",category:"经济学",subcategory:"经济学类",tags:"T"},
+  {code:"020108T",name:"经济工程",category:"经济学",subcategory:"经济学类",tags:"T"},
+  {code:"020109T",name:"数字经济",category:"经济学",subcategory:"经济学类",tags:"T"},
+  {code:"020110TK",name:"低空经济与管理",category:"经济学",subcategory:"经济学类",tags:"TK",note:"授予管理学学士学位"},
+  {code:"020111T",name:"资源环境审计",category:"经济学",subcategory:"经济学类",tags:"T"},
+  {code:"020201K",name:"财政学",category:"经济学",subcategory:"财政学类",tags:"K"},
+  {code:"020202",name:"税收学",category:"经济学",subcategory:"财政学类",tags:""},
+  {code:"020203TK",name:"国际税收",category:"经济学",subcategory:"财政学类",tags:"TK"},
+  {code:"020301K",name:"金融学",category:"经济学",subcategory:"金融学类",tags:"K"},
+  {code:"020302",name:"金融工程",category:"经济学",subcategory:"金融学类",tags:""},
+  {code:"020303",name:"保险学",category:"经济学",subcategory:"金融学类",tags:""},
+  {code:"020304",name:"投资学",category:"经济学",subcategory:"金融学类",tags:""},
+  {code:"020305T",name:"金融数学",category:"经济学",subcategory:"金融学类",tags:"T"},
+  {code:"020306T",name:"信用管理",category:"经济学",subcategory:"金融学类",tags:"T",note:"可授经济学或管理学学士学位"},
+  {code:"020307T",name:"经济与金融",category:"经济学",subcategory:"金融学类",tags:"T"},
+  {code:"020308T",name:"精算学",category:"经济学",subcategory:"金融学类",tags:"T",note:"可授经济学或理学学士学位"},
+  {code:"020309T",name:"互联网金融",category:"经济学",subcategory:"金融学类",tags:"T"},
+  {code:"020310T",name:"金融科技",category:"经济学",subcategory:"金融学类",tags:"T"},
+  {code:"020311TK",name:"金融审计",category:"经济学",subcategory:"金融学类",tags:"TK"},
+  {code:"020312TK",name:"数字金融",category:"经济学",subcategory:"金融学类",tags:"TK"},
+  {code:"020401",name:"国际经济与贸易",category:"经济学",subcategory:"经济与贸易类",tags:""},
+  {code:"020402",name:"贸易经济",category:"经济学",subcategory:"经济与贸易类",tags:""},
+  {code:"020403T",name:"国际经济发展合作",category:"经济学",subcategory:"经济与贸易类",tags:"T"},
+  {code:"020404TK",name:"数字贸易",category:"经济学",subcategory:"经济与贸易类",tags:"TK"},
+  {code:"030101K",name:"法学",category:"法学",subcategory:"法学类",tags:"K"},
+  {code:"030102T",name:"知识产权",category:"法学",subcategory:"法学类",tags:"T"},
+  {code:"030103T",name:"监狱学",category:"法学",subcategory:"法学类",tags:"T"},
+  {code:"030104T",name:"信用风险管理与法律防控",category:"法学",subcategory:"法学类",tags:"T"},
+  {code:"030105T",name:"国际经贸规则",category:"法学",subcategory:"法学类",tags:"T"},
+  {code:"030106TK",name:"司法警察学",category:"法学",subcategory:"法学类",tags:"TK"},
+  {code:"030107TK",name:"社区矫正",category:"法学",subcategory:"法学类",tags:"TK"},
+  {code:"030108TK",name:"纪检监察",category:"法学",subcategory:"法学类",tags:"TK"},
+  {code:"030109TK",name:"国际法",category:"法学",subcategory:"法学类",tags:"TK"},
+  {code:"030110TK",name:"司法鉴定学",category:"法学",subcategory:"法学类",tags:"TK"},
+  {code:"030111TK",name:"国家安全学",category:"法学",subcategory:"法学类",tags:"TK"},
+  {code:"030112TK",name:"海外利益安全",category:"法学",subcategory:"法学类",tags:"TK"},
+  {code:"030201",name:"政治学与行政学",category:"法学",subcategory:"政治学类",tags:""},
+  {code:"030202",name:"国际政治",category:"法学",subcategory:"政治学类",tags:""},
+  {code:"030203",name:"外交学",category:"法学",subcategory:"政治学类",tags:""},
+  {code:"030204T",name:"国际事务与国际关系",category:"法学",subcategory:"政治学类",tags:"T"},
+  {code:"030205T",name:"政治学、经济学与哲学",category:"法学",subcategory:"政治学类",tags:"T"},
+  {code:"030206TK",name:"国际组织与全球治理",category:"法学",subcategory:"政治学类",tags:"TK"},
+  {code:"030301",name:"社会学",category:"法学",subcategory:"社会学类",tags:""},
+  {code:"030302",name:"社会工作",category:"法学",subcategory:"社会学类",tags:""},
+  {code:"030303T",name:"人类学",category:"法学",subcategory:"社会学类",tags:"T"},
+  {code:"030304T",name:"女性学",category:"法学",subcategory:"社会学类",tags:"T"},
+  {code:"030305T",name:"家政学",category:"法学",subcategory:"社会学类",tags:"T"},
+  {code:"030306T",name:"老年学",category:"法学",subcategory:"社会学类",tags:"T"},
+  {code:"030307T",name:"社会政策",category:"法学",subcategory:"社会学类",tags:"T"},
+  {code:"030401",name:"民族学",category:"法学",subcategory:"民族学类",tags:""},
+  {code:"030501",name:"科学社会主义",category:"法学",subcategory:"马克思主义理论类",tags:""},
+  {code:"030502",name:"中国共产党历史",category:"法学",subcategory:"马克思主义理论类",tags:""},
+  {code:"030503",name:"思想政治教育",category:"法学",subcategory:"马克思主义理论类",tags:""},
+  {code:"030504T",name:"马克思主义理论",category:"法学",subcategory:"马克思主义理论类",tags:"T"},
+  {code:"030505TK",name:"工会学",category:"法学",subcategory:"马克思主义理论类",tags:"TK"},
+  {code:"040101",name:"教育学",category:"教育学",subcategory:"教育学类",tags:""},
+  {code:"040102",name:"科学教育",category:"教育学",subcategory:"教育学类",tags:""},
+  {code:"040103",name:"人文教育",category:"教育学",subcategory:"教育学类",tags:""},
+  {code:"040104",name:"教育技术学",category:"教育学",subcategory:"教育学类",tags:"",note:"可授教育学或理学或工学学士学位"},
+  {code:"040105",name:"艺术教育",category:"教育学",subcategory:"教育学类",tags:"",note:"可授教育学或艺术学学士学位"},
+  {code:"040106",name:"学前教育",category:"教育学",subcategory:"教育学类",tags:""},
+  {code:"040107",name:"小学教育",category:"教育学",subcategory:"教育学类",tags:""},
+  {code:"040108",name:"特殊教育",category:"教育学",subcategory:"教育学类",tags:""},
+  {code:"040109T",name:"华文教育",category:"教育学",subcategory:"教育学类",tags:"T"},
+  {code:"040110TK",name:"教育康复学",category:"教育学",subcategory:"教育学类",tags:"TK"},
+  {code:"040111T",name:"卫生教育",category:"教育学",subcategory:"教育学类",tags:"T"},
+  {code:"040112T",name:"认知科学与技术",category:"教育学",subcategory:"教育学类",tags:"T"},
+  {code:"040113T",name:"融合教育",category:"教育学",subcategory:"教育学类",tags:"T"},
+  {code:"040114TK",name:"劳动教育",category:"教育学",subcategory:"教育学类",tags:"TK"},
+  {code:"040115T",name:"家庭教育",category:"教育学",subcategory:"教育学类",tags:"T"},
+  {code:"040116TK",name:"孤独症儿童教育",category:"教育学",subcategory:"教育学类",tags:"TK"},
+  {code:"040117TK",name:"人工智能教育",category:"教育学",subcategory:"教育学类",tags:"TK"},
+  {code:"040118T",name:"婴幼儿发展与健康管理",category:"教育学",subcategory:"教育学类",tags:"T",note:"可授教育学或管理学学士学位"},
+  {code:"040201",name:"体育教育",category:"教育学",subcategory:"体育学类",tags:""},
+  {code:"040202K",name:"运动训练",category:"教育学",subcategory:"体育学类",tags:"K"},
+  {code:"040203",name:"社会体育指导与管理",category:"教育学",subcategory:"体育学类",tags:""},
+  {code:"040204K",name:"武术与民族传统体育",category:"教育学",subcategory:"体育学类",tags:"K"},
+  {code:"040205",name:"运动人体科学",category:"教育学",subcategory:"体育学类",tags:""},
+  {code:"040206T",name:"运动康复",category:"教育学",subcategory:"体育学类",tags:"T",note:"可授教育学或理学学士学位"},
+  {code:"040207T",name:"休闲体育",category:"教育学",subcategory:"体育学类",tags:"T"},
+  {code:"040208T",name:"体能训练",category:"教育学",subcategory:"体育学类",tags:"T"},
+  {code:"040209T",name:"冰雪运动",category:"教育学",subcategory:"体育学类",tags:"T"},
+  {code:"040210TK",name:"电子竞技运动与管理",category:"教育学",subcategory:"体育学类",tags:"TK"},
+  {code:"040211TK",name:"智能体育工程",category:"教育学",subcategory:"体育学类",tags:"TK",note:"可授教育学或工学学士学位"},
+  {code:"040212TK",name:"体育旅游",category:"教育学",subcategory:"体育学类",tags:"TK"},
+  {code:"040213T",name:"运动能力开发",category:"教育学",subcategory:"体育学类",tags:"T",note:"可授教育学或理学学士学位"},
+  {code:"040214TK",name:"足球运动",category:"教育学",subcategory:"体育学类",tags:"TK"},
+  {code:"040215TK",name:"马术运动与管理",category:"教育学",subcategory:"体育学类",tags:"TK"},
+  {code:"040216T",name:"体育康养",category:"教育学",subcategory:"体育学类",tags:"T"},
+  {code:"040217TK",name:"航空运动",category:"教育学",subcategory:"体育学类",tags:"TK"},
+  {code:"040218TK",name:"太极拳",category:"教育学",subcategory:"体育学类",tags:"TK"},
+  {code:"050101",name:"汉语言文学",category:"文学",subcategory:"中国语言文学类",tags:""},
+  {code:"050102",name:"汉语言",category:"文学",subcategory:"中国语言文学类",tags:""},
+  {code:"050103",name:"汉语国际教育",category:"文学",subcategory:"中国语言文学类",tags:""},
+  {code:"050104",name:"中国少数民族语言文学",category:"文学",subcategory:"中国语言文学类",tags:""},
+  {code:"050105",name:"古典文献学",category:"文学",subcategory:"中国语言文学类",tags:""},
+  {code:"050106T",name:"应用语言学",category:"文学",subcategory:"中国语言文学类",tags:"T"},
+  {code:"050107T",name:"秘书学",category:"文学",subcategory:"中国语言文学类",tags:"T"},
+  {code:"050108T",name:"中国语言与文化",category:"文学",subcategory:"中国语言文学类",tags:"T"},
+  {code:"050109T",name:"手语翻译",category:"文学",subcategory:"中国语言文学类",tags:"T"},
+  {code:"050110T",name:"数字人文",category:"文学",subcategory:"中国语言文学类",tags:"T"},
+  {code:"050111T",name:"中国古典学",category:"文学",subcategory:"中国语言文学类",tags:"T"},
+  {code:"050112T",name:"汉学与中国学",category:"文学",subcategory:"中国语言文学类",tags:"T"},
+  {code:"050113T",name:"应用中文",category:"文学",subcategory:"中国语言文学类",tags:"T"},
+  {code:"050114TK",name:"语言科学",category:"文学",subcategory:"中国语言文学类",tags:"TK"},
+  {code:"050201",name:"英语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050202",name:"俄语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050203",name:"德语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050204",name:"法语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050205",name:"西班牙语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050206",name:"阿拉伯语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050207",name:"日语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050208",name:"波斯语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050209",name:"朝鲜语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050261",name:"翻译",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"050262",name:"商务英语",category:"文学",subcategory:"外国语言文学类",tags:""},
+  {code:"0502104TK",name:"区域国别学",category:"文学",subcategory:"外国语言文学类",tags:"TK"},
+  {code:"0502106TK",name:"计算语言学",category:"文学",subcategory:"外国语言文学类",tags:"TK"},
+  {code:"0502107TK",name:"语言智能",category:"文学",subcategory:"外国语言文学类",tags:"TK"},
+  {code:"050301",name:"新闻学",category:"文学",subcategory:"新闻传播学类",tags:""},
+  {code:"050302",name:"广播电视学",category:"文学",subcategory:"新闻传播学类",tags:""},
+  {code:"050303",name:"广告学",category:"文学",subcategory:"新闻传播学类",tags:""},
+  {code:"050304",name:"传播学",category:"文学",subcategory:"新闻传播学类",tags:""},
+  {code:"050305",name:"编辑出版学",category:"文学",subcategory:"新闻传播学类",tags:""},
+  {code:"050306T",name:"网络与新媒体",category:"文学",subcategory:"新闻传播学类",tags:"T"},
+  {code:"050307T",name:"数字出版",category:"文学",subcategory:"新闻传播学类",tags:"T"},
+  {code:"050308T",name:"时尚传播",category:"文学",subcategory:"新闻传播学类",tags:"T"},
+  {code:"050309T",name:"国际新闻与传播",category:"文学",subcategory:"新闻传播学类",tags:"T"},
+  {code:"050310T",name:"会展",category:"文学",subcategory:"新闻传播学类",tags:"T",note:"可授文学或管理学学士学位"},
+  {code:"060101",name:"历史学",category:"历史学",subcategory:"历史学类",tags:""},
+  {code:"060102",name:"世界史",category:"历史学",subcategory:"历史学类",tags:""},
+  {code:"060103",name:"考古学",category:"历史学",subcategory:"历史学类",tags:""},
+  {code:"060104",name:"文物与博物馆学",category:"历史学",subcategory:"历史学类",tags:""},
+  {code:"060105T",name:"文物保护技术",category:"历史学",subcategory:"历史学类",tags:"T"},
+  {code:"060106T",name:"外国语言与外国历史",category:"历史学",subcategory:"历史学类",tags:"T",note:"可授历史学或文学学士学位"},
+  {code:"060107T",name:"文化遗产",category:"历史学",subcategory:"历史学类",tags:"T"},
+  {code:"060108T",name:"古文字学",category:"历史学",subcategory:"历史学类",tags:"T"},
+  {code:"060109T",name:"科学史",category:"历史学",subcategory:"历史学类",tags:"T"},
+  {code:"070101",name:"数学与应用数学",category:"理学",subcategory:"数学类",tags:""},
+  {code:"070102",name:"信息与计算科学",category:"理学",subcategory:"数学类",tags:""},
+  {code:"070103T",name:"数理基础科学",category:"理学",subcategory:"数学类",tags:"T"},
+  {code:"070104T",name:"数据计算及应用",category:"理学",subcategory:"数学类",tags:"T"},
+  {code:"070105TK",name:"智能计算",category:"理学",subcategory:"数学类",tags:"TK"},
+  {code:"070201",name:"物理学",category:"理学",subcategory:"物理学类",tags:""},
+  {code:"070202",name:"应用物理学",category:"理学",subcategory:"物理学类",tags:""},
+  {code:"070203",name:"核物理",category:"理学",subcategory:"物理学类",tags:""},
+  {code:"070204T",name:"声学",category:"理学",subcategory:"物理学类",tags:"T"},
+  {code:"070205T",name:"系统科学与工程",category:"理学",subcategory:"物理学类",tags:"T"},
+  {code:"070206T",name:"量子信息科学",category:"理学",subcategory:"物理学类",tags:"T"},
+  {code:"070301",name:"化学",category:"理学",subcategory:"化学类",tags:""},
+  {code:"070302",name:"应用化学",category:"理学",subcategory:"化学类",tags:"",note:"可授理学或工学学士学位"},
+  {code:"070303T",name:"化学生物学",category:"理学",subcategory:"化学类",tags:"T"},
+  {code:"070304T",name:"分子科学与工程",category:"理学",subcategory:"化学类",tags:"T"},
+  {code:"070305T",name:"能源化学",category:"理学",subcategory:"化学类",tags:"T"},
+  {code:"070306T",name:"化学测量学与技术",category:"理学",subcategory:"化学类",tags:"T"},
+  {code:"070307T",name:"资源化学",category:"理学",subcategory:"化学类",tags:"T"},
+  {code:"070401",name:"天文学",category:"理学",subcategory:"天文学类",tags:""},
+  {code:"070501",name:"地理科学",category:"理学",subcategory:"地理科学类",tags:""},
+  {code:"070502",name:"自然地理与资源环境",category:"理学",subcategory:"地理科学类",tags:"",note:"可授理学或管理学学士学位"},
+  {code:"070503",name:"人文地理与城乡规划",category:"理学",subcategory:"地理科学类",tags:"",note:"可授理学或管理学学士学位"},
+  {code:"070504",name:"地理信息科学",category:"理学",subcategory:"地理科学类",tags:""},
+  {code:"070601",name:"大气科学",category:"理学",subcategory:"大气科学类",tags:""},
+  {code:"070602",name:"应用气象学",category:"理学",subcategory:"大气科学类",tags:""},
+  {code:"070603T",name:"气象技术与工程",category:"理学",subcategory:"大气科学类",tags:"T",note:"可授理学或工学学士学位"},
+  {code:"070604T",name:"地球系统科学",category:"理学",subcategory:"大气科学类",tags:"T"},
+  {code:"070701",name:"海洋科学",category:"理学",subcategory:"海洋科学类",tags:""},
+  {code:"070702",name:"海洋技术",category:"理学",subcategory:"海洋科学类",tags:"",note:"可授理学或工学学士学位"},
+  {code:"070703T",name:"海洋资源与环境",category:"理学",subcategory:"海洋科学类",tags:"T"},
+  {code:"070704T",name:"军事海洋学",category:"理学",subcategory:"海洋科学类",tags:"T"},
+  {code:"070801",name:"地球物理学",category:"理学",subcategory:"地球物理学类",tags:""},
+  {code:"070802",name:"空间科学与技术",category:"理学",subcategory:"地球物理学类",tags:"",note:"可授理学或工学学士学位"},
+  {code:"070901",name:"地质学",category:"理学",subcategory:"地质学类",tags:""},
+  {code:"070902",name:"地球化学",category:"理学",subcategory:"地质学类",tags:""},
+  {code:"071001",name:"生物科学",category:"理学",subcategory:"生物科学类",tags:""},
+  {code:"071002",name:"生物技术",category:"理学",subcategory:"生物科学类",tags:"",note:"可授理学或工学学士学位"},
+  {code:"071003",name:"生物信息学",category:"理学",subcategory:"生物科学类",tags:"",note:"可授理学或工学学士学位"},
+  {code:"071004",name:"生态学",category:"理学",subcategory:"生物科学类",tags:""},
+  {code:"071005T",name:"整合科学",category:"理学",subcategory:"生物科学类",tags:"T"},
+  {code:"071006T",name:"神经科学",category:"理学",subcategory:"生物科学类",tags:"T"},
+  {code:"071101",name:"心理学",category:"理学",subcategory:"心理学类",tags:"",note:"可授理学或教育学学士学位"},
+  {code:"071102",name:"应用心理学",category:"理学",subcategory:"心理学类",tags:"",note:"可授理学或教育学学士学位"},
+  {code:"071103TK",name:"心理、脑与认知科学",category:"理学",subcategory:"心理学类",tags:"TK"},
+  {code:"071201",name:"统计学",category:"理学",subcategory:"统计学类",tags:""},
+  {code:"071202",name:"应用统计学",category:"理学",subcategory:"统计学类",tags:""},
+  {code:"071203T",name:"数据科学",category:"理学",subcategory:"统计学类",tags:"T"},
+  {code:"071204T",name:"生物统计学",category:"理学",subcategory:"统计学类",tags:"T"},
+  {code:"080101",name:"理论与应用力学",category:"工学",subcategory:"力学类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"080102",name:"工程力学",category:"工学",subcategory:"力学类",tags:""},
+  {code:"080201",name:"机械工程",category:"工学",subcategory:"机械类",tags:""},
+  {code:"080202",name:"机械设计制造及其自动化",category:"工学",subcategory:"机械类",tags:""},
+  {code:"080203",name:"材料成型及控制工程",category:"工学",subcategory:"机械类",tags:""},
+  {code:"080204",name:"机械电子工程",category:"工学",subcategory:"机械类",tags:""},
+  {code:"080205",name:"工业设计",category:"工学",subcategory:"机械类",tags:""},
+  {code:"080206",name:"过程装备与控制工程",category:"工学",subcategory:"机械类",tags:""},
+  {code:"080207",name:"车辆工程",category:"工学",subcategory:"机械类",tags:""},
+  {code:"080208",name:"汽车服务工程",category:"工学",subcategory:"机械类",tags:""},
+  {code:"080213T",name:"智能制造工程",category:"工学",subcategory:"机械类",tags:"T"},
+  {code:"080214T",name:"智能车辆工程",category:"工学",subcategory:"机械类",tags:"T"},
+  {code:"080216T",name:"新能源汽车工程",category:"工学",subcategory:"机械类",tags:"T"},
+  {code:"080217T",name:"增材制造工程",category:"工学",subcategory:"机械类",tags:"T"},
+  {code:"080218T",name:"智能交互设计",category:"工学",subcategory:"机械类",tags:"T"},
+  {code:"080301",name:"测控技术与仪器",category:"工学",subcategory:"仪器类",tags:""},
+  {code:"080303T",name:"智能感知工程",category:"工学",subcategory:"仪器类",tags:"T"},
+  {code:"080401",name:"材料科学与工程",category:"工学",subcategory:"材料类",tags:""},
+  {code:"080402",name:"材料物理",category:"工学",subcategory:"材料类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"080403",name:"材料化学",category:"工学",subcategory:"材料类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"080404",name:"冶金工程",category:"工学",subcategory:"材料类",tags:""},
+  {code:"080405",name:"金属材料工程",category:"工学",subcategory:"材料类",tags:""},
+  {code:"080406",name:"无机非金属材料工程",category:"工学",subcategory:"材料类",tags:""},
+  {code:"080407",name:"高分子材料与工程",category:"工学",subcategory:"材料类",tags:""},
+  {code:"080412T",name:"功能材料",category:"工学",subcategory:"材料类",tags:"T"},
+  {code:"080414T",name:"新能源材料与器件",category:"工学",subcategory:"材料类",tags:"T"},
+  {code:"080501",name:"能源与动力工程",category:"工学",subcategory:"能源动力类",tags:""},
+  {code:"080503T",name:"新能源科学与工程",category:"工学",subcategory:"能源动力类",tags:"T"},
+  {code:"080504T",name:"储能科学与工程",category:"工学",subcategory:"能源动力类",tags:"T"},
+  {code:"080506TK",name:"氢能科学与工程",category:"工学",subcategory:"能源动力类",tags:"TK"},
+  {code:"080507TK",name:"可持续能源",category:"工学",subcategory:"能源动力类",tags:"TK"},
+  {code:"080601",name:"电气工程及其自动化",category:"工学",subcategory:"电气类",tags:""},
+  {code:"080603T",name:"光源与照明",category:"工学",subcategory:"电气类",tags:"T"},
+  {code:"080607T",name:"能源互联网工程",category:"工学",subcategory:"电气类",tags:"T"},
+  {code:"080608TK",name:"智慧能源工程",category:"工学",subcategory:"电气类",tags:"TK"},
+  {code:"080610TK",name:"大功率半导体科学与工程",category:"工学",subcategory:"电气类",tags:"TK"},
+  {code:"080701",name:"电子信息工程",category:"工学",subcategory:"电子信息类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"080702",name:"电子科学与技术",category:"工学",subcategory:"电子信息类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"080703",name:"通信工程",category:"工学",subcategory:"电子信息类",tags:""},
+  {code:"080704",name:"微电子科学与工程",category:"工学",subcategory:"电子信息类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"080705",name:"光电信息科学与工程",category:"工学",subcategory:"电子信息类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"080706",name:"信息工程",category:"工学",subcategory:"电子信息类",tags:""},
+  {code:"080710T",name:"集成电路设计与集成系统",category:"工学",subcategory:"电子信息类",tags:"T"},
+  {code:"080717T",name:"人工智能",category:"工学",subcategory:"电子信息类",tags:"T"},
+  {code:"080719T",name:"柔性电子学",category:"工学",subcategory:"电子信息类",tags:"T"},
+  {code:"080721T",name:"智能视觉工程",category:"工学",subcategory:"电子信息类",tags:"T"},
+  {code:"080723TK",name:"半导体工艺与装备",category:"工学",subcategory:"电子信息类",tags:"TK"},
+  {code:"080801",name:"自动化",category:"工学",subcategory:"自动化类",tags:""},
+  {code:"080803T",name:"机器人工程",category:"工学",subcategory:"自动化类",tags:"T"},
+  {code:"080806T",name:"智能装备与系统",category:"工学",subcategory:"自动化类",tags:"T"},
+  {code:"080807T",name:"工业智能",category:"工学",subcategory:"自动化类",tags:"T"},
+  {code:"080901",name:"计算机科学与技术",category:"工学",subcategory:"计算机类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"080902",name:"软件工程",category:"工学",subcategory:"计算机类",tags:""},
+  {code:"080903",name:"网络工程",category:"工学",subcategory:"计算机类",tags:""},
+  {code:"080904K",name:"信息安全",category:"工学",subcategory:"计算机类",tags:"K",note:"可授工学或理学或管理学学士学位"},
+  {code:"080905",name:"物联网工程",category:"工学",subcategory:"计算机类",tags:""},
+  {code:"080906",name:"数字媒体技术",category:"工学",subcategory:"计算机类",tags:""},
+  {code:"080907T",name:"智能科学与技术",category:"工学",subcategory:"计算机类",tags:"T",note:"可授工学或理学学士学位"},
+  {code:"080910T",name:"数据科学与大数据技术",category:"工学",subcategory:"计算机类",tags:"T",note:"可授工学或理学学士学位"},
+  {code:"080911TK",name:"网络空间安全",category:"工学",subcategory:"计算机类",tags:"TK"},
+  {code:"080916T",name:"虚拟现实技术",category:"工学",subcategory:"计算机类",tags:"T"},
+  {code:"080917T",name:"区块链工程",category:"工学",subcategory:"计算机类",tags:"T"},
+  {code:"080918TK",name:"密码科学与技术",category:"工学",subcategory:"计算机类",tags:"TK"},
+  {code:"080919T",name:"工业软件",category:"工学",subcategory:"计算机类",tags:"T"},
+  {code:"081001",name:"土木工程",category:"工学",subcategory:"土木类",tags:""},
+  {code:"081002",name:"建筑环境与能源应用工程",category:"工学",subcategory:"土木类",tags:""},
+  {code:"081003",name:"给排水科学与工程",category:"工学",subcategory:"土木类",tags:""},
+  {code:"081004",name:"建筑电气与智能化",category:"工学",subcategory:"土木类",tags:""},
+  {code:"081008T",name:"智能建造",category:"工学",subcategory:"土木类",tags:"T"},
+  {code:"081012T",name:"智能建造与智慧交通",category:"工学",subcategory:"土木类",tags:"T"},
+  {code:"081101",name:"水利水电工程",category:"工学",subcategory:"水利类",tags:""},
+  {code:"081102",name:"水文与水资源工程",category:"工学",subcategory:"水利类",tags:""},
+  {code:"081106T",name:"智慧水利",category:"工学",subcategory:"水利类",tags:"T"},
+  {code:"081201",name:"测绘工程",category:"工学",subcategory:"测绘类",tags:""},
+  {code:"081202",name:"遥感科学与技术",category:"工学",subcategory:"测绘类",tags:""},
+  {code:"081203T",name:"导航工程",category:"工学",subcategory:"测绘类",tags:"T"},
+  {code:"081205T",name:"地理空间信息工程",category:"工学",subcategory:"测绘类",tags:"T"},
+  {code:"081206TK",name:"时空信息工程",category:"工学",subcategory:"测绘类",tags:"TK"},
+  {code:"081301",name:"化学工程与工艺",category:"工学",subcategory:"化工与制药类",tags:""},
+  {code:"081302",name:"制药工程",category:"工学",subcategory:"化工与制药类",tags:""},
+  {code:"081303T",name:"资源循环科学与工程",category:"工学",subcategory:"化工与制药类",tags:"T"},
+  {code:"081309T",name:"智能分子工程",category:"工学",subcategory:"化工与制药类",tags:"T"},
+  {code:"081401",name:"地质工程",category:"工学",subcategory:"地质类",tags:""},
+  {code:"081402",name:"勘查技术与工程",category:"工学",subcategory:"地质类",tags:""},
+  {code:"081403K",name:"资源勘查工程",category:"工学",subcategory:"地质类",tags:"K"},
+  {code:"081501",name:"采矿工程",category:"工学",subcategory:"矿业类",tags:""},
+  {code:"081502",name:"石油工程",category:"工学",subcategory:"矿业类",tags:""},
+  {code:"081507T",name:"智能采矿工程",category:"工学",subcategory:"矿业类",tags:"T"},
+  {code:"081508TK",name:"碳储科学与工程",category:"工学",subcategory:"矿业类",tags:"TK"},
+  {code:"081509TK",name:"稀土科学与工程",category:"工学",subcategory:"矿业类",tags:"TK"},
+  {code:"081601",name:"纺织工程",category:"工学",subcategory:"纺织类",tags:""},
+  {code:"081602",name:"服装设计与工程",category:"工学",subcategory:"纺织类",tags:"",note:"可授工学或艺术学学士学位"},
+  {code:"081606T",name:"纤维科学与智能制造",category:"工学",subcategory:"纺织类",tags:"T"},
+  {code:"081701",name:"轻化工程",category:"工学",subcategory:"轻工类",tags:""},
+  {code:"081702",name:"包装工程",category:"工学",subcategory:"轻工类",tags:""},
+  {code:"081703",name:"印刷工程",category:"工学",subcategory:"轻工类",tags:""},
+  {code:"081801",name:"交通运输",category:"工学",subcategory:"交通运输类",tags:""},
+  {code:"081802",name:"交通工程",category:"工学",subcategory:"交通运输类",tags:""},
+  {code:"081803K",name:"航海技术",category:"工学",subcategory:"交通运输类",tags:"K"},
+  {code:"081805K",name:"飞行技术",category:"工学",subcategory:"交通运输类",tags:"K"},
+  {code:"081811T",name:"智慧交通",category:"工学",subcategory:"交通运输类",tags:"T"},
+  {code:"081812T",name:"智能运输工程",category:"工学",subcategory:"交通运输类",tags:"T"},
+  {code:"081901",name:"船舶与海洋工程",category:"工学",subcategory:"海洋工程类",tags:""},
+  {code:"081904T",name:"海洋机器人",category:"工学",subcategory:"海洋工程类",tags:"T"},
+  {code:"081905T",name:"智慧海洋技术",category:"工学",subcategory:"海洋工程类",tags:"T"},
+  {code:"082001",name:"航空航天工程",category:"工学",subcategory:"航空航天类",tags:""},
+  {code:"082002",name:"飞行器设计与工程",category:"工学",subcategory:"航空航天类",tags:""},
+  {code:"082003",name:"飞行器制造工程",category:"工学",subcategory:"航空航天类",tags:""},
+  {code:"082009T",name:"无人驾驶航空器系统工程",category:"工学",subcategory:"航空航天类",tags:"T"},
+  {code:"082010T",name:"智能飞行器技术",category:"工学",subcategory:"航空航天类",tags:"T"},
+  {code:"082011T",name:"空天智能电推进技术",category:"工学",subcategory:"航空航天类",tags:"T"},
+  {code:"082201",name:"核工程与核技术",category:"工学",subcategory:"核工程类",tags:""},
+  {code:"082202",name:"辐射防护与核安全",category:"工学",subcategory:"核工程类",tags:""},
+  {code:"082204",name:"核化工与核燃料工程",category:"工学",subcategory:"核工程类",tags:""},
+  {code:"082301",name:"农业工程",category:"工学",subcategory:"农业工程类",tags:""},
+  {code:"082302",name:"农业机械化及其自动化",category:"工学",subcategory:"农业工程类",tags:""},
+  {code:"082308T",name:"农业机器人",category:"工学",subcategory:"农业工程类",tags:"T"},
+  {code:"082401",name:"森林工程",category:"工学",subcategory:"林业工程类",tags:""},
+  {code:"082402",name:"木材科学与工程",category:"工学",subcategory:"林业工程类",tags:""},
+  {code:"082404T",name:"家具设计与工程",category:"工学",subcategory:"林业工程类",tags:"T"},
+  {code:"082501",name:"环境科学与工程",category:"工学",subcategory:"环境科学与工程类",tags:""},
+  {code:"082502",name:"环境工程",category:"工学",subcategory:"环境科学与工程类",tags:""},
+  {code:"082503",name:"环境科学",category:"工学",subcategory:"环境科学与工程类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"082504",name:"环境生态工程",category:"工学",subcategory:"环境科学与工程类",tags:""},
+  {code:"082601",name:"生物医学工程",category:"工学",subcategory:"生物医学工程类",tags:"",note:"可授工学或理学学士学位"},
+  {code:"082604T",name:"康复工程",category:"工学",subcategory:"生物医学工程类",tags:"T"},
+  {code:"082701",name:"食品科学与工程",category:"工学",subcategory:"食品科学与工程类",tags:"",note:"可授工学或农学学士学位"},
+  {code:"082702",name:"食品质量与安全",category:"工学",subcategory:"食品科学与工程类",tags:""},
+  {code:"082710T",name:"食品营养与健康",category:"工学",subcategory:"食品科学与工程类",tags:"T"},
+  {code:"082801",name:"建筑学",category:"工学",subcategory:"建筑类",tags:""},
+  {code:"082802",name:"城乡规划",category:"工学",subcategory:"建筑类",tags:""},
+  {code:"082803",name:"风景园林",category:"工学",subcategory:"建筑类",tags:"",note:"可授工学或艺术学学士学位"},
+  {code:"082806T",name:"城市设计",category:"工学",subcategory:"建筑类",tags:"T"},
+  {code:"082807T",name:"智慧建筑与建造",category:"工学",subcategory:"建筑类",tags:"T"},
+  {code:"082901",name:"安全工程",category:"工学",subcategory:"安全科学与工程类",tags:""},
+  {code:"082902T",name:"应急技术与管理",category:"工学",subcategory:"安全科学与工程类",tags:"T"},
+  {code:"082905TK",name:"智慧应急",category:"工学",subcategory:"安全科学与工程类",tags:"TK"},
+  {code:"083001",name:"生物工程",category:"工学",subcategory:"生物工程类",tags:""},
+  {code:"083002T",name:"生物制药",category:"工学",subcategory:"生物工程类",tags:"T"},
+  {code:"083003T",name:"合成生物学",category:"工学",subcategory:"生物工程类",tags:"T"},
+  {code:"083004T",name:"生物制造",category:"工学",subcategory:"生物工程类",tags:"T"},
+  {code:"090101",name:"农学",category:"农学",subcategory:"植物生产类",tags:""},
+  {code:"090102",name:"园艺",category:"农学",subcategory:"植物生产类",tags:""},
+  {code:"090103",name:"植物保护",category:"农学",subcategory:"植物生产类",tags:""},
+  {code:"090107T",name:"茶学",category:"农学",subcategory:"植物生产类",tags:"T"},
+  {code:"090112T",name:"智慧农业",category:"农学",subcategory:"植物生产类",tags:"T"},
+  {code:"090116TK",name:"生物育种科学",category:"农学",subcategory:"植物生产类",tags:"TK",note:"授予理学学士学位"},
+  {code:"090201",name:"农业资源与环境",category:"农学",subcategory:"自然保护与环境生态类",tags:""},
+  {code:"090202",name:"野生动物与自然保护区管理",category:"农学",subcategory:"自然保护与环境生态类",tags:""},
+  {code:"090207TK",name:"国家公园建设与管理",category:"农学",subcategory:"自然保护与环境生态类",tags:"TK",note:"可授农学或管理学学士学位"},
+  {code:"090208TK",name:"生态修复学",category:"农学",subcategory:"自然保护与环境生态类",tags:"TK"},
+  {code:"090301",name:"动物科学",category:"农学",subcategory:"动物生产类",tags:""},
+  {code:"090307T",name:"智慧牧业科学与工程",category:"农学",subcategory:"动物生产类",tags:"T"},
+  {code:"090401",name:"动物医学",category:"农学",subcategory:"动物医学类",tags:""},
+  {code:"090402",name:"动物药学",category:"农学",subcategory:"动物医学类",tags:""},
+  {code:"090501",name:"林学",category:"农学",subcategory:"林学类",tags:""},
+  {code:"090502",name:"园林",category:"农学",subcategory:"林学类",tags:""},
+  {code:"090505T",name:"智慧林业",category:"农学",subcategory:"林学类",tags:"T"},
+  {code:"090601",name:"水产养殖学",category:"农学",subcategory:"水产类",tags:""},
+  {code:"090602",name:"海洋渔业科学与技术",category:"农学",subcategory:"水产类",tags:""},
+  {code:"090605T",name:"智慧渔业",category:"农学",subcategory:"水产类",tags:"T"},
+  {code:"090701",name:"草业科学",category:"农学",subcategory:"草学类",tags:""},
+  {code:"100101K",name:"基础医学",category:"医学",subcategory:"基础医学类",tags:"K"},
+  {code:"100201K",name:"临床医学",category:"医学",subcategory:"临床医学类",tags:"K"},
+  {code:"100202TK",name:"麻醉学",category:"医学",subcategory:"临床医学类",tags:"TK"},
+  {code:"100203TK",name:"医学影像学",category:"医学",subcategory:"临床医学类",tags:"TK"},
+  {code:"100204TK",name:"眼视光医学",category:"医学",subcategory:"临床医学类",tags:"TK"},
+  {code:"100205TK",name:"精神医学",category:"医学",subcategory:"临床医学类",tags:"TK"},
+  {code:"100207TK",name:"儿科学",category:"医学",subcategory:"临床医学类",tags:"TK"},
+  {code:"100301K",name:"口腔医学",category:"医学",subcategory:"口腔医学类",tags:"K"},
+  {code:"100401K",name:"预防医学",category:"医学",subcategory:"公共卫生与预防医学类",tags:"K"},
+  {code:"100402",name:"食品卫生与营养学",category:"医学",subcategory:"公共卫生与预防医学类",tags:"",note:"授予理学学士学位"},
+  {code:"100501K",name:"中医学",category:"医学",subcategory:"中医学类",tags:"K"},
+  {code:"100502K",name:"针灸推拿学",category:"医学",subcategory:"中医学类",tags:"K"},
+  {code:"100503K",name:"藏医学",category:"医学",subcategory:"中医学类",tags:"K"},
+  {code:"100504K",name:"蒙医学",category:"医学",subcategory:"中医学类",tags:"K"},
+  {code:"100510TK",name:"中医康复学",category:"医学",subcategory:"中医学类",tags:"TK"},
+  {code:"100601K",name:"中西医临床医学",category:"医学",subcategory:"中西医结合类",tags:"K"},
+  {code:"100701",name:"药学",category:"医学",subcategory:"药学类",tags:"",note:"授予理学学士学位"},
+  {code:"100702",name:"药物制剂",category:"医学",subcategory:"药学类",tags:"",note:"授予理学学士学位"},
+  {code:"100703TK",name:"临床药学",category:"医学",subcategory:"药学类",tags:"TK",note:"授予理学学士学位"},
+  {code:"100707T",name:"海洋药学",category:"医学",subcategory:"药学类",tags:"T",note:"授予理学学士学位"},
+  {code:"100801",name:"中药学",category:"医学",subcategory:"中药学类",tags:"",note:"授予理学学士学位"},
+  {code:"100802",name:"中药资源与开发",category:"医学",subcategory:"中药学类",tags:"",note:"授予理学学士学位"},
+  {code:"100901K",name:"法医学",category:"医学",subcategory:"法医学类",tags:"K"},
+  {code:"101001",name:"医学检验技术",category:"医学",subcategory:"医学技术类",tags:"",note:"授予理学学士学位"},
+  {code:"101002",name:"医学实验技术",category:"医学",subcategory:"医学技术类",tags:"",note:"授予理学学士学位"},
+  {code:"101003",name:"医学影像技术",category:"医学",subcategory:"医学技术类",tags:"",note:"授予理学学士学位"},
+  {code:"101005",name:"康复治疗学",category:"医学",subcategory:"医学技术类",tags:"",note:"授予理学学士学位"},
+  {code:"101101K",name:"护理学",category:"医学",subcategory:"护理学类",tags:"K",note:"授予理学学士学位"},
+  {code:"101102TK",name:"助产学",category:"医学",subcategory:"护理学类",tags:"TK",note:"授予理学学士学位"},
+  {code:"120101",name:"管理科学",category:"管理学",subcategory:"管理科学与工程类",tags:"",note:"可授管理学或理学学士学位"},
+  {code:"120102",name:"信息管理与信息系统",category:"管理学",subcategory:"管理科学与工程类",tags:"",note:"可授管理学或工学学士学位"},
+  {code:"120103",name:"工程管理",category:"管理学",subcategory:"管理科学与工程类",tags:"",note:"可授管理学或工学学士学位"},
+  {code:"120104",name:"房地产开发与管理",category:"管理学",subcategory:"管理科学与工程类",tags:""},
+  {code:"120105",name:"工程造价",category:"管理学",subcategory:"管理科学与工程类",tags:"",note:"可授管理学或工学学士学位"},
+  {code:"120108T",name:"大数据管理与应用",category:"管理学",subcategory:"管理科学与工程类",tags:"T"},
+  {code:"120111T",name:"应急管理",category:"管理学",subcategory:"管理科学与工程类",tags:"T"},
+  {code:"120201K",name:"工商管理",category:"管理学",subcategory:"工商管理类",tags:"K"},
+  {code:"120202",name:"市场营销",category:"管理学",subcategory:"工商管理类",tags:""},
+  {code:"120203K",name:"会计学",category:"管理学",subcategory:"工商管理类",tags:"K"},
+  {code:"120204",name:"财务管理",category:"管理学",subcategory:"工商管理类",tags:""},
+  {code:"120205",name:"国际商务",category:"管理学",subcategory:"工商管理类",tags:""},
+  {code:"120206",name:"人力资源管理",category:"管理学",subcategory:"工商管理类",tags:""},
+  {code:"120207",name:"审计学",category:"管理学",subcategory:"工商管理类",tags:""},
+  {code:"120208",name:"资产评估",category:"管理学",subcategory:"工商管理类",tags:""},
+  {code:"120210",name:"文化产业管理",category:"管理学",subcategory:"工商管理类",tags:"",note:"可授管理学或艺术学学士学位"},
+  {code:"120219TK",name:"商业人工智能",category:"管理学",subcategory:"工商管理类",tags:"TK"},
+  {code:"120301",name:"农林经济管理",category:"管理学",subcategory:"农业经济管理类",tags:""},
+  {code:"120302",name:"农村区域发展",category:"管理学",subcategory:"农业经济管理类",tags:"",note:"可授管理学或农学学士学位"},
+  {code:"120303TK",name:"乡村治理",category:"管理学",subcategory:"农业经济管理类",tags:"TK"},
+  {code:"120401",name:"公共事业管理",category:"管理学",subcategory:"公共管理类",tags:""},
+  {code:"120402",name:"行政管理",category:"管理学",subcategory:"公共管理类",tags:""},
+  {code:"120403",name:"劳动与社会保障",category:"管理学",subcategory:"公共管理类",tags:""},
+  {code:"120404",name:"土地资源管理",category:"管理学",subcategory:"公共管理类",tags:"",note:"可授管理学或工学学士学位"},
+  {code:"120405",name:"城市管理",category:"管理学",subcategory:"公共管理类",tags:""},
+  {code:"120410T",name:"健康服务与管理",category:"管理学",subcategory:"公共管理类",tags:"T"},
+  {code:"120414T",name:"养老服务管理",category:"管理学",subcategory:"公共管理类",tags:"T"},
+  {code:"120422TK",name:"数字公共治理",category:"管理学",subcategory:"公共管理类",tags:"TK"},
+  {code:"120501",name:"图书馆学",category:"管理学",subcategory:"图书情报与档案管理类",tags:""},
+  {code:"120502",name:"档案学",category:"管理学",subcategory:"图书情报与档案管理类",tags:""},
+  {code:"120503",name:"信息资源管理",category:"管理学",subcategory:"图书情报与档案管理类",tags:""},
+  {code:"120504T",name:"数据资源与数据智能",category:"管理学",subcategory:"图书情报与档案管理类",tags:"T"},
+  {code:"120601",name:"物流管理",category:"管理学",subcategory:"物流管理与工程类",tags:""},
+  {code:"120602",name:"物流工程",category:"管理学",subcategory:"物流管理与工程类",tags:"",note:"可授管理学或工学学士学位"},
+  {code:"120603T",name:"采购管理",category:"管理学",subcategory:"物流管理与工程类",tags:"T"},
+  {code:"120604T",name:"供应链管理",category:"管理学",subcategory:"物流管理与工程类",tags:"T"},
+  {code:"120701",name:"工业工程",category:"管理学",subcategory:"工业工程类",tags:"",note:"可授管理学或工学学士学位"},
+  {code:"120703T",name:"质量管理工程",category:"管理学",subcategory:"工业工程类",tags:"T"},
+  {code:"120801",name:"电子商务",category:"管理学",subcategory:"电子商务类",tags:"",note:"可授管理学或经济学或工学学士学位"},
+  {code:"120803T",name:"跨境电子商务",category:"管理学",subcategory:"电子商务类",tags:"T"},
+  {code:"120901K",name:"旅游管理",category:"管理学",subcategory:"旅游管理类",tags:"K"},
+  {code:"120902",name:"酒店管理",category:"管理学",subcategory:"旅游管理类",tags:""},
+  {code:"120903",name:"会展经济与管理",category:"管理学",subcategory:"旅游管理类",tags:""},
+  {code:"120906TK",name:"数字文旅",category:"管理学",subcategory:"旅游管理类",tags:"TK"},
+  {code:"130101",name:"艺术史论",category:"艺术学",subcategory:"艺术学理论类",tags:""},
+  {code:"130102T",name:"艺术管理",category:"艺术学",subcategory:"艺术学理论类",tags:"T"},
+  {code:"130103T",name:"非物质文化遗产保护",category:"艺术学",subcategory:"艺术学理论类",tags:"T"},
+  {code:"130201",name:"音乐表演",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:""},
+  {code:"130202",name:"音乐学",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:""},
+  {code:"130203",name:"作曲与作曲技术理论",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:""},
+  {code:"130204",name:"舞蹈表演",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:""},
+  {code:"130205",name:"舞蹈学",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:""},
+  {code:"130207T",name:"舞蹈教育",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:"T"},
+  {code:"130209T",name:"流行音乐",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:"T"},
+  {code:"130210T",name:"音乐治疗",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:"T"},
+  {code:"130215T",name:"音乐科技",category:"艺术学",subcategory:"音乐与舞蹈学类",tags:"T"},
+  {code:"130301",name:"表演",category:"艺术学",subcategory:"戏剧与影视学类",tags:""},
+  {code:"130302",name:"戏剧学",category:"艺术学",subcategory:"戏剧与影视学类",tags:""},
+  {code:"130303",name:"电影学",category:"艺术学",subcategory:"戏剧与影视学类",tags:""},
+  {code:"130304",name:"戏剧影视文学",category:"艺术学",subcategory:"戏剧与影视学类",tags:""},
+  {code:"130305",name:"广播电视编导",category:"艺术学",subcategory:"戏剧与影视学类",tags:""},
+  {code:"130309",name:"播音与主持艺术",category:"艺术学",subcategory:"戏剧与影视学类",tags:""},
+  {code:"130310",name:"动画",category:"艺术学",subcategory:"戏剧与影视学类",tags:""},
+  {code:"130316T",name:"数字戏剧",category:"艺术学",subcategory:"戏剧与影视学类",tags:"T"},
+  {code:"130318T",name:"智能影像艺术",category:"艺术学",subcategory:"戏剧与影视学类",tags:"T"},
+  {code:"130401",name:"美术学",category:"艺术学",subcategory:"美术学类",tags:""},
+  {code:"130402",name:"绘画",category:"艺术学",subcategory:"美术学类",tags:""},
+  {code:"130403",name:"雕塑",category:"艺术学",subcategory:"美术学类",tags:""},
+  {code:"130404",name:"摄影",category:"艺术学",subcategory:"美术学类",tags:""},
+  {code:"130405T",name:"书法学",category:"艺术学",subcategory:"美术学类",tags:"T"},
+  {code:"130406T",name:"中国画",category:"艺术学",subcategory:"美术学类",tags:"T"},
+  {code:"130409T",name:"文物保护与修复",category:"艺术学",subcategory:"美术学类",tags:"T"},
+  {code:"130415T",name:"艺术治疗",category:"艺术学",subcategory:"美术学类",tags:"T"},
+  {code:"130501",name:"艺术设计学",category:"艺术学",subcategory:"设计学类",tags:""},
+  {code:"130502",name:"视觉传达设计",category:"艺术学",subcategory:"设计学类",tags:""},
+  {code:"130503",name:"环境设计",category:"艺术学",subcategory:"设计学类",tags:""},
+  {code:"130504",name:"产品设计",category:"艺术学",subcategory:"设计学类",tags:""},
+  {code:"130505",name:"服装与服饰设计",category:"艺术学",subcategory:"设计学类",tags:""},
+  {code:"130506",name:"公共艺术",category:"艺术学",subcategory:"设计学类",tags:""},
+  {code:"130508",name:"数字媒体艺术",category:"艺术学",subcategory:"设计学类",tags:""},
+  {code:"130509T",name:"艺术与科技",category:"艺术学",subcategory:"设计学类",tags:"T"},
+  {code:"130511T",name:"新媒体艺术",category:"艺术学",subcategory:"设计学类",tags:"T"},
+  {code:"130515TK",name:"游戏艺术设计",category:"艺术学",subcategory:"设计学类",tags:"TK"},
+  {code:"140001TK",name:"未来机器人",category:"交叉学科",subcategory:"交叉学科",tags:"TK",note:"授予工学学士学位"},
+  {code:"140002TK",name:"交叉工程",category:"交叉学科",subcategory:"交叉学科",tags:"TK",note:"授予工学学士学位"},
+  {code:"140003TK",name:"低空技术与工程",category:"交叉学科",subcategory:"交叉学科",tags:"TK",note:"授予工学学士学位"},
+  {code:"140004TK",name:"集成电路科学与工程",category:"交叉学科",subcategory:"交叉学科",tags:"TK",note:"授予工学学士学位"},
+  {code:"140005T",name:"碳中和科学与工程",category:"交叉学科",subcategory:"交叉学科",tags:"T",note:"授予工学学士学位"},
+  {code:"140006T",name:"智慧城市与空间规划",category:"交叉学科",subcategory:"交叉学科",tags:"T",note:"授予工学学士学位"},
+  {code:"140007T",name:"智能医学工程",category:"交叉学科",subcategory:"交叉学科",tags:"T",note:"授予工学学士学位"},
+  {code:"140008T",name:"生物医药数据科学",category:"交叉学科",subcategory:"交叉学科",tags:"T",note:"授予理学学士学位"},
+  {code:"140009T",name:"智能影像工程",category:"交叉学科",subcategory:"交叉学科",tags:"T",note:"授予工学学士学位"},
+  {code:"140010TK",name:"医工学",category:"交叉学科",subcategory:"交叉学科",tags:"TK",note:"授予工学学士学位"},
+  {code:"140011TK",name:"医疗器械与装备工程",category:"交叉学科",subcategory:"交叉学科",tags:"TK",note:"授予工学学士学位"},
+  {code:"140012TK",name:"具身智能",category:"交叉学科",subcategory:"交叉学科",tags:"TK",note:"授予工学学士学位"},
+  {code:"140013TK",name:"脑机科学与技术",category:"交叉学科",subcategory:"交叉学科",tags:"TK",note:"授予工学学士学位"},
+  {code:"140014T",name:"工程互联网",category:"交叉学科",subcategory:"交叉学科",tags:"T",note:"授予工学学士学位"},
+  {code:"140015T",name:"深地科学与工程",category:"交叉学科",subcategory:"交叉学科",tags:"T",note:"授予工学学士学位"},
+];
+
+/* ═══ CATEGORY CODES ═══ */
+const CAT_CODES = {
+  "哲学":"01","经济学":"02","法学":"03","教育学":"04","文学":"05","历史学":"06",
+  "理学":"07","工学":"08","农学":"09","医学":"10","管理学":"12","艺术学":"13","交叉学科":"14"
+};
+
+/* ═══ STATE ═══ */
+let currentCat = '', currentType = 'all', currentKeyword = '';
+
+/* ═══ INIT ═══ */
+window.onload = () => { buildSidebar(); renderResults(); };
+
+/* ═══ SIDEBAR ═══ */
+function buildSidebar() {
+  const cats = [...new Set(MAJORS_DATA.map(m => m.category))];
+  const el = document.getElementById('catList');
+  el.innerHTML =
+    `<div class="cat-item active" onclick="setCat('',this)">
+       <span class="cat-item-text">全部</span>
+       <span class="cat-num">${MAJORS_DATA.length}</span>
+     </div>` +
+    cats.map(c => {
+      const n = MAJORS_DATA.filter(m => m.category === c).length;
+      const code = CAT_CODES[c] || '';
+      return `<div class="cat-item" onclick="setCat('${c}',this)">
+        <span class="cat-item-text">${code}&ensp;${c}</span>
+        <span class="cat-num">${n}</span>
+      </div>`;
+    }).join('');
+}
+
+function setCat(cat, el) {
+  currentCat = cat;
+  document.getElementById('catFilter').value = cat;
+  document.querySelectorAll('.cat-item').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  renderResults();
+}
+
+/* ═══ FILTERS ═══ */
+function setTypeFilter(type, btn) {
+  currentType = type;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderResults();
+}
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  currentKeyword = this.value.trim().toLowerCase();
+  renderResults();
+});
+document.getElementById('catFilter').addEventListener('change', function() {
+  currentCat = this.value;
+  document.querySelectorAll('.cat-item').forEach(e => {
+    const txt = e.querySelector('.cat-item-text').textContent.trim().replace(/\s/g,'');
+    const match = this.value === ''
+      ? txt === '全部'
+      : txt.includes(this.value);
+    e.classList.toggle('active', match);
+  });
+  renderResults();
+});
+
+/* ═══ HIGHLIGHT ═══ */
+function hl(text, kw) {
+  if (!kw) return text;
+  const re = new RegExp(kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+  return text.replace(re, m => `<mark>${m}</mark>`);
+}
+
+/* ═══ RENDER ═══ */
+function renderResults() {
+  let data = MAJORS_DATA;
+  if (currentCat)          data = data.filter(m => m.category === currentCat);
+  if (currentType === 'basic') data = data.filter(m => m.tags === '');
+  else if (currentType !== 'all') data = data.filter(m => m.tags === currentType);
+  if (currentKeyword) data = data.filter(m =>
+    m.name.toLowerCase().includes(currentKeyword) ||
+    m.code.toLowerCase().includes(currentKeyword) ||
+    m.subcategory.toLowerCase().includes(currentKeyword) ||
+    m.category.toLowerCase().includes(currentKeyword) ||
+    (m.note && m.note.toLowerCase().includes(currentKeyword))
+  );
+
+  /* Stats */
+  document.getElementById('statTotal').textContent  = data.length;
+  document.getElementById('statBasic').textContent  = data.filter(m => m.tags === '').length;
+  document.getElementById('statT').textContent      = data.filter(m => m.tags === 'T').length;
+  document.getElementById('statK').textContent      = data.filter(m => m.tags === 'K').length;
+  document.getElementById('statTK').textContent     = data.filter(m => m.tags === 'TK').length;
+  document.getElementById('resultCount').textContent = `${data.length} 个专业`;
+
+  const container = document.getElementById('resultsContainer');
+
+  if (data.length === 0) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            <path d="M8 11h6M11 8v6" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="empty-text">未找到匹配专业 — 请调整筛选条件</div>
+      </div>`;
+    return;
+  }
+
+  /* Group */
+  const groups = {};
+  data.forEach(m => {
+    const key = `${m.category}__${m.subcategory}`;
+    if (!groups[key]) groups[key] = { cat: m.category, sub: m.subcategory, items: [] };
+    groups[key].items.push(m);
+  });
+
+  let html = '';
+  for (const key in groups) {
+    const g = groups[key];
+    const code = CAT_CODES[g.cat] || '';
+    html += `
+      <div class="section-header">
+        <span class="section-cat">${code}&ensp;${g.cat}</span>
+        <span class="section-rule"></span>
+        <span class="section-sub">${g.sub}</span>
+        <span class="section-count">${g.items.length} 个</span>
+      </div>
+      <div class="cards">`;
+    html += g.items.map(m => {
+      const tagsHtml = buildTagsHtml(m.tags);
+      const safeM = JSON.stringify(m).replace(/'/g, '&#39;');
+      return `
+        <div class="card" onclick='showDetail(${safeM})'>
+          <div class="card-code">${hl(m.code, currentKeyword)}</div>
+          <div class="card-name">${hl(m.name, currentKeyword)}</div>
+          <div class="card-sub">${hl(m.subcategory, currentKeyword)}</div>
+          ${tagsHtml}
+        </div>`;
+    }).join('');
+    html += '</div>';
+  }
+  container.innerHTML = html;
+}
+
+function buildTagsHtml(tags) {
+  if (!tags) return '';
+  if (tags === 'TK') return '<div class="card-tags"><span class="tag tag-TK">TK</span></div>';
+  if (tags === 'K')  return '<div class="card-tags"><span class="tag tag-K">K</span></div>';
+  if (tags === 'T')  return '<div class="card-tags"><span class="tag tag-T">T</span></div>';
+  return '';
+}
+
+/* ═══ MODAL ═══ */
+function showDetail(m) {
+  document.getElementById('mCode').textContent = 'MAJOR CODE · ' + m.code;
+  document.getElementById('mName').textContent = m.name;
+  const code = CAT_CODES[m.category] || '';
+  document.getElementById('mCat').textContent  = `${code} ${m.category}`;
+  document.getElementById('mSub').textContent  = m.subcategory;
+
+  const noteLabel = document.getElementById('mNoteLabel');
+  const noteVal   = document.getElementById('mNote');
+  if (m.note) {
+    noteLabel.style.display = '';
+    noteVal.style.display   = '';
+    noteVal.textContent     = m.note;
+  } else {
+    noteLabel.style.display = 'none';
+    noteVal.style.display   = 'none';
+  }
+
+  /* Type badge */
+  const typeMap = {
+    '':   { bg:'#EEF0F6', color:'#3D3A7A', label:'基本专业' },
+    'T':  { bg: 'var(--c-tag-t-bg)',  color: 'var(--c-tag-t)',  label:'特设专业 T' },
+    'K':  { bg: 'var(--c-tag-k-bg)',  color: 'var(--c-tag-k)',  label:'国控专业 K' },
+    'TK': { bg: 'var(--c-tag-tk-bg)', color: 'var(--c-tag-tk)', label:'特设国控 TK' },
+  };
+  const t = typeMap[m.tags] || typeMap[''];
+  document.getElementById('mType').innerHTML =
+    `<span class="modal-badge" style="background:${t.bg};color:${t.color}">${t.label}</span>`;
+
+  /* Footer note */
+  document.getElementById('mFooter').innerHTML =
+    `<div class="modal-footer-note">
+       T · 特设专业：满足经济社会发展特殊需求所设置的专业&emsp;
+       K · 国控专业：涉及国家安全、特殊行业，由国家统一布点
+     </div>`;
+
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModalBg(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
+}
+function closeModalBtn() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
+</script>
+</body>
+</html>

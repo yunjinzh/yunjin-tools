@@ -1,0 +1,10 @@
+import {build} from 'esbuild';
+import fs from 'node:fs';
+const result=await build({entryPoints:['physics/viewer.js'],bundle:true,write:false,minify:true,format:'iife',target:'es2022',legalComments:'inline'});
+const meta=fs.readFileSync('dist/assets/robot/g1.json','utf8'),binary=fs.readFileSync('dist/assets/robot/g1.bin').toString('base64');
+const summary=fs.existsSync('reports/physics-results.json')?fs.readFileSync('reports/physics-results.json','utf8'):'{"passed":0,"total":0,"results":[]}';
+let html=fs.readFileSync('physics/workbench.html','utf8').replace('__ROBOT_META__',()=>meta).replace('__ROBOT_BINARY__',()=>binary).replace('__TEST_SUMMARY__',()=>summary).replace('__APP_BUNDLE__',()=>result.outputFiles[0].text.replace(/<\/script/gi,'<\\/script'));
+const notices=['THREE-MIT.txt','UNITREE-BSD.txt','RAPIER-Apache-2.0.txt'].map(n=>`${n}\n${fs.readFileSync('physics/licenses/'+n,'utf8')}`).join('\n\n');
+html=html.replace('<html',`<!-- Third-party notices. Rapier JS bindings by Dimforge, Apache-2.0.\n${notices.replace(/-->/g,'--&gt;')}\n-->\n<html`);
+fs.writeFileSync('dist/physics.html',html);
+console.log(`physics.html: ${(Buffer.byteLength(html)/1024/1024).toFixed(2)} MiB; all runtime assets embedded`);

@@ -1,0 +1,6 @@
+.offline-cache/
+offline/
+
+offline-portable/
+
+.offline-functional-test.mjs

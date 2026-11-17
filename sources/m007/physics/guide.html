@@ -1,0 +1,211 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>具身机器人真实交互：实现、测试与验收</title><style>
+:root{color-scheme:light}*{box-sizing:border-box}body{background:#F1F0EC;color:#263c32;font:15px/1.85 'Noto Sans SC','Microsoft YaHei',sans-serif;margin:0}main{max-width:1120px;margin:0 auto;padding:48px 35px 80px}a{color:#9f4d3d}header{border-bottom:2px solid #263c32;padding-bottom:25px;margin-bottom:25px}header small{letter-spacing:2px;color:#6b7e6e}h1{font:600 34px/1.5 'Noto Serif SC','SimSun',serif;margin:15px 0}h2{font-size:22px;margin-top:42px;border-top:1px solid #bfcbbd;padding-top:20px}h3{font-size:17px;margin-top:27px}table{border-collapse:collapse;width:100%;font-size:13px;margin:20px 0}td,th{border:1px solid #c8d2c4;text-align:left;padding:10px;vertical-align:top}th{background:#dce4d7;font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#24382e;color:#e8eede;padding:22px;border-radius:8px;font:12px/1.65 ui-monospace,monospace}code{font-family:ui-monospace,monospace}p,li{max-width:100%}.callout{background:#e5e9dd;border-left:4px solid #c77963;padding:17px 22px;margin:20px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stats div{padding:16px;background:#e3e8dd}.stats b{font:28px ui-monospace,monospace;display:block}.stats small{font-size:12px}.warn{color:#9c4b3c}.muted{font-size:12px;color:#6b7e6e}.tag{font-size:11px;border:1px solid #9aaa92;border-radius:3px;padding:2px 5px}.toc{display:flex;flex-wrap:wrap;gap:15px;font-size:13px}.file{font-family:monospace}footer{border-top:1px solid #a4b49e;margin-top:40px;padding-top:20px;font-size:12px}.print{float:right;border:1px solid #b5c2ae;padding:8px 15px;background:transparent;border-radius:5px;cursor:pointer}@media(max-width:700px){main{padding:25px 16px}h1{font-size:28px}table{font-size:11px}td,th{padding:6px}.stats{grid-template-columns:1fr}}@media print{body{background:white;color:#222}main{max-width:none;padding:0}h2{break-after:avoid}tr,pre,.callout{break-inside:avoid}.print,.toc{display:none}a{color:#222}}
+</style></head><body><main><header><button class="print" onclick="window.print()">打印 / 保存 PDF</button><small>EMBODIED STUDIO / ENGINEERING NOTE 01</small><h1>具身机器人真实交互<br>实现、测试与量化验收</h1><p>咖啡自主取送 × 轻量物流箱搬运｜2026 年 10 月 26 日｜基于现有“具身工场”项目增量实现</p><p><a href="./physics.html">打开可运行验证工作区 ↗</a></p></header>
+<div class="toc"><a href="#result">交付结论</a><a href="#state">状态机</a><a href="#physics">物理与约束</a><a href="#code">关键代码</a><a href="#accept">量化验收</a><a href="#diagnosis">失败诊断</a><a href="#integration">集成与真机闭环</a><a href="#sources">来源与核查</a></div>
+
+<section id="result"><h2>1. 已完成的增量与证据范围</h2>
+<p><b>本次找到了现有项目代码，并在原项目内新增了独立的物理验证工作区。</b>原站点主导航新增“物理验证”，现有场景、资源、任务编排与记录保留。新工作区也打包成一个离线 HTML 文件；从浏览器打开即可运行物理内核，支持 WebGL 的浏览器显示 Three.js 三维场景。</p>
+<div class="stats"><div><b>__PHYSICS_COUNT__ / __PHYSICS_COUNT__</b><small>物理专项自动测试通过</small></div><div><b>56 / 56</b><small>原平台回归测试通过</small></div><div><b>20 / 20</b><small>取放搬运固定种子闭环通过</small></div></div>
+<table><thead><tr><th>对象</th><th>本次源码核查</th><th>处理结果</th></tr></thead><tbody>
+<tr><td>旧取杯控制器</td><td><code>dist/cup-motion.js</code> 已采用 IK 接近、6 mm 距离门槛和保留世界位姿的 <code>attach</code>。它验证的是几何接近，未计算双指受力。</td><td>新工作区改用双侧物理接触、法向力、摩擦预算和持物约束；以物理位姿驱动渲染。</td></tr>
+<tr><td>旧物流箱控制器</td><td><code>dist/sim.js</code> 中仍有 <code>lerpVectors</code> 抓取和放置；<code>world.pick()</code> 会重新设定物体局部坐标。</td><td>新工作区中的箱体全过程保持动态刚体。旧界面加上运动学演示标注，避免沿用其评分作为物理验收。</td></tr>
+<tr><td>模型与项目复用</td><td>现有 <code>robot-rig.js</code>、G1 CAD 数据、URDF、A* 导航器均已读取。</td><td>复用 29 关节层级与关节限位、右臂 IK 和平面 A*，新增刚体层、夹爪层、状态机与审计层。</td></tr>
+<tr><td>浏览器核验</td><td>当前云端浏览器明确报错：WebGL context could not be created，GL_RENDERER = Disabled。</td><td>GPU 三维画面核验未完成；页面现提供错误提示，物理计算与控制可以继续。浏览器交互核验见随包 <code>reports/browser-qa.json</code>。</td></tr>
+</tbody></table>
+<div class="callout"><b>界限：</b>这是任务物理验证模块。右臂和底盘是受约束的运动学控制；夹指和物体是刚体动力学。G1 右手被教学双指夹爪适配件替代，不是对 G1 原厂灵巧手的标定复现。液体、热饮、整机平衡、真实视觉识别、ROS 2 控制和双臂大箱体搬运未在本模块中实现。</div>
+<p><b>[!!! 事实断层：资料不足，无法确认]</b> 当前未提供该校机器人型号配置、末端夹爪实测力、负载曲线、质量/摩擦标定数据及真机执行日志。因此，本次结果不能证明实机能够搬运 10 kg，也不能宣称 Real2Sim2Real 已闭环验证。</p>
+<h3>从参考方法落到可执行模块</h3>
+<table><thead><tr><th>WorldFoundry 参考方法</th><th>本模块实现</th><th>输出证据</th></tr></thead><tbody>
+<tr><td>资产稳定性、抓取与接触验证</td><td>场景创建后物理解算 1 s，检查稳定支撑；动态夹指施力，双侧接触连续达标才建立抓取。</td><td>初始姿态、接触对、法向冲量/步长、抓取建约束事件。</td></tr>
+<tr><td>碰撞与可达性检查、运动规划</td><td>URDF IK 预检；A* 寻找安全停靠点；先在安全区抬臂再靠台；执行前检测手臂、夹指、负载扫掠体。</td><td>REACH_CHECK、PATH、ARM_TARGET、碰撞体 ID 与阻断原因。</td></tr>
+<tr><td>按物理有效性和任务结果筛选轨迹</td><td>只有终态 SUCCESS 且所有物理审计通过才属于有效成功轨迹。失败轨迹保留为诊断数据。</td><td>逐 1/120 s 的位姿、速度、关节、接触、约束和状态记录。</td></tr>
+<tr><td>依据执行结果提出偏差假设、定向修正</td><td>区分感知、规划、接触、动力学、放置失败；提供低摩擦、瞬移、障碍、异常冲量、约束断开注入。</td><td>失败码 + 首次失败时间 + 原始证据；修复后复跑相同种子。</td></tr>
+</tbody></table>
+<p>推导链：<b>（原项目几何绑定未包含受力求解 + 参考方案要求以接触和任务结果验证交互 ⇒ 本次增加独立刚体求解和逐步审计层）</b>。这是工程设计推导，不是对参考申请项目实施成果的认定。</p>
+</section>
+
+<section id="state"><h2>2. 状态机：状态、守卫、失败出口</h2>
+<p>公共执行周期为 120 Hz。每次转换写入事件。任意非终态出现硬失败都进入 FAILED，停止后续机器人运动命令并保留证据；已建立的抓取约束在普通规划故障中保持，接触丢失或受力不足时拆除。E_STOP 停止运动命令，仿真物理仍可推进；恢复采用重置重跑。</p>
+<table><thead><tr><th>状态</th><th>执行动作</th><th>通过守卫</th><th>主要失败</th></tr></thead><tbody>
+<tr><td>IDENTIFY</td><td>读取目标 ID、位姿、时戳、置信度</td><td>置信度 ≥0.9，观测年龄 ≤0.5 s</td><td>NO_TARGET / STALE_TARGET</td></tr>
+<tr><td>PLAN_PICK</td><td>相同 URDF IK 干运行并恢复现场；计算预停靠路径</td><td>IK 位置误差 &lt;5 mm、姿态误差 &lt;0.03 rad；存在路径</td><td>UNREACHABLE / NO_PATH</td></tr>
+<tr><td>NAVIGATE</td><td>A* 路点移动至台前安全区</td><td>底盘足迹与环境留有余量，连续扫掠无阻挡</td><td>SWEEP_BLOCKED</td></tr>
+<tr><td>PREGRASP</td><td>在安全区抬臂到 1.17 m 高的预抓取姿态</td><td>位置误差 &lt;2 mm，末端姿态误差 &lt;0.02 rad</td><td>UNREACHABLE / SELF_COLLISION</td></tr>
+<tr><td>DOCK</td><td>保持已抬起的手臂，精确接近工作台</td><td>足迹、手臂、夹指逐步扫掠通过</td><td>SWEEP_BLOCKED</td></tr>
+<tr><td>APPROACH</td><td>五次平滑曲线引导张开的夹爪接近；再次核对实际目标</td><td>实际物体与计划位姿差 ≤10 mm；手到目标</td><td>目标移动 / UNREACHABLE</td></tr>
+<tr><td>CLOSE</td><td>1.2 s 斜坡闭合双指 prismatic 电机</td><td>两侧接触，法向在夹持轴上相对</td><td>3 s 内未接触：GRASP_FAILED</td></tr>
+<tr><td>VERIFY_GRASP</td><td>检查连续接触和摩擦承载预算</td><td>有效双侧接触和力预算持续 ≥0.18 s</td><td>2 s 内不成立：GRIP_CAPACITY / GRASP_FAILED</td></tr>
+<tr><td>LIFT</td><td>垂直试提 0.16 m；持续审计约束</td><td>滑移 ≤5 mm、相对转角 ≤5°，无接触/承载丢失</td><td>SLIP / CONTACT_LOST / GRIP_CAPACITY</td></tr>
+<tr><td>PLAN_CARRY</td><td>求解目标停靠路径</td><td>底盘路径存在；执行时额外检查负载空间</td><td>NO_PATH</td></tr>
+<tr><td>TRANSPORT</td><td>底盘以 0.32 m/s 上限搬运</td><td>手臂、夹指与负载扫掠通过，约束持续有效</td><td>SWEEP_BLOCKED / SLIP</td></tr>
+<tr><td>LOWER</td><td>以逆抓取偏移计算末端目标，缓慢下放</td><td>目标台面有向上支撑，物体速度 &lt;0.03 m/s，持续 0.15 s</td><td>NO_SUPPORT / TIMEOUT</td></tr>
+<tr><td>RELEASE</td><td>拆除 fixed joint，打开双指；保留物体原位姿与速度</td><td>释放动作发生前支撑仍然有效</td><td>NO_SUPPORT</td></tr>
+<tr><td>RETREAT</td><td>张爪后向上退离 0.16 m</td><td>末端到达，物体由台面独立支撑</td><td>UNREACHABLE / 错误接触</td></tr>
+<tr><td>SETTLE</td><td>独立稳定性观察</td><td>位置 ≤10 mm；角度 ≤5°；线速度 &lt;0.02 m/s；角速度 &lt;0.1 rad/s，连续 0.6 s</td><td>4 s 内不成立：PLACE_FAILED</td></tr>
+<tr><td>SUCCESS</td><td>写入 ACCEPT 和最终指标</td><td>抓取约束已经移除，所有审计均通过</td><td>终态</td></tr>
+</tbody></table>
+<p>每个非终态还受 35 s 通用超时约束，IK 单段超过计划时间 3 s 仍不到位则失败。首次失败码是直接观察到的违规，不自动宣称其就是最终根因。当前版本阻挡后停止，未实现任意机械臂构型的全局绕障重规划。</p>
+<p>目标识别接口当前由仿真真值提供，标记为 <code>simulation-ground-truth</code>。真机接入时应替换为 RGB-D 识别与 TF 变换结果，并增加位姿协方差、遮挡标志和连续重识别；本版本未训练或测试视觉识别模型。</p>
+</section>
+
+<section id="physics"><h2>3. 刚体、碰撞检测与关节约束</h2>
+<table><thead><tr><th>对象 / 关系</th><th>当前实现</th><th>实现边界 / 后续要求</th></tr></thead><tbody>
+<tr><td>杯与箱</td><td>Dynamic；重力 9.81 m/s²；杯 0.35 kg、外半径 55 mm、高 130 mm；箱 0.50 kg、260×200×180 mm；μ=0.65，恢复系数 0.02；CCD 开启。</td><td>质量、摩擦是工程测试输入，不是实测标定。杯体用实心圆柱碰撞代理，仅验证外部取放；杯腔与液体不在范围内。</td></tr>
+<tr><td>夹指</td><td>两个 Dynamic cuboid，单指 0.08 kg，16×70×70 mm，μ 与物体相同；与运动学手掌通过 X 轴 prismatic joint 相连。</td><td>力驱动位置电机 k=10000 N/m，c=70 N·s/m；80 N 是实测力验收上限，不是该引擎 API 已设置的硬件扭矩饱和器。</td></tr>
+<tr><td>G1 与机械臂</td><td>复用现有 CAD、URDF 关节层级与关节限位。右臂阻尼最小二乘 IK、关节速度上限 1.2 rad/s；两段胶囊碰撞代理随关节正运动学更新。</td><td>肩、肘、腕的 revolute 是运动学关节；本次未用动力学电机关节复现全身力矩。真机需加载真实惯量、力矩、加速度和耦合限制。</td></tr>
+<tr><td>抓取关系</td><td>双侧接触、法向与受力预算验证后，用实际相对位姿建立 fixed joint；搬运中检查断约束条件。</td><td>这是“接触门控的抓取锁定近似”。固定约束能传递额外力矩，未证明完整六维力闭合。后续应以灵巧手/软接触和抓取扳手空间验证替换。</td></tr>
+<tr><td>底盘 / 腿部</td><td>平面 A*、0.25 m 规划膨胀与 0.24 m 足迹拦截。渲染显示 G1 与平移代理底座。</td><td>平移代理，不是双足行走动力学；未计算 ZMP、重心支撑域、摩擦锥和整机倾覆。</td></tr>
+<tr><td>场景与碰撞</td><td>台面、地面、主障碍使用固定刚体；Rapier broad phase + narrow phase；物体穿透通过接触流形和独立 shape-distance 双检。</td><td>手臂是简化代理，非全部 CAD 三角面碰撞；桌脚仅视觉结构，原平台全部 SimReady 资产尚未逐项配齐碰撞参数。</td></tr>
+<tr><td>自身碰撞</td><td>右前臂胶囊与躯干盒检测；肩部相邻关节接触排除。</td><td>尚未建立全身 Allowed Collision Matrix。正式接入应覆盖非相邻双臂、腿、躯干、末端、负载所有组合。</td></tr>
+</tbody></table>
+<h3>接触矩阵与扫掠体</h3>
+<p>夹指—目标物接触只在 CLOSE 至 RETREAT 等操作阶段许可；物体—源台面只在取物阶段许可；物体—目标台面只在 LOWER、RELEASE、RETREAT、SETTLE、SUCCESS 许可；物体—普通障碍接触一律记为错误。把允许的接触对写成对称关系，不能通过关闭全部碰撞来“解决”误报。</p>
+<p>运动学刚体不会自动被接触力挡住，因此每次提交 <code>setNextKinematicTranslation</code> 之前做 shape cast。负载有独立扫掠体；不能只检查机器人基座。旋转运动按半径×转角细分，使每段估计表面运动不超过 3 mm。运行中遇到新障碍直接停止；LOWER 仅为目标台面接触开放白名单，其余碰撞继续检查。</p>
+<h3>抓取判定</h3>
+<pre>接触条件：左右指均有真实流形接触，接触距离 &lt; 1 mm；
+法向条件：n_left.x × n_right.x &lt; -0.65（当前夹持轴为世界 X）；
+承载条件：F_available = 2 μ min(N_left, N_right)
+          F_required = 1.5 × m × (g + |a_filtered|)
+          F_available ≥ F_required，且每指实测力 ≤ 80 N；
+持续条件：上述条件连续满足至少 0.18 s。
+N = 法向接触冲量之和 / 固定物理步长。
+a_filtered 用最长 0.10 s 速度窗口计算，避免把高频接触解算噪声误判为持续加速度。</pre>
+<p>上述预算只近似评估夹持轴外的载荷保持能力，不能替代完整的六维抓取扳手分析。闭合期不满足力预算则拒绝建约束；搬运中双侧接触丢失超过 0.10 s，或力预算不足持续超过 0.18 s，拆除抓取约束并记录失败。</p>
+</section>
+
+<section id="code"><h2>4. 可复用 Three.js 实现与测试入口</h2>
+<p>核心文件：<code>physics/core.js</code>（状态机、刚体、碰撞与审计）；<code>physics/clock.js</code>（固定步长）；<code>physics/faults.js</code>（故障注入隔离）；<code>physics/viewer.js</code>（Three.js 同步与界面）；<code>tests/physics/physics.test.js</code>（自动测试）。完整源代码包含实际可运行实现。</p>
+<h3>使用现有机器人模型创建验证任务</h3>
+<pre>import { PhysicsTrial, initPhysics } from './physics/core.js';
+import { FixedClock } from './physics/clock.js';
+
+await initPhysics();
+// rig 是原项目 RobotRig，已 build/load，且 root.parent 是机器人容器。
+const trial = new PhysicsTrial({ rig, kind: 'cup', seed: 1 });
+const clock = new FixedClock(() =&gt; trial.step());
+trial.start();
+
+function frame(renderDeltaSeconds) {
+  clock.advance(renderDeltaSeconds); // 每次求解始终是 1/120 s
+  const body = trial.payload.body;
+  mesh.position.copy(body.translation());
+  mesh.quaternion.copy(body.rotation());
+  renderer.render(scene, camera);
+}
+// 证据导出
+const evidence = trial.report();
+// 场景销毁，释放 WASM 物理资源
+trial.dispose();</pre>
+<h3>抓取建约束：保持实际位姿</h3>
+<pre>// 代码节选。只有 gripAttach() 的完整守卫通过后才执行。
+const before = payload.body.translation();
+const offset = subtract(before, palm.body.translation());
+const orientation = payload.body.rotation();
+const joint = world.createImpulseJoint(
+  RAPIER.JointData.fixed(offset, orientation,
+    { x:0, y:0, z:0 }, { x:0, y:0, z:0, w:1 }),
+  palm.body, payload.body, true
+);
+// 搬运由约束求解；不把 payload.mesh 挂到 hand，不直接改 payload 位姿。
+// 释放时只移除约束并打开夹爪，位置和速度继续由动力学更新。
+world.removeImpulseJoint(joint, true);</pre>
+<h3>关键回归断言</h3>
+<pre>// 真实执行完整闭环，验证结果而非仅匹配源代码字符串。
+const result = trial.run();
+assert.equal(result.state, 'SUCCESS');
+assert.equal(result.metrics.attachJump, 0);
+assert.ok(result.metrics.maxPenetration &lt;= 0.003);
+assert.ok(result.metrics.maxSlip &lt;= 0.005);
+assert.equal(result.metrics.forbiddenContacts, 0);
+assert.ok(result.metrics.positionError &lt;= 0.010);
+assert.equal(trial.grip, null);  // 放置后不能依赖隐形持物约束
+assert.ok(trial.support().valid);
+
+// 另建任务做故意瞬移测试，防止已结束任务掩盖错误。
+const faultTrial = createTrial({ kind: 'cup' }); // 见 tests/physics/fixture.js 的 trial()
+faultTrial.start();
+injectFault(faultTrial, 'teleport');
+faultTrial.step();
+assert.equal(faultTrial.failures[0].code, 'TELEPORT');
+faultTrial.dispose();</pre>
+<h3>运行与复现</h3>
+<pre>直接体验：打开 physics.html（已内嵌 Three.js、Rapier WASM 和 G1 数据）。
+查看说明：打开 physics-guide.html。
+
+源码复现（Node.js 20+，首次安装需要访问 npm）：
+  npm ci
+  npm run test:physics
+  npm test
+  npm run build:physics
+
+说明生成：
+  python scripts/build-physics-guide.py
+
+原平台本地启动：
+  python start_server.py
+  或双击“启动训练系统.bat”
+
+测试数据：reports/physics-results.json
+原始日志：reports/physics-tests.tap、reports/platform-tests.tap</pre>
+<p>浏览器的 2×/4×只增加执行的固定物理步数量，不放大 DT。超过 0.25 s 的单个渲染间隔会截断积压并累计 droppedSeconds；后台标签页恢复时重置墙钟积累，避免暂停后突然追赶。正式考核时必须同时记录设备、浏览器版本和 droppedSeconds，不能把墙钟时间与仿真时间混用。</p>
+</section>
+
+<section id="accept"><h2>5. 量化验收：工程门槛与实测结果</h2>
+<p><b>以下门槛是本次模块的工程验收配置，非国家标准、行业认证或硬件厂商承诺。</b>每个硬性物理条件都需单独通过，不通过“总分抵消”隐藏穿模、瞬移或空抓。</p>
+<table><thead><tr><th>项目</th><th>验收门槛 / 计算方法</th><th>测试方式</th></tr></thead><tbody>
+<tr><td>抓取前物体稳定</td><td>正常取物过程中、建约束前总漂移 &lt;2 mm</td><td>逐步读取动态刚体；不得提前吸向末端</td></tr>
+<tr><td>物体瞬移</td><td>建约束瞬间位姿跳变为 0；每步位移 ≤ max(|v上一帧|,|v本帧|)×DT +3 mm；两物理步间外部位姿写入 &gt;3 mm 立即失败</td><td>正常路径全量审计 + 注入 300 mm 瞬移</td></tr>
+<tr><td>穿透</td><td>最大接触穿透深度 ≤3 mm；流形和几何距离双重检查</td><td>注入重叠障碍，验证 PENETRATION</td></tr>
+<tr><td>夹持稳定</td><td>约束相对平移 ≤5 mm；相对转角 ≤5°；接触与力预算持续成立</td><td>低摩擦、超载、摩擦骤降、约束断开</td></tr>
+<tr><td>异常运动</td><td>物体速度 ≤2 m/s，角速度 ≤4 rad/s；无支撑刚体应受重力</td><td>异常冲量；0.2 s 自由落体速度误差 &lt;0.04 m/s</td></tr>
+<tr><td>放置</td><td>质心目标误差 ≤10 mm，姿态误差 ≤5°；脱离抓取约束后线速度 &lt;0.02 m/s、角速度 &lt;0.1 rad/s，支撑持续 ≥0.6 s</td><td>检查真实台面法向、接触、姿态和速度；悬空释放必须拒绝</td></tr>
+<tr><td>错误碰撞</td><td>未许可接触 =0；新增途中障碍必须在扫掠中拦截</td><td>阶段接触矩阵 + 实际禁止支撑接触 + 搬运障碍注入</td></tr>
+<tr><td>关节与可达性</td><td>URDF 角度限位，关节速度 ≤1.2 rad/s；无法到达不建立抓取</td><td>2.5 m 高目标台面实际 IK 预检失败</td></tr>
+<tr><td>高速穿模压力测试</td><td>5 mm 薄壁，80 m/s 球体，CCD 开启时不得越墙</td><td>同引擎独立测试；CCD 关闭作为能穿墙的对照组</td></tr>
+<tr><td>频率解耦</td><td>30 / 60 / 144 Hz 渲染调度各运行 10 s，都产生 1200 个物理步</td><td>FixedClock 直接测试。此项不等同 GPU 帧率测量</td></tr>
+</tbody></table>
+<h3>本轮实际记录</h3><div id="actual-results">__ACTUAL_RESULTS__</div>
+<p>20 个正常种子只改变目标 X 位置（最大 ±17.5 mm），两类任务均使用默认质量和摩擦；这不是跨质量、光照、形状的全面域随机化验证。上述实测用于复现当前配置，不能外推为真实场地总体成功率。</p>
+<p><b>下一阶段建议门槛：</b>每个正式物体类别至少 100 个冻结场景，覆盖实测质量与摩擦区间、初始姿态、目标偏移、尺寸、质心和障碍；任务成功率 ≥95%，成功轨迹硬性违规为 0，预期故障检出率 ≥95%。先冻结样本和指标，再运行，完整报告失败分母。本轮未宣称已完成该 100 场景验收。</p>
+</section>
+
+<section id="diagnosis"><h2>6. 失败诊断与有效轨迹筛选</h2>
+<table><thead><tr><th>观察到的失败</th><th>优先检查的证据</th><th>下一次受控实验</th></tr></thead><tbody>
+<tr><td>手接近但抓不住</td><td>双侧接触数、相反法向、闭合行程、目标位姿更新时间、夹指法向力</td><td>只改变接近偏移或夹爪开度，其他参数保持</td></tr>
+<tr><td>低速搬运仍滑脱</td><td>μ、法向力、质量、加速度窗口、约束相对漂移、质心设置</td><td>以实测摩擦区间分组，比较各组失效率；不直接把所有失败归为摩擦</td></tr>
+<tr><td>物体突然跳动</td><td>两物理步之间是否有姿态写入；初始化和回放是否混入执行；DT 与墙钟变化</td><td>固定种子关闭视觉回放和外部位姿写入，逐步比较</td></tr>
+<tr><td>路径通但机械臂撞台</td><td>底盘足迹、手臂胶囊扫掠、负载包络、抬臂时机</td><td>保持场景不变，仅改变预抓取高度和停靠点</td></tr>
+<tr><td>放下后仍悬浮或抖动</td><td>抓取约束是否删除；指爪是否退离；台面接触法向；速度和物体质心高度</td><td>移除抓取约束后做静置/自由落体对照，检查重复刚体与无支撑位置写入</td></tr>
+<tr><td>仿真通过、实机失败</td><td>匹配任务的关节反馈、末端位姿、接触时序、抓取力、对象质量/摩擦和失败时刻</td><td>逐项干预并重测；先区分感知误差、规划/控制能力不足和物理参数误差</td></tr>
+</tbody></table>
+<p>每个证据 JSON 含：版本、引擎、种子、质量/摩擦、固定步长、终态、量化指标、失败列表、状态/路径/抓取事件，以及逐步 p/q/v/ω、底盘、关节、接触对与夹指位置。日志中的 force 单位为 N，位置为 m，角度为 rad，时间为 s。</p>
+<p><b>成功数据筛选：</b><code>state === SUCCESS &amp;&amp; failures.length === 0 &amp;&amp; forbiddenContacts === 0</code>，再核对所有阈值和最终无抓取约束。失败数据保留失败时刻前后窗口，存入独立诊断集合。故障注入标记为 <code>FAULT_INJECTED</code>，不与自然失败样本混淆。生产训练还需增加资产版本、模型哈希、控制器版本、校准来源、观测协方差与传感器时间同步字段。</p>
+</section>
+
+<section id="integration"><h2>7. 在现有训练场中逐步接入</h2>
+<ol><li><b>当前已完成：</b>原项目增加独立 route <code>physics.html</code> 与导航入口；共用现有 G1 资源、<code>RobotRig</code> 和 <code>planner.js</code>；保留原训练平台。</li>
+<li><b>下一步迁移旧取放：</b>在现有 Simulator 增加 PhysicsAdapter，将 pick/place/move 映射到本状态机。物体的 position/quaternion 改为只读物理同步；把 <code>attach</code>、<code>lerpVectors</code> 物体动画限定于历史回放层。迁移后替换旧的“父子关系必须绑定”测试为物理验收测试。</li>
+<li><b>模型资产标定：</b>每件杯/箱保存 visual、collision、mass、inertia、COM、friction、restitution、grasp frames、support surfaces、来源与标定区间。动态凹形用凸分解或多凸体，静态复杂环境使用简化碰撞体；对杯柄、柜格等任务关键接触区单独验证。</li>
+<li><b>物流扩展：</b>先完成轻量单夹爪箱体，再实现双臂接触、闭链约束、左右载荷分担、力矩/重心约束和柜格开口检测。箱体尺寸变化后要重新计算夹爪跨度、抓取点与整个负载包络，不仅调整显示网格。</li>
+<li><b>咖啡扩展：</b>先完成空杯/加盖常温容器取送；再增加咖啡机按钮受控接触、设备反馈和出液状态。倾倒需独立的液体/容器模型及液面晃动指标，不应仅用杯体保持竖直来宣称不会洒出。</li>
+<li><b>Real2Sim2Real：</b>采集实物尺寸/质量与接触实验 → 标定资产区间 → 在冻结场景生成并筛选轨迹 → 真机按同一任务配置受控执行 → 对齐关节、末端与接触时序 → 受控干预区分根因 → 更新参数并重复仿真与真机对照。</li></ol>
+<p>后续真机运动规划可接入 MoveIt PlanningScene 的自碰撞和环境碰撞检查，将已抓取物体作为 attached collision object 纳入路径规划，并只对白名单接触开放碰撞。规划层的“attached object”是碰撞计算关系，不能直接替代真实夹持力反馈。</p>
+<div class="callout"><b>移交接口原则：</b>渲染只读状态；物理内核拥有动态物体位姿；控制器只提交机器人/夹爪命令；感知产生带时戳与坐标系的观测；评测器独立计算成功。训练结果和回放文件与执行现场分离，重置时重建世界并使旧约束失效。</div>
+</section>
+
+<section id="sources"><h2>8. 事实查核依据与置信度自评</h2>
+<table><thead><tr><th>论点</th><th>来源、年份与位置</th><th>置信度</th></tr></thead><tbody>
+<tr><td>参考方案提出资产交互测试、任务约束和失败反馈</td><td>2026 年《Application Form-20260916》，项目全称 <i>WorldFoundry: Physics-Consistent Embodied Simulation and Training Foundry</i>；文档列示申请单位 The Hong Kong University of Science and Technology（香港科技大学）；Technical Summary、Research Methodology。读取版本修改时间 2026-10-26 20:26:02（北京时间）。仅借鉴技术方案，不认定用户是申请负责人。</td><td>99%（文档内容）；不评估方案已实现程度</td></tr>
+<tr><td>旧项目仍有运动学绑定和箱体插值</td><td>2026-10-26 读取的原项目提交 <code>f1e45ccbad511e167189b92c73177a817499f33c</code>；<code>cup-motion.js</code>、<code>sim.js</code>、<code>world.js</code>。</td><td>100%（源码可复查）</td></tr>
+<tr><td>Three.js 网格应同步物理体位姿</td><td>Three.js 官方手册《Physics》，2026-10-26 查阅；页面未标发布年。本项目锁定 npm <code>three@0.180.0</code>。</td><td>99%</td></tr>
+<tr><td>刚体关节、接触流形、shape cast 的 API 语义</td><td>Dimforge Rapier 官方《Joints》《Advanced collision-detection》《Scene queries》，2026-10-26 查阅；在线文档当前显示 0.21。本实现以锁定的 <code>@dimforge/rapier3d-compat@0.17.3</code> 的类型声明与实际运行测试为准。</td><td>99%（已使用部分）</td></tr>
+<tr><td>42 项专项与 56 项回归通过</td><td>2026-10-26，本项目 <code>reports/physics-tests.tap</code>、<code>physics-results.json</code>、<code>platform-tests.tap</code>；数据由实际测试生成。</td><td>100%（本次测试范围内）</td></tr>
+<tr><td>真机执行能力和迁移成功率</td><td>无匹配真实机器人、末端和传感器测量记录。</td><td><span class="warn">[!!! 事实断层：资料不足，无法确认]</span></td></tr>
+</tbody></table>
+<p>来源链接（2026-10-26 访问）：</p><ol>
+<li><a href="https://docs.google.com/document/d/1eZFTiNNXFzBFiVN7bCmtgtxccolIPA-8YkIBX-iaVm4/edit">技术参考申请文档</a>（访问权限由原持有账户控制；此交付未附原申请全文）。</li>
+<li><a href="https://threejs.org/manual/pages/physics.html">Three.js 官方手册：Physics</a>。</li>
+<li><a href="https://rapier.rs/docs/user_guides/javascript/joints/">Dimforge Rapier：Joints</a>；<a href="https://rapier.rs/docs/user_guides/javascript/advanced_collision_detection_js/">Advanced collision-detection</a>；<a href="https://rapier.rs/docs/user_guides/javascript/scene_queries/">Scene queries</a>；<a href="https://rapier.rs/docs/user_guides/javascript/rigid_bodies/">Rigid-bodies</a>。</li>
+<li><a href="https://moveit.picknik.ai/main/doc/examples/planning_scene/planning_scene_tutorial.html">MoveIt 官方文档：Planning Scene</a>，Rolling 文档，2026-10-26 查阅。此项用于后续接口设计，不代表本模块已集成 MoveIt。</li>
+<li>G1 资产沿用原项目 <code>dist/assets/robot/g1.json</code> 来源记录及 <code>UNITREE-LICENSE.txt</code>；原始资料版权主体为 HangZhou YuShu TECHNOLOGY CO., LTD.（Unitree Robotics）。模型来源记录不等于当前硬件参数已标定。</li>
+</ol></section><footer>交付版本 1.0｜本报告所有性能数字均区分“已执行测试”和“下一阶段建议门槛”。<br>工程判断优先使用实际物理记录，文献方案不作为完成证明。</footer></main></body></html>

@@ -1,0 +1,858 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIS101 工具目录</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #F1F0EC;
+      --paper-deep: #E7E4DC;
+      --paper-soft: #ECEAE4;
+      --ink: #1A1A1A;
+      --muted: #77736B;
+      --line: #D1CDC3;
+      --accent: #E07563;
+      --accent-dark: #B95142;
+      --green: #496F5D;
+      --blue: #405E73;
+      --yellow: #D1A94B;
+      --purple: #806B91;
+      --shadow-2xl: 0 32px 80px rgba(26, 26, 26, 0.24);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      position: relative;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.08;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--paper);
+    }
+
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #BEB8AD;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    .page {
+      min-height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(26,26,26,0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(26,26,26,0.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 80px 80px;
+    }
+
+    .main-panel {
+      min-height: 100vh;
+      padding: 42px 48px 70px;
+      background:
+        radial-gradient(circle at 20px 20px, rgba(26,26,26,0.10) 1px, transparent 1px),
+        var(--paper-soft);
+      background-size: 28px 28px;
+    }
+
+    .top-layout {
+      display: grid;
+      grid-template-columns: minmax(300px, 440px) 1fr auto;
+      gap: 34px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .brand-block {
+      position: relative;
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Oswald", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 36px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .huge-title {
+      margin: 0;
+      font-family: "Oswald", sans-serif;
+      font-size: clamp(72px, 7vw, 126px);
+      line-height: 0.82;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .sub-title {
+      margin-top: 20px;
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 30px;
+      line-height: 1.2;
+    }
+
+    .search-panel {
+      align-self: end;
+    }
+
+    .search-label {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .search-title {
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 18px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 8px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+      border-radius: 0;
+      padding: 17px 56px 17px 18px;
+      font-family: "Noto Sans SC", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      box-shadow: 10px 10px 0 rgba(26, 26, 26, 0.08);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 10px 10px 0 rgba(224, 117, 99, 0.18);
+    }
+
+    .search-mark {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      font-family: "Oswald", sans-serif;
+      font-size: 24px;
+      pointer-events: none;
+    }
+
+    .counter {
+      text-align: right;
+      min-width: 150px;
+    }
+
+    .counter-number {
+      font-family: "Oswald", sans-serif;
+      font-size: 88px;
+      line-height: 0.85;
+      letter-spacing: -0.05em;
+      color: var(--accent);
+    }
+
+    .counter-label {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 26px;
+    }
+
+    .tool-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 430px;
+      background: var(--paper);
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 50px rgba(26, 26, 26, 0.12);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      overflow: hidden;
+    }
+
+    .tool-card:hover {
+      transform: translate(-4px, -6px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-2xl);
+    }
+
+    .tool-card::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      bottom: -1px;
+      width: 76px;
+      height: 76px;
+      border-right: 4px solid var(--accent);
+      border-bottom: 4px solid var(--accent);
+      opacity: 0;
+      transition: 0.22s ease;
+    }
+
+    .tool-card:hover::after {
+      opacity: 1;
+    }
+
+    .thumb {
+      position: relative;
+      height: 190px;
+      background: var(--paper-deep);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .thumb svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .thumb-title {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      font-family: "Oswald", "Noto Sans SC", sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--paper);
+      text-shadow: 0 8px 28px rgba(26,26,26,0.35);
+    }
+
+    .card-body {
+      padding: 20px 20px 22px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .card-index {
+      font-family: "Oswald", sans-serif;
+      font-size: 14px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      margin: 0;
+      font-family: "Noto Serif SC", serif;
+      font-weight: 900;
+      font-size: 22px;
+      line-height: 1.28;
+    }
+
+    .card-desc {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.85;
+      flex: 1;
+    }
+
+    .card-footer {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-url {
+      min-width: 0;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .card-arrow {
+      flex: 0 0 auto;
+      color: var(--accent);
+      font-family: "Oswald", sans-serif;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .empty-state {
+      padding: 30px 24px;
+      background: var(--paper);
+      border-left: 4px solid var(--accent);
+      color: var(--muted);
+      line-height: 1.9;
+      box-shadow: 0 18px 50px rgba(26, 26, 26, 0.12);
+    }
+
+    .loading {
+      display: grid;
+      place-items: center;
+      min-height: 420px;
+      background: var(--paper);
+      box-shadow: var(--shadow-2xl);
+    }
+
+    .loading-inner {
+      text-align: center;
+    }
+
+    .loading-number {
+      font-family: "Oswald", sans-serif;
+      font-size: 90px;
+      color: var(--accent);
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+    }
+
+    .loading-text {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+
+    .hidden-status {
+      display: none;
+    }
+
+    @media (max-width: 1100px) {
+      .main-panel {
+        padding: 36px 30px 58px;
+      }
+
+      .top-layout {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .counter {
+        text-align: left;
+      }
+
+      .huge-title {
+        font-size: 88px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .main-panel {
+        padding: 30px 20px 48px;
+      }
+
+      .huge-title {
+        font-size: 72px;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <main class="main-panel">
+      <div class="top-layout">
+        <header class="brand-block">
+          <div class="kicker">GIS101 Tool Index</div>
+          <h1 class="huge-title">TOOLS MAP</h1>
+          <div class="sub-title">工具目录聚合页</div>
+        </header>
+
+        <section class="search-panel">
+          <div class="search-label">
+            <div class="search-title">工具搜索</div>
+          </div>
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="输入工具名称、功能关键词或页面地址" oninput="filterTools()" />
+            <span class="search-mark">⌕</span>
+          </div>
+        </section>
+
+        <div class="counter">
+          <div class="counter-number" id="toolCounter">00</div>
+          <div class="counter-label">工具总计</div>
+        </div>
+      </div>
+
+      <div id="loadingBox" class="loading">
+        <div class="loading-inner">
+          <div class="loading-number">...</div>
+          <div class="loading-text">正在读取目录与页面元信息</div>
+        </div>
+      </div>
+
+      <div id="toolsGrid" class="tools-grid" style="display:none;"></div>
+
+      <div id="emptyBox" class="empty-state" style="display:none;">
+        未发现可用工具页面。请检查目录索引是否开放，或在代码中的 <strong>manualTools</strong> 数组中配置工具清单。
+      </div>
+
+      <div id="statusBox" class="hidden-status"></div>
+      <div id="modeInfo" class="hidden-status"></div>
+      <div id="countInfo" class="hidden-status"></div>
+    </main>
+  </div>
+
+  <script>
+    const BASE_URL = "http://gis101.cn/tools/";
+
+    const manualTools = [
+      {
+        title: "HTML 可视化编辑器",
+        description: "打开本地 HTML 文件，点击页面区域即可修改文本、链接、图片、样式与源码。",
+        url: "html-editor.html"
+      },
+      {
+        title: "地质材质拼图生成器",
+        description: "基于 Voronoi 异形多边形算法生成岩石材质拼图，支持孔隙度、缝隙、平滑度与材质比例调节。",
+        url: "geo-material-puzzle.html"
+      },
+      {
+        title: "GIS 数据处理工具",
+        description: "面向空间数据整理、转换、检查与可视化预览的轻量化网页工具。",
+        url: "gis-data-tool.html"
+      }
+    ];
+
+    let allTools = [];
+
+    function setStatus(message, badge = "提示") {
+      const box = document.getElementById("statusBox");
+      if (box) box.textContent = `${badge}: ${message}`;
+    }
+
+    function normalizeUrl(url) {
+      if (/^https?:\/\//i.test(url)) return url;
+      return new URL(url, BASE_URL).href;
+    }
+
+    function pad2(num) {
+      return String(num).padStart(2, "0");
+    }
+
+    async function reloadTools() {
+      document.getElementById("loadingBox").style.display = "grid";
+      document.getElementById("toolsGrid").style.display = "none";
+      document.getElementById("emptyBox").style.display = "none";
+
+      setStatus("正在尝试读取目录索引。", "读取中");
+
+      const modeInfo = document.getElementById("modeInfo");
+      if (modeInfo) modeInfo.textContent = "自动目录读取";
+
+      try {
+        const htmlFiles = await fetchDirectoryHTMLFiles(BASE_URL);
+
+        if (!htmlFiles.length) {
+          throw new Error("目录中没有解析到 HTML 链接。");
+        }
+
+        setStatus(`已从目录索引中发现 ${htmlFiles.length} 个 HTML 页面，正在读取页面标题与描述。`, "成功");
+
+        const tools = await Promise.all(
+          htmlFiles.map(async (url) => {
+            return await fetchToolMeta(url);
+          })
+        );
+
+        allTools = tools.filter(Boolean);
+        renderTools(allTools);
+      } catch (error) {
+        console.warn(error);
+        setStatus("自动读取失败，已切换为内置清单。", "降级");
+        useFallbackTools();
+      }
+    }
+
+    async function fetchDirectoryHTMLFiles(baseUrl) {
+      const response = await fetch(baseUrl, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("目录请求失败：" + response.status);
+      }
+
+      const text = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, "text/html");
+
+      const links = Array.from(doc.querySelectorAll("a"))
+        .map(a => a.getAttribute("href"))
+        .filter(Boolean)
+        .map(href => href.trim())
+        .filter(href => {
+          if (href.startsWith("?")) return false;
+          if (href.startsWith("#")) return false;
+          if (href.includes("../")) return false;
+          return /\.html?($|\?)/i.test(href);
+        })
+        .map(href => normalizeUrl(href));
+
+      return Array.from(new Set(links));
+    }
+
+    async function fetchToolMeta(url) {
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+
+        if (!response.ok) {
+          return {
+            title: getNameFromUrl(url),
+            description: "该工具页面可访问，但未能读取详细说明。",
+            url
+          };
+        }
+
+        const text = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+
+        const title =
+          getMeta(doc, "og:title") ||
+          doc.querySelector("title")?.textContent?.trim() ||
+          doc.querySelector("h1")?.textContent?.trim() ||
+          getNameFromUrl(url);
+
+        const description =
+          getMeta(doc, "description") ||
+          getMeta(doc, "og:description") ||
+          doc.querySelector("meta[name='description']")?.getAttribute("content") ||
+          doc.querySelector("p")?.textContent?.trim() ||
+          "该工具暂无页面说明，点击卡片可进入详细页面。";
+
+        return {
+          title: cleanText(title),
+          description: cleanText(description).slice(0, 120),
+          url
+        };
+      } catch (error) {
+        console.warn("读取工具元信息失败：", url, error);
+
+        return {
+          title: getNameFromUrl(url),
+          description: "暂时无法读取该页面的元信息，点击卡片可尝试进入工具页面。",
+          url
+        };
+      }
+    }
+
+    function getMeta(doc, key) {
+      return (
+        doc.querySelector(`meta[property="${key}"]`)?.getAttribute("content") ||
+        doc.querySelector(`meta[name="${key}"]`)?.getAttribute("content") ||
+        ""
+      ).trim();
+    }
+
+    function cleanText(text) {
+      return String(text || "")
+        .replace(/\s+/g, " ")
+        .replace(/[\n\r\t]/g, " ")
+        .trim();
+    }
+
+    function getNameFromUrl(url) {
+      try {
+        const pathname = new URL(url).pathname;
+        const file = pathname.split("/").filter(Boolean).pop() || "工具页面";
+        return decodeURIComponent(file)
+          .replace(/\.html?$/i, "")
+          .replace(/[-_]+/g, " ")
+          .trim();
+      } catch {
+        return "工具页面";
+      }
+    }
+
+    function useFallbackTools() {
+      const modeInfo = document.getElementById("modeInfo");
+      if (modeInfo) modeInfo.textContent = "内置清单";
+
+      setStatus("当前使用内置工具清单。", "清单");
+
+      allTools = manualTools.map(item => ({
+        title: item.title,
+        description: item.description,
+        url: normalizeUrl(item.url)
+      }));
+
+      renderTools(allTools);
+    }
+
+    function filterTools() {
+      const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+
+      if (!keyword) {
+        renderTools(allTools);
+        return;
+      }
+
+      const filtered = allTools.filter(tool => {
+        return (
+          tool.title.toLowerCase().includes(keyword) ||
+          tool.description.toLowerCase().includes(keyword) ||
+          tool.url.toLowerCase().includes(keyword)
+        );
+      });
+
+      renderTools(filtered);
+    }
+
+    function renderTools(tools) {
+      const grid = document.getElementById("toolsGrid");
+      const loading = document.getElementById("loadingBox");
+      const empty = document.getElementById("emptyBox");
+
+      loading.style.display = "none";
+      grid.innerHTML = "";
+
+      document.getElementById("toolCounter").textContent = pad2(tools.length);
+
+      const countInfo = document.getElementById("countInfo");
+      if (countInfo) countInfo.textContent = String(tools.length);
+
+      if (!tools.length) {
+        grid.style.display = "none";
+        empty.style.display = "block";
+        return;
+      }
+
+      empty.style.display = "none";
+      grid.style.display = "grid";
+
+      tools.forEach((tool, index) => {
+        const card = document.createElement("a");
+        card.className = "tool-card";
+        card.href = tool.url;
+        card.target = "_blank";
+        card.rel = "noopener noreferrer";
+
+        card.innerHTML = `
+          <div class="thumb">
+            ${createGeometricThumbnail(tool.title, index)}
+            <div class="thumb-title">${escapeHTML(shortTitle(tool.title))}</div>
+          </div>
+          <div class="card-body">
+            <div class="card-index">${pad2(index + 1)} / TOOL</div>
+            <h3 class="card-title">${escapeHTML(tool.title)}</h3>
+            <p class="card-desc">${escapeHTML(tool.description)}</p>
+            <div class="card-footer">
+              <div class="card-url">${escapeHTML(tool.url)}</div>
+              <div class="card-arrow">↗</div>
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function shortTitle(title) {
+      const text = String(title || "TOOL").trim();
+      if (text.length <= 16) return text;
+      return text.slice(0, 16);
+    }
+
+    function escapeHTML(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function hashString(str) {
+      let hash = 2166136261;
+      for (let i = 0; i < str.length; i++) {
+        hash ^= str.charCodeAt(i);
+        hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+      }
+      return Math.abs(hash >>> 0);
+    }
+
+    function seededRandom(seed) {
+      let value = seed % 2147483647;
+      if (value <= 0) value += 2147483646;
+
+      return function () {
+        value = value * 16807 % 2147483647;
+        return (value - 1) / 2147483646;
+      };
+    }
+
+    function createGeometricThumbnail(title, index) {
+      const seed = hashString(title + index);
+      const rand = seededRandom(seed);
+
+      const paletteSets = [
+        ["#E07563", "#1A1A1A", "#F1F0EC", "#496F5D"],
+        ["#E07563", "#405E73", "#E7E4DC", "#D1A94B"],
+        ["#E07563", "#806B91", "#ECEAE4", "#1A1A1A"],
+        ["#E07563", "#694B3F", "#D1CDC3", "#496F5D"]
+      ];
+
+      const palette = paletteSets[index % paletteSets.length];
+      const bg = palette[2];
+      const accent = palette[0];
+      const dark = palette[1];
+      const extra = palette[3];
+
+      const circles = [];
+      const lines = [];
+      const polygons = [];
+
+      for (let i = 0; i < 5; i++) {
+        const cx = Math.round(rand() * 360);
+        const cy = Math.round(rand() * 200);
+        const r = Math.round(24 + rand() * 70);
+        const color = [accent, dark, extra][Math.floor(rand() * 3)];
+        const opacity = (0.18 + rand() * 0.32).toFixed(2);
+        circles.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="${opacity}"/>`);
+      }
+
+      for (let i = 0; i < 6; i++) {
+        const x1 = Math.round(rand() * 360);
+        const y1 = Math.round(rand() * 200);
+        const x2 = Math.round(rand() * 360);
+        const y2 = Math.round(rand() * 200);
+        const width = Math.round(1 + rand() * 5);
+        const color = [accent, dark, extra][Math.floor(rand() * 3)];
+        lines.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width}" opacity="0.42"/>`);
+      }
+
+      for (let i = 0; i < 3; i++) {
+        const x = Math.round(rand() * 260);
+        const y = Math.round(rand() * 120);
+        const w = Math.round(50 + rand() * 110);
+        const h = Math.round(40 + rand() * 90);
+        const skew = Math.round(rand() * 50 - 25);
+        const color = [accent, dark, extra][Math.floor(rand() * 3)];
+        const opacity = (0.26 + rand() * 0.36).toFixed(2);
+
+        polygons.push(`
+          <polygon points="${x},${y} ${x+w},${y+skew} ${x+w-20},${y+h} ${x-30},${y+h-skew}"
+            fill="${color}" opacity="${opacity}"/>
+        `);
+      }
+
+      const bigNumber = pad2(index + 1);
+
+      return `
+        <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <defs>
+            <filter id="thumbNoise${index}">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+              <feColorMatrix type="saturate" values="0"/>
+              <feComponentTransfer>
+                <feFuncA type="table" tableValues="0 0.18"/>
+              </feComponentTransfer>
+            </filter>
+            <linearGradient id="grad${index}" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="${bg}"/>
+              <stop offset="52%" stop-color="${accent}" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="${dark}" stop-opacity="0.82"/>
+            </linearGradient>
+          </defs>
+
+          <rect width="360" height="200" fill="url(#grad${index})"/>
+          <g style="mix-blend-mode:multiply">
+            ${circles.join("")}
+            ${polygons.join("")}
+            ${lines.join("")}
+          </g>
+
+          <g opacity="0.18">
+            <path d="M0 40 H360 M0 80 H360 M0 120 H360 M0 160 H360" stroke="${dark}" stroke-width="1"/>
+            <path d="M60 0 V200 M120 0 V200 M180 0 V200 M240 0 V200 M300 0 V200" stroke="${dark}" stroke-width="1"/>
+          </g>
+
+          <text x="20" y="58" font-family="Oswald, Arial" font-size="58" font-weight="700" fill="${dark}" opacity="0.22">${bigNumber}</text>
+          <rect x="278" y="18" width="46" height="46" fill="none" stroke="${accent}" stroke-width="5"/>
+          <rect width="360" height="200" filter="url(#thumbNoise${index})" style="mix-blend-mode:multiply"/>
+          <rect width="360" height="200" fill="rgba(26,26,26,0.08)"/>
+        </svg>
+      `;
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      reloadTools();
+    });
+  </script>
+</body>
+</html>

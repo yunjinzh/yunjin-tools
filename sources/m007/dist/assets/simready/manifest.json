@@ -1,0 +1,729 @@
+{
+  "source": "NVIDIA SimReady Assets",
+  "revision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+  "assets": [
+    {
+      "id": "carton",
+      "sourceAsset": "box_corrugated_brown_b08",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/box_corrugated_brown_b08",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.297277495265007,
+        0.3036590814590454,
+        0.3037722557783127
+      ],
+      "sourceOrigin": [
+        -0.000034518539905548096,
+        0,
+        -0.000119037926197052
+      ],
+      "triangles": 8797,
+      "materials": 5,
+      "bytes": 1399856,
+      "sha256": "007b2350ea02de9ea847a99d62d1c57a6867fd156606fe1ade43791ffd44ba85",
+      "sourceFiles": {
+        "box_corrugated_brown_b08/simready_usd/Textures/t_corrugatedboxes_b01_tile01_albedo.png": "5db82f3c8f9700b79bb4d2f801c33718c6ea9f406699948ba7c971a676adc5ea",
+        "box_corrugated_brown_b08/simready_usd/Textures/t_corrugatedboxes_b01_tile01_orm.png": "2ad7183e78cb49bcfe1a9591a0c23b423c9fd1a6eb2ea77e07b4cf8386058222",
+        "box_corrugated_brown_b08/simready_usd/Textures/t_corrugatedboxes_b01_trim_Albedo.png": "4a24c65f53b4a7420ac8b3cf570e4dd77df0df81c37a730a65c93305b05289b3",
+        "box_corrugated_brown_b08/simready_usd/Textures/t_corrugatedboxes_b01_trim_orm.png": "37aedb3d2bc48129f27d282c604ff2e8ccb152f1ac091067d6cb70c3aedc5005",
+        "box_corrugated_brown_b08/simready_usd/Textures/T_Plastic_Black_A_ORM.png": "86a06701c6898c5d0026c92432c01a06ca43b34eb37f08376b9746f0ffa8b6b5",
+        "box_corrugated_brown_b08/simready_usd/sm_box_corrugated_brown_b08_01.usd": "284db7089bb3f34fdb528b38615100f07328557fe6ca3f514b57e1db8185dd5b",
+        "box_corrugated_brown_b08/simready_usd/payloads/MuJoCo/disabled.usda": "24f7d30d7530d65f43c849e97807ed26ada3f127356ba10f14766f911bead7c3",
+        "box_corrugated_brown_b08/simready_usd/payloads/materials.usda": "bbee8d3ffe27012ddae6d73c994712cfbe342d1acd8a8904a3f7497ea372c1d2",
+        "box_corrugated_brown_b08/simready_usd/payloads/Physics/physics.usda": "bcb90f7e26598d8f3fdead7e5526219d0220a9a983e2decbead78e2b42a74f2e",
+        "box_corrugated_brown_b08/simready_usd/payloads/base.usda": "ef838ddeb69f7482edd6527ff359f566c5cf6b54d43cf374f0ea8774dac5e8ac",
+        "box_corrugated_brown_b08/simready_usd/payloads/Newton/disabled.usda": "24f7d30d7530d65f43c849e97807ed26ada3f127356ba10f14766f911bead7c3",
+        "box_corrugated_brown_b08/simready_usd/payloads/PhysX/enabled.usda": "0b34a50b917a1d80d03c04fb49cad3e2f335b07939be0cfdc4297c9408867ff9",
+        "box_corrugated_brown_b08/simready_usd/payloads/geometries.usd": "080f4593a2281921ccd7a93cbb33252ba9b4254f651a095f7fda4e428f29472a",
+        "box_corrugated_brown_b08/simready_usd/payloads/instances_physx.usda": "dd4b4dbf9154baccdf1cfae0e242e8cbdf57bb556ab512fbc7586b2a79d95b1f",
+        "box_corrugated_brown_b08/simready_usd/payloads/instances.usda": "bf39a4062f3cbc471569ffcff38a242e39b194e6be753db3897087fe8fc89739",
+        "box_corrugated_brown_b08/com.nvidia.simready.packaging.json": "ab8b56b8c6ad1169940ba9d7b786912830b0306b8c4c0f10e2881d5475b4bfe8",
+        "box_corrugated_brown_b08/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 15999,
+      "originalBytes": 446044,
+      "optimization": {
+        "targetRatio": 0.55,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "parcel",
+      "sourceAsset": "box_corrugated_white_a08",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/box_corrugated_white_a08",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.2968147397041321,
+        0.3031863570213318,
+        0.30306200683116913
+      ],
+      "sourceOrigin": [
+        0.00021858513355255127,
+        0,
+        -0.000382445752620697
+      ],
+      "triangles": 3804,
+      "materials": 4,
+      "bytes": 944692,
+      "sha256": "2459633181cf32e4fc36751039b71cb7ab9b8f48adf86ba0cf3ba910b48e5917",
+      "sourceFiles": {
+        "box_corrugated_white_a08/simready_usd/Textures/T_WhiteCorrugatedBox_A01_Tile_Albedo.png": "f28e62db726c65c9d3472bc2fd1bc6e5328ea98fc94c9359c586c7c99963a58d",
+        "box_corrugated_white_a08/simready_usd/Textures/T_WhiteCorrugatedBox_A01_Tile_ORM.png": "049a8cd3cd5ad347b213ac7dc9c21c8ef63f989754539e2889ebba9df5083242",
+        "box_corrugated_white_a08/simready_usd/Textures/T_WhiteCorrugatedBox_A01_Trim_Albedo.png": "4a24c65f53b4a7420ac8b3cf570e4dd77df0df81c37a730a65c93305b05289b3",
+        "box_corrugated_white_a08/simready_usd/Textures/T_WhiteCorrugatedBox_A01_Trim_ORM.png": "37aedb3d2bc48129f27d282c604ff2e8ccb152f1ac091067d6cb70c3aedc5005",
+        "box_corrugated_white_a08/simready_usd/payloads/Physics/physics.usda": "a436b2cc93ade02ff17e28c70539e4378ce8a15d2617b947abd5bbd2fb6f55be",
+        "box_corrugated_white_a08/simready_usd/payloads/base.usda": "0d0eb95ce82fafd4820cdae78758f54f62799cb8eb0687c793042c81e430f877",
+        "box_corrugated_white_a08/simready_usd/payloads/MuJoCo/disabled.usda": "3600c67b13928b609ae36b27fde49a4be877d33221a7bc8391853e9b1f3e4088",
+        "box_corrugated_white_a08/simready_usd/payloads/PhysX/enabled.usda": "c79144eb4c90cc609d113fed5021681a11c4e95499ac46334df7f4ea6a2b5ab3",
+        "box_corrugated_white_a08/simready_usd/payloads/Newton/disabled.usda": "3600c67b13928b609ae36b27fde49a4be877d33221a7bc8391853e9b1f3e4088",
+        "box_corrugated_white_a08/simready_usd/payloads/materials.usda": "4c443a1c9d91f30d8de4228dcb432fd1525200ccb846c80f0b8e07090c988285",
+        "box_corrugated_white_a08/simready_usd/payloads/instances.usda": "68ace1cc66eee59b8f68ad3396d148d5c33d2f64151205ac602bbe79e1a4707e",
+        "box_corrugated_white_a08/simready_usd/payloads/geometries.usd": "854e489fe80e2d832f2233c90f7ad3781e137096b2baa902332511e0ff924ca2",
+        "box_corrugated_white_a08/simready_usd/payloads/instances_physx.usda": "977feccc2d01ddea3b67def31e90a6dd15c6dc4f3acfeaf4a10872bd32ea2d8f",
+        "box_corrugated_white_a08/simready_usd/sm_box_corrugated_white_a08_01.usd": "94d64f159f32a95d11242cb3d5f4f64fdaa7e5a6af9d53b0b0abb40d253eb6ec",
+        "box_corrugated_white_a08/com.nvidia.simready.packaging.json": "31089b9567716263f7f9ec78855fb3618b9701aef9a453211f0eb75d312574df",
+        "box_corrugated_white_a08/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 5437,
+      "originalBytes": 118916,
+      "optimization": {
+        "targetRatio": 0.7,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "rack",
+      "sourceAsset": "rack_large_empty_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/rack_large_empty_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        3.999977231025696,
+        3.010000705718994,
+        2.0665810108184814
+      ],
+      "sourceOrigin": [
+        1.7881393432617188e-7,
+        0,
+        -1.1920928955078125e-7
+      ],
+      "triangles": 28666,
+      "materials": 2,
+      "bytes": 1878972,
+      "sha256": "971fd785887f52fa141ed5f9008fbd7850c69c0521253dae2da6a466e2bca7e1",
+      "sourceFiles": {
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Albedo.1001.png": "1f3b1ee631115cd2ffe389442c1b6f5e0041becbc865b38f01cea5a2c9e6ec44",
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Albedo.1002.png": "0b3c783cb03ab77943730160b78b7fac621e4fa552631bbd126794e59d765252",
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Albedo.1003.png": "e0c01a4ba682ee2bf4cda07e11baa5152fe53b98294ef3e08328d574b4a5f50e",
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_ORM.1001.png": "9aeaec1344f78d91f2c9b8a8ddf013391fe35a9b750cd3dbc44e4ba244ad430e",
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_ORM.1002.png": "aae6964b5267c79efd87aaf1ef097ec9adf414f0bdcb6d556b05e0122f21e4d4",
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_ORM.1003.png": "9988e4cf51cdae795cb3a1015335eabff89aadef23b0e938258efc24e1a3bf20",
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Normal.1001.png": "9e3bd93830222341e2c8c212ef1b782b1f1650391018a843396e7714d8cc2e95",
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Normal.1002.png": "9ecaf8e47a51aea09a77ab45d1440e20095306fa3624db46d68c15473da2d6c9",
+        "rack_large_empty_a01/simready_usd/Textures/T_Rack_A1_Normal.1003.png": "8d3c25f625366abb09686c5478092b0231e19c0974c539ab8b355ff803f98c7e",
+        "rack_large_empty_a01/simready_usd/payloads/materials.usda": "e739052fece8deb39bb4373df9c24d42a887855970b2418e393cbe829b6f67ca",
+        "rack_large_empty_a01/simready_usd/sm_rack_large_empty_a01_01.usd": "55b2b06e2578f9f6fe96b8abb6a88776c05dedc747be7a710df3a898188f8e14",
+        "rack_large_empty_a01/simready_usd/payloads/instances_physx.usda": "2b08340378b4a4ec569321f984d8db243ae05ca751fbc279bccbd0ec0f6bb8bf",
+        "rack_large_empty_a01/simready_usd/payloads/instances.usda": "e2d7745083be72fb7e2050c5f6a848f86e2ef123b1d40432e646fa3122c49343",
+        "rack_large_empty_a01/simready_usd/payloads/geometries.usd": "900dfcc15582dc9b73ed74118b2a7dcd6b761a6586efcd6c949402f94e7c0e6e",
+        "rack_large_empty_a01/simready_usd/payloads/base.usda": "46defc3b435d387c9d51219be41de969e43a9bd6f8b176f899c1597523ea3c19",
+        "rack_large_empty_a01/simready_usd/payloads/Newton/disabled.usda": "2a286341c809d2aeff8def56ed65433f017fac4126ab8522891b407292340469",
+        "rack_large_empty_a01/simready_usd/payloads/Physics/physics.usda": "a6932bd0c3deb6808ce0896c7046229a2a6cf03953c9eb75cd0a9733b1dcd3b7",
+        "rack_large_empty_a01/simready_usd/payloads/MuJoCo/disabled.usda": "2a286341c809d2aeff8def56ed65433f017fac4126ab8522891b407292340469",
+        "rack_large_empty_a01/simready_usd/payloads/PhysX/enabled.usda": "d98c3f5566393f61148acd0cbe45bc12f325d1562239dc39e965cb9e93044a93",
+        "rack_large_empty_a01/com.nvidia.simready.packaging.json": "ca1305dbfc75e548198620bdeb70d7c1db7f43d70c3ea44033b3a0aff7d6ab1f",
+        "rack_large_empty_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 44104,
+      "originalBytes": 1236864,
+      "optimization": {
+        "targetRatio": 0.65,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "pallet",
+      "sourceAsset": "pallet_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/pallet_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        1.2042018175125122,
+        0.20864565670490265,
+        0.8003857731819153
+      ],
+      "sourceOrigin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 1436,
+      "materials": 1,
+      "bytes": 675868,
+      "sha256": "27fb1e6d3a074d7c354ffff974fed69de4dbaaad1480f36882e85f0eac92ad05",
+      "sourceFiles": {
+        "pallet_a01/simready_usd/Textures/T_Pallet_A1_Albedo.png": "7ea41b5b405ec6a115ae68d61c1911c50c507cff1d0c500797850f5b0eeeecec",
+        "pallet_a01/simready_usd/Textures/T_Pallet_A1_ORM.png": "b5fee96c46b1f2d9e2d7459690ae7e6da643225a8b0c656d52206b10ce3a5a17",
+        "pallet_a01/simready_usd/sm_pallet_a01_01.usd": "203a752fe858e92ec4dc23f9e1a5c443d89aeb5a9374982d6de59c6258bba271",
+        "pallet_a01/simready_usd/payloads/base.usda": "4790cc8c476e38e3dc40b1324a9c660925aadaf18d644e437882ffc31d9c5216",
+        "pallet_a01/simready_usd/payloads/MuJoCo/disabled.usda": "e14e1569f998a2c03c8f3555185fae2a6e17070918a8b6d181fe254ae0ed675b",
+        "pallet_a01/simready_usd/payloads/Physics/physics.usda": "86587cc08c91ea1890d1c313de3b939ae577198fef0312d7107cc57d4d009ba8",
+        "pallet_a01/simready_usd/payloads/Newton/disabled.usda": "e14e1569f998a2c03c8f3555185fae2a6e17070918a8b6d181fe254ae0ed675b",
+        "pallet_a01/simready_usd/payloads/instances_physx.usda": "3fe4d6247d26e3cbbf21deb9e9394cdb15d5aba6b5b93571901c34b015691937",
+        "pallet_a01/simready_usd/payloads/instances.usda": "aba11c0cf41659ae77902e2e185caa0c723dd70d761ebe97b7babd69ddf385dc",
+        "pallet_a01/simready_usd/payloads/geometries.usd": "f313dbaa0758ea8ca061c883a8b2c7a29de7f6d24f482383ce1ac44ec40936ef",
+        "pallet_a01/simready_usd/payloads/PhysX/enabled.usda": "483d95408811d847df8573e09bba4a562be201f32736f00572ebe84d04db1334",
+        "pallet_a01/simready_usd/payloads/materials.usda": "6ca9c82133994ee805bad4588e77544f809810274878eeb32709b17089b5c5a8",
+        "pallet_a01/com.nvidia.simready.packaging.json": "85f942eca1a8760f851b9e9c5a651a4e21681241fdeb4d4fe1f93ed1474b9350",
+        "pallet_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 2052,
+      "originalBytes": 51400,
+      "optimization": {
+        "targetRatio": 0.7,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "pallet-jack",
+      "sourceAsset": "palletJack_lowProfile_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/palletJack_lowProfile_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.6531078815460205,
+        1.273739419878483,
+        1.6297080963850021
+      ],
+      "sourceOrigin": [
+        0.00015273690223693848,
+        0.000019915397957537273,
+        0.6347632184624672
+      ],
+      "triangles": 63261,
+      "materials": 16,
+      "bytes": 1380000,
+      "sha256": "17ffe2b28d3a1f805faf97853ba7339c469aab2a5b509a17ec74cdc8d7bd9511",
+      "sourceFiles": {
+        "palletJack_lowProfile_a01/simready_usd/Textures/T_LowProfilePalletTruck_A01_Albedo.png": "22896a1ef2c6aeedd0a142aa5c1f3e9919225a668167b0c2886569371d754db6",
+        "palletJack_lowProfile_a01/simready_usd/Textures/T_LowProfilePalletTruck_A01_ORM.png": "2b64ffc75db269e043e4b9158967692007d9fd48018152da636f0ead23a14931",
+        "palletJack_lowProfile_a01/simready_usd/Textures/T_LowProfilePalletTruck_A01_Decals_Albedo.png": "7c2c92e088c736c3201df476fdffe34b56044884f8e7b30dc3049aae6e1dc72f",
+        "palletJack_lowProfile_a01/simready_usd/Textures/T_LowProfilePalletTruck_A01_Decals_ORM.png": "f9eccad699f90769f2a7e683e8bb2d21a53741782cae32547d842c2ba1e85873",
+        "palletJack_lowProfile_a01/simready_usd/payloads/Physics/physics.usda": "4d5904eaedad862b85a126debb7a38a54900469f39050163f43e5b029e23f315",
+        "palletJack_lowProfile_a01/simready_usd/payloads/MuJoCo/disabled.usda": "ab3ba3d2fdf987dc532e2a0f32ef05ab92858c82393218f8167b2464357a6477",
+        "palletJack_lowProfile_a01/simready_usd/payloads/Newton/disabled.usda": "ab3ba3d2fdf987dc532e2a0f32ef05ab92858c82393218f8167b2464357a6477",
+        "palletJack_lowProfile_a01/simready_usd/sm_palletJack_lowProfile_a01_01.usd": "9ab841bba88d8c1ff3afa75051c250491afe2b66d7f4df05b3b55851bbad0d00",
+        "palletJack_lowProfile_a01/simready_usd/payloads/base.usda": "40165aee10dafc76ff78cddbf897cdf07a9617bbcd349f46f2e42fc591c6b9b5",
+        "palletJack_lowProfile_a01/simready_usd/payloads/PhysX/enabled.usda": "8541f93f428b262455e62b667d9909e28514d3f454f1d373450a558b15e81c5c",
+        "palletJack_lowProfile_a01/simready_usd/payloads/instances_physx.usda": "321196e03fca84f4315dc2563d035b8e447d6caa709552aeb524f73530ca1312",
+        "palletJack_lowProfile_a01/simready_usd/payloads/geometries.usd": "c22dcc440ad316930966156d3fa87ef80191e7ae7b89184e077cd2b1277dee20",
+        "palletJack_lowProfile_a01/simready_usd/payloads/instances.usda": "ad84f422db1d458cca8bc54d36d7e0c853e81fdf5200a85135cdc28a4d738b36",
+        "palletJack_lowProfile_a01/simready_usd/payloads/materials.usda": "af52218b44f0081faeecf74b29bb2a12901c85b4938f6a55e69e1fea4fe789ce",
+        "palletJack_lowProfile_a01/com.nvidia.simready.packaging.json": "7cd850dbb779abcc1581093a831a9ce4246e2aea3ea0aca683a0f0239c8c467a",
+        "palletJack_lowProfile_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 180737,
+      "originalBytes": 3919044,
+      "optimization": {
+        "targetRatio": 0.35,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "coffee-machine",
+      "sourceAsset": "machine_coffee_vending_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/machine_coffee_vending_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.7888721227645874,
+        1.8300000429153442,
+        0.8110001385211945
+      ],
+      "sourceOrigin": [
+        -0.007885515689849854,
+        3.108624482185328e-17,
+        -0.0000021606683732189325
+      ],
+      "triangles": 67818,
+      "materials": 12,
+      "bytes": 3008992,
+      "sha256": "6c14863d7c62465bec3086ff3ba773b1326198141222ec62d40125f97a4790d7",
+      "sourceFiles": {
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_rough_black_a01_tile_orm.png.png": "c9c1f4028c6171d679e3e9776a76b01dbf7556d2395d25985dd69604aa151b3b",
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_rough_black_a01_tile_nor.png.png": "eeee0c2f97ddd34636b29255432bce7b9bebb445cf5a0332b20a7f95ad61f97c",
+        "machine_coffee_vending_a01/simready_usd/Textures/t_metal_aluminiumBrushed_a01_tile_alb.png": "27f7cbc9e584a808e47bfc1fe8101f4f061f44da67de2d457e49ef83525d8892",
+        "machine_coffee_vending_a01/simready_usd/Textures/t_metal_aluminiumBrushed_a01_tile_orm.png": "66178e5699df07bf2a140dfa9b22335204d07496af39734d9c2cdd75e8adc405",
+        "machine_coffee_vending_a01/simready_usd/Textures/t_metal_aluminiumBrushed_a01_tile_nor.png": "c3f57cd1107cebd878ad0e374a2e59b4fc0ce4e7e981bc47a312dc2dd793adf7",
+        "machine_coffee_vending_a01/simready_usd/Textures/t_plastic_black_c01_tile_alb.png": "c06cc8dcf25916497a7825154c535721076eb3aeb1594ffc09e52771bc5020b3",
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_c01_tile_orm.png.png": "f9d4f1bc8e51f257f6803e8e285e535fdacc8b502e05184779172c4e9f34a31f",
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_c01_tile_nor.png.png": "43f8ea5f137b6ee951e431ba5cba279216527297b15ca7fb70c12cb9ba926b09",
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_metal_painted_gray_a01_tile_orm.png.png": "f9f12b03f22d721f39eba1b96c124a2331f16a3ee4561ef4ae3180dadf4db846",
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_metal_painted_gray_a01_tile_nor.png.png": "fa63ab2b448d150feabc6d14f8dcc5df87001e8fcc55dbc91ff43310764f6902",
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_polyurethaneRough_black_a01_tile_orm.png.png": "edf82822ad4fa537bdd09b3e8618fb923240906a4cf6f162b749a538fd01e155",
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_polyurethaneRough_black_a01_tile_nor.png.png": "6867e91a02981645d040c94d6a9085ad6026f7c2c0e52b3032160a458fe82a43",
+        "machine_coffee_vending_a01/simready_usd/Textures/t_lcd_pay_a01_alb.png": "48613a541c60cdfcb6dbda904351a7ded240692c07dcf72969933041e8ccedfb",
+        "machine_coffee_vending_a01/simready_usd/Textures/t_lcd_screen_a01_alb.png": "c4eea96b6d2a0d31da507093c861ebdca6e9288e513901ad4f5c46890c110e5c",
+        "machine_coffee_vending_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_emissive_a01_tile_nor.png.png": "1a8bb02d38212fc42e8b4087e4cbc0955d5a30374e80f3021b0791e8efe40e67",
+        "machine_coffee_vending_a01/simready_usd/payloads/base.usda": "94c9eba4bdd87b37919b1055fd064554462aec3d27594259e6bed77f5a23e177",
+        "machine_coffee_vending_a01/simready_usd/payloads/Physics/physics.usda": "f7e8d5dd7f744a550333cdbd2a68df4674c0e50653332bfe74a4dbce42f12cc4",
+        "machine_coffee_vending_a01/simready_usd/payloads/Newton/disabled.usda": "15003a347d02a70f199b14d143d5f2121b384accee09f9dfb6d1d21f45d2248c",
+        "machine_coffee_vending_a01/simready_usd/payloads/MuJoCo/disabled.usda": "15003a347d02a70f199b14d143d5f2121b384accee09f9dfb6d1d21f45d2248c",
+        "machine_coffee_vending_a01/simready_usd/payloads/instances_physx.usda": "bac6ab19103f6022a5fefcc45bee487fbce15fbf13116bd72318aa064e4f8b6a",
+        "machine_coffee_vending_a01/simready_usd/payloads/materials.usda": "3df913ea49cf5c7a77e74ca0deb5752ac3576175745e072c02af2cd3ed8b18b6",
+        "machine_coffee_vending_a01/simready_usd/payloads/PhysX/enabled.usda": "015c8ce22b6ed4db16420d7a12626d71af251624f8bf1e0a8d6a6b8f93118224",
+        "machine_coffee_vending_a01/simready_usd/payloads/geometries.usd": "0168181a9e496b25909a900f101a152b2a457d84382e06f5e4d6320c73fdc8bb",
+        "machine_coffee_vending_a01/simready_usd/sm_machine_coffee_vending_a01_01.usd": "9d3551387d5f527aa926f878701580925a97fbe553990a3066096ca94a060071",
+        "machine_coffee_vending_a01/simready_usd/payloads/instances.usda": "c4dd3f9890c72d5e5630b107c14fd0b852be5df71505a2057df278282c5df322",
+        "machine_coffee_vending_a01/com.nvidia.simready.packaging.json": "dde9cf872fa8363fb27574180bc3f2b2c0d9d0c88f4cc6ed034c865769064b4d",
+        "machine_coffee_vending_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 193433,
+      "originalBytes": 3935904,
+      "optimization": {
+        "targetRatio": 0.35,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "fridge",
+      "sourceAsset": "facilityEquipment_beverageFridge_display_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/facilityEquipment_beverageFridge_display_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.4548226744428726,
+        0.8650366830843268,
+        0.48499998450279236
+      ],
+      "sourceOrigin": [
+        0.0025886520989463757,
+        0.00013504743401426822,
+        4.950104215417639e-11
+      ],
+      "triangles": 38461,
+      "materials": 21,
+      "bytes": 3720760,
+      "sha256": "d9eed5e868693209ff83cb7d188d2743cb9a6f3471230d84498c6e62ef24f4de",
+      "sourceFiles": {
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_metal_steel_a01_tile_alb.png": "d46c66b0ab96a5739d711fca23b0352de29ca2b9c3f064e35485c6292e44ef3a",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_metal_steel_a01_tile_orm.png": "20fe51937828869ed01a3fdd330de761802d080dbe052250f2a26720d1f73335",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_metal_steel_a01_tile_nor.png": "c6a0ba336a804cd04da8406859bd40323c3eee783ef879ee8cf1699de5d82f60",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_metal_painted_gray_a01_tile_orm.png.png": "f9f12b03f22d721f39eba1b96c124a2331f16a3ee4561ef4ae3180dadf4db846",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_metal_painted_gray_a01_tile_nor.png.png": "fa63ab2b448d150feabc6d14f8dcc5df87001e8fcc55dbc91ff43310764f6902",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_gray_a01_tile_alb.png.png": "a996458b550845107ce0e87fba304250a218ef134b45545e6dfe7055396209f0",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_gray_a01_tile_orm.png.png": "9c0c59ce9b66ff535010fe64365cf9af0e01541162ce347ecf332d7261feab4a",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_gray_a01_tile_nor.png.png": "d148a993d941a92d0908724fdf37bc7a58ae66150c2e856e6fb40635dae00885",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_metal_steelStainless_clean_a01_tile_alb.png.png": "e14efe61c577d570c632a9ae93dced8168e2d3394589a2ccaa8f8d8de787c6e8",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_metal_steelStainless_clean_a01_tile_orm.png.png": "2e6fe9d0224a3d443fc77b9545c37dfa6a9d242d488e8fa325aecb7adbce500b",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_metal_steelStainless_clean_a01_tile_nor.png.png": "a5a232d056f8fdd215784074c563bff3ed792cc0c0284249d70f4a5a16a757e1",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_plastic_glossy_white_a01_tile_alb.png": "fb0b238d43a1ca1e7adf83782629cd6f8fb5e2f7eb98bf42839e63aa0bdad223",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_glossy_white_a01_tile_orm.png.png": "6bdee3d8aa9cafacb8b44bbac8d336cb3d8cafbdfbceec01e3bd2551522e65e9",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_glossy_white_a01_tile_nor.png.png": "9b51f547be0f520a6347d99b21c370dee295aecb415ddd96ffe75efbf7403920",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_metal_chrome_a01_tile_alb.png.png": "05ce18715817d6db9c1b386b569f034f04eeb5af3c4dcbd0bf17d474525591fc",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_metal_chrome_a01_tile_orm.png.png": "d9a03448cc74a03c1bcb9c433940aefb1e672e16580c46d1508c2ab23b2c78df",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_metal_chrome_a01_tile_nor.png": "a334c86d8d7355dd69617a4c29c88fd17b11abf54ae10c2f05aea7feffaa0bd1",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_rubber_new_a01_tile_alb.png": "3ec67f9e1bf23eb38226c4722daaf691d0e4fef9313551cb27b1f2a1b6df5880",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_rubber_new_a01_tile_orm.png.png": "22060af1a953e348072dd5d45644eedab36355e17e6cd6dd30a485b9fce8972c",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_rubber_new_a01_tile_nor.png.png": "f228c106ca11ae218bedf40bd5b0d466f39e0237d44103744167139a5f3f33fb",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_a01_tile_orm.png.png": "3948e3fff3c2dde7fac8378832d3cf124fd23ee741e2889adba2a87e126768ef",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_a01_tile_nor.png.png": "65dac11e99f1cf4e3a9c205240e9051c99af4df8349cc59cea5fdba419823416",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_metal_bronzePolished_a01_tile_alb.png": "24bface22f73d6caf26510ff07b9a15e2b4d716fa610f02bf000c5cee5057528",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_metal_bronzePolished_a01_tile_orm.png": "02bb406ae220814968c7a3dfd1b9fb941478d96a496f5d837b585236a5d5690e",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_metal_bronzePolished_a01_tile_nor.png.png": "95bcd1525480265f0f9489eb3115e69f3497f40707b5b7b3bf7956432ea984b4",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_yellow_a01_tile_orm.png.png": "a8471e690f2089a95d021d5623ad34bbf30147357920dcb8accde6174e2178a4",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_yellow_a01_tile_nor.png.png": "695b5e797d360962a502bbcb63dee6c4b2270088a5af0e4d4be070cfd3f9af97",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/.thumbs/512x512/t_rubber_smooth_black_a01_tile_orm.png.png": "690dff4cc69d6832e744e946e9eb6d3d7eee62b11b4cf1e28dce9cb22faccb1c",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/Textures/t_rubber_smooth_black_a01_tile_nor.png": "9a641b975cc7938fc3a772ad212184fee8091d78588a674b6462b8b8692e335a",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/base.usda": "1035d8020311b26c826670f4f2c1ae10979c2240fc86cb60b768d503abfda22f",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/Physics/physics.usda": "abf74887bedfddfd94393dc630457918bc054235270bb12b2a919d6cb618ab6f",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/MuJoCo/disabled.usda": "54f9a03b5706863a2cc46f8ce2537e760cc560f07d211d46f4277834129707ea",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/Newton/disabled.usda": "54f9a03b5706863a2cc46f8ce2537e760cc560f07d211d46f4277834129707ea",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/PhysX/enabled.usda": "58b7cfe9f1fcdc598ea84512fc0a3ee6800c10cd9ed8ed27e0a82d8477c0d25a",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/instances_physx.usda": "47cdaa9eeb671b4ed8f00c24bbe869b39556ee5d3ad655e2dcf85e7727e0a1cc",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/sm_facilityEquipment_beverageFridge_display_a01_01.usd": "670b4f759d57a492600ad406aa564bf8261f353233c7dff2413f053fd13357b3",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/geometries.usd": "2b7f8cde8bd7193f1819e18dfa883509c280872d94527454fcd5810ee1704b95",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/instances.usda": "f8ee0a3c1d6b0cfd9a2e4f2716b5e0caa2951bb926948c67d77942c2fb4b58e8",
+        "facilityEquipment_beverageFridge_display_a01/simready_usd/payloads/materials.usda": "754c76b026b78bf833b9ab22eb881f3452cc303eaf54f0247f6d30e39396c0df",
+        "facilityEquipment_beverageFridge_display_a01/com.nvidia.simready.packaging.json": "97b5d1f2962284ec1ec335dc54fa1aaf2490717f32c01f442dbc9e8ab606f449",
+        "facilityEquipment_beverageFridge_display_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 95718,
+      "originalBytes": 2122356,
+      "optimization": {
+        "targetRatio": 0.4,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "kitchen",
+      "sourceAsset": "facilitySystem_kitchenette_module_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/facilitySystem_kitchenette_module_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.610657058655645,
+        1.213359028121726,
+        1.8219144344329834
+      ],
+      "sourceOrigin": [
+        0.005322594195318997,
+        -0.000004500150681,
+        -0.0009565800428390503
+      ],
+      "triangles": 148563,
+      "materials": 60,
+      "bytes": 3824772,
+      "sha256": "84e042069c6378f222b189517d43e6d45968c56376851109844cfe102f2c11ea",
+      "sourceFiles": {
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_a01_tile_alb.png.png": "78671da3654b1ad4f0895260e64fd7e39687d7e93ec6879228899a840dbd529f",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_a01_tile_orm.png.png": "3948e3fff3c2dde7fac8378832d3cf124fd23ee741e2889adba2a87e126768ef",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_black_a01_tile_nor.png.png": "65dac11e99f1cf4e3a9c205240e9051c99af4df8349cc59cea5fdba419823416",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_metal_brushedAniso_clean_a01_tile_alb.png.png": "fb25e5a84fb89c67770a9658850b72084a82df4b685e12052471815616976fe9",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_metal_brushedAniso_clean_a01_tile_orm.png.png": "ed1ef579396909133897d247e26122f08614be2d2fb08298032c87434ea23f43",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/t_metal_brushedAniso_clean_a01_tile_nor.png": "0268d35b651d3c3ba978aa7c73378e4ea720cfa6148f3282726060901f0fd33d",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_glossy_white_a01_tile_orm.png.png": "6bdee3d8aa9cafacb8b44bbac8d336cb3d8cafbdfbceec01e3bd2551522e65e9",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_glossy_white_a01_tile_nor.png.png": "9b51f547be0f520a6347d99b21c370dee295aecb415ddd96ffe75efbf7403920",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_rubber_glossy_black_a01_tile_orm.png.png": "c4230b500d567f1aef30bae49d134642d5fad88eb3793e3505c45cdf4e1e83a1",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_rubber_glossy_black_a01_tile_nor.png.png": "9b9ef06c0a1e7f79d3c2c8da488c1299e4c3a35a6b0717173dfadf087d6f150c",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_metal_paintedRough_white_a01_tile_orm.png.png": "f9f12b03f22d721f39eba1b96c124a2331f16a3ee4561ef4ae3180dadf4db846",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_metal_paintedRough_white_a01_tile_nor.png.png": "fa63ab2b448d150feabc6d14f8dcc5df87001e8fcc55dbc91ff43310764f6902",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/t_metal_steelStainless_a01_tile_alb.png": "8c9d622cad928e17c3871fd6dfabdc09b7b69b6c2687731a4e319461b14a8468",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/t_metal_steelStainless_a02_tile_orm.png": "ce08f6b3686dc42f0437394fc1856035d917f3105679a728ce0fa195e7e1befe",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/t_metal_painted_gray_a01_tile_orm.png": "36abcef2df8cb32a3cdeee976d7ccb6eeb6432be0bf797c7da0d3dfaf3919ea3",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_metal_painted_gray_a01_tile_nor.png.png": "fa63ab2b448d150feabc6d14f8dcc5df87001e8fcc55dbc91ff43310764f6902",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/t_metal_steelStainless_a01_tile_orm.png": "ad0eb692f7e00d643b1c75602b7d2a3b9fbe4f013fa5f73ce0555ad3155a8440",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/t_metal_bronzePolished_a01_tile_alb.png": "24bface22f73d6caf26510ff07b9a15e2b4d716fa610f02bf000c5cee5057528",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/t_metal_bronzePolished_a01_tile_orm.png": "02bb406ae220814968c7a3dfd1b9fb941478d96a496f5d837b585236a5d5690e",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_metal_bronzePolished_a01_tile_nor.png.png": "95bcd1525480265f0f9489eb3115e69f3497f40707b5b7b3bf7956432ea984b4",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/t_rubber_new_a01_tile_alb.png": "3ec67f9e1bf23eb38226c4722daaf691d0e4fef9313551cb27b1f2a1b6df5880",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_rubber_new_a01_tile_orm.png.png": "22060af1a953e348072dd5d45644eedab36355e17e6cd6dd30a485b9fce8972c",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_rubber_new_a01_tile_nor.png.png": "f228c106ca11ae218bedf40bd5b0d466f39e0237d44103744167139a5f3f33fb",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_gray_a01_tile_alb.png.png": "a996458b550845107ce0e87fba304250a218ef134b45545e6dfe7055396209f0",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_gray_a01_tile_orm.png.png": "9c0c59ce9b66ff535010fe64365cf9af0e01541162ce347ecf332d7261feab4a",
+        "facilitySystem_kitchenette_module_a01/simready_usd/Textures/.thumbs/512x512/t_plastic_gray_a01_tile_nor.png.png": "d148a993d941a92d0908724fdf37bc7a58ae66150c2e856e6fb40635dae00885",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/Physics/physics.usda": "51304d33646c8f60e2b0c7e65f67885c5a7006e504b86dbececc61aef25885e2",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/MuJoCo/disabled.usda": "841c646a5ee8f5968442cf25b3cf4eee3ec07b44ba6978f156e0c07538a28d4f",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/Newton/disabled.usda": "841c646a5ee8f5968442cf25b3cf4eee3ec07b44ba6978f156e0c07538a28d4f",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/PhysX/enabled.usda": "c324fd34baa9d2d0048390f1b9584dd23b23a8c829094b4e92cf131f5ae69ea6",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/base.usda": "55d653328d1aa48ee57b3dc123629ce3bf7587dbc0fdcc12fb0627a76b6727a3",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/instances_physx.usda": "3d4141f80ef3eab2421e37cd7d5a33d5959bd067a5485463c0e04de819f68174",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/materials.usda": "308ed1625078af372c2e19e106cab363b8e0981b6904d07427dda4d3f9009f03",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/geometries.usd": "32718b5f39ea4bc792bb617baddcc126cdf97fa383056f34e6676f5348da35d5",
+        "facilitySystem_kitchenette_module_a01/simready_usd/sm_facilitySystem_kitchenette_module_a01_01.usd": "50d97172abc4f154839d8ae58cd624112f3e0a6ebe10fee1885c1ce5371f869f",
+        "facilitySystem_kitchenette_module_a01/simready_usd/payloads/instances.usda": "fd94c4b688d06e94dd10d8a20a54bb053a2a9ffd1bba8f131f9712176a20f698",
+        "facilitySystem_kitchenette_module_a01/com.nvidia.simready.packaging.json": "27a475ab6a44dc7e59b3b0b98edc3abca4e9a7048630f1235aa785d7a7588152",
+        "facilitySystem_kitchenette_module_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 783064,
+      "originalBytes": 19021564,
+      "optimization": {
+        "targetRatio": 0.18,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "croissant",
+      "sourceAsset": "food_prepared_croissant_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_croissant_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.06687533110380173,
+        0.0432916205318179,
+        0.14004050940275192
+      ],
+      "sourceOrigin": [
+        0.0017499513924121857,
+        0.00000930987880565226,
+        -0.00030964985489845276
+      ],
+      "triangles": 5744,
+      "materials": 1,
+      "bytes": 2024804,
+      "sha256": "9c9785f62d0f08b72640cbcfb0b0325f5dd39d7a409e875f92b546901fd1fe7e",
+      "sourceFiles": {
+        "food_prepared_croissant_a01/simready_usd/Textures/t_croissant_brown_a01_alb.png": "7bfedf25988bf6dc559f1ba3e6ed85fc3c90b0adaf712747158fda438a86a770",
+        "food_prepared_croissant_a01/simready_usd/Textures/t_croissant_brown_a01_orm.png": "c4c46494b5d0d1a273c35af4cba4404f96510a6fb5c0193eb04a18833fc79ff6",
+        "food_prepared_croissant_a01/simready_usd/Textures/t_croissant_brown_a01_nor.png": "f558e9d29ea53e0b6614283e659356b1344be0f255e0f8a93f86c4885aeb22d0",
+        "food_prepared_croissant_a01/simready_usd/payloads/Newton/disabled.usda": "5af4477af6b92a2ebe46976b73c59424f2bcf5b2f60341fb5617d38a70acd467",
+        "food_prepared_croissant_a01/simready_usd/payloads/base.usda": "c6e93968c6a666a1e5e39463baacc3d27b0141beda45c91eb911769b89651a74",
+        "food_prepared_croissant_a01/simready_usd/payloads/MuJoCo/disabled.usda": "5af4477af6b92a2ebe46976b73c59424f2bcf5b2f60341fb5617d38a70acd467",
+        "food_prepared_croissant_a01/simready_usd/payloads/materials.usda": "32dde6ff8ffb5ce2539991335953c33dfc7cbaf8d5975d541698b4356f0fa5f4",
+        "food_prepared_croissant_a01/simready_usd/payloads/Physics/physics.usda": "e14b5ff4c292832cb4c7fe8bc2384d78af6fcf23ccb67559a0338842412219fb",
+        "food_prepared_croissant_a01/simready_usd/payloads/PhysX/enabled.usda": "bf01bb04f389b445458165f92f976b9322d9b5a475149ee2385562c84b275ba2",
+        "food_prepared_croissant_a01/simready_usd/sm_food_prepared_croissant_a01_01.usd": "494f55fad324f79aadc6c13f69995e01c79338130ecec0585a917be4df821166",
+        "food_prepared_croissant_a01/simready_usd/payloads/instances.usda": "12b71a2c50b7a4ac588eb36a52e565f5f0252a3c364a4af510cca911471cb07b",
+        "food_prepared_croissant_a01/simready_usd/payloads/instances_physx.usda": "ab47960afe396527f705f6e6c68fd3a7f066fef99da41b4718d26adee9bc2660",
+        "food_prepared_croissant_a01/simready_usd/payloads/geometries.usd": "2155f7040749fe3617923e3dafc920fa23ddc323076f0402e0aab508923bd3e6",
+        "food_prepared_croissant_a01/com.nvidia.simready.packaging.json": "5ecdcb91ce49a40f72ca8efd0544aa15ac0e543a0f6e79fd1801a08625cc7cbd",
+        "food_prepared_croissant_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 8206,
+      "originalBytes": 200832,
+      "optimization": {
+        "targetRatio": 0.7,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "baguette",
+      "sourceAsset": "food_prepared_baguette_b01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_baguette_b01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.054351966828107834,
+        0.03644058294594288,
+        0.3402406722307205
+      ],
+      "sourceOrigin": [
+        0.0022953711450099945,
+        0.000008454546332359314,
+        0.00893121212720871
+      ],
+      "triangles": 9966,
+      "materials": 1,
+      "bytes": 1168684,
+      "sha256": "3783815a40e8f6a4446952e88412a5dbae420d9e6578e180c9fcb5fcf9dfa423",
+      "sourceFiles": {
+        "food_prepared_baguette_b01/simready_usd/Textures/t_baguette_brown_b01_alb.png": "67f7572f85276e6461c222cb8fe1f1dc3588418b67985395dcff2137eda5c420",
+        "food_prepared_baguette_b01/simready_usd/Textures/t_baguette_brown_b01_orm.png": "cbf6e1308d5cce09a339bfa3941269cb724ed5a4e0fcf40a8903ac894e764216",
+        "food_prepared_baguette_b01/simready_usd/Textures/t_baguette_brown_b01_nor.png": "3d61a38b8d35151469c85fe3d840d83c43d8dfd3ee2e3e3f9aa2a515af2f979a",
+        "food_prepared_baguette_b01/simready_usd/payloads/materials.usda": "3c7badad707bcc299e0eb1fba98b74dd738abd50bb7b3ffe8d4e9be8eff4da82",
+        "food_prepared_baguette_b01/simready_usd/sm_food_prepared_baguette_b01_01.usd": "f45d5bcb058a832eb711cc106db077336d836360f9ed1ef59acad9b21794befa",
+        "food_prepared_baguette_b01/simready_usd/payloads/Newton/disabled.usda": "888e8bed1e7c23740a178d6c2d1dd635a1d3d5f332ebe7ec3bfd1d1ee43319c9",
+        "food_prepared_baguette_b01/simready_usd/payloads/Physics/physics.usda": "2f3f094ad4c85ae27fcdb93da0fd6fe05b65548ba621581bb131148324690897",
+        "food_prepared_baguette_b01/simready_usd/payloads/PhysX/enabled.usda": "9a1edc142b194d3222e7eef5a1c356ec0b89d913321343c91f53aaf23a019425",
+        "food_prepared_baguette_b01/simready_usd/payloads/base.usda": "f36ae6023b21aa536c086519daa4c60bbb8aedd5bfa15fa629c767a86c06a315",
+        "food_prepared_baguette_b01/simready_usd/payloads/MuJoCo/disabled.usda": "888e8bed1e7c23740a178d6c2d1dd635a1d3d5f332ebe7ec3bfd1d1ee43319c9",
+        "food_prepared_baguette_b01/simready_usd/payloads/geometries.usd": "e96990516bb31b2aa596567cf15346ae3d5b5fe71a77780c1aa9f0a4e8ae133b",
+        "food_prepared_baguette_b01/simready_usd/payloads/instances.usda": "ab0c28518ef8bfcc6eb7fce4fcdaaf6f43f26f30be221b5a027187b19ff62514",
+        "food_prepared_baguette_b01/simready_usd/payloads/instances_physx.usda": "de47d545c28d1d415aca56187f3c3d51a8d10fc842583470f2bb5a34c74e5a30",
+        "food_prepared_baguette_b01/com.nvidia.simready.packaging.json": "51a383a0bee368c2f0a1c4b4bfa09f4d7a341d5b2010f9f998b34e16e49ae236",
+        "food_prepared_baguette_b01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 14238,
+      "originalBytes": 261976,
+      "optimization": {
+        "targetRatio": 0.7,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "jug",
+      "sourceAsset": "kitchenware_jug_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/kitchenware_jug_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.10018230229616165,
+        0.12591492384672165,
+        0.16454200446605682
+      ],
+      "sourceOrigin": [
+        -8.456408977508545e-7,
+        0.00001852959394454956,
+        0.00003187358379364014
+      ],
+      "triangles": 11876,
+      "materials": 1,
+      "bytes": 1332736,
+      "sha256": "fbab6c64fb4db73232853d3cc1600d862eacccbd891b53bf7716a8a2b55e1fc9",
+      "sourceFiles": {
+        "kitchenware_jug_a01/simready_usd/Textures/t_jug_blue_a01_alb.png": "fed7c92f133b4e11a4ad4030b3781120692b0d04a8c8f59d8ffd8b4c6c2f0d41",
+        "kitchenware_jug_a01/simready_usd/Textures/t_jug_blue_a01_orm.png": "ec04aaba34152c5b7e1ed31ddcf87c4c6c79c76246abfd9eaa21de54e80b804b",
+        "kitchenware_jug_a01/simready_usd/Textures/t_jug_blue_a01_nor.png": "458f41f6b4fca9952a1a3d566ec205e4bbf8a32d2beb9e7c63923297238f0b9c",
+        "kitchenware_jug_a01/simready_usd/sm_kitchenware_jug_a01_01.usd": "a9340574ad663b3767a472c37e9d7c3d6da0e17bed1e68ed81a8900371c52170",
+        "kitchenware_jug_a01/simready_usd/payloads/instances.usda": "8a6af0bcfcbafce2c261a77ead8cc57351952ed062c4f3235312e34e8f6f46c7",
+        "kitchenware_jug_a01/simready_usd/payloads/MuJoCo/disabled.usda": "e60f40adae34eec5f1073d63c52f9307b9e595e02a02f5c191f73b6ec5fb97d4",
+        "kitchenware_jug_a01/simready_usd/payloads/base.usda": "be282dbc70cf30862c770bfb02f7b6dd522f2731dd22e8d8e6ed68c3174dde09",
+        "kitchenware_jug_a01/simready_usd/payloads/Physics/physics.usda": "f17c3c80b96f5e37f2e65e1cf06f76639f42aa379bc96c4e30b0cebbe9482bb3",
+        "kitchenware_jug_a01/simready_usd/payloads/Newton/disabled.usda": "e60f40adae34eec5f1073d63c52f9307b9e595e02a02f5c191f73b6ec5fb97d4",
+        "kitchenware_jug_a01/simready_usd/payloads/PhysX/enabled.usda": "e0e13b3c3259d0d2c6d0622c3de564164a1595a342461738fc42bed0f632e561",
+        "kitchenware_jug_a01/simready_usd/payloads/materials.usda": "a6d31c529565a7ea1a4e702fb08b86240718fff58a346a4ae329f442c17cfca9",
+        "kitchenware_jug_a01/simready_usd/payloads/instances_physx.usda": "0588f881ef589a4b41ffcc2e2dc46b3990cd16fe22c8a4adfe970230ff1cef6c",
+        "kitchenware_jug_a01/simready_usd/payloads/geometries.usd": "f9083c047b516a57b46e9d306e932c97beb62e06d208da1e70fa06490d996fed",
+        "kitchenware_jug_a01/com.nvidia.simready.packaging.json": "319cdce0b4792b673d5cbd7b3a4ec06fff0e76476305cced8b18a57bc016da75",
+        "kitchenware_jug_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 16968,
+      "originalBytes": 321592,
+      "optimization": {
+        "targetRatio": 0.7,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "tomato",
+      "sourceAsset": "food_produce_tomato_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_produce_tomato_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.0649968683719635,
+        0.05679682083427906,
+        0.0621008463203907
+      ],
+      "sourceOrigin": [
+        0.00027086585760116577,
+        0.00010551325976848602,
+        0.00007566623389720917
+      ],
+      "triangles": 6996,
+      "materials": 1,
+      "bytes": 307484,
+      "sha256": "0f76af82727c15d69c58c91eb64d96115c16bb92fa290842cd16c8185313a3d0",
+      "sourceFiles": {
+        "food_produce_tomato_a01/simready_usd/Textures/t_tomato_red_a01_alb.png": "66325e11c2b329e3746e29834ecb7b2c1f4ca92bc28a2fc776362a699d06ea04",
+        "food_produce_tomato_a01/simready_usd/Textures/t_tomato_red_a01_orm.png": "b62d379b7688a24d462149c39a99d7b4f0f906c38b00c4aef929b3989cdad086",
+        "food_produce_tomato_a01/simready_usd/Textures/t_tomato_red_a01_nor.png": "d0b73d207c7a8c17b0bdc0d6f4cdeabf6fc0336ac77a5cfa8ce78311cb92c778",
+        "food_produce_tomato_a01/simready_usd/payloads/Physics/physics.usda": "218f28f8d3dc3b804b4d1e80df47bfdef683b3eb2f3aa5859f096786d1756cf8",
+        "food_produce_tomato_a01/simready_usd/payloads/MuJoCo/disabled.usda": "e26cfb4a09cf0f0c84442da5d1ec99d5f552de80aa529b407d69ee5f653008d6",
+        "food_produce_tomato_a01/simready_usd/payloads/PhysX/enabled.usda": "27aae8a0be2f898c25ce7a1932858dff774f8d870ee645e7ccc362e9e38df7d4",
+        "food_produce_tomato_a01/simready_usd/payloads/base.usda": "9c1c31f19da366ade8845daf685f19dd8fcdae893bf944bcf4cb3de9342cca49",
+        "food_produce_tomato_a01/simready_usd/payloads/geometries.usd": "7a2eb87a05e86edafabcf94c5dcd05f24d774632155d6ee9f3eccd45c0840b84",
+        "food_produce_tomato_a01/simready_usd/payloads/instances_physx.usda": "afdfb6523e5999851c760bae2f4e21928050e793bff4b882fb6ddd567530ecdd",
+        "food_produce_tomato_a01/simready_usd/payloads/Newton/disabled.usda": "e26cfb4a09cf0f0c84442da5d1ec99d5f552de80aa529b407d69ee5f653008d6",
+        "food_produce_tomato_a01/simready_usd/payloads/instances.usda": "5d9d32efeab2389f6b1a3e63aec666791cf642d19307101bb6bfcf19e12ec473",
+        "food_produce_tomato_a01/simready_usd/sm_food_produce_tomato_a01_01.usd": "abb912f1d94561d56c524648b644bbc0c58183b830f48fe854e5f23799f6609f",
+        "food_produce_tomato_a01/simready_usd/payloads/materials.usda": "29379668dc7bc1da8e83d670c9541103a01c5002e046f4e8608599b9b5f03841",
+        "food_produce_tomato_a01/com.nvidia.simready.packaging.json": "88bced27aec430f7b9635aa67dcaffe5ffc5d1fe781088558a306e98b6ded2a5",
+        "food_produce_tomato_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 9996,
+      "originalBytes": 191140,
+      "optimization": {
+        "targetRatio": 0.7,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "steak",
+      "sourceAsset": "food_prepared_steak_c01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/food_prepared_steak_c01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.04484623111784458,
+        0.011352187022566795,
+        0.14502818882465363
+      ],
+      "sourceOrigin": [
+        -0.0009959163144230843,
+        0.000025260262191295624,
+        -0.001143813133239746
+      ],
+      "triangles": 3374,
+      "materials": 1,
+      "bytes": 425724,
+      "sha256": "e9c2338a10e9714419b8987561f9025b7c6ffb7a4973865e890f1967708e6e3c",
+      "sourceFiles": {
+        "food_prepared_steak_c01/simready_usd/Textures/t_stake_red_c01_alb.png": "4c6b7beaca4d0decf339e66920926f193fcd35ea2fa68169f70f7c0f6d6ea691",
+        "food_prepared_steak_c01/simready_usd/Textures/t_stake_red_c01_orm.png": "87bb78742c93b6861249cc4acf2b10fbee572a034e38a99980ff937300508f16",
+        "food_prepared_steak_c01/simready_usd/Textures/t_stake_red_c01_nor.png": "911a7cc0fab5b4dbb9279ab21796f025dae1cbca595947a546298b1b57a47eb8",
+        "food_prepared_steak_c01/simready_usd/sm_food_prepared_steak_c01_01.usda": "2af42a1f841ab99ed84ef2e68eab74d2c4208b36d2ab550d52c999c7d3a75004",
+        "food_prepared_steak_c01/simready_usd/runnables/physics/physx.usd": "ce392532beb3fd5304480bf64401d916a1d38b2a220cb0286a38913134a673f5",
+        "food_prepared_steak_c01/simready_usd/payloads/base.usda": "a2c05d3fe5cda726cae88aeae37b00adf3262c1c185f71737b17bbf4eb83cf0a",
+        "food_prepared_steak_c01/simready_usd/payloads/Physics/physics.usda": "f25d28517e6b9880649aad88431bf0de310502d914f936df30a7c4af3c1d3d67",
+        "food_prepared_steak_c01/simready_usd/payloads/instances_physx.usda": "63fca079838fe287918fb1a44b26b6eb21fcf51801fb2fb8b01626d141153cf4",
+        "food_prepared_steak_c01/simready_usd/payloads/geometries.usd": "f6b9af2279573a9792106d72b14b00a60cdfef658564892b1b17b545ad4e07c5",
+        "food_prepared_steak_c01/simready_usd/payloads/instances.usda": "02922507b7f1f31353858872dd77e556f7602e6ad9f887cdf17e028d82230b5a",
+        "food_prepared_steak_c01/simready_usd/payloads/materials.usda": "bb71e22d8cf31d560cc9507b60c423e219cb7c485acf8eee02cd07366ef2423c",
+        "food_prepared_steak_c01/com.nvidia.simready.packaging.json": "3766a641b1c7099baddd6bcf911e4aa51886416f1fa9b2c11a1f8ce4bb318017",
+        "food_prepared_steak_c01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 4820,
+      "originalBytes": 96308,
+      "optimization": {
+        "targetRatio": 0.7,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    },
+    {
+      "id": "wine-glass",
+      "sourceAsset": "dishware_glass_wine_a01",
+      "sourceUrl": "https://huggingface.co/datasets/nvidia/simready-assets/tree/524747d9b5e1f21b5b18b56041788c01d745f1a1/dishware_glass_wine_a01",
+      "author": "NVIDIA",
+      "license": "CC-BY-4.0",
+      "sourceRevision": "524747d9b5e1f21b5b18b56041788c01d745f1a1",
+      "size": [
+        0.08181579783558846,
+        0.2270550633838866,
+        0.08181580156087875
+      ],
+      "sourceOrigin": [
+        -1.862645149230957e-9,
+        0.00035790866237604365,
+        -3.725290298461914e-9
+      ],
+      "triangles": 7256,
+      "materials": 1,
+      "bytes": 48912,
+      "sha256": "df8d8213a7780cdd47d617dfe80d8a58b160bae79124e4229e5e936c5f8ea22d",
+      "sourceFiles": {
+        "dishware_glass_wine_a01/simready_usd/payloads/Physics/physics.usda": "5d47f986503c5968d7dff2b80c7e51f05fd16ef8bdacd8e753e63fe49a594c2f",
+        "dishware_glass_wine_a01/simready_usd/payloads/materials.usda": "4b7210e3a3013f99e0d8053eb21d06b9254d445cf48ac20372950b90204bded0",
+        "dishware_glass_wine_a01/simready_usd/payloads/base.usda": "a0dc5b9ec6b28cdd0cab1454485808bd2e08a7afa81cfc1128bad6c2108731b4",
+        "dishware_glass_wine_a01/simready_usd/payloads/Newton/disabled.usda": "3512afc74cc3e5d6eeee51db0f6265357d032322d9255ed2ea9180287eff6efc",
+        "dishware_glass_wine_a01/simready_usd/payloads/MuJoCo/disabled.usda": "3512afc74cc3e5d6eeee51db0f6265357d032322d9255ed2ea9180287eff6efc",
+        "dishware_glass_wine_a01/simready_usd/payloads/PhysX/enabled.usda": "b92e4b8824b885f17732d80477de2febc5003a0744013d16ef4e0c5065636531",
+        "dishware_glass_wine_a01/simready_usd/sm_dishware_glass_wine_a01_01.usd": "d5ba68e0ffcf609761f1e0b21c3e43dbd2f93030dac6779e49b5b7fd31656a63",
+        "dishware_glass_wine_a01/simready_usd/payloads/instances_physx.usda": "e45438016a50ab3f2d94f99b915e8ff37ffe173e3c6f87fc419f138227abd9c0",
+        "dishware_glass_wine_a01/simready_usd/payloads/instances.usda": "2ae3d3e04620f9c340c04dc84f1c759e45b2526eb65ca5b2a1240a982fa24196",
+        "dishware_glass_wine_a01/simready_usd/payloads/geometries.usd": "57e30f3d51b797f52163014be3b596cf4532f11e0506f8979db934e5bd38f54d",
+        "dishware_glass_wine_a01/com.nvidia.simready.packaging.json": "e6543a06ce7cf0e958dea095c8a1e549f4ff5cfaa9a2ba65e95975240bb5b6c5",
+        "dishware_glass_wine_a01/.metadata/LICENSE.txt": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+      },
+      "originalTriangles": 10368,
+      "originalBytes": 197100,
+      "optimization": {
+        "targetRatio": 0.7,
+        "maxRelativeError": 0.001,
+        "compression": "EXT_meshopt_compression",
+        "textureMaxSize": 1024
+      }
+    }
+  ]
+}

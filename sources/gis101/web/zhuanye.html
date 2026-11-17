@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>职业教育专业目录（2021年）· 层级查询工具</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..600&family=Noto+Sans+SC:wght@200..700&family=Noto+Serif+SC:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F0EC; --paper-hi:#F7F6F2; --paper-lo:#E7E4DC; --paper-lo2:#DEDAD1;
+  --ink:#16181B; --ink-2:#45484D; --ink-3:#84878D; --ink-4:#A9ABA9;
+  --rule:#D5D1C8; --rule-2:#E4E1D9;
+  --zz:#E07563; --zk:#3F6679; --bk:#A8822B;
+  --zz-d:#A8432C; --zk-d:#2C4E5F; --bk-d:#7A5F14;
+  --zz-t:rgba(224,117,99,.13); --zk-t:rgba(63,102,121,.12); --bk-t:rgba(168,130,43,.15);
+  --sh1:0 1px 2px rgba(22,24,27,.05), 0 10px 26px -14px rgba(22,24,27,.22);
+  --sh2:0 2px 8px rgba(22,24,27,.07), 0 30px 70px -24px rgba(22,24,27,.36);
+  --f-lat:'Oswald','HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  --f-serif:'Noto Serif SC','Source Han Serif SC','Songti SC',serif;
+  --f-sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --f-mono:ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--f-sans);
+  font-weight:400; -webkit-font-smoothing:antialiased; line-height:1.6;
+  letter-spacing:.005em;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.42;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+::selection{background:var(--zz);color:#fff}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;text-align:left}
+a{color:inherit}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.lat{font-family:var(--f-lat);font-variant-numeric:tabular-nums}
+.lbl{font-family:var(--f-lat);font-weight:500;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3)}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:linear-gradient(180deg,var(--paper-hi),var(--paper));
+  border-bottom:1px solid var(--rule);backdrop-filter:saturate(1.2)}
+.hdr-in{max-width:1560px;margin:0 auto;padding:20px 28px 0}
+.hdr-top{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:14px;min-width:0}
+.brand .kicker{font-family:var(--f-lat);font-weight:500;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--zz-d);border:1px solid var(--zz);background:var(--zz-t);
+  padding:3px 8px;border-radius:2px;white-space:nowrap}
+h1{margin:0;font-family:var(--f-serif);font-weight:600;font-size:clamp(20px,2.4vw,31px);
+  letter-spacing:-.01em;line-height:1.14}
+.brand .sub{font-family:var(--f-lat);font-weight:300;font-size:12px;letter-spacing:.1em;
+  color:var(--ink-3);text-transform:uppercase;white-space:nowrap}
+.hdr-stats{display:flex;gap:26px;align-items:flex-end}
+.hstat{text-align:right}
+.hstat b{display:block;font-family:var(--f-lat);font-weight:300;font-size:30px;line-height:1;
+  letter-spacing:-.02em}
+.hstat span{font-family:var(--f-lat);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.hstat.zz b{color:var(--zz-d)}.hstat.zk b{color:var(--zk-d)}.hstat.bk b{color:var(--bk-d)}
+
+.searchwrap{padding:20px 0 18px}
+.searchbox{display:flex;align-items:center;gap:0;border:1.5px solid var(--ink);
+  background:var(--paper-hi);border-radius:3px;box-shadow:var(--sh1);overflow:hidden}
+.searchbox:focus-within{box-shadow:var(--sh2),0 0 0 3px var(--zz-t);border-color:var(--zz-d)}
+.searchbox .icon{padding:0 4px 0 16px;display:flex;align-items:center}
+.searchbox .icon svg{width:19px;height:19px;stroke:var(--ink-2);fill:none;stroke-width:1.7}
+.searchbox input{flex:1;border:0;outline:0;background:transparent;padding:15px 14px;font-size:16.5px;
+  font-weight:400;letter-spacing:.01em}
+.searchbox input::placeholder{color:var(--ink-4);font-weight:300}
+.searchbox .hint{font-family:var(--f-mono);font-size:11px;color:var(--ink-4);padding:0 10px;
+  border-left:1px solid var(--rule-2);white-space:nowrap}
+.searchbox .clr{font-family:var(--f-lat);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);padding:0 16px;border-left:1px solid var(--rule-2);align-self:stretch;
+  display:flex;align-items:center}
+.searchbox .clr:hover{color:var(--zz-d)}
+.quick{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 0 0}
+.quick .q{font-size:12px;padding:4px 10px;border:1px solid var(--rule);border-radius:20px;
+  background:var(--paper-hi);color:var(--ink-2);transition:.15s}
+.quick .q:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-1px)}
+
+/* ---------- SHELL ---------- */
+.shell{max-width:1560px;margin:0 auto;display:grid;grid-template-columns:304px minmax(0,1fr);
+  align-items:start}
+.side{position:sticky;top:var(--hdh,0px);align-self:start;height:calc(100vh - var(--hdh,0px));
+  overflow-y:auto;border-right:1px solid var(--rule);padding:22px 0 60px;background:var(--paper-lo)}
+.side::-webkit-scrollbar{width:8px}.side::-webkit-scrollbar-thumb{background:var(--rule);border-radius:8px}
+.side-sec{padding:0 18px 20px}
+.side-sec + .side-sec{border-top:1px solid var(--rule-2);padding-top:18px}
+.side-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.side-hd .lbl{color:var(--ink-2)}
+.lvrow{display:flex;align-items:center;gap:9px;width:100%;padding:8px 9px;border-radius:3px;
+  transition:.14s;border:1px solid transparent}
+.lvrow:hover{background:var(--paper-hi);border-color:var(--rule)}
+.lvrow[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
+.lvrow[aria-pressed="true"] .lvname,.lvrow[aria-pressed="true"] .lvcnt{color:var(--paper)}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.dot.zz{background:var(--zz)}.dot.zk{background:var(--zk)}.dot.bk{background:var(--bk)}
+.dot.all{background:linear-gradient(135deg,var(--zz) 0 33%,var(--zk) 33% 66%,var(--bk) 66%)}
+.lvname{flex:1;font-size:13.5px;font-weight:500}
+.lvcnt{font-family:var(--f-mono);font-size:11px;color:var(--ink-3)}
+.catrow{display:grid;grid-template-columns:20px minmax(0,1fr) 50px;gap:7px;align-items:center;width:100%;
+  padding:6.5px 8px;border-radius:3px;border:1px solid transparent;transition:.13s}
+.catrow:hover{background:var(--paper-hi);border-color:var(--rule)}
+.catrow[aria-current="true"]{background:var(--paper-hi);border-color:var(--ink);
+  box-shadow:2px 0 0 var(--zz) inset}
+.catrow .cno{font-family:var(--f-lat);font-weight:400;font-size:11px;color:var(--ink-4)}
+.catrow .cname{font-size:12.5px;line-height:1.32;font-weight:500;min-width:0;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.catrow[aria-current="true"] .cname{font-weight:700}
+.mini{display:flex;gap:2px;align-items:center;justify-content:flex-end}
+.mini i{display:block;height:5px;border-radius:1px;opacity:.85}
+.mini i.zz{background:var(--zz)}.mini i.zk{background:var(--zk)}.mini i.bk{background:var(--bk)}
+.side-note{font-size:11px;color:var(--ink-3);line-height:1.65;padding:0 18px}
+.side-note b{color:var(--ink-2);font-weight:600}
+
+/* ---------- MAIN ---------- */
+.main{min-width:0;padding:20px 28px 90px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;
+  border-bottom:1.5px solid var(--ink);padding-bottom:10px;margin-bottom:20px}
+.bar-l{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.bar-l .big{font-family:var(--f-lat);font-weight:300;font-size:34px;line-height:1;letter-spacing:-.02em}
+.bar-l .cap{font-size:12.5px;color:var(--ink-3)}
+.bar-r{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.seg{display:flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden;background:var(--paper-hi)}
+.seg button{font-family:var(--f-lat);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:7px 13px;color:var(--ink-3);border-right:1px solid var(--rule)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button:hover:not([aria-pressed="true"]){background:var(--paper-lo);color:var(--ink)}
+
+/* badges */
+.bdg{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-lat);font-size:10px;
+  font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:2.5px 7px;border-radius:2px;
+  border:1px solid;white-space:nowrap}
+.bdg.zz{color:var(--zz-d);border-color:var(--zz);background:var(--zz-t)}
+.bdg.zk{color:var(--zk-d);border-color:var(--zk);background:var(--zk-t)}
+.bdg.bk{color:var(--bk-d);border-color:var(--bk);background:var(--bk-t)}
+
+/* result cards */
+.rlist{display:grid;gap:0;border-top:1px solid var(--rule-2)}
+.rcard{border-bottom:1px solid var(--rule-2);padding:15px 14px 15px 16px;cursor:pointer;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;
+  transition:.13s;position:relative;background:transparent}
+.rcard:hover{background:var(--paper-hi);box-shadow:var(--sh1)}
+.rcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent}
+.rcard.multi::before{background:linear-gradient(180deg,var(--zz),var(--zk) 50%,var(--bk))}
+.rcard.s-zz::before{background:var(--zz)}
+.rcard.s-zk::before{background:var(--zk)}
+.rcard.s-bk::before{background:var(--bk)}
+.rname{font-family:var(--f-serif);font-weight:600;font-size:19px;line-height:1.25;
+  letter-spacing:-.005em;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.rtag{font-family:var(--f-lat);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;background:var(--ink);padding:2px 6px;border-radius:2px}
+.rmeta{display:flex;gap:14px;flex-wrap:wrap;margin-top:7px;font-size:12px;color:var(--ink-3)}
+.rmeta .path{display:flex;align-items:center;gap:6px}
+.rmeta .path b{color:var(--ink-2);font-weight:500}
+.rbdg{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.hl{background:rgba(224,117,99,.22);border-radius:2px;padding:0 1px;font-weight:600}
+.more{display:block;width:100%;text-align:center;padding:13px;border:1px dashed var(--rule);
+  border-radius:3px;margin:18px 0 0;font-family:var(--f-lat);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-2);background:var(--paper-hi)}
+.more:hover{border-color:var(--ink);background:var(--paper-lo)}
+.empty{padding:60px 20px;text-align:center;color:var(--ink-3)}
+.empty .em{font-family:var(--f-serif);font-size:20px;color:var(--ink);margin-bottom:8px}
+
+/* overview / stats */
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:16px;margin-bottom:30px}
+.ovcard{border:1px solid var(--rule);border-top:3px solid var(--ink);border-radius:3px;
+  background:var(--paper-hi);padding:18px 18px 16px;box-shadow:var(--sh1);cursor:pointer;transition:.16s}
+.ovcard:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.ovcard.zz{border-top-color:var(--zz)}.ovcard.zk{border-top-color:var(--zk)}.ovcard.bk{border-top-color:var(--bk)}
+.ovcard .n{font-family:var(--f-lat);font-weight:200;font-size:52px;line-height:.94;letter-spacing:-.03em}
+.ovcard.zz .n{color:var(--zz-d)}.ovcard.zk .n{color:var(--zk-d)}.ovcard.bk .n{color:var(--bk-d)}
+.ovcard .t{font-family:var(--f-serif);font-size:15px;font-weight:600;margin-top:8px}
+.ovcard .d{font-size:11.5px;color:var(--ink-3);margin-top:5px;line-height:1.55}
+.sec-hd{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  border-bottom:1px solid var(--rule);padding-bottom:8px;margin:34px 0 16px}
+.sec-hd h2{margin:0;font-family:var(--f-serif);font-size:17px;font-weight:600;letter-spacing:.01em}
+.catgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:1px;
+  background:var(--rule-2);border:1px solid var(--rule-2);border-radius:3px;overflow:hidden}
+.catcell{background:var(--paper);padding:13px 15px;transition:.14s;cursor:pointer;position:relative}
+.catcell:hover{background:var(--paper-hi);z-index:2;box-shadow:var(--sh1)}
+.catcell .cn{display:flex;align-items:baseline;gap:8px}
+.catcell .cn i{font-family:var(--f-lat);font-style:normal;font-weight:400;font-size:11px;color:var(--ink-4)}
+.catcell .cn b{font-family:var(--f-serif);font-size:14.5px;font-weight:600}
+.catcell .m{display:flex;gap:14px;margin-top:9px}
+.catcell .m div{display:flex;align-items:center;gap:5px}
+.catcell .m em{font-family:var(--f-mono);font-style:normal;font-size:11.5px;color:var(--ink-2)}
+.bars{display:flex;height:4px;border-radius:2px;overflow:hidden;margin-top:9px;gap:2px}
+.bars i{display:block;border-radius:1px;opacity:.9}
+.bars i.zz{background:var(--zz)}.bars i.zk{background:var(--zk)}.bars i.bk{background:var(--bk)}
+
+/* ===== compare view ===== */
+.cmp-tabs{display:flex;gap:0;border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+  margin-bottom:18px;flex-wrap:wrap;background:var(--paper-hi)}
+.cmp-tabs button{padding:7px 11px;border-right:1px solid var(--rule-2);font-size:11.5px;
+  color:var(--ink-2);transition:.12s}
+.cmp-tabs button:last-child{border-right:0}
+.cmp-tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.cmp-tabs button:hover:not([aria-pressed="true"]){background:var(--paper-lo)}
+.cmp-head{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--rule-2);border:1px solid var(--rule-2);border-bottom:0;border-radius:3px 3px 0 0;
+  overflow:hidden}
+.cmp-hcell{background:var(--paper-lo);padding:11px 14px}
+.cmp-hcell .hl1{display:flex;align-items:center;gap:8px}
+.cmp-hcell .hl1 b{font-family:var(--f-serif);font-size:14px}
+.cmp-hcell .hl1 em{font-family:var(--f-mono);font-style:normal;font-size:11px;color:var(--ink-3)}
+.cmp-hcell .hl2{font-size:10.5px;color:var(--ink-3);margin-top:3px}
+.cmp-body{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule-2);
+  border:1px solid var(--rule-2);border-radius:0 0 3px 3px;overflow:hidden}
+.cmp-cell{background:var(--paper);padding:12px 12px 16px;min-height:60px;align-self:stretch}
+.cmp-sub{display:flex;align-items:baseline;gap:7px;border-bottom:1px solid var(--rule);
+  padding-bottom:6px;margin-bottom:9px}
+.cmp-sub em{font-family:var(--f-mono);font-style:normal;font-size:10.5px;color:var(--ink-4)}
+.cmp-sub b{font-size:12.5px;font-weight:600}
+.cmp-items{display:grid;gap:1px}
+.cmp-item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;align-items:baseline;
+  padding:4.5px 6px;border-radius:2px;transition:.1s;cursor:pointer}
+.cmp-item:hover,.cmp-item.on{background:var(--paper-lo);box-shadow:inset 0 0 0 1px var(--rule)}
+.cmp-item .c{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);letter-spacing:-.01em}
+.cmp-item .nm{font-size:12.5px;line-height:1.35}
+.cmp-item.on .nm{font-weight:600}
+.cmp-empty{font-size:11.5px;color:var(--ink-4);font-style:italic;padding:2px 0}
+
+/* ---------- DRAWER ---------- */
+.scrim{position:fixed;inset:0;background:rgba(22,24,27,.34);opacity:0;pointer-events:none;
+  transition:.22s;z-index:600;backdrop-filter:blur(1.5px)}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100vh;width:min(508px,94vw);background:var(--paper-hi);
+  border-left:1px solid var(--ink);box-shadow:var(--sh2);transform:translateX(101%);
+  transition:transform .28s cubic-bezier(.22,.7,.2,1);z-index:700;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dhd{padding:18px 22px 14px;border-bottom:1.5px solid var(--ink);display:flex;justify-content:space-between;
+  gap:14px;align-items:flex-start}
+.dhd .x{font-family:var(--f-lat);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule);padding:5px 9px;border-radius:2px}
+.dhd .x:hover{color:var(--zz-d);border-color:var(--zz)}
+.dbody{overflow-y:auto;padding:20px 22px 40px;flex:1}
+.dbody::-webkit-scrollbar{width:9px}.dbody::-webkit-scrollbar-thumb{background:var(--rule);border-radius:8px}
+.dtitle{font-family:var(--f-serif);font-size:26px;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.dsub{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.dsec{margin-top:26px}
+.dsec > .lbl{display:block;margin-bottom:9px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.codebreak{display:flex;gap:1px;border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+  background:var(--rule-2)}
+.codebreak .seg2{flex:none;background:var(--paper);padding:10px 12px;text-align:center}
+.codebreak .seg2:nth-child(1){flex:1}
+.codebreak .seg2 b{display:block;font-family:var(--f-mono);font-size:22px;letter-spacing:.06em}
+.codebreak .seg2 span{display:block;font-family:var(--f-lat);font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.codebreak .seg2 .sub2{font-size:10.5px;color:var(--ink-2);margin-top:2px}
+.kv{display:grid;grid-template-columns:74px minmax(0,1fr);gap:6px 14px;font-size:13px}
+.kv dt{color:var(--ink-3);font-size:12px;padding-top:1px}
+.kv dd{margin:0;font-weight:500}
+.chain{display:grid;gap:8px}
+.chainrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:11px;align-items:center;
+  border:1px solid var(--rule);border-radius:3px;padding:9px 12px;background:var(--paper);
+  transition:.13s;cursor:pointer}
+.chainrow:hover{border-color:var(--ink);box-shadow:var(--sh1)}
+.chainrow.cur{border-color:var(--ink);border-width:1.5px;background:var(--paper-hi)}
+.chainrow .nm{font-size:13.5px;font-weight:500}
+.chainrow .cd{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3)}
+.siblist{display:flex;flex-wrap:wrap;gap:5px}
+.sibchip{font-size:12px;border:1px solid var(--rule);border-radius:20px;padding:3px 10px;
+  background:var(--paper);color:var(--ink-2);transition:.12s}
+.sibchip:hover{border-color:var(--ink);color:var(--ink);background:var(--paper-lo)}
+.sibchip.cur{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.dfoot{border-top:1px solid var(--rule);padding:12px 22px;font-size:11px;color:var(--ink-3);
+  display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.dfoot button{font-family:var(--f-lat);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--rule);padding:5px 10px;border-radius:2px;color:var(--ink-2)}
+.dfoot button:hover{border-color:var(--ink);color:var(--ink)}
+.histnote{font-size:11.5px;color:var(--ink-3);line-height:1.7;border-left:2px solid var(--rule);
+  padding-left:11px}
+
+@media(max-width:1080px){
+  .shell{grid-template-columns:1fr}
+  .side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--rule)}
+  .cmp-head,.cmp-body{grid-template-columns:1fr}
+  .cmp-hcell{border-bottom:1px solid var(--rule-2)}
+}
+@media(max-width:620px){
+  .hdr-in,.main{padding-left:14px;padding-right:14px}
+  .hdr-stats{gap:16px}.hstat b{font-size:23px}
+  .rcard{grid-template-columns:1fr}
+  .rbdg{justify-content:flex-start}
+}
+@media print{body::before{display:none}.side,.hdr-stats{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <div class="hdr-top">
+      <div class="brand">
+        <span class="kicker">2021 目录</span>
+        <div>
+          <h1>职业教育专业目录 · 层级查询工具</h1>
+          <div class="sub">中职 · 专科 · 本科　三层次专业对照</div>
+        </div>
+      </div>
+      <div class="hdr-stats" id="hdrStats"></div>
+    </div>
+    <div class="searchwrap">
+      <div class="searchbox">
+        <span class="icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg></span>
+        <input id="q" type="search" autocomplete="off" spellcheck="false"
+               placeholder="输入专业名称、专业代码或大类名称，例如：园艺技术 / 510101 / 电子与信息">
+        <span class="hint">/</span>
+        <button class="clr" id="clr">清空</button>
+      </div>
+      <div class="quick" id="quick"></div>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <div class="side-sec">
+      <div class="side-hd"><span class="lbl">专业层级</span><span class="lbl" id="lvTotal"></span></div>
+      <div id="lvList"></div>
+    </div>
+    <div class="side-sec">
+      <div class="side-hd"><span class="lbl">专业大类</span><span class="lbl">19</span></div>
+      <div id="catList"></div>
+    </div>
+    <div class="side-note">
+      <p style="margin:0 0 8px"><b>数据来源</b>《职业教育专业目录（2021年）》，含中等职业教育、高等职业教育专科、高等职业教育本科三个层次的全部专业。</p>
+      <p style="margin:0"><b>编码规则</b>专业代码 6 位 = 大类（2位）+ 类（2位）+ 专业序号（2位）。</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="bar">
+      <div class="bar-l">
+        <span class="big" id="cntBig">0</span>
+        <span class="cap" id="cntCap">条专业记录</span>
+      </div>
+      <div class="bar-r">
+        <div class="seg" id="viewSeg"></div>
+        <div class="seg" id="sortSeg"></div>
+      </div>
+    </div>
+    <div id="stage"></div>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="dhd">
+    <div>
+      <div class="lbl" style="margin-bottom:6px">专业详情</div>
+      <div class="dtitle" id="dTitle">—</div>
+      <div class="dsub" id="dSub"></div>
+    </div>
+    <button class="x" id="dClose">关闭 ESC</button>
+  </div>
+  <div class="dbody" id="dBody"></div>
+  <div class="dfoot">
+    <span id="dFoot">点击条目可跳转对应层次</span>
+    <button id="dCopy">复制代码</button>
+  </div>
+</aside>
+
+<script id="db" type="application/json">{"meta": {"title": "职业教育专业目录（2021年）", "updated": "2026年7月", "total": 1518, "catCount": 19}, "levels": [{"key": "zz", "tag": "中职", "full": "中等职业教育专业", "short": "中职专业", "base": 60, "note": "中等职业学校专业，以初中毕业生为主要招生对象"}, {"key": "zk", "tag": "专科", "full": "高等职业教育专科专业", "short": "专科专业", "base": 40, "note": "高职专科专业，以高中阶段毕业生为主要招生对象"}, {"key": "bk", "tag": "本科", "full": "高等职业教育本科专业", "short": "本科专业", "base": 20, "note": "职业本科专业，学制四年，可授予学士学位"}], "cats": [{"no": 1, "name": "农林牧渔大类", "levels": {"zz": {"code": "61", "count": 33, "subs": [{"tail": "01", "code": "6101", "name": "农业类", "items": [["610101", "种子生产技术"], ["610102", "作物生产技术"], ["610103", "循环农业与再生资源利用"], ["610104", "家庭农场生产经营"], ["610105", "园艺技术"], ["610106", "植物保护"], ["610107", "茶叶生产与加工"], ["610108", "中草药栽培"], ["610109", "烟草栽培与加工"], ["610110", "饲草栽培与加工"], ["610111", "农村电气技术"], ["610112", "设施农业生产技术"], ["610113", "农机设备应用与维修"], ["610114", "农产品加工与质量检测"], ["610115", "农产品贮藏与加工"], ["610116", "农产品营销与储运"], ["610117", "棉花加工与检验"], ["610118", "休闲农业生产与经营"], ["610119", "农资营销与服务"], ["610120", "咖啡生产与工艺"]]}, {"tail": "02", "code": "6102", "name": "林业类", "items": [["610201", "林业生产技术"], ["610202", "园林技术"], ["610203", "园林绿化"], ["610204", "森林资源保护与管理"], ["610205", "木业产品加工技术"], ["610206", "草原保护与修复技术"]]}, {"tail": "03", "code": "6103", "name": "畜牧业类", "items": [["610301", "畜禽生产技术"], ["610302", "特种动物养殖"], ["610303", "宠物养护与经营"], ["610304", "蚕桑生产与经营"]]}, {"tail": "04", "code": "6104", "name": "渔业类", "items": [["610401", "淡水养殖"], ["610402", "海水养殖"], ["610403", "航海捕捞"]]}]}, "zk": {"code": "41", "count": 55, "subs": [{"tail": "01", "code": "4101", "name": "农业类", "items": [["410101", "种子生产与经营"], ["410102", "作物生产与经营管理"], ["410103", "现代农业技术"], ["410104", "生态农业技术"], ["410105", "园艺技术"], ["410106", "植物保护与检疫技术"], ["410107", "茶叶生产与加工技术"], ["410108", "中草药栽培与加工技术"], ["410109", "烟草栽培与加工技术"], ["410110", "饲草生产技术"], ["410111", "食用菌生产与加工技术"], ["410112", "设施农业与装备"], ["410113", "现代农业装备应用技术"], ["410114", "农产品加工与质量检测"], ["410115", "绿色食品生产技术"], ["410116", "农产品流通与管理"], ["410117", "棉花加工与经营管理"], ["410118", "休闲农业经营与管理"], ["410119", "现代农业经济管理"], ["410120", "农村新型经济组织管理"], ["410121", "高标准农田建设与应用技术"], ["410122", "乡村治理技术"], ["410123", "热带作物生产与加工技术"], ["410124", "智慧农业技术与装备"]]}, {"tail": "02", "code": "4102", "name": "林业类", "items": [["410201", "林业技术"], ["410202", "园林技术"], ["410203", "草业技术"], ["410204", "花卉生产与花艺"], ["410205", "经济林培育与利用"], ["410206", "森林和草原资源保护"], ["410207", "林草生态保护与修复"], ["410208", "野生动植物资源保护与利用"], ["410209", "自然保护地建设与管理"], ["410210", "森林生态旅游与康养"], ["410211", "林业信息技术应用"], ["410212", "木业智能装备应用技术"], ["410213", "木业产品设计与制造"], ["410214", "现代竹木产品设计与制造"], ["410215", "林草碳汇技术"]]}, {"tail": "03", "code": "4103", "name": "畜牧业类", "items": [["410301", "动物医学"], ["410302", "动物药学"], ["410303", "畜牧兽医"], ["410304", "中兽医"], ["410305", "宠物医疗技术"], ["410306", "动物防疫与检疫"], ["410307", "畜禽智能化养殖"], ["410308", "特种动物养殖技术"], ["410309", "宠物养护与驯导"], ["410310", "动物营养与饲料"], ["410311", "蚕桑技术"]]}, {"tail": "04", "code": "4104", "name": "渔业类", "items": [["410401", "水产养殖技术"], ["410402", "海洋渔业技术"], ["410403", "水族科学与技术"], ["410404", "水生动物医学"], ["410405", "休闲渔业经营与管理"]]}]}, "bk": {"code": "21", "count": 19, "subs": [{"tail": "01", "code": "2101", "name": "农业类", "items": [["210101", "现代种业技术"], ["210102", "作物生产与品质改良"], ["210103", "智慧农业技术"], ["210104", "设施园艺"], ["210105", "现代农业经营与管理"], ["210106", "智能化农业装备技术"], ["210107", "现代植保技术"], ["210108", "茶叶生产与应用技术"]]}, {"tail": "02", "code": "2102", "name": "林业类", "items": [["210201", "智慧林业技术"], ["210202", "园林工程"], ["210203", "木业产品智能制造"], ["210204", "林草保护工程"], ["210205", "林业碳汇工程"]]}, {"tail": "03", "code": "2103", "name": "畜牧业类", "items": [["210301", "动物医学"], ["210302", "动物药学"], ["210303", "宠物医疗"], ["210304", "现代畜牧"]]}, {"tail": "04", "code": "2104", "name": "渔业类", "items": [["210401", "现代水产养殖技术"], ["210402", "远洋渔业"]]}]}}}, {"no": 2, "name": "资源环境与安全大类", "levels": {"zz": {"code": "62", "count": 31, "subs": [{"tail": "01", "code": "6201", "name": "资源勘查类", "items": [["620101", "国土资源调查"], ["620102", "地质调查与找矿"], ["620103", "宝玉石加工与检测"]]}, {"tail": "02", "code": "6202", "name": "地质类", "items": [["620201", "水文地质与工程地质勘查"], ["620202", "钻探技术"], ["620203", "掘进技术"], ["620204", "岩土工程勘察与施工"], ["620205", "地球物理勘探技术"], ["620206", "地质灾害调查与治理施工"]]}, {"tail": "03", "code": "6203", "name": "测绘地理信息类", "items": [["620301", "工程测量技术"], ["620302", "地图绘制与地理信息系统"], ["620303", "地质与测量"], ["620304", "航空摄影测量"]]}, {"tail": "04", "code": "6204", "name": "石油与天然气类", "items": [["620401", "油气储运"], ["620402", "石油地质录井与测井"], ["620403", "石油钻井"], ["620404", "油气开采"]]}, {"tail": "05", "code": "6205", "name": "煤炭类", "items": [["620501", "采矿技术"], ["620502", "矿井建设技术"], ["620503", "矿井通风与安全"], ["620504", "矿山机电"], ["620505", "煤炭综合利用技术"]]}, {"tail": "06", "code": "6206", "name": "金属与非金属矿类", "items": [["620601", "选矿技术"]]}, {"tail": "07", "code": "6207", "name": "气象类", "items": [["620701", "气象服务"]]}, {"tail": "08", "code": "6208", "name": "环境保护类", "items": [["620801", "环境监测技术"], ["620802", "环境治理技术"], ["620803", "生态环境保护"]]}, {"tail": "09", "code": "6209", "name": "安全类", "items": [["620901", "安全技术与管理"], ["620902", "应急救援技术"], ["620903", "防灾减灾技术"], ["620904", "森林消防"]]}]}, "zk": {"code": "42", "count": 64, "subs": [{"tail": "01", "code": "4201", "name": "资源勘查类", "items": [["420101", "国土资源调查与管理"], ["420102", "地质调查与矿产普查"], ["420103", "生态地质调查"], ["420104", "矿产地质勘查"], ["420105", "煤田地质勘查"], ["420106", "岩矿分析与鉴定"], ["420107", "宝玉石鉴定与加工"]]}, {"tail": "02", "code": "4202", "name": "地质类", "items": [["420201", "工程地质勘查"], ["420202", "水文与工程地质"], ["420203", "矿山地质"], ["420204", "钻探工程技术"], ["420205", "岩土工程技术"], ["420206", "地球物理勘探技术"], ["420207", "地质灾害调查与防治"], ["420208", "环境地质工程"], ["420209", "城市地质勘查"]]}, {"tail": "03", "code": "4203", "name": "测绘地理信息类", "items": [["420301", "工程测量技术"], ["420302", "测绘工程技术"], ["420303", "测绘地理信息技术"], ["420304", "摄影测量与遥感技术"], ["420305", "地籍测绘与土地管理"], ["420306", "国土空间规划与测绘"], ["420307", "无人机测绘技术"], ["420308", "矿山测量"], ["420309", "导航与位置服务"], ["420310", "空间数字建模与应用技术"]]}, {"tail": "04", "code": "4204", "name": "石油与天然气类", "items": [["420401", "油气储运技术"], ["420402", "油气地质勘探技术"], ["420403", "钻井技术"], ["420404", "油气智能开采技术"], ["420405", "油田化学应用技术"], ["420406", "石油工程技术"]]}, {"tail": "05", "code": "4205", "name": "煤炭类", "items": [["420501", "煤矿智能开采技术"], ["420502", "矿井建设工程技术"], ["420503", "通风技术与安全管理"], ["420504", "矿山机电与智能装备"], ["420505", "煤炭清洁利用技术"], ["420506", "煤层气采输技术"]]}, {"tail": "06", "code": "4206", "name": "金属与非金属矿类", "items": [["420601", "矿山智能开采技术"], ["420602", "矿物加工技术"]]}, {"tail": "07", "code": "4207", "name": "气象类", "items": [["420701", "大气科学技术"], ["420702", "大气探测技术"], ["420703", "应用气象技术"], ["420704", "雷电防护技术"]]}, {"tail": "08", "code": "4208", "name": "环境保护类", "items": [["420801", "环境监测技术"], ["420802", "环境工程技术"], ["420803", "生态保护技术"], ["420804", "生态环境大数据技术"], ["420805", "环境管理与评价"], ["420806", "生态环境修复技术"], ["420807", "绿色低碳技术"], ["420808", "资源综合利用技术"], ["420809", "水净化与安全技术"], ["420810", "核与辐射检测防护技术"], ["420811", "智能环保装备技术"]]}, {"tail": "09", "code": "4209", "name": "安全类", "items": [["420901", "安全技术与管理"], ["420902", "化工安全技术"], ["420903", "工程安全评价与监理"], ["420904", "安全智能监测技术"], ["420905", "应急救援技术"], ["420906", "消防救援技术"], ["420907", "森林草原防火技术"], ["420908", "职业健康安全技术"], ["420909", "防灾减灾救灾技术"]]}]}, "bk": {"code": "22", "count": 19, "subs": [{"tail": "01", "code": "2201", "name": "资源勘查类", "items": [["220101", "资源勘查工程技术"]]}, {"tail": "02", "code": "2202", "name": "地质类", "items": [["220201", "环境地质工程"], ["220202", "地球物理勘探技术"]]}, {"tail": "03", "code": "2203", "name": "测绘地理信息类", "items": [["220301", "导航工程技术"], ["220302", "测绘工程技术"], ["220303", "地理信息技术"], ["220304", "无人机测绘技术"], ["220305", "智能遥感技术"]]}, {"tail": "04", "code": "2204", "name": "石油与天然气类", "items": [["220401", "油气储运工程"], ["220402", "石油工程技术"]]}, {"tail": "05", "code": "2205", "name": "煤炭类", "items": [["220501", "智能采矿技术"], ["220502", "煤炭清洁利用工程"]]}, {"tail": "07", "code": "2207", "name": "气象类", "items": [["220701", "智慧气象技术"]]}, {"tail": "08", "code": "2208", "name": "环境保护类", "items": [["220801", "生态环境工程技术"], ["220802", "生态环境数智化监测技术"], ["220803", "资源循环工程"]]}, {"tail": "09", "code": "2209", "name": "安全类", "items": [["220901", "安全工程技术"], ["220902", "应急管理"], ["220903", "消防工程技术"]]}]}}}, {"no": 3, "name": "能源动力与材料大类", "levels": {"zz": {"code": "63", "count": 21, "subs": [{"tail": "01", "code": "6301", "name": "电力技术类", "items": [["630101", "发电厂及变电站运行与维护"], ["630102", "水电厂机电设备安装与运行"], ["630103", "电力系统自动化装置调试与维护"], ["630104", "输配电线路施工与运行"], ["630105", "供用电技术"]]}, {"tail": "02", "code": "6302", "name": "热能与发电工程类", "items": [["630201", "火电厂热力设备安装"], ["630202", "火电厂热工仪表安装与检修"], ["630203", "火电厂热力设备运行与检修"], ["630204", "火电厂集控运行"], ["630205", "火电厂水处理及化学监督"]]}, {"tail": "03", "code": "6303", "name": "新能源发电工程类", "items": [["630301", "光伏工程技术与应用"], ["630302", "风力发电设备运行与维护"], ["630303", "太阳能与沼气技术利用"]]}, {"tail": "04", "code": "6304", "name": "黑色金属材料类", "items": [["630401", "钢铁冶炼技术"], ["630402", "钢铁装备运行与维护"]]}, {"tail": "05", "code": "6305", "name": "有色金属材料类", "items": [["630501", "有色金属冶炼技术"], ["630502", "金属压力加工"]]}, {"tail": "07", "code": "6307", "name": "建筑材料类", "items": [["630701", "建筑材料智能生产技术"], ["630702", "新型建筑材料生产技术"], ["630703", "建筑材料检测技术"], ["630704", "装配式建筑构件制作技术"]]}]}, "zk": {"code": "43", "count": 53, "subs": [{"tail": "01", "code": "4301", "name": "电力技术类", "items": [["430101", "发电厂及电力系统"], ["430102", "水电站机电设备与自动化"], ["430103", "水电站与电力网技术"], ["430104", "分布式发电与智能微电网技术"], ["430105", "电力系统自动化技术"], ["430106", "电力系统继电保护技术"], ["430107", "输配电工程技术"], ["430108", "供用电技术"], ["430109", "农业电气化技术"], ["430110", "机场电工技术"], ["430111", "电力客户服务与管理"], ["430112", "电力储能应用技术"]]}, {"tail": "02", "code": "4302", "name": "热能与发电工程类", "items": [["430201", "热能动力工程技术"], ["430202", "城市热能应用技术"], ["430203", "地热开发技术"], ["430204", "太阳能光热技术与应用"], ["430205", "发电运行技术"], ["430206", "热工自动化技术"], ["430207", "核电站动力设备运行与维护"], ["430208", "电厂化学与环保技术"]]}, {"tail": "03", "code": "4303", "name": "新能源发电工程类", "items": [["430301", "光伏工程技术"], ["430302", "风力发电工程技术"], ["430303", "生物质能应用技术"], ["430304", "氢能技术应用"], ["430305", "工业节能技术"], ["430306", "节电技术与管理"], ["430307", "新能源材料应用技术"]]}, {"tail": "04", "code": "4304", "name": "黑色金属材料类", "items": [["430401", "钢铁智能冶金技术"], ["430402", "智能轧钢技术"], ["430403", "钢铁冶金设备维护"], ["430404", "金属材料检测技术"]]}, {"tail": "05", "code": "4305", "name": "有色金属材料类", "items": [["430501", "有色金属智能冶金技术"], ["430502", "金属智能加工技术"], ["430503", "金属精密成型技术"], ["430504", "储能材料技术"], ["430505", "稀土材料技术"], ["430506", "材料循环应用技术"], ["430507", "储能材料装备智能运维技术"]]}, {"tail": "06", "code": "4306", "name": "非金属材料类", "items": [["430601", "材料工程技术"], ["430602", "高分子材料智能制造技术"], ["430603", "复合材料智能制造技术"], ["430604", "航空复合材料成型与加工技术"], ["430605", "非金属矿物材料技术"], ["430606", "光伏材料制备技术"], ["430607", "硅材料制备技术"], ["430608", "炭材料工程技术"], ["430609", "橡胶智能制造技术"], ["430610", "电子信息材料应用技术"]]}, {"tail": "07", "code": "4307", "name": "建筑材料类", "items": [["430701", "建筑材料工程技术"], ["430702", "新型建筑材料技术"], ["430703", "建筑装饰材料技术"], ["430704", "建筑材料检测技术"], ["430705", "装配式建筑构件智能制造技术"]]}]}, "bk": {"code": "23", "count": 15, "subs": [{"tail": "01", "code": "2301", "name": "电力技术类", "items": [["230101", "电力工程及自动化"], ["230102", "智能电网工程技术"], ["230103", "智慧综合能源工程"]]}, {"tail": "02", "code": "2302", "name": "热能与发电工程类", "items": [["230201", "热能动力工程"], ["230202", "核工程与核技术应用"]]}, {"tail": "03", "code": "2303", "name": "新能源发电工程类", "items": [["230301", "新能源发电工程技术"], ["230302", "氢能工程技术"]]}, {"tail": "04", "code": "2304", "name": "黑色金属材料类", "items": [["230401", "钢铁智能冶金技术"], ["230402", "钢铁智能轧制技术"]]}, {"tail": "05", "code": "2305", "name": "有色金属材料类", "items": [["230501", "材料化冶金应用技术"], ["230502", "金属智能成型技术"], ["230503", "储能材料工程技术"]]}, {"tail": "06", "code": "2306", "name": "非金属材料类", "items": [["230601", "高分子材料工程技术"], ["230602", "新材料与应用技术"]]}, {"tail": "07", "code": "2307", "name": "建筑材料类", "items": [["230701", "建筑材料智能制造"]]}]}}}, {"no": 4, "name": "土木建筑大类", "levels": {"zz": {"code": "64", "count": 18, "subs": [{"tail": "01", "code": "6401", "name": "建筑设计类", "items": [["640101", "建筑表现"], ["640102", "建筑装饰技术"], ["640103", "古建筑修缮"], ["640104", "园林景观施工与维护"]]}, {"tail": "02", "code": "6402", "name": "城乡规划与管理类", "items": [["640201", "城镇建设"]]}, {"tail": "03", "code": "6403", "name": "土建施工类", "items": [["640301", "建筑工程施工"], ["640302", "装配式建筑施工"], ["640303", "建筑工程检测"]]}, {"tail": "04", "code": "6404", "name": "建筑设备类", "items": [["640401", "建筑智能化设备安装与运维"], ["640402", "建筑水电设备安装与运维"], ["640403", "供热通风与空调施工运行"]]}, {"tail": "05", "code": "6405", "name": "建设工程管理类", "items": [["640501", "建筑工程造价"], ["640502", "建设项目材料管理"]]}, {"tail": "06", "code": "6406", "name": "市政工程类", "items": [["640601", "市政工程施工"], ["640602", "给排水工程施工与运行"], ["640603", "城市燃气智能输配与应用"]]}, {"tail": "07", "code": "6407", "name": "房地产类", "items": [["640701", "房地产营销"], ["640702", "物业服务"]]}]}, "zk": {"code": "44", "count": 37, "subs": [{"tail": "01", "code": "4401", "name": "建筑设计类", "items": [["440101", "建筑设计"], ["440102", "建筑装饰工程技术"], ["440103", "古建筑工程技术"], ["440104", "园林工程技术"], ["440105", "风景园林设计"], ["440106", "建筑室内设计"], ["440107", "建筑动画技术"], ["440108", "装配化装修技术"]]}, {"tail": "02", "code": "4402", "name": "城乡规划与管理类", "items": [["440201", "城乡规划"], ["440202", "智慧城市管理技术"], ["440203", "村镇建设与管理"]]}, {"tail": "03", "code": "4403", "name": "土建施工类", "items": [["440301", "建筑工程技术"], ["440302", "装配式建筑工程技术"], ["440303", "建筑钢结构工程技术"], ["440304", "智能建造技术"], ["440305", "地下与隧道工程技术"], ["440306", "土木工程检测技术"], ["440307", "建筑加固与修复技术"]]}, {"tail": "04", "code": "4404", "name": "建筑设备类", "items": [["440401", "建筑设备工程技术"], ["440402", "建筑电气工程技术"], ["440403", "供热通风与空调工程技术"], ["440404", "建筑智能化工程技术"], ["440405", "工业设备安装工程技术"], ["440406", "建筑消防技术"]]}, {"tail": "05", "code": "4405", "name": "建设工程管理类", "items": [["440501", "工程造价"], ["440502", "建设工程管理"], ["440503", "建筑经济信息化管理"], ["440504", "建设工程监理"], ["440505", "智慧建筑运维管理"]]}, {"tail": "06", "code": "4406", "name": "市政工程类", "items": [["440601", "市政工程技术"], ["440602", "给排水工程技术"], ["440603", "城市燃气工程技术"], ["440604", "市政管网智能检测与维护"], ["440605", "城市环境工程技术"]]}, {"tail": "07", "code": "4407", "name": "房地产类", "items": [["440701", "房地产经营与管理"], ["440702", "房地产智能检测与估价"], ["440703", "现代物业管理"]]}]}, "bk": {"code": "24", "count": 20, "subs": [{"tail": "01", "code": "2401", "name": "建筑设计类", "items": [["240101", "建筑设计"], ["240102", "建筑装饰工程"], ["240103", "古建筑工程"], ["240104", "园林景观工程"], ["240105", "城市设计数字技术"], ["240106", "城市更新设计技术"]]}, {"tail": "02", "code": "2402", "name": "城乡规划与管理类", "items": [["240201", "城乡规划"]]}, {"tail": "03", "code": "2403", "name": "土建施工类", "items": [["240301", "建筑工程"], ["240302", "智能建造工程"], ["240303", "城市地下工程"], ["240304", "建筑智能检测与修复"]]}, {"tail": "04", "code": "2404", "name": "建筑设备类", "items": [["240401", "建筑环境与能源工程"], ["240402", "建筑电气与智能化工程"]]}, {"tail": "05", "code": "2405", "name": "建设工程管理类", "items": [["240501", "工程造价"], ["240502", "建设工程管理"]]}, {"tail": "06", "code": "2406", "name": "市政工程类", "items": [["240601", "市政工程"], ["240602", "城市设施智慧管理"], ["240603", "给排水工程"]]}, {"tail": "07", "code": "2407", "name": "房地产类", "items": [["240701", "房地产投资与策划"], ["240702", "现代物业管理"]]}]}}}, {"no": 5, "name": "水利大类", "levels": {"zz": {"code": "65", "count": 10, "subs": [{"tail": "01", "code": "6501", "name": "水文水资源类", "items": [["650101", "水文与水资源勘测"]]}, {"tail": "02", "code": "6502", "name": "水利工程与管理类", "items": [["650201", "水利工程运行与管理"], ["650202", "水利水电工程施工"], ["650203", "机电排灌工程技术"], ["650204", "现代灌溉技术"], ["650205", "农村饮水供水工程技术"]]}, {"tail": "03", "code": "6503", "name": "水利水电设备类", "items": [["650301", "水泵站机电设备安装与运行"], ["650302", "水电站运行与管理"]]}, {"tail": "04", "code": "6504", "name": "水土保持与水环境类", "items": [["650401", "水土保持技术"], ["650402", "水环境智能监测与保护"]]}]}, "zk": {"code": "45", "count": 16, "subs": [{"tail": "01", "code": "4501", "name": "水文水资源类", "items": [["450101", "水文与水资源技术"], ["450102", "水政水资源管理"]]}, {"tail": "02", "code": "4502", "name": "水利工程与管理类", "items": [["450201", "水利工程"], ["450202", "智慧水利技术"], ["450203", "水利水电工程技术"], ["450204", "水利水电工程智能管理"], ["450205", "水利水电建筑工程"], ["450206", "机电排灌工程技术"], ["450207", "治河与航道工程技术"], ["450208", "智能水务管理"]]}, {"tail": "03", "code": "4503", "name": "水利水电设备类", "items": [["450301", "水电站设备安装与管理"], ["450302", "水电站运行与智能管理"], ["450303", "水利机电设备智能管理"]]}, {"tail": "04", "code": "4504", "name": "水土保持与水环境类", "items": [["450401", "水土保持技术"], ["450402", "水环境智能监测与治理"], ["450403", "水生态修复技术"]]}]}, "bk": {"code": "25", "count": 10, "subs": [{"tail": "01", "code": "2501", "name": "水文水资源类", "items": [["250101", "水文与水资源工程技术"]]}, {"tail": "02", "code": "2502", "name": "水利工程与管理类", "items": [["250201", "智慧水利工程"], ["250202", "农业水利工程"], ["250203", "水利水电工程"], ["250204", "治河与港航工程"], ["250205", "智能水务工程"]]}, {"tail": "03", "code": "2503", "name": "水利水电设备类", "items": [["250301", "水利水电设备及自动化"]]}, {"tail": "04", "code": "2504", "name": "水土保持与水环境类", "items": [["250401", "生态水利工程"], ["250402", "水环境工程"], ["250403", "水土保持与荒漠化防治技术"]]}]}}}, {"no": 6, "name": "装备制造大类", "levels": {"zz": {"code": "66", "count": 31, "subs": [{"tail": "01", "code": "6601", "name": "机械设计制造类", "items": [["660101", "机械制造技术"], ["660102", "机械加工技术"], ["660103", "数控技术应用"], ["660104", "金属热加工"], ["660105", "焊接技术应用"], ["660106", "金属表面处理技术应用"], ["660107", "增材制造技术应用"], ["660108", "模具制造技术"], ["660109", "工业产品质量检测技术"]]}, {"tail": "02", "code": "6602", "name": "机电设备类", "items": [["660201", "智能设备运行与维护"], ["660202", "光电仪器制造与维修"], ["660203", "电机电器制造与维修"], ["660204", "新能源装备运行与维护"], ["660205", "制冷和空调设备运行与维护"], ["660206", "电梯安装与维修保养"]]}, {"tail": "03", "code": "6603", "name": "自动化类", "items": [["660301", "机电技术应用"], ["660302", "电气设备运行与控制"], ["660303", "工业机器人技术应用"], ["660304", "工业自动化仪表及应用"], ["660305", "液压与气动技术应用"], ["660306", "智能化生产线安装与运维"], ["660307", "计量测试与应用技术"]]}, {"tail": "05", "code": "6605", "name": "船舶与海洋工程装备类", "items": [["660501", "船体修造技术"], ["660502", "船舶机械装置安装与维修"], ["660503", "船舶电气装置安装与调试"], ["660504", "船舶内装"]]}, {"tail": "06", "code": "6606", "name": "航空装备类", "items": [["660601", "无人机操控与维护"]]}, {"tail": "07", "code": "6607", "name": "汽车制造类", "items": [["660701", "汽车制造与检测"], ["660702", "新能源汽车制造与检测"], ["660703", "汽车电子技术应用"], ["660704", "智能网联汽车技术"]]}]}, "zk": {"code": "46", "count": 79, "subs": [{"tail": "01", "code": "4601", "name": "机械设计制造类", "items": [["460101", "机械设计与制造"], ["460102", "数字化设计与制造技术"], ["460103", "数控技术"], ["460104", "机械制造及自动化"], ["460105", "工业设计"], ["460106", "工业工程技术"], ["460107", "材料成型及控制技术"], ["460108", "现代铸造技术"], ["460109", "现代锻压技术"], ["460110", "智能焊接技术"], ["460111", "工业材料表面处理技术"], ["460112", "增材制造技术"], ["460113", "模具设计与制造"], ["460114", "特种加工技术"], ["460115", "智能光电制造技术"], ["460116", "电线电缆制造技术"], ["460117", "内燃机制造与应用技术"], ["460118", "机械装备制造技术"], ["460119", "工业产品质量检测技术"], ["460120", "理化测试与质检技术"], ["460121", "电力装备智造与维护技术"], ["460122", "轴承设计与制造技术"]]}, {"tail": "02", "code": "4602", "name": "机电设备类", "items": [["460201", "智能制造装备技术"], ["460202", "机电设备技术"], ["460203", "电机与电器技术"], ["460204", "新能源装备技术"], ["460205", "制冷与空调技术"], ["460206", "电梯工程技术"], ["460207", "低空飞行器装备技术"], ["460208", "机床智能化应用技术"]]}, {"tail": "03", "code": "4603", "name": "自动化类", "items": [["460301", "机电一体化技术"], ["460302", "智能机电技术"], ["460303", "智能控制技术"], ["460304", "智能机器人技术"], ["460305", "工业机器人技术"], ["460306", "电气自动化技术"], ["460307", "工业过程自动化技术"], ["460308", "工业自动化仪表技术"], ["460309", "液压与气动技术"], ["460310", "工业互联网应用"], ["460311", "计量测试与应用技术"], ["460312", "具身智能机器人技术"]]}, {"tail": "04", "code": "4604", "name": "轨道装备类", "items": [["460401", "铁道机车车辆制造与维护"], ["460402", "高速铁路动车组制造与维护"], ["460403", "城市轨道交通车辆制造与维护"], ["460404", "轨道交通通信信号设备制造与维护"], ["460405", "轨道交通工程机械制造与维护"]]}, {"tail": "05", "code": "4605", "name": "船舶与海洋工程装备类", "items": [["460501", "船舶工程技术"], ["460502", "船舶动力工程技术"], ["460503", "船舶电气工程技术"], ["460504", "船舶智能焊接技术"], ["460505", "船舶舾装工程技术"], ["460506", "船舶涂装工程技术"], ["460507", "船舶通信装备技术"], ["460508", "游艇设计与制造"], ["460509", "邮轮内装技术"], ["460510", "海洋工程装备技术"], ["460511", "海洋电力工程技术"], ["460512", "无人艇应用技术"], ["460513", "新能源船舶技术"], ["460514", "海洋智能机器人应用技术"]]}, {"tail": "06", "code": "4606", "name": "航空装备类", "items": [["460601", "飞行器数字化制造技术"], ["460602", "飞行器数字化装配技术"], ["460603", "航空发动机制造技术"], ["460604", "航空发动机装配调试技术"], ["460605", "飞机机载设备装配调试技术"], ["460606", "航空装备表面处理技术"], ["460607", "飞行器维修技术"], ["460608", "航空发动机维修技术"], ["460609", "无人机应用技术"], ["460610", "航空材料精密成型技术"], ["460611", "导弹维修技术"], ["460612", "航天装备精密制造技术"], ["460613", "航天装备智能装配技术"]]}, {"tail": "07", "code": "4607", "name": "汽车制造类", "items": [["460701", "汽车制造与试验技术"], ["460702", "新能源汽车技术"], ["460703", "汽车电子技术"], ["460704", "智能网联汽车技术"], ["460705", "汽车造型与改装技术"]]}]}, "bk": {"code": "26", "count": 39, "subs": [{"tail": "01", "code": "2601", "name": "机械设计制造类", "items": [["260101", "机械设计制造及自动化"], ["260102", "智能制造工程技术"], ["260103", "数控技术"], ["260104", "工业设计"], ["260105", "工业工程技术"], ["260106", "材料成型及控制工程"], ["260107", "增材制造工程技术"], ["260108", "智能光电制造工程"], ["260109", "智能无损检测技术"]]}, {"tail": "02", "code": "2602", "name": "机电设备类", "items": [["260201", "装备智能化技术"], ["260202", "制冷与空调工程"], ["260203", "电梯工程技术"], ["260204", "低空飞行器工程技术"]]}, {"tail": "03", "code": "2603", "name": "自动化类", "items": [["260301", "机械电子工程技术"], ["260302", "电气工程及自动化"], ["260303", "智能控制技术"], ["260304", "机器人技术"], ["260305", "自动化技术与应用"], ["260306", "现代测控工程技术"], ["260307", "工业互联网工程"], ["260308", "具身智能工程技术"], ["260309", "人形机器人工程技术"]]}, {"tail": "04", "code": "2604", "name": "轨道装备类", "items": [["260401", "轨道交通车辆工程技术"], ["260402", "轨道交通智能控制装备技术"]]}, {"tail": "05", "code": "2605", "name": "船舶与海洋工程装备类", "items": [["260501", "船舶智能制造技术"], ["260502", "船舶动力工程技术"], ["260503", "船舶电气工程技术"], ["260504", "邮轮内装工程"]]}, {"tail": "06", "code": "2606", "name": "航空装备类", "items": [["260601", "航空智能制造技术"], ["260602", "飞行器维修工程技术"], ["260603", "航空动力装置维修技术"], ["260604", "无人机系统应用技术"], ["260605", "航空复合材料智造工程技术"], ["260606", "电动飞行器应用技术"], ["260607", "航空复合材料修理工程技术"]]}, {"tail": "07", "code": "2607", "name": "汽车制造类", "items": [["260701", "汽车工程技术"], ["260702", "新能源汽车工程技术"], ["260703", "智能网联汽车工程技术"], ["260704", "汽车芯片与软件工程技术"]]}]}}}, {"no": 7, "name": "生物与化工大类", "levels": {"zz": {"code": "67", "count": 13, "subs": [{"tail": "01", "code": "6701", "name": "生物技术类", "items": [["670101", "生物产品检验检测"], ["670102", "生物化工技术应用"]]}, {"tail": "02", "code": "6702", "name": "化工技术类", "items": [["670201", "化学工艺"], ["670202", "石油炼制技术"], ["670203", "精细化工技术"], ["670204", "高分子材料加工工艺"], ["670205", "橡胶工艺"], ["670206", "林产化工技术"], ["670207", "分析检验技术"], ["670208", "化工机械与设备"], ["670209", "化工仪表及自动化"], ["670210", "火炸药技术"], ["670211", "烟花爆竹生产与管理"]]}]}, "zk": {"code": "47", "count": 21, "subs": [{"tail": "01", "code": "4701", "name": "生物技术类", "items": [["470101", "食品生物技术"], ["470102", "药品生物技术"], ["470103", "农业生物技术"], ["470104", "化工生物技术"], ["470105", "生物产品检验检疫"], ["470106", "绿色生物制造技术"], ["470107", "生物信息技术"]]}, {"tail": "02", "code": "4702", "name": "化工技术类", "items": [["470201", "应用化工技术"], ["470202", "石油炼制技术"], ["470203", "精细化工技术"], ["470204", "石油化工技术"], ["470205", "煤化工技术"], ["470206", "高分子合成技术"], ["470207", "海洋化工技术"], ["470208", "分析检验技术"], ["470209", "化工智能制造技术"], ["470210", "化工装备技术"], ["470211", "化工自动化技术"], ["470212", "涂装防护技术"], ["470213", "烟花爆竹技术与管理"], ["470214", "现代工业清洗技术"]]}]}, "bk": {"code": "27", "count": 8, "subs": [{"tail": "01", "code": "2701", "name": "生物技术类", "items": [["270101", "生物检验检测技术"], ["270102", "合成生物技术"], ["270103", "农业生物技术"]]}, {"tail": "02", "code": "2702", "name": "化工技术类", "items": [["270201", "应用化工技术"], ["270202", "化工智能制造工程技术"], ["270203", "现代精细化工技术"], ["270204", "现代分析测试技术"], ["270205", "化工装备工程技术"]]}]}}}, {"no": 8, "name": "轻工纺织大类", "levels": {"zz": {"code": "68", "count": 14, "subs": [{"tail": "01", "code": "6801", "name": "轻化工类", "items": [["680101", "化妆品制造技术"], ["680102", "现代造纸工艺"], ["680103", "家具设计与制作"], ["680104", "塑料成型"], ["680105", "皮革工艺"], ["680106", "钟表维修"]]}, {"tail": "02", "code": "6802", "name": "包装类", "items": [["680201", "包装设计与制作"]]}, {"tail": "03", "code": "6803", "name": "印刷类", "items": [["680301", "印刷媒体技术"]]}, {"tail": "04", "code": "6804", "name": "纺织服装类", "items": [["680401", "纺织技术与服务"], ["680402", "服装设计与工艺"], ["680403", "丝绸工艺"], ["680404", "针织工艺"], ["680405", "数字化染整工艺"], ["680406", "服装制作与生产管理"]]}]}, "zk": {"code": "48", "count": 29, "subs": [{"tail": "01", "code": "4801", "name": "轻化工类", "items": [["480101", "化妆品技术"], ["480102", "现代造纸技术"], ["480103", "家具设计与制造"], ["480104", "鞋类设计与工艺"], ["480105", "陶瓷制造技术与工艺"], ["480106", "珠宝首饰技术与管理"], ["480107", "皮革加工技术"], ["480108", "皮具制作与工艺"], ["480109", "乐器制造与维护"], ["480110", "香料香精技术与工艺"], ["480111", "表面精饰工艺"]]}, {"tail": "02", "code": "4802", "name": "包装类", "items": [["480201", "包装工程技术"], ["480202", "包装策划与设计"]]}, {"tail": "03", "code": "4803", "name": "印刷类", "items": [["480301", "数字印刷技术"], ["480302", "印刷媒体技术"], ["480303", "印刷数字图文技术"], ["480304", "印刷设备应用技术"]]}, {"tail": "04", "code": "4804", "name": "纺织服装类", "items": [["480401", "现代纺织技术"], ["480402", "服装设计与工艺"], ["480403", "丝绸技术"], ["480404", "针织技术与针织服装"], ["480405", "数字化染整技术"], ["480406", "纺织品设计"], ["480407", "现代家用纺织品设计"], ["480408", "纺织材料与应用"], ["480409", "现代非织造技术"], ["480410", "纺织机电技术"], ["480411", "纺织品检验与贸易"], ["480412", "皮革服装制作与工艺"]]}]}, "bk": {"code": "28", "count": 10, "subs": [{"tail": "01", "code": "2801", "name": "轻化工类", "items": [["280101", "化妆品工程技术"], ["280102", "现代造纸工程技术"], ["280103", "珠宝首饰工程技术"]]}, {"tail": "02", "code": "2802", "name": "包装类", "items": [["280201", "包装工程技术"], ["280202", "包装策划与设计"]]}, {"tail": "03", "code": "2803", "name": "印刷类", "items": [["280301", "数字印刷工程"]]}, {"tail": "04", "code": "2804", "name": "纺织服装类", "items": [["280401", "现代纺织工程技术"], ["280402", "服装工程技术"], ["280403", "数字化染整技术"], ["280404", "鞋类工程技术"]]}]}}}, {"no": 9, "name": "食品药品与粮食大类", "levels": {"zz": {"code": "69", "count": 13, "subs": [{"tail": "01", "code": "6901", "name": "食品类", "items": [["690101", "食品加工工艺"], ["690102", "酿酒工艺与技术"], ["690103", "民族食品加工技术"], ["690104", "食品安全与检测技术"]]}, {"tail": "02", "code": "6902", "name": "药品与医疗器械类", "items": [["690201", "制药技术应用"], ["690202", "生物制药工艺"], ["690203", "生物药物检验"], ["690204", "药品食品检验"], ["690205", "制药设备维修"], ["690206", "医疗设备安装与维护"], ["690207", "医疗器械维修与营销"]]}, {"tail": "03", "code": "6903", "name": "粮食类", "items": [["690301", "粮油和饲料加工技术"], ["690302", "粮油储运与检验技术"]]}]}, "zk": {"code": "49", "count": 27, "subs": [{"tail": "01", "code": "4901", "name": "食品类", "items": [["490101", "食品智能加工技术"], ["490102", "食品质量与安全"], ["490103", "食品营养与健康"], ["490104", "食品检验检测技术"], ["490105", "酿酒技术"], ["490106", "食品贮运与营销"], ["490107", "咖啡加工与应用技术"]]}, {"tail": "02", "code": "4902", "name": "药品与医疗器械类", "items": [["490201", "药品生产技术"], ["490202", "生物制药技术"], ["490203", "药物制剂技术"], ["490204", "化学制药技术"], ["490205", "兽药制药技术"], ["490206", "药品质量与安全"], ["490207", "制药设备应用技术"], ["490208", "药品经营与管理"], ["490209", "食品药品监督管理"], ["490210", "智能医疗装备技术"], ["490211", "医用电子仪器技术"], ["490212", "医用材料与应用"], ["490213", "医疗器械维护与管理"], ["490214", "医疗器械经营与服务"], ["490215", "康复工程技术"], ["490216", "保健食品质量与管理"], ["490217", "化妆品经营与管理"], ["490218", "化妆品质量与安全"]]}, {"tail": "03", "code": "4903", "name": "粮食类", "items": [["490301", "粮食工程技术与管理"], ["490302", "粮食储运与质量安全"]]}]}, "bk": {"code": "29", "count": 13, "subs": [{"tail": "01", "code": "2901", "name": "食品类", "items": [["290101", "食品工程技术"], ["290102", "食品质量与安全"], ["290103", "食品营养与健康"], ["290104", "酿酒工程技术"]]}, {"tail": "02", "code": "2902", "name": "药品与医疗器械类", "items": [["290201", "制药工程技术"], ["290202", "药品质量管理"], ["290203", "医疗器械工程技术"], ["290204", "药事服务与管理"], ["290205", "药物分析"], ["290206", "药物制剂"], ["290207", "康复工程技术"], ["290208", "生物制药技术"]]}, {"tail": "03", "code": "2903", "name": "粮食类", "items": [["290301", "现代粮食工程技术"]]}]}}}, {"no": 10, "name": "交通运输大类", "levels": {"zz": {"code": "70", "count": 38, "subs": [{"tail": "01", "code": "7001", "name": "铁道运输类", "items": [["700101", "铁道工程施工与维护"], ["700102", "电力机车运用与检修"], ["700103", "内燃机车运用与检修"], ["700104", "铁道车辆运用与检修"], ["700105", "电气化铁道供电"], ["700106", "铁道信号施工与维护"], ["700107", "铁道运输服务"], ["700108", "高速铁路乘务"], ["700109", "铁道桥梁隧道施工与维护"]]}, {"tail": "02", "code": "7002", "name": "道路运输类", "items": [["700201", "道路与桥梁工程施工"], ["700202", "公路养护与管理"], ["700203", "交通运营服务"], ["700204", "交通工程机械运用与维修"], ["700205", "汽车服务与营销"], ["700206", "汽车运用与维修"], ["700207", "汽车车身修复"], ["700208", "汽车美容与装潢"], ["700209", "新能源汽车运用与维修"], ["700210", "智能交通技术应用"]]}, {"tail": "03", "code": "7003", "name": "水上运输类", "items": [["700301", "船舶驾驶"], ["700302", "船舶机工与水手"], ["700303", "轮机维护与管理"], ["700304", "邮轮乘务"], ["700305", "水路运输服务"], ["700306", "港口机械运用与维修"], ["700307", "外轮理货"], ["700308", "工程潜水"]]}, {"tail": "04", "code": "7004", "name": "航空运输类", "items": [["700401", "民航运输服务"], ["700402", "航空服务"], ["700403", "飞机设备维修"], ["700404", "机场场务技术与管理"]]}, {"tail": "06", "code": "7006", "name": "城市轨道交通类", "items": [["700601", "城市轨道交通车辆运用与检修"], ["700602", "城市轨道交通信号维护"], ["700603", "城市轨道交通供电"], ["700604", "城市轨道交通运营服务"]]}, {"tail": "07", "code": "7007", "name": "邮政类", "items": [["700701", "邮政快递运营"], ["700702", "邮政快递安全技术"], ["700703", "邮政通信服务"]]}]}, "zk": {"code": "50", "count": 66, "subs": [{"tail": "01", "code": "5001", "name": "铁道运输类", "items": [["500101", "铁道工程技术"], ["500102", "高速铁路施工与维护"], ["500103", "铁道桥梁隧道工程技术"], ["500104", "铁道养路机械应用技术"], ["500105", "铁道机车运用与维护"], ["500106", "铁道车辆技术"], ["500107", "铁道供电技术"], ["500108", "动车组检修技术"], ["500109", "高速铁路综合维修技术"], ["500110", "铁道信号自动控制"], ["500111", "铁道通信与信息化技术"], ["500112", "铁道交通运营管理"], ["500113", "高速铁路客运服务"], ["500114", "轨道车辆智能运维技术"], ["500115", "高原铁路智能建造与运维"]]}, {"tail": "02", "code": "5002", "name": "道路运输类", "items": [["500201", "道路与桥梁工程技术"], ["500202", "道路机械化施工技术"], ["500203", "智能工程机械运用技术"], ["500204", "道路工程检测技术"], ["500205", "道路工程造价"], ["500206", "道路养护与管理"], ["500207", "智能交通技术"], ["500208", "道路运输管理"], ["500209", "交通运营管理"], ["500210", "汽车技术服务与营销"], ["500211", "汽车检测与维修技术"], ["500212", "新能源汽车检测与维修技术"]]}, {"tail": "03", "code": "5003", "name": "水上运输类", "items": [["500301", "航海技术"], ["500302", "港口与航道工程技术"], ["500303", "轮机工程技术"], ["500304", "国际邮轮乘务管理"], ["500305", "水路运输安全管理"], ["500306", "港口机械与智能控制"], ["500307", "港口与航运管理"], ["500308", "船舶电子电气技术"], ["500309", "船舶检验"], ["500310", "集装箱运输管理"]]}, {"tail": "04", "code": "5004", "name": "航空运输类", "items": [["500401", "民航运输服务"], ["500402", "民航通信技术"], ["500403", "定翼机驾驶技术"], ["500404", "直升机驾驶技术"], ["500405", "空中乘务"], ["500406", "民航安全技术管理"], ["500407", "民航空中安全保卫"], ["500408", "机场运行服务与管理"], ["500409", "飞机机电设备维修"], ["500410", "飞机电子设备维修"], ["500411", "飞机部件修理"], ["500412", "通用航空器维修"], ["500413", "飞机结构修理"], ["500414", "航空地面设备维修"], ["500415", "机场场务技术与管理"], ["500416", "通用航空航务技术"], ["500417", "航空油料"], ["500418", "航空复合材料结构修理技术"]]}, {"tail": "05", "code": "5005", "name": "管道运输类", "items": [["500501", "管道工程技术"], ["500502", "管道运输管理"]]}, {"tail": "06", "code": "5006", "name": "城市轨道交通类", "items": [["500601", "城市轨道交通工程技术"], ["500602", "城市轨道车辆应用技术"], ["500603", "城市轨道交通机电技术"], ["500604", "城市轨道交通通信信号技术"], ["500605", "城市轨道交通供配电技术"], ["500606", "城市轨道交通运营管理"]]}, {"tail": "07", "code": "5007", "name": "邮政类", "items": [["500701", "邮政快递运营管理"], ["500702", "邮政快递智能技术"], ["500703", "邮政通信管理"]]}]}, "bk": {"code": "30", "count": 25, "subs": [{"tail": "01", "code": "3001", "name": "铁道运输类", "items": [["300101", "高速铁路工程"], ["300102", "高速铁路动车组技术"], ["300103", "高速铁路信号控制技术"], ["300104", "铁道机车智能运用技术"], ["300105", "高速铁路运营管理"], ["300106", "高速铁路通信技术"], ["300107", "高速铁路智能供电技术"]]}, {"tail": "02", "code": "3002", "name": "道路运输类", "items": [["300201", "道路与桥梁工程"], ["300202", "智能交通管理"], ["300203", "汽车服务工程技术"], ["300204", "道路工程智能检测"]]}, {"tail": "03", "code": "3003", "name": "水上运输类", "items": [["300301", "航海技术"], ["300302", "港口智能工程技术"], ["300303", "轮机工程技术"], ["300304", "国际邮轮运营管理"], ["300305", "水路运输与海事管理"]]}, {"tail": "04", "code": "3004", "name": "航空运输类", "items": [["300401", "民航运输服务与管理"], ["300402", "航空机电设备维修技术"], ["300403", "智慧机场运行与管理"], ["300404", "通用航空航务技术"], ["300405", "低空运输工程技术"]]}, {"tail": "06", "code": "3006", "name": "城市轨道交通类", "items": [["300601", "城市轨道交通信号与控制技术"], ["300602", "城市轨道交通设备与控制技术"], ["300603", "城市轨道交通智能运营"]]}, {"tail": "07", "code": "3007", "name": "邮政类", "items": [["300701", "邮政快递管理"]]}]}}}, {"no": 11, "name": "电子与信息大类", "levels": {"zz": {"code": "71", "count": 24, "subs": [{"tail": "01", "code": "7101", "name": "电子信息类", "items": [["710101", "电子信息技术"], ["710102", "物联网技术应用"], ["710103", "电子技术应用"], ["710104", "电子材料与元器件制造"], ["710105", "电子电器应用与维修"], ["710106", "服务机器人装配与维护"]]}, {"tail": "02", "code": "7102", "name": "计算机类", "items": [["710201", "计算机应用"], ["710202", "计算机网络技术"], ["710203", "软件与信息服务"], ["710204", "数字媒体技术应用"], ["710205", "大数据技术应用"], ["710206", "移动应用技术与服务"], ["710207", "网络信息安全"], ["710208", "网络安防系统安装与维护"], ["710209", "网站建设与管理"], ["710210", "计算机平面设计"], ["710211", "计算机与数码设备维修"], ["710212", "人工智能技术与应用"], ["710213", "虚拟现实技术与应用"], ["710214", "工业互联网技术与应用"]]}, {"tail": "03", "code": "7103", "name": "通信类", "items": [["710301", "现代通信技术应用"], ["710302", "通信系统工程安装与维护"], ["710303", "通信运营服务"]]}, {"tail": "04", "code": "7104", "name": "集成电路类", "items": [["710401", "微电子技术与器件制造"]]}]}, "zk": {"code": "51", "count": 48, "subs": [{"tail": "01", "code": "5101", "name": "电子信息类", "items": [["510101", "电子信息工程技术"], ["510102", "物联网应用技术"], ["510103", "应用电子技术"], ["510104", "电子产品制造技术"], ["510105", "电子产品检测技术"], ["510106", "移动互联应用技术"], ["510107", "汽车智能技术"], ["510108", "智能产品开发与应用"], ["510109", "智能光电技术应用"], ["510110", "光电显示技术"], ["510111", "低空安全与技术"]]}, {"tail": "02", "code": "5102", "name": "计算机类", "items": [["510201", "计算机应用技术"], ["510202", "计算机网络技术"], ["510203", "软件技术"], ["510204", "数字媒体技术"], ["510205", "大数据技术"], ["510206", "云计算技术应用"], ["510207", "信息安全技术应用"], ["510208", "虚拟现实技术应用"], ["510209", "人工智能技术应用"], ["510210", "嵌入式技术应用"], ["510211", "工业互联网技术"], ["510212", "区块链技术应用"], ["510213", "移动应用开发"], ["510214", "工业软件开发技术"], ["510215", "动漫制作技术"], ["510216", "密码技术应用"], ["510217", "人工智能数据工程技术"], ["510218", "数字孪生应用技术"], ["510219", "智能体技术应用"], ["510220", "开源技术应用"], ["510221", "信创系统技术应用"]]}, {"tail": "03", "code": "5103", "name": "通信类", "items": [["510301", "现代通信技术"], ["510302", "现代移动通信技术"], ["510303", "通信软件技术"], ["510304", "卫星通信与导航技术"], ["510305", "通信工程设计与监理"], ["510306", "通信系统运行管理"], ["510307", "智能互联网络技术"], ["510308", "网络规划与优化技术"], ["510309", "电信服务与管理"], ["510310", "数据中心运行与管理"], ["510311", "低空智联网技术"], ["510312", "量子通信技术应用"], ["510313", "智能体通信技术"], ["510314", "车联网通信技术"]]}, {"tail": "04", "code": "5104", "name": "集成电路类", "items": [["510401", "集成电路技术"], ["510402", "微电子技术"]]}]}, "bk": {"code": "31", "count": 33, "subs": [{"tail": "01", "code": "3101", "name": "电子信息类", "items": [["310101", "电子信息工程技术"], ["310102", "物联网工程技术"], ["310103", "柔性电子技术"], ["310104", "光电信息工程技术"], ["310105", "智能体工程技术"]]}, {"tail": "02", "code": "3102", "name": "计算机类", "items": [["310201", "计算机应用工程"], ["310202", "网络工程技术"], ["310203", "软件工程技术"], ["310204", "数字媒体技术"], ["310205", "大数据工程技术"], ["310206", "云计算技术"], ["310207", "信息安全与管理"], ["310208", "虚拟现实技术"], ["310209", "人工智能工程技术"], ["310210", "嵌入式技术"], ["310211", "工业互联网技术"], ["310212", "区块链技术"], ["310213", "数据安全技术与管理"], ["310214", "密码工程技术"], ["310215", "工业智能工程技术"], ["310216", "开源技术开发与应用"], ["310217", "具身智能计算技术"], ["310218", "工业软件工程技术"], ["310219", "数字孪生工程技术"]]}, {"tail": "03", "code": "3103", "name": "通信类", "items": [["310301", "现代通信工程"], ["310302", "通信软件工程"], ["310303", "卫星通信工程"], ["310304", "车联网通信工程"], ["310305", "低空智联网工程"], ["310306", "数据中心工程技术"], ["310307", "算网融合工程技术"]]}, {"tail": "04", "code": "3104", "name": "集成电路类", "items": [["310401", "集成电路工程技术"], ["310402", "半导体装备工程技术"]]}]}}}, {"no": 12, "name": "医药卫生大类", "levels": {"zz": {"code": "72", "count": 23, "subs": [{"tail": "02", "code": "7202", "name": "护理类", "items": [["720201", "护理"]]}, {"tail": "03", "code": "7203", "name": "药学类", "items": [["720301", "药剂"]]}, {"tail": "04", "code": "7204", "name": "中医药类", "items": [["720401", "中医"], ["720402", "中医护理"], ["720403", "中药"], ["720404", "藏医医疗与藏药"], ["720405", "维医医疗与维药"], ["720406", "蒙医医疗与蒙药"], ["720407", "中药制药"], ["720408", "中医康复技术"], ["720409", "中医养生保健"], ["720410", "哈医医疗与哈药"]]}, {"tail": "05", "code": "7205", "name": "医学技术类", "items": [["720501", "医学检验技术"], ["720502", "医学影像技术"], ["720503", "医学生物技术"], ["720504", "口腔修复工艺"]]}, {"tail": "06", "code": "7206", "name": "康复治疗类", "items": [["720601", "康复技术"], ["720602", "康复辅助器具技术及应用"]]}, {"tail": "07", "code": "7207", "name": "公共卫生与卫生管理类", "items": [["720701", "卫生信息管理"]]}, {"tail": "08", "code": "7208", "name": "健康管理与促进类", "items": [["720801", "营养与保健"], ["720802", "生殖健康管理"], ["720803", "婴幼儿托育"]]}, {"tail": "09", "code": "7209", "name": "眼视光类", "items": [["720901", "眼视光与配镜"]]}]}, "zk": {"code": "52", "count": 49, "subs": [{"tail": "01", "code": "5201", "name": "临床医学类", "items": [["520101K", "临床医学"], ["520102K", "口腔医学"]]}, {"tail": "02", "code": "5202", "name": "护理类", "items": [["520201", "护理"], ["520202", "助产"]]}, {"tail": "03", "code": "5203", "name": "药学类", "items": [["520301", "药学"]]}, {"tail": "04", "code": "5204", "name": "中医药类", "items": [["520401K", "中医学"], ["520402K", "中医骨伤"], ["520403K", "针灸推拿"], ["520404K", "蒙医学"], ["520405K", "藏医学"], ["520406K", "维医学"], ["520407K", "傣医学"], ["520408K", "哈医学"], ["520409K", "朝医学"], ["520410", "中药学"], ["520411", "蒙药学"], ["520412", "维药学"], ["520413", "藏药学"], ["520414", "中药材生产与加工"], ["520415", "中药制药"], ["520416", "中医康复技术"], ["520417", "中医养生保健"], ["520418", "药膳与食疗"]]}, {"tail": "05", "code": "5205", "name": "医学技术类", "items": [["520501", "医学检验技术"], ["520502", "医学影像技术"], ["520503", "医学生物技术"], ["520504", "口腔医学技术"], ["520505", "放射治疗技术"], ["520506", "呼吸治疗技术"], ["520507", "医学美容技术"], ["520508", "卫生检验与检疫技术"]]}, {"tail": "06", "code": "5206", "name": "康复治疗类", "items": [["520601", "康复治疗技术"], ["520602", "康复辅助器具技术"], ["520603", "言语听觉康复技术"]]}, {"tail": "07", "code": "5207", "name": "公共卫生与卫生管理类", "items": [["520701", "公共卫生管理"], ["520702", "卫生信息管理"], ["520703K", "预防医学"], ["520704", "健康大数据管理与服务"]]}, {"tail": "08", "code": "5208", "name": "健康管理与促进类", "items": [["520801", "健康管理"], ["520802", "婴幼儿托育服务与管理"], ["520803", "老年保健与管理"], ["520804", "心理咨询"], ["520805", "医学营养"], ["520806", "生殖健康管理"], ["520807", "口腔卫生保健"], ["520808", "医养照护服务"]]}, {"tail": "09", "code": "5209", "name": "眼视光类", "items": [["520901", "眼视光技术"], ["520902", "眼视光仪器技术"], ["520903", "视觉训练与康复"]]}]}, "bk": {"code": "32", "count": 23, "subs": [{"tail": "02", "code": "3202", "name": "护理类", "items": [["320201", "护理"]]}, {"tail": "03", "code": "3203", "name": "药学类", "items": [["320301", "药学"]]}, {"tail": "04", "code": "3204", "name": "中医药类", "items": [["320401", "中药制药"], ["320402", "中药学"], ["320403", "中药材生产与加工"]]}, {"tail": "05", "code": "3205", "name": "医学技术类", "items": [["320501", "医学检验技术"], ["320502", "医学影像技术"], ["320503", "医学生物技术"], ["320504", "口腔医学技术"], ["320505", "放射治疗技术"], ["320506", "呼吸治疗技术"]]}, {"tail": "06", "code": "3206", "name": "康复治疗类", "items": [["320601", "康复治疗"], ["320602", "康复辅助器具技术"], ["320603", "言语听觉治疗技术"], ["320604", "儿童康复治疗"]]}, {"tail": "07", "code": "3207", "name": "公共卫生与卫生管理类", "items": [["320701", "公共卫生管理"], ["320702", "职业卫生工程技术"], ["320703", "职业病危害检测评价技术"]]}, {"tail": "08", "code": "3208", "name": "健康管理与促进类", "items": [["320801", "健康管理"], ["320802", "婴幼儿发展与健康管理"], ["320803", "医养照护与管理"]]}, {"tail": "09", "code": "3209", "name": "眼视光类", "items": [["320901", "眼视光技术"], ["320902", "眼视光仪器工程技术"]]}]}}}, {"no": 13, "name": "财经商贸大类", "levels": {"zz": {"code": "73", "count": 18, "subs": [{"tail": "01", "code": "7301", "name": "财政税务类", "items": [["730101", "纳税事务"]]}, {"tail": "02", "code": "7302", "name": "金融类", "items": [["730201", "金融事务"]]}, {"tail": "03", "code": "7303", "name": "财务会计类", "items": [["730301", "会计事务"]]}, {"tail": "04", "code": "7304", "name": "统计类", "items": [["730401", "统计事务"]]}, {"tail": "05", "code": "7305", "name": "经济贸易类", "items": [["730501", "国际商务"], ["730502", "服务外包"]]}, {"tail": "06", "code": "7306", "name": "工商管理类", "items": [["730601", "连锁经营与管理"], ["730602", "市场营销"], ["730603", "客户信息服务"]]}, {"tail": "07", "code": "7307", "name": "电子商务类", "items": [["730701", "电子商务"], ["730702", "跨境电子商务"], ["730703", "移动商务"], ["730704", "网络营销"], ["730705", "直播电商服务"]]}, {"tail": "08", "code": "7308", "name": "物流类", "items": [["730801", "物流服务与管理"], ["730802", "冷链物流服务与管理"], ["730803", "国际货运代理"], ["730804", "物流设施运行与维护"]]}]}, "zk": {"code": "53", "count": 50, "subs": [{"tail": "01", "code": "5301", "name": "财政税务类", "items": [["530101", "财税大数据应用"], ["530102", "资产评估与管理"], ["530103", "政府采购管理"], ["530104", "财政支出绩效管理"]]}, {"tail": "02", "code": "5302", "name": "金融类", "items": [["530201", "金融服务与管理"], ["530202", "金融科技应用"], ["530203", "保险实务"], ["530204", "信用管理"], ["530205", "财富管理"], ["530206", "证券实务"], ["530207", "国际金融"], ["530208", "农村金融"]]}, {"tail": "03", "code": "5303", "name": "财务会计类", "items": [["530301", "大数据与财务管理"], ["530302", "大数据与会计"], ["530303", "大数据与审计"], ["530304", "会计信息管理"], ["530305", "业财数据应用与管理"], ["530306", "智能财务系统应用与运维"]]}, {"tail": "04", "code": "5304", "name": "统计类", "items": [["530401", "统计与大数据分析"], ["530402", "统计与会计核算"], ["530403", "市场调查与统计分析"]]}, {"tail": "05", "code": "5305", "name": "经济贸易类", "items": [["530501", "国际经济与贸易"], ["530502", "国际商务"], ["530503", "关务与外贸服务"], ["530504", "服务外包"], ["530505", "国际文化贸易"], ["530506", "国际服务贸易"]]}, {"tail": "06", "code": "5306", "name": "工商管理类", "items": [["530601", "工商企业管理"], ["530602", "连锁经营与管理"], ["530603", "商务管理"], ["530604", "中小企业创业与经营"], ["530605", "市场营销"], ["530606", "数智营销"]]}, {"tail": "07", "code": "5307", "name": "电子商务类", "items": [["530701", "电子商务"], ["530702", "跨境电子商务"], ["530703", "移动商务"], ["530704", "网络营销与直播电商"], ["530705", "农村电子商务"], ["530706", "商务数据分析与应用"]]}, {"tail": "08", "code": "5308", "name": "物流类", "items": [["530801", "物流工程技术"], ["530802", "现代物流管理"], ["530803", "航空物流管理"], ["530804", "铁路物流管理"], ["530805", "冷链物流技术与管理"], ["530806", "港口物流管理"], ["530807", "工程物流管理"], ["530808", "采购与供应管理"], ["530809", "智能物流技术"], ["530810", "供应链运营"], ["530811", "低空物流技术与运营"]]}]}, "bk": {"code": "33", "count": 28, "subs": [{"tail": "01", "code": "3301", "name": "财政税务类", "items": [["330101", "财税大数据应用"], ["330102", "政府采购管理"], ["330103", "资产评估与管理"]]}, {"tail": "02", "code": "3302", "name": "金融类", "items": [["330201", "金融管理"], ["330202", "金融科技应用"], ["330203", "保险"], ["330204", "信用管理"], ["330205", "财富管理"]]}, {"tail": "03", "code": "3303", "name": "财务会计类", "items": [["330301", "大数据与财务管理"], ["330302", "大数据与会计"], ["330303", "大数据与审计"], ["330304", "业财融合管理"]]}, {"tail": "04", "code": "3304", "name": "统计类", "items": [["330401", "统计与大数据分析"]]}, {"tail": "05", "code": "3305", "name": "经济贸易类", "items": [["330501", "国际经济与贸易"], ["330502", "国际商务"]]}, {"tail": "06", "code": "3306", "name": "工商管理类", "items": [["330601", "企业数字化管理"], ["330602", "市场营销"], ["330603", "品牌策划与运营"], ["330604", "商业人工智能应用"], ["330605", "技术经纪服务"]]}, {"tail": "07", "code": "3307", "name": "电子商务类", "items": [["330701", "电子商务"], ["330702", "跨境电子商务"], ["330703", "全媒体电商运营"], ["330704", "商务数据分析与管理"], ["330705", "智慧零售运营管理"]]}, {"tail": "08", "code": "3308", "name": "物流类", "items": [["330801", "物流工程技术"], ["330802", "现代物流管理"], ["330803", "供应链管理"]]}]}}}, {"no": 14, "name": "旅游大类", "levels": {"zz": {"code": "74", "count": 10, "subs": [{"tail": "01", "code": "7401", "name": "旅游类", "items": [["740101", "旅游服务与管理"], ["740102", "导游服务"], ["740103", "康养休闲旅游服务"], ["740104", "高星级饭店运营与管理"], ["740105", "茶艺与茶营销"], ["740106", "会展服务与管理"]]}, {"tail": "02", "code": "7402", "name": "餐饮类", "items": [["740201", "中餐烹饪"], ["740202", "西餐烹饪"], ["740203", "中西面点"], ["740204", "营养配餐服务"]]}]}, "zk": {"code": "54", "count": 19, "subs": [{"tail": "01", "code": "5401", "name": "旅游类", "items": [["540101", "旅游管理"], ["540102", "导游"], ["540103", "旅行社经营与管理"], ["540104", "定制旅行管理与服务"], ["540105", "研学旅行管理与服务"], ["540106", "酒店管理与数字化运营"], ["540107", "民宿管理与运营"], ["540108", "葡萄酒文化与营销"], ["540109", "茶艺与茶文化"], ["540110", "智慧景区开发与管理"], ["540111", "智慧旅游技术应用"], ["540112", "会展策划与管理"], ["540113", "休闲服务与管理"], ["540114", "旅居康养运营与管理"]]}, {"tail": "02", "code": "5402", "name": "餐饮类", "items": [["540201", "餐饮智能管理"], ["540202", "烹饪工艺与营养"], ["540203", "中西面点工艺"], ["540204", "西式烹饪工艺"], ["540205", "营养配餐"]]}]}, "bk": {"code": "34", "count": 7, "subs": [{"tail": "01", "code": "3401", "name": "旅游类", "items": [["340101", "旅游管理"], ["340102", "酒店管理"], ["340103", "旅游规划与设计"], ["340104", "研学旅行策划与管理"], ["340105", "会展策划与管理"], ["340106", "数字文旅技术与应用"]]}, {"tail": "02", "code": "3402", "name": "餐饮类", "items": [["340201", "烹饪与餐饮管理"]]}]}}}, {"no": 15, "name": "文化艺术大类", "levels": {"zz": {"code": "75", "count": 34, "subs": [{"tail": "01", "code": "7501", "name": "艺术设计类", "items": [["750101", "艺术设计与制作"], ["750102", "界面设计与制作"], ["750103", "数字影像技术"], ["750104", "皮革制品设计与制作"], ["750105", "服装陈列与展示设计"], ["750106", "工艺美术"], ["750107", "绘画"], ["750108", "首饰设计与制作"], ["750109", "动漫与游戏设计"], ["750110", "美发与形象设计"], ["750111", "美容美体艺术"], ["750112", "工艺品设计与制作"], ["750113", "数字非遗设计与制作"]]}, {"tail": "02", "code": "7502", "name": "表演艺术类", "items": [["750201", "音乐表演"], ["750202", "舞蹈表演"], ["750203", "戏曲表演"], ["750204", "戏剧表演"], ["750205", "曲艺表演"], ["750206", "服装表演"], ["750207", "杂技与魔术表演"], ["750208", "木偶与皮影表演及制作"], ["750209", "戏曲音乐"], ["750210", "舞台艺术设计与制作"], ["750211", "数字音乐制作"], ["750212", "乐器维修与制作"]]}, {"tail": "03", "code": "7503", "name": "民族文化艺术类", "items": [["750301", "民族音乐与舞蹈"], ["750302", "民族美术"], ["750303", "民族服装与饰品"], ["750304", "民族纺染织绣技艺"], ["750305", "民间传统工艺"], ["750306", "民族工艺品设计与制作"]]}, {"tail": "04", "code": "7504", "name": "文化服务类", "items": [["750401", "社会文化艺术"], ["750402", "文物保护技术"], ["750403", "图书档案数字化管理"]]}]}, "zk": {"code": "55", "count": 67, "subs": [{"tail": "01", "code": "5501", "name": "艺术设计类", "items": [["550101", "艺术设计"], ["550102", "视觉传达设计"], ["550103", "数字媒体艺术设计"], ["550104", "产品艺术设计"], ["550105", "服装与服饰设计"], ["550106", "环境艺术设计"], ["550107", "书画艺术"], ["550108", "公共艺术设计"], ["550109", "游戏艺术设计"], ["550110", "展示艺术设计"], ["550111", "美容美体艺术"], ["550112", "工艺美术品设计"], ["550113", "广告艺术设计"], ["550114", "室内艺术设计"], ["550115", "家具艺术设计"], ["550116", "动漫设计"], ["550117", "人物形象设计"], ["550118", "摄影与摄像艺术"], ["550119", "雕刻艺术设计"], ["550120", "皮具艺术设计"], ["550121", "包装艺术设计"], ["550122", "陶瓷设计与工艺"], ["550123", "首饰设计与工艺"], ["550124", "玉器设计与工艺"], ["550125", "刺绣设计与工艺"], ["550126", "雕塑设计"], ["550127", "服装陈列与展示设计"], ["550128", "数字时尚设计"], ["550129", "玩具设计与制作"], ["550130", "眼镜造型设计与工艺"], ["550131", "数字非遗设计与制作"]]}, {"tail": "02", "code": "5502", "name": "表演艺术类", "items": [["550201", "音乐表演"], ["550202", "舞蹈表演"], ["550203", "戏曲表演"], ["550204", "表演艺术"], ["550205", "戏剧影视表演"], ["550206", "歌舞表演"], ["550207", "曲艺表演"], ["550208", "音乐剧表演"], ["550209", "国际标准舞"], ["550210", "现代流行音乐"], ["550211", "戏曲音乐"], ["550212", "音乐制作"], ["550213", "钢琴伴奏"], ["550214", "钢琴调律"], ["550215", "舞蹈编导"], ["550216", "音乐传播"], ["550217", "时尚表演与传播"], ["550218", "舞台艺术设计与制作"], ["550219", "作曲技术"], ["550220", "现代魔术设计与表演"], ["550221", "现代杂技表演艺术"]]}, {"tail": "03", "code": "5503", "name": "民族文化艺术类", "items": [["550301", "民族表演艺术"], ["550302", "民族美术"], ["550303", "民族服装与饰品"], ["550304", "民族传统技艺"], ["550305", "中国少数民族语言文化"], ["550306", "剧装戏具设计与制作"]]}, {"tail": "04", "code": "5504", "name": "文化服务类", "items": [["550401", "文化创意与策划"], ["550402", "文化产业经营与管理"], ["550403", "公共文化服务与管理"], ["550404", "文物修复与保护"], ["550405", "文物考古技术"], ["550406", "文物展示利用技术"], ["550407", "图书档案管理"], ["550408", "石窟寺保护技术"], ["550409", "文物数字技术"]]}]}, "bk": {"code": "35", "count": 23, "subs": [{"tail": "01", "code": "3501", "name": "艺术设计类", "items": [["350101", "工艺美术"], ["350102", "视觉传达设计"], ["350103", "数字媒体艺术"], ["350104", "产品设计"], ["350105", "服装与服饰设计"], ["350106", "环境艺术设计"], ["350107", "美术"], ["350108", "公共艺术设计"], ["350109", "游戏创意设计"], ["350110", "展示艺术设计"], ["350111", "数字影像设计"], ["350112", "时尚品设计"], ["350113", "陶瓷艺术设计"], ["350114", "刺绣设计与工艺"], ["350115", "智能人居设计"]]}, {"tail": "02", "code": "3502", "name": "表演艺术类", "items": [["350201", "音乐表演"], ["350202", "舞蹈表演与编导"], ["350203", "戏曲表演"], ["350204", "舞台艺术设计"], ["350205", "戏剧影视表演"]]}, {"tail": "04", "code": "3504", "name": "文化服务类", "items": [["350401", "文物修复与保护"], ["350402", "公共文化管理"], ["350403", "文化创意产业管理"]]}]}}}, {"no": 16, "name": "新闻传播大类", "levels": {"zz": {"code": "76", "count": 5, "subs": [{"tail": "01", "code": "7601", "name": "新闻出版类", "items": [["760101", "出版商务"]]}, {"tail": "02", "code": "7602", "name": "广播影视类", "items": [["760201", "播音与主持"], ["760202", "广播影视节目制作"], ["760203", "影像与影视技术"], ["760204", "动漫与游戏制作"]]}]}, "zk": {"code": "56", "count": 23, "subs": [{"tail": "01", "code": "5601", "name": "新闻出版类", "items": [["560101", "数字图文信息处理技术"], ["560102", "网络新闻与传播"], ["560103", "出版策划与编辑"], ["560104", "出版商务"], ["560105", "数字出版"], ["560106", "数字媒体设备应用与管理"]]}, {"tail": "02", "code": "5602", "name": "广播影视类", "items": [["560201", "播音与主持"], ["560202", "广播影视节目制作"], ["560203", "数字广播电视技术"], ["560204", "影视编导"], ["560205", "新闻采编与制作"], ["560206", "影视动画"], ["560207", "影视制片管理"], ["560208", "影视多媒体技术"], ["560209", "影视照明技术与艺术"], ["560210", "音像技术"], ["560211", "录音技术与艺术"], ["560212", "摄影摄像技术"], ["560213", "融媒体技术与运营"], ["560214", "网络直播与运营"], ["560215", "传播与策划"], ["560216", "全媒体广告策划与营销"], ["560217", "数字影像档案技术"]]}]}, "bk": {"code": "36", "count": 7, "subs": [{"tail": "01", "code": "3601", "name": "新闻出版类", "items": [["360101", "网络与新媒体"]]}, {"tail": "02", "code": "3602", "name": "广播影视类", "items": [["360201", "播音与主持"], ["360202", "影视摄影与制作"], ["360203", "数字广播电视技术"], ["360204", "影视编导"], ["360205", "全媒体新闻采编与制作"], ["360206", "数字动画"]]}]}}}, {"no": 17, "name": "教育与体育大类", "levels": {"zz": {"code": "77", "count": 14, "subs": [{"tail": "01", "code": "7701", "name": "教育类", "items": [["770101", "幼儿保育"]]}, {"tail": "02", "code": "7702", "name": "语言类", "items": [["770201", "商务英语"], ["770202", "商务日语"], ["770203", "商务德语"], ["770204", "商务韩语"], ["770205", "商务俄语"], ["770206", "商务法语"], ["770207", "商务泰语"], ["770208", "商务阿拉伯语"], ["770209", "旅游外语"]]}, {"tail": "03", "code": "7703", "name": "体育类", "items": [["770301", "体育设施管理与经营"], ["770302", "休闲体育服务与管理"], ["770303", "运动训练"], ["770304", "足球运动"]]}]}, "zk": {"code": "57", "count": 50, "subs": [{"tail": "01", "code": "5701", "name": "教育类", "items": [["570101K", "早期教育"], ["570102K", "学前教育"], ["570103K", "小学教育"], ["570104K", "小学语文教育"], ["570105K", "小学数学教育"], ["570106K", "小学英语教育"], ["570107K", "小学科学教育"], ["570108K", "音乐教育"], ["570109K", "美术教育"], ["570110K", "体育教育"], ["570111K", "小学道德与法治教育"], ["570112K", "舞蹈教育"], ["570113K", "艺术教育"], ["570114K", "特殊教育"], ["570115K", "现代教育技术"], ["570116K", "心理健康教育"], ["570117K", "婴幼儿家庭养育与指导"]]}, {"tail": "02", "code": "5702", "name": "语言类", "items": [["570201", "商务英语"], ["570202", "应用英语"], ["570203", "旅游英语"], ["570204", "应用韩语"], ["570205", "商务日语"], ["570206", "应用日语"], ["570207", "旅游日语"], ["570208", "应用外语"], ["570209", "中文"], ["570210", "应用俄语"], ["570211", "应用法语"], ["570212", "应用西班牙语"], ["570213", "应用德语"], ["570214", "应用泰语"], ["570215", "应用越南语"], ["570216", "应用阿拉伯语"]]}, {"tail": "03", "code": "5703", "name": "体育类", "items": [["570301", "社会体育"], ["570302", "休闲体育"], ["570303", "运动训练"], ["570304", "民族传统体育"], ["570305", "运动防护"], ["570306", "体育保健与康复"], ["570307", "健身指导与管理"], ["570308", "运动健康指导"], ["570309", "运动数据分析"], ["570310", "体能训练"], ["570311", "体育运营与管理"], ["570312", "电子竞技运动与管理"], ["570313", "高尔夫球运动与管理"], ["570314", "冰雪运动与管理"], ["570315", "冰雪设施运维与管理"], ["570316", "体育艺术表演"], ["570317", "足球运动与管理"]]}]}, "bk": {"code": "37", "count": 14, "subs": [{"tail": "01", "code": "3701", "name": "教育类", "items": [["370101", "学前教育"]]}, {"tail": "02", "code": "3702", "name": "语言类", "items": [["370201", "应用英语"], ["370202", "应用日语"], ["370203", "应用韩语"], ["370204", "应用俄语"], ["370205", "应用泰语"], ["370206", "应用外语"], ["370207", "应用西班牙语"], ["370208", "中文国际教育"], ["370209", "应用法语"]]}, {"tail": "03", "code": "3703", "name": "体育类", "items": [["370301", "社会体育指导与管理"], ["370302", "休闲体育"], ["370303", "体能训练"], ["370304", "电子竞技技术与管理"]]}]}}}, {"no": 18, "name": "公安与司法大类", "levels": {"zz": {"code": "78", "count": 2, "subs": [{"tail": "04", "code": "7804", "name": "法律实务类", "items": [["780401", "法律事务"]]}, {"tail": "07", "code": "7807", "name": "安全防范类", "items": [["780701", "安全保卫服务"]]}]}, "zk": {"code": "58", "count": 29, "subs": [{"tail": "01", "code": "5801", "name": "公安管理类", "items": [["580101K", "治安管理"], ["580102K", "道路交通管理"], ["580103K", "特警"], ["580104K", "警务指挥与战术"]]}, {"tail": "02", "code": "5802", "name": "公安技术类", "items": [["580201K", "刑事科学技术"], ["580202K", "网络安全与执法"], ["580203K", "警犬技术"]]}, {"tail": "03", "code": "5803", "name": "侦查类", "items": [["580301K", "刑事侦查"], ["580302K", "政治安全保卫"], ["580303K", "经济犯罪侦查"], ["580304K", "禁毒"]]}, {"tail": "04", "code": "5804", "name": "法律实务类", "items": [["580401", "法律事务"], ["580402", "法律文秘"], ["580403", "检察事务"]]}, {"tail": "05", "code": "5805", "name": "法律执行类", "items": [["580501K", "刑事执行"], ["580502", "民事执行"], ["580503K", "行政执行"], ["580504K", "司法警务"], ["580505", "社区矫正"], ["580506K", "专门矫治教育"]]}, {"tail": "06", "code": "5806", "name": "司法技术类", "items": [["580601K", "刑事侦查技术"], ["580602K", "司法信息技术"], ["580603", "司法鉴定技术"], ["580604K", "司法信息安全"], ["580605K", "罪犯心理测量与矫正技术"], ["580606K", "戒毒矫治技术"]]}, {"tail": "07", "code": "5807", "name": "安全防范类", "items": [["580701", "安全防范技术"], ["580702", "安全保卫管理"], ["580703", "智能安防运营管理"]]}]}, "bk": {"code": "38", "count": 11, "subs": [{"tail": "02", "code": "3802", "name": "公安技术类", "items": [["380201", "刑事科学技术"], ["380202", "网络安全与执法"]]}, {"tail": "03", "code": "3803", "name": "侦查类", "items": [["380301", "刑事侦查"]]}, {"tail": "04", "code": "3804", "name": "法律实务类", "items": [["380401", "法律"], ["380402", "数字法务"]]}, {"tail": "05", "code": "3805", "name": "法律执行类", "items": [["380501", "刑事矫正与管理"], ["380502", "司法警务管理"], ["380503", "综合行政执法"]]}, {"tail": "06", "code": "3806", "name": "司法技术类", "items": [["380601", "智慧司法技术与应用"]]}, {"tail": "07", "code": "3807", "name": "安全防范类", "items": [["380701", "数字安防技术"], ["380702", "国际安保服务与管理"]]}]}}}, {"no": 19, "name": "公共管理与服务大类", "levels": {"zz": {"code": "79", "count": 16, "subs": [{"tail": "01", "code": "7901", "name": "公共事业类", "items": [["790101", "社会工作事务"], ["790102", "社区公共事务管理"], ["790103", "社会福利事业管理"]]}, {"tail": "02", "code": "7902", "name": "公共管理类", "items": [["790201", "民政服务"], ["790202", "人力资源管理事务"], ["790203", "社会保障事务"], ["790204", "工商行政管理事务"], ["790205", "产品质量监督检验"]]}, {"tail": "03", "code": "7903", "name": "公共服务类", "items": [["790301", "现代家政服务与管理"], ["790302", "智慧健康养老服务"], ["790303", "老年人服务与管理"], ["790304", "殡葬服务与管理"], ["790305", "母婴照护"]]}, {"tail": "04", "code": "7904", "name": "文秘类", "items": [["790401", "文秘"], ["790402", "行政事务助理"], ["790403", "商务助理"]]}]}, "zk": {"code": "59", "count": 29, "subs": [{"tail": "01", "code": "5901", "name": "公共事业类", "items": [["590101", "社会工作"], ["590102", "党务工作"], ["590103", "青少年工作与管理"], ["590104", "社区管理与服务"], ["590105", "公共关系"], ["590106", "公益慈善事业管理"], ["590107", "政务服务"]]}, {"tail": "02", "code": "5902", "name": "公共管理类", "items": [["590201", "民政服务与管理"], ["590202", "人力资源管理"], ["590203", "劳动与社会保障"], ["590204", "网络舆情监测"], ["590205", "公共事务管理"], ["590206", "行政管理"], ["590207", "质量管理与认证"], ["590208", "知识产权管理"], ["590209", "职业指导与服务"], ["590210", "标准化技术"], ["590211", "检验检测技术与管理"], ["590212", "储备物资储藏与管理"], ["590213", "劳动关系管理与服务"]]}, {"tail": "03", "code": "5903", "name": "公共服务类", "items": [["590301", "现代家政服务与管理"], ["590302", "智慧健康养老服务与管理"], ["590303", "社区康复"], ["590304", "婚庆服务与管理"], ["590305", "现代殡葬技术与管理"], ["590306", "殡葬设备维护技术"], ["590307", "陵园服务与管理"], ["590308", "老年教育服务与管理"]]}, {"tail": "04", "code": "5904", "name": "文秘类", "items": [["590401", "现代文秘"]]}]}, "bk": {"code": "39", "count": 15, "subs": [{"tail": "01", "code": "3901", "name": "公共事业类", "items": [["390101", "社会工作"], ["390102", "党务工作"], ["390103", "智慧社区管理"], ["390104", "慈善管理"]]}, {"tail": "02", "code": "3902", "name": "公共管理类", "items": [["390201", "民政管理"], ["390202", "人力资源管理"], ["390203", "行政管理"], ["390204", "外事实务"], ["390205", "婚姻服务与管理"], ["390206", "标准化技术"]]}, {"tail": "03", "code": "3903", "name": "公共服务类", "items": [["390301", "现代家政管理"], ["390302", "智慧健康养老管理"], ["390303", "现代殡葬管理"], ["390304", "安宁照护服务与管理"]]}, {"tail": "04", "code": "3904", "name": "文秘类", "items": [["390401", "现代文秘"]]}]}}}], "nameMulti": {"园艺技术": [["zz", "610105"], ["zk", "410105"]], "农产品加工与质量检测": [["zz", "610114"], ["zk", "410114"]], "园林技术": [["zz", "610202"], ["zk", "410202"]], "地球物理勘探技术": [["zz", "620205"], ["zk", "420206"], ["bk", "220202"]], "工程测量技术": [["zz", "620301"], ["zk", "420301"]], "环境监测技术": [["zz", "620801"], ["zk", "420801"]], "安全技术与管理": [["zz", "620901"], ["zk", "420901"]], "应急救援技术": [["zz", "620902"], ["zk", "420905"]], "供用电技术": [["zz", "630105"], ["zk", "430108"]], "建筑材料检测技术": [["zz", "630703"], ["zk", "430704"]], "机电排灌工程技术": [["zz", "650203"], ["zk", "450206"]], "水土保持技术": [["zz", "650401"], ["zk", "450401"]], "工业产品质量检测技术": [["zz", "660109"], ["zk", "460119"]], "计量测试与应用技术": [["zz", "660307"], ["zk", "460311"]], "智能网联汽车技术": [["zz", "660704"], ["zk", "460704"]], "石油炼制技术": [["zz", "670202"], ["zk", "470202"]], "精细化工技术": [["zz", "670203"], ["zk", "470203"]], "分析检验技术": [["zz", "670207"], ["zk", "470208"]], "印刷媒体技术": [["zz", "680301"], ["zk", "480302"]], "服装设计与工艺": [["zz", "680402"], ["zk", "480402"]], "民航运输服务": [["zz", "700401"], ["zk", "500401"]], "机场场务技术与管理": [["zz", "700404"], ["zk", "500415"]], "计算机网络技术": [["zz", "710202"], ["zk", "510202"]], "护理": [["zz", "720201"], ["zk", "520201"], ["bk", "320201"]], "中药制药": [["zz", "720407"], ["zk", "520415"], ["bk", "320401"]], "中医康复技术": [["zz", "720408"], ["zk", "520416"]], "中医养生保健": [["zz", "720409"], ["zk", "520417"]], "医学检验技术": [["zz", "720501"], ["zk", "520501"], ["bk", "320501"]], "医学影像技术": [["zz", "720502"], ["zk", "520502"], ["bk", "320502"]], "医学生物技术": [["zz", "720503"], ["zk", "520503"], ["bk", "320503"]], "卫生信息管理": [["zz", "720701"], ["zk", "520702"]], "生殖健康管理": [["zz", "720802"], ["zk", "520806"]], "国际商务": [["zz", "730501"], ["zk", "530502"], ["bk", "330502"]], "服务外包": [["zz", "730502"], ["zk", "530504"]], "连锁经营与管理": [["zz", "730601"], ["zk", "530602"]], "市场营销": [["zz", "730602"], ["zk", "530605"], ["bk", "330602"]], "电子商务": [["zz", "730701"], ["zk", "530701"], ["bk", "330701"]], "跨境电子商务": [["zz", "730702"], ["zk", "530702"], ["bk", "330702"]], "移动商务": [["zz", "730703"], ["zk", "530703"]], "服装陈列与展示设计": [["zz", "750105"], ["zk", "550127"]], "工艺美术": [["zz", "750106"], ["bk", "350101"]], "美容美体艺术": [["zz", "750111"], ["zk", "550111"]], "数字非遗设计与制作": [["zz", "750113"], ["zk", "550131"]], "音乐表演": [["zz", "750201"], ["zk", "550201"], ["bk", "350201"]], "舞蹈表演": [["zz", "750202"], ["zk", "550202"]], "戏曲表演": [["zz", "750203"], ["zk", "550203"], ["bk", "350203"]], "曲艺表演": [["zz", "750205"], ["zk", "550207"]], "戏曲音乐": [["zz", "750209"], ["zk", "550211"]], "舞台艺术设计与制作": [["zz", "750210"], ["zk", "550218"]], "民族美术": [["zz", "750302"], ["zk", "550302"]], "民族服装与饰品": [["zz", "750303"], ["zk", "550303"]], "出版商务": [["zz", "760101"], ["zk", "560104"]], "播音与主持": [["zz", "760201"], ["zk", "560201"], ["bk", "360201"]], "广播影视节目制作": [["zz", "760202"], ["zk", "560202"]], "商务英语": [["zz", "770201"], ["zk", "570201"]], "商务日语": [["zz", "770202"], ["zk", "570205"]], "运动训练": [["zz", "770303"], ["zk", "570303"]], "法律事务": [["zz", "780401"], ["zk", "580401"]], "现代家政服务与管理": [["zz", "790301"], ["zk", "590301"]], "动物医学": [["zk", "410301"], ["bk", "210301"]], "动物药学": [["zk", "410302"], ["bk", "210302"]], "环境地质工程": [["zk", "420208"], ["bk", "220201"]], "测绘工程技术": [["zk", "420302"], ["bk", "220302"]], "无人机测绘技术": [["zk", "420307"], ["bk", "220304"]], "石油工程技术": [["zk", "420406"], ["bk", "220402"]], "钢铁智能冶金技术": [["zk", "430401"], ["bk", "230401"]], "建筑设计": [["zk", "440101"], ["bk", "240101"]], "城乡规划": [["zk", "440201"], ["bk", "240201"]], "工程造价": [["zk", "440501"], ["bk", "240501"]], "建设工程管理": [["zk", "440502"], ["bk", "240502"]], "现代物业管理": [["zk", "440703"], ["bk", "240702"]], "数控技术": [["zk", "460103"], ["bk", "260103"]], "工业设计": [["zk", "460105"], ["bk", "260104"]], "工业工程技术": [["zk", "460106"], ["bk", "260105"]], "电梯工程技术": [["zk", "460206"], ["bk", "260203"]], "智能控制技术": [["zk", "460303"], ["bk", "260303"]], "船舶动力工程技术": [["zk", "460502"], ["bk", "260502"]], "船舶电气工程技术": [["zk", "460503"], ["bk", "260503"]], "农业生物技术": [["zk", "470103"], ["bk", "270103"]], "应用化工技术": [["zk", "470201"], ["bk", "270201"]], "包装工程技术": [["zk", "480201"], ["bk", "280201"]], "包装策划与设计": [["zk", "480202"], ["bk", "280202"]], "数字化染整技术": [["zk", "480405"], ["bk", "280403"]], "食品质量与安全": [["zk", "490102"], ["bk", "290102"]], "食品营养与健康": [["zk", "490103"], ["bk", "290103"]], "生物制药技术": [["zk", "490202"], ["bk", "290208"]], "康复工程技术": [["zk", "490215"], ["bk", "290207"]], "航海技术": [["zk", "500301"], ["bk", "300301"]], "轮机工程技术": [["zk", "500303"], ["bk", "300303"]], "通用航空航务技术": [["zk", "500416"], ["bk", "300404"]], "电子信息工程技术": [["zk", "510101"], ["bk", "310101"]], "数字媒体技术": [["zk", "510204"], ["bk", "310204"]], "工业互联网技术": [["zk", "510211"], ["bk", "310211"]], "药学": [["zk", "520301"], ["bk", "320301"]], "中药学": [["zk", "520410"], ["bk", "320402"]], "中药材生产与加工": [["zk", "520414"], ["bk", "320403"]], "口腔医学技术": [["zk", "520504"], ["bk", "320504"]], "放射治疗技术": [["zk", "520505"], ["bk", "320505"]], "呼吸治疗技术": [["zk", "520506"], ["bk", "320506"]], "康复辅助器具技术": [["zk", "520602"], ["bk", "320602"]], "公共卫生管理": [["zk", "520701"], ["bk", "320701"]], "健康管理": [["zk", "520801"], ["bk", "320801"]], "眼视光技术": [["zk", "520901"], ["bk", "320901"]], "财税大数据应用": [["zk", "530101"], ["bk", "330101"]], "资产评估与管理": [["zk", "530102"], ["bk", "330103"]], "政府采购管理": [["zk", "530103"], ["bk", "330102"]], "金融科技应用": [["zk", "530202"], ["bk", "330202"]], "信用管理": [["zk", "530204"], ["bk", "330204"]], "财富管理": [["zk", "530205"], ["bk", "330205"]], "大数据与财务管理": [["zk", "530301"], ["bk", "330301"]], "大数据与会计": [["zk", "530302"], ["bk", "330302"]], "大数据与审计": [["zk", "530303"], ["bk", "330303"]], "统计与大数据分析": [["zk", "530401"], ["bk", "330401"]], "国际经济与贸易": [["zk", "530501"], ["bk", "330501"]], "物流工程技术": [["zk", "530801"], ["bk", "330801"]], "现代物流管理": [["zk", "530802"], ["bk", "330802"]], "旅游管理": [["zk", "540101"], ["bk", "340101"]], "会展策划与管理": [["zk", "540112"], ["bk", "340105"]], "视觉传达设计": [["zk", "550102"], ["bk", "350102"]], "服装与服饰设计": [["zk", "550105"], ["bk", "350105"]], "环境艺术设计": [["zk", "550106"], ["bk", "350106"]], "公共艺术设计": [["zk", "550108"], ["bk", "350108"]], "展示艺术设计": [["zk", "550110"], ["bk", "350110"]], "刺绣设计与工艺": [["zk", "550125"], ["bk", "350114"]], "戏剧影视表演": [["zk", "550205"], ["bk", "350205"]], "文物修复与保护": [["zk", "550404"], ["bk", "350401"]], "数字广播电视技术": [["zk", "560203"], ["bk", "360203"]], "影视编导": [["zk", "560204"], ["bk", "360204"]], "学前教育": [["zk", "570102K"], ["bk", "370101"]], "应用英语": [["zk", "570202"], ["bk", "370201"]], "应用韩语": [["zk", "570204"], ["bk", "370203"]], "应用日语": [["zk", "570206"], ["bk", "370202"]], "应用外语": [["zk", "570208"], ["bk", "370206"]], "应用俄语": [["zk", "570210"], ["bk", "370204"]], "应用法语": [["zk", "570211"], ["bk", "370209"]], "应用西班牙语": [["zk", "570212"], ["bk", "370207"]], "应用泰语": [["zk", "570214"], ["bk", "370205"]], "休闲体育": [["zk", "570302"], ["bk", "370302"]], "体能训练": [["zk", "570310"], ["bk", "370303"]], "刑事科学技术": [["zk", "580201K"], ["bk", "380201"]], "网络安全与执法": [["zk", "580202K"], ["bk", "380202"]], "刑事侦查": [["zk", "580301K"], ["bk", "380301"]], "社会工作": [["zk", "590101"], ["bk", "390101"]], "党务工作": [["zk", "590102"], ["bk", "390102"]], "人力资源管理": [["zk", "590202"], ["bk", "390202"]], "行政管理": [["zk", "590206"], ["bk", "390203"]], "标准化技术": [["zk", "590210"], ["bk", "390206"]], "现代文秘": [["zk", "590401"], ["bk", "390401"]]}}</script>
+<script>
+/* =========================================================================
+   职业教育专业目录 · 层级查询工具
+   ========================================================================= */
+const DB = JSON.parse(document.getElementById('db').textContent);
+const LV = {};
+DB.levels.forEach(l => LV[l.key] = l);
+
+/* ---------- 扁平索引 ---------- */
+const ALL = [];          // {code,name,level,catNo,catName,subName,tail,seq,key}
+const BYNAME = new Map(); // name -> [entries]
+DB.cats.forEach(c => {
+  DB.levels.forEach(L => {
+    const node = c.levels[L.key];
+    node.subs.forEach(s => {
+      s.items.forEach(([code, name]) => {
+        const e = {code, name, level:L.key, catNo:c.no, catName:c.name,
+                   subCode:s.code, subName:s.name, tail:s.tail, seq:code.slice(4), key:c.no+'|'+s.tail};
+        ALL.push(e);
+        if (!BYNAME.has(name)) BYNAME.set(name, []);
+        BYNAME.get(name).push(e);
+      });
+    });
+  });
+});
+
+/* ---------- 状态 ---------- */
+const state = {
+  q: '', level: 'all', catNo: null, view: 'list', sort: 'level',
+  limit: 120, sel: null
+};
+
+/* ---------- 工具 ---------- */
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c;
+  if (h != null) n.innerHTML = h; return n; };
+const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const norm = s => String(s).toLowerCase().replace(/\s+/g, '');
+function mark(text, toks) {
+  let out = esc(text);
+  toks.filter(t => /^[\u4e00-\u9fa5a-z0-9]+$/i.test(t)).forEach(t => {
+    const i = out.toLowerCase().indexOf(t.toLowerCase());
+    if (i >= 0) out = out.slice(0, i) + '<span class="hl">' + out.slice(i, i + t.length) + '</span>' + out.slice(i + t.length);
+  });
+  return out;
+}
+function toast(msg) {
+  let t = $('#_toast');
+  if (!t) { t = el('div', '', ''); t.id = '_toast';
+    Object.assign(t.style, {position:'fixed',left:'50%',bottom:'34px',transform:'translateX(-50%)',
+      background:'#16181B',color:'#F1F0EC',padding:'9px 18px',borderRadius:'3px',fontSize:'12.5px',
+      zIndex:9999,opacity:'0',transition:'.2s',letterSpacing:'.02em',boxShadow:'0 20px 50px -20px #000'});
+    document.body.appendChild(t); }
+  t.textContent = msg; t.style.opacity = '1';
+  clearTimeout(t._h); t._h = setTimeout(() => t.style.opacity = '0', 1600);
+}
+
+/* ---------- 头部统计 ---------- */
+(function renderHdr() {
+  const box = $('#hdrStats');
+  DB.levels.forEach(L => {
+    const n = DB.cats.reduce((a, c) => a + c.levels[L.key].count, 0);
+    box.appendChild(el('div', 'hstat ' + L.key, `<b>${n}</b><span>${L.tag}专业</span>`));
+  });
+  box.appendChild(el('div', 'hstat', `<b>${DB.meta.total}</b><span>专业总数</span>`));
+})();
+
+/* ---------- 侧栏 ---------- */
+function renderLv() {
+  const box = $('#lvList');
+  const mk = (key, label, cls, cnt) => {
+    const b = el('button', 'lvrow', `<span class="dot ${key==='all'?'all':key}"></span>
+      <span class="lvname">${label}</span><span class="lvcnt">${cnt}</span>`);
+    b.setAttribute('aria-pressed', state.level === key);
+    b.onclick = () => { state.level = key; state.limit = 120; renderLv(); render(); };
+    return b;
+  };
+  box.innerHTML = '';
+  box.appendChild(mk('all', '全部层次', 'all', DB.meta.total));
+  DB.levels.forEach(L => box.appendChild(mk(L.key, L.full.replace('专业', ''), L.key,
+    DB.cats.reduce((a, c) => a + c.levels[L.key].count, 0))));
+}
+
+function renderCat() {
+  const box = $('#catList');
+  box.innerHTML = '';
+  const all = el('button', 'catrow', `<span class="cno">00</span>
+    <span class="cname">全部专业大类</span><span class="mini"></span>`);
+  all.setAttribute('aria-current', state.catNo === null);
+  all.onclick = () => { state.catNo = null; state.view = 'list'; renderCat(); renderSegs(); render(); };
+  box.appendChild(all);
+
+  DB.cats.forEach(c => {
+    const nums = DB.levels.map(L => c.levels[L.key].count);
+    const tot = nums.reduce((a, b) => a + b, 0);
+    const bars = DB.levels.map(L => {
+      const n = c.levels[L.key].count;
+      return n ? `<i class="${L.key}" style="width:${Math.max(3, Math.round(n / tot * 44))}px"></i>` : '';
+    }).join('');
+    const b = el('button', 'catrow', `<span class="cno">${String(c.no).padStart(2, '0')}</span>
+      <span class="cname">${esc(c.name)}</span><span class="mini">${bars}</span>`);
+    b.setAttribute('aria-current', state.catNo === c.no);
+    b.title = DB.levels.map((L, i) => `${L.tag} ${nums[i]}`).join(' · ');
+    b.onclick = () => {
+      state.catNo = c.no;
+      state.view = 'cmp';
+      state.limit = 400;
+      renderCat(); renderSegs(); render();
+    };
+    box.appendChild(b);
+  });
+}
+
+/* ---------- 视图 / 排序 ---------- */
+function renderSegs() {
+  const vs = $('#viewSeg');
+  vs.innerHTML = '';
+  [['list', '检索视图'], ['cmp', '三层对照']].forEach(([k, t]) => {
+    const b = el('button', '', t);
+    b.setAttribute('aria-pressed', state.view === k);
+    b.onclick = () => {
+      if (k === 'cmp' && state.catNo === null) { state.catNo = DB.cats[0].no; renderCat(); }
+      state.view = k; state.limit = k === 'cmp' ? 400 : 120; renderSegs(); render();
+    };
+    vs.appendChild(b);
+  });
+  const ss = $('#sortSeg');
+  ss.innerHTML = '';
+  [['level', '按层级'], ['code', '按代码'], ['name', '按名称']].forEach(([k, t]) => {
+    const b = el('button', '', t);
+    b.setAttribute('aria-pressed', state.sort === k);
+    b.onclick = () => { state.sort = k; renderSegs(); render(); };
+    ss.appendChild(b);
+  });
+}
+
+/* ---------- 快捷示例 ---------- */
+(function quick() {
+  const box = $('#quick');
+  const samples = ['园艺技术', '无人机', '人工智能', '510101', '临床医学', '数字媒体'];
+  box.appendChild(el('span', '', '<span class="lbl">试试</span>'));
+  samples.forEach(s => {
+    const b = el('button', 'q', esc(s));
+    b.onclick = () => { $('#q').value = s; state.q = s; state.limit = 120; state.view = 'list'; render(); };
+    box.appendChild(b);
+  });
+})();
+
+/* =========================================================================
+   检索
+   ========================================================================= */
+function tokens(q) { return q.trim().toLowerCase().split(/\s+/).filter(Boolean); }
+
+function scoreMajor(e, toks) {
+  const name = e.name.toLowerCase(), code = e.code.toLowerCase();
+  let s = 99;
+  for (const t of toks) {
+    let v = 99;
+    if (name === t) v = 0;
+    else if (name.startsWith(t)) v = 1;
+    else if (name.includes(t)) v = 2;
+    else if (code === t) v = 3;
+    else if (code.startsWith(t)) v = 4;
+    else if (code.includes(t)) v = 5;
+    else if (e.subName.includes(t) || e.catName.includes(t)) v = 6;
+    if (v === 99) return 99;
+    s = Math.min(s, v) + (v >= 6 ? 100 : 0);
+  }
+  return s;
+}
+
+function buildGroups() {
+  const toks = tokens(state.q);
+  let list = ALL.filter(e => state.level === 'all' || e.level === state.level);
+  if (state.catNo !== null) list = list.filter(e => e.catNo === state.catNo);
+
+  if (toks.length) {
+    const scored = [];
+    for (const e of list) { const s = scoreMajor(e, toks); if (s < 99) scored.push([s, e]); }
+    if (!scored.length) return { groups: [], toks, hitCats: [] };
+    // 分组：同名归并
+    const map = new Map();
+    scored.forEach(([s, e]) => {
+      if (!map.has(e.name)) map.set(e.name, { name: e.name, items: [], score: 99 });
+      const g = map.get(e.name); g.items.push(e); g.score = Math.min(g.score, s);
+    });
+    let groups = [...map.values()];
+    groups.forEach(g => g.items.sort((a, b) => lvIdx(a.level) - lvIdx(b.level)));
+    groups.sort((a, b) => a.score - b.score
+      || b.items.length - a.items.length
+      || a.items[0].code.localeCompare(b.items[0].code));
+    return { groups, toks, hitCats: [] };
+  }
+
+  // 无检索：全部按大类分组呈现
+  const map = new Map();
+  list.forEach(e => {
+    const k = e.catNo + '|' + e.name;
+    if (!map.has(k)) map.set(k, { name: e.name, items: [], score: 0, catNo: e.catNo });
+    map.get(k).items.push(e);
+  });
+  let groups = [...map.values()];
+  sortGroups(groups);
+  return { groups, toks: [], hitCats: [] };
+}
+
+function sortGroups(groups) {
+  const s = state.sort;
+  groups.forEach(g => g.items.sort((a, b) => lvIdx(a.level) - lvIdx(b.level) || a.code.localeCompare(b.code)));
+  if (s === 'code') groups.sort((a, b) => a.items[0].code.localeCompare(b.items[0].code));
+  else if (s === 'name') groups.sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN'));
+  else groups.sort((a, b) =>
+    (a.catNo ?? a.items[0].catNo) - (b.catNo ?? b.items[0].catNo)
+    || a.items[0].code.localeCompare(b.items[0].code));
+}
+const lvIdx = k => ['zz', 'zk', 'bk'].indexOf(k);
+
+/* =========================================================================
+   渲染
+   ========================================================================= */
+function render() {
+  const stage = $('#stage');
+  const toks = tokens(state.q);
+  const inCmp = state.view === 'cmp';
+  stage.innerHTML = '';
+
+  if (inCmp) {
+    renderCmp(stage);
+    return;
+  }
+  const { groups } = buildGroups();
+  $('#cntBig').textContent = groups.reduce((a, g) => a + g.items.length, 0);
+  $('#cntCap').textContent = toks.length
+    ? `条匹配记录 · ${groups.length} 个专业名称`
+    : `条专业记录 · ${groups.length} 个专业名称`;
+
+  if (!toks.length && state.catNo === null && state.level === 'all' && !state.limitExpanded) {
+    renderOverview(stage);
+    $('#cntBig').textContent = DB.meta.total;
+    $('#cntCap').textContent = `条专业记录 · ${groups.length} 个专业名称 · 三层次合计`;
+    return;
+  }
+
+  if (!groups.length) {
+    stage.appendChild(el('div', 'empty', `<div class="em">未找到匹配的专业</div>
+      <div>可尝试更短的关键词、专业代码前几位，或切换层级筛选</div>`));
+    return;
+  }
+
+  const list = el('div', 'rlist');
+  const shown = groups.slice(0, state.limit);
+  shown.forEach(g => list.appendChild(card(g, toks)));
+  stage.appendChild(list);
+
+  if (groups.length > state.limit) {
+    const b = el('button', 'more', `还有 ${groups.length - state.limit} 组 · 点击展开全部（共 ${groups.length} 组）`);
+    b.onclick = () => { state.limit = groups.length; render(); };
+    stage.appendChild(b);
+    stage.appendChild(el('div', '', `<div class="histnote" style="margin-top:14px">
+      结果较多时建议补充关键词或限定层级，以缩小范围。</div>`));
+  }
+}
+
+function card(g, toks) {
+  const levels = [...new Set(g.items.map(i => i.level))];
+  const multi = levels.length > 1;
+  const lead = g.items[0];
+  const cls = 'rcard ' + (multi ? 'multi' : 's-' + lead.level);
+  const node = el('div', cls);
+
+  const badges = g.items.map(i => {
+    const L = LV[i.level];
+    return `<span class="bdg ${i.level}">${L.tag} ${esc(i.code)}</span>`;
+  }).join('');
+
+  const multiTag = multi ? `<span class="rtag">跨层级 ${levels.length}</span>` : '';
+
+  node.innerHTML = `
+    <div>
+      <div class="rname">${mark(g.name, toks)}${multiTag}</div>
+      <div class="rmeta">
+        <span class="path"><b>${esc(lead.catName)}</b> › <b>${esc(lead.subName)}</b></span>
+        <span>层级：${levels.map(k => LV[k].tag).join(' / ')}</span>
+        <span>代码：${g.items.map(i => esc(i.code)).join(' · ')}</span>
+      </div>
+    </div>
+    <div class="rbdg">${badges}</div>`;
+  node.onclick = () => openDrawer(lead, g);
+  return node;
+}
+
+/* ---------- 概览 ---------- */
+function renderOverview(stage) {
+  const ov = el('div', 'ov-grid');
+  DB.levels.forEach(L => {
+    const n = DB.cats.reduce((a, c) => a + c.levels[L.key].count, 0);
+    const c = el('div', 'ovcard ' + L.key, `
+      <div class="n">${n}</div>
+      <div class="t">${esc(L.full)}</div>
+      <div class="d">${esc(L.note)}</div>`);
+    c.onclick = () => { state.level = L.key; state.limit = 120; renderLv(); render(); };
+    ov.appendChild(c);
+  });
+  stage.appendChild(ov);
+
+  const hd = el('div', 'sec-hd', `<h2>19 个专业大类 · 三层次分布</h2>
+    <span class="lbl">点击大类进入三层对照</span>`);
+  stage.appendChild(hd);
+
+  const grid = el('div', 'catgrid');
+  const maxN = Math.max(...DB.cats.map(c => DB.levels.reduce((a, L) => a + c.levels[L.key].count, 0)));
+  DB.cats.forEach(c => {
+    const nums = DB.levels.map(L => c.levels[L.key].count);
+    const tot = nums.reduce((a, b) => a + b, 0);
+    const cell = el('div', 'catcell', `
+      <div class="cn"><i>${String(c.no).padStart(2, '0')}</i><b>${esc(c.name)}</b></div>
+      <div class="m">${DB.levels.map((L, i) =>
+        `<div><span class="dot ${L.key}"></span><em>${nums[i]}</em></div>`).join('')}</div>
+      <div class="bars">${DB.levels.map((L, i) =>
+        `<i class="${L.key}" style="width:${(nums[i] / maxN * 100).toFixed(1)}%"></i>`).join('')}</div>`);
+    cell.onclick = () => {
+      state.catNo = c.no; state.view = 'cmp'; state.limit = 400;
+      renderCat(); renderSegs(); render();
+    };
+    grid.appendChild(cell);
+  });
+  stage.appendChild(grid);
+
+  stage.appendChild(el('div', '', `<div class="histnote" style="margin-top:22px">
+    <b>怎么用：</b>① 直接检索专业名称或代码，卡片上的 <span class="bdg zz">中职</span>
+    <span class="bdg zk">专科</span> <span class="bdg bk">本科</span> 徽章即为该专业所属层次；
+    ② 点击卡片查看详情、编码构成与跨层次对应专业；
+    ③ 点击左侧大类或「三层对照」，可横向比较同一大类在中职 / 专科 / 本科三个层次的类目与专业设置。</div>`));
+}
+
+/* =========================================================================
+   三层对照
+   ========================================================================= */
+function renderCmp(stage) {
+  const tabs = el('div', 'cmp-tabs');
+  DB.cats.forEach(c => {
+    const b = el('button', '', `${String(c.no).padStart(2, '0')} ${esc(c.name)}`);
+    b.setAttribute('aria-pressed', state.catNo === c.no);
+    b.onclick = () => { state.catNo = c.no; renderCat(); renderCmp(stage); };
+    tabs.appendChild(b);
+  });
+  stage.appendChild(tabs);
+
+  const cat = DB.cats.find(c => c.no === state.catNo);
+  if (!cat) return;
+  const total = DB.levels.reduce((a, L) => a + cat.levels[L.key].count, 0);
+  $('#cntBig').textContent = total;
+  $('#cntCap').textContent = `条专业记录 · ${esc(cat.name)}（三层次合计）`;
+
+  const head = el('div', 'cmp-head');
+  DB.levels.forEach(L => {
+    const node = cat.levels[L.key];
+    head.appendChild(el('div', 'cmp-hcell', `
+      <div class="hl1"><span class="dot ${L.key}"></span><b>${L.tag}专业</b><em>${node.code}</em></div>
+      <div class="hl2">${esc(L.full)} · ${node.subs.length} 个类 · ${node.count} 个专业</div>`));
+  });
+  stage.appendChild(head);
+
+  const tails = [...new Set(DB.levels.flatMap(L => cat.levels[L.key].subs.map(s => s.tail)))].sort();
+  const body = el('div', 'cmp-body');
+  tails.forEach(tail => {
+    DB.levels.forEach(L => {
+      const s = cat.levels[L.key].subs.find(x => x.tail === tail);
+      const cell = el('div', 'cmp-cell');
+      if (!s) { cell.appendChild(el('div', 'cmp-empty', '本层次未设置该类')); }
+      else {
+        cell.appendChild(el('div', 'cmp-sub', `<em>${s.code}</em><b>${esc(s.name)}</b>`));
+        const wrap = el('div', 'cmp-items');
+        s.items.forEach(([code, name]) => {
+          const it = el('div', 'cmp-item', `<span class="c">${code}</span><span class="nm">${esc(name)}</span>`);
+          it.dataset.seq = code.slice(4);
+          it.onclick = () => openDrawer(ALL.find(e => e.code === code && e.level === L.key));
+          it.onmouseenter = () => paintSeq(code.slice(4), true);
+          it.onmouseleave = () => paintSeq(code.slice(4), false);
+          wrap.appendChild(it);
+        });
+        cell.appendChild(wrap);
+      }
+      body.appendChild(cell);
+    });
+  });
+  stage.appendChild(body);
+  stage.appendChild(el('div', '', `<div class="histnote" style="margin-top:20px">
+    同一「类」内左右同行的专业，其代码末两位（专业序号）相同，可视为该专业在不同层次上的对应设置（如中职 610101 种子生产技术 ↔ 专科 410101 种子生产与经营 ↔ 本科 210101 现代种业技术）。此对照按序号对齐，供参考，不代表官方认定的贯通关系。</div>`));
+}
+
+function paintSeq(seq, on) {
+  document.querySelectorAll('.cmp-item[data-seq="' + seq + '"]').forEach(n => n.classList.toggle('on', on));
+}
+
+/* =========================================================================
+   详情抽屉
+   ========================================================================= */
+function openDrawer(e, group) {
+  if (!e) return;
+  state.sel = e;
+  const L = LV[e.level];
+  $('#dTitle').textContent = e.name;
+  $('#dSub').innerHTML = `<span class="bdg ${e.level}">${L.tag}专业</span>
+    <span class="mono" style="font-size:13px;color:var(--ink-3)">${esc(e.code)}</span>`;
+
+  const siblings = group ? group.items : BYNAME.get(e.name) || [e];
+  const sameName = (BYNAME.get(e.name) || []).slice().sort((a, b) => lvIdx(a.level) - lvIdx(b.level));
+  const inSub = ALL.filter(x => x.level === e.level && x.subCode === e.subCode && x.code !== e.code);
+
+  const codeSeg = [
+    {v: e.code.slice(0, 2), l: '大类', d: e.catName},
+    {v: e.code.slice(2, 4), l: '类', d: e.subName.replace(/类$/, '')},
+    {v: e.code.slice(4, 6), l: '序号', d: '第 ' + parseInt(e.code.slice(4), 10) + ' 位'},
+  ];
+
+  $('#dBody').innerHTML = `
+    <div class="dsec" style="margin-top:0">
+      <span class="lbl">专业代码构成</span>
+      <div class="codebreak">
+        ${codeSeg.map((s, i) => `<div class="seg2">
+          <b>${s.v}</b><span>${s.l}</span><div class="sub2">${esc(s.d)}</div></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="dsec">
+      <span class="lbl">所属分类</span>
+      <dl class="kv">
+        <dt>专业层次</dt><dd>${esc(L.full)}（${L.tag}）</dd>
+        <dt>专业大类</dt><dd>${esc(e.catName)} · <span class="mono" style="color:var(--ink-3)">${e.code.slice(0,2)}</span></dd>
+        <dt>专业类</dt><dd>${esc(e.subName)} · <span class="mono" style="color:var(--ink-3)">${e.subCode}</span></dd>
+        <dt>层次说明</dt><dd style="font-weight:400;font-size:12.5px;color:var(--ink-2)">${esc(L.note)}</dd>
+      </dl>
+    </div>
+
+    <div class="dsec">
+      <span class="lbl">该名称在各层次的设置（${sameName.length}）</span>
+      <div class="chain">
+        ${['zz', 'zk', 'bk'].map(k => {
+          const hit = sameName.find(x => x.level === k);
+          const lv = LV[k];
+          if (!hit) return `<div class="chainrow" style="opacity:.5;cursor:default">
+            <span class="dot ${k}"></span><span class="nm">${lv.tag}层次未设置同名专业</span>
+            <span class="cd">—</span></div>`;
+          return `<div class="chainrow ${hit === e ? 'cur' : ''}" data-code="${hit.code}" data-lv="${k}">
+            <span class="dot ${k}"></span>
+            <span class="nm">${esc(hit.name)}<br><span class="cd">${esc(hit.catName)} › ${esc(hit.subName)}</span></span>
+            <span class="cd">${esc(hit.code)}</span></div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="dsec">
+      <span class="lbl">同层次同一「类」下的其他专业（${inSub.length}）</span>
+      <div class="siblist">
+        ${inSub.map(x => `<button class="sibchip" data-code="${x.code}" data-lv="${x.level}">${esc(x.name)}</button>`).join('') || '<span style="font-size:12px;color:var(--ink-3)">无</span>'}
+      </div>
+    </div>`;
+
+  $('#dBody').querySelectorAll('[data-code]').forEach(n => {
+    n.onclick = () => {
+      const t = ALL.find(x => x.code === n.dataset.code && x.level === n.dataset.lv);
+      if (t) openDrawer(t, null);
+    };
+  });
+  $('#dCopy').onclick = () => {
+    navigator.clipboard?.writeText(e.code).then(() => toast('已复制专业代码 ' + e.code),
+      () => toast('复制失败，请手动选择'));
+  };
+  $('#dFoot').textContent = `${L.tag} · ${e.catName}`;
+  $('#drawer').classList.add('on');
+  $('#drawer').setAttribute('aria-hidden', 'false');
+  $('#scrim').classList.add('on');
+}
+function closeDrawer() {
+  $('#drawer').classList.remove('on');
+  $('#drawer').setAttribute('aria-hidden', 'true');
+  $('#scrim').classList.remove('on');
+}
+$('#dClose').onclick = closeDrawer;
+$('#scrim').onclick = closeDrawer;
+
+/* =========================================================================
+   事件
+   ========================================================================= */
+let tmr = null;
+$('#q').addEventListener('input', ev => {
+  clearTimeout(tmr);
+  tmr = setTimeout(() => {
+    state.q = ev.target.value; state.limit = 120;
+    if (state.q.trim()) state.view = 'list';
+    renderSegs(); render();
+  }, 90);
+});
+$('#clr').onclick = () => { $('#q').value = ''; state.q = ''; state.catNo = null;
+  state.level = 'all'; state.view = 'list'; state.limit = 120;
+  renderLv(); renderCat(); renderSegs(); render(); $('#q').focus(); };
+document.addEventListener('keydown', ev => {
+  if (ev.key === 'Escape') { if ($('#drawer').classList.contains('on')) closeDrawer(); }
+  if (ev.key === '/' && document.activeElement !== $('#q')) { ev.preventDefault(); $('#q').focus(); }
+});
+
+/* 头部高度 -> 侧栏 sticky 偏移 */
+function syncH() {
+  const h = $('#hdr').offsetHeight;
+  document.documentElement.style.setProperty('--hdh', h + 'px');
+}
+new ResizeObserver(syncH).observe($('#hdr'));
+syncH();
+
+renderLv();
+renderCat();
+renderSegs();
+render();
+</script>
+</body>
+</html>

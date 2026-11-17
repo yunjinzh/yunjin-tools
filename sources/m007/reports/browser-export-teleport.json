@@ -1,0 +1,310 @@
+{
+  "format": "embodied-physics-evidence",
+  "version": 1,
+  "date": "2026-10-26",
+  "kind": "box",
+  "seed": 1,
+  "dt": 0.008333333333333333,
+  "engine": "Rapier 0.17.3",
+  "robot": "existing G1 URDF kinematic tree; educational parallel gripper",
+  "perception": "simulation-ground-truth",
+  "graspModel": "bilateral-contact-gated fixed constraint with measured force budget and break checks",
+  "mass": 0.5,
+  "friction": 0.65,
+  "state": "FAILED",
+  "seconds": 0.016666666666666666,
+  "metrics": {
+    "maxStep": 0.30000001192092896,
+    "maxPenetration": 0.00020288676023483276,
+    "maxSlip": 0,
+    "maxGripAngle": 0,
+    "maxSpeed": 3.171276294816844e-06,
+    "maxJointSpeed": 0,
+    "forbiddenContacts": 0,
+    "attachJump": 0,
+    "graspForce": null,
+    "positionError": null,
+    "maxFreeAccelerationError": 0,
+    "minCarryCapacityMargin": null
+  },
+  "limits": {
+    "penetration": 0.003,
+    "continuitySlack": 0.003,
+    "objectSpeed": 2,
+    "gripSlip": 0.005,
+    "gripAngle": 0.08726646259971647,
+    "position": 0.01,
+    "placeAngle": 0.08726646259971647,
+    "settleSpeed": 0.02,
+    "settleAngular": 0.1,
+    "settleSeconds": 0.6,
+    "contactSeconds": 0.18,
+    "jointSpeed": 1.2,
+    "gripSafety": 1.5,
+    "maxJawForce": 80,
+    "baseSpeed": 0.32,
+    "armSpeed": 0.1
+  },
+  "failures": [
+    {
+      "code": "TELEPORT",
+      "description": "单步位移与速度不一致",
+      "t": 0.008333333333333333,
+      "evidence": {
+        "reason": "pose-written-between-physics-steps",
+        "before": {
+          "x": -1.2500001192092896,
+          "y": 1.1197974681854248,
+          "z": 0.7199996113777161
+        },
+        "after": {
+          "x": -0.9500001072883606,
+          "y": 1.1197974681854248,
+          "z": 0.7199996113777161
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "step": 0,
+      "t": 0,
+      "state": "IDLE",
+      "type": "INIT",
+      "kind": "box",
+      "mass": 0.5,
+      "friction": 0.65,
+      "seed": 1,
+      "dt": 0.008333333333333333
+    },
+    {
+      "step": 0,
+      "t": 0,
+      "state": "IDENTIFY",
+      "type": "STATE",
+      "to": "IDENTIFY"
+    },
+    {
+      "step": 1,
+      "t": 0.00833,
+      "state": "IDENTIFY",
+      "type": "OBSERVATION",
+      "id": "box",
+      "confidence": 1,
+      "stamp": 0,
+      "position": {
+        "x": -1.25,
+        "y": 1.12,
+        "z": 0.72
+      },
+      "provider": "simulation-ground-truth"
+    },
+    {
+      "step": 1,
+      "t": 0.00833,
+      "state": "PLAN_PICK",
+      "type": "STATE",
+      "to": "PLAN_PICK"
+    },
+    {
+      "step": 1,
+      "t": 0.00833,
+      "state": "PLAN_PICK",
+      "type": "FAULT_INJECTED",
+      "fault": "teleport"
+    },
+    {
+      "step": 1,
+      "t": 0.00833,
+      "state": "PLAN_PICK",
+      "type": "FAIL",
+      "code": "TELEPORT",
+      "evidence": {
+        "reason": "pose-written-between-physics-steps",
+        "before": {
+          "x": -1.2500001192092896,
+          "y": 1.1197974681854248,
+          "z": 0.7199996113777161
+        },
+        "after": {
+          "x": -0.9500001072883606,
+          "y": 1.1197974681854248,
+          "z": 0.7199996113777161
+        }
+      }
+    },
+    {
+      "step": 1,
+      "t": 0.00833,
+      "state": "FAILED",
+      "type": "STATE",
+      "to": "FAILED"
+    }
+  ],
+  "trace": [
+    {
+      "step": 1,
+      "t": 0.008333333333333333,
+      "state": "PLAN_PICK",
+      "p": {
+        "x": -1.2500001192092896,
+        "y": 1.1197974681854248,
+        "z": 0.7199996113777161
+      },
+      "q": {
+        "x": -2.0453026081668213e-06,
+        "y": -5.0670426077203956e-08,
+        "z": 3.6306502693150833e-07,
+        "w": 1
+      },
+      "v": {
+        "x": 2.2913934571988648e-06,
+        "y": -1.9195471168131917e-07,
+        "z": -2.1839557575731305e-06
+      },
+      "w": {
+        "x": -2.62679168372415e-05,
+        "y": 3.606786549426033e-06,
+        "z": -2.1821495465701446e-05
+      },
+      "base": [
+        -1.0477,
+        0,
+        -1.35
+      ],
+      "joints": {
+        "left_hip_pitch_joint": -0.025,
+        "left_hip_roll_joint": 0,
+        "left_hip_yaw_joint": 0,
+        "left_knee_joint": 0.05,
+        "left_ankle_pitch_joint": -0.025,
+        "left_ankle_roll_joint": 0,
+        "right_hip_pitch_joint": -0.025,
+        "right_hip_roll_joint": 0,
+        "right_hip_yaw_joint": 0,
+        "right_knee_joint": 0.05,
+        "right_ankle_pitch_joint": -0.025,
+        "right_ankle_roll_joint": 0,
+        "waist_yaw_joint": 0,
+        "waist_roll_joint": 0,
+        "waist_pitch_joint": 0,
+        "left_shoulder_pitch_joint": 0.08,
+        "left_shoulder_roll_joint": 0.14,
+        "left_shoulder_yaw_joint": 0,
+        "left_elbow_joint": 0.95,
+        "left_wrist_roll_joint": 0,
+        "left_wrist_pitch_joint": 0,
+        "left_wrist_yaw_joint": 0,
+        "right_shoulder_pitch_joint": 0.08,
+        "right_shoulder_roll_joint": -0.14,
+        "right_shoulder_yaw_joint": 0,
+        "right_elbow_joint": 0.95,
+        "right_wrist_roll_joint": 0,
+        "right_wrist_pitch_joint": 0,
+        "right_wrist_yaw_joint": 0
+      },
+      "grip": false,
+      "contacts": [
+        {
+          "id": "source",
+          "depth": 0.00020288676023483276,
+          "force": 4.973124638199806
+        }
+      ],
+      "fingers": [
+        {
+          "x": -1.4303370714187622,
+          "y": 0.6383054852485657,
+          "z": -1.188128113746643
+        },
+        {
+          "x": -1.0803370475769043,
+          "y": 0.6383054852485657,
+          "z": -1.188128113746643
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "t": 0.016666666666666666,
+      "state": "FAILED",
+      "p": {
+        "x": -0.9500001072883606,
+        "y": 1.1197974681854248,
+        "z": 0.7199996113777161
+      },
+      "q": {
+        "x": -2.0453026081668213e-06,
+        "y": -5.0670426077203956e-08,
+        "z": 3.6306502693150833e-07,
+        "w": 1
+      },
+      "v": {
+        "x": 2.2768131202610675e-06,
+        "y": -1.920420515943988e-07,
+        "z": -2.164168336094008e-06
+      },
+      "w": {
+        "x": -2.6038022042484954e-05,
+        "y": 3.5811008274322376e-06,
+        "z": -2.169100844184868e-05
+      },
+      "base": [
+        -1.0477,
+        0,
+        -1.35
+      ],
+      "joints": {
+        "left_hip_pitch_joint": -0.025,
+        "left_hip_roll_joint": 0,
+        "left_hip_yaw_joint": 0,
+        "left_knee_joint": 0.05,
+        "left_ankle_pitch_joint": -0.025,
+        "left_ankle_roll_joint": 0,
+        "right_hip_pitch_joint": -0.025,
+        "right_hip_roll_joint": 0,
+        "right_hip_yaw_joint": 0,
+        "right_knee_joint": 0.05,
+        "right_ankle_pitch_joint": -0.025,
+        "right_ankle_roll_joint": 0,
+        "waist_yaw_joint": 0,
+        "waist_roll_joint": 0,
+        "waist_pitch_joint": 0,
+        "left_shoulder_pitch_joint": 0.08,
+        "left_shoulder_roll_joint": 0.14,
+        "left_shoulder_yaw_joint": 0,
+        "left_elbow_joint": 0.95,
+        "left_wrist_roll_joint": 0,
+        "left_wrist_pitch_joint": 0,
+        "left_wrist_yaw_joint": 0,
+        "right_shoulder_pitch_joint": 0.08,
+        "right_shoulder_roll_joint": -0.14,
+        "right_shoulder_yaw_joint": 0,
+        "right_elbow_joint": 0.95,
+        "right_wrist_roll_joint": 0,
+        "right_wrist_pitch_joint": 0,
+        "right_wrist_yaw_joint": 0
+      },
+      "grip": false,
+      "contacts": [
+        {
+          "id": "source",
+          "depth": 0.00020288676023483276,
+          "force": 4.973124638199806
+        }
+      ],
+      "fingers": [
+        {
+          "x": -1.4303370714187622,
+          "y": 0.6383054852485657,
+          "z": -1.188128113746643
+        },
+        {
+          "x": -1.0803370475769043,
+          "y": 0.6383054852485657,
+          "z": -1.188128113746643
+        }
+      ]
+    }
+  ]
+}

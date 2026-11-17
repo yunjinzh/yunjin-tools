@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-26",
+  "surface": "managed Chrome browser; local Sites preview",
+  "webgl": {
+    "verified": false,
+    "reason": "WebGL context creation failed; GL_RENDERER Disabled",
+    "fallback": "Explicit error message; physics and controls continue"
+  },
+  "observations": [
+    {
+      "check": "coffee task UI run",
+      "actual": "SUCCESS at 38.34 simulation seconds; 4601 steps",
+      "passed": true
+    },
+    {
+      "check": "six in-browser quick checks",
+      "actual": [
+        "coffee SUCCESS",
+        "box SUCCESS",
+        "empty grasp GRASP_FAILED",
+        "low friction GRIP_CAPACITY",
+        "teleport TELEPORT",
+        "penetration PENETRATION"
+      ],
+      "passed": true
+    },
+    {
+      "check": "select box and single step",
+      "actual": "0.50 kg box; STEP 00001; PLAN_PICK",
+      "passed": true
+    },
+    {
+      "check": "inject 30 cm teleport",
+      "actual": "FAILED; TELEPORT; STEP 00002",
+      "passed": true
+    },
+    {
+      "check": "download evidence JSON",
+      "actual": "File downloaded and parsed; FAILED/TELEPORT; 2 trace rows",
+      "passed": true
+    },
+    {
+      "check": "embedded delivery report",
+      "actual": "42 / 42 passed displayed",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "GPU scene rendering and orbit/collision overlays not visually verified",
+    "No real robot, real RGB-D, calibrated gripper, or whole-body dynamics validation"
+  ]
+}

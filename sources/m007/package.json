@@ -1,0 +1,17 @@
+{
+  "name": "embodied-studio",
+  "version": "3.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:physics": "node --test tests/physics/*.test.js",
+    "build:physics": "node scripts/build-physics.mjs"
+  },
+  "devDependencies": {
+    "three": "0.180.0",
+    "happy-dom": "20.0.8",
+    "@dimforge/rapier3d-compat": "0.17.3",
+    "esbuild": "0.25.11"
+  }
+}

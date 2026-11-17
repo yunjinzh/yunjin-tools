@@ -1,0 +1,56 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> embodied-studio@3.0.0 test:physics
+> node --test tests/physics/*.test.js
+
+using deprecated parameters for the initialization function; pass a single object instead
+✔ cup: reproducible pick-carry-place seed 1 (1861.820492ms)
+✔ cup: reproducible pick-carry-place seed 2 (1623.207694ms)
+✔ cup: reproducible pick-carry-place seed 3 (1516.59018ms)
+✔ cup: reproducible pick-carry-place seed 4 (1452.940125ms)
+✔ cup: reproducible pick-carry-place seed 5 (1572.753775ms)
+✔ cup: reproducible pick-carry-place seed 6 (1617.999505ms)
+✔ cup: reproducible pick-carry-place seed 7 (1522.184815ms)
+✔ cup: reproducible pick-carry-place seed 8 (1530.505419ms)
+✔ cup: reproducible pick-carry-place seed 9 (1511.62841ms)
+✔ cup: reproducible pick-carry-place seed 10 (1594.899334ms)
+✔ box: reproducible pick-carry-place seed 1 (1449.213548ms)
+✔ box: reproducible pick-carry-place seed 2 (1502.844318ms)
+✔ box: reproducible pick-carry-place seed 3 (1443.48571ms)
+✔ box: reproducible pick-carry-place seed 4 (1287.55339ms)
+✔ box: reproducible pick-carry-place seed 5 (1301.547944ms)
+✔ box: reproducible pick-carry-place seed 6 (1440.880038ms)
+✔ box: reproducible pick-carry-place seed 7 (1337.641347ms)
+✔ box: reproducible pick-carry-place seed 8 (1479.491455ms)
+✔ box: reproducible pick-carry-place seed 9 (1365.227615ms)
+✔ box: reproducible pick-carry-place seed 10 (1405.821629ms)
+✔ payload remains still before bilateral contact and attachment has no snap (711.832668ms)
+✔ low friction rejects grasp instead of magnetically holding (827.082046ms)
+✔ empty grasp never creates a joint (760.45237ms)
+✔ overloaded box fails measured friction capacity (660.780157ms)
+✔ missing target fails before movement (39.671636ms)
+✔ stale observation fails before planning (32.250163ms)
+✔ blocked docking fails without moving the object (43.846254ms)
+✔ unreachable target is rejected (73.124547ms)
+✔ object teleport is detected before solver can hide it (32.416697ms)
+✔ interpenetration is detected by narrow phase geometry (31.003079ms)
+✔ unreasonable impulse is detected (31.237283ms)
+✔ new obstacle during transport blocks the swept payload (811.112613ms)
+✔ friction loss breaks grasp and diagnoses capacity (873.70915ms)
+✔ missing constraint cannot silently continue transport (790.347239ms)
+✔ release without table support is rejected (866.497815ms)
+✔ unsupported dynamic object follows gravity without position animation (35.167683ms)
+✔ actual contact with a forbidden support is rejected (30.320806ms)
+✔ CCD prevents high-speed tunnelling through a 5 mm wall (1.453297ms)
+✔ emergency stop holds robot command but physics continues (951.938393ms)
+✔ contact matrix is symmetric and forbids premature placement (0.185202ms)
+✔ continuity bound flags a small jump even when final speed is low (0.220244ms)
+✔ 30/60/144 Hz render schedules give identical fixed physics ticks (1.058016ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 42
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37619.089591

@@ -1,0 +1,15 @@
+[out:json][timeout:45][maxsize:33554432];
+(
+way[highway][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+way[waterway][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[natural~"^(water|wood|wetland)$"][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[water][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[landuse~"^(reservoir|forest|recreation_ground|grass)$"][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[leisure~"^(park|garden|nature_reserve|golf_course)$"][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[building][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[tourism~"^(attraction|museum|gallery)$"][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[historic][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[amenity~"^(university|college|school|library|place_of_worship|theatre|townhall|hospital)$"][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+nwr[place~"^(island|islet)$"][~"^name(:zh)?$"~"."](39.892,116.374,39.937,116.417);
+);
+out body geom qt;

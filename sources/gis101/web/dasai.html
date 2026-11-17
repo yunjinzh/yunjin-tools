@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>教育部认可的全国大学生学科竞赛名单 · 交互查询</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..600&family=Noto+Sans+SC:wght@200..700&family=Noto+Serif+SC:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F0EC; --paper-hi:#F8F7F3; --paper-lo:#E8E5DD; --paper-lo2:#DFDBD1;
+  --ink:#15171A; --ink-2:#43464B; --ink-3:#83868C; --ink-4:#A8AAA8;
+  --rule:#D5D1C8; --rule-2:#E4E1D9;
+  --gold:#A8761F; --gold-d:#7E5813; --gold-t:rgba(168,118,31,.13);
+  --steel:#3F6679; --steel-d:#2C4E5F; --steel-t:rgba(63,102,121,.12);
+  --terra:#B0553C; --terra-d:#8C3F2B; --terra-t:rgba(176,85,60,.13);
+  --sh1:0 1px 2px rgba(21,23,26,.05), 0 10px 26px -14px rgba(21,23,26,.22);
+  --sh2:0 2px 8px rgba(21,23,26,.07), 0 30px 70px -24px rgba(21,23,26,.36);
+  --f-lat:'Oswald','HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  --f-serif:'Noto Serif SC','Source Han Serif SC','Songti SC',serif;
+  --f-sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --f-mono:ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-sans);font-weight:400;
+  -webkit-font-smoothing:antialiased;line-height:1.6;letter-spacing:.005em}
+body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.42;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E")}
+::selection{background:var(--gold);color:#fff}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;text-align:left}
+.lbl{font-family:var(--f-lat);font-weight:500;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:linear-gradient(180deg,var(--paper-hi),var(--paper));
+  border-bottom:1px solid var(--rule)}
+.hdr-in{max-width:1560px;margin:0 auto;padding:22px 28px 0}
+.hdr-top{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.brand .kicker{display:inline-block;font-family:var(--f-lat);font-weight:500;font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--gold-d);border:1px solid var(--gold);
+  background:var(--gold-t);padding:3px 8px;border-radius:2px;margin-bottom:9px}
+h1{margin:0;font-family:var(--f-serif);font-weight:700;font-size:clamp(21px,2.5vw,33px);
+  letter-spacing:-.012em;line-height:1.14}
+.brand .sub{font-family:var(--f-lat);font-weight:300;font-size:11.5px;letter-spacing:.1em;
+  color:var(--ink-3);text-transform:uppercase;margin-top:7px}
+.hdr-stats{display:flex;gap:26px;align-items:flex-end}
+.hstat{text-align:right}
+.hstat b{display:block;font-family:var(--f-lat);font-weight:300;font-size:30px;line-height:1;
+  letter-spacing:-.02em}
+.hstat span{font-family:var(--f-lat);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.hstat.gold b{color:var(--gold-d)}.hstat.steel b{color:var(--steel-d)}.hstat.terra b{color:var(--terra-d)}
+
+.searchwrap{padding:20px 0 16px}
+.searchbox{display:flex;align-items:center;border:1.5px solid var(--ink);background:var(--paper-hi);
+  border-radius:3px;box-shadow:var(--sh1);overflow:hidden}
+.searchbox:focus-within{box-shadow:var(--sh2),0 0 0 3px var(--gold-t);border-color:var(--gold-d)}
+.searchbox .icon{padding:0 4px 0 16px;display:flex;align-items:center}
+.searchbox .icon svg{width:19px;height:19px;stroke:var(--ink-2);fill:none;stroke-width:1.7}
+.searchbox input{flex:1;border:0;outline:0;background:transparent;padding:15px 14px;font-size:16.5px}
+.searchbox input::placeholder{color:var(--ink-4);font-weight:300}
+.searchbox .clr{font-family:var(--f-lat);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);padding:0 16px;border-left:1px solid var(--rule-2);align-self:stretch;display:flex;align-items:center}
+.searchbox .clr:hover{color:var(--gold-d)}
+.quick{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 0 0}
+.quick .q{font-size:12px;padding:4px 10px;border:1px solid var(--rule);border-radius:20px;
+  background:var(--paper-hi);color:var(--ink-2);transition:.15s}
+.quick .q:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-1px)}
+
+/* ---------- SHELL ---------- */
+.shell{max-width:1560px;margin:0 auto;display:grid;grid-template-columns:300px minmax(0,1fr);align-items:start}
+.side{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;border-right:1px solid var(--rule);
+  padding:22px 0 60px;background:var(--paper-lo)}
+.side::-webkit-scrollbar{width:8px}.side::-webkit-scrollbar-thumb{background:var(--rule);border-radius:8px}
+.side-sec{padding:0 18px 18px}
+.side-sec + .side-sec{border-top:1px solid var(--rule-2);padding-top:16px}
+.side-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.side-hd .lbl{color:var(--ink-2)}
+.frow{display:flex;align-items:center;gap:9px;width:100%;padding:7px 9px;border-radius:3px;
+  transition:.14s;border:1px solid transparent}
+.frow:hover{background:var(--paper-hi);border-color:var(--rule)}
+.frow[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
+.frow[aria-pressed="true"] .fname,.frow[aria-pressed="true"] .fcnt{color:var(--paper)}
+.fname{flex:1;font-size:13px;font-weight:500;min-width:0}
+.fcnt{font-family:var(--f-mono);font-size:11px;color:var(--ink-3)}
+.dot{width:9px;height:9px;border-radius:50%;flex:none;background:var(--ink-3)}
+.dot.gold{background:var(--gold)}.dot.steel{background:var(--steel)}.dot.terra{background:var(--terra)}
+.dot.all{background:linear-gradient(135deg,var(--gold) 0 50%,var(--steel) 50%)}
+.catrow{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:7px;align-items:center;width:100%;
+  padding:6px 8px;border-radius:3px;border:1px solid transparent;transition:.13s}
+.catrow:hover{background:var(--paper-hi);border-color:var(--rule)}
+.catrow[aria-current="true"]{background:var(--paper-hi);border-color:var(--ink);box-shadow:2px 0 0 var(--gold) inset}
+.catrow .cno{font-family:var(--f-lat);font-size:11px;color:var(--ink-4)}
+.catrow .cname{font-size:12.5px;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.catrow[aria-current="true"] .cname{font-weight:700}
+.catrow .cn{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-3)}
+.side-note{font-size:11px;color:var(--ink-3);line-height:1.7;padding:0 18px}
+.side-note b{color:var(--ink-2);font-weight:600}
+
+/* ---------- MAIN ---------- */
+.main{min-width:0;padding:20px 28px 100px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;
+  border-bottom:1.5px solid var(--ink);padding-bottom:10px;margin-bottom:18px}
+.bar-l{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.bar-l .big{font-family:var(--f-lat);font-weight:300;font-size:34px;line-height:1;letter-spacing:-.02em}
+.bar-l .cap{font-size:12.5px;color:var(--ink-3)}
+.bar-r{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.seg{display:flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden;background:var(--paper-hi)}
+.seg button{font-family:var(--f-lat);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:7px 12px;color:var(--ink-3);border-right:1px solid var(--rule)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button:hover:not([aria-pressed="true"]){background:var(--paper-lo);color:var(--ink)}
+.btn-exp{font-family:var(--f-lat);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--ink);padding:7px 12px;border-radius:3px;background:var(--ink);color:var(--paper)}
+.btn-exp:hover{background:transparent;color:var(--ink)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:-6px 0 16px}
+.chipf{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;padding:4px 9px;border-radius:20px;
+  border:1px solid var(--rule);background:var(--paper-hi);color:var(--ink-2)}
+.chipf b{font-family:var(--f-lat);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}
+.chipf x{cursor:pointer;font-size:13px;line-height:1;color:var(--ink-3);padding-left:2px}
+.chipf x:hover{color:var(--terra-d)}
+.chipf.reset{border-color:var(--terra);color:var(--terra-d);background:var(--terra-t)}
+
+/* badges */
+.bdg{display:inline-flex;align-items:center;gap:4px;font-family:var(--f-lat);font-size:10px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;padding:2.5px 7px;border-radius:2px;border:1px solid;white-space:nowrap}
+.bdg.gold{color:var(--gold-d);border-color:var(--gold);background:var(--gold-t)}
+.bdg.steel{color:var(--steel-d);border-color:var(--steel);background:var(--steel-t)}
+.bdg.terra{color:var(--terra-d);border-color:var(--terra);background:var(--terra-t)}
+.bdg.plain{color:var(--ink-2);border-color:var(--rule);background:var(--paper-lo);font-family:var(--f-sans);
+  letter-spacing:.02em;text-transform:none;font-weight:500;font-size:11px}
+.bdg.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ---------- BOARD ---------- */
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(348px,1fr));gap:14px}
+.card{position:relative;border:1px solid var(--rule);border-radius:3px;background:var(--paper-hi);
+  padding:15px 16px 14px;cursor:pointer;transition:.16s;box-shadow:var(--sh1);
+  display:flex;flex-direction:column;min-height:132px;overflow:hidden}
+.card:hover{transform:translateY(-2px);box-shadow:var(--sh2);border-color:var(--ink)}
+.card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+.card.g-B::after{background:var(--steel)}
+.card-top{display:flex;align-items:flex-start;gap:12px;justify-content:space-between}
+.card-no{font-family:var(--f-lat);font-weight:300;font-size:30px;line-height:.9;letter-spacing:-.03em;
+  color:var(--ink-4);min-width:44px}
+.card.g-A .card-no{color:var(--gold)}
+.card-bd{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.card-name{font-family:var(--f-serif);font-weight:600;font-size:15.5px;line-height:1.4;
+  margin:11px 0 0;letter-spacing:-.003em}
+.card-ft{margin-top:auto;padding-top:11px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;
+  border-top:1px solid var(--rule-2);font-size:11.5px;color:var(--ink-3)}
+.card-ft b{color:var(--ink-2);font-weight:500}
+.hl{background:rgba(168,118,31,.24);border-radius:2px;padding:0 1px;font-weight:600}
+
+/* ---------- TABLE ---------- */
+.tbl-wrap{border:1px solid var(--rule);border-radius:3px;overflow:hidden;background:var(--paper-hi)}
+table.cmp{width:100%;border-collapse:collapse;font-size:13px}
+table.cmp th{position:sticky;top:var(--hdh,0px);background:var(--paper-lo);font-family:var(--f-lat);font-weight:500;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);text-align:left;
+  padding:10px 12px;border-bottom:1.5px solid var(--ink);white-space:nowrap}
+table.cmp td{padding:9px 12px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+table.cmp tr:hover td{background:var(--paper-lo)}
+table.cmp td.n{font-family:var(--f-lat);font-size:13px;color:var(--ink-3);width:52px}
+table.cmp td.nm{font-weight:500}
+table.cmp tr.g-A td.n{color:var(--gold-d);font-weight:500}
+.aka{display:block;font-size:11px;color:var(--ink-3);margin-top:3px;font-weight:400}
+.aka b{font-family:var(--f-lat);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}
+
+/* ---------- DIST ---------- */
+.dist{display:grid;gap:22px}
+.dpanel{border:1px solid var(--rule);border-radius:3px;background:var(--paper-hi);padding:18px 20px 20px;
+  box-shadow:var(--sh1)}
+.dpanel h3{margin:0 0 4px;font-family:var(--f-serif);font-size:16px;font-weight:600}
+.dpanel .dsub{font-size:11.5px;color:var(--ink-3);margin-bottom:16px}
+.dbar{display:grid;grid-template-columns:130px minmax(0,1fr) 40px;gap:12px;align-items:center;
+  padding:5px 0;cursor:pointer;border-radius:3px}
+.dbar:hover{background:var(--paper-lo)}
+.dbar .dn{font-size:12.5px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dtrack{display:flex;gap:2px;height:16px;align-items:stretch}
+.dtrack i{display:block;border-radius:2px;min-width:2px;transition:.2s}
+.dtrack i.gold{background:var(--gold)}.dtrack i.steel{background:var(--steel)}
+.dbar .dv{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);text-align:right}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;font-size:11.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.split{display:flex;height:26px;border-radius:3px;overflow:hidden;border:1px solid var(--rule-2)}
+.split i{display:flex;align-items:center;justify-content:center;font-family:var(--f-lat);font-size:11px;
+  color:#fff;letter-spacing:.06em}
+.split i.gold{background:var(--gold)}.split i.steel{background:var(--steel)}
+.bignum{display:flex;gap:26px;flex-wrap:wrap;margin-bottom:18px}
+.bignum div b{display:block;font-family:var(--f-lat);font-weight:200;font-size:44px;line-height:1;letter-spacing:-.03em}
+.bignum div span{font-size:11.5px;color:var(--ink-3)}
+
+/* ---------- DRAWER ---------- */
+.scrim{position:fixed;inset:0;background:rgba(21,23,26,.34);opacity:0;pointer-events:none;
+  transition:.22s;z-index:600;backdrop-filter:blur(1.5px)}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100vh;width:min(500px,94vw);background:var(--paper-hi);
+  border-left:1px solid var(--ink);box-shadow:var(--sh2);transform:translateX(101%);
+  transition:transform .28s cubic-bezier(.22,.7,.2,1);z-index:700;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dhd{padding:18px 22px 14px;border-bottom:1.5px solid var(--ink);display:flex;justify-content:space-between;
+  gap:14px;align-items:flex-start}
+.dhd .x{font-family:var(--f-lat);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule);padding:5px 9px;border-radius:2px;white-space:nowrap}
+.dhd .x:hover{color:var(--gold-d);border-color:var(--gold)}
+.dbody{overflow-y:auto;padding:20px 22px 40px;flex:1}
+.dbody::-webkit-scrollbar{width:9px}.dbody::-webkit-scrollbar-thumb{background:var(--rule);border-radius:8px}
+.dno{font-family:var(--f-lat);font-weight:200;font-size:56px;line-height:.86;letter-spacing:-.04em;color:var(--ink-4)}
+.dtitle{font-family:var(--f-serif);font-size:23px;font-weight:700;line-height:1.28;letter-spacing:-.01em;
+  margin-top:6px}
+.dsub{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.dsec{margin-top:24px}
+.dsec > .lbl{display:block;margin-bottom:9px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.kv{display:grid;grid-template-columns:80px minmax(0,1fr);gap:7px 14px;font-size:13px;margin:0}
+.kv dt{color:var(--ink-3);font-size:12px}
+.kv dd{margin:0;font-weight:500}
+.note{border-left:2px solid var(--gold);background:var(--gold-t);padding:10px 12px;font-size:12px;
+  line-height:1.7;color:var(--ink-2);border-radius:0 3px 3px 0}
+.dfoot{border-top:1px solid var(--rule);padding:12px 22px;font-size:11px;color:var(--ink-3);
+  display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.dfoot button{font-family:var(--f-lat);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--rule);padding:5px 10px;border-radius:2px;color:var(--ink-2)}
+.dfoot button:hover{border-color:var(--ink);color:var(--ink)}
+.empty{padding:70px 20px;text-align:center;color:var(--ink-3)}
+.empty .em{font-family:var(--f-serif);font-size:20px;color:var(--ink);margin-bottom:8px}
+
+@media(max-width:1080px){
+  .shell{grid-template-columns:1fr}
+  .side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--rule)}
+  .dbar{grid-template-columns:104px minmax(0,1fr) 34px}
+}
+@media(max-width:620px){
+  .hdr-in,.main{padding-left:14px;padding-right:14px}
+  .hdr-stats{gap:15px}.hstat b{font-size:23px}
+  .board{grid-template-columns:1fr}
+}
+@media print{
+  body::before{display:none}
+  .side,.hdr-stats,.bar-r,.chips,.searchwrap{display:none}
+  .shell{grid-template-columns:1fr}
+  .main{padding:0}
+  .tbl-wrap{border:0}
+  table.cmp th{position:static}
+  table.cmp{font-size:11px}
+  .hdr{position:static;background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <div class="hdr-top">
+      <div class="brand">
+        <span class="kicker">Official List</span>
+        <h1>教育部认可的全国大学生<br>学科竞赛名单 · 交互查询</h1>
+        <div class="sub">共 <span id="hbTotal">90</span> 条 · 备注 A 级 <span id="hbA">6</span> 项 · B 级 <span id="hbB">84</span> 项 · 含高职赛道 <span id="hbV">4</span> 项</div>
+      </div>
+      <div class="hdr-stats" id="hdrStats"></div>
+    </div>
+    <div class="searchwrap">
+      <div class="searchbox">
+        <span class="icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg></span>
+        <input id="q" type="search" autocomplete="off" spellcheck="false"
+               placeholder="输入竞赛名称或常见简称，例如：数学建模 / 大广赛 / RoboMaster / 蓝桥杯 / 结构设计">
+        <button class="clr" id="clr">清空</button>
+      </div>
+      <div class="quick" id="quick"></div>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <div class="side-sec">
+      <div class="side-hd"><span class="lbl">备注等级</span></div>
+      <div id="gradeList"></div>
+    </div>
+    <div class="side-sec">
+      <div class="side-hd"><span class="lbl">赛道</span></div>
+      <div id="vocList"></div>
+    </div>
+    <div class="side-sec">
+      <div class="side-hd"><span class="lbl">学科领域</span><span class="lbl" id="catTotal"></span></div>
+      <div id="catList"></div>
+    </div>
+    <div class="side-note">
+      <p style="margin:0 0 9px"><b>数据说明</b>原文标题与文件名均写「84 项」，但表内实为 <b>1–90 号共 90 条</b>；其中备注 A 级 6 条、B 级 84 条（B 级数量与「84 项」一致），另有 4 条标注「高职赛」。</p>
+      <p style="margin:0 0 9px"><b>学科领域</b>为便于检索由本工具按竞赛名称归类，<b>非原文内容</b>；简称同为检索辅助，非官方名称。</p>
+      <p style="margin:0"><b>源文件</b>教育部认可的84项全国大学生学科竞赛名单.pdf（3 页）</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="bar">
+      <div class="bar-l">
+        <span class="big" id="cntBig">90</span>
+        <span class="cap" id="cntCap">条竞赛记录</span>
+      </div>
+      <div class="bar-r">
+        <div class="seg" id="viewSeg"></div>
+        <div class="seg" id="sortSeg"></div>
+        <button class="btn-exp" id="expBtn">导出 CSV</button>
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div id="stage"></div>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="dhd">
+    <div>
+      <div class="lbl">竞赛详情</div>
+    </div>
+    <button class="x" id="dClose">关闭 ESC</button>
+  </div>
+  <div class="dbody" id="dBody"></div>
+  <div class="dfoot">
+    <span id="dFoot"></span>
+    <button id="dCopy">复制名称</button>
+  </div>
+</aside>
+
+<script id="db" type="application/json">{
+ "meta": {
+  "title": "教育部认可的84项全国大学生学科竞赛名单",
+  "srcname": "P020260714589584937536.pdf",
+  "generated": "2025-08-23",
+  "pages": 3,
+  "total": 90,
+  "aCount": 6,
+  "bCount": 84,
+  "vocCount": 4,
+  "catCount": 11
+ },
+ "cats": [
+  {
+   "k": "A",
+   "name": "创新创业与商业实践",
+   "count": 17
+  },
+  {
+   "k": "B",
+   "name": "计算机与软件",
+   "count": 13
+  },
+  {
+   "k": "C",
+   "name": "电子信息与通信",
+   "count": 6
+  },
+  {
+   "k": "D",
+   "name": "机器人与智能制造",
+   "count": 12
+  },
+  {
+   "k": "E",
+   "name": "数理化与材料",
+   "count": 8
+  },
+  {
+   "k": "F",
+   "name": "土木建筑与水利测绘",
+   "count": 5
+  },
+  {
+   "k": "G",
+   "name": "设计艺术与传媒",
+   "count": 12
+  },
+  {
+   "k": "H",
+   "name": "语言人文与社会治理",
+   "count": 7
+  },
+  {
+   "k": "I",
+   "name": "医药与生命科学",
+   "count": 3
+  },
+  {
+   "k": "J",
+   "name": "农林与资源环境",
+   "count": 3
+  },
+  {
+   "k": "K",
+   "name": "综合与其他",
+   "count": 4
+  }
+ ],
+ "list": [
+  {
+   "no": 1,
+   "name": "中国国际“互联网+”大学生创新创业大赛（2024年更名为：中国国际大学生创新大赛）",
+   "grade": "A",
+   "voc": "",
+   "cat": "A",
+   "aka": "互联网+ 互联网+大赛 大创赛",
+   "fix": ""
+  },
+  {
+   "no": 2,
+   "name": "“挑战杯”全国大学生课外学术科技作品竞赛",
+   "grade": "A",
+   "voc": "",
+   "cat": "A",
+   "aka": "大挑 挑战杯",
+   "fix": ""
+  },
+  {
+   "no": 3,
+   "name": "“挑战杯”中国大学生创业计划大赛",
+   "grade": "A",
+   "voc": "",
+   "cat": "A",
+   "aka": "小挑 创青春 创业计划",
+   "fix": ""
+  },
+  {
+   "no": 4,
+   "name": "ACM-ICPC国际大学生程序设计竞赛",
+   "grade": "A",
+   "voc": "",
+   "cat": "B",
+   "aka": "ACM ICPC 程序设计竞赛",
+   "fix": ""
+  },
+  {
+   "no": 5,
+   "name": "全国大学生数学建模竞赛",
+   "grade": "A",
+   "voc": "",
+   "cat": "E",
+   "aka": "数模 数学建模 CUMCM",
+   "fix": ""
+  },
+  {
+   "no": 6,
+   "name": "全国大学生电子设计竞赛",
+   "grade": "A",
+   "voc": "",
+   "cat": "C",
+   "aka": "电赛 电子设计竞赛",
+   "fix": ""
+  },
+  {
+   "no": 7,
+   "name": "中国大学生医学技术技能大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "I",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 8,
+   "name": "全国大学生机械创新设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "机创赛 机械创新",
+   "fix": ""
+  },
+  {
+   "no": 9,
+   "name": "全国大学生结构设计竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "F",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 10,
+   "name": "全国大学生广告艺术大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "大广赛 广告艺术大赛",
+   "fix": ""
+  },
+  {
+   "no": 11,
+   "name": "全国大学生智能汽车竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "智能车 恩智浦杯",
+   "fix": ""
+  },
+  {
+   "no": 12,
+   "name": "全国大学生电子商务“创新、创意及创业”挑战赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "三创赛 电商挑战赛",
+   "fix": ""
+  },
+  {
+   "no": 13,
+   "name": "中国大学生工程实践与创新能力大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "工创赛 工程训练",
+   "fix": ""
+  },
+  {
+   "no": 14,
+   "name": "全国大学生物流设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 15,
+   "name": "外研社全国大学生英语系列赛-英语演讲、英语辩论、英语写作、英语阅读",
+   "grade": "B",
+   "voc": "",
+   "cat": "H",
+   "aka": "外研社杯 英语演讲",
+   "fix": ""
+  },
+  {
+   "no": 16,
+   "name": "两岸新锐设计竞赛·华灿奖",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 17,
+   "name": "全国大学生创新创业训练计划年会展示",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "大创 大创年会",
+   "fix": ""
+  },
+  {
+   "no": 18,
+   "name": "全国大学生化工设计竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "E",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 19,
+   "name": "全国大学生机器人大赛-RoboMaster、RoboCon",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "RoboMaster RoboCon 机甲大师",
+   "fix": ""
+  },
+  {
+   "no": 20,
+   "name": "全国大学生市场调查与分析大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "市调大赛",
+   "fix": ""
+  },
+  {
+   "no": 21,
+   "name": "全国大学生先进成图技术与产品信息建模创新大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "成图大赛 先进成图",
+   "fix": ""
+  },
+  {
+   "no": 22,
+   "name": "全国三维数字化创新设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "3D大赛 三维数字化",
+   "fix": ""
+  },
+  {
+   "no": 23,
+   "name": "“西门子杯”中国智能制造挑战赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "西门子杯",
+   "fix": ""
+  },
+  {
+   "no": 24,
+   "name": "中国大学生服务外包创新创业大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "服创赛 服务外包",
+   "fix": ""
+  },
+  {
+   "no": 25,
+   "name": "中国大学生计算机设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "计设赛 计算机设计",
+   "fix": ""
+  },
+  {
+   "no": 26,
+   "name": "中国高校计算机大赛-大数据挑战赛、团体程序设计天梯赛、移动应用创新赛、网络技术挑战赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "天梯赛 大数据挑战赛 网络技术挑战赛 移动应用创新赛",
+   "fix": "PDF 原文该单元格文字被裁切为「中国高校计算机大赛-大数据**赛、团体程序设计天梯赛、移动应用创新赛、网络技术挑」，此处按竞赛官方全称补全"
+  },
+  {
+   "no": 27,
+   "name": "蓝桥杯全国软件和信息技术专业人才大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "蓝桥杯",
+   "fix": ""
+  },
+  {
+   "no": 28,
+   "name": "米兰设计周--中国高校设计学科师生优秀作品展",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "米兰设计周",
+   "fix": ""
+  },
+  {
+   "no": 29,
+   "name": "全国大学生地质技能竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "J",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 30,
+   "name": "全国大学生光电设计竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "C",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 31,
+   "name": "全国大学生集成电路创新创业大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "C",
+   "aka": "集创赛 集成电路创新创业",
+   "fix": ""
+  },
+  {
+   "no": 32,
+   "name": "全国大学生金相技能大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "E",
+   "aka": "金相大赛",
+   "fix": ""
+  },
+  {
+   "no": 33,
+   "name": "全国大学生信息安全竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "信安赛 信息安全竞赛",
+   "fix": ""
+  },
+  {
+   "no": 34,
+   "name": "未来设计师·全国高校数字艺术设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "NCDA 未来设计师",
+   "fix": ""
+  },
+  {
+   "no": 35,
+   "name": "全国周培源大学生力学竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "E",
+   "aka": "周培源 力学竞赛",
+   "fix": ""
+  },
+  {
+   "no": 36,
+   "name": "中国大学生机械工程创新创意大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 37,
+   "name": "中国机器人大赛暨RoboCup机器人世界杯中国赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "RoboCup 中国机器人大赛",
+   "fix": ""
+  },
+  {
+   "no": 38,
+   "name": "“中国软件杯”大学生软件设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "软件杯",
+   "fix": ""
+  },
+  {
+   "no": 39,
+   "name": "中美青年创客大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "中美创客",
+   "fix": ""
+  },
+  {
+   "no": 40,
+   "name": "睿抗机器人开发者大赛（RAICOM）",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "RAICOM 睿抗",
+   "fix": ""
+  },
+  {
+   "no": 41,
+   "name": "“大唐杯”全国大学生新一代信息通信技术大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "C",
+   "aka": "大唐杯",
+   "fix": ""
+  },
+  {
+   "no": 42,
+   "name": "华为ICT大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "C",
+   "aka": "华为ICT",
+   "fix": ""
+  },
+  {
+   "no": 43,
+   "name": "全国大学生嵌入式芯片与系统设计竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "C",
+   "aka": "嵌入式 芯片与系统设计",
+   "fix": ""
+  },
+  {
+   "no": 44,
+   "name": "全国大学生生命科学竞赛（CULSC)",
+   "grade": "B",
+   "voc": "",
+   "cat": "I",
+   "aka": "生命科学 CULSC",
+   "fix": ""
+  },
+  {
+   "no": 45,
+   "name": "全国大学生物理实验竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "E",
+   "aka": "物理实验竞赛",
+   "fix": ""
+  },
+  {
+   "no": 46,
+   "name": "全国高校BIM毕业设计创新大赛官网",
+   "grade": "B",
+   "voc": "",
+   "cat": "F",
+   "aka": "BIM毕业设计",
+   "fix": ""
+  },
+  {
+   "no": 47,
+   "name": "全国高校商业精英挑战赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "",
+   "fix": ""
+  },
+  {
+   "no": 48,
+   "name": "“学创杯”全国大学生创业综合模拟大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "学创杯",
+   "fix": ""
+  },
+  {
+   "no": 49,
+   "name": "中国高校智能机器人创意大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "智能机器人创意",
+   "fix": ""
+  },
+  {
+   "no": 50,
+   "name": "中国好创意暨全国数字艺术设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "中国好创意 NCDM",
+   "fix": ""
+  },
+  {
+   "no": 51,
+   "name": "中国机器人及人工智能大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "机器人及人工智能",
+   "fix": ""
+  },
+  {
+   "no": 52,
+   "name": "全国大学生节能减排社会实践与科技竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "J",
+   "aka": "节能减排",
+   "fix": ""
+  },
+  {
+   "no": 53,
+   "name": "“21世纪杯”全国英语演讲比赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "H",
+   "aka": "21世纪杯",
+   "fix": ""
+  },
+  {
+   "no": 54,
+   "name": "iCAN大学生创新创业大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "iCAN",
+   "fix": ""
+  },
+  {
+   "no": 55,
+   "name": "“工行杯”全国大学生金融科技创新大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "工行杯",
+   "fix": ""
+  },
+  {
+   "no": 56,
+   "name": "中华经典诵写讲大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "H",
+   "aka": "中华经典诵写讲",
+   "fix": ""
+  },
+  {
+   "no": 57,
+   "name": "“外教社杯”全国高校学生跨文化能力大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "H",
+   "aka": "外教社杯 跨文化能力",
+   "fix": ""
+  },
+  {
+   "no": 58,
+   "name": "百度之星·程序设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "百度之星",
+   "fix": ""
+  },
+  {
+   "no": 59,
+   "name": "全国大学生工业设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "工业设计大赛",
+   "fix": ""
+  },
+  {
+   "no": 60,
+   "name": "全国大学生水利创新设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "F",
+   "aka": "水利创新设计",
+   "fix": ""
+  },
+  {
+   "no": 61,
+   "name": "全国大学生化工实验大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "E",
+   "aka": "化工实验",
+   "fix": ""
+  },
+  {
+   "no": 62,
+   "name": "全国大学生化学实验创新设计大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "E",
+   "aka": "化学实验创新设计",
+   "fix": ""
+  },
+  {
+   "no": 63,
+   "name": "全国大学生计算机系统能力大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "CSCC 计算机系统能力",
+   "fix": ""
+  },
+  {
+   "no": 64,
+   "name": "全国大学生花园设计建造竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "花园设计建造",
+   "fix": ""
+  },
+  {
+   "no": 65,
+   "name": "全国大学生物联网设计竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "物联网设计",
+   "fix": ""
+  },
+  {
+   "no": 66,
+   "name": "全国大学生信息安全与对抗技术竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "信抗赛 信息安全与对抗",
+   "fix": ""
+  },
+  {
+   "no": 67,
+   "name": "全国大学生测绘学科创新创业智能大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "F",
+   "aka": "测绘学科创新",
+   "fix": ""
+  },
+  {
+   "no": 68,
+   "name": "全国大学生统计建模大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "E",
+   "aka": "统计建模",
+   "fix": ""
+  },
+  {
+   "no": 69,
+   "name": "全国大学生能源经济学术创意大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "能源经济",
+   "fix": ""
+  },
+  {
+   "no": 70,
+   "name": "全国大学生基础医学创新研究暨实验设计论坛（大赛）",
+   "grade": "B",
+   "voc": "",
+   "cat": "I",
+   "aka": "基础医学创新",
+   "fix": ""
+  },
+  {
+   "no": 71,
+   "name": "全国大学生数字媒体科技作品及创意竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "数字媒体科技作品",
+   "fix": ""
+  },
+  {
+   "no": 72,
+   "name": "全国本科院校税收风险管控案例大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "税收风险管控",
+   "fix": ""
+  },
+  {
+   "no": 73,
+   "name": "全国企业竞争模拟大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "企业竞争模拟",
+   "fix": ""
+  },
+  {
+   "no": 74,
+   "name": "全国高等院校数智化企业经营沙盘大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "数智化沙盘 沙盘大赛",
+   "fix": ""
+  },
+  {
+   "no": 75,
+   "name": "全国数字建筑创新应用大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "F",
+   "aka": "数字建筑",
+   "fix": ""
+  },
+  {
+   "no": 76,
+   "name": "全球校园人工智能算法精英大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "B",
+   "aka": "AI算法精英 人工智能算法",
+   "fix": ""
+  },
+  {
+   "no": 77,
+   "name": "国际大学生智能农业装备创新大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "J",
+   "aka": "智能农业装备",
+   "fix": ""
+  },
+  {
+   "no": 78,
+   "name": "“科云杯”全国大学生财会职业能力大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "A",
+   "aka": "科云杯 财会职业能力",
+   "fix": ""
+  },
+  {
+   "no": 79,
+   "name": "全国职业院校技能大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "K",
+   "aka": "职业院校技能大赛 国赛 高职国赛",
+   "fix": ""
+  },
+  {
+   "no": 80,
+   "name": "全国大学生机器人大赛-RoboTac",
+   "grade": "B",
+   "voc": "",
+   "cat": "D",
+   "aka": "RoboTac",
+   "fix": ""
+  },
+  {
+   "no": 81,
+   "name": "世界技能大赛",
+   "grade": "B",
+   "voc": "高职赛",
+   "cat": "K",
+   "aka": "世赛 世界技能大赛",
+   "fix": ""
+  },
+  {
+   "no": 82,
+   "name": "世界技能大赛中国选拔赛",
+   "grade": "B",
+   "voc": "高职赛",
+   "cat": "K",
+   "aka": "世赛选拔赛",
+   "fix": ""
+  },
+  {
+   "no": 83,
+   "name": "一带一路暨金砖国家技能发展与技术创新大赛",
+   "grade": "B",
+   "voc": "含本科赛道",
+   "cat": "K",
+   "aka": "金砖大赛 一带一路技能",
+   "fix": ""
+  },
+  {
+   "no": 84,
+   "name": "码蹄杯全国职业院校程序设计大赛",
+   "grade": "B",
+   "voc": "高职赛",
+   "cat": "B",
+   "aka": "码蹄杯",
+   "fix": ""
+  },
+  {
+   "no": 85,
+   "name": "大学生新文科实践创新大赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "H",
+   "aka": "新文科",
+   "fix": ""
+  },
+  {
+   "no": 86,
+   "name": "国际刑事法院模拟法庭竞赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "H",
+   "aka": "ICC 模拟法庭",
+   "fix": ""
+  },
+  {
+   "no": 87,
+   "name": "全国大学生艺术展演",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "大艺展 艺术展演",
+   "fix": ""
+  },
+  {
+   "no": 88,
+   "name": "湖南省本科院校音乐舞蹈专业独唱、独奏、独舞比赛",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "湖南音乐舞蹈",
+   "fix": ""
+  },
+  {
+   "no": 89,
+   "name": "学宪法讲宪法",
+   "grade": "B",
+   "voc": "",
+   "cat": "H",
+   "aka": "学宪法讲宪法",
+   "fix": ""
+  },
+  {
+   "no": 90,
+   "name": "GCROSS全球创意奖",
+   "grade": "B",
+   "voc": "",
+   "cat": "G",
+   "aka": "GCROSS",
+   "fix": ""
+  }
+ ]
+}</script>
+<script>
+/* =========================================================================
+   教育部认可竞赛名单 · 交互查询
+   ========================================================================= */
+const DB = JSON.parse(document.getElementById('db').textContent);
+const LIST = DB.list;
+const CATNAME = {}; DB.cats.forEach(c => CATNAME[c.k] = c.name);
+const GRADE_TXT = {A: '备注 A 级', B: '备注 B 级'};
+
+/* ---------- 状态 ---------- */
+const state = { q: '', grade: 'all', voc: 'all', cat: 'all', view: 'board', sort: 'no' };
+
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c;
+  if (h != null) n.innerHTML = h; return n; };
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g,
+  m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function mark(t, toks) {
+  let out = esc(t);
+  toks.forEach(k => {
+    if (!k || !/^[\u4e00-\u9fa5a-z0-9+#\-.]+$/i.test(k)) return;
+    const i = out.toLowerCase().indexOf(k.toLowerCase());
+    if (i >= 0) out = out.slice(0, i) + '<span class="hl">' + out.slice(i, i + k.length) + '</span>' + out.slice(i + k.length);
+  });
+  return out;
+}
+function toast(msg) {
+  let t = $('#_toast');
+  if (!t) { t = el('div'); t.id = '_toast';
+    Object.assign(t.style, {position:'fixed',left:'50%',bottom:'34px',transform:'translateX(-50%)',
+      background:'#15171A',color:'#F1F0EC',padding:'9px 18px',borderRadius:'3px',fontSize:'12.5px',
+      zIndex:9999,opacity:'0',transition:'.2s',boxShadow:'0 20px 50px -20px #000'});
+    document.body.appendChild(t); }
+  t.textContent = msg; t.style.opacity = '1';
+  clearTimeout(t._h); t._h = setTimeout(() => t.style.opacity = '0', 1700);
+}
+const toks = () => state.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+
+/* ---------- 头部统计 ---------- */
+(function () {
+  $('#hbTotal').textContent = DB.meta.total;
+  $('#hbA').textContent = DB.meta.aCount;
+  $('#hbB').textContent = DB.meta.bCount;
+  $('#hbV').textContent = DB.meta.vocCount;
+  const box = $('#hdrStats');
+  [['', DB.meta.total, '条目总数'], ['gold', DB.meta.aCount, 'A 级'],
+   ['steel', DB.meta.bCount, 'B 级'], ['terra', DB.meta.vocCount, '高职赛道']]
+    .forEach(([c, n, t], i) => {
+      const d = el('div', 'hstat' + (c ? ' ' + c : ''),
+        `<b>${i === 0 ? '' : ''}${n}</b><span>${t}</span>`);
+      box.appendChild(d);
+    });
+})();
+
+/* ---------- 侧栏筛选 ---------- */
+function renderFilters() {
+  const gl = $('#gradeList'); gl.innerHTML = '';
+  const gopt = [['all', '全部等级', DB.meta.total, 'all'],
+                ['A', '备注 A 级', DB.meta.aCount, 'gold'],
+                ['B', '备注 B 级', DB.meta.bCount, 'steel']];
+  gopt.forEach(([k, t, n, c]) => {
+    const b = el('button', 'frow', `<span class="dot ${c}"></span><span class="fname">${t}</span><span class="fcnt">${n}</span>`);
+    b.setAttribute('aria-pressed', state.grade === k);
+    b.onclick = () => { state.grade = k; renderFilters(); render(); };
+    gl.appendChild(b);
+  });
+
+  const vl = $('#vocList'); vl.innerHTML = '';
+  [['all', '全部', DB.meta.total], ['voc', '含高职赛道', DB.meta.vocCount]].forEach(([k, t, n]) => {
+    const b = el('button', 'frow', `<span class="dot ${k === 'voc' ? 'terra' : 'all'}"></span>
+      <span class="fname">${t}</span><span class="fcnt">${n}</span>`);
+    b.setAttribute('aria-pressed', state.voc === k);
+    b.onclick = () => { state.voc = k; renderFilters(); render(); };
+    vl.appendChild(b);
+  });
+
+  const cl = $('#catList'); cl.innerHTML = '';
+  $('#catTotal').textContent = DB.cats.length;
+  const mk2 = (k, t, n, c) => {
+    const b = el('button', 'catrow', `<span class="cno">${c || '00'}</span>
+      <span class="cname">${esc(t)}</span><span class="cn">${n}</span>`);
+    b.setAttribute('aria-current', state.cat === k);
+    b.onclick = () => { state.cat = k; renderFilters(); render(); };
+    return b;
+  };
+  cl.appendChild(mk2('all', '全部领域', DB.meta.total, ''));
+  DB.cats.forEach(c => cl.appendChild(mk2(c.k, c.name, c.count, c.k)));
+}
+
+/* ---------- 分段控件 ---------- */
+function renderSegs() {
+  const vs = $('#viewSeg'); vs.innerHTML = '';
+  [['board', '榜单'], ['table', '表格'], ['dist', '分布']].forEach(([k, t]) => {
+    const b = el('button', '', t);
+    b.setAttribute('aria-pressed', state.view === k);
+    b.onclick = () => { state.view = k; renderSegs(); render(); };
+    vs.appendChild(b);
+  });
+  const ss = $('#sortSeg'); ss.innerHTML = '';
+  [['no', '按序号'], ['grade', '按等级'], ['cat', '按领域'], ['len', '名称长度']].forEach(([k, t]) => {
+    const b = el('button', '', t);
+    b.setAttribute('aria-pressed', state.sort === k);
+    b.onclick = () => { state.sort = k; renderSegs(); render(); };
+    ss.appendChild(b);
+  });
+}
+
+/* ---------- 快捷示例 ---------- */
+(function () {
+  const box = $('#quick');
+  box.appendChild(el('span', '', '<span class="lbl">试试</span>'));
+  ['数学建模', '大广赛', 'RoboMaster', '蓝桥杯', '结构设计', '高职赛', 'A级'].forEach(s => {
+    const b = el('button', 'q', esc(s));
+    b.onclick = () => {
+      if (s === '高职赛') { state.voc = 'voc'; state.q = ''; }
+      else if (s === 'A级') { state.grade = 'A'; state.q = ''; }
+      else { state.q = s; }
+      $('#q').value = state.q; renderFilters(); render();
+    };
+    box.appendChild(b);
+  });
+})();
+
+/* =========================================================================
+   过滤
+   ========================================================================= */
+function filtered() {
+  const T = toks();
+  let out = LIST.filter(r => {
+    if (state.grade !== 'all' && r.grade !== state.grade) return false;
+    if (state.voc === 'voc' && !r.voc) return false;
+    if (state.cat !== 'all' && r.cat !== state.cat) return false;
+    return true;
+  });
+  if (T.length) {
+    out = out.filter(r => {
+      const hay = (r.name + ' ' + r.aka + ' ' + CATNAME[r.cat] + ' ' + r.grade + ' ' + (r.voc || '')).toLowerCase();
+      return T.every(k => hay.includes(k));
+    });
+    const sc = r => {
+      const n = r.name.toLowerCase();
+      let s = 9;
+      T.forEach(k => {
+        if (n === k) s = Math.min(s, 0);
+        else if (n.startsWith(k)) s = Math.min(s, 1);
+        else if (n.includes(k)) s = Math.min(s, 2);
+        else s = Math.min(s, 5);
+      });
+      return s;
+    };
+    out = out.map(r => [sc(r), r]).sort((a, b) => a[0] - b[0] || a[1].no - b[1].no)
+              .map(x => x[1]);
+    return out;
+  }
+  const s = state.sort;
+  out.sort((a, b) =>
+    s === 'grade' ? (a.grade === b.grade ? a.no - b.no : (a.grade === 'A' ? -1 : 1))
+    : s === 'cat' ? (a.cat === b.cat ? a.no - b.no : a.cat.localeCompare(b.cat))
+    : s === 'len' ? (b.name.length - a.name.length || a.no - b.no)
+    : a.no - b.no);
+  return out;
+}
+
+/* =========================================================================
+   渲染
+   ========================================================================= */
+function render() {
+  const rows = filtered();
+  const T = toks();
+  $('#cntBig').textContent = rows.length;
+  $('#cntCap').textContent = `条竞赛记录${rows.length !== DB.meta.total ? ` / 共 ${DB.meta.total} 条` : ''}`;
+  renderChips();
+  const stage = $('#stage'); stage.innerHTML = '';
+
+  if (!rows.length) {
+    stage.appendChild(el('div', 'empty', `<div class="em">没有符合条件的竞赛</div>
+      <div>可尝试缩短关键词、清除筛选条件，或改搜常见简称（如"大广赛""数模"）</div>`));
+    return;
+  }
+  if (state.view === 'board') renderBoard(stage, rows, T);
+  else if (state.view === 'table') renderTable(stage, rows, T);
+  else renderDist(stage, rows);
+}
+
+function renderChips() {
+  const box = $('#chips'); box.innerHTML = '';
+  const items = [];
+  if (state.grade !== 'all') items.push(['等级', GRADE_TXT[state.grade], () => state.grade = 'all']);
+  if (state.voc !== 'all') items.push(['赛道', '含高职赛道', () => state.voc = 'all']);
+  if (state.cat !== 'all') items.push(['领域', CATNAME[state.cat], () => state.cat = 'all']);
+  if (state.q.trim()) items.push(['检索', state.q.trim(), () => { state.q = ''; $('#q').value = ''; }]);
+  if (!items.length) { box.style.display = 'none'; return; }
+  box.style.display = 'flex';
+  items.forEach(([k, v, fn]) => {
+    const c = el('span', 'chipf', `<b>${esc(k)}</b>${esc(v)}<x>✕</x>`);
+    c.querySelector('x').onclick = () => { fn(); renderFilters(); render(); };
+    box.appendChild(c);
+  });
+  const r = el('button', 'chipf reset', '清除全部筛选');
+  r.onclick = () => { state.grade = 'all'; state.voc = 'all'; state.cat = 'all';
+    state.q = ''; $('#q').value = ''; renderFilters(); render(); };
+  box.appendChild(r);
+}
+
+function badges(r, withCat) {
+  let h = `<span class="bdg ${r.grade === 'A' ? 'gold' : 'steel'}">${r.grade} 级</span>`;
+  if (r.voc) h += `<span class="bdg terra">${esc(r.voc)}</span>`;
+  if (withCat) h += `<span class="bdg plain">${esc(CATNAME[r.cat])}</span>`;
+  return h;
+}
+
+function renderBoard(stage, rows, T) {
+  const g = el('div', 'board');
+  rows.forEach(r => {
+    const c = el('div', 'card g-' + r.grade);
+    c.innerHTML = `
+      <div class="card-top">
+        <div class="card-no">${r.no}</div>
+        <div class="card-bd">${badges(r, true)}</div>
+      </div>
+      <div class="card-name">${mark(r.name, T)}</div>
+      ${r.aka ? `<div class="card-ft"><span><b>简称</b> ${mark(r.aka, T)}</span></div>` : ''}`;
+    c.onclick = () => openDrawer(r, T);
+    g.appendChild(c);
+  });
+  stage.appendChild(g);
+}
+
+function renderTable(stage, rows, T) {
+  const w = el('div', 'tbl-wrap');
+  const t = el('table', 'cmp');
+  t.innerHTML = `<thead><tr>
+      <th style="width:52px">序号</th><th>竞赛名称</th>
+      <th style="width:74px">备注</th><th style="width:104px">赛道</th>
+      <th style="width:150px">学科领域</th></tr></thead>
+    <tbody>${rows.map(r => `<tr class="g-${r.grade}" data-no="${r.no}">
+      <td class="n">${r.no}</td>
+      <td class="nm">${mark(r.name, T)}${r.aka ? `<span class="aka"><b>简称</b> ${mark(r.aka, T)}</span>` : ''}</td>
+      <td><span class="bdg ${r.grade === 'A' ? 'gold' : 'steel'}">${r.grade}</span></td>
+      <td>${r.voc ? `<span class="bdg terra">${esc(r.voc)}</span>` : '<span style="color:var(--ink-4)">—</span>'}</td>
+      <td style="font-size:12px;color:var(--ink-2)">${esc(CATNAME[r.cat])}</td></tr>`).join('')}
+    </tbody>`;
+  w.appendChild(t);
+  t.querySelectorAll('tbody tr').forEach(tr => {
+    tr.style.cursor = 'pointer';
+    tr.onclick = () => openDrawer(LIST.find(x => x.no === +tr.dataset.no), T);
+  });
+  stage.appendChild(w);
+}
+
+function renderDist(stage, rows) {
+  const wrap = el('div', 'dist');
+
+  // 等级构成
+  const a = rows.filter(r => r.grade === 'A').length, b = rows.length - a;
+  const p1 = el('div', 'dpanel', `
+    <h3>备注等级构成</h3>
+    <div class="dsub">当前筛选结果 ${rows.length} 条 · A 级为重点标注项</div>
+    <div class="split">
+      ${a ? `<i class="gold" style="flex:${a}">A ${a}</i>` : ''}
+      ${b ? `<i class="steel" style="flex:${b}">B ${b}</i>` : ''}
+    </div>`);
+  wrap.appendChild(p1);
+
+  // 领域分布
+  const host = el('div', 'dsub');
+  const maxN = Math.max(...DB.cats.map(c => rows.filter(r => r.cat === c.k).length), 1);
+  const panel = el('div', 'dpanel');
+  panel.appendChild(el('h3', '', '学科领域分布'));
+  panel.appendChild(el('div', 'dsub', '点击任一领域可筛选 · 条内左侧为 A 级、右侧为 B 级'));
+  panel.appendChild(el('div', 'legend', `
+    <span><i style="width:11px;height:11px;border-radius:2px;background:var(--gold);display:inline-block"></i>备注 A 级</span>
+    <span><i style="width:11px;height:11px;border-radius:2px;background:var(--steel);display:inline-block"></i>备注 B 级</span>`));
+
+  const tracks = el('div');
+  DB.cats.forEach(c => {
+    const sub = rows.filter(r => r.cat === c.k);
+    if (!sub.length) return;
+    const na = sub.filter(r => r.grade === 'A').length, nb = sub.length - na;
+    const bar = el('div', 'dbar');
+    bar.innerHTML = `<div class="dn">${esc(c.name)}</div>
+      <div class="dtrack">
+        <i class="gold" style="width:${(na / maxN * 100).toFixed(2)}%"></i>
+        <i class="steel" style="width:${(nb / maxN * 100).toFixed(2)}%"></i>
+      </div>
+      <div class="dv">${sub.length}</div>`;
+    bar.onclick = () => { state.cat = c.k; renderFilters(); render(); };
+    tracks.appendChild(bar);
+  });
+  panel.appendChild(tracks);
+  wrap.appendChild(panel);
+
+  // 赛道
+  const voc = rows.filter(r => r.voc);
+  const p3 = el('div', 'dpanel');
+  p3.appendChild(el('h3', '', `高职赛道标注（${voc.length} 条）`));
+  p3.appendChild(el('div', 'dsub', '原文备注栏第四列标注为「高职赛」或「高职赛（含本科赛道）」'));
+  p3.appendChild(el('div', '', voc.length
+    ? voc.map(r => `<div style="display:flex;gap:9px;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--rule-2)">
+        <span class="mono" style="color:var(--ink-4);font-size:12px;min-width:26px">${r.no}</span>
+        <span style="font-size:13px">${esc(r.name)}</span>
+        <span class="bdg terra" style="margin-left:auto">${esc(r.voc)}</span></div>`).join('')
+    : '<span style="font-size:12px;color:var(--ink-3)">当前筛选结果中无高职赛道标注项</span>'));
+  wrap.appendChild(p3);
+
+  stage.appendChild(wrap);
+}
+
+/* =========================================================================
+   详情
+   ========================================================================= */
+let cur = null;
+function openDrawer(r, T) {
+  if (!r) return;
+  cur = r; T = T || [];
+  $('#dBody').innerHTML = `
+    <div class="dno">${String(r.no).padStart(2, '0')}</div>
+    <div class="dtitle">${esc(r.name)}</div>
+    <div class="dsub">
+      <span class="bdg ${r.grade === 'A' ? 'gold' : 'steel'}">备注 ${r.grade} 级</span>
+      ${r.voc ? `<span class="bdg terra">${esc(r.voc)}</span>` : ''}
+      <span class="bdg plain">${esc(CATNAME[r.cat])}</span>
+    </div>
+
+    ${r.aka ? `<div class="dsec"><span class="lbl">检索用简称</span>
+      <div style="font-size:13.5px;color:var(--ink-2);line-height:1.9">${esc(r.aka)}</div>
+      <div style="font-size:11px;color:var(--ink-3);margin-top:6px">仅为本工具检索便利而补充，非原文内容</div></div>` : ''}
+
+    <div class="dsec"><span class="lbl">名单信息</span>
+      <dl class="kv">
+        <dt>名单序号</dt><dd>第 ${r.no} 条 / 共 ${DB.meta.total} 条</dd>
+        <dt>备注等级</dt><dd>${GRADE_TXT[r.grade]}</dd>
+        <dt>赛道标注</dt><dd>${r.voc ? esc(r.voc) : '—'}</dd>
+        <dt>学科领域</dt><dd>${esc(CATNAME[r.cat])}<span style="font-weight:400;color:var(--ink-3);font-size:11.5px">（本工具归类）</span></dd>
+      </dl>
+    </div>
+
+    ${r.fix ? `<div class="dsec"><span class="lbl">原文校订</span><div class="note">${esc(r.fix)}</div></div>` : ''}
+
+    <div class="dsec"><span class="lbl">同领域其他竞赛</span>
+      <div style="display:grid;gap:6px">
+        ${LIST.filter(x => x.cat === r.cat && x.no !== r.no).slice(0, 12).map(x =>
+          `<button data-no="${x.no}" style="display:flex;gap:10px;align-items:baseline;
+            border:1px solid var(--rule);border-radius:3px;padding:7px 10px;background:var(--paper);
+            width:100%;transition:.12s" onmouseover="this.style.borderColor='var(--ink)'"
+            onmouseout="this.style.borderColor='var(--rule)'">
+            <span class="mono" style="color:var(--ink-4);font-size:11.5px;min-width:22px">${x.no}</span>
+            <span style="font-size:13px;flex:1">${esc(x.name)}</span>
+            <span class="bdg ${x.grade === 'A' ? 'gold' : 'steel'}">${x.grade}</span></button>`).join('')}
+      </div>
+    </div>`;
+  $('#dBody').querySelectorAll('[data-no]').forEach(n => {
+    n.onclick = () => openDrawer(LIST.find(x => x.no === +n.dataset.no), T);
+  });
+  $('#dFoot').textContent = `第 ${r.no} 条 · ${CATNAME[r.cat]}`;
+  $('#dCopy').onclick = () => navigator.clipboard?.writeText(r.name)
+    .then(() => toast('已复制竞赛名称'), () => toast('复制失败，请手动选择'));
+  $('#drawer').classList.add('on'); $('#drawer').setAttribute('aria-hidden', 'false');
+  $('#scrim').classList.add('on');
+}
+function closeDrawer() {
+  $('#drawer').classList.remove('on'); $('#drawer').setAttribute('aria-hidden', 'true');
+  $('#scrim').classList.remove('on');
+}
+
+/* =========================================================================
+   导出
+   ========================================================================= */
+$('#expBtn').onclick = () => {
+  const rows = filtered();
+  if (!rows.length) { toast('当前没有可导出的记录'); return; }
+  const head = ['序号', '竞赛名称', '备注', '赛道', '学科领域(工具归类)', '检索简称'];
+  const csv = [head.join(',')].concat(rows.map(r =>
+    [r.no, r.name, r.grade, r.voc, CATNAME[r.cat], r.aka]
+      .map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(','))).join('\r\n');
+  const blob = new Blob(['\uFEFF' + csv], {type: 'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `教育部认可竞赛名单_筛选结果_${rows.length}条.csv`;
+  document.body.appendChild(a); a.click(); a.remove();
+  toast(`已导出 ${rows.length} 条`);
+};
+
+/* =========================================================================
+   事件
+   ========================================================================= */
+let tmr = null;
+$('#q').addEventListener('input', e => {
+  clearTimeout(tmr); tmr = setTimeout(() => { state.q = e.target.value; render(); }, 90);
+});
+$('#clr').onclick = () => { $('#q').value = ''; state.q = ''; render(); $('#q').focus(); };
+$('#dClose').onclick = closeDrawer;
+$('#scrim').onclick = closeDrawer;
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if ($('#drawer').classList.contains('on')) closeDrawer();
+    else if (state.q) { state.q = ''; $('#q').value = ''; render(); }
+  }
+  if (e.key === '/' && document.activeElement !== $('#q')) { e.preventDefault(); $('#q').focus(); }
+});
+function syncSide() {
+  const h = $('#hdr').offsetHeight;
+  document.documentElement.style.setProperty('--hdh', h + 'px');
+  const s = document.querySelector('.side');
+  s.style.top = h + 'px';
+  s.style.height = `calc(100vh - ${h}px)`;
+}
+new ResizeObserver(syncSide).observe($('#hdr'));
+syncSide();
+
+renderFilters();
+renderSegs();
+render();
+</script>
+</body>
+</html>
