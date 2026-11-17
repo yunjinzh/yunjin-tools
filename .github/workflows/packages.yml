@@ -1,0 +1,23 @@
+name: Publish local program packages
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Restore and verify the complete program packages
+        run: python scripts/package_release.py
+      - name: Publish release downloads
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view v2026.11.17 > /dev/null 2>&1; then
+            gh release create v2026.11.17 --title '本地工具程序包 · 2026-11-17' --notes-file docs/RELEASE-NOTES.md
+          fi
+          gh release upload v2026.11.17 release-packages/* --clobber
