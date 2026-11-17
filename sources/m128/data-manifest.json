@@ -1,0 +1,548 @@
+[
+  {
+    "file": "coast_0.json",
+    "sha256": "b8ea9c1739f1e139242d9dea20353f459a6374a748502ab4e091da1e555c17f8",
+    "features": 2460,
+    "time_Ma": 0,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_0.json",
+    "sha256": "26b0b582d430cec378cf6fb754455de203dffd57d4d84c251ca60b6716cd0e2f",
+    "features": 119,
+    "time_Ma": 0,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_0.json",
+    "sha256": "3db8a9aa5833600284f0f25d90d31bd9e4e9ff9cff813a2c82346ac89e53b638",
+    "features": 421,
+    "time_Ma": 0,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_10.json",
+    "sha256": "a8a60fd19bedc2d2f0ae85c2f1d9abbe592d7959a9bf5515e2390efd8e746906",
+    "features": 2363,
+    "time_Ma": 10,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_10.json",
+    "sha256": "467e8b4303b750f9559438fab6e3702958ded3f291300dba77a92f03972a38b6",
+    "features": 104,
+    "time_Ma": 10,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_10.json",
+    "sha256": "9349b186223f9bc6995ca5dd4e8c3dc4accf845dd3bf8f8e95b11410a56bd6a4",
+    "features": 363,
+    "time_Ma": 10,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_20.json",
+    "sha256": "e42561ccb82747e9f7dcfab384617b905c6d475ea2cc9d0d2f305eb044d26a5b",
+    "features": 2277,
+    "time_Ma": 20,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_20.json",
+    "sha256": "b481f484dba655df12ff55636d13b8cc5940caa096606b1aa06217948f41de90",
+    "features": 97,
+    "time_Ma": 20,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_20.json",
+    "sha256": "1aba0581c572c0cdb74f72c8e60d3baa8d8ab1b7f4a8eb30f0cb7f475bdf02c2",
+    "features": 325,
+    "time_Ma": 20,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_30.json",
+    "sha256": "fca159379b230b8ef2137989485712e47155646849b1ed7d4d060e76b58a9bd3",
+    "features": 2230,
+    "time_Ma": 30,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_30.json",
+    "sha256": "6241267953342a20261baf9abf7b2d514b985d4ad75e1930a887088dadc4f2fa",
+    "features": 91,
+    "time_Ma": 30,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_30.json",
+    "sha256": "dacd08ea0358c263afcb1b3f8b54266771bfebda7a6085501b4348e6051d3992",
+    "features": 310,
+    "time_Ma": 30,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_40.json",
+    "sha256": "b1f41e16417da6dfcf8361c4b8b8cf4aae83c8babbb458afc4e6431c16ef12f6",
+    "features": 2177,
+    "time_Ma": 40,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_40.json",
+    "sha256": "de21170fa6a1529b7496cdf6d15c19a4d80c227f411855016fb48392c0cc1eec",
+    "features": 86,
+    "time_Ma": 40,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_40.json",
+    "sha256": "407f1d5e3b5f30e70505d7f4f71fed668fea9fca1f761d8082ec007447e915b4",
+    "features": 501,
+    "time_Ma": 40,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_50.json",
+    "sha256": "75a997f31d5fa7bf81e519c4b2f7dba4541ba79f228c4f927e11e4bd582b42b7",
+    "features": 2108,
+    "time_Ma": 50,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_50.json",
+    "sha256": "00200bb371478277f365abe61774090f724f968761ea857b45b78be81f78c637",
+    "features": 81,
+    "time_Ma": 50,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_50.json",
+    "sha256": "a38de5bf376ffc1d4191f938d063c0991e403529513cd9bf2eb10aaaabaa13af",
+    "features": 471,
+    "time_Ma": 50,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_60.json",
+    "sha256": "12fc4fba6b74094b23808ff4067787f856f35b52645adf5efefdf286ba7a8110",
+    "features": 1962,
+    "time_Ma": 60,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_60.json",
+    "sha256": "2a723f033730cf2c7334fa9842a84cfa10c5c05c5131993189eb48e937192d43",
+    "features": 80,
+    "time_Ma": 60,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_60.json",
+    "sha256": "f24332c1a6b08547963f7539ea903c33c852fc22cacb5e30a6ceca358539b9a1",
+    "features": 464,
+    "time_Ma": 60,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_70.json",
+    "sha256": "004605f6b1f63dde2c9e5c288da205655ed404885449470d0b88dc2f1bd2ff5b",
+    "features": 1938,
+    "time_Ma": 70,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_70.json",
+    "sha256": "1813a5b546708637ab401988a0b3137f14b8699419764300d6494092616e5057",
+    "features": 75,
+    "time_Ma": 70,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_70.json",
+    "sha256": "b4d8c4244fae380f4e239223a7c071b5b7d547343c681a9709b21a3f5f28d7fd",
+    "features": 429,
+    "time_Ma": 70,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_80.json",
+    "sha256": "0acfd8fa61da16c0f3b47fac1a9df1008123fb2f2b7efb71742dc419f1cc3861",
+    "features": 1930,
+    "time_Ma": 80,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_80.json",
+    "sha256": "ab637ced997cb8b3f39e47f5a9af9f23552141d057c604f5fddb48ca4427014a",
+    "features": 71,
+    "time_Ma": 80,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_80.json",
+    "sha256": "3eb0b752e1f6106b608c9e98d657ebe34c78d1fabcc0b1815c5e62c47df18956",
+    "features": 402,
+    "time_Ma": 80,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_90.json",
+    "sha256": "1f95d82bbdff02191dbc16979db5849e310877d163a37ca2b3f78cbda0d456b0",
+    "features": 1893,
+    "time_Ma": 90,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_90.json",
+    "sha256": "f3e92271b411404c5bdef89b350d562f20cb1fba955b34e2fac1d3c9e6b0f4eb",
+    "features": 66,
+    "time_Ma": 90,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_90.json",
+    "sha256": "be138400c3acb63dd6b03e8d3b7d80b4b23a75e1b9caa7ddd6fceb3725af4fda",
+    "features": 518,
+    "time_Ma": 90,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_100.json",
+    "sha256": "7289633510c70cc63b9f0c2cdb523f40668c444e8690ce666d5cdcab60ca0135",
+    "features": 1884,
+    "time_Ma": 100,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_100.json",
+    "sha256": "9d8ea9e84dcc4542c7b7998c9aac9d9e9ea7670e46f1f51a7c17816bed33e7c4",
+    "features": 69,
+    "time_Ma": 100,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_100.json",
+    "sha256": "7b012c850284656f0dac06d7891c333cc5b721891421418468013ee9f85ca29d",
+    "features": 458,
+    "time_Ma": 100,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_110.json",
+    "sha256": "9af672641f7d8eb665f90c50ebad78718da20c39705ef5a06cb1d511838d94bc",
+    "features": 1861,
+    "time_Ma": 110,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_110.json",
+    "sha256": "f082cf0f7ac20abdafc1bc065d4fa17bc4990273f8a3b38c660294ad07ed9ba6",
+    "features": 58,
+    "time_Ma": 110,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_110.json",
+    "sha256": "f95b0ec5b1a0c3ed53b32933250c31052d3b12619c287ab0783f7962407ae61d",
+    "features": 394,
+    "time_Ma": 110,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_120.json",
+    "sha256": "c780bdaa4bf0a7e002269bdf96d506aade22f65053dc9370593ada3879c91fe6",
+    "features": 1858,
+    "time_Ma": 120,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_120.json",
+    "sha256": "244eafce651da1d84ea6238aa36a227833c777dcf90031eefa956d8e7ebf1e66",
+    "features": 64,
+    "time_Ma": 120,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_120.json",
+    "sha256": "036ed486dfa57a66c009d2586c993e0ed327b405f7578c83bfffa9980f57c250",
+    "features": 632,
+    "time_Ma": 120,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_130.json",
+    "sha256": "ccf335e0608bbe0cab1d27c865b155a6f3260565cf164b70573de7498bc776a4",
+    "features": 1820,
+    "time_Ma": 130,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_130.json",
+    "sha256": "d7a80e1fdf2956db0739ed1c91b95b3642fddb8086ef97730b1ae940cc92a721",
+    "features": 63,
+    "time_Ma": 130,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_130.json",
+    "sha256": "be0ecd33090c9df33dc547bff1c1b1143eb9551444b44c6c4eda28df116e21b1",
+    "features": 568,
+    "time_Ma": 130,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_140.json",
+    "sha256": "4f28a2b84acdbbaf20a5f8bc6e644f6869b901c17fea18ca4ce3046d2f5ad22b",
+    "features": 1794,
+    "time_Ma": 140,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_140.json",
+    "sha256": "7682269ae8099b93b74df289675bfe94d1b9d85f3960c1f2ec1e2fab79cfa6a4",
+    "features": 58,
+    "time_Ma": 140,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_140.json",
+    "sha256": "97f933c4dcc366d5f2f6b4eaeec6906b0d44a122fc1d9e5fd10c48c888ef1331",
+    "features": 545,
+    "time_Ma": 140,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_150.json",
+    "sha256": "4491eeaf4442becfdd6af540c688034ff8d9e722a02f196351ae43d3cfcc4e56",
+    "features": 1730,
+    "time_Ma": 150,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_150.json",
+    "sha256": "4038603027a9192add7ebf51b13f1eb7957ab4fb500ca7fc47c38f1900eb2221",
+    "features": 51,
+    "time_Ma": 150,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_150.json",
+    "sha256": "00016ce75d00dac4c2c3e21f8e2cb656c99ca0b572037d2521563b5b835ee5c2",
+    "features": 207,
+    "time_Ma": 150,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_160.json",
+    "sha256": "165173f7ccadd6288687710effe6f542eae2eb3174a51ec27cec1af69e82239e",
+    "features": 1695,
+    "time_Ma": 160,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_160.json",
+    "sha256": "d410a86d10b307f2b2f97c6bdd4da5b3932d94161fccdc1137ac04788ca270ba",
+    "features": 43,
+    "time_Ma": 160,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_160.json",
+    "sha256": "d91a182a8f0740d534fbd04f0b6328c9f8cbd1e7077379212da78afbdc3adba7",
+    "features": 195,
+    "time_Ma": 160,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_170.json",
+    "sha256": "9e1d7d6786468cb8d0e23f319ccef2936d04874bc7c3cadb70e2d4dbabf22ee7",
+    "features": 1684,
+    "time_Ma": 170,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_170.json",
+    "sha256": "bfd2eb858421c4b9eb32c9c5ca2179e72564fa3688bcb2f38d7bfdd7d56103f0",
+    "features": 33,
+    "time_Ma": 170,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_170.json",
+    "sha256": "3ab3c0a9825056241bb1376313380d69dcad3886ec4f265a54c849cbcc488402",
+    "features": 140,
+    "time_Ma": 170,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_180.json",
+    "sha256": "f944e7b3b8da5ea02f34476c8f6dee2a58f3ab2d4cc6b5821bf40971459a1077",
+    "features": 1685,
+    "time_Ma": 180,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_180.json",
+    "sha256": "ce06e76cc4a11768effcd34b968cdcebb9712112128a1f0ee0d32b087facaaf5",
+    "features": 24,
+    "time_Ma": 180,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_180.json",
+    "sha256": "c23f1af5a4abbda4b19d445aae249a1abfec28801b3bd58fb0b433d5c6d55f57",
+    "features": 122,
+    "time_Ma": 180,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_190.json",
+    "sha256": "10319a79275d7f52bb8adf5a59e92c4bccabc867aa9dd36a83e168b55327ad8e",
+    "features": 1683,
+    "time_Ma": 190,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_190.json",
+    "sha256": "a95e2d82ea7c6e1722becd246dd58d93936dd52517bd389bb7114c71be201369",
+    "features": 25,
+    "time_Ma": 190,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_190.json",
+    "sha256": "6f8ce55edbbc85943270d25738cbbfe5a898fe5bf291b29b975b6665dc66d021",
+    "features": 124,
+    "time_Ma": 190,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_200.json",
+    "sha256": "907475971db881898be0c74eeaaa2e4d50b69b84e09e1f5d9aa53753b1862f25",
+    "features": 1682,
+    "time_Ma": 200,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_200.json",
+    "sha256": "0841f3098a65564e25adf17f3ac8d2eb827e567f07c3568b3cf5eba9d8a12c84",
+    "features": 18,
+    "time_Ma": 200,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_200.json",
+    "sha256": "901228f799d6d57fffff18da320ee659ef7df64613df7b8ad223fcda9c9b68a9",
+    "features": 97,
+    "time_Ma": 200,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_210.json",
+    "sha256": "a707f51021a1c7470db3798d5ece71ed814d489d00b4308069bc0a51c1d6aedc",
+    "features": 1643,
+    "time_Ma": 210,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_210.json",
+    "sha256": "bdbccd43930faaf1d3d91c05911fef5f5753c83bebc219089c94cb040a385df6",
+    "features": 13,
+    "time_Ma": 210,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_210.json",
+    "sha256": "da839ab4c2690c363176f8478f0c1ac5dc859c94390b4eb684b05d6181564705",
+    "features": 69,
+    "time_Ma": 210,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_220.json",
+    "sha256": "e21d983cce566e0614230bbccb022d881cdb6fcf16df82488b474af5effda542",
+    "features": 1639,
+    "time_Ma": 220,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_220.json",
+    "sha256": "655c158a684536490993f83141e266ef03ee54843949b9e96c98bd1980fe0383",
+    "features": 13,
+    "time_Ma": 220,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_220.json",
+    "sha256": "1fd99d77189275f9d8ab09520558b4838c60c87e35a7d47751f265055a53653e",
+    "features": 68,
+    "time_Ma": 220,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_230.json",
+    "sha256": "9cc6199f228af3afed582803d97903d169892b9be1a2d8ed20b3fe34d50bf254",
+    "features": 1637,
+    "time_Ma": 230,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_230.json",
+    "sha256": "da87f9dcdf8639685ed9f3a283104bc1a16f79f24e84cec14589f151273bd98a",
+    "features": 14,
+    "time_Ma": 230,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_230.json",
+    "sha256": "6b56b94a18093e1314a10c549d0e0badd985527bb19d6b623ab4d33c3886c8ae",
+    "features": 76,
+    "time_Ma": 230,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_240.json",
+    "sha256": "4d30641c54b59e5c668d0def3e88075b7d4d20467609012070a17ac065d90e19",
+    "features": 1638,
+    "time_Ma": 240,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_240.json",
+    "sha256": "d60501faeba30a6c87707cda83a7e1c8e58c65aed64bd2e7eb1a2b1ca4c7c70e",
+    "features": 14,
+    "time_Ma": 240,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_240.json",
+    "sha256": "f6437745d8c3475aab7da5cb8cc7e8ef7cad31f1ac5368bebf490fdd2ba5a082",
+    "features": 76,
+    "time_Ma": 240,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "coast_250.json",
+    "sha256": "00d559e5444d9724edcc8dbf98dbf79280fd2769ccd646752f82173b437c8388",
+    "features": 1638,
+    "time_Ma": 250,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "plates_250.json",
+    "sha256": "7d4f9b80a34a1eecb083e30ffea8678da3891188b6107682b0cd94a4750eeda2",
+    "features": 11,
+    "time_Ma": 250,
+    "model": "MULLER2019"
+  },
+  {
+    "file": "bounds_250.json",
+    "sha256": "cb03f4c435f69c36cbde055f454dadb6d3a118a9a2aae0f41c13c5e01948b44c",
+    "features": 68,
+    "time_Ma": 250,
+    "model": "MULLER2019"
+  }
+]
