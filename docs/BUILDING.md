@@ -13,3 +13,11 @@ GIS101 工具目录的 `/tools/` 索引及 6 个 HTML 子页面一同迁入。�
 教育政策索引（m143）的 PDF 预览按同源模块文件目录校验地址，兼容统一部署后带子路径的资源 URL。原站第 3 版的相对路径限制仅在 `web/m143/app.js` 中适配，`sources/m143` 保留原源码。移动端单列网格允许子项收缩，使司局列表在自身区域滚动，避免撑宽整页。运行 `CHROMIUM_PATH=/usr/bin/chromium node tests/policy-index.mjs` 检查筛选、正文、附件、PDF 预览、CSV 导出及文件校验值；设置 `APP_URL` 后可检验真实发布站点，测试不会替换线上资源。
 
 该版本的一份 PDF 源文件实际为 33 字节网络错误文本。发布版本已从原记录所指的[高校官方附件](https://jwc.czu.cn/_upload/article/files/f1/7d/46260b9c4611875b50aea408d586/8651856b-7bcb-443d-b0bd-3ab5070303d8.pdf)重新取得 8 页 PDF（1041399 字节，SHA-256：`afd10d175c18ebc048412c8f494e7111b44aa3419f38706eff009ea9e0fc3786`），以正确哈希路径保存；源快照保持不变。
+
+## 项目交付协同工作台（m145）
+
+第 1 版源码归档在 [sources/m145](../sources/m145/)，对应源提交 `657fdfb49af9675893911eb206de254f57555d96`。通过[原站入口](https://spatial-delivery-hub.yunjinzh.chatgpt.site)使用完整工具；Pages 提供目录和运行说明页。
+
+该项目通过 Cloudflare Worker 执行记录与附件接口，使用 D1 的 `DB` 绑定保存版本记录、R2 的 `BUCKET` 绑定保存附件，并依赖原平台的身份与访问配置。独立部署时需重新配置这些服务和访问控制；原站的部署身份、数据库内容及用户附件未迁入。
+
+在仓库根目录运行 `python scripts/restore_assets.py m145` 恢复源码中的去重资源，再按[原项目 README](../sources/m145/README.md)安装依赖、配置运行环境、应用 `drizzle/` 中的建表迁移并构建 Worker。`lib/model.ts` 中的内置示例记录和数据库结构文件随源码保留；它们不包含原站运行中新增的记录或上传文件。本次同步验证源码归档和公开目录入口，不代表已在新的后端环境完成部署验收。

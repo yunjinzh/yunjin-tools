@@ -10630,5 +10630,9 @@
   "afd10d175c18ebc048412c8f494e7111b44aa3419f38706eff009ea9e0fc3786.pdf": {
     "bytes": 1041399,
     "sha256": "afd10d175c18ebc048412c8f494e7111b44aa3419f38706eff009ea9e0fc3786"
+  },
+  "0caffafc2f890c2322d0ab852236e805a707cf9ef9defc4aeebc24464e6adc07.webp": {
+    "bytes": 85902,
+    "sha256": "0caffafc2f890c2322d0ab852236e805a707cf9ef9defc4aeebc24464e6adc07"
   }
 }

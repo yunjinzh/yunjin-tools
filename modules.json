@@ -2147,5 +2147,20 @@
     "migration": "web",
     "web": "web/m144",
     "entry": "index.html"
+  },
+  {
+    "id": "m145",
+    "name": "数字孪生与空间智能项目交付协同工作台",
+    "description": "管理数字孪生与空间智能项目的需求、方案、投标、交付和验收记录，支持版本留痕、模板复用与附件归档。",
+    "category": "效率与管理",
+    "original_url": "https://spatial-delivery-hub.yunjinzh.chatgpt.site",
+    "original_status": "原站第1版已发布；完整运行依赖 Cloudflare Worker、D1 数据库和 R2 附件存储",
+    "source": "sources/m145",
+    "source_project": "appgprj_6afce09389e88191842d22dd1e7d487e",
+    "source_version": 1,
+    "source_commit": "657fdfb49af9675893911eb206de254f57555d96",
+    "kind": "server",
+    "migration": "source",
+    "migration_note": "源码已同步；此项目需要独立后端，GitHub Pages 不执行服务器或云数据库服务。"
   }
 ]
