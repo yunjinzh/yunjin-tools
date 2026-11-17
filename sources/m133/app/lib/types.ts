@@ -1,0 +1,6 @@
+export type Analysis = { hook:string; structure:string; turn:string; retention:string; rhythm:string; evidence:string; verified:boolean; titlePattern:string };
+export type Video = { provenance?:'unknown'|'research'|'education'|'vendor'; id:string; title:string; channel:string; channelUrl?:string; topic:string; description:string; url:string; published:string; views:number|null; subscribers:number|null; duration:string; evergreen:string; reason:string; sources:{label:string;url:string}[]; checked:string; metricsChecked:string; metricsSource:string; metricsCaveat?:string; favorite:boolean; notes:string; analysis:Analysis; snapshots:{at:string;views:number;subscribers:number|null}[]; revision?:number };
+export type Experiment = {id:string; title:string; hypothesis:string; status:string; sourceIds:string[]; date:string; url:string; views:string; ctr:string; retention:string; result:string; revision?:number};
+export const emptyAnalysis:Analysis={hook:'',structure:'',turn:'',retention:'',rhythm:'',evidence:'',verified:false,titlePattern:''};
+export const topics=['地图设计','空间智能','数字孪生','具身智能'];
+export function breakout(v:Video,m=5){return v.subscribers!==null&&v.subscribers>0&&v.subscribers<20000&&v.views!==null&&v.views/v.subscribers>=m&&!!v.metricsChecked&&!!v.metricsSource;}

@@ -1,0 +1,514 @@
+{
+  "checked": "2026-11-09",
+  "items": [
+    {
+      "id": "GsojLuJpe_0",
+      "gist": "把底图样式、地图图层和镜头运动分开控制，再用关键帧组织从全球到局部的地图叙事。",
+      "core": [
+        {
+          "heading": "让底图和标注跟随同一控制器",
+          "body": "旧流程把 Illustrator 矢量地图导入 After Effects，用 Null 控制位置与缩放；叠加的国家高亮也连接到同一控制器，避免移动时脱离底图。"
+        },
+        {
+          "heading": "先删去不需要的地图信息",
+          "body": "在 Mapbox Studio 中移除默认地名与不需要的省界，留下干净底图，再补自己的标签；地图信息密度由当前讲述对象决定。"
+        },
+        {
+          "heading": "把自定义样式接入 GEOlayers",
+          "body": "发布 Mapbox 样式后，将样式地址加入 GEOlayers，继续在 After Effects 中控制地图。视频演示的是当时的软件界面。"
+        },
+        {
+          "heading": "用停顿和视角变化组织镜头",
+          "body": "以伊拉克到 Basra 的移动为例，分别控制经纬度、缩放、方位和俯仰；在需要停留的位置补关键帧，再用错开的旋转形成环绕感。"
+        }
+      ],
+      "evidenceLevel": "字幕片段核对",
+      "basis": "核对公开 Script 转录中的 06:13–11:19、14:00–16:35、17:35–20:49 等相关片段；未核对完整字幕，未逐帧验证。未采用页面 AI 摘要。",
+      "sources": [
+        {
+          "label": "YouTube 原视频",
+          "url": "https://www.youtube.com/watch?v=GsojLuJpe_0"
+        },
+        {
+          "label": "公开字幕转录 · Script",
+          "url": "https://lilys.ai/ko/notes/35008"
+        }
+      ],
+      "checked": "2026-11-09"
+    },
+    {
+      "id": "WjvEnVuhKFE",
+      "gist": "在 QGIS 3 中把地图主体、比例与方向、图例及区位信息组合成一张完整地图。",
+      "core": [
+        {
+          "heading": "同时交代距离和方向",
+          "body": "教程明确包含比例尺与指北针，两类地图要素分别承担距离参照和方向参照。"
+        },
+        {
+          "heading": "为地图符号配上图例",
+          "body": "图例是作者列出的核心组成部分，使地图中的颜色与符号有对应说明。"
+        },
+        {
+          "heading": "补全区位与坐标参照",
+          "body": "作者把 key plan（区位示意图）和坐标网格纳入成图流程，使主图同时具有更大范围的位置背景与坐标参照。"
+        }
+      ],
+      "evidenceLevel": "作者说明",
+      "basis": "根据原视频作者说明提炼，已确认教程包含的五类地图要素；未核对完整字幕，未补写按钮、参数或操作顺序。",
+      "sources": [
+        {
+          "label": "YouTube 原视频与作者说明",
+          "url": "https://www.youtube.com/watch?v=WjvEnVuhKFE"
+        }
+      ],
+      "checked": "2026-11-09"
+    },
+    {
+      "id": "SovdBaus7pM",
+      "gist": "用 QGIS 把原始空间数据整理成可读地图：先纠正坐标与字段类型，再完成符号化、空间统计和地形表达。",
+      "core": [
+        {
+          "heading": "点位落错地方，先查图层坐标系",
+          "body": "示例 CSV 被按 EPSG:3857 解释而落在海上；作者按数据实际使用的 EPSG:4326 重新指定图层 CRS，使树木点回到正确位置。"
+        },
+        {
+          "heading": "数值分级前先修正字段类型",
+          "body": "树干直径无法用于 Graduated 样式时，先把字段转为数值；随后选择色带、分级方法与类别数，而不是把数字文本直接当连续量处理。"
+        },
+        {
+          "heading": "把点统计到面，再绘制分级图",
+          "body": "示例统计公园各多边形内的松鼠观测点数量，用生成的计数字段进行分级着色；Model Builder 可把重复分析组织成可重跑流程。"
+        },
+        {
+          "heading": "先裁剪高程，再计算阴影",
+          "body": "用中央公园边界裁剪 DEM，只保留研究范围；以裁剪结果生成 hillshade，呈现公园内部的地形起伏。"
+        }
+      ],
+      "evidenceLevel": "字幕片段核对",
+      "basis": "核对公开 Script 转录中的 34:31–37:58、57:11–58:40、01:00:30–01:01:56 等相关片段，并参照作者章节目录；未核对完整字幕，未逐帧验证。",
+      "sources": [
+        {
+          "label": "YouTube 原视频与章节",
+          "url": "https://www.youtube.com/watch?v=SovdBaus7pM"
+        },
+        {
+          "label": "公开字幕转录 · Script",
+          "url": "https://lilys.ai/en/notes/137935"
+        }
+      ],
+      "checked": "2026-11-09"
+    },
+    {
+      "id": "Mj7Z1P2hUWk",
+      "gist": "以 Google Maps 和 BlenderGIS 为入口，在 Blender 中制作基于地理数据的三维地形展示。",
+      "core": [
+        {
+          "heading": "用 BlenderGIS 连接地图与三维场景",
+          "body": "作者在原片说明及本人发布的补充文章中，明确采用 Google Maps 与 BlenderGIS 组合完成地形地图。"
+        },
+        {
+          "heading": "区分影像外观与地形高程",
+          "body": "插件官方资料将在线地图影像与 NASA SRTM 高程列为不同数据能力：影像提供表面信息，高程提供起伏。这是理解工具的补充说明，未确认原片的具体数据下载步骤。"
+        },
+        {
+          "heading": "为地形准备渲染素材",
+          "body": "作者同时提供 HDRI 与 Dirt Texture 链接，作为地形展示的素材入口"
+        }
+      ],
+      "evidenceLevel": "作者补充资料",
+      "basis": "已核对原视频说明、作者 Steve Lund 在 BlenderNation 的文章和 BlenderGIS 官方仓库；未核对完整字幕。第二点为工具官方资料补充，不冒充原片逐步总结。",
+      "sources": [
+        {
+          "label": "YouTube 原视频与素材说明",
+          "url": "https://www.youtube.com/watch?v=Mj7Z1P2hUWk"
+        },
+        {
+          "label": "作者 Steve Lund 的补充说明",
+          "url": "https://www.blendernation.com/2020/02/17/create-3d-terrian-using-google-maps-and-blendergis/"
+        },
+        {
+          "label": "BlenderGIS 官方仓库",
+          "url": "https://github.com/domlysz/BlenderGIS"
+        }
+      ],
+      "checked": "2026-11-09"
+    },
+    {
+      "id": "NW_djQS_N8U",
+      "gist": "先用 OpenStreetMap 插件导入城市结构，再通过建筑材质、光照和云雾完成城市视觉呈现。",
+      "core": [
+        {
+          "heading": "把城市结构作为输入",
+          "body": "作者使用 OpenStreetMap 插件将城市结构导入 Blender，建立后续表现所需的场景基础。"
+        },
+        {
+          "heading": "给建筑配置材质",
+          "body": "导入结构之后配置建筑材质，是作者明确列出的渲染步骤；原片说明另提供建筑纹理来源，便于跟练时准备素材。"
+        },
+        {
+          "heading": "用光照与大气完成画面",
+          "body": "作者把灯光和 atmospheric clouds（大气云层）作为逼真呈现的后续步骤。原片另附 HDRI 来源"
+        }
+      ],
+      "evidenceLevel": "作者补充资料",
+      "basis": "根据原视频说明及作者 Steve Lund 在 BlenderNation 对本片流程的说明提炼；未核对完整字幕，未补写未验证的 UI 操作与参数。",
+      "sources": [
+        {
+          "label": "YouTube 原视频与素材说明",
+          "url": "https://www.youtube.com/watch?v=NW_djQS_N8U"
+        },
+        {
+          "label": "作者 Steve Lund 的流程说明",
+          "url": "https://www.blendernation.com/2020/03/30/create-any-city-in-blender-in-20-minutes/"
+        }
+      ],
+      "checked": "2026-11-09"
+    },
+    {
+      "id": "kIID5FDi2JQ",
+      "gist": "平面世界地图必然产生变形；选择投影的关键，是决定当前任务需要保留哪一种地理关系。",
+      "core": [
+        {
+          "heading": "球面无法无损摊平",
+          "body": "把地球表面变成平面地图，就必须接受某种拉伸或压缩；不存在对所有性质都无失真的世界地图。"
+        },
+        {
+          "heading": "Mercator 保角但不保面积",
+          "body": "Mercator 保持局部角度与形状关系，面积却随纬度升高而被夸大；高纬地区看起来格外庞大。"
+        },
+        {
+          "heading": "保面积也有代价",
+          "body": "Gall–Peters 保留面积比例，却改变形状；Tissot 指示圆可把不同位置的变形显示出来。"
+        },
+        {
+          "heading": "按用途选择投影",
+          "body": "比较面积、表达形状或服务导航时，关注的性质不同。评估地图时先问它保留了什么、牺牲了什么，再判断是否适合用途。"
+        }
+      ],
+      "evidenceLevel": "作者补充资料",
+      "basis": "根据 Vox 原视频说明及 Johnny Harris 在 Vox 的配套原文核对核心论点；未核对完整字幕。",
+      "sources": [
+        {
+          "label": "YouTube 原视频与作者说明",
+          "url": "https://www.youtube.com/watch?v=kIID5FDi2JQ"
+        },
+        {
+          "label": "Vox 作者配套原文",
+          "url": "https://www.vox.com/world/2016/12/2/13817712/map-projection-mercator-globe"
+        }
+      ],
+      "checked": "2026-11-09"
+    },
+    {
+      "id": "iBErp8qvWZg",
+      "gist": "Harry Beck 把地铁图从地理描摹改成乘车关系图，让上下车与换乘信息成为设计中心。",
+      "core": [
+        {
+          "heading": "先定义乘客要完成的任务",
+          "body": "旧图中心站点拥挤、外围站点难以容纳；Beck 把重点转到在哪里上车、在哪里下车，以及站点之间如何连接。"
+        },
+        {
+          "heading": "用有限角度整理复杂网络",
+          "body": "线路限制为水平、垂直与 45° 方向，并均匀安排站距，以规则几何释放阅读空间。"
+        },
+        {
+          "heading": "让颜色和符号承担识别",
+          "body": "站点与所属线路使用对应颜色；线路颜色和简明站点符号使乘客更容易追踪同一条线。"
+        },
+        {
+          "heading": "借用电路图的表达逻辑",
+          "body": "将地铁看作输送乘客的连接系统。Bierut 将其归纳为聚焦使用者、用简洁方式满足需求，以及跨学科思考。"
+        }
+      ],
+      "evidenceLevel": "公开字幕转录核对",
+      "basis": "核对 English-Video 的 TED 逐时转录 00:12–03:10；该页标有 TED 翻译与审校信息。未逐帧验证视频。本文仅提炼演讲中的设计论点，不把地理简化视为所有地图的通用要求。",
+      "sources": [
+        {
+          "label": "TED 原视频",
+          "url": "https://www.youtube.com/watch?v=iBErp8qvWZg"
+        },
+        {
+          "label": "TED 官方演讲页",
+          "url": "https://www.ted.com/talks/michael_bierut_the_genius_of_the_london_tube_map"
+        },
+        {
+          "label": "公开逐时字幕转录（English-Video）",
+          "url": "https://www.english-video.net/v/en/12346"
+        }
+      ],
+      "checked": "2026-11-09",
+      "researchRefs": [
+        "turn40search1",
+        "turn63view1"
+      ]
+    },
+    {
+      "id": "OdDsV19DBCU",
+      "gist": "纽约地铁图的历史争论提醒我们：设计者认可的简化方式，仍需接受真实乘客使用习惯的检验。",
+      "core": [
+        {
+          "heading": "简化线路图已在多地采用",
+          "body": "作者从全球城市采用简化地铁系统图的趋势切入，再讨论纽约尝试这一方向时出现的分歧。"
+        },
+        {
+          "heading": "设计认可不等于满足通勤需要",
+          "body": "Cheddar 在自己的置顶评论中说明：Vignelli 的方案受到设计专业人士推崇，却没有满足大量通勤者的需要。这是作者对争议的核心概括。"
+        },
+        {
+          "heading": "使用者反应影响最终方案",
+          "body": "原视频简介说明，纽约尝试简化之后，公众的反对迫使方案回撤。“更差”和“完美”在标题中形成反问，强调专业评价与实际接受度之间的差异。"
+        }
+      ],
+      "evidenceLevel": "作者说明与置顶评论",
+      "basis": "已核对 Cheddar 原视频简介及 @cheddar 本人置顶评论；另核对纽约交通博物馆官方新版说明并单列为时效补充。未取得完整字幕。[!!! 事实断层：资料不足，无法确认] 原片对乘客行为、研究数据和争论过程的完整论证。",
+      "sources": [
+        {
+          "label": "Cheddar 原视频及作者简介",
+          "url": "https://www.youtube.com/watch?v=OdDsV19DBCU"
+        },
+        {
+          "label": "Cheddar 作者置顶评论",
+          "url": "https://www.youtube.com/watch?v=OdDsV19DBCU&lc=UgzahiI2fy5SMDmERwl4AaABAg"
+        },
+        {
+          "label": "纽约交通博物馆：2025 新版地图说明",
+          "url": "https://shop.nytransitmuseum.org/products/map-diagram-nyc-subway-22x27-2-1857"
+        }
+      ],
+      "checked": "2026-11-09",
+      "researchRefs": [
+        "turn45youtube8",
+        "turn66search1",
+        "turn66search0",
+        "parent-agent: original YouTube author-pinned comment and official museum page verified 2026-11-09"
+      ],
+      "supplement": {
+        "heading": "时效补充 · 不属于原视频内容",
+        "body": "纽约交通博物馆说明：2025 年新版再次采用几何示意风格，同时保留既有线路配色，改善文字、留白和无障碍信息。旧片的历史结论不能直接代替今天的设计现状。",
+        "url": "https://shop.nytransitmuseum.org/products/map-diagram-nyc-subway-22x27-2-1857"
+      }
+    },
+    {
+      "id": "2q-eDLiqtdg",
+      "gist": "本集按构思陆块、寻找形状灵感、草绘、精修海岸与岛屿的顺序，建立幻想地图的底图。",
+      "core": [
+        {
+          "heading": "先规划陆块形状 · 01:32",
+          "body": "先规划陆地的整体形状，再进入后续绘制阶段。"
+        },
+        {
+          "heading": "比较形状生成与灵感来源 · 03:15 / 05:38",
+          "body": "章节分别介绍豆子法，以及数字与自然灵感，为陆块外形提供不同的构思入口。"
+        },
+        {
+          "heading": "把构想落成陆地草图 · 09:25",
+          "body": "灵感探索之后先画陆块草图，再处理局部细节：整体形状与精细描绘分成两个阶段。"
+        },
+        {
+          "heading": "最后处理海岸和岛屿细节 · 11:24 / 13:41",
+          "body": "教程先精修海岸线，再绘制岛屿及细节，逐步完善地图的陆海边界。"
+        }
+      ],
+      "evidenceLevel": "作者公开章节核对",
+      "basis": "已直接核对 YouTube 原页面公开章节：00:00 介绍、01:32 陆块规划、03:15 豆子法、04:40 赞助、05:38 数字与自然灵感、09:25 草绘、11:24 海岸精修、13:41 岛屿与细节；页面总时长 18:40。未取得完整字幕，未逐帧验证；本摘要只概括章节所支持的流程，不补写未核实的材料、动作、笔法或比例。",
+      "sources": [
+        {
+          "label": "WASD20 原视频与公开章节",
+          "url": "https://www.youtube.com/watch?v=2q-eDLiqtdg"
+        }
+      ],
+      "checked": "2026-11-09",
+      "researchRefs": [
+        "turn60youtube12",
+        "parent-agent: YouTube original-page chapter UI directly verified 2026-11-09"
+      ]
+    },
+    {
+      "id": "jJ3yypt8F58",
+      "gist": "先安排山脉位置与文字空间，再用重叠山峰、山脊和统一排线建立可读的手绘地形。",
+      "core": [
+        {
+          "heading": "先铅笔规划，再落墨",
+          "body": "先确定山脉、其他地貌和地名的大致位置，轻画底稿，为标签留出空间，减少墨线完成后返工。"
+        },
+        {
+          "heading": "把山脉组织成连续屏障",
+          "body": "作者参考现实地图中的山脉走向，将山峰组成山系，并考虑山口、旅行和交流受到的阻隔；这是可信世界的设计参考，不是完整地质模拟。"
+        },
+        {
+          "heading": "让山峰重叠而不粘连",
+          "body": "改变峰体大小，以重叠形成密集山群；避免一座山的坡线恰好撞上另一座山的峰顶，使轮廓更清楚。"
+        },
+        {
+          "heading": "山脊定结构，细线定明暗",
+          "body": "先画略有起伏的山脊，再用更细的笔在统一一侧排线。小山保留少量笔画，避免暗部堵成一团。"
+        }
+      ],
+      "evidenceLevel": "公开字幕转录核对",
+      "basis": "核对 Lilys 页面的 Script 逐时转录，摘要依据 01:08–05:16 与 06:40–13:18 的规划、山峰和明暗说明；未逐帧验证。仅使用转录区，未采用页面 AI Summary。",
+      "sources": [
+        {
+          "label": "WASD20 原视频",
+          "url": "https://www.youtube.com/watch?v=jJ3yypt8F58"
+        },
+        {
+          "label": "公开逐时字幕转录（Lilys / Script）",
+          "url": "https://lilys.ai/ko/notes/62390"
+        }
+      ],
+      "checked": "2026-11-09",
+      "researchRefs": [
+        "turn38youtube31",
+        "turn47view2"
+      ]
+    },
+    {
+      "id": "2hCXqHNU-8Y",
+      "gist": "先让河湖服从高低与汇流关系，再通过线宽和沿岸水纹区分陆地、河流与海面。",
+      "core": [
+        {
+          "heading": "先检查流向与汇流",
+          "body": "河流沿高处向低处流，通常由支流汇成干流，而非随意分叉；三角洲等情形可以分流。河源也不必全部设在山顶。"
+        },
+        {
+          "heading": "把湖泊放回地形关系中",
+          "body": "作者以低洼盆地中的湖泊串联来水、出水与海洋。该示例用于检查水系连贯性，不表示所有湖泊都有出流河道。"
+        },
+        {
+          "heading": "根据地图尺度选择河道画法",
+          "body": "这张小尺度画面用单线表示河流；需要表现河宽时可改用两条近似平行线，同时为后续文字留白。"
+        },
+        {
+          "heading": "用线宽区分岸线与水纹",
+          "body": "沿部分岸边加重轮廓，再在外侧画更细、近似等距的水线；远处水纹可短长相间、局部断开，避免与陆地边界争夺注意力。"
+        }
+      ],
+      "evidenceLevel": "公开字幕转录核对",
+      "basis": "核对 Readray 页面 Script 转录，摘要依据 00:46–02:54、04:16–06:18 与 07:38–13:14 的水系、线宽、水纹说明；未逐帧验证。未使用页面 AI 摘要。",
+      "sources": [
+        {
+          "label": "WASD20 原视频",
+          "url": "https://www.youtube.com/watch?v=2hCXqHNU-8Y"
+        },
+        {
+          "label": "公开逐时字幕转录（Readray / Script）",
+          "url": "https://readray.ai/en/notes/167037"
+        }
+      ],
+      "checked": "2026-11-09",
+      "researchRefs": [
+        "turn43search5",
+        "turn47view3"
+      ]
+    },
+    {
+      "id": "AXnnGiBPpQY",
+      "gist": "森林符号要服从地图尺度：简化树形、统一阴影、批量绘制，并给文字和其他地貌留出空间。",
+      "core": [
+        {
+          "heading": "按尺度选择森林符号",
+          "body": "本片比较整片云状树冠、重叠单树和独立树木。示范图树木很小，作者选择三角树冠加树干，避免细节缩小后混成一团。"
+        },
+        {
+          "heading": "按部件批量绘制",
+          "body": "先画一组树冠，再补树干，最后加阴影；树木保持比山峰小，并绕开预留的地名区域。"
+        },
+        {
+          "heading": "统一树与山的光照方向",
+          "body": "树的右侧加少量淡线，与山脉右侧阴影一致。细小树干可以只画一条线，重点是符号可辨。"
+        },
+        {
+          "heading": "用环境与留白决定林区",
+          "body": "结合河流、山脉、雨影与聚落活动安排森林；不必逐棵填满地图。作者同时指出雨影并非处处出现，山脉两侧都可能有森林。"
+        }
+      ],
+      "evidenceLevel": "公开字幕转录核对",
+      "basis": "核对 Lilys 页面 Script 转录，摘要依据 01:14–03:25、04:44–06:24 与 06:32–09:47；未逐帧验证。地理部分只作作者的布局参考，未采用其未充分解释的山龄推断，亦未使用页面 AI Summary。",
+      "sources": [
+        {
+          "label": "WASD20 原视频",
+          "url": "https://www.youtube.com/watch?v=AXnnGiBPpQY"
+        },
+        {
+          "label": "公开逐时字幕转录（Lilys / Script）",
+          "url": "https://lilys.ai/en/notes/152882"
+        }
+      ],
+      "checked": "2026-11-09",
+      "researchRefs": [
+        "turn43youtube36",
+        "turn43search0",
+        "turn63view2"
+      ]
+    }
+  ],
+  "researchRefs": {
+    "GsojLuJpe_0": [
+      {
+        "ref": "turn56search0",
+        "url": "https://lilys.ai/ko/notes/35008",
+        "evidence": "Actual Script timestamps: 06:13 vector import; 07:55 Null controller; 10:26 highlight parent; 14:45–15:23 remove labels/borders; 15:41–16:35 publish/importstyle; 18:38 camera properties; 19:11 stops; 20:30–20:49 delayed bearing."
+      }
+    ],
+    "WjvEnVuhKFE": [
+      {
+        "ref": "turn59youtube8",
+        "url": "https://www.youtube.com/watch?v=WjvEnVuhKFE",
+        "evidence": "Author description explicitly lists scale bar,northarrow,legend,keyplan,coordinategridlines."
+      }
+    ],
+    "SovdBaus7pM": [
+      {
+        "ref": "turn62search1",
+        "url": "https://lilys.ai/en/notes/137935",
+        "evidence": "Actual Script 34:31–34:56 wrong3857vs4326;35:12–37:58 numericfieldandgraduatedstyling;57:11–58:07 modelbuilder,pointinpolygoncounts,graduatedresult."
+      },
+      {
+        "ref": "turn56search1",
+        "url": "https://lilys.ai/en/notes/137935",
+        "evidence": "Actual Script01:00:30–01:01:56CentralParkmaskDEMclipthenhillshade."
+      }
+    ],
+    "Mj7Z1P2hUWk": [
+      {
+        "ref": "turn59youtube6",
+        "url": "https://www.youtube.com/watch?v=Mj7Z1P2hUWk",
+        "evidence": "AuthororiginaldescriptionGoogleMaps+BlenderGIS,HDRI,DirtTexture."
+      },
+      {
+        "ref": "turn64view1",
+        "url": "https://www.blendernation.com/2020/02/17/create-3d-terrian-using-google-maps-and-blendergis/",
+        "evidence": "Article bySteveLund,CGGeekfounder,lines62–74identifiesauthor/workflow."
+      },
+      {
+        "ref": "turn64view0",
+        "url": "https://github.com/domlysz/BlenderGIS",
+        "evidence": "OfficialpluginREADME lines198–205onlinebasemaps,NASASRTM elevationandterrainmodelcapabilities;not evidenceofexactvideosteps."
+      }
+    ],
+    "NW_djQS_N8U": [
+      {
+        "ref": "turn57youtube36",
+        "url": "https://www.youtube.com/watch?v=NW_djQS_N8U",
+        "evidence": "OriginaldescriptionOpenStreetMapaddon,buildingtextures,HDRI."
+      },
+      {
+        "ref": "turn57search0",
+        "url": "https://www.blendernation.com/2020/03/30/create-any-city-in-blender-in-20-minutes/",
+        "evidence": "SteveLundauthorarticleexplicitlystatesimportcitystructuresusingOSMaddonthenbuildingmaterials,lighting,atmosphericclouds."
+      }
+    ],
+    "kIID5FDi2JQ": [
+      {
+        "ref": "turn41youtube31",
+        "url": "https://www.youtube.com/watch?v=kIID5FDi2JQ",
+        "evidence": "OriginalauthorYouTubeexplanationofprojectiontradeoffs."
+      },
+      {
+        "ref": "turn49view2",
+        "url": "https://www.vox.com/world/2016/12/2/13817712/map-projection-mercator-globe",
+        "evidence": "JohnnyHarrisoriginalarticle2016-12-02,lines63–78sphereflattening,Mercatorarea,GallPetersshape,Tissot,task-dependentchoice."
+      }
+    ]
+  }
+}

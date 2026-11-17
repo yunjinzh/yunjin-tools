@@ -1,0 +1,1 @@
+{"name":"kmyz-digital-twin-campus","version":"1.0.0","private":true,"description":"Kunming Metallurgy Vocational University conceptual training base","scripts":{"build":"node --check dist/app.js && node --check dist/upgrade.js"}}

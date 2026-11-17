@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自然资源·视界 · 卡片封面生成器</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root {
+    --accent: #E07563;
+    --accent-dark: #C45A48;
+    --base: #F1F0EC;
+    --base-dark: #E8E6E0;
+    --ink: #1A1A1A;
+    --ink-mid: #3D3D3D;
+    --ink-light: #7A7A7A;
+    --rule: #C8C4BC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #DDDBD4;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── 顶部 Header ── */
+  .app-header {
+    background: var(--ink);
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--accent);
+  }
+  .header-left { display: flex; align-items: baseline; gap: 16px; }
+  .header-logo {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--base);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .header-sub {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--ink-light);
+    letter-spacing: 2px;
+  }
+  .header-count {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 200;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  /* ── 工具栏 ── */
+  .toolbar {
+    background: var(--base);
+    padding: 12px 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .toolbar-label {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--ink-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .toolbar input, .toolbar select {
+    padding: 7px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 12px;
+    background: var(--base);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .toolbar input:focus, .toolbar select:focus { border-color: var(--accent); }
+  .toolbar input[type="text"] { width: 200px; }
+  .btn {
+    padding: 7px 16px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .btn-accent { background: var(--accent); color: white; }
+  .btn-accent:hover { background: var(--accent-dark); }
+  .btn-dark { background: var(--ink); color: var(--base); }
+  .btn-dark:hover { background: #333; }
+  .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .toolbar-sep { width: 1px; height: 24px; background: var(--rule); margin: 0 4px; }
+  .stats-badge {
+    margin-left: auto;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: var(--ink-light);
+    letter-spacing: 1px;
+  }
+
+  /* ── 新增输入面板 ── */
+  .add-panel {
+    background: var(--base-dark);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 48px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+  .add-panel.open { max-height: 300px; padding: 20px 48px; }
+  .add-panel-inner {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 160px 120px auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .field-group { display: flex; flex-direction: column; gap: 5px; }
+  .field-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+  .field-input {
+    padding: 8px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 13px;
+    background: var(--base);
+    color: var(--ink);
+    outline: none;
+    width: 100%;
+  }
+  .field-input:focus { border-color: var(--accent); }
+  .add-hint {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── 主内容区 ── */
+  .main { padding: 32px 48px 64px; }
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .section-rule-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    white-space: nowrap;
+  }
+  .section-rule-line { flex: 1; height: 1px; background: var(--rule); }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+    gap: 28px;
+  }
+
+  /* ── 卡片包装 ── */
+  .card-wrapper { display: flex; flex-direction: column; gap: 8px; }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 2px;
+  }
+  .card-meta-period {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--ink-light);
+    flex: 1;
+  }
+  .ratio-toggle { display: flex; gap: 3px; }
+  .ratio-btn {
+    padding: 3px 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    border: 1px solid var(--rule);
+    border-radius: 1px;
+    cursor: pointer;
+    background: var(--base);
+    color: var(--ink-light);
+    transition: all 0.15s;
+  }
+  .ratio-btn.active { background: var(--ink); color: var(--base); border-color: var(--ink); }
+  .ratio-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+  .save-btn {
+    padding: 4px 10px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 1px solid var(--rule);
+    border-radius: 1px;
+    cursor: pointer;
+    background: var(--base);
+    color: var(--ink-light);
+    transition: all 0.15s;
+  }
+  .save-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+  .del-btn {
+    padding: 4px 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    border: 1px solid #ddd;
+    border-radius: 1px;
+    cursor: pointer;
+    background: transparent;
+    color: #bbb;
+    transition: all 0.15s;
+  }
+  .del-btn:hover { background: #fee; color: #c00; border-color: #c00; }
+
+  /* ── 进度条 ── */
+  #progressBar {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--ink);
+    border-radius: 2px;
+    padding: 16px 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    z-index: 9999;
+    min-width: 260px;
+    border-left: 3px solid var(--accent);
+  }
+  #progressText {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--base);
+    margin-bottom: 10px;
+  }
+  .prog-track { height: 2px; background: #333; }
+  .prog-fill { height: 100%; background: var(--accent); transition: width 0.3s; width: 0%; }
+</style>
+</head>
+<body>
+
+<!-- SVG 噪点滤镜定义 -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noiseOut"/>
+      <feColorMatrix type="saturate" values="0" in="noiseOut" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blended"/>
+      <feComposite in="blended" in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- Header -->
+<div class="app-header">
+  <div class="header-left">
+    <div class="header-logo">自然资源·视界</div>
+    <div class="header-sub">NATURAL RESOURCES · VISION</div>
+  </div>
+  <div class="header-count" id="headerCount">— 138 ISSUES —</div>
+</div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <span class="toolbar-label">Search</span>
+  <input type="text" id="searchInput" placeholder="期数 / 作者 / 标题…" oninput="filterCards()">
+  <div class="toolbar-sep"></div>
+  <span class="toolbar-label">版式</span>
+  <select id="globalRatio" onchange="setGlobalRatio()">
+    <option value="16-9">16 : 9</option>
+    <option value="4-3">4 : 3</option>
+  </select>
+  <div class="toolbar-sep"></div>
+  <span class="toolbar-label">主题</span>
+  <select id="themeFilter" onchange="filterCards()">
+    <option value="">All</option>
+    <option value="tourism">旅游</option>
+    <option value="agriculture">农业/粮食</option>
+    <option value="ecology">生态/自然</option>
+    <option value="urban">城市更新</option>
+    <option value="spatial">国土空间</option>
+    <option value="rural">乡村</option>
+    <option value="ocean">海洋</option>
+    <option value="digital">数字化</option>
+    <option value="green">绿色/可持续</option>
+    <option value="governance">治理/制度</option>
+    <option value="water">水资源</option>
+    <option value="research">科研</option>
+    <option value="general">综合</option>
+  </select>
+  <div class="toolbar-sep"></div>
+  <button class="btn btn-accent" onclick="toggleAddPanel()">＋ 新增期次</button>
+  <button class="btn btn-dark" onclick="downloadAll()">↓ 批量导出</button>
+  <div class="stats-badge" id="statsText">138 / 138</div>
+</div>
+
+<!-- 新增输入面板 -->
+<div class="add-panel" id="addPanel">
+  <div class="add-panel-inner">
+    <div class="field-group">
+      <span class="field-label">期数</span>
+      <input class="field-input" id="newPeriod" placeholder="141" type="text">
+    </div>
+    <div class="field-group">
+      <span class="field-label">标题</span>
+      <input class="field-input" id="newTitle" placeholder="请输入讲座标题…" type="text">
+    </div>
+    <div class="field-group">
+      <span class="field-label">作者</span>
+      <input class="field-input" id="newAuthor" placeholder="姓名" type="text">
+    </div>
+    <div class="field-group">
+      <span class="field-label">主题分类</span>
+      <select class="field-input" id="newTheme">
+        <option value="tourism">旅游</option>
+        <option value="agriculture">农业/粮食</option>
+        <option value="ecology">生态/自然</option>
+        <option value="urban">城市更新</option>
+        <option value="spatial" selected>国土空间</option>
+        <option value="rural">乡村</option>
+        <option value="ocean">海洋</option>
+        <option value="digital">数字化</option>
+        <option value="green">绿色/可持续</option>
+        <option value="governance">治理/制度</option>
+        <option value="water">水资源</option>
+        <option value="research">科研</option>
+        <option value="general">综合</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <span class="field-label">版式</span>
+      <select class="field-input" id="newRatio">
+        <option value="16-9">16:9</option>
+        <option value="4-3">4:3</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <span class="field-label">&nbsp;</span>
+      <button class="btn btn-accent" onclick="addNewCard()" style="height:36px;white-space:nowrap">生成卡片</button>
+    </div>
+  </div>
+  <div class="add-hint">提示：填写期数、标题、作者后点击「生成卡片」，新卡片将置顶显示，可单独保存为 PNG。</div>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <div class="section-rule">
+    <span class="section-rule-text">Card Gallery</span>
+    <div class="section-rule-line"></div>
+  </div>
+  <div class="cards-grid" id="cardsGrid"></div>
+</div>
+
+<!-- 进度条 -->
+<div id="progressBar">
+  <div id="progressText">Generating…</div>
+  <div class="prog-track"><div class="prog-fill" id="progressFill"></div></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   数据层
+═══════════════════════════════════════════ */
+const ENTRIES = [{"period":"2","author":"戴其文","title":"环境正义研究前沿及其启示","theme":"green"},{"period":"3","author":"金晓斌","title":"面向SDGs的新时期国土空间利用问题研判与优化路径","theme":"spatial"},{"period":"4","author":"何春娥","title":"《自然资源学报》的稿件写作","theme":"research"},{"period":"5","author":"黄震方","title":"中国乡村旅游研究历程与新时代发展趋向","theme":"tourism"},{"period":"6","author":"叶强","title":"新时期国土空间安全背景下的空间规划系统思考","theme":"spatial"},{"period":"7","author":"周德","title":"城乡融合发展的理论认知、影响因素与提升机制","theme":"urban"},{"period":"8","author":"王介勇","title":"全球粮食贸易格局演化与中国粮食安全","theme":"agriculture"},{"period":"9","author":"秦萧","title":"国土空间规划大数据应用探讨","theme":"digital"},{"period":"10","author":"岳文泽","title":"面向国土空间规划的双评价理论与实践","theme":"spatial"},{"period":"11","author":"朱江","title":"自然资源用途管制路径与方法研究","theme":"governance"},{"period":"12","author":"成升魁","title":"科研选题与科研写作","theme":"research"},{"period":"13","author":"谢花林","title":"梯田撂荒农户行为、影响机制与应对策略","theme":"agriculture"},{"period":"14","author":"何昭丽","title":"干旱区旅游业用水供需适配性评价模型及应用","theme":"tourism"},{"period":"15","author":"戈大专","title":"中国乡村空间治理与乡村振兴困境与路径","theme":"rural"},{"period":"16","author":"杨艳昭","title":"一带一路沿线国家粮食生产-消费与土地资源承载力","theme":"agriculture"},{"period":"17","author":"邵庆龙","title":"可持续发展持续评估新方法甜甜圈理论的中国案例分析及未来展望","theme":"green"},{"period":"18","author":"李裕瑞","title":"面向乡村振兴战略的村庄分类与整治建设研究","theme":"rural"},{"period":"19","author":"李君轶","title":"生态文明建设的关键问题思考","theme":"ecology"},{"period":"20","author":"李加林","title":"基于陆海统筹的陆海经济关系及国土空间利用","theme":"ocean"},{"period":"21","author":"郭建科","title":"海洋命运共同体视域下国际海洋资源战略价值评估理论与方法","theme":"ocean"},{"period":"22","author":"李杨帆","title":"海岸带城市—海洋生态系统评价与空间规划研究进展","theme":"ocean"},{"period":"23","author":"何思源","title":"综合视角下的国家公园灾害风险管理及其对中国的启示","theme":"ecology"},{"period":"24","author":"钱龙","title":"食物浪费存在南北差异吗","theme":"agriculture"},{"period":"25","author":"江东","title":"三生空间演变机制与优化途径","theme":"spatial"},{"period":"26","author":"郝庆","title":"国土空间规划时代的自然资源研究相关选题方向","theme":"spatial"},{"period":"27","author":"董锁成","title":"西部地级城市竞争力评价与十四五国家级新区布局","theme":"urban"},{"period":"28","author":"崔璨","title":"区域一体化发展背景下的高校毕业生流动","theme":"general"},{"period":"29","author":"方遥","title":"省际毗邻区协同发展分析与规划应对","theme":"spatial"},{"period":"30","author":"席广亮","title":"流动性视角下的国土空间安全及规划应对策略","theme":"spatial"},{"period":"31","author":"唐承财","title":"冰天雪地如何转化为金山银山：来自中国4个冰雪旅游地的案例","theme":"tourism"},{"period":"32","author":"邓祥征","title":"国际粮食贸易影响下东北黑土地的生产压力变化与保护策略","theme":"agriculture"},{"period":"33","author":"黄大全","title":"中国空间规划用地指标的分配逻辑及其管控效应","theme":"spatial"},{"period":"34","author":"蒋依依","title":"中国冰雪资源高质量开发：理论审视、实践转向与挑战应对","theme":"tourism"},{"period":"35","author":"王灵恩","title":"游客食物消费与浪费：测度、评估与资源环境效应","theme":"tourism"},{"period":"36","author":"赵渺希","title":"城乡居民食材消耗的多尺度地域差异及政策启示","theme":"agriculture"},{"period":"37","author":"吴良","title":"中国反食物浪费监测与评估体系建设","theme":"agriculture"},{"period":"38","author":"王金伟","title":"国家粮食安全与旅游高质量发展的时空共轭机制","theme":"agriculture"},{"period":"39","author":"张振龙","title":"乡镇街道尺度国土三生空间功能评价及协调关系","theme":"spatial"},{"period":"40","author":"谷晓坤","title":"国土空间规划背景下大城市产业用地治理的政策、机制与效果","theme":"urban"},{"period":"41","author":"李彦平","title":"国土空间规划中陆海统筹的内在逻辑、实现机制及实践路径","theme":"ocean"},{"period":"42","author":"陈逸","title":"我国国土空间规划人才培养体系研究","theme":"research"},{"period":"43","author":"王朝辉","title":"入境旅游流空间演化对大都市旅游高质量发展启示","theme":"tourism"},{"period":"44","author":"张杨","title":"生命共同体的科学认知、路径及制度保障","theme":"ecology"},{"period":"45","author":"曲衍波","title":"国土空间格局多维分解与传导路径","theme":"spatial"},{"period":"46","author":"徐昔保","title":"区域尺度生态保护红线连通性优化与管控","theme":"ecology"},{"period":"47","author":"张文忠","title":"新时期中国资源型城市转型的理论与实践","theme":"urban"},{"period":"48","author":"陈海嵩","title":"中国自然资源督察体系完善的规范路径","theme":"governance"},{"period":"49","author":"孙九霞","title":"旅游资源开发的本土资源伦理与中国现代路径","theme":"tourism"},{"period":"50","author":"张广海","title":"中国区域共同富裕实践中乡村旅游作用机制分析","theme":"tourism"},{"period":"51","author":"杨钊","title":"共同富裕目标下廊道旅游地农户生计变化过程、机制及调控","theme":"tourism"},{"period":"52","author":"张圆刚","title":"乡村旅游区域不平衡性理论内涵、测度与框架","theme":"tourism"},{"period":"53","author":"奚雪松","title":"多维复合空间视角下的黄河生态带构建","theme":"ecology"},{"period":"54","author":"赵耀龙","title":"管理视角下的自然资源统一调查监测模式","theme":"governance"},{"period":"55","author":"张朝枝","title":"国家公园保护中的原真性：理论与案例","theme":"ecology"},{"period":"56","author":"刘毅华","title":"生态系统服务与人类福祉耦合：从理论框架到空间实践","theme":"ecology"},{"period":"57","author":"孙佼佼","title":"让资源插上数字的翅膀：国家公园的数字文化生态系统服务","theme":"ecology"},{"period":"58","author":"朱鹤","title":"旅游导向下自然保护区外围区的空间功能与演变","theme":"tourism"},{"period":"59","author":"蔡晓梅","title":"中国自然保护地发展的理论思考与创新实践","theme":"ecology"},{"period":"60","author":"赵雪雁","title":"人类活动对国家公园生态系统服务的影响","theme":"ecology"},{"period":"61","author":"杨立国","title":"传统村落文化景观基因生产的过程与机制","theme":"rural"},{"period":"62","author":"黄大全","title":"中国空间规划耕地保护指标的分配与优化","theme":"agriculture"},{"period":"63","author":"王江","title":"流域府际生态协同治理优于属地治理的证成与实现","theme":"ecology"},{"period":"64","author":"崔峰","title":"农业文化遗产保护预警：评价体系与方法","theme":"agriculture"},{"period":"66","author":"胡业翠","title":"国土空间用途转用许可：实务现实与规制创新","theme":"governance"},{"period":"67","author":"陈睿山","title":"公地悲剧与资源环境治理","theme":"governance"},{"period":"68","author":"岳文泽","title":"中国自然资源资产储备制度构建","theme":"governance"},{"period":"69","author":"丁建军","title":"数字乡村与农户增收：特征、效应及机制","theme":"rural"},{"period":"70","author":"苏时鹏","title":"中国特色国有自然资源资产管理特在何处","theme":"governance"},{"period":"71","author":"杨忍","title":"面向城乡融合的都市农业功能演化与空间转型","theme":"urban"},{"period":"72","author":"吴茂英","title":"乡村经营性治理的浙江实践与理论研究","theme":"rural"},{"period":"73","author":"王蕾","title":"数字乡村空间绿色整治与文化保护的创新与实践","theme":"rural"},{"period":"74","author":"戴林琳","title":"国土空间规划与大运河国家文化公园建设","theme":"spatial"},{"period":"75","author":"马贤磊","title":"中国自然资源资产产权体系：理论框架、改革现状与政策取向","theme":"governance"},{"period":"76","author":"吕晓","title":"中国黑土地保护：政策演进、实践逻辑及其长效机制","theme":"agriculture"},{"period":"77","author":"周侃","title":"环境可持续性面临的多尺度胁迫及其空间管控","theme":"green"},{"period":"78","author":"余露","title":"自然资源系统治理的产权模式创新探索","theme":"governance"},{"period":"79","author":"张洪波","title":"中国城市水资源短缺类型与发展轨迹识别","theme":"water"},{"period":"80","author":"宋猛","title":"全民所有自然资源产权所有权委托代理中监管目标的再平衡","theme":"governance"},{"period":"81","author":"谭淑豪","title":"土地流转与耕地非粮化","theme":"agriculture"},{"period":"82","author":"陈绍志","title":"生态产品价值实现的实践逻辑与机制设计","theme":"ecology"},{"period":"83","author":"胡志丁+马腾","title":"国家和产业尺度下南海周边国家地缘经济关系演变与启示","theme":"ocean"},{"period":"84","author":"孙佼佼","title":"高质量发展背景下旅游资源研究转型：新属性、新框架与新方向","theme":"tourism"},{"period":"85","author":"谢花林","title":"生态产品价值实现的机制与路径","theme":"ecology"},{"period":"86","author":"陈江龙","title":"乡村生态产品商品化的理论与实证研究","theme":"ecology"},{"period":"87","author":"李晓文","title":"基于一体化保护修复构建三线整合的滨海湿地生态安全格局","theme":"ecology"},{"period":"88","author":"朱玉春","title":"统筹推进城乡融合发展的总体框架与实施路径","theme":"urban"},{"period":"89","author":"程遥","title":"国土空间开发绩效研究——框架构建与关键议题","theme":"spatial"},{"period":"90","author":"王茂军","title":"中国农村家庭分化对耕地利用方式的影响","theme":"agriculture"},{"period":"91","author":"方恺+陈先鹏","title":"可持续发展评估新思路：甜甜圈框架研究进展","theme":"green"},{"period":"92","author":"杨振山","title":"多尺度可持续发展目标空间解构与评估","theme":"green"},{"period":"93","author":"张扬","title":"国土空间用途管制影响经济高质量发展的分析与验证","theme":"spatial"},{"period":"94","author":"邹伟","title":"耦合生态服务供需的农业空间生态保护修复分区思路研究","theme":"ecology"},{"period":"95","author":"王凯","title":"统筹推进和美乡村建设与旅游城镇化协调发展的理论与实证研究","theme":"tourism"},{"period":"96","author":"陆林+任以胜","title":"流域生态补偿与乡村居民可持续生计互动的研究进展与展望","theme":"ecology"},{"period":"97","author":"陈睿山+游猎","title":"上海市建设用地与人口变化的关联特征及展望","theme":"urban"},{"period":"98","author":"李效顺","title":"城镇化与碳排放机制及实证研究","theme":"green"},{"period":"99","author":"程钰","title":"中国三大城市群绿色技术合作空间演化及其碳减排效应","theme":"green"},{"period":"100","author":"朱鹤","title":"新时期的旅游资源组合：新理论、新方法与新选题","theme":"tourism"},{"period":"101","author":"李伯华","title":"传统村落人居环境有机更新：行动逻辑、实践路径及未来展望","theme":"rural"},{"period":"102","author":"陈晓华","title":"传统村落多功能协同发展类型划分与差异化引导","theme":"rural"},{"period":"103","author":"邹永广","title":"网红如何常红？新媒体时代旅游资源持续关注损失测度及影响因素","theme":"tourism"},{"period":"104","author":"朱新华","title":"生态产品价值实现：产权优化、模式机理及对共同富裕的促进路径","theme":"ecology"},{"period":"105","author":"于昊辰","title":"土地退化平衡：促进干旱区山水林田湖草沙冰与系统治理的新工具","theme":"ecology"},{"period":"106","author":"何思源","title":"中国国家公园治理中社区的角色及其实现路径","theme":"ecology"},{"period":"107","author":"刘成武","title":"国土空间生态修复规划实施成效评估方法及应用","theme":"ecology"},{"period":"108","author":"刘丽","title":"解锁中国粮食生产潜力：耕地提质扩容的深度探析与实践总结","theme":"agriculture"},{"period":"109","author":"常江+张恒","title":"国家海绵城市建设试点对城市水生态环境的影响","theme":"water"},{"period":"110","author":"王军","title":"基于自然解决方案（NbS）的前沿进展与中国实践","theme":"ecology"},{"period":"111","author":"郝庆","title":"国土空间治理数智化转型与规划监测评估预警体系优化","theme":"spatial"},{"period":"112","author":"汤爽爽","title":"中国城市老旧社区微更新机制研究","theme":"urban"},{"period":"113","author":"林赛南","title":"制度演进与地方实践：中英城市更新可持续发展之路","theme":"urban"},{"period":"114","author":"马恩朴","title":"城市食物系统全程耦合下的农地利用转型","theme":"urban"},{"period":"115","author":"程琳琳","title":"基于要素—格局—效应的土地利用空间冲突：理论框架与实践探索","theme":"spatial"},{"period":"116","author":"吕晓","title":"耕地资源与农户生计：基于鲁辽两省典型农户调查数据的观察与思考","theme":"agriculture"},{"period":"117","author":"张敏","title":"面向居民福祉，如何更好地进行国土空间规划监测评估？","theme":"spatial"},{"period":"118","author":"王金伟","title":"中国旅游政策的演化逻辑与创新路径","theme":"tourism"},{"period":"119","author":"谢朝武","title":"中国文化和旅游产业高质量融合发展的适配关系与政策启示","theme":"tourism"},{"period":"120","author":"田成诗","title":"生物多样性核算的国际经验与中国探索","theme":"ecology"},{"period":"121","author":"胡银根","title":"大食物观视域下耕地非粮化治理：逻辑、挑战与策略","theme":"agriculture"},{"period":"122","author":"陈浩","title":"创新驱动发展与城市更新战略何以交融：环高校地区的城市更新路径与策略","theme":"urban"},{"period":"123","author":"郭炎","title":"国土空间规划的公平实施机制：权益配置与调节","theme":"spatial"},{"period":"124","author":"孙鸿鹄","title":"活动视角下城市生活空间供需关系的理论与实证研究","theme":"urban"},{"period":"125","author":"曾现来","title":"资源科学课程：过去、现在及未来","theme":"research"},{"period":"126","author":"陈瑜琦","title":"生态保护红线管控的基本思路与实现路径探索","theme":"ecology"},{"period":"127","author":"王学基","title":"场景驱动旅游资源创新的逻辑与路径","theme":"tourism"},{"period":"128","author":"陶慧","title":"社会—生态系统视角下农业文化遗产的韧性演化与价值重塑","theme":"ecology"},{"period":"129","author":"王心蕊","title":"旅游驱动乡村现代化转型：过程、机制与路径","theme":"tourism"},{"period":"130","author":"万欣","title":"公众参与驱动下的城乡治理：城市更新与灾害治理的双维洞察","theme":"urban"},{"period":"131","author":"曾鹏","title":"陆海统筹关键带的概念内涵与重点议题","theme":"ocean"},{"period":"132","author":"陈倩茹","title":"矿山生态修复的市场化路径探讨：以EOD模式为例","theme":"ecology"},{"period":"133","author":"黄耿志","title":"面向空间正义的市场型历史文化街区更新","theme":"urban"},{"period":"134","author":"曲衍波","title":"城镇低效用地再开发：理论解构、模式选择与运行逻辑","theme":"urban"},{"period":"135","author":"宋伟轩","title":"长三角人口资源与社会空间分异","theme":"general"},{"period":"136","author":"唐健雄","title":"三线建设地区工业旅游资源开发赋能城市高质量发展的作用机理与差异化效应","theme":"tourism"},{"period":"137","author":"晋蓓","title":"土地资源管理专业GIS课程思政四驱导航体系构建与实践","theme":"research"},{"period":"138","author":"谌丽","title":"从体检诊断到精准更新：居民需求的空间解析与系统响应","theme":"urban"},{"period":"139","author":"唐承财","title":"新质生产力赋能滑雪旅游度假地高质量发展的机制与模式","theme":"tourism"},{"period":"140","author":"乔晶","title":"从乡村空间重构到乡村空间资源价值化","theme":"rural"}];
+
+const THEME_LABELS = {
+  tourism:'旅游 · Tourism', agriculture:'农业 · Agriculture', ecology:'生态 · Ecology',
+  urban:'城市更新 · Urban', spatial:'国土空间 · Spatial', rural:'乡村 · Rural',
+  ocean:'海洋 · Ocean', digital:'数字化 · Digital', green:'可持续 · Green',
+  governance:'治理 · Governance', water:'水资源 · Water', research:'科研 · Research', general:'综合 · General'
+};
+
+/* 每个主题的配色方案 */
+const THEME_PALETTE = {
+  tourism:    { bg:'#1C1A2E', panel:'#2A2640', accent:'#E07563', line:'#E07563' },
+  agriculture:{ bg:'#162218', panel:'#1E2E1F', accent:'#8FBE7A', line:'#8FBE7A' },
+  ecology:    { bg:'#0E1E28', panel:'#152535', accent:'#5BB8C4', line:'#5BB8C4' },
+  urban:      { bg:'#18161E', panel:'#231F2C', accent:'#A78BFA', line:'#A78BFA' },
+  spatial:    { bg:'#0E0E18', panel:'#161628', accent:'#E0C060', line:'#E0C060' },
+  rural:      { bg:'#1E1408', panel:'#2A1C0A', accent:'#D4A55A', line:'#D4A55A' },
+  ocean:      { bg:'#060E1C', panel:'#0C1828', accent:'#3AB8E0', line:'#3AB8E0' },
+  digital:    { bg:'#0A0A18', panel:'#10102A', accent:'#00E5FF', line:'#00E5FF' },
+  green:      { bg:'#0C1A10', panel:'#122018', accent:'#72C472', line:'#72C472' },
+  governance: { bg:'#1A0808', panel:'#280E0E', accent:'#E07070', line:'#E07070' },
+  water:      { bg:'#060E1A', panel:'#0C1828', accent:'#60A8D8', line:'#60A8D8' },
+  research:   { bg:'#10101E', panel:'#181830', accent:'#F0C040', line:'#F0C040' },
+  general:    { bg:'#141414', panel:'#1E1E1E', accent:'#E07563', line:'#E07563' }
+};
+
+/* 主题几何装饰 SVG（专业风格） */
+function getThemeSVG(theme) {
+  const defs = {
+    /* 等高线地形 */
+    tourism: `
+      <ellipse cx="680" cy="120" rx="180" ry="90" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+      <ellipse cx="680" cy="120" rx="130" ry="65" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
+      <ellipse cx="680" cy="120" rx="80" ry="40" fill="none" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+      <ellipse cx="680" cy="120" rx="35" ry="18" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.9"/>
+      <line x1="500" y1="120" x2="860" y2="120" stroke="currentColor" stroke-width="0.4" opacity="0.3"/>
+      <line x1="680" y1="30" x2="680" y2="210" stroke="currentColor" stroke-width="0.4" opacity="0.3"/>
+      <path d="M20 380 Q120 340 220 360 Q320 380 420 350 Q520 320 620 340" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
+      <path d="M20 400 Q150 370 280 385 Q410 400 540 375 Q620 360 700 370" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.3"/>`,
+    /* 网格+种植行 */
+    agriculture: `
+      <line x1="560" y1="0" x2="560" y2="450" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="620" y1="0" x2="620" y2="450" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="680" y1="0" x2="680" y2="450" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="740" y1="0" x2="740" y2="450" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="800" y1="0" x2="800" y2="450" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="560" y1="60" x2="800" y2="60" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="560" y1="120" x2="800" y2="120" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="560" y1="180" x2="800" y2="180" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="560" y1="240" x2="800" y2="240" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="560" y1="300" x2="800" y2="300" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <line x1="560" y1="360" x2="800" y2="360" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+      <path d="M680 30 L680 10 M670 20 Q680 5 690 20" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.8"/>
+      <path d="M680 90 L680 70 M670 80 Q680 65 690 80" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.8"/>
+      <path d="M680 150 L680 130 M670 140 Q680 125 690 140" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.8"/>`,
+    /* 同心圆+流线 */
+    ecology: `
+      <circle cx="700" cy="120" r="160" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+      <circle cx="700" cy="120" r="120" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.45"/>
+      <circle cx="700" cy="120" r="80" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.55"/>
+      <circle cx="700" cy="120" r="45" fill="none" stroke="currentColor" stroke-width="1.1" opacity="0.7"/>
+      <circle cx="700" cy="120" r="15" fill="currentColor" opacity="0.3"/>
+      <path d="M0 300 Q200 260 400 290 Q550 315 700 280" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>
+      <path d="M0 340 Q200 310 400 330 Q550 345 700 320" stroke="currentColor" stroke-width="0.7" fill="none" opacity="0.3"/>
+      <path d="M0 370 Q200 350 400 365 Q550 375 700 358" stroke="currentColor" stroke-width="0.5" fill="none" opacity="0.25"/>`,
+    /* 建筑轮廓 */
+    urban: `
+      <rect x="560" y="80" width="50" height="220" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <rect x="620" y="40" width="70" height="260" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <rect x="700" y="100" width="45" height="200" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <rect x="755" y="60" width="55" height="240" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.65"/>
+      <line x1="540" y1="300" x2="820" y2="300" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+      <rect x="572" y="110" width="6" height="6" fill="currentColor" opacity="0.4"/>
+      <rect x="572" y="130" width="6" height="6" fill="currentColor" opacity="0.4"/>
+      <rect x="572" y="150" width="6" height="6" fill="currentColor" opacity="0.4"/>
+      <rect x="634" y="70" width="6" height="6" fill="currentColor" opacity="0.4"/>
+      <rect x="634" y="90" width="6" height="6" fill="currentColor" opacity="0.4"/>
+      <rect x="634" y="110" width="6" height="6" fill="currentColor" opacity="0.4"/>
+      <rect x="770" y="90" width="6" height="6" fill="currentColor" opacity="0.4"/>
+      <rect x="770" y="110" width="6" height="6" fill="currentColor" opacity="0.4"/>`,
+    /* 六边形网格 */
+    spatial: `
+      <polygon points="700,40 740,63 740,109 700,132 660,109 660,63" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <polygon points="740,109 780,132 780,178 740,201 700,178 700,132" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+      <polygon points="660,109 700,132 700,178 660,201 620,178 620,132" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+      <polygon points="700,178 740,201 740,247 700,270 660,247 660,201" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.4"/>
+      <polygon points="780,132 820,155 820,201 780,224 740,201 740,155" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.4"/>
+      <polygon points="620,132 660,155 660,201 620,224 580,201 580,155" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.4"/>
+      <circle cx="700" cy="86" r="4" fill="currentColor" opacity="0.7"/>
+      <circle cx="700" cy="155" r="3" fill="currentColor" opacity="0.5"/>`,
+    /* 梯田等高线 */
+    rural: `
+      <path d="M500 350 Q560 320 620 340 Q680 360 740 330 Q780 315 820 325 L820 350 Q780 340 740 355 Q680 385 620 365 Q560 345 500 375Z" fill="currentColor" opacity="0.12"/>
+      <path d="M480 310 Q550 275 620 295 Q690 315 750 285 Q790 265 820 275 L820 300 Q790 290 750 310 Q690 340 620 320 Q550 300 480 335Z" fill="currentColor" opacity="0.1"/>
+      <path d="M460 270 Q540 230 620 250 Q700 270 760 240 Q800 220 820 228 L820 255 Q800 247 760 267 Q700 295 620 275 Q540 255 460 295Z" fill="currentColor" opacity="0.08"/>
+      <path d="M500 350 Q560 320 620 340 Q680 360 740 330 Q780 315 820 325" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M480 310 Q550 275 620 295 Q690 315 750 285 Q790 265 820 275" stroke="currentColor" stroke-width="1" fill="none" opacity="0.45"/>
+      <path d="M460 270 Q540 230 620 250 Q700 270 760 240 Q800 220 820 228" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4"/>`,
+    /* 波形干涉 */
+    ocean: `
+      <path d="M0 200 Q100 160 200 200 Q300 240 400 200 Q500 160 600 200 Q700 240 800 200" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.55"/>
+      <path d="M0 230 Q100 190 200 230 Q300 270 400 230 Q500 190 600 230 Q700 270 800 230" stroke="currentColor" stroke-width="1" fill="none" opacity="0.45"/>
+      <path d="M0 260 Q100 220 200 260 Q300 300 400 260 Q500 220 600 260 Q700 300 800 260" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.35"/>
+      <path d="M0 290 Q100 250 200 290 Q300 330 400 290 Q500 250 600 290 Q700 330 800 290" stroke="currentColor" stroke-width="0.6" fill="none" opacity="0.25"/>
+      <circle cx="700" cy="80" r="80" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="700" cy="80" r="50" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+      <circle cx="700" cy="80" r="20" fill="none" stroke="currentColor" stroke-width="1" opacity="0.6"/>`,
+    /* 电路节点 */
+    digital: `
+      <circle cx="620" cy="80" r="5" fill="currentColor" opacity="0.8"/>
+      <circle cx="700" cy="50" r="5" fill="currentColor" opacity="0.8"/>
+      <circle cx="760" cy="120" r="5" fill="currentColor" opacity="0.8"/>
+      <circle cx="680" cy="170" r="5" fill="currentColor" opacity="0.8"/>
+      <circle cx="780" cy="200" r="5" fill="currentColor" opacity="0.6"/>
+      <circle cx="640" cy="220" r="4" fill="currentColor" opacity="0.6"/>
+      <line x1="620" y1="80" x2="700" y2="50" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <line x1="700" y1="50" x2="760" y2="120" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <line x1="760" y1="120" x2="680" y2="170" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <line x1="680" y1="170" x2="780" y2="200" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <line x1="680" y1="170" x2="640" y2="220" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <line x1="620" y1="80" x2="640" y2="220" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+      <rect x="590" y="300" width="220" height="1" fill="currentColor" opacity="0.3"/>
+      <rect x="590" y="320" width="180" height="1" fill="currentColor" opacity="0.25"/>
+      <rect x="590" y="340" width="200" height="1" fill="currentColor" opacity="0.2"/>`,
+    /* 斐波那契螺旋 */
+    green: `
+      <path d="M700 200 Q700 120 620 120 Q540 120 540 200 Q540 280 620 280 Q700 280 700 200" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <path d="M620 120 Q620 80 660 80 Q700 80 700 120" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.55"/>
+      <path d="M700 80 Q720 80 720 100 Q720 120 700 120" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+      <path d="M540 200 Q540 360 700 360 Q860 360 860 200 Q860 40 700 40 Q540 40 540 200" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.3"/>
+      <line x1="540" y1="200" x2="860" y2="200" stroke="currentColor" stroke-width="0.4" opacity="0.2"/>
+      <line x1="700" y1="40" x2="700" y2="360" stroke="currentColor" stroke-width="0.4" opacity="0.2"/>`,
+    /* 印章几何 */
+    governance: `
+      <circle cx="700" cy="150" r="120" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.5"/>
+      <circle cx="700" cy="150" r="100" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.4"/>
+      <circle cx="700" cy="150" r="80" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+      <polygon points="700,50 720,110 780,110 732,148 750,210 700,175 650,210 668,148 620,110 680,110" fill="none" stroke="currentColor" stroke-width="1" opacity="0.55"/>
+      <line x1="700" y1="30" x2="700" y2="270" stroke="currentColor" stroke-width="0.4" opacity="0.25"/>
+      <line x1="580" y1="150" x2="820" y2="150" stroke="currentColor" stroke-width="0.4" opacity="0.25"/>`,
+    /* 流体力学 */
+    water: `
+      <path d="M560 80 Q600 40 640 80 Q680 120 720 80 Q760 40 800 80" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.6"/>
+      <path d="M540 130 Q590 85 640 130 Q690 175 740 130 Q780 95 820 130" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M520 180 Q580 130 640 180 Q700 230 760 180 Q800 148 830 180" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
+      <path d="M500 230 Q570 175 640 230 Q710 285 780 230 Q810 205 840 230" stroke="currentColor" stroke-width="0.6" fill="none" opacity="0.3"/>
+      <path d="M660 50 Q680 10 700 50 Q720 90 700 130 Q680 90 660 50Z" fill="currentColor" opacity="0.25"/>`,
+    /* 坐标散点 */
+    research: `
+      <line x1="560" y1="320" x2="820" y2="320" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+      <line x1="560" y1="320" x2="560" y2="60" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>        <circle cx="620" cy="260" r="4" fill="currentColor" opacity="0.7"/>
+        <circle cx="650" cy="200" r="4" fill="currentColor" opacity="0.7"/>
+        <circle cx="680" cy="230" r="4" fill="currentColor" opacity="0.7"/>
+        <circle cx="700" cy="160" r="4" fill="currentColor" opacity="0.7"/>
+        <circle cx="720" cy="190" r="4" fill="currentColor" opacity="0.7"/>
+        <circle cx="750" cy="130" r="4" fill="currentColor" opacity="0.7"/>
+        <circle cx="770" cy="150" r="4" fill="currentColor" opacity="0.7"/>
+        <circle cx="790" cy="100" r="4" fill="currentColor" opacity="0.7"/>
+        <path d="M600 280 Q680 200 800 110" stroke="currentColor" stroke-width="1" fill="none" opacity="0.4" stroke-dasharray="4,3"/>
+        <line x1="580" y1="320" x2="580" y2="315" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="620" y1="320" x2="620" y2="315" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="660" y1="320" x2="660" y2="315" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="700" y1="320" x2="700" y2="315" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="740" y1="320" x2="740" y2="315" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="780" y1="320" x2="780" y2="315" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="560" y1="280" x2="566" y2="280" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="560" y1="240" x2="566" y2="240" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="560" y1="200" x2="566" y2="200" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="560" y1="160" x2="566" y2="160" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+        <line x1="560" y1="120" x2="566" y2="120" stroke="currentColor" stroke-width="1" opacity="0.5"/>`,
+      /* 黄金分割 */
+      general: `
+        <line x1="494" y1="0" x2="494" y2="450" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+        <line x1="0" y1="278" x2="800" y2="278" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+        <rect x="494" y="0" width="306" height="278" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.25"/>
+        <circle cx="494" cy="278" r="189" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.3"/>
+        <circle cx="494" cy="278" r="117" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.3"/>
+        <circle cx="494" cy="278" r="72" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+        <circle cx="494" cy="278" r="45" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>`
+    };
+    return defs[theme] || defs.general;
+  }
+
+  /* ═══════════════════════════════════════════
+     卡片生成核心
+  ═══════════════════════════════════════════ */
+  function createCard(entry, ratio) {
+    const aspectStyle = ratio === '4-3' ? 'aspect-ratio:4/3' : 'aspect-ratio:16/9';
+    const p = THEME_PALETTE[entry.theme] || THEME_PALETTE.general;
+    const labelEN = (THEME_LABELS[entry.theme] || '').split('·')[1]?.trim() || '';
+    const periodNum = entry.period;
+
+    return `<div id="card-${entry.period}" style="
+        width:100%;${aspectStyle};
+        position:relative;overflow:hidden;
+        border-radius:3px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
+        font-family:'Noto Sans SC',sans-serif;
+        background:${p.bg};
+      ">
+      <!-- 噪点纹理层 -->
+      <div style="position:absolute;inset:0;z-index:10;pointer-events:none;
+        background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/><feColorMatrix type=%22saturate%22 values=%220%22/></filter><rect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22 opacity=%220.08%22/></svg>');
+        mix-blend-mode:multiply;opacity:0.6;">
+      </div>
+
+      <!-- 左侧竖向色条 -->
+      <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:${p.accent};z-index:5;"></div>
+
+      <!-- 右侧面板底色 -->
+      <div style="position:absolute;right:0;top:0;bottom:0;width:45%;background:${p.panel};z-index:1;opacity:0.6;"></div>
+
+      <!-- 主题几何装饰 SVG -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:2;color:${p.accent}"
+        viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+        ${getThemeSVG(entry.theme)}
+      </svg>
+
+      <!-- 顶部水平分割线 -->
+      <div style="position:absolute;top:14%;left:5%;right:5%;height:1px;background:${p.accent};opacity:0.25;z-index:6;"></div>
+
+      <!-- 内容层 -->
+      <div style="position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;padding:5% 6%;">
+
+        <!-- 顶栏 -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto;">
+          <div>
+            <div style="font-family:'Oswald',sans-serif;font-weight:200;font-size:clamp(9px,1.1vw,12px);
+              letter-spacing:3px;text-transform:uppercase;color:${p.accent};margin-bottom:3px;">
+              自然资源·视界
+            </div>
+            <div style="font-family:'Oswald',sans-serif;font-weight:200;font-size:clamp(8px,0.9vw,10px);
+              letter-spacing:2px;color:rgba(255,255,255,0.35);">
+              NATURAL RESOURCES · VISION
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(28px,5vw,56px);
+              line-height:0.9;color:rgba(255,255,255,0.06);letter-spacing:-2px;margin-top:-4px;">
+              ${periodNum}
+            </div>
+          </div>
+        </div>
+
+        <!-- 中部弹性空间 -->
+        <div style="flex:1;min-height:8%;"></div>
+
+        <!-- 期号标签 -->
+        <div style="margin-bottom:4%;">
+          <span style="
+            display:inline-block;
+            font-family:'Oswald',sans-serif;font-weight:500;
+            font-size:clamp(9px,1vw,11px);letter-spacing:2px;
+            color:${p.bg};background:${p.accent};
+            padding:2px 8px;text-transform:uppercase;">
+            NO.${periodNum}
+          </span>
+          <span style="
+            display:inline-block;margin-left:8px;
+            font-family:'Oswald',sans-serif;font-weight:300;
+            font-size:clamp(8px,0.9vw,10px);letter-spacing:2px;
+            color:${p.accent};opacity:0.8;text-transform:uppercase;">
+            ${labelEN}
+          </span>
+        </div>
+
+        <!-- 主标题 -->
+        <div style="
+          font-family:'Noto Serif SC',serif;font-weight:900;
+          font-size:clamp(14px,2.1vw,24px);
+          line-height:1.45;
+          color:rgba(255,255,255,0.95);
+          margin-bottom:4%;
+          max-width:75%;
+          text-shadow:0 2px 12px rgba(0,0,0,0.4);
+          letter-spacing:0.02em;">
+          ${entry.title}
+        </div>
+
+        <!-- 底栏：作者 + 分割线 -->
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:24px;height:1px;background:${p.accent};opacity:0.8;"></div>
+            <div style="
+              font-family:'Noto Sans SC',sans-serif;font-weight:300;
+              font-size:clamp(10px,1.2vw,13px);
+              color:rgba(255,255,255,0.7);letter-spacing:1px;">
+              ${entry.author}
+            </div>
+          </div>
+          <div style="
+            font-family:'Oswald',sans-serif;font-weight:200;
+            font-size:clamp(7px,0.8vw,9px);
+            letter-spacing:2px;text-transform:uppercase;
+            color:rgba(255,255,255,0.2);">
+            VISION · ${new Date().getFullYear()}
+          </div>
+        </div>
+
+      </div>
+    </div>`;
+  }
+
+  /* ═══════════════════════════════════════════
+     状态与渲染
+  ═══════════════════════════════════════════ */
+  let currentRatio = '16-9';
+  let visibleEntries = [...ENTRIES];
+  let customEntries = []; /* 用户新增的卡片 */
+
+  function getAllEntries() {
+    return [...customEntries, ...visibleEntries];
+  }
+
+  function renderCards() {
+    const grid = document.getElementById('cardsGrid');
+    grid.innerHTML = '';
+    getAllEntries().forEach(entry => {
+      const isCustom = customEntries.some(e => e.period === entry.period && e._custom);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'card-wrapper';
+      wrapper.dataset.period = entry.period;
+      wrapper.innerHTML = `
+        <div class="card-meta">
+          <span class="card-meta-period">
+            NO.${entry.period} &nbsp;·&nbsp; ${(THEME_LABELS[entry.theme]||'').split('·')[0].trim()} &nbsp;·&nbsp; ${entry.author}
+          </span>
+          <div class="ratio-toggle">
+            <button class="ratio-btn ${currentRatio==='16-9'?'active':''}" onclick="switchRatio(this,'${entry.period}','16-9')">16:9</button>
+            <button class="ratio-btn ${currentRatio==='4-3'?'active':''}" onclick="switchRatio(this,'${entry.period}','4-3')">4:3</button>
+          </div>
+          <button class="save-btn" onclick="saveCard(event,'${entry.period}')">Export</button>
+          ${isCustom ? `<button class="del-btn" onclick="deleteCustomCard('${entry.period}')">✕</button>` : ''}
+        </div>
+        <div id="card-container-${entry.period}">
+          ${createCard(entry, currentRatio)}
+        </div>`;
+      grid.appendChild(wrapper);
+    });
+    const total = ENTRIES.length + customEntries.length;
+    const shown = getAllEntries().length;
+    document.getElementById('statsText').textContent = shown + ' / ' + total;
+    document.getElementById('headerCount').textContent = '— ' + total + ' ISSUES —';
+  }
+
+  function switchRatio(btn, period, ratio) {
+    const allEntries = [...customEntries, ...ENTRIES];
+    const entry = allEntries.find(e => e.period === period);
+    if (!entry) return;
+    document.getElementById('card-container-' + period).innerHTML = createCard(entry, ratio);
+    btn.closest('.ratio-toggle').querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function setGlobalRatio() {
+    currentRatio = document.getElementById('globalRatio').value;
+    renderCards();
+  }
+
+  function filterCards() {
+    const kw = document.getElementById('searchInput').value.trim().toLowerCase();
+    const theme = document.getElementById('themeFilter').value;
+    visibleEntries = ENTRIES.filter(e => {
+      const matchTheme = !theme || e.theme === theme;
+      const matchKw = !kw || e.period.includes(kw) || e.author.includes(kw) || e.title.includes(kw);
+      return matchTheme && matchKw;
+    });
+    renderCards();
+  }
+
+  /* ═══════════════════════════════════════════
+     新增卡片
+  ═══════════════════════════════════════════ */
+  function toggleAddPanel() {
+    const panel = document.getElementById('addPanel');
+    panel.classList.toggle('open');
+  }
+
+  function addNewCard() {
+    const period = document.getElementById('newPeriod').value.trim();
+    const title  = document.getElementById('newTitle').value.trim();
+    const author = document.getElementById('newAuthor').value.trim();
+    const theme  = document.getElementById('newTheme').value;
+    const ratio  = document.getElementById('newRatio').value;
+
+    if (!period || !title || !author) {
+      alert('请填写期数、标题和作者！');
+      return;
+    }
+    /* 检查期数是否重复 */
+    const allExist = [...ENTRIES, ...customEntries];
+    if (allExist.find(e => e.period === period)) {
+      if (!confirm('期数 ' + period + ' 已存在，是否仍然添加？')) return;
+    }
+
+    const newEntry = { period, title, author, theme, _custom: true };
+    customEntries.unshift(newEntry);
+    currentRatio = ratio;
+    document.getElementById('globalRatio').value = ratio;
+
+    /* 清空表单 */
+    document.getElementById('newPeriod').value = '';
+    document.getElementById('newTitle').value = '';
+    document.getElementById('newAuthor').value = '';
+
+    renderCards();
+
+    /* 收起面板，滚动到顶部 */
+    document.getElementById('addPanel').classList.remove('open');
+    window.scrollTo({ top: document.querySelector('.main').offsetTop - 60, behavior: 'smooth' });
+  }
+
+  function deleteCustomCard(period) {
+    customEntries = customEntries.filter(e => e.period !== period);
+    renderCards();
+  }
+
+  /* ═══════════════════════════════════════════
+     导出功能
+  ═══════════════════════════════════════════ */
+  async function saveCard(evt, period) {
+    const container = document.getElementById('card-container-' + period);
+    const card = container ? container.firstElementChild : null;
+    if (!card) return;
+    const btn = evt.currentTarget;
+    const orig = btn.textContent;
+    btn.textContent = '…';
+    btn.disabled = true;
+    try {
+      const allEntries = [...customEntries, ...ENTRIES];
+      const entry = allEntries.find(e => e.period === period);
+      const canvas = await html2canvas(card, {
+        scale: 3, useCORS: true, allowTaint: true,
+        backgroundColor: null, logging: false
+      });
+      const a = document.createElement('a');
+      a.download = '自然资源视界_第' + period + '期_' + (entry ? entry.author : '') + '.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    } catch(e) { alert('导出失败：' + e.message); }
+    btn.textContent = orig;
+    btn.disabled = false;
+  }
+
+  async function downloadAll() {
+    const bar  = document.getElementById('progressBar');
+    const fill = document.getElementById('progressFill');
+    const text = document.getElementById('progressText');
+    bar.style.display = 'block';
+    const wrappers = document.querySelectorAll('.card-wrapper');
+    const total = wrappers.length;
+    const allEntries = [...customEntries, ...ENTRIES];
+    for (let i = 0; i < total; i++) {
+      const period = wrappers[i].dataset.period;
+      const entry  = allEntries.find(e => e.period === period);
+      const card   = wrappers[i].querySelector('[id^="card-"]');
+      if (!card) continue;
+      text.textContent = 'Exporting ' + (i+1) + ' / ' + total + '  ·  No.' + period;
+      fill.style.width = ((i+1)/total*100) + '%';
+      try {
+        const canvas = await html2canvas(card, {
+          scale: 3, useCORS: true, allowTaint: true,
+          backgroundColor: null, logging: false
+        });
+        const a = document.createElement('a');
+        a.download = '自然资源视界_第' + period + '期_' + (entry ? entry.author : '') + '.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        await new Promise(r => setTimeout(r, 500));
+      } catch(e) { console.warn('skip', period, e); }
+    }
+    text.textContent = '✓ Done — ' + total + ' cards exported';
+    setTimeout(() => { bar.style.display = 'none'; fill.style.width = '0%'; }, 3500);
+  }
+
+  /* 回车键快速生成 */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('addPanel').classList.contains('open')) {
+      addNewCard();
+    }
+  });
+
+  window.onload = renderCards;
+  </script>
+  </body>
+  </html>

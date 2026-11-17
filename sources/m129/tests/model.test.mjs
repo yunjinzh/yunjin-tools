@@ -1,0 +1,12 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {EXAMPLES,makeTemplate,validateScene,parsePrompt} from '../src/model.js';
+import {pythonSource} from '../src/export-python.js';
+import {writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+test('all twelve presets produce bounded, named geometry',()=>{for(const e of EXAMPLES){const s=makeTemplate(e.prompt);assert.ok(s.parts.length>=4);assert.equal(new Set(s.parts.map(p=>p.id)).size,s.parts.length);assert.ok(s.parts.every(p=>p.dimensions.every(v=>v>0)));}});
+test('parse Chinese and English measurements with units',()=>{assert.deepEqual(parsePrompt('一把蓝色椅子，宽 0.65 m 深 60 cm 高 850 mm').size,[650,600,850]);assert.deepEqual(parsePrompt('chair width 500 depth 50 cm height 0.8 m').size,[500,500,800]);assert.equal(parsePrompt('红色汽车').color,'#b94d44');assert.deepEqual(parsePrompt('齿轮 直径 20 cm').size,[200,200,35]);});
+test('unsupported prompts are rejected without a placeholder model',()=>{assert.throws(()=>makeTemplate('一条飞行的鲸鱼'));assert.throws(()=>makeTemplate('椅子 高 9000m'));});
+test('hostile or oversized scene structures are rejected',()=>{assert.throws(()=>validateScene({parts:Array(181).fill({})}));assert.throws(()=>validateScene({parts:[{type:'script',code:'alert(1)'}]}));assert.throws(()=>validateScene({parts:[{type:'box',dimensions:[1,NaN,1]}]}));assert.throws(()=>validateScene({parts:[{type:'tube',dimensions:[10,10,10],wall:8}]}));});
+test('Python export keeps untrusted strings as data',()=>{const s=makeTemplate(EXAMPLES[0].prompt);s.name='\"; __import__(\"os\").system(\"echo injected\"); #';s.parts[0].name='中文\\路径\n换行';writeFileSync(join(tmpdir(),'sand3d-export-compile-test.py'),pythonSource(s,{scale:[1,1,1],position:[0,0,0]}));});

@@ -1,0 +1,4 @@
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+export const records = sqliteTable('records', {id:text('id').primaryKey(), data:text('data').notNull(), revision:integer('revision').notNull(), updatedAt:text('updated_at').notNull()});
+export const evidence = sqliteTable('evidence', {id:text('id').primaryKey(), taskId:text('task_id').notNull(), resourceId:text('resource_id').notNull(), name:text('name').notNull(), objectKey:text('object_key'), url:text('url'), size:integer('size').notNull(), sha256:text('sha256'), note:text('note').notNull(), createdAt:text('created_at').notNull(), actor:text('actor').notNull()});
+export const history = sqliteTable('history', {id:text('id').primaryKey(), recordId:text('record_id').notNull(), revision:integer('revision').notNull(), previous:text('previous').notNull(), next:text('next').notNull(), action:text('action').notNull(), actor:text('actor').notNull(), createdAt:text('created_at').notNull()});

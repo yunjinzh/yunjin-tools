@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>体验走查与改进记录 · 教材实训工作台</title><style>
+:root{color-scheme:light;--ink:#203d34;--muted:#59685f;--line:#d8dfd3;--paper:#f1f0ec;--green:#2d6651}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,"Noto Sans SC",sans-serif;line-height:1.8}main{max-width:1120px;margin:auto;padding:36px 28px 80px}nav{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:48px}a{color:var(--green);text-underline-offset:4px}button{font:inherit;padding:8px 18px;background:transparent;border:1px solid var(--line);border-radius:6px;cursor:pointer}h1{font-size:clamp(28px,4vw,42px);line-height:1.35;letter-spacing:-.04em;margin:8px 0 18px}h2{font-size:23px;margin:44px 0 16px}p{max-width:85ch}.eyebrow{font-size:12px;letter-spacing:.15em;color:var(--muted)}.lead{font-size:18px}.note{background:#e7eddf;border-left:4px solid var(--green);padding:16px 20px;margin:24px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#fafbf6;border:1px solid var(--line);border-radius:9px;padding:22px}.card strong{display:block;font-size:22px}.muted,small{color:var(--muted)}.table{overflow:auto;border:1px solid var(--line);border-radius:9px;background:#fafbf6}table{border-collapse:collapse;width:100%;min-width:780px;font-size:14px;text-align:left}th{background:#e5eadf}td,th{padding:15px 18px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}td:first-child{font-weight:650}.tag{display:inline-block;padding:2px 8px;border-radius:4px;background:#e4ebde;font-size:12px;white-space:nowrap}.p0{background:#f5e5dc;color:#8d3e2b}.p1{background:#f3ead0;color:#785c10}.todo{background:#e3e8ef;color:#3d567b}.steps{padding-left:23px}.steps li{margin:12px 0}footer{margin-top:50px;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}:focus-visible{outline:3px solid #98702b;outline-offset:4px}@media(max-width:650px){main{padding:22px 18px 50px}.cards{grid-template-columns:1fr}nav{margin-bottom:32px}h2{margin-top:32px}.card{padding:17px}.lead{font-size:16px}}@media print{body{background:white}main{max-width:none;padding:0}nav button{display:none}table{min-width:0;font-size:10pt}td,th{padding:8px}h2{break-after:avoid}.card,.note{break-inside:avoid}a{color:inherit}}
+</style></head><body><main>
+<nav><a href="/#view=overview">← 返回工作台</a><button onclick="window.print()">打印 / 保存 PDF</button></nav>
+<div class="eyebrow">PRODUCT REVIEW · UX / UI</div><h1>让审查更清楚，<br>让确认始终有据可查。</h1>
+<p class="lead">本次走查覆盖八个工作页面、任务详情的四个页签，以及证据归档、学校流程、版本差异、导出四类窗口。优先修复可能误导验收或丢失修改的问题，再降低查找与填写成本。</p>
+<div class="note"><strong>边界保持清楚</strong><br>原方案保持不变；本次测试使用本地预览数据，不写入线上实训成果。工作台记录校方实际审核，不代替学校审批。本报告是专家走查记录，尚不代表真实用户研究结论。</div>
+<div class="cards"><div class="card"><strong>审核完整性</strong><span class="muted">已确认内容变更前必须先退回复核；异常旧记录显著提示。</span></div><div class="card"><strong>同一筛选口径</strong><span class="muted">页面、Excel、Word共用筛选；历史导出明确已载入范围。</span></div><div class="card"><strong>连续完成任务</strong><span class="muted">逐项审查、资源直达、保留输入、可恢复错误反馈。</span></div></div>
+<h2>六个维度的已实施改进</h2>
+<div class="table" tabindex="0" role="region" aria-label="六维度改进记录"><table><thead><tr><th>维度</th><th>发现的问题</th><th>本次已实施</th><th>用户获得的改善</th></tr></thead><tbody>
+<tr><td>信息架构</td><td>页面间关键词语义不同，筛选条件容易被忽略；原文核验易与成果确认混淆。</td><td>搜索按当前对象工作；筛选标签可单独移除；保留政策性质、来源状态、资源核对与任务验收的分层。</td><td>能解释“为什么只看到这些结果”，明确每个状态确认的对象。</td></tr>
+<tr><td>用户流程</td><td>已确认记录仍可能直接改写；学校依据变化没有约束既有验收。</td><td>归档先退回复核；资源改动先撤回确认；冻结已有成果依赖的学校基线；旧异常只读提示。</td><td>保留真实审查过程，避免修改内容后仍显示原通过状态。</td></tr>
+<tr><td>操作效率</td><td>反复返回列表；资源单元格不能直接定位；长版本记录难以阅读。</td><td>当前筛选内上一项/下一项；点击资源直接展开；只看未确认项；字段级差异和历史分页。</td><td>减少跳转、滚动和记忆任务编号的负担。</td></tr>
+<tr><td>反馈机制</td><td>输入会失焦；保存冲突、加载失败和上传方式不够清楚。</td><td>稳定编辑焦点；保存期间锁定输入；行内错误；409保留草稿并提供重载；同步时间；文件/链接明确分开。</td><td>明确操作结果，错误后有下一步，避免无提示覆盖。</td></tr>
+<tr><td>视觉层级</td><td>细字、状态色和密集表格增加阅读压力。</td><td>统一字体与字号、状态色、边框和间距；冻结首列；横向滚动提示；窄屏表单、抽屉和按钮适配。</td><td>正文可读，重点可定位；状态同时使用文字与颜色。</td></tr>
+<tr><td>组件一致性</td><td>焦点、空状态、窗口关闭和导出反馈缺少统一约定。</td><td>弹窗焦点约束、Esc关闭、未保存提醒；导航当前态；统一按钮、提示、徽标与空结果说明。</td><td>同类操作表现一致，降低学习和误操作成本。</td></tr>
+</tbody></table></div>
+<h2>高优先级问题关闭记录</h2>
+<div class="table" tabindex="0" role="region" aria-label="问题关闭记录"><table><thead><tr><th>级别</th><th>风险 / 触发场景</th><th>修复与核验</th></tr></thead><tbody>
+<tr><td><span class="tag p0">P0</span></td><td>归档后改动资源或结论，却仍保持“已确认”。</td><td>必须先保存退回复核记录；后端校验状态与版本，API回归覆盖拒绝与合法退回。</td></tr>
+<tr><td><span class="tag p0">P0</span></td><td>学校审核基线被变更，旧成果仍被视作有效。</td><td>存在已确认任务时冻结基线；验收重新验证学校依据；历史不完整记录不计入已确认指标。</td></tr>
+<tr><td><span class="tag p1">P1</span></td><td>上传证据后，用旧版本保存可能覆盖新的关联状态。</td><td>归档、版本推进与历史写入事务化；旧草稿返回409；UI仅在版本一致时合并。</td></tr>
+<tr><td><span class="tag p1">P1</span></td><td>政策/证据搜索、资源筛选与导出范围不一致。</td><td>共用筛选器；零结果不泄漏关联对象；完整度始终按全部适用证据计算。</td></tr>
+<tr><td><span class="tag p1">P1</span></td><td>输入第一字后焦点重置，或保存中继续输入被响应覆盖。</td><td>焦点约束不随编辑状态重建；保存时禁用编辑域，完成后恢复。</td></tr>
+<tr><td><span class="tag p1">P1</span></td><td>记录尚未加载却显示零值；错误反馈消失，用户无法恢复。</td><td>加载时主指标使用占位，暂停保存/导出；失败保留已有数据与输入，提供重试或重载。</td></tr>
+<tr><td><span class="tag p1">P1</span></td><td>自定义证据名称导致下载扩展名丢失；文件与链接混合提交。</td><td>新附件保留原文件名及扩展名；明确两种归档方式；大小、日期、地址和说明均有校验。</td></tr>
+<tr><td><span class="tag p1">P1</span></td><td>历史超过500条不可访问；部分历史导出被误认为完整档案。</td><td>稳定游标分页；历史筛选与导出关联；导出文件内写明当前已载入范围。</td></tr>
+</tbody></table></div>
+<h2>后续可执行计划</h2>
+<p class="muted">以下为待实施事项，没有表示为已完成。建议按顺序推进，工期为开发工作量估计，须结合真实资料与使用反馈复核。</p>
+<div class="table" tabindex="0" role="region" aria-label="后续可执行计划"><table><thead><tr><th>优先级 / 事项</th><th>执行步骤与责任</th><th>完成标准</th><th>预计工作量 / 依赖</th></tr></thead><tbody>
+<tr><td><span class="tag todo">P2</span> 真实用户验证</td><td>产品负责人邀请学校审核、教师编制、企业技术三类用户各2人；完成找政策、补资料、退回整改、导出四个任务，记录卡点。</td><td>确认关键术语理解一致；任务完成率目标≥90%；“政策核验等于学校通过”误判为0。目标尚待验证。</td><td>2—3人日；需学校参与者与脱敏样例。</td></tr>
+<tr><td><span class="tag todo">P2</span> 自动恢复未保存草稿</td><td>前端负责人为每项任务建立带原版本号的本机草稿；仅在用户选择后恢复；与服务器新版本并列比较。</td><td>刷新/断网后能恢复输入；旧草稿不得直接覆盖新版本；提供清除本机草稿操作。</td><td>2人日；需确认设备共用与数据保存边界。</td></tr>
+<tr><td><span class="tag todo">P2</span> 证据更正与作废</td><td>产品与后端负责人设计“新版本替代/标记作废”关系，保留原文件、理由与责任人；引用中的已确认资源先撤回复核。</td><td>误传可纠正且历史可追溯；作废证据不计入完整度；原证据不可静默消失。</td><td>3人日；需确认学校留存制度。</td></tr>
+<tr><td><span class="tag todo">P2</span> 便捷筛选与批量整理</td><td>增加命名筛选视图、我的待办；只对责任人/期限等可逆字段提供逐项预览的批量操作。</td><td>重复筛选一次恢复；批量保存逐条留痕；不提供批量自动验收。</td><td>2—3人日；需明确责任人目录。</td></tr>
+<tr><td><span class="tag todo">P2</span> 全历史检索与后台导出</td><td>后端增加带游标的服务端历史查询；导出任务固定时间截面，在大量记录下显示进度与范围。</td><td>超过500条也能直接按人/任务检索；完整导出可核对总条数、时间范围及文件校验值。</td><td>3人日；使用规模与留存周期待确认。</td></tr>
+<tr><td><span class="tag todo">P2</span> 学校流程正式配置</td><td>校方提供教材认定路径、审核节点、授权岗位和依据；产品将建议阶段映射为学校真实流程，保留差异说明。</td><td>流程每一步有真实责任与依据；未提供资料继续标注“待学校确认”。</td><td>2—4人日；[!!! 事实断层：资料不足，无法确认]。</td></tr>
+<tr><td><span class="tag todo">P2</span> 设备与辅助技术覆盖</td><td>QA在真实手机、平板、Windows Chrome/Edge与屏幕阅读器执行同一任务脚本；验证200%缩放、中文长字段、键盘路径。</td><td>正文不被截断；固定控件不遮挡输入；关键操作可用键盘完成；记录各设备结果。</td><td>2人日；需真实设备与辅助技术测试。</td></tr>
+<tr><td><span class="tag todo">P3</span> 政策复核提醒</td><td>资料管理员为政策记录下次复核日、失效/替代关系；新增材料先入待核清单，人工核实后更新。</td><td>原文变化可追踪；待核政策不自动变成管理要求；每次调整保留来源与责任人。</td><td>2人日；需指定政策维护责任人。</td></tr>
+</tbody></table></div>
+<h2>验证范围与限制</h2>
+<ul class="steps"><li>后端14项实际处理器回归覆盖SQLite事务、R2替身、保存冲突、验收冻结、证据上传下载、异常输入和历史分页。</li><li>筛选与导出测试覆盖政策/证据/资源/历史范围、零结果、有效确认、7表工作簿及OOXML；使用openpyxl与python-docx读取验证。</li><li>本地浏览器逐页检查八个页面、任务四个页签、学校流程、文件选择上传与下载、版本差异和Excel/Word下载；390像素嵌入视口检查了导航、筛选和任务表单。测试记录仅存在于本地预览，真实手机和辅助技术测试仍待执行。</li><li>界面测试不能替代学校审查、政策法律适用性判定或真实用户研究；正式数据、审批和授权证据由学校及责任单位提供。</li><li>新上传文件保留原扩展名。旧文件若已丢失原名，无法凭空恢复，需提供原件后更正。</li></ul>
+<footer>本报告仅记录产品体验与工程改进，不构成项目验收结论。原方案、政策倡导方向、学校待确认事项继续保留原有边界。</footer>
+</main></body></html>

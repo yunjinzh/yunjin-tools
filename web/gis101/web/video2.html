@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEXDOWN / 瑞士视觉网络版</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Oswald, Noto Serif SC, Noto Sans SC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        swiss: {
+                            red: '#E07563',    /* 合欢红 */
+                            silver: '#F1F0EC', /* 银白基底 */
+                            paper: '#EAE9E4',  /* 纸张阴影 */
+                            ink: '#1A1A1A',    /* 浓墨黑 */
+                            gray: '#7A7A7A'    /* 工业灰 */
+                        }
+                    },
+                    fontFamily: {
+                        oswald: ['Oswald', 'sans-serif'],
+                        serif: ['Noto Serif SC', 'serif'],
+                        sans: ['Noto Sans SC', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #F1F0EC;
+            color: #1A1A1A;
+            position: relative;
+        }
+        
+        .huge-title {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+        }
+
+        /* 全局纸画噪点滤镜 */
+        .paper-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.08;
+            mix-blend-mode: multiply;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F0EC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E07563;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-[#E07563] selection:text-[#F1F0EC]">
+
+    <!-- SVG 噪点定义 -->
+    <svg class="paper-texture" xmlns="http://www.w3.org/2000/svg">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.07 0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+    </svg>
+
+    <!-- 顶部极简网格线装饰 -->
+    <div class="w-full border-b border-swiss-ink/10 grid grid-cols-12 h-16 items-center px-8 md:px-16">
+        <div class="col-span-6 flex items-center gap-4">
+            <span class="font-oswald text-xl tracking-widest font-bold text-swiss-ink">APEXDOWN.</span>
+            <span class="text-[10px] font-oswald text-swiss-red tracking-widest border border-swiss-red/30 px-2 py-0.5">NET_2026</span>
+        </div>
+        <div class="col-span-6 text-right text-xs font-sans text-swiss-gray tracking-wider">
+            [ 瑞士非对称网格 / 跨域隧道流解析 ]
+        </div>
+    </div>
+
+    <!-- 主内容区：严格执行非对称网格 (12列) -->
+    <main class="grid grid-cols-12 gap-y-12 md:gap-x-16 px-8 md:px-16 py-16 max-w-[1600px] mx-auto w-full flex-grow">
+        
+        <!-- 左侧：压制性视觉标题与输入面板 (占 5 列) -->
+        <section class="col-span-12 lg:col-span-5 flex flex-col justify-between min-h-[500px]">
+            <div>
+                <h1 class="huge-title text-6xl md:text-7xl text-swiss-ink mb-2">
+                    资源<br><span class="text-swiss-red">下载</span>
+                </h1>
+                <h2 class="font-sans text-sm font-bold text-swiss-ink tracking-widest uppercase mb-8">
+                    NET DEPLOYED DOWNLOADER
+                </h2>
+                <p class="text-xs text-swiss-gray leading-relaxed max-w-sm font-sans mb-12">
+                    本版本专为网络部署优化。通过全球跨域隧道（CORS Bypass）直接穿透 Twitter 与 YouTube 的防盗链防护，在当前页面直接生成下载流，无需任何外部跳转。
+                </p>
+            </div>
+
+            <!-- 输入卡片 -->
+            <div class="bg-[#EAE9E4] border border-swiss-ink/10 p-6 shadow-2xl shadow-swiss-ink/5 relative">
+                <div class="absolute top-0 left-0 w-1 h-full bg-swiss-red"></div>
+                <div class="mb-6">
+                    <div class="flex justify-between items-baseline mb-2">
+                        <span class="text-xs font-sans tracking-wider text-swiss-ink font-bold">输入视频网址 (支持批量，一行一个)</span>
+                        <span class="text-[10px] font-sans text-swiss-red cursor-pointer hover:underline" onclick="loadDemo()">[ 载入测试数据 ]</span>
+                    </div>
+                    <textarea 
+                        id="urlInput" 
+                        rows="4" 
+                        class="w-full bg-[#F1F0EC] border border-swiss-ink/10 p-3 text-swiss-ink placeholder-swiss-gray/60 focus:outline-none focus:border-swiss-red transition-all duration-200 text-xs font-mono leading-relaxed"
+                        placeholder="请在此粘贴 YouTube 或 Twitter (X) 链接..."
+                    ></textarea>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button 
+                        onclick="clearInput()" 
+                        class="text-xs font-sans tracking-wider text-swiss-gray hover:text-swiss-ink transition-colors flex items-center gap-1"
+                    >
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> 清空输入
+                    </button>
+                    <button 
+                        onclick="startAnalysis()" 
+                        class="px-6 py-3 bg-swiss-ink hover:bg-swiss-red text-swiss-silver hover:text-white font-sans tracking-wider text-xs font-bold transition-all duration-300 flex items-center gap-2"
+                    >
+                        分析并运行 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 右侧：非对称留白与解析队列 (占 7 列) -->
+        <section class="col-span-12 lg:col-span-7 lg:border-l lg:border-swiss-ink/10 lg:pl-16 flex flex-col justify-start">
+            
+            <!-- 批量进度指示器 -->
+            <div id="progressContainer" class="hidden border border-swiss-ink/10 bg-[#EAE9E4] p-4 mb-8">
+                <div class="flex justify-between text-xs font-sans mb-2">
+                    <span class="flex items-center gap-1.5 font-bold"><i data-lucide="loader" class="w-3.5 h-3.5 animate-spin text-swiss-red"></i> 正在处理解析队列...</span>
+                    <span id="progressText" class="text-swiss-red font-bold">0/0 已完成</span>
+                </div>
+                <div class="w-full bg-[#F1F0EC] h-1">
+                    <div id="progressBar" class="bg-swiss-red h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- 队列容器 -->
+            <div id="resultSection" class="hidden space-y-6">
+                <div class="border-b border-swiss-ink/10 pb-2 flex justify-between items-baseline">
+                    <span class="text-xs font-sans tracking-wider text-swiss-ink font-bold">解析队列</span>
+                    <span class="text-[10px] font-oswald text-swiss-gray">STATUS: ACTIVE</span>
+                </div>
+                
+                <!-- 动态卡片列表 -->
+                <div id="queueList" class="space-y-4"></div>
+            </div>
+
+            <!-- 初始空白状态引导 -->
+            <div id="emptyState" class="h-full flex flex-col justify-center py-12 lg:py-24">
+                <div class="border-t-2 border-swiss-ink w-12 mb-6"></div>
+                <h3 class="font-serif text-xl font-black text-swiss-ink mb-2">等待指令输入</h3>
+                <p class="text-xs text-swiss-gray leading-relaxed max-w-xs">
+                    在左侧输入框内填入目标媒体链接（支持你提供的测试链接），系统将自动激活非对称解析队列，实时提取无水印 MP4 直链。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚：极简三栏网格 -->
+    <footer class="border-t border-swiss-ink/10 py-8 px-8 md:px-16 grid grid-cols-12 gap-4 text-[10px] font-sans text-swiss-gray uppercase tracking-wider">
+        <div class="col-span-12 md:col-span-4">
+            © 2026 APEXDOWN / 保留所有权利。
+        </div>
+        <div class="col-span-12 md:col-span-4 md:text-center">
+            严格遵循瑞士现代主义排版规范
+        </div>
+        <div class="col-span-12 md:col-span-4 md:text-right text-swiss-red font-bold">
+            网络跨域穿透版
+        </div>
+    </footer>
+
+    <script>
+        // 初始化 Lucide 极简图标
+        lucide.createIcons();
+
+        // 载入用户提供的真实测试数据
+        function loadDemo() {
+            const demoUrls = [
+                "https://x.com/worontzov/status/2057695212516860160?s=20",
+                "https://www.youtube.com/watch?v=eSP7PLTXNy8"
+            ];
+            document.getElementById('urlInput').value = demoUrls.join('\n');
+        }
+
+        function clearInput() {
+            document.getElementById('urlInput').value = '';
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('progressContainer').classList.add('hidden');
+            document.getElementById('emptyState').classList.remove('hidden');
+            document.getElementById('queueList').innerHTML = '';
+        }
+
+        function startAnalysis() {
+            const rawInput = document.getElementById('urlInput').value.trim();
+            if (!rawInput) {
+                alert('请输入有效网址');
+                return;
+            }
+
+            const urls = rawInput.split('\n')
+                                 .map(url => url.trim())
+                                 .filter(url => url.length > 0);
+
+            if (urls.length === 0) return;
+
+            document.getElementById('emptyState').classList.add('hidden');
+            const progressContainer = document.getElementById('progressContainer');
+            const resultSection = document.getElementById('resultSection');
+            const queueList = document.getElementById('queueList');
+            
+            progressContainer.classList.remove('hidden');
+            resultSection.classList.remove('hidden');
+            queueList.innerHTML = ''; 
+
+            let completedCount = 0;
+            const totalCount = urls.length;
+            updateProgress(0, totalCount);
+
+            urls.forEach((url, index) => {
+                const platform = detectPlatform(url);
+                const cardId = `card-${index}`;
+                
+                const cardHtml = createSwissCard(cardId, url, platform);
+                queueList.insertAdjacentHTML('beforeend', cardHtml);
+                lucide.createIcons();
+
+                // 核心：根据不同平台调度专属的穿透解析算法
+                if (platform.type === 'YOUTUBE') {
+                    parseYouTubeWithTunnel(cardId, url, () => {
+                        completedCount++;
+                        updateProgress(completedCount, totalCount);
+                    });
+                } else if (platform.type === 'TWITTER') {
+                    parseTwitterWithTunnel(cardId, url, () => {
+                        completedCount++;
+                        updateProgress(completedCount, totalCount);
+                    });
+                } else {
+                    // 外部通用链接降级
+                    handleFallback(cardId, url, platform);
+                    completedCount++;
+                    updateProgress(completedCount, totalCount);
+                }
+            });
+        }
+
+        function detectPlatform(url) {
+            const lowerUrl = url.toLowerCase();
+            if (lowerUrl.includes('youtube.com') || lowerUrl.includes('youtu.be')) {
+                return { type: 'YOUTUBE', name: 'YOUTUBE 视频', icon: 'video', color: 'text-swiss-red' };
+            } else if (lowerUrl.includes('twitter.com') || lowerUrl.includes('x.com')) {
+                return { type: 'TWITTER', name: 'TWITTER / X 动态', icon: 'twitter', color: 'text-swiss-ink' };
+            } else {
+                return { type: 'EXTERNAL', name: '外部链接', icon: 'link-2', color: 'text-swiss-gray' };
+            }
+        }
+
+        function updateProgress(current, total) {
+            const percent = Math.round((current / total) * 100);
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            progressBar.style.width = `${percent}%`;
+            progressText.innerText = `${current}/${total} 已完成`;
+
+            if (current === total) {
+                setTimeout(() => {
+                    document.getElementById('progressContainer').classList.add('hidden');
+                }, 800);
+            }
+        }
+
+        function createSwissCard(id, url, platform) {
+            return `
+                <div id="${id}" class="bg-[#EAE9E4] border border-swiss-ink/10 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all duration-300 shadow-sm hover:shadow-md">
+                    <div class="flex items-start gap-4 min-w-0 flex-1">
+                        <div class="w-10 h-10 bg-[#F1F0EC] border border-swiss-ink/10 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="${platform.icon}" class="w-4 h-4 ${platform.color}"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold tracking-wider ${platform.color}">${platform.name}</span>
+                                <span class="text-[9px] font-mono text-swiss-gray truncate max-w-[180px] md:max-w-xs">${url}</span>
+                            </div>
+                            <h4 class="text-xs font-sans text-swiss-gray mt-1 animate-pulse" id="${id}-title">正在初始化跨域穿透通道...</h4>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0 justify-end" id="${id}-actions">
+                        <div class="h-8 w-24 bg-swiss-ink/5 animate-pulse"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // 1. TWITTER (X) 跨域穿透解析算法
+        // ==========================================
+        async function parseTwitterWithTunnel(cardId, targetUrl, onComplete) {
+            const titleEl = document.getElementById(`${cardId}-title`);
+            const actionsContainer = document.getElementById(`${cardId}-actions`);
+            
+            titleEl.innerText = "正在通过跨域隧道抓取 Twitter 媒体流...";
+
+            try {
+                // 规范化 X.com 链接为 twitsave 格式
+                const cleanUrl = targetUrl.replace('x.com', 'twitter.com');
+                const parseApiUrl = `https://twitsave.com/info?url=${encodeURIComponent(cleanUrl)}`;
+                
+                // 使用 corsproxy.io 穿透抓取 twitsave 的 HTML 结果
+                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(parseApiUrl)}`;
+                
+                const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error("CORS 隧道响应异常");
+                
+                const htmlText = await response.text();
+                
+                // 使用 DOMParser 提取 HTML 中的真实视频直链
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                
+                // 寻找 twitsave 页面中的下载按钮 (通常是含有 "/download?file=" 的 a 标签)
+                const links = Array.from(doc.querySelectorAll('a'));
+                let directVideoUrl = "";
+                
+                for (let a of links) {
+                    const href = a.getAttribute('href');
+                    if (href && (href.includes('video.twimg.com') || href.includes('twitsave.com/download'))) {
+                        directVideoUrl = href;
+                        break;
+                    }
+                }
+
+                // 如果没找到，尝试匹配正则
+                if (!directVideoUrl) {
+                    const match = htmlText.match(/https:\/\/video\.twimg\.com\/[^\s"']+/);
+                    if (match) directVideoUrl = match[0];
+                }
+
+                if (directVideoUrl) {
+                    titleEl.innerText = "Twitter 视频流提取成功";
+                    titleEl.classList.remove('animate-pulse');
+                    titleEl.classList.add('text-swiss-ink', 'font-medium');
+
+                    actionsContainer.innerHTML = `
+                        <button 
+                            onclick="downloadFileDirectly('${directVideoUrl}', 'Twitter_${Date.now()}.mp4', '${cardId}')"
+                            class="px-5 py-2 bg-swiss-ink hover:bg-swiss-red text-white text-[10px] font-sans font-bold tracking-wider transition-all duration-200 flex items-center gap-1.5 uppercase"
+                            id="${cardId}-btn"
+                        >
+                            <i data-lucide="download-cloud" class="w-3 h-3"></i> 立即保存到本地
+                        </button>
+                    `;
+                } else {
+                    throw new Error("未在页面中检索到视频流地址");
+                }
+
+            } catch (error) {
+                console.error("Twitter Tunnel Error:", error);
+                handleFallback(cardId, targetUrl, { name: 'TWITTER / X 动态', type: 'TWITTER' });
+            } finally {
+                lucide.createIcons();
+                onComplete();
+            }
+        }
+
+        // ==========================================
+        // 2. YOUTUBE 工业级异步握手解析算法
+        // ==========================================
+        async function parseYouTubeWithTunnel(cardId, targetUrl, onComplete) {
+            const titleEl = document.getElementById(`${cardId}-title`);
+            const actionsContainer = document.getElementById(`${cardId}-actions`);
+            
+            titleEl.innerText = "正在向 YouTube 解析引擎提交任务...";
+
+            try {
+                // 第一步：向 loader.to 发起解析任务
+                const requestUrl = `https://loader.to/ajax/download.php?button=1&start=1&end=20&format=720&url=${encodeURIComponent(targetUrl)}`;
+                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(requestUrl)}`;
+                
+                const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error("解析引擎连接失败");
+                
+                const data = await response.json();
+                if (!data.success || !data.id) throw new Error("引擎拒绝了该视频的解析请求");
+
+                const taskId = data.id;
+                titleEl.innerText = "视频已进入解析队列，正在计算音视频轨道...";
+
+                // 第二步：轮询任务进度，直到直链生成
+                let attempts = 0;
+                const maxAttempts = 30; // 最大等待 30 秒
+                
+                const pollInterval = setInterval(async () => {
+                    attempts++;
+                    titleEl.innerText = `正在合成高码率视频流 (${attempts}s)...`;
+
+                    try {
+                        const progressUrl = `https://loader.to/ajax/progress.php?id=${taskId}`;
+                        const progressProxyUrl = `https://corsproxy.io/?${encodeURIComponent(progressUrl)}`;
+                        
+                        const progRes = await fetch(progressProxyUrl);
+                        const progData = await progRes.json();
+
+                        if (progData.success === 1 || progData.progress >= 1000) {
+                            clearInterval(pollInterval);
+                            
+                            if (progData.download_url) {
+                                titleEl.innerText = "YouTube 视频流合成成功";
+                                titleEl.classList.remove('animate-pulse');
+                                titleEl.classList.add('text-swiss-ink', 'font-medium');
+
+                                actionsContainer.innerHTML = `
+                                    <button 
+                                        onclick="downloadFileDirectly('${progData.download_url}', 'YouTube_${Date.now()}.mp4', '${cardId}')"
+                                        class="px-5 py-2 bg-swiss-ink hover:bg-swiss-red text-white text-[10px] font-sans font-bold tracking-wider transition-all duration-200 flex items-center gap-1.5 uppercase"
+                                        id="${cardId}-btn"
+                                    >
+                                        <i data-lucide="download-cloud" class="w-3 h-3"></i> 立即保存到本地
+                                    </button>
+                                `;
+                                lucide.createIcons();
+                                onComplete();
+                            } else {
+                                throw new Error("未返回下载链接");
+                            }
+                        } else if (progData.success === 0 && attempts >= maxAttempts) {
+                            clearInterval(pollInterval);
+                            throw new Error("解析超时");
+                        }
+                    } catch (err) {
+                        clearInterval(pollInterval);
+                        console.error("Poll Error:", err);
+                        handleFallback(cardId, targetUrl, { name: 'YOUTUBE 视频', type: 'YOUTUBE' });
+                        onComplete();
+                    }
+                }, 1500);
+
+            } catch (error) {
+                console.error("YouTube Tunnel Error:", error);
+                handleFallback(cardId, targetUrl, { name: 'YOUTUBE 视频', type: 'YOUTUBE' });
+                onComplete();
+            }
+        }
+
+        // ==========================================
+        // 3. 终极本地流静默下载器 (剥离 Referer 绕过 404)
+        // ==========================================
+        async function downloadFileDirectly(streamUrl, filename, cardId) {
+            const btn = document.getElementById(`${cardId}-btn`);
+            const titleEl = document.getElementById(`${cardId}-title`);
+            const originalBtnHtml = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            try {
+                // 1. 使用 corsproxy.io 代理下载视频流，彻底解决大文件跨域下载被拦截的问题
+                const proxiedStreamUrl = `https://corsproxy.io/?${encodeURIComponent(streamUrl)}`;
+                
+                const response = await fetch(proxiedStreamUrl, {
+                    method: 'GET',
+                    referrerPolicy: 'no-referrer' // 剥离 Referer 头部，防盗链完美失效
+                });
+
+                if (!response.ok) throw new Error('网络响应异常');
+
+                const reader = response.body.getReader();
+                const contentLength = +response.headers.get('Content-Length');
+                let receivedLength = 0;
+                let chunks = [];
+
+                while(true) {
+                    const {done, value} = await reader.read();
+                    if (done) break;
+                    
+                    chunks.push(value);
+                    receivedLength += value.length;
+
+                    if (contentLength) {
+                        const percent = Math.round((receivedLength / contentLength) * 100);
+                        btn.innerHTML = `<i data-lucide="loader" class="w-3 h-3 animate-spin"></i> 下载中 ${percent}%`;
+                        titleEl.innerText = `正在传输数据流: ${(receivedLength / 1024 / 1024).toFixed(1)}MB / ${(contentLength / 1024 / 1024).toFixed(1)}MB`;
+                    } else {
+                        btn.innerHTML = `<i data-lucide="loader" class="w-3 h-3 animate-spin"></i> 正在下载...`;
+                        titleEl.innerText = `正在传输数据流: ${(receivedLength / 1024 / 1024).toFixed(1)}MB`;
+                    }
+                }
+
+                const blob = new Blob(chunks, { type: 'video/mp4' });
+                const localBlobUrl = URL.createObjectURL(blob);
+                
+                const tempLink = document.createElement('a');
+                tempLink.href = localBlobUrl;
+                tempLink.download = filename;
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                
+                document.body.removeChild(tempLink);
+                URL.revokeObjectURL(localBlobUrl);
+
+                btn.innerHTML = `<i data-lucide="check-circle" class="w-3 h-3"></i> 保存成功`;
+                titleEl.innerText = "视频已成功保存至本地默认下载目录";
+                btn.classList.remove('bg-swiss-ink');
+                btn.classList.add('bg-emerald-600');
+
+            } catch (error) {
+                console.error('Download Fail:', error);
+                titleEl.innerText = "本地流限制，已为您开启防盗链安全下载通道";
+                
+                // 终极保底：无 Referrer 弹出下载
+                const fallbackLink = document.createElement('a');
+                fallbackLink.href = streamUrl;
+                fallbackLink.target = '_blank';
+                fallbackLink.rel = 'noreferrer'; 
+                document.body.appendChild(fallbackLink);
+                fallbackLink.click();
+                document.body.removeChild(fallbackLink);
+
+                btn.innerHTML = originalBtnHtml;
+                btn.disabled = false;
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
+
+        // 降级处理
+        function handleFallback(cardId, targetUrl, platform) {
+            const titleEl = document.getElementById(`${cardId}-title`);
+            const actionsContainer = document.getElementById(`${cardId}-actions`);
+
+            titleEl.innerText = "解析受限 / 切换至备用本地通道";
+            titleEl.classList.remove('animate-pulse');
+            titleEl.classList.add('text-swiss-red', 'font-medium');
+
+            let fallbackUrl = "";
+            let directRedirectUrl = "";
+            if (platform.type === 'YOUTUBE') {
+                directRedirectUrl = targetUrl.replace('youtube.com', 'ssyoutube.com').replace('youtu.be', 'ssyoutube.com');
+                fallbackUrl = `https://y2mate.is/zh/`;
+            } else {
+                directRedirectUrl = targetUrl.replace('x.com', 'twitsave.com').replace('twitter.com', 'twitsave.com');
+                fallbackUrl = `https://twittervideodownloader.com/`;
+            }
+
+            actionsContainer.innerHTML = `
+                <a href="${fallbackUrl}" target="_blank" class="px-2 py-1.5 border border-swiss-ink/10 hover:border-swiss-ink text-[9px] font-sans text-swiss-gray hover:text-swiss-ink transition-all">
+                    备用路线
+                </a>
+                <a href="${directRedirectUrl}" target="_blank" class="px-3 py-1.5 bg-swiss-red text-white text-[9px] font-sans font-bold hover:bg-swiss-ink transition-all">
+                    跳转下载
+                </a>
+            `;
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

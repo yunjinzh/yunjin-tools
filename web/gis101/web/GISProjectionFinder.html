@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIS坐标投影速查工具 V3.0</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0f766e; /* Teal 700 */
+            --secondary-color: #115e59;
+            --bg-color: #f1f5f9;
+            --panel-width: 420px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; height: 100vh; display: flex; overflow: hidden; color: #334155; }
+
+        /* Layout */
+        #sidebar {
+            width: var(--panel-width);
+            background: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #cbd5e1;
+            z-index: 1000;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+        }
+
+        #map-container {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            background: #e5e7eb;
+        }
+
+        /* Sidebar Components */
+        .header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            border-bottom: 1px solid #115e59;
+        }
+        .header h1 { font-size: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .header p { font-size: 0.8rem; opacity: 0.9; margin-top: 5px; }
+
+        .content {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .section { margin-bottom: 25px; }
+        .section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 5px;
+        }
+
+        /* Inputs */
+        .input-group { display: flex; gap: 10px; margin-bottom: 10px; }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background: #fff;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus { outline: none; border-color: var(--primary-color); }
+        
+        .btn {
+            padding: 10px 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .btn:hover { background: var(--secondary-color); }
+        .btn-outline { 
+            background: white; 
+            color: var(--primary-color); 
+            border: 1px solid var(--primary-color); 
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+        .btn-outline:hover { background: #f0fdfa; }
+
+        /* Radio Group */
+        .radio-group { display: flex; gap: 20px; margin-top: 10px; }
+        .radio-label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.95rem; }
+        input[type="radio"] { accent-color: var(--primary-color); }
+
+        /* Result Cards Container */
+        #results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Individual Result Card */
+        .result-card {
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .result-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-bottom-left-radius: 8px;
+            border-top-right-radius: 8px;
+            font-weight: 600;
+        }
+        .card-badge.standard { background: #dcfce7; color: #166534; } /* Green */
+        .card-badge.primary { background: #e0f2fe; color: #0369a1; } /* Blue */
+
+        .result-header {
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            padding-right: 60px; /* Space for badge */
+        }
+        
+        .result-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.85rem; }
+        .result-label { color: #64748b; }
+        .result-value { font-weight: 600; color: #334155; text-align: right; font-family: monospace; }
+        .epsg-tag { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; color: #dc2626; font-weight: 700; }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 10px;
+        }
+
+        /* Map Controls */
+        .map-hint {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            z-index: 999; 
+            background: rgba(255,255,255,0.9); 
+            padding: 8px 12px; 
+            border-radius: 4px; 
+            font-size: 0.8rem; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #475569;
+            pointer-events: none;
+        }
+
+        /* Loading */
+        .loading { display: none; color: #64748b; font-size: 0.9rem; margin-top: 5px; }
+        .loading.active { display: block; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            #sidebar { width: 100%; height: 50%; order: 2; }
+            #map-container { height: 50%; order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="sidebar">
+    <div class="header">
+        <h1><i class="fa-solid fa-earth-asia"></i> GIS Projection Finder</h1>
+        <p>坐标系分带智能速查工具 V3.0</p>
+    </div>
+
+    <div class="content">
+        <!-- 1. Location Input -->
+        <div class="section">
+            <div class="section-title">1. 定位 (Location)</div>
+            <div class="input-group">
+                <input type="text" id="search-input" placeholder="输入地名 (如: 西安) 或 经度..." value="西安">
+                <button class="btn" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="loading" id="search-loading"><i class="fa-solid fa-spinner fa-spin"></i> 正在查询 OSM API...</div>
+            
+            <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+                <label style="font-size: 0.9rem; color: #64748b;">当前经度:</label>
+                <input type="number" id="lon-input" step="0.000001" value="108.93" style="width: 140px;">
+            </div>
+            <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 5px;">* 提示：可直接拖动地图上的蓝色标记微调位置</p>
+        </div>
+
+        <!-- 2. System Selection -->
+        <div class="section">
+            <div class="section-title">2. 坐标系参数 (Parameters)</div>
+            
+            <div style="margin-bottom: 10px;">
+                <label style="font-size: 0.85rem; color: #64748b; display:block; margin-bottom:5px;">基准面 (Datum)</label>
+                <select id="datum-select">
+                    <option value="CGCS2000">CGCS2000 (国家2000大地坐标系)</option>
+                    <option value="Xian80">Xian80 (西安80坐标系)</option>
+                    <option value="Beijing54">Beijing54 (北京54坐标系)</option>
+                    <option value="WGS84">WGS84 (全球通用/UTM)</option>
+                </select>
+            </div>
+
+            <div class="radio-group" id="zone-type-group">
+                <label class="radio-label">
+                    <input type="radio" name="zone-type" value="3" checked>
+                    3度带 (3-degree)
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="zone-type" value="6">
+                    6度带 (6-degree)
+                </label>
+            </div>
+            <p id="utm-hint" style="font-size: 0.8rem; color: #d97706; margin-top: 10px; display: none; background: #fffbeb; padding: 8px; border-radius: 4px;">
+                <i class="fa-solid fa-circle-info"></i> WGS84 默认采用 UTM 分带 (6度)
+            </p>
+        </div>
+
+        <!-- 3. Result -->
+        <div class="section">
+            <div class="section-title">3. 推荐投影 (Recommended Projections)</div>
+            <div id="common-info" style="margin-bottom: 10px; font-size: 0.85rem; color: #475569;">
+                <!-- Dynamic text about zone calculation -->
+            </div>
+            <div id="results-container">
+                <!-- Cards will be injected here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="map-container">
+    <div id="map" style="width: 100%; height: 100%;"></div>
+    <div class="map-hint"><i class="fa-solid fa-hand-pointer"></i> 拖动标记可快速切换分带</div>
+    <div style="position: absolute; bottom: 20px; left: 20px; z-index: 999; background: rgba(255,255,255,0.8); padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; pointer-events: none;">
+        <div style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:#0f766e; opacity:0.2; border:1px dashed #0f766e;"></span> 投影有效范围</div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // --- 1. GIS Logic Core ---
+    
+    const DATUM_DEFS = {
+        "CGCS2000": {
+            name: "China Geodetic Coordinate System 2000",
+            wkt_geogcs: 'GEOGCS["China Geodetic Coordinate System 2000",DATUM["China_2000",SPHEROID["CGCS2000",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]]',
+            epsg_config: {
+                "3_zone": { start_zone: 25, start_code: 4513 },
+                "3_cm":   { start_zone: 25, start_code: 4534 },
+                "6_zone": { start_zone: 13, start_code: 4491 },
+                "6_cm":   { start_zone: 13, start_code: 4505 }
+            }
+        },
+        "Xian80": {
+            name: "Xian 1980",
+            wkt_geogcs: 'GEOGCS["Xian 1980",DATUM["Xian_1980",SPHEROID["Xian 1980",6378140,298.257]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]]',
+            epsg_config: {
+                "3_zone": { start_zone: 25, start_code: 2349 },
+                "3_cm":   { start_zone: 25, start_code: 2370 },
+                "6_zone": { start_zone: 13, start_code: 2327 },
+                "6_cm":   { start_zone: 13, start_code: 2343 }
+            }
+        },
+        "Beijing54": {
+            name: "Beijing 1954",
+            wkt_geogcs: 'GEOGCS["Beijing 1954",DATUM["Beijing_1954",SPHEROID["Krassowsky 1940",6378245,298.3]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]]',
+            epsg_config: {
+                "3_zone": { start_zone: 25, start_code: 2409 },
+                "3_cm":   { start_zone: 25, start_code: 2430 },
+                "6_zone": { start_zone: 13, start_code: 2141 },
+                "6_cm":   { start_zone: 13, start_code: 2147 }
+            }
+        },
+        "WGS84": {
+            name: "WGS 84",
+            wkt_geogcs: 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]]',
+            epsg_config: {
+                "utm": { start_zone: 1, start_code: 32601 }
+            }
+        }
+    };
+
+    function calculateProjections(lon, datum, type) {
+        let zone, cm, minLon, maxLon;
+        lon = parseFloat(lon);
+        let results = [];
+
+        if (datum === "WGS84") {
+            // UTM Logic
+            zone = Math.floor((lon + 180) / 6) + 1;
+            cm = zone * 6 - 183;
+            minLon = cm - 3;
+            maxLon = cm + 3;
+            
+            let code = DATUM_DEFS["WGS84"].epsg_config.utm.start_code + (zone - 1);
+            results.push({
+                name: `WGS 84 / UTM zone ${zone}N`,
+                epsg: code,
+                wkt: generateWKT(datum, cm, zone, "utm", false),
+                fe_desc: "500,000",
+                type_desc: "UTM Standard",
+                badge: "标准"
+            });
+
+        } else {
+            // Gauss-Kruger Logic
+            if (type == 6) {
+                zone = Math.floor((lon + 6) / 6);
+                cm = 6 * zone - 3;
+                minLon = cm - 3;
+                maxLon = cm + 3;
+            } else {
+                zone = Math.floor((lon + 1.5) / 3);
+                cm = 3 * zone;
+                minLon = cm - 1.5;
+                maxLon = cm + 1.5;
+            }
+
+            const config = DATUM_DEFS[datum].epsg_config;
+            const typeKey = type == 6 ? "6" : "3";
+
+            // --- ORDER CHANGED: CM Only (No Zone) FIRST ---
+
+            // Variant 1: CM Only (e.g., 500000) - GIS Standard
+            let codeCM = "Custom";
+            if (zone >= config[`${typeKey}_cm`].start_zone) {
+                codeCM = config[`${typeKey}_cm`].start_code + (zone - config[`${typeKey}_cm`].start_zone);
+            }
+            results.push({
+                name: `${datum} / ${type}-degree Gauss-Kruger CM ${cm}E`,
+                epsg: codeCM,
+                wkt: generateWKT(datum, cm, zone, "gk", false), // false = standard 500000
+                fe_desc: "500,000",
+                type_desc: "不带带号 (CM Only)",
+                badge: "GIS常用"
+            });
+
+            // Variant 2: With Zone Number (e.g., 38500000) - Survey Standard
+            let codeZone = "Custom";
+            if (zone >= config[`${typeKey}_zone`].start_zone) {
+                codeZone = config[`${typeKey}_zone`].start_code + (zone - config[`${typeKey}_zone`].start_zone);
+            }
+            results.push({
+                name: `${datum} / ${type}-degree Gauss-Kruger zone ${zone}`,
+                epsg: codeZone,
+                wkt: generateWKT(datum, cm, zone, "gk", true), // true = add zone prefix
+                fe_desc: `${zone} + 500,000`,
+                type_desc: "带带号 (Zone No.)",
+                badge: "测绘常用"
+            });
+        }
+
+        return {
+            zoneInfo: { zone, cm, minLon, maxLon },
+            projections: results
+        };
+    }
+
+    function generateWKT(datum, cm, zone, type, addZoneToFE) {
+        const def = DATUM_DEFS[datum];
+        const scaleFactor = (type === "utm") ? 0.9996 : 1.0;
+        
+        let fe_val = 500000;
+        if (addZoneToFE) {
+            fe_val = zone * 1000000 + 500000;
+        }
+
+        let projName = `${datum}_${type === 'utm' ? 'UTM' : 'GK'}_${addZoneToFE ? 'Zone_'+zone : 'CM_'+cm}`;
+
+        return `PROJCS["${projName}",${def.wkt_geogcs},PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",${cm}],PARAMETER["scale_factor",${scaleFactor}],PARAMETER["false_easting",${fe_val}],PARAMETER["false_northing",0],UNIT["Meter",1]]`;
+    }
+
+    // --- 2. UI & Map Interaction ---
+
+    const map = L.map('map').setView([34.34, 108.93], 10); 
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OSM'
+    }).addTo(map);
+
+    let currentMarker = null;
+    let currentBox = null;
+
+    // State
+    let state = {
+        lon: 108.93,
+        datum: "CGCS2000",
+        type: 3
+    };
+
+    // Elements
+    const lonInput = document.getElementById('lon-input');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const searchLoading = document.getElementById('search-loading');
+    const datumSelect = document.getElementById('datum-select');
+    const radios = document.querySelectorAll('input[name="zone-type"]');
+    const utmHint = document.getElementById('utm-hint');
+    const resultsContainer = document.getElementById('results-container');
+    const commonInfo = document.getElementById('common-info');
+
+    // Functions
+    function renderResults(data) {
+        const info = data.zoneInfo;
+        commonInfo.innerHTML = `
+            <strong>计算结果：</strong> 第 <span style="color:#0f766e; font-weight:bold;">${info.zone}</span> 带，
+            中央经线 <span style="color:#0f766e; font-weight:bold;">${info.cm}°E</span>。
+            <br>建议范围：${info.minLon.toFixed(1)}°E ~ ${info.maxLon.toFixed(1)}°E
+        `;
+
+        resultsContainer.innerHTML = '';
+        
+        data.projections.forEach((proj, index) => {
+            const card = document.createElement('div');
+            card.className = 'result-card';
+            
+            // Badge styling
+            let badgeClass = '';
+            if (proj.badge === 'GIS常用') badgeClass = 'primary';
+            else if (proj.badge === '测绘常用') badgeClass = 'standard';
+            
+            let badgeHtml = proj.badge ? `<div class="card-badge ${badgeClass}">${proj.badge}</div>` : '';
+
+            card.innerHTML = `
+                ${badgeHtml}
+                <div class="result-header">${proj.name}</div>
+                <div class="result-row">
+                    <span class="result-label">EPSG代码</span>
+                    <span class="epsg-tag">EPSG:${proj.epsg}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">类型</span>
+                    <span class="result-value">${proj.type_desc}</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">东伪偏移 (False Easting)</span>
+                    <span class="result-value">${proj.fe_desc}</span>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-outline" style="flex:1" onclick="downloadPrj('${proj.name}', '${proj.wkt.replace(/"/g, '&quot;')}')">
+                        <i class="fa-solid fa-download"></i> 下载 .prj
+                    </button>
+                    <button class="btn btn-outline" style="flex:1" onclick="copyWkt('${proj.wkt.replace(/"/g, '&quot;')}', this)">
+                        <i class="fa-regular fa-copy"></i> 复制 WKT
+                    </button>
+                </div>
+            `;
+            resultsContainer.appendChild(card);
+        });
+
+        // Map Visualization
+        if (currentBox) map.removeLayer(currentBox);
+        const bounds = [[0, info.minLon], [60, info.maxLon]];
+        currentBox = L.rectangle(bounds, {
+            color: "#0f766e", 
+            weight: 2, 
+            fillOpacity: 0.1,
+            dashArray: '5, 5'
+        }).addTo(map);
+    }
+
+    function updateCalculation() {
+        const data = calculateProjections(state.lon, state.datum, state.type);
+        renderResults(data);
+    }
+
+    function updateMarker(lat, lon) {
+        if (currentMarker) map.removeLayer(currentMarker);
+        
+        // Make marker draggable
+        currentMarker = L.marker([lat, lon], { draggable: true }).addTo(map);
+        
+        // Drag Event Listener
+        currentMarker.on('dragend', function(e) {
+            const newPos = e.target.getLatLng();
+            // Update state
+            state.lon = parseFloat(newPos.lng.toFixed(6));
+            // Update Input UI
+            lonInput.value = state.lon;
+            // Trigger Calculation
+            updateCalculation();
+        });
+
+        map.setView([lat, lon], 10);
+    }
+
+    // Global helpers
+    window.downloadPrj = (name, wkt) => {
+        const blob = new Blob([wkt], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${name.replace(/[\s\/]/g, "_")}.prj`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    };
+
+    window.copyWkt = (wkt, btnElement) => {
+        navigator.clipboard.writeText(wkt).then(() => {
+            const originalHtml = btnElement.innerHTML;
+            btnElement.innerHTML = '<i class="fa-solid fa-check"></i> 已复制';
+            setTimeout(() => { btnElement.innerHTML = originalHtml; }, 2000);
+        });
+    };
+
+    // Event Listeners
+    lonInput.addEventListener('input', (e) => {
+        state.lon = parseFloat(e.target.value) || 0;
+        updateCalculation();
+        if(currentMarker) {
+            const lat = currentMarker.getLatLng().lat;
+            currentMarker.setLatLng([lat, state.lon]);
+        }
+    });
+
+    datumSelect.addEventListener('change', (e) => {
+        state.datum = e.target.value;
+        const zoneGroup = document.getElementById('zone-type-group');
+        
+        if (state.datum === "WGS84") {
+            utmHint.style.display = "block";
+            zoneGroup.style.opacity = "0.5";
+            zoneGroup.style.pointerEvents = "none";
+        } else {
+            utmHint.style.display = "none";
+            zoneGroup.style.opacity = "1";
+            zoneGroup.style.pointerEvents = "auto";
+        }
+        updateCalculation();
+    });
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            state.type = parseInt(e.target.value);
+            updateCalculation();
+        });
+    });
+
+    searchBtn.addEventListener('click', async () => {
+        const query = searchInput.value;
+        if (!query) return;
+        if (!isNaN(query)) {
+            state.lon = parseFloat(query);
+            lonInput.value = state.lon;
+            updateCalculation();
+            return;
+        }
+        searchLoading.classList.add('active');
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            if (data && data.length > 0) {
+                const lat = parseFloat(data[0].lat);
+                const lon = parseFloat(data[0].lon);
+                state.lon = lon;
+                lonInput.value = lon;
+                updateMarker(lat, lon);
+                updateCalculation();
+            } else {
+                alert("未找到该地点");
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            searchLoading.classList.remove('active');
+        }
+    });
+
+    // Init
+    updateMarker(34.34, 108.93);
+    updateCalculation();
+
+</script>
+</body>
+</html>

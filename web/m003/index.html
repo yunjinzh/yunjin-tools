@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f5f2eb" />
+    <meta name="description" content="云金阅读：一个安静的个人 PDF 书架。本地导入、自动续读，离线也能阅读。" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="云金阅读" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>云金阅读 · 让阅读，慢下来</title>
+    <script type="module" crossorigin src="/assets/index-DmRryCZo.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DeQsqgz0.css">
+  </head>
+  <body data-theme="light">
+    <div id="library">
+      <header class="app-header">
+        <a class="brand" href="/" aria-label="云金阅读首页">
+          <img class="brand-mark" src="/icon.svg" alt="" width="42" height="42" />
+          <span><span class="brand-name">云金阅读</span><span class="brand-sub">让阅读，慢下来</span></span>
+        </a>
+        <div class="header-actions"><span class="header-note" id="connection-status">你的私人阅读角落</span><button class="icon-button" id="about-button" aria-label="使用说明" data-icon="info"></button></div>
+      </header>
+      <main class="shell">
+        <section class="library-hero" aria-labelledby="library-title">
+          <p class="eyebrow">A LITTLE SPACE FOR YOUR BOOKS</p>
+          <div class="hero-row"><div><h1 id="library-title" aria-label="我的书架">我的书架<span class="title-dot" aria-hidden="true">。</span></h1><p class="hero-description">一本好书，一段属于自己的时间。</p></div><button class="button button-primary import-button" id="import-button"><span data-icon="plus"></span>导入 PDF</button></div>
+        </section>
+        <section id="continue-section" aria-label="继续阅读" hidden></section>
+        <section aria-label="我的全部书籍">
+          <div class="library-toolbar"><h2 class="section-title">全部书籍 <span class="book-count" id="book-count">0</span></h2><span class="sort-label">按最近阅读排序</span></div>
+          <div class="book-grid" id="book-grid"></div>
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon" aria-hidden="true" data-icon="book"></div><p class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
+            <h2>给好书，留一个位置</h2><p class="empty-description">把喜欢的 PDF 放进书架。<br />从今天起，随时随地接着读。</p>
+            <div class="empty-actions"><button class="button button-secondary" id="sample-button"><span data-icon="book"></span>体验示例书</button><span class="sample-note">或者点击右上方，导入你的第一本书</span></div>
+          </div>
+        </section>
+        <p class="privacy-note"><span data-icon="shield"></span>书籍仅保存在这台设备，属于你的阅读，也只属于你。</p>
+      </main>
+      <footer class="app-footer"><span>云金阅读 <span class="footer-dot">·</span> 阅读，自有时光</span><span id="offline-status" role="status">正在准备离线阅读…</span></footer>
+    </div>
+    <section id="reader" aria-label="PDF 阅读器" hidden>
+      <header class="reader-header"><button class="icon-button" id="back-button" aria-label="返回书架" data-icon="arrow-left"></button><div class="reader-heading"><h1 class="reader-title" id="reader-title"></h1><p class="reader-subtitle" id="reader-subtitle">PDF · 本地阅读</p></div><div class="reader-actions"><button class="icon-button" id="outline-button" aria-label="打开目录" data-icon="list"></button><button class="icon-button" id="settings-button" aria-label="阅读设置" data-icon="settings"></button></div></header>
+      <div class="reader-layout"><div class="pdf-scroller" id="pdf-container" tabindex="0" aria-label="PDF 正文，上下滚动阅读"><div class="pdfViewer" id="pdf-viewer"></div></div><div class="page-loading" id="page-loading" role="status"><span class="spinner"></span><span>正在展开书页…</span></div></div>
+      <footer class="reader-bottom"><div class="reader-progress"><div class="progress-bar" id="reader-progress-bar"></div></div><div class="reader-bottom-row"><div class="page-controls"><button class="icon-button" id="prev-page" aria-label="上一页" data-icon="chevron-left"></button><label class="page-number"><input class="page-input" id="page-input" type="number" min="1" value="1" inputmode="numeric" aria-label="跳转页码" /><span class="page-total" id="page-total">/ 1</span></label><button class="icon-button" id="next-page" aria-label="下一页" data-icon="chevron-right"></button></div><span class="reader-status" id="reader-status" role="status">进度已保存</span><div class="zoom-control"><button class="icon-button" id="zoom-out" aria-label="缩小" data-icon="minus"></button><button class="zoom-label" id="fit-width" aria-label="适应宽度">适应宽度</button><button class="icon-button" id="zoom-in" aria-label="放大" data-icon="plus"></button></div></div></footer>
+    </section>
+    <input id="pdf-file" type="file" accept="application/pdf,.pdf" multiple hidden />
+    <dialog class="dialog" id="settings-dialog" aria-labelledby="settings-title"><div class="dialog-header"><h2 id="settings-title">阅读设置</h2><button class="icon-button" aria-label="关闭阅读设置" data-close="settings-dialog" data-icon="x"></button></div><div class="dialog-body"><p class="field-label">阅读主题</p><div class="theme-options"><label class="theme-option theme-light"><input type="radio" name="theme" value="light" />明亮</label><label class="theme-option theme-sepia"><input type="radio" name="theme" value="sepia" />暖纸</label><label class="theme-option theme-dark"><input type="radio" name="theme" value="dark" />夜间</label></div><p class="field-label">页面显示</p><div class="segmented"><button class="button" data-fit="width">适应宽度</button><button class="button" data-fit="page">完整一页</button></div><p class="settings-note">PDF 保留原书排版，可使用底部 ＋／－ 调整大小，也可以双指缩放。</p></div></dialog>
+    <dialog class="dialog" id="outline-dialog" aria-labelledby="outline-title"><div class="dialog-header"><h2 id="outline-title">书籍目录</h2><button class="icon-button" aria-label="关闭目录" data-close="outline-dialog" data-icon="x"></button></div><div class="dialog-body outline-list" id="outline-list"></div></dialog>
+    <dialog class="dialog" id="delete-dialog" aria-labelledby="delete-title"><div class="dialog-header"><h2 id="delete-title">移出书架</h2><button class="icon-button" aria-label="取消删除" data-close="delete-dialog" data-icon="x"></button></div><div class="dialog-body"><p id="delete-description"></p><p class="settings-note">同时删除本机阅读进度，原始 PDF 文件不受影响。</p></div><div class="dialog-footer"><button class="button button-secondary" data-close="delete-dialog">取消</button><button class="button button-danger" id="confirm-delete">确认删除</button></div></dialog>
+    <dialog class="dialog" id="about-dialog" aria-labelledby="about-title"><div class="dialog-header"><h2 id="about-title">你好，欢迎来到云金阅读</h2><button class="icon-button" aria-label="关闭使用说明" data-close="about-dialog" data-icon="x"></button></div><div class="dialog-body about-content"><p>导入一本 PDF，打开就能读。上下滚动浏览，底部可跳页、缩放，目录按钮可快速定位章节。</p><p>书籍与进度保存在当前浏览器中。清除网站数据会清空书架，需要时可从原始 PDF 重新导入。</p><p>首次显示“离线已就绪”后，断网也能阅读已导入的书。可通过浏览器菜单“添加到主屏幕”获得独立窗口体验。</p><p>首版支持每本最大 50 MB 的普通 PDF；加密 PDF、表单编辑与批注暂未支持。PDF 保留原书排版，夜间主题会调整页面显示颜色。</p><p class="settings-note">云金阅读 v0.1 · 留一点时间给自己</p></div></dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <div class="loading-screen" id="import-loading" role="status" hidden><div class="spinner"></div><p id="import-status">正在整理你的书籍…</p></div>
+  </body>
+</html>

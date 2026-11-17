@@ -1,0 +1,7 @@
+{
+  "name": "yunjin-tools-migration-checks",
+  "private": true,
+  "type": "module",
+  "scripts": { "smoke": "node smoke.mjs", "flows": "node flows.mjs" },
+  "devDependencies": { "@playwright/test": "1.65.1" }
+}

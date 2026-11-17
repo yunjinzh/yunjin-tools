@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中国省级行政区划罗盘与地图</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 ECharts -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <style>
+    body { background-color: #020617; color: #f1f5f9; overflow-x: hidden; }
+    /* 隐藏滚动条 */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    
+    .wheel-container { touch-action: none; user-select: none; }
+    .wheel-item { transition: all 0.3s ease; }
+    .wheel-item.active { color: #fbbf24; font-weight: bold; transform: scale(1.1); text-shadow: 0 0 8px rgba(251,191,36,0.8); }
+    .wheel-line.active { background-color: #fbbf24; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row font-sans">
+
+  <!-- 左侧：罗盘与信息 -->
+  <div class="w-full lg:w-5/12 xl:w-1/3 flex flex-col items-center py-10 px-4 border-r border-slate-800/50 bg-slate-950 z-10 shadow-2xl">
+    
+    <div class="text-center mb-10">
+      <h1 class="text-3xl font-bold bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent tracking-widest">
+        中国省份罗盘
+      </h1>
+      <p class="text-slate-400 mt-2 text-sm">滑动罗盘或点击地图进行探索</p>
+    </div>
+
+    <!-- 罗盘区域 -->
+    <div class="relative w-72 h-72 md:w-80 md:h-80 mb-12 wheel-container">
+      <!-- 顶部指示器 -->
+      <div class="absolute -top-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+        <div class="w-4 h-4 bg-amber-500 rotate-45 translate-y-2 shadow-[0_0_10px_rgba(245,158,11,0.8)]"></div>
+        <div class="w-1 h-8 bg-gradient-to-b from-amber-500 to-transparent"></div>
+      </div>
+
+      <!-- 旋转轮盘 -->
+      <div id="wheel" class="w-full h-full rounded-full border-[8px] border-slate-800 bg-slate-900 shadow-[0_0_40px_rgba(0,0,0,0.5),inset_0_0_40px_rgba(0,0,0,0.8)] relative cursor-grab active:cursor-grabbing">
+        <!-- 内圈装饰 -->
+        <div class="absolute inset-4 rounded-full border border-slate-700/50"></div>
+        <div class="absolute inset-12 rounded-full border border-slate-700/30 bg-slate-800/50 flex items-center justify-center">
+          <svg class="w-10 h-10 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+        </div>
+        <!-- 动态生成的刻度将放在这里 -->
+        <div id="wheel-items"></div>
+      </div>
+    </div>
+
+    <!-- 底部信息卡片 -->
+    <div class="w-full max-w-sm bg-slate-800/80 backdrop-blur-md border border-slate-700 rounded-2xl p-6 shadow-2xl transition-all duration-300">
+      <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
+        <h2 id="info-name" class="text-2xl font-bold text-white tracking-wide">加载中...</h2>
+        <div class="flex items-center text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full text-sm font-medium">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <span id="info-capital">-</span>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+          <div class="flex items-center text-slate-400 text-xs mb-1">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> 常住人口
+          </div>
+          <div id="info-population" class="text-lg font-semibold text-slate-100">-</div>
+        </div>
+        <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+          <div class="flex items-center text-slate-400 text-xs mb-1">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> GDP总量
+          </div>
+          <div id="info-gdp" class="text-lg font-semibold text-slate-100">-</div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700/50">
+        <div class="flex items-center text-slate-400 text-xs mb-2">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg> 主要景点与地标
+        </div>
+        <div id="info-landmarks" class="text-sm text-slate-200 leading-relaxed">-</div>
+      </div>
+    </div>
+
+    <!-- 数据来源说明 -->
+    <div class="mt-5 text-xs text-slate-500/70 text-center max-w-sm px-2">
+      * 数据来源：国家统计局及各省市2023年国民经济和社会发展统计公报，部分数据可能存在四舍五入。
+    </div>
+
+  </div>
+
+  <!-- 右侧：地图区域 -->
+  <div class="flex-1 bg-slate-900 relative min-h-[50vh] lg:min-h-screen">
+    <div id="map-container" class="w-full h-full absolute inset-0"></div>
+    <!-- 地图加载提示 -->
+    <div id="map-loading" class="absolute inset-0 flex items-center justify-center bg-slate-900/80 z-10 backdrop-blur-sm">
+      <div class="flex flex-col items-center">
+        <div class="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <div class="text-amber-400 font-medium tracking-widest">正在加载地图数据...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 中国34个省级行政区最新公开数据
+    const regions = [
+      { name: '北京', capital: '北京', population: '2184万', gdp: '4.38万亿', landmarks: '故宫, 长城, 天坛, 颐和园' },
+      { name: '天津', capital: '天津', population: '1363万', gdp: '1.67万亿', landmarks: '天津之眼, 盘山, 意式风情区' },
+      { name: '河北', capital: '石家庄', population: '7420万', gdp: '4.39万亿', landmarks: '避暑山庄, 白洋淀, 山海关' },
+      { name: '山西', capital: '太原', population: '3481万', gdp: '2.57万亿', landmarks: '平遥古城, 云冈石窟, 五台山' },
+      { name: '内蒙古', capital: '呼和浩特', population: '2400万', gdp: '2.46万亿', landmarks: '呼伦贝尔草原, 响沙湾' },
+      { name: '辽宁', capital: '沈阳', population: '4197万', gdp: '3.02万亿', landmarks: '沈阳故宫, 老虎滩, 金石滩' },
+      { name: '吉林', capital: '长春', population: '2347万', gdp: '1.35万亿', landmarks: '长白山, 净月潭, 伪满皇宫' },
+      { name: '黑龙江', capital: '哈尔滨', population: '3099万', gdp: '1.58万亿', landmarks: '冰雪大世界, 太阳岛, 镜泊湖' },
+      { name: '上海', capital: '上海', population: '2475万', gdp: '4.72万亿', landmarks: '外滩, 东方明珠, 迪士尼' },
+      { name: '江苏', capital: '南京', population: '8515万', gdp: '12.82万亿', landmarks: '中山陵, 拙政园, 瘦西湖' },
+      { name: '浙江', capital: '杭州', population: '6577万', gdp: '8.25万亿', landmarks: '西湖, 普陀山, 乌镇' },
+      { name: '安徽', capital: '合肥', population: '6127万', gdp: '4.70万亿', landmarks: '黄山, 九华山, 宏村' },
+      { name: '福建', capital: '福州', population: '4188万', gdp: '5.43万亿', landmarks: '鼓浪屿, 武夷山, 福建土楼' },
+      { name: '江西', capital: '南昌', population: '4527万', gdp: '3.22万亿', landmarks: '庐山, 井冈山, 滕王阁' },
+      { name: '山东', capital: '济南', population: '10162万', gdp: '9.20万亿', landmarks: '泰山, 趵突泉, 蓬莱阁' },
+      { name: '河南', capital: '郑州', population: '9872万', gdp: '5.91万亿', landmarks: '少林寺, 龙门石窟, 云台山' },
+      { name: '湖北', capital: '武汉', population: '5844万', gdp: '5.58万亿', landmarks: '黄鹤楼, 武当山, 神农架' },
+      { name: '湖南', capital: '长沙', population: '6604万', gdp: '5.00万亿', landmarks: '张家界, 凤凰古城, 橘子洲' },
+      { name: '广东', capital: '广州', population: '12656万', gdp: '13.56万亿', landmarks: '广州塔, 丹霞山, 长隆' },
+      { name: '广西', capital: '南宁', population: '5047万', gdp: '2.72万亿', landmarks: '桂林山水, 涠洲岛, 德天瀑布' },
+      { name: '海南', capital: '海口', population: '1027万', gdp: '0.75万亿', landmarks: '天涯海角, 亚龙湾, 蜈支洲岛' },
+      { name: '重庆', capital: '重庆', population: '3213万', gdp: '3.01万亿', landmarks: '洪崖洞, 磁器口, 武隆喀斯特' },
+      { name: '四川', capital: '成都', population: '8374万', gdp: '6.01万亿', landmarks: '九寨沟, 峨眉山, 乐山大佛' },
+      { name: '贵州', capital: '贵阳', population: '3856万', gdp: '2.09万亿', landmarks: '黄果树瀑布, 梵净山, 荔波' },
+      { name: '云南', capital: '昆明', population: '4693万', gdp: '3.00万亿', landmarks: '丽江古城, 玉龙雪山, 滇池' },
+      { name: '西藏', capital: '拉萨', population: '364万', gdp: '0.23万亿', landmarks: '布达拉宫, 大昭寺, 纳木错' },
+      { name: '陕西', capital: '西安', population: '3956万', gdp: '3.37万亿', landmarks: '兵马俑, 华清池, 大雁塔' },
+      { name: '甘肃', capital: '兰州', population: '2490万', gdp: '1.18万亿', landmarks: '莫高窟, 鸣沙山, 麦积山' },
+      { name: '青海', capital: '西宁', population: '595万', gdp: '0.37万亿', landmarks: '青海湖, 塔尔寺, 茶卡盐湖' },
+      { name: '宁夏', capital: '银川', population: '728万', gdp: '0.53万亿', landmarks: '沙湖, 镇北堡, 西夏陵' },
+      { name: '新疆', capital: '乌鲁木齐', population: '2589万', gdp: '1.91万亿', landmarks: '天山天池, 喀纳斯, 吐鲁番' },
+      { name: '香港', capital: '香港', population: '734万', gdp: '2.68万亿', landmarks: '维多利亚港, 太平山, 迪士尼' },
+      { name: '澳门', capital: '澳门', population: '68万', gdp: '0.27万亿', landmarks: '大三巴牌坊, 妈阁庙, 威尼斯人' },
+      { name: '台湾', capital: '台北', population: '2326万', gdp: '5.30万亿', landmarks: '台北101, 日月潭, 阿里山' }
+    ];
+
+    const ITEM_COUNT = regions.length;
+    const STEP = 360 / ITEM_COUNT;
+    
+    let rotation = 0;
+    let isDragging = false;
+    let selectedIndex = 0;
+    let lastAngle = 0;
+    let lastTime = 0;
+    let velocity = 0;
+    let myChart = null;
+    let lastHighlightedRegion = null; // 记录上一个高亮的省份
+
+    const wheel = document.getElementById('wheel');
+    const wheelItemsContainer = document.getElementById('wheel-items');
+
+    // 初始化罗盘DOM
+    function initWheel() {
+      regions.forEach((region, i) => {
+        const angle = i * STEP;
+        const el = document.createElement('div');
+        el.className = 'absolute top-1/2 left-1/2 origin-left flex items-center cursor-pointer';
+        el.style.transform = `translate(0, -50%) rotate(${angle - 90}deg)`;
+        el.style.width = '50%';
+        el.style.height = '24px';
+        
+        el.innerHTML = `
+          <div class="wheel-item ml-auto pr-2 md:pr-4 text-xs md:text-sm whitespace-nowrap text-slate-400 hover:text-slate-200" id="text-${i}">
+            ${region.name}
+          </div>
+          <div class="wheel-line w-2 h-[2px] bg-slate-600" id="line-${i}"></div>
+        `;
+        
+        // 点击某个省份直接旋转过去
+        el.addEventListener('pointerdown', (e) => {
+          e.stopPropagation(); // 防止触发拖拽
+          rotateToIndex(i);
+        });
+        
+        wheelItemsContainer.appendChild(el);
+      });
+      updateUI();
+    }
+
+    // 计算当前选中的索引
+    function calculateSelectedIndex(rot) {
+      let normalized = rot % 360;
+      if (normalized > 0) normalized -= 360;
+      let idx = Math.round(Math.abs(normalized) / STEP);
+      if (idx === ITEM_COUNT) idx = 0;
+      return idx;
+    }
+
+    // 更新界面（卡片数据、罗盘高亮、地图高亮）
+    function updateUI() {
+      // 更新罗盘样式
+      for (let i = 0; i < ITEM_COUNT; i++) {
+        const textEl = document.getElementById(`text-${i}`);
+        const lineEl = document.getElementById(`line-${i}`);
+        if (i === selectedIndex) {
+          textEl.classList.add('active', 'text-amber-400');
+          textEl.classList.remove('text-slate-400');
+          lineEl.classList.add('active');
+          lineEl.classList.remove('bg-slate-600');
+        } else {
+          textEl.classList.remove('active', 'text-amber-400');
+          textEl.classList.add('text-slate-400');
+          lineEl.classList.remove('active');
+          lineEl.classList.add('bg-slate-600');
+        }
+      }
+
+      // 更新卡片数据
+      const region = regions[selectedIndex];
+      document.getElementById('info-name').innerText = region.name;
+      document.getElementById('info-capital').innerText = region.capital;
+      document.getElementById('info-population').innerText = region.population;
+      document.getElementById('info-gdp').innerText = region.gdp;
+      document.getElementById('info-landmarks').innerText = region.landmarks;
+
+      // 更新地图高亮
+      highlightMapRegion(region.name);
+    }
+
+    // 旋转到指定索引
+    function rotateToIndex(index) {
+      if (isDragging) return;
+      const target = -index * STEP;
+      const currentMod = rotation % 360;
+      let diff = target - currentMod;
+      
+      if (diff > 180) diff -= 360;
+      if (diff < -180) diff += 360;
+      
+      rotation += diff;
+      selectedIndex = index;
+      
+      wheel.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      wheel.style.transform = `rotate(${rotation}deg)`;
+      updateUI();
+    }
+
+    // 拖拽事件监听
+    wheel.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      wheel.style.transition = 'none';
+      const rect = wheel.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      lastAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI);
+      lastTime = Date.now();
+      velocity = 0;
+      wheel.setPointerCapture(e.pointerId);
+    });
+
+    wheel.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const rect = wheel.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      
+      const currentAngle = Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI);
+      let delta = currentAngle - lastAngle;
+      
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+
+      const now = Date.now();
+      const dt = now - lastTime;
+      if (dt > 0) {
+        velocity = delta / dt;
+      }
+
+      rotation += delta;
+      lastAngle = currentAngle;
+      lastTime = now;
+      
+      wheel.style.transform = `rotate(${rotation}deg)`;
+      
+      const newIndex = calculateSelectedIndex(rotation);
+      if (newIndex !== selectedIndex) {
+        selectedIndex = newIndex;
+        updateUI();
+      }
+    });
+
+    function stopDragging() {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      // 惯性预测
+      const predictedDelta = velocity * 200; 
+      const targetRotation = rotation + predictedDelta;
+      // 吸附到最近的刻度
+      const snappedRotation = Math.round(targetRotation / STEP) * STEP;
+      
+      rotation = snappedRotation;
+      selectedIndex = calculateSelectedIndex(snappedRotation);
+      
+      wheel.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      wheel.style.transform = `rotate(${rotation}deg)`;
+      updateUI();
+    }
+
+    wheel.addEventListener('pointerup', stopDragging);
+    wheel.addEventListener('pointercancel', stopDragging);
+
+    // ==========================================
+    // ECharts 地图初始化与联动逻辑
+    // ==========================================
+    async function initMap() {
+      try {
+        // 获取阿里云DataV提供的中国地图GeoJSON数据
+        const response = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china.json');
+        const geoJson = await response.json();
+        
+        echarts.registerMap('china', geoJson);
+        myChart = echarts.init(document.getElementById('map-container'));
+        
+        const option = {
+          tooltip: {
+            trigger: 'item',
+            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+            borderColor: '#334155',
+            textStyle: { color: '#f1f5f9' },
+            formatter: '{b}'
+          },
+          geo: {
+            map: 'china',
+            roam: true, // 允许缩放和平移
+            zoom: 1.2,
+            label: {
+              show: true,
+              color: '#94a3b8',
+              fontSize: 10
+            },
+            itemStyle: {
+              areaColor: '#1e293b',
+              borderColor: '#475569',
+              borderWidth: 1
+            },
+            // 移除 select 配置，完全依靠 emphasis 控制高亮，防止状态冲突
+            emphasis: {
+              label: {
+                show: true,
+                color: '#fff',
+                fontWeight: 'bold'
+              },
+              itemStyle: {
+                areaColor: '#fbbf24', // 琥珀金高亮色
+                borderColor: '#f59e0b',
+                shadowColor: 'rgba(251, 191, 36, 0.5)',
+                shadowBlur: 10
+              }
+            }
+          }
+        };
+        
+        myChart.setOption(option);
+        
+        // 隐藏加载动画
+        document.getElementById('map-loading').style.display = 'none';
+
+        // 点击地图省份，联动罗盘
+        myChart.on('click', function (params) {
+          const name = params.name;
+          const idx = regions.findIndex(r => r.name === name || name.includes(r.name));
+          if (idx !== -1) {
+            rotateToIndex(idx);
+          }
+        });
+
+        // 初始高亮
+        highlightMapRegion(regions[selectedIndex].name);
+
+        // 窗口自适应
+        window.addEventListener('resize', () => {
+          myChart.resize();
+        });
+
+      } catch (error) {
+        console.error('地图加载失败:', error);
+        document.getElementById('map-loading').innerHTML = '<div class="text-red-400">地图数据加载失败，请检查网络</div>';
+      }
+    }
+
+    // 高亮地图上的特定省份（修复了残留高亮的问题）
+    function highlightMapRegion(regionName) {
+      if (!myChart) return;
+      
+      // 1. 如果有记录上一个高亮的省份，精确取消它的高亮状态
+      if (lastHighlightedRegion) {
+        myChart.dispatchAction({
+          type: 'downplay',
+          geoIndex: 0,
+          name: lastHighlightedRegion
+        });
+      }
+
+      // 2. 额外执行一次全局取消（作为双保险）
+      myChart.dispatchAction({
+        type: 'downplay',
+        geoIndex: 0
+      });
+      
+      // 3. 高亮当前选中的省份
+      myChart.dispatchAction({
+        type: 'highlight',
+        geoIndex: 0,
+        name: regionName
+      });
+
+      // 4. 更新记录
+      lastHighlightedRegion = regionName;
+    }
+
+    // 启动
+    initWheel();
+    initMap();
+
+  </script>
+</body>
+</html>

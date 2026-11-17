@@ -1,0 +1,75 @@
+/* Shared by the screen preview and the explicitly requested A4 print view. */
+#activityPrintRoot{display:none}
+.activity-sheet{box-sizing:border-box;width:100%;max-width:210mm;margin:0 auto;padding:32px 38px;background:#f6f3e9;color:#29453d;text-align:left;font:16px/1.65 Arial,'Noto Sans CJK SC','Microsoft YaHei',sans-serif;box-shadow:0 8px 36px #16382b12;border:1px solid #d5d8c9;overflow-wrap:anywhere}
+.activity-sheet *{box-sizing:border-box}
+.activity-sheet h1,.activity-sheet h2,.activity-sheet p{margin:0}
+.activity-sheet h1,.activity-sheet h2,.activity-sheet-verse{font-family:AcademySerif,'Noto Serif CJK SC','Songti SC',serif;font-weight:500}
+.activity-sheet-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:2px solid #526e59;padding-bottom:18px;margin-bottom:16px}
+.activity-sheet-brand{font-size:11px;letter-spacing:3px;margin-bottom:7px!important;color:#66755c}
+.activity-sheet h1{font-size:30px;line-height:1.5;letter-spacing:2px}
+.activity-sheet-number{flex:none;color:#5e715c;font-size:12px;text-align:right;padding-top:3px;line-height:1.9}
+.activity-sheet-number span{display:block}
+.activity-sheet-goal{padding:12px 15px;background:#e9edde;border-left:3px solid #80916a;font-size:16px;line-height:1.8;margin-bottom:20px!important}
+.activity-sheet-goal strong{font-size:12px;display:block;margin-bottom:3px;font-weight:500;letter-spacing:2px;color:#61754e}
+.activity-sheet h2{font-size:18px;line-height:1.5;margin-bottom:9px}
+.activity-sheet h2>span{display:inline-block;font:11px Arial,sans-serif;letter-spacing:1px;margin-right:10px;color:#7f825f;vertical-align:middle}
+.activity-sheet-reading,.activity-sheet-talk,.activity-sheet-action,.activity-sheet-create{margin-top:18px}
+.activity-sheet-verse{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 4px;font-size:29px;line-height:2;text-align:center;letter-spacing:1px;padding:16px 7px 10px;border-bottom:1px solid #d5d8c9}
+.activity-sheet-verse>ruby,.activity-sheet-verse>span{white-space:nowrap}
+.activity-sheet rt{display:ruby-text!important;font:12px/1.5 Arial,sans-serif;letter-spacing:0;color:#5a6b56}
+.activity-sheet-invitation{font-size:12px;color:#63715d;line-height:1.8;margin-top:8px!important}
+.activity-sheet-prompt{font-size:17px;line-height:1.85}
+.activity-sheet-explanation{margin-top:15px;border-left:2px solid #a8b397;padding:5px 0 5px 14px}
+.activity-sheet-explanation h2{font:12px Arial,sans-serif;letter-spacing:2px;color:#697557;margin-bottom:6px}
+.activity-sheet-explanation p{font-size:16px;line-height:1.8}
+.activity-sheet-canvas{height:180px;border:1px solid #bfc8b1;border-radius:5px;margin-top:9px;padding:13px 15px;position:relative}
+.activity-sheet-canvas>span{font-size:11px;color:#7a866e;letter-spacing:1px}
+.activity-sheet-lines{position:absolute;inset:auto 15px 20px;height:48px;border-top:1px solid #b9c1ae6b;border-bottom:1px solid #b9c1ae6b}
+.activity-sheet-footer{border-top:1px solid #c7cebb;padding-top:13px;margin-top:18px}
+.activity-sheet-footer p{font-family:AcademySerif,'Noto Serif CJK SC',serif;font-size:15px;letter-spacing:1px}
+.activity-sheet-footer small{display:block;font-size:10px;color:#6b7863;line-height:1.7;margin-top:5px}
+@media(max-width:600px){.activity-sheet{padding:22px 18px}.activity-sheet h1{font-size:25px;letter-spacing:1px}.activity-sheet-header{gap:12px}.activity-sheet-number{font-size:11px}.activity-sheet-verse{grid-template-columns:repeat(2,minmax(0,1fr));font-size:28px;row-gap:17px}.activity-sheet-prompt{font-size:16px}.activity-sheet-canvas{height:160px}.activity-sheet-goal{font-size:15px}}
+/* The app's hero heading is nowrap; a card title must remain able to wrap. */
+@media screen{
+  .activity-sheet-header>div{min-width:0;flex:1}
+  .activity-sheet h1{white-space:normal;overflow-wrap:anywhere;min-width:0;max-width:100%}
+  .activity-sheet-verse>ruby,.activity-sheet-verse>span{min-width:0;max-width:100%}
+}
+@media screen and (max-width:600px){
+  .activity-sheet-verse{grid-template-columns:repeat(auto-fit,minmax(min(100%,128px),1fr))}
+}
+@media screen and (max-width:420px){
+  .activity-sheet-header{display:block}
+  .activity-sheet-number{display:flex;gap:12px;text-align:left;margin-top:8px!important;flex-wrap:wrap}
+}
+@page{size:A4 portrait;margin:12mm}
+@media print{
+  body.printing-activity{height:auto!important;min-height:0!important;overflow:visible!important;background:#fff!important;color-scheme:light!important;margin:0!important;padding:0!important}
+  body.printing-activity>:not(#activityPrintRoot){display:none!important}
+  body.printing-activity #activityPrintRoot{display:block!important;position:static!important;width:auto!important;height:auto!important;overflow:visible!important}
+  body.printing-activity dialog::backdrop{display:none!important}
+  .activity-sheet{width:100%;max-width:none;min-height:0;margin:0;padding:0;background:#fff!important;border:0;box-shadow:none;color:#223b30;font-size:11.5pt;line-height:1.6;break-inside:avoid;page-break-inside:avoid}
+  .activity-sheet-header{padding-bottom:4mm;margin-bottom:4mm;gap:5mm;border-bottom-width:.4mm}
+  .activity-sheet-brand{font-size:8pt;letter-spacing:1.8pt;margin-bottom:1.5mm!important}
+  .activity-sheet h1{font-size:23pt;line-height:1.35;letter-spacing:1.2pt}
+  .activity-sheet-number{font-size:9pt;padding-top:1mm}
+  .activity-sheet-goal{padding:2.5mm 3.5mm;margin-bottom:4mm!important;font-size:11.5pt;background:#fff;border-left-width:.6mm;line-height:1.6}
+  .activity-sheet-goal strong{font-size:8.5pt;margin-bottom:.8mm}
+  .activity-sheet h2{font-size:13pt;line-height:1.4;margin-bottom:2mm}
+  .activity-sheet h2>span{font-size:8pt;margin-right:2.5mm}
+  .activity-sheet-reading,.activity-sheet-talk,.activity-sheet-action,.activity-sheet-create{margin-top:4mm;break-inside:avoid;page-break-inside:avoid}
+  .activity-sheet-verse{grid-template-columns:repeat(4,minmax(0,1fr));font-size:23pt;gap:2mm 1mm;line-height:1.8;padding:4mm 1mm 2.5mm;letter-spacing:.5pt}
+  .activity-sheet-verse>ruby{display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-end}
+  .activity-sheet rt{display:block!important;font-size:9pt;line-height:1.3}
+  .activity-sheet-invitation{font-size:9pt;line-height:1.6;margin-top:2mm!important}
+  .activity-sheet-prompt{font-size:12pt;line-height:1.7}
+  .activity-sheet-explanation{margin-top:3mm;padding:1.5mm 0 1.5mm 3mm;break-inside:avoid;page-break-inside:avoid}
+  .activity-sheet-explanation h2{font-size:8.5pt;margin-bottom:1mm}
+  .activity-sheet-explanation p{font-size:11pt;line-height:1.7}
+  .activity-sheet-canvas{height:43mm;padding:3mm 4mm;margin-top:2mm;border-radius:1mm}
+  .activity-sheet-canvas>span{font-size:8pt}
+  .activity-sheet-lines{left:4mm;right:4mm;bottom:5mm;height:12mm}
+  .activity-sheet-footer{padding-top:3mm;margin-top:4mm;break-inside:avoid;page-break-inside:avoid}
+  .activity-sheet-footer p{font-size:10pt;line-height:1.5}
+  .activity-sheet-footer small{font-size:7.5pt;margin-top:1mm;line-height:1.5}
+}

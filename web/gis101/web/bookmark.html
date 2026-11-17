@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云金书摘 - 最终完善版</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --sidebar-width: 320px;
+            --bg-color: #f3f4f6;
+            --primary-btn: #222;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: #333;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* === 左侧侧边栏 === */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: auto;
+            z-index: 10;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.02);
+        }
+
+        .app-title {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            color: #111;
+        }
+        .app-subtitle {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .control-group { margin-bottom: 22px; }
+        .control-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], input[type="date"], textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: #f9fafb;
+            transition: border-color 0.2s;
+            font-family: inherit;
+            color: #333;
+        }
+        textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+        input:focus, textarea:focus { border-color: #666; background: #fff; }
+
+        .row { display: flex; gap: 10px; }
+        .col { flex: 1; }
+
+        .toggle-group {
+            display: flex;
+            background: #f3f4f6;
+            padding: 4px;
+            border-radius: 8px;
+        }
+        .toggle-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #666;
+            font-weight: 500;
+        }
+        .toggle-btn.active {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .theme-options { display: flex; gap: 10px; }
+        .theme-opt {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+        }
+        .theme-opt.active { border-color: #000; transform: scale(1.1); }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            appearance: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+        }
+
+        .file-upload-wrapper { position: relative; width: 100%; }
+        .custom-file-btn {
+            border: 1px dashed #ccc;
+            background: #fafafa;
+            color: #555;
+            padding: 10px;
+            border-radius: 6px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: block;
+        }
+        .custom-file-btn:hover { background: #eee; }
+
+        .save-btn {
+            margin-top: auto;
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .save-btn:hover { background: #000; }
+
+        /* === 右侧预览区域 === */
+        .main-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #e5e7eb;
+            padding: 40px;
+            overflow: auto;
+        }
+
+        #card-wrapper {
+            box-shadow: 0 20px 60px -10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* === 卡片核心样式 === */
+        #card {
+            --card-width: 375px;
+            --font-size: 18px;
+            --bg-paper: #fdfbf7;
+            --text-color: #2c2c2c;
+            
+            width: var(--card-width);
+            min-height: 100px;
+            background-color: var(--bg-paper);
+            color: var(--text-color);
+            padding: 50px 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        /* 顶部日期标签 (新增核心) */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            font-size: 0.75rem;
+            color: rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* 装饰引号 */
+        .quote-mark {
+            font-family: serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: rgba(0,0,0,0.06);
+            position: absolute;
+            pointer-events: none;
+        }
+        .quote-start { top: 70px; left: 20px; } /* 根据header调整了位置 */
+        .quote-end { bottom: 20px; right: 20px; }
+
+        /* 正文内容 */
+        .card-content {
+            font-size: var(--font-size);
+            line-height: 1.7;
+            text-align: justify;
+            white-space: pre-wrap;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            /* 强制消除缩进 */
+            text-indent: 0 !important;
+            padding: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        /* 底部栏 */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 25px;
+        }
+
+        .book-info { display: flex; flex-direction: column; gap: 5px; }
+        .book-title { font-weight: bold; font-size: 0.95rem; }
+        .book-author { font-size: 0.85rem; opacity: 0.7; }
+
+        .seal {
+            width: 42px;
+            height: 42px;
+            border: 2px solid #b91c1c;
+            color: #b91c1c;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            writing-mode: horizontal-tb;
+        }
+
+        /* === 竖排模式 (Vertical Layout) === */
+        #card.layout-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            flex-direction: column; 
+            align-items: stretch; 
+            padding: 40px 35px;
+        }
+
+        /* 竖排时的顶部标签 -> 变为右侧耳题 */
+        #card.layout-vertical .card-header {
+            writing-mode: horizontal-tb; /* 让日期数字本身保持横向阅读，或者改为 vertical-rl */
+            writing-mode: vertical-rl; /* 日期也竖起来，更有古风感 */
+            
+            width: auto;
+            height: auto;
+            min-height: 100%; /* 撑满一列 */
+            
+            margin-bottom: 0;
+            margin-left: 25px; /* 距离正文的间距 */
+            
+            padding-bottom: 0;
+            padding-left: 10px; /* 分割线和文字的间距 */
+            
+            border-bottom: none;
+            border-left: 1px solid rgba(0,0,0,0.08); /* 横线变竖线 */
+            
+            display: flex;
+            flex-direction: row; /* 在vertical-rl中，row是从上到下 */
+            justify-content: space-between; /* 标签在头，日期在尾 */
+            align-items: center;
+            
+            /* 修正竖排时的顺序：Header变成最右边的一列 */
+            order: -1; 
+        }
+
+        #card.layout-vertical .quote-start { top: 20px; right: 40px; left: auto; }
+        #card.layout-vertical .quote-end { bottom: 20px; left: 20px; right: auto; }
+
+        #card.layout-vertical .card-content {
+            margin-bottom: 0;
+            margin-left: 30px; 
+            padding-top: 10px; 
+        }
+
+        /* 竖排底部栏 -> 左下角 */
+        #card.layout-vertical .card-footer {
+            border-top: none;
+            border-left: 1px solid rgba(0,0,0,0.1);
+            padding-top: 0;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: row; /* 竖排的列 */
+            justify-content: flex-end; /* 推到底部 */
+            align-items: center;
+            height: auto; 
+            min-height: 100%;
+            margin-right: auto; /* 不占满宽度 */
+        }
+
+        #card.layout-vertical .book-info {
+            writing-mode: vertical-rl;
+            align-items: flex-end; 
+            margin-bottom: 20px; 
+        }
+        
+        #card.layout-vertical .seal {
+            margin-top: 0;
+        }
+
+        /* === 主题 === */
+        .theme-white { --bg-paper: #fdfbf7; --text-color: #333; }
+        .theme-green { --bg-paper: #eaf4e8; --text-color: #2d3e30; }
+        .theme-black { --bg-paper: #18181b; --text-color: #d4d4d8; }
+        .theme-black .card-footer, .theme-black .card-header { border-color: rgba(255,255,255,0.15); }
+        .theme-black .seal { border-color: #ef4444; color: #ef4444; background: rgba(0,0,0,0.3); }
+
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="app-title">☁️ 云金书摘</div>
+        <div class="app-subtitle">极简排版 · 思想留影</div>
+
+        <div class="control-group">
+            <span class="control-label">摘录内容</span>
+            <textarea id="inputText">人的一生，应当这样度过：当他回首往事时，不因虚度年华而悔恨，也不因碌碌无为而羞耻。</textarea>
+        </div>
+
+        <div class="control-group">
+            <div class="row">
+                <div class="col">
+                    <span class="control-label">日期</span>
+                    <input type="date" id="inputDate">
+                </div>
+                <div class="col">
+                    <span class="control-label">顶部标签</span>
+                    <input type="text" id="inputTag" value="读书偶得">
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="row">
+                <div class="col">
+                    <span class="control-label">书名</span>
+                    <input type="text" id="inputBook" value="钢铁是怎样炼成的">
+                </div>
+                <div class="col">
+                    <span class="control-label">作者</span>
+                    <input type="text" id="inputAuthor" value="奥斯特洛夫斯基">
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">印章 (4字以内)</span>
+            <input type="text" id="inputSeal" value="云金书摘">
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">字体</span>
+            <div class="file-upload-wrapper">
+                <label for="fontUpload" class="custom-file-btn">📂 上传本地字体 (.ttf/.otf)</label>
+                <input type="file" id="fontUpload" accept=".ttf,.otf,.woff" style="display:none">
+            </div>
+            <div id="fontStatus" style="font-size:0.8rem; color:green; margin-top:5px; display:none;">✓ 已应用</div>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">布局模式</span>
+            <div class="toggle-group">
+                <button class="toggle-btn active" onclick="setLayout('horizontal', this)">横排</button>
+                <button class="toggle-btn" onclick="setLayout('vertical', this)">竖排 (古风)</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">纸张色调</span>
+            <div class="theme-options">
+                <div class="theme-opt active" style="background:#fdfbf7" onclick="setTheme('theme-white', this)"></div>
+                <div class="theme-opt" style="background:#eaf4e8" onclick="setTheme('theme-green', this)"></div>
+                <div class="theme-opt" style="background:#18181b" onclick="setTheme('theme-black', this)"></div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <span class="control-label">字号 / 宽度</span>
+            <input type="range" id="fontSizeRange" min="14" max="36" value="20" oninput="updateSize()">
+            <input type="range" id="widthRange" min="320" max="600" value="375" oninput="updateSize()" style="margin-top:10px;">
+        </div>
+
+        <button class="save-btn" onclick="saveCard()">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            保存图片
+        </button>
+    </div>
+
+    <div class="main-area">
+        <div id="card-wrapper">
+            <div id="card" class="theme-white">
+                <!-- 顶部 Header -->
+                <div class="card-header">
+                    <span id="headerDate">2025.11.23</span>
+                    <span id="headerTag">读书偶得</span>
+                </div>
+
+                <!-- 装饰引号 -->
+                <div class="quote-mark quote-start">“</div>
+
+                <!-- 正文 -->
+                <div class="card-content" id="cardText">人的一生，应当这样度过：当他回首往事时，不因虚度年华而悔恨，也不因碌碌无为而羞耻。</div>
+
+                <!-- 底部信息 -->
+                <div class="card-footer">
+                    <div class="book-info">
+                        <div class="book-title" id="cardBook">钢铁是怎样炼成的</div>
+                        <div class="book-author" id="cardAuthor">奥斯特洛夫斯基</div>
+                    </div>
+                    <div class="seal" id="cardSeal">
+                        云金<br>书摘
+                    </div>
+                </div>
+                
+                <div class="quote-mark quote-end">”</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputs = {
+            text: document.getElementById('inputText'),
+            date: document.getElementById('inputDate'),
+            tag: document.getElementById('inputTag'),
+            book: document.getElementById('inputBook'),
+            author: document.getElementById('inputAuthor'),
+            seal: document.getElementById('inputSeal'),
+            fontSize: document.getElementById('fontSizeRange'),
+            width: document.getElementById('widthRange')
+        };
+
+        const outputs = {
+            text: document.getElementById('cardText'),
+            date: document.getElementById('headerDate'),
+            tag: document.getElementById('headerTag'),
+            book: document.getElementById('cardBook'),
+            author: document.getElementById('cardAuthor'),
+            seal: document.getElementById('cardSeal'),
+            card: document.getElementById('card')
+        };
+
+        // 初始化日期
+        const today = new Date();
+        inputs.date.valueAsDate = today;
+
+        // 更新日期显示格式
+        function updateDate() {
+            const d = new Date(inputs.date.value);
+            if(isNaN(d.getTime())) return;
+            // 格式化为 2025.11.23
+            outputs.date.innerText = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+        }
+
+        // 监听事件
+        inputs.text.addEventListener('input', () => outputs.text.innerText = inputs.text.value.trim() || ' ');
+        inputs.date.addEventListener('change', updateDate);
+        inputs.tag.addEventListener('input', () => outputs.tag.innerText = inputs.tag.value);
+        inputs.book.addEventListener('input', () => outputs.book.innerText = inputs.book.value);
+        inputs.author.addEventListener('input', () => outputs.author.innerText = inputs.author.value);
+        
+        inputs.seal.addEventListener('input', e => {
+            const val = e.target.value.slice(0,4);
+            outputs.seal.innerHTML = val.length === 4 ? (val.slice(0,2) + '<br>' + val.slice(2)) : (val || '印');
+        });
+
+        function updateSize() {
+            outputs.card.style.setProperty('--font-size', inputs.fontSize.value + 'px');
+            outputs.card.style.setProperty('--card-width', inputs.width.value + 'px');
+        }
+
+        // 布局切换
+        function setLayout(mode, btn) {
+            document.querySelectorAll('.toggle-group .toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (mode === 'vertical') {
+                outputs.card.classList.add('layout-vertical');
+            } else {
+                outputs.card.classList.remove('layout-vertical');
+            }
+        }
+
+        // 主题切换
+        function setTheme(themeName, ele) {
+            document.querySelectorAll('.theme-opt').forEach(b => b.classList.remove('active'));
+            ele.classList.add('active');
+            const isVertical = outputs.card.classList.contains('layout-vertical');
+            outputs.card.className = themeName + (isVertical ? ' layout-vertical' : '');
+        }
+
+        // 字体上传
+        document.getElementById('fontUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                try {
+                    const fontFace = new FontFace('CustomFont', `url(${ev.target.result})`);
+                    fontFace.load().then(loadedFace => {
+                        document.fonts.add(loadedFace);
+                        outputs.card.style.fontFamily = "CustomFont";
+                        document.getElementById('fontStatus').style.display = 'block';
+                    });
+                } catch(err) {}
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 初始化
+        updateText(); 
+        updateDate();
+        function updateText() { outputs.text.innerText = inputs.text.value.trim() || ' '; }
+
+        // 保存
+        function saveCard() {
+            const btn = document.querySelector('.save-btn');
+            const originHtml = btn.innerHTML;
+            btn.innerHTML = '生成中...';
+            const wrapper = document.getElementById('card-wrapper');
+            wrapper.style.boxShadow = 'none';
+            html2canvas(document.getElementById('card'), { scale: 2, useCORS: true, backgroundColor: null }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `云金书摘_${new Date().getTime()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                btn.innerHTML = originHtml;
+                wrapper.style.boxShadow = '';
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+import {sqliteTable,text,integer} from 'drizzle-orm/sqlite-core';
+export const learning=sqliteTable('learning',{key:text('key').primaryKey(),owner:text('owner').notNull(),videoId:text('video_id').notNull(),favorite:integer('favorite',{mode:'boolean'}).notNull().default(false),status:text('status').notNull().default('未开始'),notes:text('notes').notNull().default(''),revision:integer('revision').notNull().default(1),updated:text('updated').notNull()});
+export const catalogState=sqliteTable('catalog_state',{id:text('id').primaryKey(),payload:text('payload').notNull(),revision:integer('revision').notNull(),updatedAt:text('updated_at').notNull(),message:text('message').notNull(),requestId:text('request_id').notNull()});

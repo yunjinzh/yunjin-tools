@@ -1,0 +1,10 @@
+{
+  "examples/rocket.glb": "assets/3e77876fc42bca7440c95c8e4dc5b8c8d3f2a05e4174c4849eaa42f692403cf9.glb",
+  "examples/car.glb": "assets/dc0deb5946a86cf88fdab21ac1ac03add55eb56f7509231dae1643a1e5281326.glb",
+  "examples/mug.glb": "assets/24bd9bdec9a11657084101dd6885ac900d900c5ebb6b10b2f6fb345ec6da5d29.glb",
+  "examples/washer.glb": "assets/ab34b8f174cf2c628f5e1174aae04deaffc2ad74e2f46e835ee173344e4c849e.glb",
+  "examples/lamp.glb": "assets/6bf75cc9c9529d3a840705d92fc03d0d715c2b156a6439e4fd44778f61d99023.glb",
+  "examples/building.glb": "assets/d3480ebdf7d1d63aa9178441314d478440d24717d48f3133f5dfe12e0f3ba760.glb",
+  "examples/tree.glb": "assets/9ff57249ea747a047285b88ffc044c626ba17bb68e2b03ff2518d34f151aca9d.glb",
+  "examples/robot.glb": "assets/e16061b0ef8ad5ced563ebd3afcc10b5886743ecab74d76ae7ad1ff71cb4d846.glb"
+}

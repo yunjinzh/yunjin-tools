@@ -1,0 +1,8 @@
+import {z} from 'zod';
+import {fields,stages,statuses,types} from './model';
+const text=z.string().max(30000), short=z.string().max(500);
+const status=z.enum(statuses as [string,...string[]]);
+const fact=z.object({text,status,evidence:text}).refine(v=>v.status!=='已确认'||(!!v.evidence.trim()&&!!v.text.trim()),'已确认内容必须填写内容及依据');
+export const projectSchema=z.object({id:short.min(1),name:short.min(1),scene:short,audience:short,org:short,tech:short,stage:z.enum(stages as [string,...string[]]),status,evidence:text,type:z.enum(types as [string,...string[]]),summary:text,updated:short,archived:z.boolean(),facts:z.record(fact).refine(v=>fields.every(([k])=>k in v),'项目字段不完整'),tasks:z.array(z.object({id:short,title:short.min(1),owner:short,due:z.string().regex(/^$|^\d{4}-\d{2}-\d{2}$/),done:z.boolean()})).max(1000),materials:z.array(z.object({id:short,name:short.min(1),type:short,status,evidence:text,key:short,url:short.refine(s=>!s||/^https?:\/\//i.test(s),'链接须以 https:// 或 http:// 开头'),date:short}).refine(m=>m.status!=='已确认'||!!m.evidence.trim(),'已确认材料须填写依据')).max(1000),moduleIds:z.array(short),relatedIds:z.array(short)}).refine(v=>v.status!=='已确认'||!!v.evidence.trim(),'已确认项目须填写依据');
+export const moduleSchema=z.object({id:short,name:short.min(1),category:short,description:text,inputs:text,outputs:text,status:z.enum(['草案','待验证','需补充'])});
+export const payloadSchema=z.object({revision:z.number().int().positive(),projects:z.array(projectSchema).max(1000),modules:z.array(moduleSchema).max(1000),note:short.optional()}).refine(x=>new Set(x.projects.map(p=>p.id)).size===x.projects.length,'项目编号重复');
