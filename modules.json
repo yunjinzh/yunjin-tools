@@ -2131,5 +2131,21 @@
     "migration": "web",
     "web": "web/m143",
     "entry": "index.html"
+  },
+  {
+    "id": "m144",
+    "name": "语文探险岛 · 四年级上册",
+    "description": "四年级上册第一、第二单元语文闯关，含54个互动任务和8个关卡，支持即时反馈、错题复习、星星徽章及本机学习记录导出。",
+    "category": "学习与探索",
+    "original_url": "https://yuwen-adventure-q4-20261117.yunjinzh.chatgpt.site",
+    "original_status": "原站第1版已发布；语文闯关、即时反馈与错题复习",
+    "source": "sources/m144",
+    "source_project": "appgprj_6afc241e19908191b37f3167e5cd721f",
+    "source_version": 1,
+    "source_commit": "3035985654bdabd1543c1b482b6ec17235a191a7",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m144",
+    "entry": "index.html"
   }
 ]

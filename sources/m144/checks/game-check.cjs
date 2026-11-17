@@ -1,0 +1,21 @@
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const elements=new Map();const element=id=>elements.get(id)||elements.set(id,{innerHTML:'',textContent:'',classList:{add(){},remove(){}},close(){},showModal(){},focus(){},click(){}}).get(id);
+let stored={};const sandbox={console,Intl,Date,Math,JSON,Set,Array,Object,Number,String,Boolean,setTimeout:()=>0,clearTimeout(){},matchMedia:()=>({matches:true}),localStorage:{getItem:k=>stored[k]||null,setItem:(k,v)=>stored[k]=v},document:{getElementById:element,addEventListener(){},createElement:()=>element('download')},window:{scrollTo(){}},URL,Blob};
+vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/questions.js','utf8')+'\n'+fs.readFileSync('dist/app.js','utf8'),sandbox);
+function run(js){return vm.runInContext(js,sandbox)}
+assert.equal(run('QUESTIONS.length'),54);assert.equal(run('QUESTIONS.filter(q=>q.level.startsWith("u1")).length'),32);assert.equal(run('QUESTIONS.filter(q=>q.level.startsWith("u2")).length'),22);
+assert.equal(run('new Set(QUESTIONS.map(q=>q.id)).size'),54);
+assert.equal(run('QUESTIONS.every(q=>q.options.length>=2 && q.hint && q.explain && (Array.isArray(q.answer)?q.answer:[q.answer]).every(i=>Number.isInteger(i)&&i>=0&&i<q.options.length))'),true);
+assert.equal(run('answerText(QUESTIONS.find(q=>q.id==="u2-4-3"))'),'不学不成不问不知');
+run('start("u1-1"); session.selected=[0]; submit()');assert.equal(run('session.solved'),false);assert.equal(run('state.mistakes.length'),1);assert.equal(run('xp()'),0);
+run('session.selected=[1];submit()');assert.equal(run('session.solved'),true);assert.equal(run('xp()'),5);assert.equal(run('session.correct'),0);assert.equal(run('state.mistakes.length'),1);
+run('submit()');assert.equal(run('xp()'),5);
+run('start(null,true);session.selected=[1];submit();finish()');assert.equal(run('xp()'),10);assert.equal(run('state.mistakes.length'),0);assert.equal(run('state.reviewed'),1);
+run('start("u1-1");session.selected=[1];submit()');assert.equal(run('session.gain'),0);
+run('state=fresh(); start("u1-2");hint();session.selected=[1];submit()');assert.equal(run('xp()'),5);assert.equal(run('state.mistakes.length'),1);
+run('state=fresh(); start("u1-3");session.index=6;session.selected=[1,4];submit()');assert.equal(run('session.solved'),false);run('session.selected=[5,1,4];submit()');assert.equal(run('session.solved'),true);
+run('state=fresh();start("u2-4");session.index=2;session.selected=[1,0];submit()');assert.equal(run('session.solved'),false);run('session.selected=[0,1];submit()');assert.equal(run('session.solved'),true);
+run(`state=fresh(); for(const l of LEVELS){start(l.id);for(let i=0;i<session.qs.length;i++){session.index=i;session.solved=false;session.attempts=0;session.hinted=false;const a=currentQ().answer;session.selected=Array.isArray(a)?[...a]:[a];submit();}finish();}`);
+assert.equal(run('xp()'),540);assert.equal(run('stars()'),24);assert.equal(run('Object.keys(state.best).length'),54);assert.equal(run('state.mistakes.length'),0);assert.equal(run('dailyCount()'),54);assert.equal(run('state.dailyClaimed[today()]'),true);
+run('const checkpoint=JSON.stringify(state);state=JSON.parse(localStorage.getItem(KEY));if(JSON.stringify(state)!==checkpoint)throw Error("Persistence failed")');
+console.log('PASS: 54 questions / answers; incorrect feedback; retry scoring; hint scoring; review recovery; duplicate reward protection; multiple choice; ordered tiles; 8-level completion; daily goal; persistence.');

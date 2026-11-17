@@ -1,12 +1,12 @@
 {
-  "catalogue": 143,
+  "catalogue": 144,
   "kinds": {
-    "web": 109,
+    "web": 110,
     "server": 13,
     "missing": 19,
     "extension": 1,
     "desktop": 1
   },
-  "files": 3622,
-  "bytes": 643543101
+  "files": 3627,
+  "bytes": 643615304
 }
