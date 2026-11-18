@@ -38,7 +38,12 @@
       "version": 4
     },
     "appgprj_6aee7cd33724819194411aa96c9e94cb": {
-      "version": 7
+      "version": 8,
+      "source_commit": "6990cdf725aec67eeb80f822f573f2cf8ed2f610",
+      "source_version_id": "appgprj_6aee7cd33724819194411aa96c9e94cb~appgver_f116bbd8727881919fd6a0ff5cc700c0",
+      "classification": "internal-data-source",
+      "sync_disposition": "skip",
+      "reason": "Private personal reading index with an embedded authorized-source data snapshot; original project instructions require owner-private access. No source or reading data imported."
     },
     "appgprj_6aee5de515688191b60034c42824ef97": {
       "version": 1
