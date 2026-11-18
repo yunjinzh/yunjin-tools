@@ -320,9 +320,17 @@
     },
     "appgprj_6afd07679ca881919d2fb6d1f7749adf": {
       "version": 4
+    },
+    "appgprj_6afda14affb081918424e14c79849bf0": {
+      "version": 1
     }
   },
-  "pending_verification": {},
+  "pending_verification": {
+    "appgprj_6afda14affb081918424e14c79849bf0": {
+      "module": "m147",
+      "version": 1
+    }
+  },
   "verified": {
     "appgprj_6afbcd27f570819193859b4c241e9f8c": {
       "module": "m143",

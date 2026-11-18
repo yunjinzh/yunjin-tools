@@ -2178,5 +2178,21 @@
     "migration": "web",
     "web": "web/m146",
     "entry": "index.html"
+  },
+  {
+    "id": "m147",
+    "name": "镜间造型室 · 二维互动 Demo",
+    "description": "二维换装创作样段，含2位成年比例角色、11类58款装扮和5个场景，支持主题邀约、撤销重做、本机作品保存与恢复及横竖PNG照片导出。",
+    "category": "创作与媒体",
+    "original_url": "https://mirror-atelier-demo.yunjinzh.chatgpt.site",
+    "original_status": "原站第1版已发布；二维可玩样段，保留原项目的功能范围说明",
+    "source": "sources/m147",
+    "source_project": "appgprj_6afda14affb081918424e14c79849bf0",
+    "source_version": 1,
+    "source_commit": "033e1d71d243ca1b4dbfb24e636ecd7db92b9997",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m147",
+    "entry": "index.html"
   }
 ]
