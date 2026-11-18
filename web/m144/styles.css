@@ -2,3 +2,26 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 .teacher-actions .secondary{display:inline-flex;align-items:center;gap:8px}.teacher-actions .icon{width:16px;height:16px}
+/* Unit catalogue grows from content metadata; the visual language stays the same. */
+.unit-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:6px}
+.unit-tabs button{justify-content:flex-start;text-align:left;gap:10px;min-height:66px;padding:12px}
+.unit-tab-copy{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+.unit-tab-copy strong{font-size:12px;font-weight:650;line-height:1.6}
+.unit-tab-copy small{font-size:9px;font-weight:400;color:#829078;line-height:1.5}
+.unit-tabs .unit-num{padding:7px;border-radius:8px;flex-shrink:0}
+.unit-tab-icon .icon{width:22px;height:22px;opacity:.65}
+.unit-tabs button.selected .unit-num{background:var(--green);color:white}
+.trail{grid-template-columns:repeat(auto-fit,minmax(80px,1fr))}
+.trail.trail-wrap{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));row-gap:23px}
+.trail-wrap:before{display:none}
+.level-card.tone-mint .level-art{background:#eaf1dd}.level-card.tone-mint .level-art svg{stroke:#5a8262}
+.level-card.tone-peach .level-art{background:#f7e2cf}.level-card.tone-peach .level-art svg{stroke:#bd8255}
+.level-card.tone-yellow .level-art{background:#f8edbc}.level-card.tone-yellow .level-art svg{stroke:#a69442}
+.filter-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 22px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+.filter-bar label{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.filter-select{font:inherit;color:var(--ink);background:#fffef9;border:1px solid #d7e1cf;border-radius:10px;padding:11px 32px 11px 13px;min-height:44px;max-width:100%}
+.filter-select:focus-visible{outline:3px solid #d97642;outline-offset:3px}
+.badge-section{margin-top:27px}.badge-section h2{font-size:16px;margin:0 0 15px}
+.unit-tabs button.selected{box-shadow:0 3px 6px #2a493011}
+@media(max-width:1150px){.unit-tab-copy strong{font-size:11px}.unit-tab-icon{display:none}.unit-tabs button{gap:8px}}
+@media(max-width:650px){.unit-tabs button{padding:10px 7px;gap:7px;min-height:69px}.unit-tab-copy strong{font-size:10px}.unit-tab-copy small{font-size:8px}.unit-tabs .unit-num{font-size:9px;padding:5px}.trail{grid-template-columns:repeat(4,minmax(0,1fr))}.trail.trail-wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.section-top .subtle{max-width:108px;text-align:right;line-height:1.7}.level-card h4{font-size:10px;white-space:normal;min-height:28px;line-height:1.4;margin-bottom:3px}.level-card p{white-space:normal;min-height:24px;line-height:1.6}.filter-bar label{font-size:11px}.filter-select{font-size:12px}.filter-bar{font-size:11px}.badge-section h2{font-size:15px}}
