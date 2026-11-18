@@ -1,131 +1,154 @@
 {
-  "completed_at": "2026-11-18T12:49:36+08:00",
+  "completed_at": "2026-11-18T10:30:31.862110+00:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
   "added": [],
   "updated": [
-    "m146"
+    "m144"
   ],
   "migration_mode": "static-web",
   "previous_source_version": 2,
   "discovery": {
     "owner_sites_checked": 105,
     "pages": 3,
-    "catalogue_source_changed": false
+    "catalogue_source_changed": false,
+    "catalogue_source_version": 22,
+    "unpublished_or_inactive_skipped": 5
   },
-  "source_project": "appgprj_6afd07679ca881919d2fb6d1f7749adf",
-  "source_version": 4,
-  "source_version_id": "appgprj_6afd07679ca881919d2fb6d1f7749adf~appgver_01a6ad619dec8191af8abe6ab1b7cfc9",
-  "source_commit": "73b7046a6591afdf0c66f74edcf27d9ebd0ab88b",
+  "source_project": "appgprj_6afc241e19908191b37f3167e5cd721f",
+  "source_version": 3,
+  "source_version_id": "appgprj_6afc241e19908191b37f3167e5cd721f~appgver_a660856076f08191b236c8d45746d7e0",
+  "source_commit": "85109116cb53428f89ead52ef480f0c520cd8877",
   "source_deployment": {
-    "id": "appgdep_6afd1f8f13008191afe0a9be20061729",
+    "id": "appgdep_6afd76baad848191bff229382ccb677a",
     "status": "succeeded",
-    "version_id": "appgprj_6afd07679ca881919d2fb6d1f7749adf~appgver_01a6ad619dec8191af8abe6ab1b7cfc9",
-    "url": "https://ziye-card-trails-414.yunjinzh.chatgpt.site",
-    "updated_at": "2026-11-18T03:46:29.413454+00:00"
+    "version_id": "appgprj_6afc241e19908191b37f3167e5cd721f~appgver_a660856076f08191b236c8d45746d7e0",
+    "url": "https://yuwen-adventure-q4-20261117.yunjinzh.chatgpt.site",
+    "updated_at": "2026-11-18T09:58:31.819743+00:00"
   },
-  "deployment_commit": "41b390a00e4dbeb47c4a4c5a95105b99f9c4df9d",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44239115343",
+  "deployment_commit": "54585bb3c2f54e219636a3696afdcd7bf34edfe6",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44285515037",
   "deployment_workflow_conclusion": "success",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/index.html",
-  "original_url": "https://ziye-card-trails-414.yunjinzh.chatgpt.site",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
+  "original_url": "https://yuwen-adventure-q4-20261117.yunjinzh.chatgpt.site",
   "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
   "catalogue_count": 146,
   "web_count": 111,
   "source_snapshot_check": {
     "ok": true,
-    "source_commit": "73b7046a6591afdf0c66f74edcf27d9ebd0ab88b",
-    "source_snapshot": {
-      "files": 438,
-      "byte_identical_files": 438,
-      "deduplicated_files": 365,
-      "adapted": []
-    },
-    "web": {
-      "files": 429,
-      "byte_identical_files": 428,
-      "deduplicated_files": 365,
-      "adapted": [
-        "road.js"
-      ],
-      "card_count": 414
-    },
-    "original_site_modified": false,
-    "runtime_data_copied": false,
-    "all_414_cards_unchanged_from_v2": true
+    "source_commit": "85109116cb53428f89ead52ef480f0c520cd8877",
+    "compared_files": 16,
+    "all_source_bytes_preserved": true,
+    "excluded_platform_configuration": [
+      ".openai/hosting.json"
+    ],
+    "generated_metadata": [
+      "migration-assets.json"
+    ]
   },
   "update_summary": [
-    "Full original cards displayed directly on the road",
-    "Previous-card control, readable-card HUD and precise route preview",
-    "Paged archive, learning-view return paths and keyboard focus",
-    "Manual pause and walking speed persistence; prior version 2 progress retained"
+    "Added units 3 and 4: 115 tasks across 16 levels, 48 stars, and 24 achievements.",
+    "Unit-specific mistake review and learning-record filters; old question IDs, corrected answers, stored progress and earned all-islands badge retained.",
+    "Independent JSON unit content and reproducible hashed assets; original single-file offline version retained and downloadable from the teacher guide."
   ],
   "adaptation": {
-    "file": "web/m146/road.js",
-    "change": "Set anonymous CORS on texture images before loading, allowing published GitHub Raw cards to be uploaded to WebGL. Dynamic image addresses are resolved by the existing shared runtime.",
-    "original_source_changed": false,
-    "upstream_license_files_preserved": true
+    "original_source_unchanged": true,
+    "stable_module_id": "m144",
+    "changes": [
+      "Teacher-guide download link and its app.js cache hash.",
+      "Deterministic ZIP containing the exact original dist/offline.html; the archive stays self-contained through the shared Pages build."
+    ],
+    "backend_required": false,
+    "original_site_modified": false
   },
   "upstream_validation": {
     "ok": true,
-    "passed_suites": 5,
     "commands": [
-      "node test.mjs",
-      "node tests/original-card-textures.cjs",
-      "node tests/readable-card-projection.cjs",
-      "node tests/road-navigation.cjs",
-      "node tests/learning-flows.cjs"
+      "node scripts/build-content.cjs",
+      "node checks/game-check.cjs"
     ],
-    "cards": 414,
-    "landscapes": 8,
-    "riddles": 24,
-    "road_stretches": 107,
-    "teaching_content_reviewed": false,
-    "note": "Upstream renderer and UI harnesses were followed by browser checks against the built artifact and actual HTTPS deployment."
+    "build_reproduces_saved_source": true,
+    "units": 4,
+    "levels": 16,
+    "questions": 115,
+    "checks": [
+      "Content validation and confirmed corrections",
+      "Retries, hints, review, scoring, filters and report",
+      "Old progress and earned-badge migration",
+      "Simulated future unit with three levels",
+      "Single-file offline bundle syntax and no external script or stylesheet dependencies"
+    ]
   },
   "incremental_sync_tests": {
     "passed": 7
   },
   "build": {
-    "files": 3694,
-    "bytes": 647711017,
-    "size_limit_bytes": 996147200,
-    "validated_asset_records": 3024
+    "catalogue": 146,
+    "kinds": {
+      "web": 111,
+      "server": 14,
+      "missing": 19,
+      "extension": 1,
+      "desktop": 1
+    },
+    "files": 3696,
+    "bytes": 647900998
   },
   "local_validation": {
     "ok": true,
-    "entry": "http://127.0.0.1:4173/yunjin-tools/apps/m146/index.html",
-    "source_version": 4,
-    "renderer": "webgl",
-    "local_resource_substitution": true,
-    "cards": 414,
-    "landscapes": 8,
-    "riddles": 24,
-    "road_stretches": 107,
+    "entry": "http://127.0.0.1:4173/yunjin-tools/apps/m144/index.html",
+    "local_resource_substitution": false,
     "checks": [
-      "Actual WebGL full-card textures at 760×1013; readable-card HUD; previous/next card, keyboard reading and review; wrong-answer lock and focus; duplicate stamp guard; paused state, speed and progress survive reload",
-      "24-card pagination, page/scroll/focus restoration, known/new and empty-search filters, pinyin and ID search, archive/riddle return and nested Escape",
-      "Eight theme previews without premature navigation, 107 selectable stretches, all 24 riddles with source-card return and persisted results; texture cache <=12 and concurrent loads <=3",
-      "Start/previous/next stretch and fullscreen controls; 768px and 390px layouts, complete original card and portrait companion reader",
-      "Existing version 2 browser progress retains its card, stamp and riddle records"
+      "Four unit tabs, keyboard selection, and unchanged IDs/answers for all 54 existing questions",
+      "Wrong-answer feedback, correction scoring, reload persistence, and mistake review",
+      "Mistakes from units 3 and 4, unit-specific review, independent correction, and empty filter state",
+      "All 115 tasks and 16 levels: single/multiple choice, ordered word tiles, hints, no duplicate rewards, and 48 stars",
+      "Learning-record filters show only the selected unit and restore all 16 levels",
+      "24 achievements, persisted full progress, and downloaded learning report for all 4 units",
+      "Downloaded archive checksum and original HTML match; no external dependencies; offline interaction and retained progress on a loopback origin",
+      "Reset confirmation/cancel, persisted reset, and sound toggle state",
+      "768px and 390px map, question layout, and answer interaction",
+      "Existing v2 progress, 24 stars, mistakes, and earned all-islands badge survive update and new unit practice"
     ],
+    "source_questions": 115,
+    "source_levels": 16,
+    "source_version": 3,
+    "archive": {
+      "ok": true,
+      "url": "http://127.0.0.1:4173/yunjin-tools/apps/m144/yuwen-adventure-offline-v3.zip",
+      "actual_browser_download": true,
+      "bytes": 34631,
+      "sha256": "5131727173b21821cfa606269317da79fffbd1da35b2ca01a97b93731fac067c",
+      "original_offline_html_sha256": "33f1418a596d516b09317953a51b71bd202314184ba65f330fc452798c1465d4"
+    },
+    "offline": {
+      "ok": true,
+      "execution": "Unmodified downloaded HTML served from temporary loopback origin; managed Chromium blocks file URLs",
+      "network_disabled_during_interaction": true,
+      "external_resource_requests": [],
+      "errors": [],
+      "checks": [
+        "Extracted original single HTML file with no external script or stylesheet references",
+        "All four units available",
+        "Unit 4 answer while offline; progress persists across document reload"
+      ]
+    },
     "errors": [],
-    "failures": [],
-    "console_errors": []
+    "failures": []
   },
   "local_smoke_checks": {
     "base": "http://127.0.0.1:4173/yunjin-tools/",
     "localAssets": true,
     "outcomes": [
       {
-        "id": "m146",
-        "name": "字野探险队 · 汉字漫游手册",
+        "id": "m144",
+        "name": "语文探险岛 · 四年级上册",
         "http": 200,
         "errors": [],
         "failures": [],
-        "title": "字野长路 · 原卡画廊",
-        "textLength": 178,
-        "canvas": 1,
+        "title": "语文探险岛 · 每一点好奇都闪光",
+        "textLength": 717,
+        "canvas": 0,
         "ok": true
       }
     ]
@@ -140,45 +163,59 @@
   },
   "browser_checks": {
     "ok": true,
-    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m146/index.html",
-    "source_version": 4,
-    "renderer": "webgl",
+    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
     "local_resource_substitution": false,
-    "cards": 414,
-    "landscapes": 8,
-    "riddles": 24,
-    "road_stretches": 107,
     "checks": [
-      "Actual WebGL full-card textures at 760×1013; readable-card HUD; previous/next card, keyboard reading and review; wrong-answer lock and focus; duplicate stamp guard; paused state, speed and progress survive reload",
-      "24-card pagination, page/scroll/focus restoration, known/new and empty-search filters, pinyin and ID search, archive/riddle return and nested Escape",
-      "Eight theme previews without premature navigation, 107 selectable stretches, all 24 riddles with source-card return and persisted results; texture cache <=12 and concurrent loads <=3",
-      "Start/previous/next stretch and fullscreen controls; 768px and 390px layouts, complete original card and portrait companion reader",
-      "Existing version 2 browser progress retains its card, stamp and riddle records"
+      "Four unit tabs, keyboard selection, and unchanged IDs/answers for all 54 existing questions",
+      "Wrong-answer feedback, correction scoring, reload persistence, and mistake review",
+      "Mistakes from units 3 and 4, unit-specific review, independent correction, and empty filter state",
+      "All 115 tasks and 16 levels: single/multiple choice, ordered word tiles, hints, no duplicate rewards, and 48 stars",
+      "Learning-record filters show only the selected unit and restore all 16 levels",
+      "24 achievements, persisted full progress, and downloaded learning report for all 4 units",
+      "Downloaded archive checksum and original HTML match; no external dependencies; offline interaction and retained progress on a loopback origin",
+      "Reset confirmation/cancel, persisted reset, and sound toggle state",
+      "768px and 390px map, question layout, and answer interaction",
+      "Existing v2 progress, 24 stars, mistakes, and earned all-islands badge survive update and new unit practice"
     ],
+    "source_questions": 115,
+    "source_levels": 16,
+    "source_version": 3,
+    "archive": {
+      "ok": true,
+      "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/yuwen-adventure-offline-v3.zip",
+      "actual_browser_download": true,
+      "bytes": 34631,
+      "sha256": "5131727173b21821cfa606269317da79fffbd1da35b2ca01a97b93731fac067c",
+      "original_offline_html_sha256": "33f1418a596d516b09317953a51b71bd202314184ba65f330fc452798c1465d4"
+    },
+    "offline": {
+      "ok": true,
+      "execution": "Unmodified downloaded HTML served from temporary loopback origin; managed Chromium blocks file URLs",
+      "network_disabled_during_interaction": true,
+      "external_resource_requests": [],
+      "errors": [],
+      "checks": [
+        "Extracted original single HTML file with no external script or stylesheet references",
+        "All four units available",
+        "Unit 4 answer while offline; progress persists across document reload"
+      ]
+    },
     "errors": [],
-    "failures": [],
-    "console_errors": [],
-    "non_tool_browser_requests": [
-      {
-        "url": "https://yunjinzh.github.io/favicon.ico",
-        "status": 404,
-        "reason": "Browser-generated root favicon request outside the imported tool; the page does not reference this URL."
-      }
-    ]
+    "failures": []
   },
   "smoke_checks": {
     "base": "https://yunjinzh.github.io/yunjin-tools/",
     "localAssets": false,
     "outcomes": [
       {
-        "id": "m146",
-        "name": "字野探险队 · 汉字漫游手册",
+        "id": "m144",
+        "name": "语文探险岛 · 四年级上册",
         "http": 200,
         "errors": [],
         "failures": [],
-        "title": "字野长路 · 原卡画廊",
-        "textLength": 179,
-        "canvas": 1,
+        "title": "语文探险岛 · 每一点好奇都闪光",
+        "textLength": 717,
+        "canvas": 0,
         "ok": true
       }
     ]
@@ -194,160 +231,81 @@
   "http_checks": {
     "ok": true,
     "base": "https://yunjinzh.github.io/yunjin-tools/",
-    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m146/index.html",
     "local_resource_substitution": false,
-    "checked_files": 438,
-    "checked_cards": 414,
-    "bytes": 34296868,
-    "all_digests_match": true,
-    "manifest_sha256": "4bebb2abbddbd84ea325478b280a130b8be99783c5e206c0bf0da72f77585040",
-    "core_files": [
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m146/README.md",
-        "bytes": 1655,
-        "sha256": "48f889503b8a9c51c2d74144bfbe95958cd8bea8c66e0b8f1545e114569f08b1",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m146/migration-assets.json",
-        "bytes": 38693,
-        "sha256": "64d3a786630c6db524f0423ea40c73dc9134c6008f9d70e51b2e052c475a24c2",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m146/test.mjs",
-        "bytes": 2177,
-        "sha256": "68a64d88db67bfe98bdbcefe93c9fbafe305da08d1c3b042e1e083bd2b3139dd",
-        "matches_build_or_source": true
-      },
+    "files": [
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/",
         "bytes": 3854,
         "sha256": "9d9de62b1a8581e153766d492551668b93388c8495f1d5d3c2e316aab2e0a8b1",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/app.js",
-        "bytes": 28811,
-        "sha256": "6806b3d5ec31403376a63c71449e8c036a9ba606e903a4330bde111b6f1b74cf",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/data.js",
-        "bytes": 20184,
-        "sha256": "aaa068a1db5f50bbbed24ad208c55b3a4eb90e79cb8bdf20138ce5b46900412a",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/images.js",
-        "bytes": 1766,
-        "sha256": "215d0ce9932c3049d4c4370f5d2914582b264b35fd034b6910fb1694e3702358",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/index.html",
-        "bytes": 5757,
-        "sha256": "88811f5d4095e48f1092347a546e54521046d198c57cf6469c4d2732a38f115d",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/journey.css",
-        "bytes": 12623,
-        "sha256": "0be4070d42e22ec4675431298747acae9458037c5a737a871e1871a6b11b1cee",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/learning.css",
-        "bytes": 1759,
-        "sha256": "1a6b837bafb7cac6288f602f7b6b9e68843ca687b2bfd21ddb4d2b87448979ea",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/migration-config.js",
-        "bytes": 58787,
-        "sha256": "61cdd65e2696a40f2b473ae79e163e13cb22a34a9ffa72e87c213d0095144d58",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/road.js",
-        "bytes": 21656,
-        "sha256": "8ae4761b95a65997e6b7f5dbc2f2f45a935cf1eeb791430291bd8839e331d291",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/scenery.js",
-        "bytes": 17761,
-        "sha256": "582750508bc9401efeedd1cc1ee64c3b0edd4d949b687eb0d7a4a7916c0996fe",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/soft3d.js",
-        "bytes": 6011,
-        "sha256": "699df566b556b593595183c3a047ef5eed17b219a15d38fc0243a4660208fd7b",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/style.css",
-        "bytes": 14949,
-        "sha256": "03cb7c3e25d7ca13231f422906c41aa9f4e4d43992520859ce8a86376b91e729",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/vendor/THREE-LICENSE.txt",
-        "bytes": 1081,
-        "sha256": "2962c9540da0e8f8990451aa967c78b0ace028441a84d09804607206c54e0279",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/vendor/ZCOOL-OFL.txt",
-        "bytes": 4398,
-        "sha256": "538078469839b4a2e7ad22bef4ebe41681a4e53749bb2a072144024f1d6d703d",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/vendor/three.js",
-        "bytes": 691258,
-        "sha256": "18c0fe807f9cc6db035ce32880337b155a745dcf4a134b354b59f76488d5dbdc",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/vendor/title.ttf",
-        "bytes": 146428,
-        "sha256": "8edb26bedd4aa63cc9505ff861d7c392e257ead363c218a5e593c6d34e4a6a4b",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/world.js",
-        "bytes": 15558,
-        "sha256": "8e2e292946d0813364260d1d5be26b8c4192a6ed7691b09642d598b50488edf1",
-        "matches_build_or_source": true
+        "matches_build": true
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
-        "bytes": 94892,
-        "sha256": "d4a9e677fdeb238a7c1822bd28a0c67758e036781f5738e9105df257e9a66703",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/portal/app.js",
-        "bytes": 3777,
-        "sha256": "982ea5fe3ca1f24d7e70ee15988f538168abfd92373637f562a4ec9fc5e558d4",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/portal/style.css",
-        "bytes": 8684,
-        "sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c",
-        "matches_build_or_source": true
+        "bytes": 94927,
+        "sha256": "b67c361806933a695446de8d26027217c956a4b769eec76c6ae6f1366d455485",
+        "matches_build": true
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/runtime.js",
         "bytes": 5207,
         "sha256": "19c4c5ea3f45222ab8544998dffe6c188922756a41eab13b3c4bd259768665a0",
-        "matches_build_or_source": true
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/portal/app.js",
+        "bytes": 3777,
+        "sha256": "982ea5fe3ca1f24d7e70ee15988f538168abfd92373637f562a4ec9fc5e558d4",
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/portal/style.css",
+        "bytes": 8684,
+        "sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c",
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/app.js",
+        "bytes": 38378,
+        "sha256": "f800ccd5ce37865c2c44c41982a2b33f500867f83c3cbc6e4a8c4ec079d0447c",
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
+        "bytes": 932,
+        "sha256": "db09b61652416944d9bb9ea3d9990e3ff4bce698382dc3a3359edf98636f30fd",
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/migration-config.js",
+        "bytes": 263,
+        "sha256": "6832504fe05108ae2dae021acb91d95d30e76c7d648f123d0b5265a7bdebddcc",
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/offline.html",
+        "bytes": 113148,
+        "sha256": "067ce97b70c5ce0f18cf3f60617e203ab4f5d2bffdc4ec4cff0cd185bb1c6860",
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/questions.js",
+        "bytes": 48234,
+        "sha256": "a73003da229062ee311a9b1c409f55679a9263d1eb51f04bacede89a2e7e0ef1",
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/styles.css",
+        "bytes": 25971,
+        "sha256": "12189ce7bce74c74ebb8b773b07288a57485a6bd245c2d1a11ac568c77653011",
+        "matches_build": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/yuwen-adventure-offline-v3.zip",
+        "bytes": 34631,
+        "sha256": "5131727173b21821cfa606269317da79fffbd1da35b2ca01a97b93731fac067c",
+        "matches_build": true
       }
-    ],
-    "failures": []
+    ]
   },
   "known_remaining": {
     "server_source_only": 14,

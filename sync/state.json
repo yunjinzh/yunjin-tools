@@ -322,12 +322,7 @@
       "version": 4
     }
   },
-  "pending_verification": {
-    "appgprj_6afc241e19908191b37f3167e5cd721f": {
-      "module": "m144",
-      "version": 3
-    }
-  },
+  "pending_verification": {},
   "verified": {
     "appgprj_6afbcd27f570819193859b4c241e9f8c": {
       "module": "m143",
@@ -338,10 +333,10 @@
     },
     "appgprj_6afc241e19908191b37f3167e5cd721f": {
       "module": "m144",
-      "version": 2,
-      "deployment_commit": "43241f3fa491580a7762d56abf14b34ebc51050e",
+      "version": 3,
+      "deployment_commit": "54585bb3c2f54e219636a3696afdcd7bf34edfe6",
       "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
-      "verified_at": "2026-11-17T13:54:17.530309+00:00"
+      "verified_at": "2026-11-18T10:30:31.826275+00:00"
     },
     "appgprj_6afce09389e88191842d22dd1e7d487e": {
       "module": "m145",
