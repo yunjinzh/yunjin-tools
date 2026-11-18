@@ -1,109 +1,164 @@
 {
-  "completed_at": "2026-11-18T08:02:30+08:00",
+  "completed_at": "2026-11-18T11:22:26+08:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
   "added": [
-    "m145"
+    "m146"
   ],
   "updated": [],
-  "migration_mode": "server-source-only",
+  "migration_mode": "static-web",
   "discovery": {
-    "owner_sites_checked": 104,
+    "owner_sites_checked": 105,
     "pages": 3,
     "catalogue_source_changed": false
   },
-  "source_project": "appgprj_6afce09389e88191842d22dd1e7d487e",
-  "source_version": 1,
-  "source_version_id": "appgprj_6afce09389e88191842d22dd1e7d487e~appgver_643c011eec0c81918d229218bdcce5a8",
-  "source_commit": "657fdfb49af9675893911eb206de254f57555d96",
+  "source_project": "appgprj_6afd07679ca881919d2fb6d1f7749adf",
+  "source_version": 2,
+  "source_version_id": "appgprj_6afd07679ca881919d2fb6d1f7749adf~appgver_6357d47af8b881918b09fbf84a00d0e0",
+  "source_commit": "df5fd8f7b5b4f31f8b1152f4bfa29c6ddd476e79",
   "source_deployment": {
-    "id": "appgdep_6afce5bab6e88191b08d52c38a2f72b7",
+    "id": "appgdep_6afd115b9e48819186c101bdb0330d76",
     "status": "succeeded",
-    "version_id": "appgprj_6afce09389e88191842d22dd1e7d487e~appgver_643c011eec0c81918d229218bdcce5a8",
-    "url": "https://spatial-delivery-hub.yunjinzh.chatgpt.site",
-    "updated_at": "2026-11-17T23:39:57.749816+00:00"
+    "version_id": "appgprj_6afd07679ca881919d2fb6d1f7749adf~appgver_6357d47af8b881918b09fbf84a00d0e0",
+    "url": "https://ziye-card-trails-414.yunjinzh.chatgpt.site",
+    "updated_at": "2026-11-18T02:45:54.963849+00:00"
   },
-  "deployment_commit": "8b17afcd13c41a2e80c5ebf732c5daa714fd8a12",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44203904731",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/details/m145.html",
-  "original_url": "https://spatial-delivery-hub.yunjinzh.chatgpt.site",
+  "deployment_commit": "d976f42f24b3ae0ff1dd65ea9d3fc8493b5d5c64",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44229196725",
+  "deployment_workflow_conclusion": "success",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/index.html",
+  "original_url": "https://ziye-card-trails-414.yunjinzh.chatgpt.site",
   "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
-  "catalogue_count": 145,
-  "web_count": 110,
+  "catalogue_count": 146,
+  "web_count": 111,
   "source_snapshot_check": {
     "ok": true,
-    "source_commit": "657fdfb49af9675893911eb206de254f57555d96",
-    "source_files": 126,
-    "deduplicated_assets": {
-      "public/terrain.webp": "assets/0caffafc2f890c2322d0ab852236e805a707cf9ef9defc4aeebc24464e6adc07.webp"
+    "source_commit": "df5fd8f7b5b4f31f8b1152f4bfa29c6ddd476e79",
+    "source_snapshot": {
+      "files": 431,
+      "byte_identical_files": 431,
+      "deduplicated_files": 365,
+      "adapted": []
     },
-    "excluded_platform_files": [
-      ".npmrc",
-      ".openai/hosting.json"
-    ],
+    "web": {
+      "files": 427,
+      "byte_identical_files": 426,
+      "deduplicated_files": 365,
+      "adapted": [
+        "app.js"
+      ],
+      "card_count": 414
+    },
     "original_site_modified": false,
-    "runtime_data_copied": false
+    "runtime_data_copied": false,
+    "upstream_license_files_preserved": true
   },
-  "runtime_scope": {
-    "backend_deployed_to_pages": false,
-    "backend_runtime_tested": false,
-    "requirements": [
-      "Cloudflare Worker",
-      "D1 DB binding",
-      "R2 BUCKET binding",
-      "Original platform identity and access configuration"
+  "adaptation": {
+    "file": "web/m146/app.js",
+    "change": "Resolve the original-card and zoom-image URLs before inserting HTML so deduplicated cards load from their published asset URLs.",
+    "original_source_changed": false
+  },
+  "upstream_validation": {
+    "ok": true,
+    "command": "node test.mjs",
+    "cards": 414,
+    "landscapes": 8,
+    "riddles": 24,
+    "road_stretches": 107,
+    "checks": [
+      "Unique card IDs, original WebP files and route coverage",
+      "Riddle answers and choices match theme cards",
+      "Local HTML resources, JavaScript syntax and unique HTML IDs"
     ],
-    "note": "Archived the saved source and original entry; Pages serves the catalogue and backend instructions. No cloud database or uploaded user files were copied."
+    "teaching_content_reviewed": false
   },
   "incremental_sync_tests": {
     "passed": 7
   },
   "build": {
-    "files": 3628,
-    "bytes": 643617451,
+    "files": 3692,
+    "bytes": 647683300,
     "size_limit_bytes": 996147200,
-    "validated_asset_records": 2659
+    "validated_asset_records": 3024
   },
   "local_validation": {
     "ok": true,
-    "entry": "http://127.0.0.1:4173/yunjin-tools/details/m145.html",
-    "mode": "server-source-only",
-    "local_resource_substitution": false,
-    "backend_runtime_tested": false,
+    "entry": "http://127.0.0.1:4173/yunjin-tools/apps/m146/index.html",
+    "renderer": "webgl",
+    "local_resource_substitution": true,
+    "cards": 414,
+    "landscapes": 8,
+    "riddles": 24,
     "checks": [
-      "145 catalogue entries; 14 backend entries; new entry is searchable and labelled as requiring a backend",
-      "Detail page clearly states Pages limitations and preserves the exact original and source repository links",
-      "Desktop, tablet and mobile detail layout; source links visible; back-to-catalogue navigation"
+      "3D rendering, start/pause, four walking speeds, next card, keyboard reading, original/zoom images, wrong-answer feedback, stamps without duplicates and reload persistence",
+      "Archive search and known/new filters; all eight landscapes and all 24 riddle answers with persistent progress",
+      "Previous/next stretch and reset-to-start navigation; fullscreen control; 768px and 390px card and zoom layouts"
     ],
     "errors": [],
     "failures": []
   },
+  "local_smoke_checks": {
+    "base": "http://127.0.0.1:4173/yunjin-tools/",
+    "localAssets": true,
+    "outcomes": [
+      {
+        "id": "m146",
+        "name": "字野探险队 · 汉字漫游手册",
+        "http": 200,
+        "errors": [],
+        "failures": [],
+        "title": "字野长路 · 全景汉字旅行",
+        "textLength": 165,
+        "canvas": 1,
+        "ok": true
+      }
+    ]
+  },
   "local_portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 145 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 146 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "browser_checks": {
     "ok": true,
-    "entry": "https://yunjinzh.github.io/yunjin-tools/details/m145.html",
-    "mode": "server-source-only",
+    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m146/index.html",
+    "renderer": "webgl",
     "local_resource_substitution": false,
-    "backend_runtime_tested": false,
+    "cards": 414,
+    "landscapes": 8,
+    "riddles": 24,
     "checks": [
-      "145 catalogue entries; 14 backend entries; new entry is searchable and labelled as requiring a backend",
-      "Detail page clearly states Pages limitations and preserves the exact original and source repository links",
-      "Desktop, tablet and mobile detail layout; source links visible; back-to-catalogue navigation"
+      "3D rendering, start/pause, four walking speeds, next card, keyboard reading, original/zoom images, wrong-answer feedback, stamps without duplicates and reload persistence",
+      "Archive search and known/new filters; all eight landscapes and all 24 riddle answers with persistent progress",
+      "Previous/next stretch and reset-to-start navigation; fullscreen control; 768px and 390px card and zoom layouts"
     ],
     "errors": [],
     "failures": []
   },
+  "smoke_checks": {
+    "base": "https://yunjinzh.github.io/yunjin-tools/",
+    "localAssets": false,
+    "outcomes": [
+      {
+        "id": "m146",
+        "name": "字野探险队 · 汉字漫游手册",
+        "http": 200,
+        "errors": [],
+        "failures": [],
+        "title": "字野长路 · 全景汉字旅行",
+        "textLength": 165,
+        "canvas": 1,
+        "ok": true
+      }
+    ]
+  },
   "portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 145 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 146 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
@@ -111,30 +166,126 @@
   "http_checks": {
     "ok": true,
     "base": "https://yunjinzh.github.io/yunjin-tools/",
+    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m146/index.html",
     "local_resource_substitution": false,
-    "files": [
+    "checked_files": 436,
+    "checked_cards": 414,
+    "bytes": 34268357,
+    "all_digests_match": true,
+    "manifest_sha256": "22f8c3917d32daa4218fee609f968c1d8d82dbd954e87672714bc4b4073e26d7",
+    "core_files": [
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m146/README.md",
+        "bytes": 861,
+        "sha256": "90190c37c2c20e33b8515b605c2986640778aa81ae918500b232785120619837",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m146/migration-assets.json",
+        "bytes": 38693,
+        "sha256": "64d3a786630c6db524f0423ea40c73dc9134c6008f9d70e51b2e052c475a24c2",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m146/test.mjs",
+        "bytes": 2177,
+        "sha256": "68a64d88db67bfe98bdbcefe93c9fbafe305da08d1c3b042e1e083bd2b3139dd",
+        "matches_build_or_source": true
+      },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/",
         "bytes": 3854,
-        "sha256": "7668e3a4e704c1aca0b691fb69dedb4755ec83099cb583361c9bc470618968ce",
+        "sha256": "9d9de62b1a8581e153766d492551668b93388c8495f1d5d3c2e316aab2e0a8b1",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/app.js",
+        "bytes": 18892,
+        "sha256": "afe8b47adb8414f5196d540f563645149f76168dced9eeafc59ff136ead85c31",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/data.js",
+        "bytes": 20184,
+        "sha256": "aaa068a1db5f50bbbed24ad208c55b3a4eb90e79cb8bdf20138ce5b46900412a",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/index.html",
+        "bytes": 4904,
+        "sha256": "e34b077fb447d979117b83edc19f673762ca8b3c1a6ac13456626cebb3bf2b3b",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/journey.css",
+        "bytes": 7601,
+        "sha256": "ba82ff4f233ad670577c5cc734b44bc51737e59f72f5cab1ecba4b02dfc916cd",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/migration-config.js",
+        "bytes": 58760,
+        "sha256": "a7f900470a67eff369edb32a7114e0d2697657a5a271fcfd9705500d93e58f56",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/road.js",
+        "bytes": 13348,
+        "sha256": "9c659b96db676ceb314a90f831d636bfab14391e032e759c264907f0cfa1c906",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/scenery.js",
+        "bytes": 17761,
+        "sha256": "582750508bc9401efeedd1cc1ee64c3b0edd4d949b687eb0d7a4a7916c0996fe",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/soft3d.js",
+        "bytes": 6011,
+        "sha256": "699df566b556b593595183c3a047ef5eed17b219a15d38fc0243a4660208fd7b",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/style.css",
+        "bytes": 14949,
+        "sha256": "03cb7c3e25d7ca13231f422906c41aa9f4e4d43992520859ce8a86376b91e729",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/vendor/THREE-LICENSE.txt",
+        "bytes": 1081,
+        "sha256": "2962c9540da0e8f8990451aa967c78b0ace028441a84d09804607206c54e0279",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/vendor/ZCOOL-OFL.txt",
+        "bytes": 4398,
+        "sha256": "538078469839b4a2e7ad22bef4ebe41681a4e53749bb2a072144024f1d6d703d",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/vendor/three.js",
+        "bytes": 691258,
+        "sha256": "18c0fe807f9cc6db035ce32880337b155a745dcf4a134b354b59f76488d5dbdc",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/vendor/title.ttf",
+        "bytes": 146428,
+        "sha256": "8edb26bedd4aa63cc9505ff861d7c392e257ead363c218a5e593c6d34e4a6a4b",
+        "matches_build_or_source": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m146/world.js",
+        "bytes": 15558,
+        "sha256": "8e2e292946d0813364260d1d5be26b8c4192a6ed7691b09642d598b50488edf1",
         "matches_build_or_source": true
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
-        "bytes": 94125,
-        "sha256": "8756e67644b04f6cd2b1863a54fe71a9dbf6abae141b2a06c7a4972396a50754",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/details/m145.html",
-        "bytes": 1183,
-        "sha256": "a59a336b34976ec27419fb18bbc8084ed56d5c35ab24e6ee4649f3bb044b2925",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/portal/style.css",
-        "bytes": 8684,
-        "sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c",
+        "bytes": 94829,
+        "sha256": "1a4fcea23990301277f00485c1dccbc26bbed3fb5f37a55e92f2e00b86ed9c46",
         "matches_build_or_source": true
       },
       {
@@ -144,42 +295,19 @@
         "matches_build_or_source": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m145/README.md",
-        "bytes": 10934,
-        "sha256": "6a8169063d2b024fcbe791837621e0f2bd9863968b5d654d2a0975e76e2ad7f8",
+        "url": "https://yunjinzh.github.io/yunjin-tools/portal/style.css",
+        "bytes": 8684,
+        "sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c",
         "matches_build_or_source": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m145/package.json",
-        "bytes": 2125,
-        "sha256": "f20f215a54e65d68b85b21f493708cef4241fcf030ee5459d418ce23c1cfc531",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m145/app/api/records/route.ts",
-        "bytes": 4105,
-        "sha256": "cf9a69efb0d077c062189cbcf9066546b3c2372fc165083904a69b77cd7ac93e",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/sources/m145/drizzle/0000_lying_terrax.sql",
-        "bytes": 437,
-        "sha256": "986859c3872bb24e06f34c6000f0d4d9bd88668786fe6512fa27d0f3172b1212",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/docs/BUILDING.md",
-        "bytes": 3330,
-        "sha256": "ecf9845f778b08d62fdfe8f6142f23f161e3763295d2b6a67f3064751ccdb96c",
-        "matches_build_or_source": true
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/0caffafc2f890c2322d0ab852236e805a707cf9ef9defc4aeebc24464e6adc07.webp",
-        "bytes": 85902,
-        "sha256": "0caffafc2f890c2322d0ab852236e805a707cf9ef9defc4aeebc24464e6adc07",
+        "url": "https://yunjinzh.github.io/yunjin-tools/runtime.js",
+        "bytes": 5207,
+        "sha256": "19c4c5ea3f45222ab8544998dffe6c188922756a41eab13b3c4bd259768665a0",
         "matches_build_or_source": true
       }
-    ]
+    ],
+    "failures": []
   },
   "known_remaining": {
     "server_source_only": 14,
