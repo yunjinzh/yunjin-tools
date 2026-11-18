@@ -1,0 +1,152 @@
+{
+  "imageCount": 1000,
+  "distinctHanzi": 1000,
+  "duplicateShaGroups": 0,
+  "decodePassed": 1000,
+  "crcPassed": 1000,
+  "dimensions": {
+    "1086x1448": 1000
+  },
+  "fileStemPairs": 1000,
+  "aspectMatches": 1000,
+  "maxRgbMeanAbsError": 0.5194,
+  "maxDhashDistance": 3,
+  "mergedSha256": "36038b3a524d1737a1f6315c90cdc2b6f03d77490efe7e5980699be47d36c072",
+  "mergedBytes": 2503895070,
+  "parts": [
+    {
+      "part": "001",
+      "bytes": 100663296,
+      "sha256": "44150910c0964451e331cf8f01db2fff83bb61296978d6674b6c561ae516ffad"
+    },
+    {
+      "part": "002",
+      "bytes": 100663296,
+      "sha256": "57148398dbf6cf80b0e46bf7f9a9432197267c7dd9108cc814e36dc50c7ec844"
+    },
+    {
+      "part": "003",
+      "bytes": 100663296,
+      "sha256": "0c3fdd48e127de80f9bf56b0e66a5caaf044464379da7a7e3da6d07cb32dad3a"
+    },
+    {
+      "part": "004",
+      "bytes": 100663296,
+      "sha256": "566c1ed1e6ed2da2e8a7d1c96663c7c9a670ab0c6161460de4c91d359ddad407"
+    },
+    {
+      "part": "005",
+      "bytes": 100663296,
+      "sha256": "868267b7d512c216914bdd6e64d165b84a70bd614efde8fe7474a46821e41eed"
+    },
+    {
+      "part": "006",
+      "bytes": 100663296,
+      "sha256": "6b4672538374186b5698ad3c056f98ad0837920fc81e069ed2371e3e2b24eb5f"
+    },
+    {
+      "part": "007",
+      "bytes": 100663296,
+      "sha256": "e36fa5c3eda55fe0624d8f87f26c63c81baca742c1eed6aed6f50dcbf8438efd"
+    },
+    {
+      "part": "008",
+      "bytes": 100663296,
+      "sha256": "a3342e928017ac09c8cab0d1a83e68f037569fa4a6395398f5eb372e635b9f11"
+    },
+    {
+      "part": "009",
+      "bytes": 100663296,
+      "sha256": "d68dc002efdd16b26def321b77e71670f7be2e2da212c6984b1991396f302882"
+    },
+    {
+      "part": "010",
+      "bytes": 100663296,
+      "sha256": "da29e7a352983d21ec2e73b4443866d3e47b14d7e9e25e803e4e1ce1d1aae0a1"
+    },
+    {
+      "part": "011",
+      "bytes": 100663296,
+      "sha256": "ad7a5cbe4640fceedf06cbf5f0527389afec9a9dcffa8f656bc127d7ba2b91ad"
+    },
+    {
+      "part": "012",
+      "bytes": 100663296,
+      "sha256": "98d16183c185e35a7b2e0a8713a641f87d4f91ee62337fe6a417bab4df844ce6"
+    },
+    {
+      "part": "013",
+      "bytes": 100663296,
+      "sha256": "b3bfa2b4f3b0f3b04fe22aaa213d4e197964fc155406f4f8b1b67926b7694e0b"
+    },
+    {
+      "part": "014",
+      "bytes": 100663296,
+      "sha256": "fcd0edc5aa8ff1b29fd86c555159bb07a521070cd398a0f84035087443fafe12"
+    },
+    {
+      "part": "015",
+      "bytes": 100663296,
+      "sha256": "9e3860d7d9821eb9f5903647cdb0216676e6a491c3a94c1b2fe4546945482c85"
+    },
+    {
+      "part": "016",
+      "bytes": 100663296,
+      "sha256": "00bf37d6b9702dcf0801df66a3f4234e18cfbee80c1b38ccb3b4bfb93fd61883"
+    },
+    {
+      "part": "017",
+      "bytes": 100663296,
+      "sha256": "f5c264dae612c4007d4fae47665ac1dedb6f52b41077818ab418571c78159171"
+    },
+    {
+      "part": "018",
+      "bytes": 100663296,
+      "sha256": "09bf39c777e1749ef79c34e9191cb0ff56d8c23302aca1a88bacf4de38c2be07"
+    },
+    {
+      "part": "019",
+      "bytes": 100663296,
+      "sha256": "e41c8fa013504098504ad36fac01022169299d2c507dcd3c67f0161d4109422f"
+    },
+    {
+      "part": "020",
+      "bytes": 100663296,
+      "sha256": "6fa3853b07b6cf7b3ec690edf7b876415454de46415dd4a401c73730005db98f"
+    },
+    {
+      "part": "021",
+      "bytes": 100663296,
+      "sha256": "c5493f1dc7b334c20da99d14cc2c7dd8523a1b9a49a9f99e886ad72e655e807e"
+    },
+    {
+      "part": "022",
+      "bytes": 100663296,
+      "sha256": "3be2e1f8b69d36757e9846a9c72a4bfaea12c7ac7180f0c1971f3eaadabb9e47"
+    },
+    {
+      "part": "023",
+      "bytes": 100663296,
+      "sha256": "93cea72e6c59f1c46830b9b5409cf520f5bb46818397cb6f83532880e211c8c0"
+    },
+    {
+      "part": "024",
+      "bytes": 100663296,
+      "sha256": "832c76ecf9fc64addaf6e6f2d067c487357e171282f10b48bd0747058055641d"
+    },
+    {
+      "part": "025",
+      "bytes": 87975966,
+      "sha256": "01bf463d27f70338397c1c4cb6c49ba08ce62e2a970d83c9dcbd4e81a47b27c0"
+    }
+  ],
+  "legacyShaMatching": 414,
+  "legacyCompared": 414,
+  "uniqueDecodedPixelSha256": 1000,
+  "pixelHashRecipe": "SHA-256(big-endian unsigned 32-bit width and height followed by row-major 8-bit RGBA bytes)",
+  "maxRgbErrorPair": "0033_龙_lóng.png",
+  "medianRgbError": 0.4313,
+  "medianDhashDistance": 0.0,
+  "aspectRatioMismatchCount": 0,
+  "mergedZipTestPassed": true
+}

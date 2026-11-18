@@ -1,0 +1,75 @@
+'use client';
+import React,{useState,useEffect,useMemo,useRef} from 'react';
+import {LayoutDashboard,FolderOpen,Layers3,LibraryBig,ClipboardCheck,Flag,History,GitBranch,FileDown,Menu,X,PanelLeftClose,BookOpen,ShieldCheck,LockKeyhole,ChevronRight,Plus,Download,RefreshCw,CircleHelp,Check,AlertCircle,CalendarDays,HardDrive,ArrowDownToLine} from 'lucide-react';
+import Dashboard from './ui/dashboard';
+import {ResourcePage,partRows} from './ui/resources';
+import {Cards,CardDetail,filteredCards,reviewKey,Recheck} from './ui/cards';
+import {LedgerView,Coverage,Exports,advice,fields,seedLogs} from './ui/ledger';
+import {Editor} from './ui/forms';
+import {Btn,Modal,Badge,Empty,num,pad,volumes,dateTime} from './ui/common';
+import {editions,checks} from '../lib/policy';
+import {csvFile,workbook,wordFile} from '../lib/export';
+import res from '../lib/resources.json';
+import stats from '../lib/initial.json';
+const nav=[['工作空间',[['overview','核验总览',LayoutDashboard],['resources','交付资源',FolderOpen],['volumes','分卷核验',Layers3],['cards','卡片库',LibraryBig]]],['复核管理',[['reviews','抽样复核',ClipboardCheck],['issues','问题清单',Flag],['logs','校验日志',History]]],['交付归档',[['versions','版本记录',GitBranch],['exports','交付导出',FileDown]]]];
+const names=Object.fromEntries(nav.flatMap(([,items])=>items.map(([k,n])=>[k,n])));names.historyfiles='历史档案';names.guide='合并与解压';
+const subtitles={overview:'查看交付资源、技术核验进度与卡片复核情况。',resources:'查看原始资料入口与逐件下载清单。',volumes:'按编号、字节数和文件指纹核对 25 个无损分卷。',historyfiles:'查看历史交付的 12 个压缩包及 A3 阅读文档。',guide:'按系统下载脚本，完成原图归档的合并与提取。',cards:'按字查找卡片，查看画面、文件指纹与两版对应关系。',reviews:'记录单张或批次的五项内容复核与验收证据。',issues:'按问题范围定位已有资源，登记补齐措施与复测结论。',logs:'追溯每一次校验、复核和记录修订。',versions:'查阅阅读版、原图版与历史档案的交付沿革。',exports:'下载核验台账、交付报告和原始证据。'};
+function initialIssue(){return {entity:'issue:target-list',revision:0,payload:{kind:'issue',title:'待提供独立的目标汉字表',status:'需补充',reviewer:'初始技术核验',edition:'跨版本',problem:'目标字表',advice:advice['目标字表'],evidence:'本次交付归档仅提供文件清单，尚无独立目标字表。',conclusion:'已清点 1000 个不同汉字。'}}}
+async function loadEvents(){let list=[],after=0;for(;;){const r=await fetch('/api/ledger?after='+after,{cache:'no-store'});if(!r.ok)throw Error('复核记录读取失败，请重试。');const v=await r.json();list=list.concat(v.events);if(!v.more)return list;after=v.events.at(-1).seq}}
+export default function Audit(){
+ const [page,setPage]=useState('overview'),[mobile,setMobile]=useState(false),[catalog,setCatalog]=useState([]),[events,setEvents]=useState([]),[ready,setReady]=useState(false),[loadErr,setLoadErr]=useState(''),[modal,setModal]=useState(null),[toast,setToast]=useState(''),[busy,wait]=useState(false),[f,setF]=useState({edition:editions[1]});const tick=useRef(0),request=useRef(0);
+ function notify(t){setToast(t);clearTimeout(tick.current);tick.current=setTimeout(()=>setToast(''),4000)}
+ useEffect(()=>{const sync=()=>{const k=location.hash.slice(1);setPage(names[k]?k:'overview');setMobile(false);setModal(null);window.scrollTo(0,0)};sync();window.addEventListener('hashchange',sync);return()=>window.removeEventListener('hashchange',sync)},[]);
+ function go(k){if(page===k){setMobile(false);return}location.hash=k}
+ async function reload(){const ticket=++request.current;setLoadErr('');try{const [c,e]=await Promise.all([catalog.length?catalog:fetch('/evidence/catalog.json').then(r=>{if(!r.ok)throw Error('无法读取技术清单');return r.json()}),loadEvents()]);if(ticket!==request.current)return;setCatalog(c);setEvents(e);setReady(true)}catch(e){if(ticket===request.current){setLoadErr(e.message);setReady(false)}}}
+ useEffect(()=>{reload()},[]);
+ const latest=useMemo(()=>new Map(events.map(e=>[e.entity,e])),[events]);
+ const accepted=[...latest.values()].filter(e=>e.payload.kind==='review'&&e.payload.edition===editions[1]&&e.payload.scope==='单张'&&e.payload.status==='已确认'&&checks.every(k=>e.payload.criteria?.[k]==='通过')).length;
+ const base=latest.get('baseline:target');const issues=[...latest.values()].filter(e=>e.payload.kind==='issue');if(!latest.has('issue:target-list')&&base?.payload.status!=='已确认')issues.unshift(initialIssue());
+ for(const e of latest.values()){
+   const p=e.payload;
+   if(!['review','part','resource'].includes(p.kind)||!['核验失败','无法访问','需补充'].includes(p.status))continue;
+   const entity='issue:linked-'+e.entity.replace(':','-');
+   if(latest.has(entity))continue;
+   const problem=p.status==='无法访问'?'无法访问':p.kind==='part'?'分卷异常':p.kind==='review'?'内容质量':'其他';
+   issues.push({entity,revision:0,payload:{kind:'issue',title:p.title+' · '+problem,status:p.status,problem,edition:p.edition||'跨版本',han:p.han||'',volume:p.volume||'',batch:p.batch||'',reviewer:p.reviewer,evidence:p.evidence||'',conclusion:p.conclusion||'',advice:advice[problem]}})
+ }
+ const openIssues=issues.filter(e=>e.payload.status!=='已确认');
+ const batches=[...new Set([...latest.values()].filter(e=>e.payload.kind==='review').map(e=>e.payload.batch).filter(Boolean))];
+ const list=useMemo(()=>filteredCards(catalog,latest,issues,f),[catalog,latest,f]);
+ function checkReady(){if(!ready){notify(loadErr||'正在读取清单，请稍候。');return false}return true}
+ function edit(label,data,entity){if(!checkReady())return;setModal({type:'edit',label,data:{...data},entity,revision:latest.get(entity)?.revision||0,snapshot:Object.fromEntries([...latest].map(([k,v])=>[k,v.revision]))})}
+ function review(c){if(!checkReady())return;const entity=c?reviewKey(c):null,p=latest.get(entity)?.payload;edit(c?'登记卡片复核':'新增复核记录',{kind:'review',title:'卡片复核',scope:'单张',edition:c?.edition||editions[1],cardId:c?.id||'',han:c?.han||'',filename:c?.file||'',volume:c?.volume||'',evidence:c?.evidence||'',status:'待核验',criteria:{},batch:'',conclusion:'',reviewer:'',...p},entity)}
+ function create(k){if(k==='review')return review(null);const values={kind:k,title:'',reviewer:'',evidence:'',status:'待核验',conclusion:''};if(k==='issue')Object.assign(values,{problem:'其他',advice:'',edition:'跨版本',status:'需补充'});edit({issue:'登记问题',version:'登记版本或校验日志',resource:'新增资源记录'}[k],values)}
+ function baseEdit(){edit('目标汉字表',{kind:'baseline',title:'目标汉字表',status:'待核验',reviewer:'',evidence:'',chars:'',...base?.payload},'baseline:target')}
+ async function save(record,val,op){let entity=record.entity||val.kind+':'+op;if(val.kind==='review'&&val.scope==='单张')entity=reviewKey({id:val.cardId,edition:val.edition});if(val.kind==='review'&&val.scope==='批次'&&record.entity?.match(/^review:\d-/))entity='review:'+op;if(val.kind==='part')entity='part:'+val.volume;
+ if(entity!==record.entity&&latest.has(entity))throw Error('该卡片或分卷已有记录，请从对应档案打开后修订。');
+ if(val.kind==='part'&&val.status==='已确认'){const match=res.parts.find(x=>x.name.endsWith('.'+val.volume));if(!match||match.bytes!==Number(val.bytes)||match.name!==val.filename||stats.partHashes[val.volume]!==val.hash?.trim().toLowerCase())throw Error('已确认的分卷需与基准文件名、字节数和 SHA-256 全部相符。')}
+ const revision=(record.snapshot[entity]||0)+1;const r=await fetch('/api/ledger',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({op,revision,entity,payload:val})});const v=await r.json().catch(()=>({}));if(!r.ok){if(r.status===409)await reload();throw Error(v.error||'保存失败，请重试。')}await reload();notify('记录已保存，修订已写入校验日志。')}
+ function openCard(id){if(!checkReady())return;const c=typeof id==='string'?catalog.find(c=>c.edition===editions[1]&&c.id===id):id;if(c)setModal({type:'card',c})}
+ function csv(){csvFile('苗苗字卡_下载清单',[['资源组','文件名','字节数','Google Drive 入口'],...[['阅读版',res.reading],['原图分卷',res.parts],['历史档案',res.older]].flatMap(([g,a])=>a.map(x=>[g,x.name,x.bytes,x.url]))])}
+ async function doExport(ext,selected=null){if(!checkReady())return;wait(true);try{
+ const scope=selected||catalog;const origChars=new Set(catalog.filter(c=>c.edition===editions[1]).map(c=>c.han)),target=base?.payload.status==='已确认'?[...new Set(Array.from(base.payload.chars))]:null;
+ const coverage=target?target.filter(c=>origChars.has(c)).length+' / '+target.length+'（'+(100*target.filter(c=>origChars.has(c)).length/target.length).toFixed(1)+'%）':'待补独立目标字表';const filteredIssue=issues;const logs=events.map(e=>[dateTime(e.at),e.entity,e.revision,e.payload.title,e.payload.status,e.payload.reviewer,e.payload.conclusion||e.payload.advice||'',e.payload.evidence,JSON.stringify(e.payload)]);
+ const rr=[...latest.values()].filter(e=>e.payload.kind==='review').map(e=>e.payload);const intro=[['交付目标','1000 张'],['阅读版解码','1000 / 1000'],['原图解码','1000 / 1000'],['编号与字名配对','1000 对'],['不同汉字','1000 个（归档文件名）'],['原图内容已验收',String(accepted)+' 张'],['目标汉字覆盖率',coverage],['历史文件重合','414 / 414（SHA-256）'],['导出时间',dateTime(new Date())]];
+ const iv=Object.keys(fields);const records=[iv.map(k=>fields[k]),...rr.map(p=>iv.map(k=>k==='criteria'?checks.map(h=>h+' '+(p.criteria?.[h]||'未检查')).join('，'):p[k]||''))];
+ const fileRows=[['编号','汉字','拼音','资源版本','文件名','原图起卷','原图止卷','宽','高','字节数','SHA-256','CRC32','技术状态','内容状态','证据位置','Drive 入口'],...scope.map(c=>[c.id,c.han,c.pinyin,c.edition,c.file,c.volume,c.volumeEnd,c.w,c.h,c.bytes,c.hash,c.crc,'已确认',latest.get(reviewKey(c))?.payload.status||'待核验',c.evidence,c.url])];
+ if(ext==='xlsx')await workbook(selected?'苗苗字卡_筛选视图':'苗苗字卡_核验与交付台账',[
+ ['核验总览',[['指标','核验结果'],...intro]],['卡片清单',fileRows],['分卷核验',[['编号','文件名','基准字节','登记字节','基准 SHA-256','登记 SHA-256','状态','Drive 入口','证据位置'],...partRows(latest,stats).map(p=>[p.vol,p.name,p.expected,p.actual,p.baseHash,p.hash,p.status,p.url,p.evidence])]],
+ ['资源清单',[['文件名','字节数','Drive 入口'],...[...res.reading,...res.parts,...res.older].map(p=>[p.name,p.bytes,p.url])]],['内容复核',records],['问题清单',[['问题','类型','版本','状态','影响汉字','分卷','批次','补齐措施','证据位置'],...filteredIssue.map(({payload:p})=>[p.title,p.problem,p.edition,p.status,p.han,p.volume,p.batch,p.advice,p.evidence])]],['版本与字表',[['类型','名称','状态','证据','说明'],...['阅读版','PNG 原图版','历史 414 版'].map(n=>['初始交付',n,'技术已确认','归档校验日志','2026-11-18 交付']),...[...latest.values()].map(e=>e.payload).filter(p=>['version','baseline','resource'].includes(p.kind)).map(p=>[p.kind,p.title,p.status,p.evidence,p.chars||p.conclusion||p.link])]],['校验日志',[['时间','记录键','修订','记录','状态','复核人','说明','证据','完整修订'],...seedLogs.map(([a,b,c])=>['2026-11-19','初始',1,a,'已确认','技术核验',b,c,'']),...logs]]]);
+ else await wordFile('核验与交付报告',[['交付与验收',intro.map(([k,v])=>k+'　'+v)],['技术校验',seedLogs.map(([k,v])=>k+'　'+v)],['资料入口',res.folders.map(x=>x.name+'　'+x.url)],['内容复核',rr.length?rr.map(p=>[p.title,p.edition,p.scope,p.batch,p.filename,p.status,p.reviewer,p.conclusion,checks.map(k=>k+' '+(p.criteria?.[k]||'未检查')).join('，'),p.evidence].join(' · ')):['尚未登记人工内容复核。']],['问题与补齐',filteredIssue.length?filteredIssue.map(({payload:p})=>[p.title,p.status,p.advice,p.evidence].join(' · ')):['当前没有问题记录。']],['版本与修订',logs.length?logs.map(l=>l.slice(0,8).join(' · ')):['初始版本 · 2026-11-19 技术基线。']],['交付指纹',['合并 ZIP SHA-256　'+stats.mergedHash]]]);notify('导出文件已生成。')
+ }catch(e){notify(e.message||'导出失败，请重试。')}finally{wait(false)}}
+ const currentGroup=nav.find(([,items])=>items.some(([k])=>page===k))?.[0]||'工作空间';const close=()=>setModal(null);
+ return <div className="appShell">{mobile&&<button className="shade" aria-label="关闭菜单" onClick={()=>setMobile(false)}/>}<aside className={'sidebar '+(mobile?'expanded':'')}><a className="brand" href="#overview"><img src="/favicon.svg" alt=""/><span><strong>苗苗字卡</strong><small>核验与交付工作台</small></span></a><nav>{nav.map(([group,items])=><div className="navGroup" key={group}><p>{group}</p>{items.map(([k,t,I])=><button key={k} className={page===k||k==='resources'&&['guide','historyfiles'].includes(page)?'selected':''} onClick={()=>go(k)}><I size={19}/><span>{t}</span>{k==='issues'&&ready&&openIssues.length>0&&<em>{openIssues.length}</em>}</button>)}</div>)}</nav><div className="sideBottom"><span className="privacyIcon"><ShieldCheck size={19}/></span><div><b>私有工作空间</b><small>Google Drive 资源档案</small></div></div></aside>
+ <div className="mainCol"><header className="topBar"><div className="crumb"><button className="menuBtn" onClick={()=>setMobile(!mobile)} aria-label="打开导航"><Menu size={21}/></button><span>工作台</span><ChevronRight size={14}/><b>{names[page]}</b></div><div className="topTools"><span className="date"><CalendarDays size={15}/>基准日期 2026.11.19</span><span className="topDivider"/><button className="avatar" aria-label="工作空间信息" onClick={()=>setModal({type:'about'})}>苗</button></div></header>
+ <main><div className="pageHead"><div><h1>{names[page]}</h1><p>{subtitles[page]}</p></div><div className="headActions">{page==='cards'?<Btn icon={Download} disabled={!ready||busy} onClick={()=>doExport('xlsx',list)}>导出筛选</Btn>:page!=='exports'&&<Btn icon={Download} onClick={()=>go('exports')}>导出</Btn>}{page!=='exports'&&<Btn primary disabled={!ready} onClick={()=>page==='issues'?create('issue'):page==='versions'?create('version'):review(null)}>{page==='issues'?'登记问题':page==='versions'?'登记版本':'新增复核'}</Btn>}</div></div>
+ {loadErr&&<div className="error" role="alert">{loadErr} <button className="textbtn" onClick={reload}>重新读取</button></div>}
+ {page==='overview'?<Dashboard go={go} showReading={()=>{setF({edition:editions[0]});go('cards')}} openCard={openCard} accepted={accepted} activeIssues={openIssues} latest={latest} stats={stats} ready={ready}/>:['resources','volumes','historyfiles','guide'].includes(page)?<ResourcePage key={page} {...{page,go,latest,stats,edit,create,notify,csv}}/>:page==='cards'?<Cards list={list} f={f} setF={setF} batches={batches} latest={latest} open={openCard} scan={()=>checkReady()&&setModal({type:'scan'})} baseline={()=>checkReady()&&setModal({type:'coverage'})}/>:page==='exports'?<Exports onExport={doExport} busy={busy} csv={csv} ready={ready}/>:<LedgerView key={page} {...{page,issues,latest,events,edit,create,go,catalog,baseEdit}}/>}
+ </main></div>
+ {modal?.type==='edit'&&<Editor record={modal} onSave={save} close={close} catalog={catalog}/>}
+ {modal?.type==='card'&&<CardDetail c={modal.c} catalog={catalog} latest={latest} close={close} review={review}/>}
+ {modal?.type==='coverage'&&<Modal title="汉字覆盖核对" onClose={close}><div className="formScroll"><Coverage catalog={catalog} baseline={base} edit={baseEdit}/></div></Modal>}
+ {modal?.type==='about'&&<Modal title="工作空间信息" onClose={close}><div className="formScroll"><b>苗苗汉字学习卡全套1000张核验与交付工作台</b><p>初始档案来自 2026 年 11 月 19 日对三个 Google Drive 入口的只读核验。站内登记与修订持续保存。Drive 文件变更后，可下载新版并用本地核对功能比对。</p><p>预览使用已交付的阅读版卡片。原始分卷和原图一直由 Drive 保存。</p><Btn icon={RefreshCw} onClick={async()=>{await reload();close()}}>重新读取工作台记录</Btn></div></Modal>}
+ {modal?.type==='scan'&&<Recheck catalog={catalog} close={close} issue={(x,ed)=>edit('登记核验问题',{kind:'issue',title:x.type+' · '+x.file,problem:x.type,edition:ed,han:x.han,volume:x.volume,status:'需补充',advice:advice[x.type],evidence:x.file,conclusion:x.note,reviewer:''})} saveVersion={(title,conclusion)=>edit('登记本地校验日志',{kind:'version',title,conclusion,status:'待核验',evidence:'',reviewer:''})} download={d=>csvFile('本地图片核验_'+d.edition,[['版本','核验时间','选择文件数','匹配数','差异条数'],[d.edition,d.at,d.count,d.ok,d.rows.length],['问题类型','文件名','编号','汉字','原图分卷','说明'],...d.rows.map(x=>[x.type,x.file,x.id,x.han,x.volume,x.note])])}/>}
+ {toast&&<div role="status" className="toast">{toast}</div>}</div>
+}

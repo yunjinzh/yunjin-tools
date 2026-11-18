@@ -2194,5 +2194,20 @@
     "migration": "web",
     "web": "web/m147",
     "entry": "index.html"
+  },
+  {
+    "id": "m148",
+    "name": "苗苗汉字学习卡全套1000张核验与交付工作台",
+    "description": "面向 1000 张汉字学习卡的资源清点、分卷校验、卡片抽样复核、问题与版本记录、台账及报告导出工作台。复核记录依赖原站数据库保存。",
+    "category": "教学与实训",
+    "original_url": "https://miaomiao-card-audit.yunjinzh.chatgpt.site",
+    "original_status": "原站已保存并成功发布第 1 版；需要 Cloudflare Worker 与 D1 数据库。源码归档不代表已在 Pages 部署后台功能。",
+    "source": "sources/m148",
+    "source_project": "appgprj_6afe1a96e5bc8191acd757b4a7eea287",
+    "source_version": 1,
+    "source_commit": "e531ccc3972ca6bb381129fe89113889f6dc859c",
+    "kind": "server",
+    "migration": "source",
+    "migration_note": "源码已同步；此项目需要独立后端，GitHub Pages 不执行服务器或云数据库服务。"
   }
 ]

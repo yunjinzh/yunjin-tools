@@ -43,3 +43,11 @@ GIS101 工具目录的 `/tools/` 索引及 6 个 HTML 子页面一同迁入。�
 [sources/m147](../sources/m147/) 保留源提交 `033e1d71d243ca1b4dbfb24e636ecd7db92b9997`。在该目录运行 `python build.py` 生成自包含的 `dist/index.html`，运行 `node engine-check.cjs` 检查状态、撤销重做及存档保护。发布版本直接使用原始静态产物，由统一构建添加模块存储隔离和子路径支持；无需独立后端或外部素材。
 
 PNG 照片与可编辑造型分别导出和保存：竖幅照片为 1080×1350，横幅为 1920×1080；草稿与命名作品保存在当前浏览器。Pages、原站和原始单文件 HTML 的记录不自动互通，原站的个人草稿和作品未迁入仓库。
+
+## 苗苗汉字学习卡核验与交付工作台（m148）
+
+第 1 版源码归档在 [sources/m148](../sources/m148/)，对应源提交 `e531ccc3972ca6bb381129fe89113889f6dc859c`。通过[原站入口](https://miaomiao-card-audit.yunjinzh.chatgpt.site)使用资源清点、分卷核验、卡片复核、问题记录及报告导出；Pages 提供目录与运行说明页。
+
+该项目通过 Cloudflare Worker 的 `/api/ledger` 接口读写 D1 `DB` 绑定中的 `audit_events` 表，保存修订记录并检查并发更新。独立部署需重新配置 Worker、数据库和访问控制，按原项目 README 安装依赖、应用 `drizzle/` 建表迁移并构建。先在本仓库运行 `python scripts/restore_assets.py m148`，可恢复源码中的去重资源。
+
+本次保留源版本自带的卡片预览、资源清单、校验摘要及合并脚本，不读取或迁入原站数据库和个人复核记录。Google Drive 原始交付资料沿用原链接与访问权限；本次源码归档不代表重新核验了外部交付包或完成了新的后端部署。

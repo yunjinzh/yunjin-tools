@@ -1,0 +1,19 @@
+{
+  "sourceFile": "reading.zip",
+  "driveFileId": "1SqsBlkIdji-W9KaAohFovK0vRu2tlZNg",
+  "bytes": 95145693,
+  "archiveSha256": "e3541370ee4fcc9fbf2a29d95862fe6f1b9a3bc53bbae71b1ee9de822e31d506",
+  "jpegCount": 1000,
+  "decodedCount": 1000,
+  "crcPassed": 1000,
+  "uniqueChars": 1000,
+  "duplicateCharacters": {},
+  "uniqueFileSha256": 1000,
+  "duplicateHashes": {},
+  "missingIds": [],
+  "invalidNames": [],
+  "multipleCharacters": [],
+  "imageSizes": {
+    "720x960": 1000
+  }
+}
