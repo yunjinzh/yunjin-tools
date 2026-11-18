@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#263f41"><title>字野长路 · 全景汉字旅行</title><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./journey.css"><script defer src="./vendor/three.js"></script><script defer src="./data.js"></script><script defer src="./soft3d.js"></script><script defer src="./scenery.js"></script><script defer src="./road.js"></script><script defer src="./app.js"></script></head><body class="roadPage">
+<svg xmlns="http://www.w3.org/2000/svg" class="defs" aria-hidden="true"><defs>
+<symbol id="mark" viewBox="0 0 40 40"><rect width="40" height="40" rx="12" fill="#244940"/><circle cx="29" cy="10" r="3.4" fill="#f1bb74"/><path fill="#f8edb9" d="m4 28 10-18 9 13 6-8 8 13z"/><path fill="none" stroke="#c8d9a6" stroke-width="2" d="M8 32h23"/></symbol>
+<symbol id="map" viewBox="0 0 24 24"><path d="m2 5 7-3 6 3 7-3v17l-7 3-6-3-7 3zm7-3v17m6-14v17"/></symbol>
+<symbol id="book" viewBox="0 0 24 24"><path d="M12 6C8 3 4 4 2 4v14c3-1 7 0 10 2 3-2 7-3 10-2V4c-2 0-6-1-10 2zm0 0v14"/></symbol>
+<symbol id="fullIcon" viewBox="0 0 24 24"><path d="M3 9V3h6m6 0h6v6m0 6v6h-6m-6 0H3v-6"/></symbol>
+<symbol id="trail" viewBox="0 0 24 24"><path d="m9 3-6 18m12-18 6 18M12 5v2m0 3v3m0 4v4"/></symbol>
+<symbol id="pauseI" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M5 4h5v16H5zm9 0h5v16h-5z"/></symbol><symbol id="playI" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="m6 3 15 9-15 9z"/></symbol><symbol id="skip" viewBox="0 0 24 24"><path d="m4 5 8 7-8 7m8-14 8 7-8 7"/></symbol><symbol id="pin" viewBox="0 0 24 24"><path d="M19 9c0 5-7 12-7 12S5 14 5 9a7 7 0 1 1 14 0Z"/><circle cx="12" cy="9" r="2"/></symbol>
+</defs></svg>
+<main id="expedition" aria-label="字野长路，全屏三维汉字旅行">
+<canvas id="world" tabindex="0" aria-label="连续三维道路，两侧木牌可点击学习。空格暂停或继续，向上键向前迈步，E 读身边的字牌。"></canvas>
+<div id="flat" hidden><div class="flatBadge">三维绘制不可用 · 离线识字路线</div><p>仍可按顺序读原卡和收集字印。</p></div>
+<div class="shade shadeTop"></div><div class="shade shadeBottom"></div>
+<div class="hudTop"><div class="roadBrand"><svg aria-hidden="true"><use href="#mark"/></svg><span>字野长路<small>HANZI TRAIL · 3D</small></span></div><div class="hudActions"><button id="levels"><svg class="ico"><use href="#map"/></svg><span>路线图</span></button><button id="archive"><svg class="ico"><use href="#book"/></svg><span>图鉴</span><b id="medals">0</b></button><button id="full" class="fullBtn"><svg class="ico"><use href="#fullIcon"/></svg><span id="fullLabel">全屏</span></button><button id="help" aria-label="旅途帮助">?</button></div></div>
+<section class="chapterHUD" aria-label="当前路段"><div class="rdmeta"><i></i><span id="chapterNo">ROUTE 01 / 08</span></div><h1 id="levelName">果木森林</h1><span id="chapterCopy">林间步道 · 果树与嫩芽</span></section>
+<div id="chapterSplash" aria-hidden="true"><small>ENTERING A NEW LANDSCAPE</small><b id="splashName"></b></div>
+<div id="introHint" role="status"><svg class="ico"><use href="#trail"/></svg>沿路前行，点两侧字牌看原卡。<button id="dismissHint" aria-label="收起提示">×</button></div>
+<div class="roadHUD"><button id="near" class="nearButton"><span class="specimen" id="nearChar">花</span><span><small>路边字牌 · 点开观察</small><b id="nearName">花 · huā</b></span><i>↗</i></button>
+<div class="controlPane"><button id="play" class="mainPlay" aria-label="暂停前进"><svg class="ico"><use id="playIcon" href="#pauseI"/></svg><span id="playText">暂停</span></button><button id="next" title="走到下一块字牌" aria-label="前往下一块字牌"><svg class="ico"><use href="#skip"/></svg><span>下一字</span></button><button id="speed" title="切换前进速度" aria-label="切换前进速度"><b id="speedText">1×</b><span>步速</span></button></div>
+<div class="meterBox"><div><span><i></i><b id="travelState">正在前进</b></span><strong id="distance">0 m</strong></div><div class="tripMeter"><i id="bar"></i></div><small id="progressInfo">第 1 / 414 块字牌</small></div></div>
+<dialog id="dialog" aria-label="旅行手册"><div class="modalTop"><span id="modalKicker">TRAIL NOTES</span><button id="close" aria-label="关闭">×</button></div><div id="panel"></div></dialog><div id="toast" role="status"></div>
+</main></body></html>
