@@ -1,138 +1,125 @@
 {
-  "completed_at": "2026-11-18T10:30:31.862110+00:00",
+  "completed_at": "2026-11-18T13:40:13.030159+00:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
-  "added": [],
-  "updated": [
-    "m144"
+  "added": [
+    "m147"
   ],
+  "updated": [],
   "migration_mode": "static-web",
-  "previous_source_version": 2,
   "discovery": {
-    "owner_sites_checked": 105,
+    "owner_sites_checked": 106,
     "pages": 3,
     "catalogue_source_changed": false,
     "catalogue_source_version": 22,
     "unpublished_or_inactive_skipped": 5
   },
-  "source_project": "appgprj_6afc241e19908191b37f3167e5cd721f",
-  "source_version": 3,
-  "source_version_id": "appgprj_6afc241e19908191b37f3167e5cd721f~appgver_a660856076f08191b236c8d45746d7e0",
-  "source_commit": "85109116cb53428f89ead52ef480f0c520cd8877",
+  "source_project": "appgprj_6afda14affb081918424e14c79849bf0",
+  "source_version": 1,
+  "source_version_id": "appgprj_6afda14affb081918424e14c79849bf0~appgver_85180272ce84819187535af4eca61995",
+  "source_commit": "033e1d71d243ca1b4dbfb24e636ecd7db92b9997",
   "source_deployment": {
-    "id": "appgdep_6afd76baad848191bff229382ccb677a",
+    "id": "appgdep_6afda63e32888191838d4feead1ee0ec",
     "status": "succeeded",
-    "version_id": "appgprj_6afc241e19908191b37f3167e5cd721f~appgver_a660856076f08191b236c8d45746d7e0",
-    "url": "https://yuwen-adventure-q4-20261117.yunjinzh.chatgpt.site",
-    "updated_at": "2026-11-18T09:58:31.819743+00:00"
+    "version_id": "appgprj_6afda14affb081918424e14c79849bf0~appgver_85180272ce84819187535af4eca61995",
+    "url": "https://mirror-atelier-demo.yunjinzh.chatgpt.site",
+    "updated_at": "2026-11-18T13:21:09.528977+00:00"
   },
-  "deployment_commit": "54585bb3c2f54e219636a3696afdcd7bf34edfe6",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44285515037",
+  "deployment_commit": "8c328d21ad693a59ac407707273c6f9399d04606",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44315510694",
   "deployment_workflow_conclusion": "success",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
-  "original_url": "https://yuwen-adventure-q4-20261117.yunjinzh.chatgpt.site",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m147/index.html",
+  "original_url": "https://mirror-atelier-demo.yunjinzh.chatgpt.site",
   "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
-  "catalogue_count": 146,
-  "web_count": 111,
+  "catalogue_count": 147,
+  "web_count": 112,
   "source_snapshot_check": {
     "ok": true,
-    "source_commit": "85109116cb53428f89ead52ef480f0c520cd8877",
-    "compared_files": 16,
+    "source_commit": "033e1d71d243ca1b4dbfb24e636ecd7db92b9997",
+    "compared_files": 12,
     "all_source_bytes_preserved": true,
+    "web_matches_original_build": true,
     "excluded_platform_configuration": [
       ".openai/hosting.json"
-    ],
-    "generated_metadata": [
-      "migration-assets.json"
     ]
   },
-  "update_summary": [
-    "Added units 3 and 4: 115 tasks across 16 levels, 48 stars, and 24 achievements.",
-    "Unit-specific mistake review and learning-record filters; old question IDs, corrected answers, stored progress and earned all-islands badge retained.",
-    "Independent JSON unit content and reproducible hashed assets; original single-file offline version retained and downloadable from the teacher guide."
+  "summary": [
+    "Added the runnable Mirror Atelier 2D styling demo with two adult-proportioned characters, 58 styles in 11 categories, five original scenes and three theme invitations.",
+    "Outfit editing, undo/redo, slot locks, explicit draft restoration and named local works remain available.",
+    "Portrait and landscape PNG exports were downloaded and decoded in the browser on the actual HTTPS deployment."
   ],
   "adaptation": {
     "original_source_unchanged": true,
-    "stable_module_id": "m144",
+    "module_id": "m147",
+    "web_matches_original_build": true,
     "changes": [
-      "Teacher-guide download link and its app.js cache hash.",
-      "Deterministic ZIP containing the exact original dist/offline.html; the archive stays self-contained through the shared Pages build."
+      "Shared site builder supplies module storage isolation and the GitHub Pages subpath."
     ],
     "backend_required": false,
-    "original_site_modified": false
+    "original_site_modified": false,
+    "scope": "Playable 2D sample; the upstream limitations and future 3D scope are preserved."
   },
   "upstream_validation": {
     "ok": true,
     "commands": [
-      "node scripts/build-content.cjs",
-      "node checks/game-check.cjs"
+      "python build.py",
+      "node engine-check.cjs"
     ],
     "build_reproduces_saved_source": true,
-    "units": 4,
-    "levels": 16,
-    "questions": 115,
-    "checks": [
-      "Content validation and confirmed corrections",
-      "Retries, hints, review, scoring, filters and report",
-      "Old progress and earned-badge migration",
-      "Simulated future unit with three levels",
-      "Single-file offline bundle syntax and no external script or stylesheet dependencies"
-    ]
+    "passed_state_and_storage_checks": 21,
+    "note": "Original state and persistence tests were followed by browser checks against the local build and real HTTPS deployment."
   },
   "incremental_sync_tests": {
     "passed": 7
   },
   "build": {
-    "catalogue": 146,
+    "catalogue": 147,
     "kinds": {
-      "web": 111,
+      "web": 112,
       "server": 14,
       "missing": 19,
       "extension": 1,
       "desktop": 1
     },
-    "files": 3696,
-    "bytes": 647900998
+    "files": 3698,
+    "bytes": 648004806
   },
   "local_validation": {
     "ok": true,
-    "entry": "http://127.0.0.1:4173/yunjin-tools/apps/m144/index.html",
+    "entry": "http://127.0.0.1:4173/yunjin-tools/apps/m147/index.html",
+    "source_version": 1,
     "local_resource_substitution": false,
+    "characters": 2,
+    "categories": 11,
+    "styles": 58,
+    "scenes": 5,
+    "style_selections": 116,
     "checks": [
-      "Four unit tabs, keyboard selection, and unchanged IDs/answers for all 54 existing questions",
-      "Wrong-answer feedback, correction scoring, reload persistence, and mistake review",
-      "Mistakes from units 3 and 4, unit-specific review, independent correction, and empty filter state",
-      "All 115 tasks and 16 levels: single/multiple choice, ordered word tiles, hints, no duplicate rewards, and 48 stars",
-      "Learning-record filters show only the selected unit and restore all 16 levels",
-      "24 achievements, persisted full progress, and downloaded learning report for all 4 units",
-      "Downloaded archive checksum and original HTML match; no external dependencies; offline interaction and retained progress on a loopback origin",
-      "Reset confirmation/cancel, persisted reset, and sound toggle state",
-      "768px and 390px map, question layout, and answer interaction",
-      "Existing v2 progress, 24 stars, mistakes, and earned all-islands badge survive update and new unit practice"
+      "Keyboard selection and undo/redo; face-category framing and locked view",
+      "All 58 styles selected on both characters (116 selections); independent slots, selected states and valid SVG previews",
+      "Accessory slots coexist; color and search; collar/hat feedback; random locks, one-step undo, manual override and held-item pose compatibility",
+      "All five stages and three theme invitations; theme reference conditions; actual portrait and landscape PNG downloads decoded at 1080×1350 and 1920×1080",
+      "Named work, immutable original, duplicate-name protection, save-copy, rename, delete cancel/confirm, full reopen, reversible role change, explicit draft restore and fresh start across reload",
+      "768px, 390px and 360px wardrobe, outfit interaction, stage and works without horizontal overflow"
     ],
-    "source_questions": 115,
-    "source_levels": 16,
-    "source_version": 3,
-    "archive": {
-      "ok": true,
-      "url": "http://127.0.0.1:4173/yunjin-tools/apps/m144/yuwen-adventure-offline-v3.zip",
-      "actual_browser_download": true,
-      "bytes": 34631,
-      "sha256": "5131727173b21821cfa606269317da79fffbd1da35b2ca01a97b93731fac067c",
-      "original_offline_html_sha256": "33f1418a596d516b09317953a51b71bd202314184ba65f330fc452798c1465d4"
-    },
-    "offline": {
-      "ok": true,
-      "execution": "Unmodified downloaded HTML served from temporary loopback origin; managed Chromium blocks file URLs",
-      "network_disabled_during_interaction": true,
-      "external_resource_requests": [],
-      "errors": [],
-      "checks": [
-        "Extracted original single HTML file with no external script or stylesheet references",
-        "All four units available",
-        "Unit 4 answer while offline; progress persists across document reload"
-      ]
-    },
+    "downloads": [
+      {
+        "format": "portrait",
+        "width": 1080,
+        "height": 1350,
+        "bytes": 828821,
+        "sha256": "8d0580834d565f0a3ef6adc789f7e5edde976053a35d0a4739e235c418ec93e2",
+        "actual_browser_download": true
+      },
+      {
+        "format": "landscape",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 1055709,
+        "sha256": "407f82bd2125cca8e83dd99883ea3fe0608cb31beb02f948a0b82775b091287e",
+        "actual_browser_download": true
+      }
+    ],
     "errors": [],
     "failures": []
   },
@@ -141,13 +128,13 @@
     "localAssets": true,
     "outcomes": [
       {
-        "id": "m144",
-        "name": "语文探险岛 · 四年级上册",
+        "id": "m147",
+        "name": "镜间造型室 · 二维互动 Demo",
         "http": 200,
         "errors": [],
         "failures": [],
-        "title": "语文探险岛 · 每一点好奇都闪光",
-        "textLength": 717,
+        "title": "镜间造型室 · MIRROR ATELIER",
+        "textLength": 547,
         "canvas": 0,
         "ok": true
       }
@@ -156,50 +143,47 @@
   "local_portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 146 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 147 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "browser_checks": {
     "ok": true,
-    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
+    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m147/index.html",
+    "source_version": 1,
     "local_resource_substitution": false,
+    "characters": 2,
+    "categories": 11,
+    "styles": 58,
+    "scenes": 5,
+    "style_selections": 116,
     "checks": [
-      "Four unit tabs, keyboard selection, and unchanged IDs/answers for all 54 existing questions",
-      "Wrong-answer feedback, correction scoring, reload persistence, and mistake review",
-      "Mistakes from units 3 and 4, unit-specific review, independent correction, and empty filter state",
-      "All 115 tasks and 16 levels: single/multiple choice, ordered word tiles, hints, no duplicate rewards, and 48 stars",
-      "Learning-record filters show only the selected unit and restore all 16 levels",
-      "24 achievements, persisted full progress, and downloaded learning report for all 4 units",
-      "Downloaded archive checksum and original HTML match; no external dependencies; offline interaction and retained progress on a loopback origin",
-      "Reset confirmation/cancel, persisted reset, and sound toggle state",
-      "768px and 390px map, question layout, and answer interaction",
-      "Existing v2 progress, 24 stars, mistakes, and earned all-islands badge survive update and new unit practice"
+      "Keyboard selection and undo/redo; face-category framing and locked view",
+      "All 58 styles selected on both characters (116 selections); independent slots, selected states and valid SVG previews",
+      "Accessory slots coexist; color and search; collar/hat feedback; random locks, one-step undo, manual override and held-item pose compatibility",
+      "All five stages and three theme invitations; theme reference conditions; actual portrait and landscape PNG downloads decoded at 1080×1350 and 1920×1080",
+      "Named work, immutable original, duplicate-name protection, save-copy, rename, delete cancel/confirm, full reopen, reversible role change, explicit draft restore and fresh start across reload",
+      "768px, 390px and 360px wardrobe, outfit interaction, stage and works without horizontal overflow"
     ],
-    "source_questions": 115,
-    "source_levels": 16,
-    "source_version": 3,
-    "archive": {
-      "ok": true,
-      "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/yuwen-adventure-offline-v3.zip",
-      "actual_browser_download": true,
-      "bytes": 34631,
-      "sha256": "5131727173b21821cfa606269317da79fffbd1da35b2ca01a97b93731fac067c",
-      "original_offline_html_sha256": "33f1418a596d516b09317953a51b71bd202314184ba65f330fc452798c1465d4"
-    },
-    "offline": {
-      "ok": true,
-      "execution": "Unmodified downloaded HTML served from temporary loopback origin; managed Chromium blocks file URLs",
-      "network_disabled_during_interaction": true,
-      "external_resource_requests": [],
-      "errors": [],
-      "checks": [
-        "Extracted original single HTML file with no external script or stylesheet references",
-        "All four units available",
-        "Unit 4 answer while offline; progress persists across document reload"
-      ]
-    },
+    "downloads": [
+      {
+        "format": "portrait",
+        "width": 1080,
+        "height": 1350,
+        "bytes": 828821,
+        "sha256": "8d0580834d565f0a3ef6adc789f7e5edde976053a35d0a4739e235c418ec93e2",
+        "actual_browser_download": true
+      },
+      {
+        "format": "landscape",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 1055709,
+        "sha256": "407f82bd2125cca8e83dd99883ea3fe0608cb31beb02f948a0b82775b091287e",
+        "actual_browser_download": true
+      }
+    ],
     "errors": [],
     "failures": []
   },
@@ -208,13 +192,13 @@
     "localAssets": false,
     "outcomes": [
       {
-        "id": "m144",
-        "name": "语文探险岛 · 四年级上册",
+        "id": "m147",
+        "name": "镜间造型室 · 二维互动 Demo",
         "http": 200,
         "errors": [],
         "failures": [],
-        "title": "语文探险岛 · 每一点好奇都闪光",
-        "textLength": 717,
+        "title": "镜间造型室 · MIRROR ATELIER",
+        "textLength": 547,
         "canvas": 0,
         "ok": true
       }
@@ -223,7 +207,7 @@
   "portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 146 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 147 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
@@ -236,13 +220,13 @@
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/",
         "bytes": 3854,
-        "sha256": "9d9de62b1a8581e153766d492551668b93388c8495f1d5d3c2e316aab2e0a8b1",
+        "sha256": "b6d9cf65a8ae3ff757d93f9136e07c4334c0908999370e3792108da101bd3ad3",
         "matches_build": true
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
-        "bytes": 94927,
-        "sha256": "b67c361806933a695446de8d26027217c956a4b769eec76c6ae6f1366d455485",
+        "bytes": 95670,
+        "sha256": "96ad6b836b46e308b03419833045fc241fc4a41262d70ca42887fddc540a9f1a",
         "matches_build": true
       },
       {
@@ -264,45 +248,15 @@
         "matches_build": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/app.js",
-        "bytes": 38378,
-        "sha256": "f800ccd5ce37865c2c44c41982a2b33f500867f83c3cbc6e4a8c4ec079d0447c",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m147/index.html",
+        "bytes": 102895,
+        "sha256": "9a3c0f097c11c53c343398b6a0a3d6e6288bd4f1d8c04f7b518ad3ceaa4a2e64",
         "matches_build": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/index.html",
-        "bytes": 932,
-        "sha256": "db09b61652416944d9bb9ea3d9990e3ff4bce698382dc3a3359edf98636f30fd",
-        "matches_build": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/migration-config.js",
-        "bytes": 263,
-        "sha256": "6832504fe05108ae2dae021acb91d95d30e76c7d648f123d0b5265a7bdebddcc",
-        "matches_build": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/offline.html",
-        "bytes": 113148,
-        "sha256": "067ce97b70c5ce0f18cf3f60617e203ab4f5d2bffdc4ec4cff0cd185bb1c6860",
-        "matches_build": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/questions.js",
-        "bytes": 48234,
-        "sha256": "a73003da229062ee311a9b1c409f55679a9263d1eb51f04bacede89a2e7e0ef1",
-        "matches_build": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/styles.css",
-        "bytes": 25971,
-        "sha256": "12189ce7bce74c74ebb8b773b07288a57485a6bd245c2d1a11ac568c77653011",
-        "matches_build": true
-      },
-      {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m144/yuwen-adventure-offline-v3.zip",
-        "bytes": 34631,
-        "sha256": "5131727173b21821cfa606269317da79fffbd1da35b2ca01a97b93731fac067c",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m147/migration-config.js",
+        "bytes": 170,
+        "sha256": "a13a45fa6a089e42817f31d22586b213d7027fee5f95e68f4398ec240d8c7ad0",
         "matches_build": true
       }
     ]
