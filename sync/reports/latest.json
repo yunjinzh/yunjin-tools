@@ -1,268 +1,385 @@
 {
-  "completed_at": "2026-11-18T13:40:13.030159+00:00",
+  "completed_at": "2026-11-18T22:22:30.850512+00:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
   "added": [
-    "m147"
+    "m148"
   ],
   "updated": [],
-  "migration_mode": "static-web",
+  "migration_mode": "server-source-only",
   "discovery": {
-    "owner_sites_checked": 106,
+    "owner_sites_checked": 107,
     "pages": 3,
-    "catalogue_source_changed": false,
     "catalogue_source_version": 22,
+    "catalogue_source_changed": false,
     "unpublished_or_inactive_skipped": 5
   },
-  "source_project": "appgprj_6afda14affb081918424e14c79849bf0",
+  "source_project": "appgprj_6afe1a96e5bc8191acd757b4a7eea287",
   "source_version": 1,
-  "source_version_id": "appgprj_6afda14affb081918424e14c79849bf0~appgver_85180272ce84819187535af4eca61995",
-  "source_commit": "033e1d71d243ca1b4dbfb24e636ecd7db92b9997",
+  "source_version_id": "appgprj_6afe1a96e5bc8191acd757b4a7eea287~appgver_82314d939a648191a00f7d0acbbda112",
+  "source_commit": "e531ccc3972ca6bb381129fe89113889f6dc859c",
   "source_deployment": {
-    "id": "appgdep_6afda63e32888191838d4feead1ee0ec",
+    "id": "appgdep_6afe1eee98a88191a432902407bfbe9e",
+    "project_id": "appgprj_6afe1a96e5bc8191acd757b4a7eea287",
+    "version_id": "appgprj_6afe1a96e5bc8191acd757b4a7eea287~appgver_82314d939a648191a00f7d0acbbda112",
     "status": "succeeded",
-    "version_id": "appgprj_6afda14affb081918424e14c79849bf0~appgver_85180272ce84819187535af4eca61995",
-    "url": "https://mirror-atelier-demo.yunjinzh.chatgpt.site",
-    "updated_at": "2026-11-18T13:21:09.528977+00:00"
+    "type": "publish",
+    "url": "https://miaomiao-card-audit.yunjinzh.chatgpt.site",
+    "updated_at": "2026-11-18T21:56:23.573907+00:00",
+    "failure_message": null
   },
-  "deployment_commit": "8c328d21ad693a59ac407707273c6f9399d04606",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44315510694",
+  "deployment_commit": "c807befe698a4662aa3464d9d17530d94027fa2e",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44410358705",
   "deployment_workflow_conclusion": "success",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m147/index.html",
-  "original_url": "https://mirror-atelier-demo.yunjinzh.chatgpt.site",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/details/m148.html",
+  "original_url": "https://miaomiao-card-audit.yunjinzh.chatgpt.site",
   "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
-  "catalogue_count": 147,
+  "catalogue_count": 148,
   "web_count": 112,
   "source_snapshot_check": {
     "ok": true,
-    "source_commit": "033e1d71d243ca1b4dbfb24e636ecd7db92b9997",
-    "compared_files": 12,
+    "source_commit": "e531ccc3972ca6bb381129fe89113889f6dc859c",
+    "compared_files": 1195,
     "all_source_bytes_preserved": true,
-    "web_matches_original_build": true,
     "excluded_platform_configuration": [
+      ".npmrc",
       ".openai/hosting.json"
-    ]
+    ],
+    "deduplicated_files": 17,
+    "cloud_database_read": false,
+    "original_site_modified": false
   },
   "summary": [
-    "Added the runnable Mirror Atelier 2D styling demo with two adult-proportioned characters, 58 styles in 11 categories, five original scenes and three theme invitations.",
-    "Outfit editing, undo/redo, slot locks, explicit draft restoration and named local works remain available.",
-    "Portrait and landscape PNG exports were downloaded and decoded in the browser on the actual HTTPS deployment."
+    "Archived the published Miaomiao 1000-card audit and delivery workbench as m148, preserving source files, bundled previews, baseline manifests and original resource links.",
+    "The GitHub Pages catalogue links to source and the original working site and explicitly identifies the Worker/D1 backend requirement.",
+    "No production ledger records, cloud database, uploaded runtime files or source-site access settings were copied or changed."
   ],
   "adaptation": {
     "original_source_unchanged": true,
-    "module_id": "m147",
-    "web_matches_original_build": true,
-    "changes": [
-      "Shared site builder supplies module storage isolation and the GitHub Pages subpath."
-    ],
-    "backend_required": false,
+    "module_id": "m148",
+    "backend_required": true,
+    "backend": "Cloudflare Worker and D1 DB audit_events table",
     "original_site_modified": false,
-    "scope": "Playable 2D sample; the upstream limitations and future 3D scope are preserved."
-  },
-  "upstream_validation": {
-    "ok": true,
-    "commands": [
-      "python build.py",
-      "node engine-check.cjs"
-    ],
-    "build_reproduces_saved_source": true,
-    "passed_state_and_storage_checks": 21,
-    "note": "Original state and persistence tests were followed by browser checks against the local build and real HTTPS deployment."
+    "new_backend_deployed": false
   },
   "incremental_sync_tests": {
     "passed": 7
   },
   "build": {
-    "catalogue": 147,
+    "catalogue": 148,
     "kinds": {
       "web": 112,
-      "server": 14,
+      "server": 15,
       "missing": 19,
       "extension": 1,
       "desktop": 1
     },
-    "files": 3698,
-    "bytes": 648004806
+    "files": 3699,
+    "bytes": 648006997
+  },
+  "asset_validation": {
+    "ok": true,
+    "asset_records": 3041,
+    "sha256_checked": true
   },
   "local_validation": {
     "ok": true,
-    "entry": "http://127.0.0.1:4173/yunjin-tools/apps/m147/index.html",
+    "entry": "http://127.0.0.1:4173/yunjin-tools/details/m148.html",
     "source_version": 1,
+    "migration_mode": "server-source-only",
     "local_resource_substitution": false,
-    "characters": 2,
-    "categories": 11,
-    "styles": 58,
-    "scenes": 5,
-    "style_selections": 116,
     "checks": [
-      "Keyboard selection and undo/redo; face-category framing and locked view",
-      "All 58 styles selected on both characters (116 selections); independent slots, selected states and valid SVG previews",
-      "Accessory slots coexist; color and search; collar/hat feedback; random locks, one-step undo, manual override and held-item pose compatibility",
-      "All five stages and three theme invitations; theme reference conditions; actual portrait and landscape PNG downloads decoded at 1080×1350 and 1920×1080",
-      "Named work, immutable original, duplicate-name protection, save-copy, rename, delete cancel/confirm, full reopen, reversible role change, explicit draft restore and fresh start across reload",
-      "768px, 390px and 360px wardrobe, outfit interaction, stage and works without horizontal overflow"
-    ],
-    "downloads": [
-      {
-        "format": "portrait",
-        "width": 1080,
-        "height": 1350,
-        "bytes": 828821,
-        "sha256": "8d0580834d565f0a3ef6adc789f7e5edde976053a35d0a4739e235c418ec93e2",
-        "actual_browser_download": true
-      },
-      {
-        "format": "landscape",
-        "width": 1920,
-        "height": 1080,
-        "bytes": 1055709,
-        "sha256": "407f82bd2125cca8e83dd99883ea3fe0608cb31beb02f948a0b82775b091287e",
-        "actual_browser_download": true
-      }
+      "Catalogue search and backend filter; new module opens its correct detail page with source, original-site links and explicit backend requirements",
+      "Desktop, tablet and 390/360px detail layouts; return to full catalogue"
     ],
     "errors": [],
     "failures": []
   },
-  "local_smoke_checks": {
-    "base": "http://127.0.0.1:4173/yunjin-tools/",
-    "localAssets": true,
-    "outcomes": [
-      {
-        "id": "m147",
-        "name": "镜间造型室 · 二维互动 Demo",
-        "http": 200,
-        "errors": [],
-        "failures": [],
-        "title": "镜间造型室 · MIRROR ATELIER",
-        "textLength": 547,
-        "canvas": 0,
-        "ok": true
-      }
-    ]
-  },
   "local_portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 147 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 148 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "browser_checks": {
     "ok": true,
-    "entry": "https://yunjinzh.github.io/yunjin-tools/apps/m147/index.html",
+    "entry": "https://yunjinzh.github.io/yunjin-tools/details/m148.html",
     "source_version": 1,
+    "migration_mode": "server-source-only",
     "local_resource_substitution": false,
-    "characters": 2,
-    "categories": 11,
-    "styles": 58,
-    "scenes": 5,
-    "style_selections": 116,
     "checks": [
-      "Keyboard selection and undo/redo; face-category framing and locked view",
-      "All 58 styles selected on both characters (116 selections); independent slots, selected states and valid SVG previews",
-      "Accessory slots coexist; color and search; collar/hat feedback; random locks, one-step undo, manual override and held-item pose compatibility",
-      "All five stages and three theme invitations; theme reference conditions; actual portrait and landscape PNG downloads decoded at 1080×1350 and 1920×1080",
-      "Named work, immutable original, duplicate-name protection, save-copy, rename, delete cancel/confirm, full reopen, reversible role change, explicit draft restore and fresh start across reload",
-      "768px, 390px and 360px wardrobe, outfit interaction, stage and works without horizontal overflow"
-    ],
-    "downloads": [
-      {
-        "format": "portrait",
-        "width": 1080,
-        "height": 1350,
-        "bytes": 828821,
-        "sha256": "8d0580834d565f0a3ef6adc789f7e5edde976053a35d0a4739e235c418ec93e2",
-        "actual_browser_download": true
-      },
-      {
-        "format": "landscape",
-        "width": 1920,
-        "height": 1080,
-        "bytes": 1055709,
-        "sha256": "407f82bd2125cca8e83dd99883ea3fe0608cb31beb02f948a0b82775b091287e",
-        "actual_browser_download": true
-      }
+      "Catalogue search and backend filter; new module opens its correct detail page with source, original-site links and explicit backend requirements",
+      "Desktop, tablet and 390/360px detail layouts; return to full catalogue"
     ],
     "errors": [],
     "failures": []
   },
-  "smoke_checks": {
-    "base": "https://yunjinzh.github.io/yunjin-tools/",
-    "localAssets": false,
-    "outcomes": [
-      {
-        "id": "m147",
-        "name": "镜间造型室 · 二维互动 Demo",
-        "http": 200,
-        "errors": [],
-        "failures": [],
-        "title": "镜间造型室 · MIRROR ATELIER",
-        "textLength": 547,
-        "canvas": 0,
-        "ok": true
-      }
-    ]
-  },
   "portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 147 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 148 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "http_checks": {
     "ok": true,
+    "deployment_commit": "c807befe698a4662aa3464d9d17530d94027fa2e",
     "base": "https://yunjinzh.github.io/yunjin-tools/",
     "local_resource_substitution": false,
+    "pages_files": 6,
+    "source_files": 11,
+    "deduplicated_assets": 17,
     "files": [
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/",
         "bytes": 3854,
-        "sha256": "b6d9cf65a8ae3ff757d93f9136e07c4334c0908999370e3792108da101bd3ad3",
-        "matches_build": true
+        "sha256": "2bb71203185417ccc339fde33851f46a9287742a19a919c77d5dd5806c0faa12",
+        "matches_build_or_source": true,
+        "kind": "pages"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
-        "bytes": 95670,
-        "sha256": "96ad6b836b46e308b03419833045fc241fc4a41262d70ca42887fddc540a9f1a",
-        "matches_build": true
+        "bytes": 96586,
+        "sha256": "e9e5b0d64aad538a951c133f34d8ad78c7e55449279c7872f2cf362a3cad6639",
+        "matches_build_or_source": true,
+        "kind": "pages"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/runtime.js",
         "bytes": 5207,
         "sha256": "19c4c5ea3f45222ab8544998dffe6c188922756a41eab13b3c4bd259768665a0",
-        "matches_build": true
+        "matches_build_or_source": true,
+        "kind": "pages"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/portal/app.js",
         "bytes": 3777,
         "sha256": "982ea5fe3ca1f24d7e70ee15988f538168abfd92373637f562a4ec9fc5e558d4",
-        "matches_build": true
+        "matches_build_or_source": true,
+        "kind": "pages"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/portal/style.css",
         "bytes": 8684,
         "sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c",
-        "matches_build": true
+        "matches_build_or_source": true,
+        "kind": "pages"
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m147/index.html",
-        "bytes": 102895,
-        "sha256": "9a3c0f097c11c53c343398b6a0a3d6e6288bd4f1d8c04f7b518ad3ceaa4a2e64",
-        "matches_build": true
+        "url": "https://yunjinzh.github.io/yunjin-tools/details/m148.html",
+        "bytes": 1275,
+        "sha256": "39f259b26a7b41d89c1cf256aee281eff5e87027145d60124985b52c61c1beac",
+        "matches_build_or_source": true,
+        "kind": "pages"
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m147/migration-config.js",
-        "bytes": 170,
-        "sha256": "a13a45fa6a089e42817f31d22586b213d7027fee5f95e68f4398ec240d8c7ad0",
-        "matches_build": true
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/README.md",
+        "bytes": 10934,
+        "sha256": "6a8169063d2b024fcbe791837621e0f2bd9863968b5d654d2a0975e76e2ad7f8",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/app/Audit.jsx",
+        "bytes": 17479,
+        "sha256": "61349376f90b8999ff4001a7ed42dc261abb7c21b6c5cd004fd32cda2e71df90",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/app/api/ledger/route.ts",
+        "bytes": 3558,
+        "sha256": "f50f7b2de90d3c9496ce2acc964fce89a8cf682536d0d4df4d0775027725ae9d",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/db/schema.ts",
+        "bytes": 463,
+        "sha256": "731b86372f9bcf97db7c9a84ad861955a8ff419259eae714f078f71e8db981d7",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/drizzle/0000_wealthy_cannonball.sql",
+        "bytes": 410,
+        "sha256": "8a0ade0ac23aeed103cd159623dd8b564c0ad0947b57f58fcb6554beee940bf8",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/evidence/catalog.json",
+        "bytes": 1167427,
+        "sha256": "144507f9fcb23a5ddfeb0f76430ec7e180da15a1d881fbe45e9216c6ce713f99",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/cards/0001.webp",
+        "bytes": 30592,
+        "sha256": "b3ac59da31475dfed4d8484f553951a9a405c87347c2a78f1296beac3e7be463",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/cards/1000.webp",
+        "bytes": 25714,
+        "sha256": "ff83e614496ab1e67e855a4c8dada91e0e757c0e0b6d7e4809a111f59b6724cb",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/downloads/merge-macos-linux.sh",
+        "bytes": 2233,
+        "sha256": "e3c4d2e9d16f79f4eb3986b7c88a05ec1a4c44cab96ebdb5cf34b43212ff3bec",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/downloads/merge-windows.cmd",
+        "bytes": 3954,
+        "sha256": "4a68d38d273c58381fd6fa99f73c533b478e0b36c39e3b724caf30d264216fef",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/migration-assets.json",
+        "bytes": 1941,
+        "sha256": "e10039c8f839ef94c257ad434cb793ae69de7206c1a7b80286f9d7882b55bd43",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/0008ad313ce4c4a628d60a1876a7c2aa7674788aa94c927c858dd2834868fa53.webp",
+        "bytes": 67994,
+        "sha256": "0008ad313ce4c4a628d60a1876a7c2aa7674788aa94c927c858dd2834868fa53",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/06da4346f7ba6c21655dd0929272179dee62e4fb17a16d38ea5d38dbcb79f6e4.webp",
+        "bytes": 70046,
+        "sha256": "06da4346f7ba6c21655dd0929272179dee62e4fb17a16d38ea5d38dbcb79f6e4",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/06e838158f78c8d56e09783a3b498b79783020136ddd23faa5245f8244954653.webp",
+        "bytes": 69818,
+        "sha256": "06e838158f78c8d56e09783a3b498b79783020136ddd23faa5245f8244954653",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/13a1c79f7df1bd204b09662bf297ca18c354cc00b6efed6f188ccc31eda282df.webp",
+        "bytes": 72066,
+        "sha256": "13a1c79f7df1bd204b09662bf297ca18c354cc00b6efed6f188ccc31eda282df",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/1b8ce23d54eac856dd0333326e453543743965d0d406791391d1234b5ada80b6.webp",
+        "bytes": 66322,
+        "sha256": "1b8ce23d54eac856dd0333326e453543743965d0d406791391d1234b5ada80b6",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/1d9969acd62b57fd81441a7856d933f51e9b664f5443bd08dd0a43725bf17ba2.webp",
+        "bytes": 66802,
+        "sha256": "1d9969acd62b57fd81441a7856d933f51e9b664f5443bd08dd0a43725bf17ba2",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/44a312f7688c3798bda64ecc62e04d0de4a0c90f1d1dd83fdccca96a516f49b2.webp",
+        "bytes": 66640,
+        "sha256": "44a312f7688c3798bda64ecc62e04d0de4a0c90f1d1dd83fdccca96a516f49b2",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/59503d10cc582098187fe86eb209dd04ffc0e51097fc0af2dd688f8b254a2ef0.webp",
+        "bytes": 67188,
+        "sha256": "59503d10cc582098187fe86eb209dd04ffc0e51097fc0af2dd688f8b254a2ef0",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/783e46583e6d5f4b7692d3a22b3a31c9fb1e3b1cf9d1da014db06efaab14c9d1.webp",
+        "bytes": 68596,
+        "sha256": "783e46583e6d5f4b7692d3a22b3a31c9fb1e3b1cf9d1da014db06efaab14c9d1",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/ac6ac2c6ca917ee74cc0f6b60e92ea6718a349842feb25a101e4634c5cebf480.webp",
+        "bytes": 71194,
+        "sha256": "ac6ac2c6ca917ee74cc0f6b60e92ea6718a349842feb25a101e4634c5cebf480",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/c7ac20572ca505e1be63e03ceea0aaa4c42ce90d71ca09c51c4479fc67ec6183.webp",
+        "bytes": 65864,
+        "sha256": "c7ac20572ca505e1be63e03ceea0aaa4c42ce90d71ca09c51c4479fc67ec6183",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/cacc1df0c4bf01bdb40b907ee8b8a79ca058f00cb59c853db17c8e7f50382c51.webp",
+        "bytes": 74116,
+        "sha256": "cacc1df0c4bf01bdb40b907ee8b8a79ca058f00cb59c853db17c8e7f50382c51",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/ece704248b44fc5450dfa55b67b98510517fda70043d0731b6a38f48746d01a2.webp",
+        "bytes": 65912,
+        "sha256": "ece704248b44fc5450dfa55b67b98510517fda70043d0731b6a38f48746d01a2",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/edbc887684a003e1c7746544e9b9e5d7b48160426ee48aabc96a9da5942f22ee.webp",
+        "bytes": 66418,
+        "sha256": "edbc887684a003e1c7746544e9b9e5d7b48160426ee48aabc96a9da5942f22ee",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/edbfc768764080c7c313875720aa17a0e7fb72f534c45cebe3ff2f8e52beefb6.webp",
+        "bytes": 66070,
+        "sha256": "edbfc768764080c7c313875720aa17a0e7fb72f534c45cebe3ff2f8e52beefb6",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/fbfff569ecfe68cd5826f0286f533a4cec3150ff2eebc7e5490ae188bed0f774.webp",
+        "bytes": 68862,
+        "sha256": "fbfff569ecfe68cd5826f0286f533a4cec3150ff2eebc7e5490ae188bed0f774",
+        "matches_build_or_source": true,
+        "kind": "source"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/fef0ea8defe652add6327f28bba6389ab0455f13ce0debed2061a21b36a8376e.webp",
+        "bytes": 68216,
+        "sha256": "fef0ea8defe652add6327f28bba6389ab0455f13ce0debed2061a21b36a8376e",
+        "matches_build_or_source": true,
+        "kind": "source"
       }
     ]
   },
+  "validation_scope": [
+    "Verified the source snapshot and actual Pages catalogue/detail page; source publication was confirmed through Sites deployment metadata.",
+    "This is a source-only server import. No new Worker/database was built or deployed, and no original production ledger actions were exercised.",
+    "Google Drive delivery archives remain at their original links and were not downloaded or reverified during this source synchronization; no new installable package or Release was created."
+  ],
   "known_remaining": {
-    "server_source_only": 14,
+    "server_source_only": 15,
     "missing_original_files": 19
   },
   "new_blockers": []
