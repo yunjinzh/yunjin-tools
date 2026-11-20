@@ -17,7 +17,12 @@
       "version": 1
     },
     "appgprj_6af2679589408191bf68225669b608b9": {
-      "version": 4
+      "version": 5,
+      "source_commit": "5796f534eb0eb33ed697c904260c7ea208041819",
+      "source_version_id": "appgprj_6af2679589408191bf68225669b608b9~appgver_f71ad5c797c0819186433f8a057b6b2c",
+      "classification": "internal-data-source",
+      "sync_disposition": "skip",
+      "reason": "Read-only JSON catalogue feed for an existing learning page, not a standalone runnable tool. Reviewed README and feed routes; no source or catalogue data imported and no upstream access changes."
     },
     "appgprj_6af15135565c8191ab5a4ab2e192fc97": {
       "version": 2
