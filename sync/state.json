@@ -333,10 +333,15 @@
       "version": 1
     },
     "appgprj_6b022f958c6881918e3e13e5647bc791": {
-      "version": 1
+      "version": 2
     }
   },
-  "pending_verification": {},
+  "pending_verification": {
+    "appgprj_6b022f958c6881918e3e13e5647bc791": {
+      "module": "m149",
+      "version": 2
+    }
+  },
   "verified": {
     "appgprj_6afbcd27f570819193859b4c241e9f8c": {
       "module": "m143",
