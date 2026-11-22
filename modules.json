@@ -2224,5 +2224,21 @@
     "kind": "server",
     "migration": "source",
     "migration_note": "源码已同步；此项目需要独立后端，GitHub Pages 不执行服务器或云数据库服务。"
+  },
+  {
+    "id": "m150",
+    "name": "屿境 · 数字孪生工作室",
+    "description": "浏览器中的三维园区编辑与导览工具，内置92个场景对象和667项资源，支持天气与光照、植被布置、交通仿真、关键帧编排、项目 JSON 和 WebM 视频导出，并可下载离线工作室。",
+    "category": "空间与三维",
+    "original_url": "https://isle-twin-studio-yj.yunjinzh.chatgpt.site",
+    "original_status": "原站第1版已成功发布；独立静态网页，项目草稿保存在当前浏览器。Pages 沿用原场景和交互，离线下载提供含单文件 HTML 的 ZIP；不包含原站个人草稿或上传模型。",
+    "source": "sources/m150",
+    "source_project": "appgprj_6b02a66cc2b88191a2742d6c482bc87e",
+    "source_version": 1,
+    "source_commit": "b9f57ebd32b661f1e93c58c10921a69cc5d7b17c",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m150",
+    "entry": "index.html"
   }
 ]
