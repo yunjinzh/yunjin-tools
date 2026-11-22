@@ -1,81 +1,219 @@
 {
-  "completed_at": "2026-11-18T22:22:30.850512+00:00",
+  "completed_at": "2026-11-22T00:42:11.876325+00:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
   "added": [
-    "m148"
+    "m149"
   ],
   "updated": [],
   "migration_mode": "server-source-only",
   "discovery": {
-    "owner_sites_checked": 107,
-    "pages": 3,
-    "catalogue_source_version": 22,
-    "catalogue_source_changed": false,
-    "unpublished_or_inactive_skipped": 5
-  },
-  "source_project": "appgprj_6afe1a96e5bc8191acd757b4a7eea287",
-  "source_version": 1,
-  "source_version_id": "appgprj_6afe1a96e5bc8191acd757b4a7eea287~appgver_82314d939a648191a00f7d0acbbda112",
-  "source_commit": "e531ccc3972ca6bb381129fe89113889f6dc859c",
-  "source_deployment": {
-    "id": "appgdep_6afe1eee98a88191a432902407bfbe9e",
-    "project_id": "appgprj_6afe1a96e5bc8191acd757b4a7eea287",
-    "version_id": "appgprj_6afe1a96e5bc8191acd757b4a7eea287~appgver_82314d939a648191a00f7d0acbbda112",
-    "status": "succeeded",
-    "type": "publish",
-    "url": "https://miaomiao-card-audit.yunjinzh.chatgpt.site",
-    "updated_at": "2026-11-18T21:56:23.573907+00:00",
-    "failure_message": null
-  },
-  "deployment_commit": "c807befe698a4662aa3464d9d17530d94027fa2e",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44410358705",
-  "deployment_workflow_conclusion": "success",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/details/m148.html",
-  "original_url": "https://miaomiao-card-audit.yunjinzh.chatgpt.site",
-  "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
-  "catalogue_count": 148,
-  "web_count": 112,
-  "source_snapshot_check": {
-    "ok": true,
-    "source_commit": "e531ccc3972ca6bb381129fe89113889f6dc859c",
-    "compared_files": 1195,
-    "all_source_bytes_preserved": true,
-    "excluded_platform_configuration": [
-      ".npmrc",
-      ".openai/hosting.json"
+    "owner_sites": 108,
+    "pages": [
+      50,
+      50,
+      8
     ],
-    "deduplicated_files": 17,
-    "cloud_database_read": false,
-    "original_site_modified": false
+    "catalogue_version": 22,
+    "catalogue_changed": false
   },
+  "source_project": "appgprj_6b022f958c6881918e3e13e5647bc791",
+  "source_version": 1,
+  "source_version_id": "appgprj_6b022f958c6881918e3e13e5647bc791~appgver_0a8b6ba4f96c8191b4bf37377ee78f4c",
+  "source_commit": "61bde910d1ff93a6c4a3934eb1ac492b434bdf26",
+  "source_deployment": {
+    "id": "appgdep_6b02321e93548191bcf91ed603b26873",
+    "status": "succeeded",
+    "published_at": "2026-11-22T00:07:00.124856+00:00",
+    "url": "https://mirror-atelier-yunjin.yunjinzh.chatgpt.site"
+  },
+  "deployment_commit": "662bcd2c2481587c51539063ee0e81ed5fce527d",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44967642146",
+  "deployment_workflow_conclusion": "success",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/details/m149.html",
+  "original_url": "https://mirror-atelier-yunjin.yunjinzh.chatgpt.site",
+  "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
+  "catalogue_count": 149,
+  "web_count": 112,
   "summary": [
-    "Archived the published Miaomiao 1000-card audit and delivery workbench as m148, preserving source files, bundled previews, baseline manifests and original resource links.",
-    "The GitHub Pages catalogue links to source and the original working site and explicitly identifies the Worker/D1 backend requirement.",
-    "No production ledger records, cloud database, uploaded runtime files or source-site access settings were copied or changed."
+    "Archived the published Mirror Atelier styling and lookbook tool as m149; the independent m147 two-dimensional demo and all prior module entries are unchanged.",
+    "Preserved 21 original source files and 5292 reference-catalogue entries, excluding platform hosting configuration. Original image hosts and licensing notes remain intact.",
+    "The actual Pages catalogue and detail page identify the backend requirement and explicitly state that AI generation is not configured or verified."
   ],
   "adaptation": {
     "original_source_unchanged": true,
-    "module_id": "m148",
+    "module_id": "m149",
     "backend_required": true,
-    "backend": "Cloudflare Worker and D1 DB audit_events table",
+    "backend": "Cloudflare Worker, trusted site identity and image-generation service",
     "original_site_modified": false,
-    "new_backend_deployed": false
+    "new_backend_deployed": false,
+    "runtime_secrets_or_user_data_copied": false,
+    "third_party_images_bulk_copied": false
+  },
+  "source_snapshot_check": {
+    "ok": true,
+    "source_commit": "61bde910d1ff93a6c4a3934eb1ac492b434bdf26",
+    "tracked_files": 22,
+    "preserved_files": 21,
+    "preserved_bytes": 5876549,
+    "excluded_platform_configuration": [
+      ".openai/hosting.json"
+    ],
+    "deduplicated_assets": 0,
+    "all_original_files_match": true,
+    "personal_runtime_data_copied": false,
+    "third_party_images_downloaded": false,
+    "files": [
+      {
+        "path": ".gitignore",
+        "bytes": 18,
+        "sha256": "d0fc69648a6324ef66f032712b68ae1f0f24a2a954daa8308da38a45c6a6057b"
+      },
+      {
+        "path": "README.md",
+        "bytes": 1958,
+        "sha256": "b84ffd9724561fb335119e308d1ed20a3b44a788acefff2e0e8e96a2d3dfa282"
+      },
+      {
+        "path": "data/anime.json",
+        "bytes": 743962,
+        "sha256": "2770014860ee5d61e18796e0ceb085a000f1b1c303d355762b50c7c1606cfd58"
+      },
+      {
+        "path": "data/costumes.json",
+        "bytes": 595774,
+        "sha256": "2cee954fb7007efe5335a98496235b9a50de5ec956c174276ca9208a9ec8d3a2"
+      },
+      {
+        "path": "data/dynasties.json",
+        "bytes": 72492,
+        "sha256": "3b06c6a695f3f638e19acb1f396aa0fad49cb3f52bd1bb8a27770ff84755e6b4"
+      },
+      {
+        "path": "data/expressions.json",
+        "bytes": 76716,
+        "sha256": "2d7bb3c3430dde4e4f6aaecfb0130ad9fb7bfe5a5b543c9d077789878981ef8a"
+      },
+      {
+        "path": "data/hair.json",
+        "bytes": 68975,
+        "sha256": "ed804ff71c5ff6c9a2a79d4943fbbc7a24b055286de6e9e6691ee065b7f5064f"
+      },
+      {
+        "path": "data/portraits.json",
+        "bytes": 969159,
+        "sha256": "0b8834f90f214fdec97bcc498aed4174a4e0c84240a4499029bcbfc72db4e9d7"
+      },
+      {
+        "path": "data/poses.json",
+        "bytes": 276654,
+        "sha256": "2383bf449fa8ddf42ecac8654aa67f679a0778ad49c28ebd26c215c1435ec0ad"
+      },
+      {
+        "path": "data/scenes.json",
+        "bytes": 83046,
+        "sha256": "7150754a14cb4d69fce2a138822b3f0511b6d2ffdce0a649906a678bdc7534bf"
+      },
+      {
+        "path": "package.json",
+        "bytes": 254,
+        "sha256": "d143784176d18e623cedd02e97e3c159886ffe1d31a3b70d10241960ac8d4842"
+      },
+      {
+        "path": "scripts/assemble.mjs",
+        "bytes": 549,
+        "sha256": "807e5e7ee52c6c14860131b82c408311c671872991640e31bc3ba680dc24208f"
+      },
+      {
+        "path": "scripts/build.sh",
+        "bytes": 366,
+        "sha256": "76bddebeb2accb38b37de0673778d7bf3119bc7da7ed5ae4c1d4c9884969848f"
+      },
+      {
+        "path": "scripts/check.mjs",
+        "bytes": 2205,
+        "sha256": "1dcde5308de29712e4b148164a0fd4679ea2fb7b19d5f809912d90d5eee61da6"
+      },
+      {
+        "path": "scripts/dev.mjs",
+        "bytes": 842,
+        "sha256": "0778fce60f2be94481be4218f2ae6d39c469072c2a9414d416610b4b5a37a70a"
+      },
+      {
+        "path": "scripts/validate-artifact.mjs",
+        "bytes": 953,
+        "sha256": "39d9df53ac2461962466d5965c5f4d06f08024ceca40605952d8b753b88d41fd"
+      },
+      {
+        "path": "src/app.css",
+        "bytes": 15508,
+        "sha256": "56d442bf93fbe970eb6fd4b283726aae9082ff5d5edf93d69b40acf2a57d8b6c"
+      },
+      {
+        "path": "src/app.js",
+        "bytes": 21112,
+        "sha256": "7d36d62abf53b29bcb34d08c9e46bc8fd9b489eaff572de401cd7238acc8379c"
+      },
+      {
+        "path": "src/index.html",
+        "bytes": 4940,
+        "sha256": "40ea9172957222ce7d24068bb0a98e1413bfdd24357c3fecd9423c8b1992e55f"
+      },
+      {
+        "path": "src/server.js",
+        "bytes": 6045,
+        "sha256": "dd2a8d8a0242fba4f9ef16a56ff55a03c9edeec88ee959b7a280426bc14c1f8e"
+      },
+      {
+        "path": "worker/index.js",
+        "bytes": 2935021,
+        "sha256": "cc152c84108ece9da86212829656ef9955a816fd1547f2ea18e11462ebc509d3"
+      }
+    ]
+  },
+  "source_build_and_regression": {
+    "ok": true,
+    "source_commit": "61bde910d1ff93a6c4a3934eb1ac492b434bdf26",
+    "build": "npm run build",
+    "artifact_validation": "npm run validate",
+    "regression": "node scripts/check.mjs",
+    "catalogue_entries": 5292,
+    "deterministic_worker": true,
+    "worker_bytes": 2935021,
+    "worker_sha256": "cc152c84108ece9da86212829656ef9955a816fd1547f2ea18e11462ebc509d3",
+    "live_generation_verified": false,
+    "generation_test_uses_mock": true,
+    "runtime_secret_configured": false
+  },
+  "local_source_browser": {
+    "ok": true,
+    "scope": "Isolated local execution of exact saved Worker source; no production session or runtime secrets",
+    "checks": [
+      "Real catalogue loads; search and favorites filter work",
+      "Choose clothing, save a look, reset and restore it",
+      "Local saved look survives reload and can be deleted",
+      "Unavailable AI service shown honestly; download disabled and no generation POST sent"
+    ],
+    "local_resource_substitution": false,
+    "live_generation_verified": false,
+    "errors": [],
+    "externalFailures": [],
+    "posts": []
   },
   "incremental_sync_tests": {
     "passed": 7
   },
   "build": {
-    "catalogue": 148,
+    "catalogue": 149,
     "kinds": {
       "web": 112,
-      "server": 15,
+      "server": 16,
       "missing": 19,
       "extension": 1,
       "desktop": 1
     },
-    "files": 3699,
-    "bytes": 648006997
+    "files": 3700,
+    "bytes": 648009422
   },
   "asset_validation": {
     "ok": true,
@@ -84,13 +222,15 @@
   },
   "local_validation": {
     "ok": true,
-    "entry": "http://127.0.0.1:4173/yunjin-tools/details/m148.html",
+    "entry": "http://127.0.0.1:4173/yunjin-tools/details/m149.html",
     "source_version": 1,
     "migration_mode": "server-source-only",
     "local_resource_substitution": false,
+    "live_generation_verified": false,
     "checks": [
-      "Catalogue search and backend filter; new module opens its correct detail page with source, original-site links and explicit backend requirements",
-      "Desktop, tablet and 390/360px detail layouts; return to full catalogue"
+      "149-module catalogue; both independent Mirror Atelier projects retained; backend filter, exact search and detail navigation",
+      "Correct source and original-site links; explicit backend, identity and unavailable AI-generation notices",
+      "Desktop, tablet, 390/360px detail layouts; return to full catalogue"
     ],
     "errors": [],
     "failures": []
@@ -98,20 +238,22 @@
   "local_portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 148 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 149 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "browser_checks": {
     "ok": true,
-    "entry": "https://yunjinzh.github.io/yunjin-tools/details/m148.html",
+    "entry": "https://yunjinzh.github.io/yunjin-tools/details/m149.html",
     "source_version": 1,
     "migration_mode": "server-source-only",
     "local_resource_substitution": false,
+    "live_generation_verified": false,
     "checks": [
-      "Catalogue search and backend filter; new module opens its correct detail page with source, original-site links and explicit backend requirements",
-      "Desktop, tablet and 390/360px detail layouts; return to full catalogue"
+      "149-module catalogue; both independent Mirror Atelier projects retained; backend filter, exact search and detail navigation",
+      "Correct source and original-site links; explicit backend, identity and unavailable AI-generation notices",
+      "Desktop, tablet, 390/360px detail layouts; return to full catalogue"
     ],
     "errors": [],
     "failures": []
@@ -119,31 +261,31 @@
   "portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 148 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 149 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "http_checks": {
     "ok": true,
-    "deployment_commit": "c807befe698a4662aa3464d9d17530d94027fa2e",
+    "deployment_commit": "662bcd2c2481587c51539063ee0e81ed5fce527d",
     "base": "https://yunjinzh.github.io/yunjin-tools/",
     "local_resource_substitution": false,
     "pages_files": 6,
-    "source_files": 11,
-    "deduplicated_assets": 17,
+    "source_files": 22,
+    "documentation_files": 1,
     "files": [
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/",
         "bytes": 3854,
-        "sha256": "2bb71203185417ccc339fde33851f46a9287742a19a919c77d5dd5806c0faa12",
+        "sha256": "a6e85cc2e19ce955623c8bb399bf32c26a03524ec703cd9b98828345c99fc0d8",
         "matches_build_or_source": true,
         "kind": "pages"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
-        "bytes": 96586,
-        "sha256": "e9e5b0d64aad538a951c133f34d8ad78c7e55449279c7872f2cf362a3cad6639",
+        "bytes": 97628,
+        "sha256": "6f6c4b1afeac7f71a18e3897eb30abc00914cdafd9e36e2e691f4533819149e9",
         "matches_build_or_source": true,
         "kind": "pages"
       },
@@ -169,217 +311,191 @@
         "kind": "pages"
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/details/m148.html",
-        "bytes": 1275,
-        "sha256": "39f259b26a7b41d89c1cf256aee281eff5e87027145d60124985b52c61c1beac",
+        "url": "https://yunjinzh.github.io/yunjin-tools/details/m149.html",
+        "bytes": 1383,
+        "sha256": "e64e60f74ff9d29169e01525a82727d644deab3696425ce0a6968021e15b177e",
         "matches_build_or_source": true,
         "kind": "pages"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/README.md",
-        "bytes": 10934,
-        "sha256": "6a8169063d2b024fcbe791837621e0f2bd9863968b5d654d2a0975e76e2ad7f8",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/.gitignore",
+        "bytes": 18,
+        "sha256": "d0fc69648a6324ef66f032712b68ae1f0f24a2a954daa8308da38a45c6a6057b",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/app/Audit.jsx",
-        "bytes": 17479,
-        "sha256": "61349376f90b8999ff4001a7ed42dc261abb7c21b6c5cd004fd32cda2e71df90",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/README.md",
+        "bytes": 1958,
+        "sha256": "b84ffd9724561fb335119e308d1ed20a3b44a788acefff2e0e8e96a2d3dfa282",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/app/api/ledger/route.ts",
-        "bytes": 3558,
-        "sha256": "f50f7b2de90d3c9496ce2acc964fce89a8cf682536d0d4df4d0775027725ae9d",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/data/anime.json",
+        "bytes": 743962,
+        "sha256": "2770014860ee5d61e18796e0ceb085a000f1b1c303d355762b50c7c1606cfd58",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/db/schema.ts",
-        "bytes": 463,
-        "sha256": "731b86372f9bcf97db7c9a84ad861955a8ff419259eae714f078f71e8db981d7",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/data/costumes.json",
+        "bytes": 595774,
+        "sha256": "2cee954fb7007efe5335a98496235b9a50de5ec956c174276ca9208a9ec8d3a2",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/drizzle/0000_wealthy_cannonball.sql",
-        "bytes": 410,
-        "sha256": "8a0ade0ac23aeed103cd159623dd8b564c0ad0947b57f58fcb6554beee940bf8",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/data/dynasties.json",
+        "bytes": 72492,
+        "sha256": "3b06c6a695f3f638e19acb1f396aa0fad49cb3f52bd1bb8a27770ff84755e6b4",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/evidence/catalog.json",
-        "bytes": 1167427,
-        "sha256": "144507f9fcb23a5ddfeb0f76430ec7e180da15a1d881fbe45e9216c6ce713f99",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/data/expressions.json",
+        "bytes": 76716,
+        "sha256": "2d7bb3c3430dde4e4f6aaecfb0130ad9fb7bfe5a5b543c9d077789878981ef8a",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/cards/0001.webp",
-        "bytes": 30592,
-        "sha256": "b3ac59da31475dfed4d8484f553951a9a405c87347c2a78f1296beac3e7be463",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/data/hair.json",
+        "bytes": 68975,
+        "sha256": "ed804ff71c5ff6c9a2a79d4943fbbc7a24b055286de6e9e6691ee065b7f5064f",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/cards/1000.webp",
-        "bytes": 25714,
-        "sha256": "ff83e614496ab1e67e855a4c8dada91e0e757c0e0b6d7e4809a111f59b6724cb",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/data/portraits.json",
+        "bytes": 969159,
+        "sha256": "0b8834f90f214fdec97bcc498aed4174a4e0c84240a4499029bcbfc72db4e9d7",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/downloads/merge-macos-linux.sh",
-        "bytes": 2233,
-        "sha256": "e3c4d2e9d16f79f4eb3986b7c88a05ec1a4c44cab96ebdb5cf34b43212ff3bec",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/data/poses.json",
+        "bytes": 276654,
+        "sha256": "2383bf449fa8ddf42ecac8654aa67f679a0778ad49c28ebd26c215c1435ec0ad",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/public/downloads/merge-windows.cmd",
-        "bytes": 3954,
-        "sha256": "4a68d38d273c58381fd6fa99f73c533b478e0b36c39e3b724caf30d264216fef",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/data/scenes.json",
+        "bytes": 83046,
+        "sha256": "7150754a14cb4d69fce2a138822b3f0511b6d2ffdce0a649906a678bdc7534bf",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/sources/m148/migration-assets.json",
-        "bytes": 1941,
-        "sha256": "e10039c8f839ef94c257ad434cb793ae69de7206c1a7b80286f9d7882b55bd43",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/migration-assets.json",
+        "bytes": 3,
+        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/0008ad313ce4c4a628d60a1876a7c2aa7674788aa94c927c858dd2834868fa53.webp",
-        "bytes": 67994,
-        "sha256": "0008ad313ce4c4a628d60a1876a7c2aa7674788aa94c927c858dd2834868fa53",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/package.json",
+        "bytes": 254,
+        "sha256": "d143784176d18e623cedd02e97e3c159886ffe1d31a3b70d10241960ac8d4842",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/06da4346f7ba6c21655dd0929272179dee62e4fb17a16d38ea5d38dbcb79f6e4.webp",
-        "bytes": 70046,
-        "sha256": "06da4346f7ba6c21655dd0929272179dee62e4fb17a16d38ea5d38dbcb79f6e4",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/scripts/assemble.mjs",
+        "bytes": 549,
+        "sha256": "807e5e7ee52c6c14860131b82c408311c671872991640e31bc3ba680dc24208f",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/06e838158f78c8d56e09783a3b498b79783020136ddd23faa5245f8244954653.webp",
-        "bytes": 69818,
-        "sha256": "06e838158f78c8d56e09783a3b498b79783020136ddd23faa5245f8244954653",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/scripts/build.sh",
+        "bytes": 366,
+        "sha256": "76bddebeb2accb38b37de0673778d7bf3119bc7da7ed5ae4c1d4c9884969848f",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/13a1c79f7df1bd204b09662bf297ca18c354cc00b6efed6f188ccc31eda282df.webp",
-        "bytes": 72066,
-        "sha256": "13a1c79f7df1bd204b09662bf297ca18c354cc00b6efed6f188ccc31eda282df",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/scripts/check.mjs",
+        "bytes": 2205,
+        "sha256": "1dcde5308de29712e4b148164a0fd4679ea2fb7b19d5f809912d90d5eee61da6",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/1b8ce23d54eac856dd0333326e453543743965d0d406791391d1234b5ada80b6.webp",
-        "bytes": 66322,
-        "sha256": "1b8ce23d54eac856dd0333326e453543743965d0d406791391d1234b5ada80b6",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/scripts/dev.mjs",
+        "bytes": 842,
+        "sha256": "0778fce60f2be94481be4218f2ae6d39c469072c2a9414d416610b4b5a37a70a",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/1d9969acd62b57fd81441a7856d933f51e9b664f5443bd08dd0a43725bf17ba2.webp",
-        "bytes": 66802,
-        "sha256": "1d9969acd62b57fd81441a7856d933f51e9b664f5443bd08dd0a43725bf17ba2",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/scripts/validate-artifact.mjs",
+        "bytes": 953,
+        "sha256": "39d9df53ac2461962466d5965c5f4d06f08024ceca40605952d8b753b88d41fd",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/44a312f7688c3798bda64ecc62e04d0de4a0c90f1d1dd83fdccca96a516f49b2.webp",
-        "bytes": 66640,
-        "sha256": "44a312f7688c3798bda64ecc62e04d0de4a0c90f1d1dd83fdccca96a516f49b2",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/src/app.css",
+        "bytes": 15508,
+        "sha256": "56d442bf93fbe970eb6fd4b283726aae9082ff5d5edf93d69b40acf2a57d8b6c",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/59503d10cc582098187fe86eb209dd04ffc0e51097fc0af2dd688f8b254a2ef0.webp",
-        "bytes": 67188,
-        "sha256": "59503d10cc582098187fe86eb209dd04ffc0e51097fc0af2dd688f8b254a2ef0",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/src/app.js",
+        "bytes": 21112,
+        "sha256": "7d36d62abf53b29bcb34d08c9e46bc8fd9b489eaff572de401cd7238acc8379c",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/783e46583e6d5f4b7692d3a22b3a31c9fb1e3b1cf9d1da014db06efaab14c9d1.webp",
-        "bytes": 68596,
-        "sha256": "783e46583e6d5f4b7692d3a22b3a31c9fb1e3b1cf9d1da014db06efaab14c9d1",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/src/index.html",
+        "bytes": 4940,
+        "sha256": "40ea9172957222ce7d24068bb0a98e1413bfdd24357c3fecd9423c8b1992e55f",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/ac6ac2c6ca917ee74cc0f6b60e92ea6718a349842feb25a101e4634c5cebf480.webp",
-        "bytes": 71194,
-        "sha256": "ac6ac2c6ca917ee74cc0f6b60e92ea6718a349842feb25a101e4634c5cebf480",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/src/server.js",
+        "bytes": 6045,
+        "sha256": "dd2a8d8a0242fba4f9ef16a56ff55a03c9edeec88ee959b7a280426bc14c1f8e",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/c7ac20572ca505e1be63e03ceea0aaa4c42ce90d71ca09c51c4479fc67ec6183.webp",
-        "bytes": 65864,
-        "sha256": "c7ac20572ca505e1be63e03ceea0aaa4c42ce90d71ca09c51c4479fc67ec6183",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/sources/m149/worker/index.js",
+        "bytes": 2935021,
+        "sha256": "cc152c84108ece9da86212829656ef9955a816fd1547f2ea18e11462ebc509d3",
         "matches_build_or_source": true,
         "kind": "source"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/cacc1df0c4bf01bdb40b907ee8b8a79ca058f00cb59c853db17c8e7f50382c51.webp",
-        "bytes": 74116,
-        "sha256": "cacc1df0c4bf01bdb40b907ee8b8a79ca058f00cb59c853db17c8e7f50382c51",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/662bcd2c2481587c51539063ee0e81ed5fce527d/docs/BUILDING.md",
+        "bytes": 8895,
+        "sha256": "3f8d6257df8a3cb597e5994f5a1f6b5982d212d7b3bacaabc51833c9b4ae04a4",
         "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/ece704248b44fc5450dfa55b67b98510517fda70043d0731b6a38f48746d01a2.webp",
-        "bytes": 65912,
-        "sha256": "ece704248b44fc5450dfa55b67b98510517fda70043d0731b6a38f48746d01a2",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/edbc887684a003e1c7746544e9b9e5d7b48160426ee48aabc96a9da5942f22ee.webp",
-        "bytes": 66418,
-        "sha256": "edbc887684a003e1c7746544e9b9e5d7b48160426ee48aabc96a9da5942f22ee",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/edbfc768764080c7c313875720aa17a0e7fb72f534c45cebe3ff2f8e52beefb6.webp",
-        "bytes": 66070,
-        "sha256": "edbfc768764080c7c313875720aa17a0e7fb72f534c45cebe3ff2f8e52beefb6",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/fbfff569ecfe68cd5826f0286f533a4cec3150ff2eebc7e5490ae188bed0f774.webp",
-        "bytes": 68862,
-        "sha256": "fbfff569ecfe68cd5826f0286f533a4cec3150ff2eebc7e5490ae188bed0f774",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/c807befe698a4662aa3464d9d17530d94027fa2e/assets/fef0ea8defe652add6327f28bba6389ab0455f13ce0debed2061a21b36a8376e.webp",
-        "bytes": 68216,
-        "sha256": "fef0ea8defe652add6327f28bba6389ab0455f13ce0debed2061a21b36a8376e",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "kind": "documentation"
       }
     ]
   },
   "validation_scope": [
-    "Verified the source snapshot and actual Pages catalogue/detail page; source publication was confirmed through Sites deployment metadata.",
-    "This is a source-only server import. No new Worker/database was built or deployed, and no original production ledger actions were exercised.",
-    "Google Drive delivery archives remain at their original links and were not downloaded or reverified during this source synchronization; no new installable package or Release was created."
+    "Actual HTTPS Pages entry, portal resources, all 22 archived source files (including the migration manifest) and build documentation matched the deployed commit/build by SHA-256; no local resource substitution.",
+    "Exact saved Worker built deterministically and passed catalogue, access-control, unavailable-service and mocked-generation checks. Isolated local browser checks exercised search, favorites and lookbook save/restore/delete.",
+    "AI service is unconfigured in this source version; no real generation, billing, production browser session or original-site personal data was used.",
+    "No new backend, installable package or Release was deployed. Source-archive verification does not assert that AI generation runs on GitHub Pages."
+  ],
+  "uncompleted": [
+    {
+      "module": "m149",
+      "scope": "AI image generation in the original server application",
+      "reason": "The published source documents that the image service is not configured; real generation remains unverified.",
+      "requirement": "The owner must configure the original backend image-service authorization before enabling real generation; this is outside source synchronization."
+    }
   ],
   "known_remaining": {
-    "server_source_only": 15,
+    "server_source_only": 16,
     "missing_original_files": 19
   },
   "new_blockers": []
