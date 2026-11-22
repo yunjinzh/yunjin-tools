@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import worker from '../worker/index.js';
+const get=p=>worker.fetch(new Request('https://test.site'+p),{});
+const catalog=await(await get('/api/catalog')).json();assert.equal(Object.values(catalog).reduce((n,a)=>n+a.length,0),5292);assert.equal(catalog.poses.length,288);for(const[t,a]of Object.entries(catalog)){assert.equal(new Set(a.map(i=>i.id)).size,a.length);for(const i of a)assert.ok(i.angles?.length||i.t)}
+assert.equal((await(await get('/api/config')).json()).ready,false);
+const make=(headers={},body={})=>new Request('https://test.site/api/generate',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(body)});
+assert.equal((await worker.fetch(make(),{})).status,403);assert.equal((await worker.fetch(make({origin:'https://test.site'}),{})).status,401);assert.equal((await worker.fetch(make({origin:'https://test.site','oai-authenticated-user-id':'qa'}),{})).status,503);
+assert.equal((await worker.fetch(make({origin:'https://test.site','oai-authenticated-user-id':'qa-invalid'},{selection:{portraits:'injected',outfit:'injected'}}),{OPENAI_API_KEY:'test-only'})).status,400);
+const savedFetch=global.fetch;let sent=false;global.fetch=async(input,init)=>{if(String(input).includes('api.openai.com')){sent=true;assert.equal(init.body.getAll('image[]').length,2);assert.match(init.body.get('prompt'),/Keep the identity/);return new Response(JSON.stringify({data:[{b64_json:'dGVzdA=='}]}),{headers:{'content-type':'application/json'}})}return new Response(new Uint8Array([1,2,3]),{headers:{'content-type':'image/webp'}})};
+try{const response=await worker.fetch(make({origin:'https://test.site','oai-authenticated-user-id':'qa-success'},{selection:{portraits:'portraits:'+catalog.portraits[0].id,outfit:'costumes:'+catalog.costumes[0].id},makeup:{}}),{OPENAI_API_KEY:'test-only'});assert.equal(response.status,200);assert.equal((await response.json()).image,'data:image/png;base64,dGVzdA==');assert.ok(sent)}finally{global.fetch=savedFetch}
+console.log('PASS: 5292 catalog entries, unique IDs, access checks, absent-service response, invalid inputs, mocked multipart image generation. Live generation NOT verified.');

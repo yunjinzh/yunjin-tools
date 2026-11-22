@@ -2209,5 +2209,20 @@
     "kind": "server",
     "migration": "source",
     "migration_note": "源码已同步；此项目需要独立后端，GitHub Pages 不执行服务器或云数据库服务。"
+  },
+  {
+    "id": "m149",
+    "name": "镜间造型室 · 人物化妆与换装",
+    "description": "素材搭配与造型簿工具，含5004项服装、人像、发型、表情等参考和288项姿势，支持搜索、收藏、多视角选材及本机搭配保存。AI换装成片尚未接通生成服务。",
+    "category": "创作与媒体",
+    "original_url": "https://mirror-atelier-yunjin.yunjinzh.chatgpt.site",
+    "original_status": "原站已保存并成功发布第1版；素材选择与本机造型簿已实现，AI图像服务尚未配置，真实生成未验证。需要 Cloudflare Worker、原站身份验证及图像服务授权；源码归档不代表已在 Pages 运行换装服务。",
+    "source": "sources/m149",
+    "source_project": "appgprj_6b022f958c6881918e3e13e5647bc791",
+    "source_version": 1,
+    "source_commit": "61bde910d1ff93a6c4a3934eb1ac492b434bdf26",
+    "kind": "server",
+    "migration": "source",
+    "migration_note": "源码已同步；此项目需要独立后端，GitHub Pages 不执行服务器或云数据库服务。"
   }
 ]
