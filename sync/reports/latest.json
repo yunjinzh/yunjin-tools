@@ -1,248 +1,150 @@
 {
-  "completed_at": "2026-11-22T05:07:13.808877+00:00",
+  "completed_at": "2026-11-22T09:03:15.866401+00:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
-  "added": [],
-  "updated": [
-    "m149"
+  "added": 1,
+  "updated": 0,
+  "modules": [
+    "m150"
   ],
-  "migration_mode": "server-source-only",
+  "migration_mode": "static-web",
   "discovery": {
-    "owner_sites": 108,
+    "owner_sites": 110,
     "pages": [
       50,
       50,
-      8
+      10
     ],
+    "pagination_complete": true,
     "catalogue_version": 22,
-    "catalogue_changed": false
+    "catalogue_changed": false,
+    "unpublished_new_projects_skipped": 1
   },
-  "source_project": "appgprj_6b022f958c6881918e3e13e5647bc791",
-  "source_version": 2,
-  "previous_source_version": 1,
-  "source_version_id": "appgprj_6b022f958c6881918e3e13e5647bc791~appgver_d0d987d5483c81919b9865eb0e501c08",
-  "source_commit": "5030128be137a23302a1aa2e1bfa40a3a465c714",
+  "source_project": "appgprj_6b02a66cc2b88191a2742d6c482bc87e",
+  "source_version": 1,
+  "source_version_id": "appgprj_6b02a66cc2b88191a2742d6c482bc87e~appgver_b22e7d646cf48191bb5326d76b9fe971",
+  "source_commit": "b9f57ebd32b661f1e93c58c10921a69cc5d7b17c",
   "source_deployment": {
-    "id": "appgdep_6b0274b2335c819194ef97b972a78f86",
+    "id": "appgdep_6b02aba4f4608191ad54ac65d3070395",
+    "project_id": "appgprj_6b02a66cc2b88191a2742d6c482bc87e",
+    "version_id": "appgprj_6b02a66cc2b88191a2742d6c482bc87e~appgver_b22e7d646cf48191bb5326d76b9fe971",
     "status": "succeeded",
-    "published_at": "2026-11-22T04:51:05.440189+00:00",
-    "url": "https://mirror-atelier-yunjin.yunjinzh.chatgpt.site"
+    "type": "publish",
+    "url": "https://isle-twin-studio-yj.yunjinzh.chatgpt.site",
+    "updated_at": "2026-11-22T08:45:29.560992+00:00",
+    "failure_message": null
   },
-  "deployment_commit": "5b1bce3d94cf855d17ef8427aff2dfa659efbc4e",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/44987755894",
+  "deployment_commit": "5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/45005349380",
   "deployment_workflow_conclusion": "success",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/details/m149.html",
-  "original_url": "https://mirror-atelier-yunjin.yunjinzh.chatgpt.site",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/index.html",
+  "original_url": "https://isle-twin-studio-yj.yunjinzh.chatgpt.site",
   "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
-  "catalogue_count": 149,
-  "web_count": 112,
+  "catalogue_count": 150,
+  "web_count": 113,
   "summary": [
-    "Updated the m149 source archive from v1 to v2 while keeping its stable module ID and all other 148 module entries unchanged.",
-    "The new version replaces direct image-service submission with durable styling jobs in D1, input/result images in R2, and explicit user-triggered processing in a conversation.",
-    "The actual Pages catalogue and detail page describe the new workflow and the Worker/D1/R2 and owner-private access requirements; Pages does not execute the backend."
+    "新增屿境数字孪生工作室第1版，保留92个场景对象和667项程序化资源。",
+    "静态网页和源码均已同步；离线下载适配为含原始单文件HTML的ZIP。",
+    "真实Pages浏览器流程、视频导出、离线包下载与校验值均通过验证。"
   ],
   "adaptation": {
+    "module_id": "m150",
     "original_source_unchanged": true,
-    "module_id": "m149",
-    "backend_required": true,
-    "backend": "Cloudflare Worker, D1 DB makeover_jobs table, R2 BUCKET and owner-private Sites identity boundary",
+    "changed_web_source_files": [
+      "app.js"
+    ],
+    "reason": "Package original offline HTML before Pages runtime/path injection",
+    "storage_namespace": "yunjin:m150:",
+    "backend_required": false,
     "original_site_modified": false,
-    "new_backend_deployed": false,
-    "runtime_secrets_or_user_data_copied": false,
-    "original_site_jobs_accessed": false,
-    "third_party_images_bulk_copied": false
+    "runtime_secrets_or_user_data_copied": false
   },
   "source_snapshot_check": {
     "ok": true,
-    "source_commit": "5030128be137a23302a1aa2e1bfa40a3a465c714",
-    "tracked_files": 27,
-    "preserved_files": 26,
-    "preserved_bytes": 5926084,
-    "excluded_platform_configuration": [
-      ".openai/hosting.json"
-    ],
-    "deduplicated_assets": 0,
-    "all_original_files_match": true,
-    "personal_runtime_data_copied": false,
-    "original_site_jobs_accessed": false,
-    "third_party_images_downloaded": false,
+    "commit": "b9f57ebd32b661f1e93c58c10921a69cc5d7b17c",
     "files": [
       {
-        "path": ".gitignore",
-        "bytes": 34,
-        "sha256": "4f2202fe05504337370b53eacc71d9e1ccfffa5d2eb6ac0f08eb32e23e2fa1b0"
+        "path": "dist/app.js",
+        "bytes": 29506,
+        "sha256": "005b69e6b8f8feb44ecc2e4ac6ff2170b1e6c1665439a855f8f93a691d8682d3"
       },
       {
-        "path": "README.md",
-        "bytes": 2554,
-        "sha256": "be47a63a05b035fb6f5cea6fb9228a54d2dfd9cd865b756866942bf3615727ca"
+        "path": "dist/campus.js",
+        "bytes": 16902,
+        "sha256": "81f443f6438a6652640b135b9a1c201cbf321b178ac9f627ebe5332b72c5430f"
       },
       {
-        "path": "data/anime.json",
-        "bytes": 743962,
-        "sha256": "2770014860ee5d61e18796e0ceb085a000f1b1c303d355762b50c7c1606cfd58"
+        "path": "dist/engine.js",
+        "bytes": 18804,
+        "sha256": "7200d9db6b383b3204d5650b36a3d174c10f757fe52ee1ac7ab9a8ebc4d64226"
       },
       {
-        "path": "data/costumes.json",
-        "bytes": 595774,
-        "sha256": "2cee954fb7007efe5335a98496235b9a50de5ec956c174276ca9208a9ec8d3a2"
+        "path": "dist/icons.js",
+        "bytes": 4110,
+        "sha256": "a11796d237c11437cd9157eac01835a35b23514427b9d1561f396fab9f966629"
       },
       {
-        "path": "data/dynasties.json",
-        "bytes": 72492,
-        "sha256": "3b06c6a695f3f638e19acb1f396aa0fad49cb3f52bd1bb8a27770ff84755e6b4"
+        "path": "dist/index.html",
+        "bytes": 4519,
+        "sha256": "5370ca99a606b4507d3b01540e03379382eb715f8cec28b992c7388b49b44bb6"
       },
       {
-        "path": "data/expressions.json",
-        "bytes": 76716,
-        "sha256": "2d7bb3c3430dde4e4f6aaecfb0130ad9fb7bfe5a5b543c9d077789878981ef8a"
+        "path": "dist/panels.js",
+        "bytes": 19147,
+        "sha256": "02c49cb789722e9c5de5ba4fc0d8885719eb58f77a8472ba68a2c419a2379b0f"
       },
       {
-        "path": "data/hair.json",
-        "bytes": 68975,
-        "sha256": "ed804ff71c5ff6c9a2a79d4943fbbc7a24b055286de6e9e6691ee065b7f5064f"
+        "path": "dist/resources.js",
+        "bytes": 30743,
+        "sha256": "5c3a2370a274b58cbfc1593b42a07ca6e791ae44790f7d7a9d922bed1dfcfcd4"
       },
       {
-        "path": "data/portraits.json",
-        "bytes": 969159,
-        "sha256": "0b8834f90f214fdec97bcc498aed4174a4e0c84240a4499029bcbfc72db4e9d7"
+        "path": "dist/studio.js",
+        "bytes": 16788,
+        "sha256": "43564b8343cef0572878be940dcb662f794c5146c53e79c48967367316be56b0"
       },
       {
-        "path": "data/poses.json",
-        "bytes": 276654,
-        "sha256": "2383bf449fa8ddf42ecac8654aa67f679a0778ad49c28ebd26c215c1435ec0ad"
+        "path": "dist/style.css",
+        "bytes": 17458,
+        "sha256": "ece37ef2f7d926e9d39abd4070df7007e4729e572d3fb73d5b798a1fc22e62b5"
       },
       {
-        "path": "data/scenes.json",
-        "bytes": 83046,
-        "sha256": "7150754a14cb4d69fce2a138822b3f0511b6d2ffdce0a649906a678bdc7534bf"
-      },
-      {
-        "path": "docs/PROCESS-LOOK-TASKS.md",
-        "bytes": 3705,
-        "sha256": "79fd8a11a69921f7f3a63515560c6712e1edcca556b9acf2b26a85e6e49a49a6"
-      },
-      {
-        "path": "drizzle/0000_makeover_jobs.sql",
-        "bytes": 829,
-        "sha256": "b0000e84f03f0b29dfe2bcaa8488ece47f0b1b75028a5a0d123879b3374d40ee"
-      },
-      {
-        "path": "drizzle/meta/_journal.json",
-        "bytes": 203,
-        "sha256": "730a885bb3e64464985b4d01a23cf97c3d0319a8bbf939619b4673f64a338ed1"
-      },
-      {
-        "path": "package.json",
-        "bytes": 254,
-        "sha256": "d143784176d18e623cedd02e97e3c159886ffe1d31a3b70d10241960ac8d4842"
-      },
-      {
-        "path": "scripts/assemble.mjs",
-        "bytes": 621,
-        "sha256": "11db48f623b47f2ae517aff1d7746e6faa400d90f695afe7a20c7f13d4717d6f"
-      },
-      {
-        "path": "scripts/build.sh",
-        "bytes": 366,
-        "sha256": "76bddebeb2accb38b37de0673778d7bf3119bc7da7ed5ae4c1d4c9884969848f"
-      },
-      {
-        "path": "scripts/check.mjs",
-        "bytes": 4144,
-        "sha256": "8ca38a01b65a16381d8058ebe7f8e4f65ff5d4de69e42d9dc06cae8cd4a08075"
-      },
-      {
-        "path": "scripts/dev.mjs",
-        "bytes": 977,
-        "sha256": "b927de8999c8574434af6289ea820185cbdf3047d410d71ea5e10af7391f9ebc"
-      },
-      {
-        "path": "scripts/local-agent.mjs",
-        "bytes": 679,
-        "sha256": "9d206bfbc10cb1b35a9e872b78a630001dcc4f015d0cb856d0aa6b387d32f8c5"
-      },
-      {
-        "path": "scripts/local-env.mjs",
-        "bytes": 1679,
-        "sha256": "f1dd5503709b65822b03868836a28da936b6482b41a34b78dd321d833e67b25a"
-      },
-      {
-        "path": "scripts/validate-artifact.mjs",
-        "bytes": 953,
-        "sha256": "39d9df53ac2461962466d5965c5f4d06f08024ceca40605952d8b753b88d41fd"
-      },
-      {
-        "path": "src/app.css",
-        "bytes": 18174,
-        "sha256": "45fda829bf482f954ecf42c336bacc6b56a18a0654b5a869ad9f751265d31d8a"
-      },
-      {
-        "path": "src/app.js",
-        "bytes": 26939,
-        "sha256": "ac6db43204be77bb0b390c4ff41c9e1f111541210bdb8792d8980a63c29cda99"
-      },
-      {
-        "path": "src/index.html",
-        "bytes": 5531,
-        "sha256": "f4a4ab7b3bb584b922b659dad47013f9e887bfd44f208dcd81e715c9a04bbb15"
-      },
-      {
-        "path": "src/server.js",
-        "bytes": 14870,
-        "sha256": "245301accb49c515527e69c87b7d34cb0f84d87bbc67acd7e482ed570c3887ec"
-      },
-      {
-        "path": "worker/index.js",
-        "bytes": 2956794,
-        "sha256": "2c3f5b1c08d5e2655f82fb509a05e7d2ae41295e7ecb6f041e432bf02927f389"
+        "path": "dist/webm.js",
+        "bytes": 2146,
+        "sha256": "ea66a2b4a670af6163c53e2510f9e8799fb37b2d1d46ac8da045caed39c9998c"
       }
-    ]
-  },
-  "source_build_and_regression": {
-    "ok": true,
-    "source_commit": "5030128be137a23302a1aa2e1bfa40a3a465c714",
-    "build": "npm run build",
-    "artifact_validation": "npm run validate",
-    "regression": "node scripts/check.mjs",
-    "catalogue_entries": 5292,
-    "deterministic_worker": true,
-    "worker_bytes": 2956794,
-    "worker_sha256": "2c3f5b1c08d5e2655f82fb509a05e7d2ae41295e7ecb6f041e432bf02927f389",
-    "queue_tests": "in-memory SQLite and R2 adapter with fixture PNG; no live generation or original-site job access",
-    "live_generation_verified": false,
-    "original_site_jobs_accessed": false
-  },
-  "local_source_browser": {
-    "ok": true,
-    "scope": "Exact saved Worker in an isolated local process with in-memory SQLite/R2 and a fresh test browser",
-    "checks": [
-      "Catalogue search and favorite filter",
-      "Local saved look retained separately from server jobs across reload; restore and delete work",
-      "Browser submits one queued task with original-reference label and explicit conversation trigger",
-      "Cancel, retry, refresh/reload and final cancellation preserve one task identity"
     ],
-    "local_resource_substitution": false,
-    "live_generation_verified": false,
-    "original_site_jobs_accessed": false,
-    "errors": [],
-    "failures": [],
-    "local_job_post_count": 4
+    "source_bytes": 160123,
+    "excluded_platform_files": [
+      ".openai/hosting.json"
+    ],
+    "readme_or_license_present": false,
+    "source_opt_out": false,
+    "remote_api_or_database_dependency": false,
+    "scene_objects": 92,
+    "resource_count": 667,
+    "all_149_previous_module_records_unchanged": true
+  },
+  "reproducible_static_package": {
+    "ok": true,
+    "script": "scripts/package_isle_twin.py",
+    "rebuilt_from_archived_source": true,
+    "all_web_files_match": true
   },
   "incremental_sync_tests": {
     "passed": 7
   },
   "build": {
-    "catalogue": 149,
+    "catalogue": 150,
     "kinds": {
-      "web": 112,
+      "web": 113,
       "server": 16,
       "missing": 19,
       "extension": 1,
       "desktop": 1
     },
-    "files": 3700,
-    "bytes": 648009568
+    "files": 3712,
+    "bytes": 648231368
   },
   "asset_validation": {
     "ok": true,
@@ -250,313 +152,463 @@
     "sha256_checked": true
   },
   "local_validation": {
-    "ok": true,
-    "entry": "http://127.0.0.1:4173/yunjin-tools/details/m149.html",
-    "source_version": 2,
-    "migration_mode": "server-source-only",
-    "local_resource_substitution": false,
-    "live_generation_verified": false,
+    "base": "http://127.0.0.1:4173/yunjin-tools/",
+    "resourceSubstitution": false,
     "checks": [
-      "149-module catalogue; both independent Mirror Atelier projects retained; backend filter, exact search and detail navigation",
-      "Correct source and original-site links; explicit Worker/D1/R2 requirements, owner-only protection and user-triggered conversation workflow",
-      "Desktop, tablet, 390/360px detail layouts; return to full catalogue"
+      "Portal: 150 entries and exact new-tool search",
+      "Initial scene: 92 objects, 667 resources, four camera frames",
+      "Five weather modes, time/cycle controls, top/home camera and zoom",
+      "Resource search and placement, undo/redo, object rename/copy/delete, layer visibility",
+      "Traffic speed, two-way lanes, route-node editing and pause",
+      "Camera frame creation, naming, reordering and tour playback/stop",
+      "Actual JSON download, reload persistence, module storage namespace and project restoration",
+      "Synthetic OBJ import and actual resource JSON export",
+      "Actual 720p/12 fps WebM export, VP8 metadata and frame decoding",
+      "Actual offline ZIP checksum, extraction and network-disabled single-file editing",
+      "Tablet/mobile layouts at 768, 390 and 360 pixels; help dialog remains usable"
+    ],
+    "downloads": [
+      {
+        "name": "project.twin.json",
+        "suggestedName": "滨水科创园.twin.json",
+        "bytes": 26333,
+        "sha256": "884e26af088485007749df1866acf39147fd9eff11a51747c0d3f8488ef7a29c"
+      },
+      {
+        "name": "synthetic.asset.json",
+        "suggestedName": "sync-triangle.asset.json",
+        "bytes": 618,
+        "sha256": "b80fa93dd6b1374960e46320a38f0f0f62a1a36dca1075eb56a55afabaa0c2c5"
+      },
+      {
+        "name": "tour.webm",
+        "suggestedName": "滨水科创园 · 空间导览-1280x720.webm",
+        "bytes": 900396,
+        "sha256": "c4864d465d52e86fb7bd3eb4293aac7229d3dc4df5b8351456031649f329f9ce"
+      },
+      {
+        "name": "isle-twin-offline.zip",
+        "suggestedName": "屿境数字孪生工作室-离线版.zip",
+        "bytes": 60630,
+        "sha256": "976ebd9338741903e8a867d2ce372d6cc96c48949537da6b0944bc09721807a8"
+      }
     ],
     "errors": [],
-    "failures": []
+    "failures": [],
+    "renderer": "WebGL",
+    "resources": {
+      "material": 240,
+      "prop": 216,
+      "plant": 120,
+      "vehicle": 34,
+      "character": 21,
+      "marker": 12,
+      "effect": 15,
+      "water": 9
+    },
+    "video": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "format": {
+        "duration": "1.000000"
+      }
+    },
+    "offlineDocumentMode": "Downloaded HTML in isolated network-disabled document; file:// navigation unavailable in managed Chromium",
+    "ok": true
+  },
+  "local_smoke": {
+    "base": "http://127.0.0.1:4173/yunjin-tools/",
+    "localAssets": true,
+    "outcomes": [
+      {
+        "id": "m150",
+        "name": "屿境 · 数字孪生工作室",
+        "http": 200,
+        "errors": [],
+        "failures": [],
+        "title": "屿境 · 数字孪生工作室",
+        "textLength": 417,
+        "canvas": 5,
+        "ok": true
+      }
+    ]
   },
   "local_portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 149 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 150 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "browser_checks": {
-    "ok": true,
-    "entry": "https://yunjinzh.github.io/yunjin-tools/details/m149.html",
-    "source_version": 2,
-    "migration_mode": "server-source-only",
-    "local_resource_substitution": false,
-    "live_generation_verified": false,
+    "base": "https://yunjinzh.github.io/yunjin-tools/",
+    "resourceSubstitution": false,
     "checks": [
-      "149-module catalogue; both independent Mirror Atelier projects retained; backend filter, exact search and detail navigation",
-      "Correct source and original-site links; explicit Worker/D1/R2 requirements, owner-only protection and user-triggered conversation workflow",
-      "Desktop, tablet, 390/360px detail layouts; return to full catalogue"
+      "Portal: 150 entries and exact new-tool search",
+      "Initial scene: 92 objects, 667 resources, four camera frames",
+      "Five weather modes, time/cycle controls, top/home camera and zoom",
+      "Resource search and placement, undo/redo, object rename/copy/delete, layer visibility",
+      "Traffic speed, two-way lanes, route-node editing and pause",
+      "Camera frame creation, naming, reordering and tour playback/stop",
+      "Actual JSON download, reload persistence, module storage namespace and project restoration",
+      "Synthetic OBJ import and actual resource JSON export",
+      "Actual 720p/12 fps WebM export, VP8 metadata and frame decoding",
+      "Actual offline ZIP checksum, extraction and network-disabled single-file editing",
+      "Tablet/mobile layouts at 768, 390 and 360 pixels; help dialog remains usable"
+    ],
+    "downloads": [
+      {
+        "name": "project.twin.json",
+        "suggestedName": "滨水科创园.twin.json",
+        "bytes": 26353,
+        "sha256": "dfbe4c93a2dadf41bde1abde3bb6ee8e3b0aaab33ef6cd755bb62f0ff0e89770"
+      },
+      {
+        "name": "synthetic.asset.json",
+        "suggestedName": "sync-triangle.asset.json",
+        "bytes": 618,
+        "sha256": "2b3595e70653a646c0ef967556a1c25dead52c7a92a7e6d7790d57d2c3d5c37d"
+      },
+      {
+        "name": "tour.webm",
+        "suggestedName": "滨水科创园 · 空间导览-1280x720.webm",
+        "bytes": 900396,
+        "sha256": "c4864d465d52e86fb7bd3eb4293aac7229d3dc4df5b8351456031649f329f9ce"
+      },
+      {
+        "name": "isle-twin-offline.zip",
+        "suggestedName": "屿境数字孪生工作室-离线版.zip",
+        "bytes": 60630,
+        "sha256": "976ebd9338741903e8a867d2ce372d6cc96c48949537da6b0944bc09721807a8"
+      }
     ],
     "errors": [],
-    "failures": []
+    "failures": [],
+    "renderer": "WebGL",
+    "resources": {
+      "material": 240,
+      "prop": 216,
+      "plant": 120,
+      "vehicle": 34,
+      "character": 21,
+      "marker": 12,
+      "effect": 15,
+      "water": 9
+    },
+    "video": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "vp8",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "format": {
+        "duration": "1.000000"
+      }
+    },
+    "offlineDocumentMode": "Downloaded HTML in isolated network-disabled document; file:// navigation unavailable in managed Chromium",
+    "ok": true
+  },
+  "public_smoke": {
+    "base": "https://yunjinzh.github.io/yunjin-tools/",
+    "localAssets": false,
+    "outcomes": [
+      {
+        "id": "m150",
+        "name": "屿境 · 数字孪生工作室",
+        "http": 200,
+        "errors": [],
+        "failures": [],
+        "title": "屿境 · 数字孪生工作室",
+        "textLength": 417,
+        "canvas": 5,
+        "ok": true
+      }
+    ]
   },
   "portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 149 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 150 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "http_checks": {
     "ok": true,
-    "deployment_commit": "5b1bce3d94cf855d17ef8427aff2dfa659efbc4e",
+    "deployment_commit": "5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b",
     "base": "https://yunjinzh.github.io/yunjin-tools/",
     "local_resource_substitution": false,
-    "pages_files": 6,
-    "source_files": 27,
-    "documentation_files": 1,
     "files": [
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/",
+        "url": "https://yunjinzh.github.io/yunjin-tools/index.html",
+        "kind": "pages",
+        "ok": true,
         "bytes": 3854,
-        "sha256": "a6e85cc2e19ce955623c8bb399bf32c26a03524ec703cd9b98828345c99fc0d8",
-        "matches_build_or_source": true,
-        "kind": "pages"
+        "expected_sha256": "40544f392926adad646a504cf00ec2a701e3e4f9d947d6d2d3d5b5f25b113c98",
+        "sha256": "40544f392926adad646a504cf00ec2a701e3e4f9d947d6d2d3d5b5f25b113c98"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
-        "bytes": 97701,
-        "sha256": "31d11f0e2a727ed27112db754be0acaaac198bc8bfe614bd59c2431c53feef6b",
-        "matches_build_or_source": true,
-        "kind": "pages"
+        "kind": "pages",
+        "ok": true,
+        "bytes": 98625,
+        "expected_sha256": "2cc75cd8ae7d467a5a846b2510618ff8671595505f4855a86e3e2159ac2e571e",
+        "sha256": "2cc75cd8ae7d467a5a846b2510618ff8671595505f4855a86e3e2159ac2e571e"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/runtime.js",
+        "kind": "pages",
+        "ok": true,
         "bytes": 5207,
-        "sha256": "19c4c5ea3f45222ab8544998dffe6c188922756a41eab13b3c4bd259768665a0",
-        "matches_build_or_source": true,
-        "kind": "pages"
+        "expected_sha256": "19c4c5ea3f45222ab8544998dffe6c188922756a41eab13b3c4bd259768665a0",
+        "sha256": "19c4c5ea3f45222ab8544998dffe6c188922756a41eab13b3c4bd259768665a0"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/portal/app.js",
+        "kind": "pages",
+        "ok": true,
         "bytes": 3777,
-        "sha256": "982ea5fe3ca1f24d7e70ee15988f538168abfd92373637f562a4ec9fc5e558d4",
-        "matches_build_or_source": true,
-        "kind": "pages"
+        "expected_sha256": "982ea5fe3ca1f24d7e70ee15988f538168abfd92373637f562a4ec9fc5e558d4",
+        "sha256": "982ea5fe3ca1f24d7e70ee15988f538168abfd92373637f562a4ec9fc5e558d4"
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/portal/style.css",
+        "kind": "pages",
+        "ok": true,
         "bytes": 8684,
-        "sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c",
-        "matches_build_or_source": true,
-        "kind": "pages"
+        "expected_sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c",
+        "sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c"
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/details/m149.html",
-        "bytes": 1456,
-        "sha256": "73752ce5ff98f1018b08eb8de5a9f0ddea95c2f0b624af0713e622145d92fe2d",
-        "matches_build_or_source": true,
-        "kind": "pages"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/app.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 29001,
+        "expected_sha256": "4a1771f15397045d163495ef875af54329201701d7645f24ba1351ee8833d2c0",
+        "sha256": "4a1771f15397045d163495ef875af54329201701d7645f24ba1351ee8833d2c0"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/.gitignore",
-        "bytes": 34,
-        "sha256": "4f2202fe05504337370b53eacc71d9e1ccfffa5d2eb6ac0f08eb32e23e2fa1b0",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/campus.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 16902,
+        "expected_sha256": "81f443f6438a6652640b135b9a1c201cbf321b178ac9f627ebe5332b72c5430f",
+        "sha256": "81f443f6438a6652640b135b9a1c201cbf321b178ac9f627ebe5332b72c5430f"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/README.md",
-        "bytes": 2554,
-        "sha256": "be47a63a05b035fb6f5cea6fb9228a54d2dfd9cd865b756866942bf3615727ca",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/engine.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 18804,
+        "expected_sha256": "7200d9db6b383b3204d5650b36a3d174c10f757fe52ee1ac7ab9a8ebc4d64226",
+        "sha256": "7200d9db6b383b3204d5650b36a3d174c10f757fe52ee1ac7ab9a8ebc4d64226"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/data/anime.json",
-        "bytes": 743962,
-        "sha256": "2770014860ee5d61e18796e0ceb085a000f1b1c303d355762b50c7c1606cfd58",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/icons.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 4110,
+        "expected_sha256": "a11796d237c11437cd9157eac01835a35b23514427b9d1561f396fab9f966629",
+        "sha256": "a11796d237c11437cd9157eac01835a35b23514427b9d1561f396fab9f966629"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/data/costumes.json",
-        "bytes": 595774,
-        "sha256": "2cee954fb7007efe5335a98496235b9a50de5ec956c174276ca9208a9ec8d3a2",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/index.html",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 4850,
+        "expected_sha256": "21fb0582a9a41bbba1dff339105408777f62e8f093b4ec6a3b22a47497a086c7",
+        "sha256": "21fb0582a9a41bbba1dff339105408777f62e8f093b4ec6a3b22a47497a086c7"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/data/dynasties.json",
-        "bytes": 72492,
-        "sha256": "3b06c6a695f3f638e19acb1f396aa0fad49cb3f52bd1bb8a27770ff84755e6b4",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/isle-twin-offline.zip",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 60630,
+        "expected_sha256": "976ebd9338741903e8a867d2ce372d6cc96c48949537da6b0944bc09721807a8",
+        "sha256": "976ebd9338741903e8a867d2ce372d6cc96c48949537da6b0944bc09721807a8"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/data/expressions.json",
-        "bytes": 76716,
-        "sha256": "2d7bb3c3430dde4e4f6aaecfb0130ad9fb7bfe5a5b543c9d077789878981ef8a",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/migration-config.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 299,
+        "expected_sha256": "9439f93cbcb0efbdb7c1b84f62c62636f83ab0d81cdcd9b285b243bd9bd058c8",
+        "sha256": "9439f93cbcb0efbdb7c1b84f62c62636f83ab0d81cdcd9b285b243bd9bd058c8"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/data/hair.json",
-        "bytes": 68975,
-        "sha256": "ed804ff71c5ff6c9a2a79d4943fbbc7a24b055286de6e9e6691ee065b7f5064f",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/panels.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 19147,
+        "expected_sha256": "02c49cb789722e9c5de5ba4fc0d8885719eb58f77a8472ba68a2c419a2379b0f",
+        "sha256": "02c49cb789722e9c5de5ba4fc0d8885719eb58f77a8472ba68a2c419a2379b0f"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/data/portraits.json",
-        "bytes": 969159,
-        "sha256": "0b8834f90f214fdec97bcc498aed4174a4e0c84240a4499029bcbfc72db4e9d7",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/resources.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 30743,
+        "expected_sha256": "5c3a2370a274b58cbfc1593b42a07ca6e791ae44790f7d7a9d922bed1dfcfcd4",
+        "sha256": "5c3a2370a274b58cbfc1593b42a07ca6e791ae44790f7d7a9d922bed1dfcfcd4"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/data/poses.json",
-        "bytes": 276654,
-        "sha256": "2383bf449fa8ddf42ecac8654aa67f679a0778ad49c28ebd26c215c1435ec0ad",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/studio.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 16788,
+        "expected_sha256": "43564b8343cef0572878be940dcb662f794c5146c53e79c48967367316be56b0",
+        "sha256": "43564b8343cef0572878be940dcb662f794c5146c53e79c48967367316be56b0"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/data/scenes.json",
-        "bytes": 83046,
-        "sha256": "7150754a14cb4d69fce2a138822b3f0511b6d2ffdce0a649906a678bdc7534bf",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/style.css",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 17456,
+        "expected_sha256": "5684eefd4c3d9b53d24c4fbd742f8eef2f4ad2f0d6d2997a1b1105f36ea133ab",
+        "sha256": "5684eefd4c3d9b53d24c4fbd742f8eef2f4ad2f0d6d2997a1b1105f36ea133ab"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/docs/PROCESS-LOOK-TASKS.md",
-        "bytes": 3705,
-        "sha256": "79fd8a11a69921f7f3a63515560c6712e1edcca556b9acf2b26a85e6e49a49a6",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m150/webm.js",
+        "kind": "pages",
+        "ok": true,
+        "bytes": 2146,
+        "expected_sha256": "ea66a2b4a670af6163c53e2510f9e8799fb37b2d1d46ac8da045caed39c9998c",
+        "sha256": "ea66a2b4a670af6163c53e2510f9e8799fb37b2d1d46ac8da045caed39c9998c"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/drizzle/0000_makeover_jobs.sql",
-        "bytes": 829,
-        "sha256": "b0000e84f03f0b29dfe2bcaa8488ece47f0b1b75028a5a0d123879b3374d40ee",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/app.js",
+        "kind": "source",
+        "ok": true,
+        "bytes": 29506,
+        "expected_sha256": "005b69e6b8f8feb44ecc2e4ac6ff2170b1e6c1665439a855f8f93a691d8682d3",
+        "sha256": "005b69e6b8f8feb44ecc2e4ac6ff2170b1e6c1665439a855f8f93a691d8682d3"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/drizzle/meta/_journal.json",
-        "bytes": 203,
-        "sha256": "730a885bb3e64464985b4d01a23cf97c3d0319a8bbf939619b4673f64a338ed1",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/campus.js",
+        "kind": "source",
+        "ok": true,
+        "bytes": 16902,
+        "expected_sha256": "81f443f6438a6652640b135b9a1c201cbf321b178ac9f627ebe5332b72c5430f",
+        "sha256": "81f443f6438a6652640b135b9a1c201cbf321b178ac9f627ebe5332b72c5430f"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/migration-assets.json",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/engine.js",
+        "kind": "source",
+        "ok": true,
+        "bytes": 18804,
+        "expected_sha256": "7200d9db6b383b3204d5650b36a3d174c10f757fe52ee1ac7ab9a8ebc4d64226",
+        "sha256": "7200d9db6b383b3204d5650b36a3d174c10f757fe52ee1ac7ab9a8ebc4d64226"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/icons.js",
+        "kind": "source",
+        "ok": true,
+        "bytes": 4110,
+        "expected_sha256": "a11796d237c11437cd9157eac01835a35b23514427b9d1561f396fab9f966629",
+        "sha256": "a11796d237c11437cd9157eac01835a35b23514427b9d1561f396fab9f966629"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/index.html",
+        "kind": "source",
+        "ok": true,
+        "bytes": 4519,
+        "expected_sha256": "5370ca99a606b4507d3b01540e03379382eb715f8cec28b992c7388b49b44bb6",
+        "sha256": "5370ca99a606b4507d3b01540e03379382eb715f8cec28b992c7388b49b44bb6"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/panels.js",
+        "kind": "source",
+        "ok": true,
+        "bytes": 19147,
+        "expected_sha256": "02c49cb789722e9c5de5ba4fc0d8885719eb58f77a8472ba68a2c419a2379b0f",
+        "sha256": "02c49cb789722e9c5de5ba4fc0d8885719eb58f77a8472ba68a2c419a2379b0f"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/resources.js",
+        "kind": "source",
+        "ok": true,
+        "bytes": 30743,
+        "expected_sha256": "5c3a2370a274b58cbfc1593b42a07ca6e791ae44790f7d7a9d922bed1dfcfcd4",
+        "sha256": "5c3a2370a274b58cbfc1593b42a07ca6e791ae44790f7d7a9d922bed1dfcfcd4"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/studio.js",
+        "kind": "source",
+        "ok": true,
+        "bytes": 16788,
+        "expected_sha256": "43564b8343cef0572878be940dcb662f794c5146c53e79c48967367316be56b0",
+        "sha256": "43564b8343cef0572878be940dcb662f794c5146c53e79c48967367316be56b0"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/style.css",
+        "kind": "source",
+        "ok": true,
+        "bytes": 17458,
+        "expected_sha256": "ece37ef2f7d926e9d39abd4070df7007e4729e572d3fb73d5b798a1fc22e62b5",
+        "sha256": "ece37ef2f7d926e9d39abd4070df7007e4729e572d3fb73d5b798a1fc22e62b5"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/dist/webm.js",
+        "kind": "source",
+        "ok": true,
+        "bytes": 2146,
+        "expected_sha256": "ea66a2b4a670af6163c53e2510f9e8799fb37b2d1d46ac8da045caed39c9998c",
+        "sha256": "ea66a2b4a670af6163c53e2510f9e8799fb37b2d1d46ac8da045caed39c9998c"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/sources/m150/migration-assets.json",
+        "kind": "source",
+        "ok": true,
         "bytes": 3,
-        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "expected_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/package.json",
-        "bytes": 254,
-        "sha256": "d143784176d18e623cedd02e97e3c159886ffe1d31a3b70d10241960ac8d4842",
-        "matches_build_or_source": true,
-        "kind": "source"
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/docs/BUILDING.md",
+        "kind": "documentation",
+        "ok": true,
+        "bytes": 10953,
+        "expected_sha256": "90466e873eb50f057b48dbfeb10b1dfec7ee5e49b5856145f512a665c6faddbd",
+        "sha256": "90466e873eb50f057b48dbfeb10b1dfec7ee5e49b5856145f512a665c6faddbd"
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/scripts/assemble.mjs",
-        "bytes": 621,
-        "sha256": "11db48f623b47f2ae517aff1d7746e6faa400d90f695afe7a20c7f13d4717d6f",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/scripts/build.sh",
-        "bytes": 366,
-        "sha256": "76bddebeb2accb38b37de0673778d7bf3119bc7da7ed5ae4c1d4c9884969848f",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/scripts/check.mjs",
-        "bytes": 4144,
-        "sha256": "8ca38a01b65a16381d8058ebe7f8e4f65ff5d4de69e42d9dc06cae8cd4a08075",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/scripts/dev.mjs",
-        "bytes": 977,
-        "sha256": "b927de8999c8574434af6289ea820185cbdf3047d410d71ea5e10af7391f9ebc",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/scripts/local-agent.mjs",
-        "bytes": 679,
-        "sha256": "9d206bfbc10cb1b35a9e872b78a630001dcc4f015d0cb856d0aa6b387d32f8c5",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/scripts/local-env.mjs",
-        "bytes": 1679,
-        "sha256": "f1dd5503709b65822b03868836a28da936b6482b41a34b78dd321d833e67b25a",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/scripts/validate-artifact.mjs",
-        "bytes": 953,
-        "sha256": "39d9df53ac2461962466d5965c5f4d06f08024ceca40605952d8b753b88d41fd",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/src/app.css",
-        "bytes": 18174,
-        "sha256": "45fda829bf482f954ecf42c336bacc6b56a18a0654b5a869ad9f751265d31d8a",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/src/app.js",
-        "bytes": 26939,
-        "sha256": "ac6db43204be77bb0b390c4ff41c9e1f111541210bdb8792d8980a63c29cda99",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/src/index.html",
-        "bytes": 5531,
-        "sha256": "f4a4ab7b3bb584b922b659dad47013f9e887bfd44f208dcd81e715c9a04bbb15",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/src/server.js",
-        "bytes": 14870,
-        "sha256": "245301accb49c515527e69c87b7d34cb0f84d87bbc67acd7e482ed570c3887ec",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/sources/m149/worker/index.js",
-        "bytes": 2956794,
-        "sha256": "2c3f5b1c08d5e2655f82fb509a05e7d2ae41295e7ecb6f041e432bf02927f389",
-        "matches_build_or_source": true,
-        "kind": "source"
-      },
-      {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5b1bce3d94cf855d17ef8427aff2dfa659efbc4e/docs/BUILDING.md",
-        "bytes": 9334,
-        "sha256": "bd8077902b3b0c7f2bdb7c3308300108c9b45517385769defc0ca0643cb712d8",
-        "matches_build_or_source": true,
-        "kind": "documentation"
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/5f9c8b37d0b0e5b379c1c95ecb44a08e476b759b/scripts/package_isle_twin.py",
+        "kind": "documentation",
+        "ok": true,
+        "bytes": 2605,
+        "expected_sha256": "5d49fbf0502b76e93d4242353ba1f00c42d27b70db90fbf9a827235e002ecc2a",
+        "sha256": "5d49fbf0502b76e93d4242353ba1f00c42d27b70db90fbf9a827235e002ecc2a"
       }
     ]
   },
+  "offline_download": {
+    "name": "isle-twin-offline.zip",
+    "suggestedName": "屿境数字孪生工作室-离线版.zip",
+    "bytes": 60630,
+    "sha256": "976ebd9338741903e8a867d2ce372d6cc96c48949537da6b0944bc09721807a8"
+  },
   "validation_scope": [
-    "Actual HTTPS Pages entry, portal resources, all 27 archived source files (including the migration manifest) and build documentation matched the deployed commit/build by SHA-256; no local resource substitution.",
-    "Exact saved Worker built deterministically and passed in-memory SQLite/R2 checks covering submission deduplication, user isolation, atomic claims, cancellation, retry and fixture-image byte readback.",
-    "An isolated local browser exercised catalogue search, favorites, local looks, one queued task, cancellation, requeue and reload. Tests used no production database, task, photo or credential.",
-    "Upstream README describes its own earlier real-generation acceptance test; that record is not a claim of live generation verification in this synchronization run.",
-    "No new backend, image generation, installable package or Release was deployed, and no original-site agent job was read, claimed or completed."
+    "Actual HTTPS portal and module resources; no local substitutions for online resources.",
+    "Scene editing, resource search/placement, undo/redo, layer controls, traffic and camera frames.",
+    "Synthetic local project and OBJ fixtures in fresh browser contexts; no original user drafts or models.",
+    "One-second 1280x720, 12 fps VP8 WebM downloaded and decoded with FFmpeg.",
+    "Downloaded ZIP checksum and extracted standalone HTML executed with networking disabled.",
+    "Managed Chromium prohibits file:// navigation; offline testing used an isolated document containing the downloaded HTML bytes."
   ],
   "uncompleted": [
-    {
-      "module": "m149",
-      "scope": "Production image-generation workflow",
-      "reason": "Not exercised by source synchronization; processing actual styling jobs requires a separate explicit user request in a conversation."
-    }
+    "4K and long-duration exports were not performance-tested."
   ],
   "known_remaining": {
     "server_source_only": 16,
