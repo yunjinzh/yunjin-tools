@@ -176,8 +176,11 @@ try {
   await page.reload({ waitUntil: 'domcontentloaded' });
   await expect(page.locator('#load-state')).toContainText('场景准备就绪', { timeout: 45000 });
   await expect(page.locator('#story-label')).toHaveText('继续故事');
+  expect((await state()).cash).toBe(987);
+  await page.bringToFront();
   await page.locator('[data-start="roam"]').click();
-  await expect(page.locator('#cash')).toHaveText('¥987');
+  // Software WebGL can take several seconds to draw its first frames after reload.
+  await expect(page.locator('#cash')).toHaveText('¥987', { timeout: 45000 });
   const storageProbe = await context.newPage();
   await storageProbe.goto(base, { waitUntil: 'domcontentloaded' });
   const keys = await storageProbe.evaluate(() => Object.keys(localStorage));
