@@ -79,3 +79,11 @@ PNG 照片与可编辑造型分别导出和保存：竖幅照片为 1080×1350�
 发布版本基于原始 `dist/`，仅在 `web/m151/style.css` 调整低矮横屏触控布局，避免小地图遮挡状态栏；统一构建另加子路径支持和模块存储隔离。游戏包含 11 个程序化地标、5 个故事任务与循环配送、12 盘磁带、5 种涂装及三级车辆调校；地图是北京主题压缩创作场景，不用于现实导航。存档仅保存在当前浏览器，可用游戏内的 JSON 导入导出转移；原站个人进度与浏览器资料未迁入。
 
 在源码目录运行 `node tests/core.test.mjs` 检查存档、导航、碰撞边界和奖励结算。在仓库根目录运行 `CHROMIUM_PATH=/usr/bin/chromium node tests/beijing-nightline.mjs` 检查车辆与游船操作、地图与任务入口、收藏与购买、存档下载和移动布局；设置 `APP_URL` 后检查真实 Pages 入口，测试不替换线上资源。任务入口与核心结算有覆盖，但未在浏览器逐个完成全部故事或完整九门竞速，也不承诺不同设备的帧率。原始 Windows 启停脚本随源码保留，本次 Linux 环境未验证 Windows 运行。
+
+## 仗剑入唐 · 游侠诗行录（m152）
+
+第 1 版源码保存在 [sources/m152](../sources/m152/)，对应源提交 `aa2a6b0e6684cc2f4133fbc1a86446e814ccb204`。原项目用 Python 标准库将 Three.js、MIT 许可、七张 WebP 图片、一段 MP3 和游戏脚本内联进 `dist/index.html`，不依赖后端。它包含三卷六关、路标委托、唐诗选择与排序、登楼、行舟、敲钟和两场护送战斗。进度仅保存在当前浏览器；原站个人进度未迁入。
+
+原始单文件 HTML 为 2411460 字节，SHA-256 为 `dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9`。网页下载按钮返回这份原文件，下载名为 `仗剑入唐_离线版.html`。在仓库根目录运行 `python scripts/package_tang_youxia.py --source sources/m152 --output /tmp/tang-pages`，可生成发布副本和不经过 HTML 路径适配的离线载荷。原素材按哈希存入 `assets/`；若要用原始 `build.py` 重建，应先按源码目录的 `migration-assets.json` 还原素材路径。
+
+运行 `CHROMIUM_PATH=/usr/bin/chromium node tests/tang-youxia.mjs` 检查行卷、关卡交互、战斗、进度保存、移动布局和实际离线文件下载；设置 `APP_URL` 后检查真实 Pages 入口。诊断接口仅用于读取状态，测试不跳过战斗结算或推进模拟时间，也不替换线上资源。不同设备的帧率和长时间运行性能不在本次验收范围内。

@@ -2256,5 +2256,21 @@
     "migration": "web",
     "web": "web/m151",
     "entry": "index.html"
+  },
+  {
+    "id": "m152",
+    "name": "仗剑入唐 · 游侠诗行录",
+    "description": "以六首唐诗串联三卷江湖行旅的三维互动游戏，包含路标探索、登楼、水程排序、行舟、敲钟与护信战斗；支持本机进度保存和单文件 HTML 离线下载。",
+    "category": "教学与实训",
+    "original_url": "https://tang-youxia-poetry-trails.yunjinzh.chatgpt.site",
+    "original_status": "原站已保存发布版本；按同步检查范围验证",
+    "source": "sources/m152",
+    "source_project": "appgprj_6b046eb6f7e88191b57d48b75c4f97c6",
+    "source_version": 1,
+    "source_commit": "aa2a6b0e6684cc2f4133fbc1a86446e814ccb204",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m152",
+    "entry": "index.html"
   }
 ]
