@@ -2240,5 +2240,21 @@
     "migration": "web",
     "web": "web/m150",
     "entry": "index.html"
+  },
+  {
+    "id": "m151",
+    "name": "京城夜行 · 北京城市漫游",
+    "description": "北京主题单机三维城市游戏，支持步行、驾车、游船、六类差事、磁带收集、车辆调校与本机存档；场景为程序化创作，不提供现实导航。",
+    "category": "空间与三维",
+    "original_url": "https://beijing-nightline.yunjinzh.chatgpt.site",
+    "original_status": "原站已保存发布版本；按同步检查范围验证",
+    "source": "sources/m151",
+    "source_project": "appgprj_6b02a0ad99308191a4a3ddf13fd7954a",
+    "source_version": 1,
+    "source_commit": "3a2476d4c05f95d0376b43803e11381338d23f4b",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m151",
+    "entry": "index.html"
   }
 ]

@@ -1,0 +1,10 @@
+node_modules/
+research/reference/
+research/*.log
+research/*.pid
+tests/artifacts/
+*.tar.gz
+*.zip
+launch-state.json
+server.log
+server-error.log
