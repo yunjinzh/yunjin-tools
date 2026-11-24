@@ -1,275 +1,190 @@
 {
-  "completed_at": "2026-11-23T17:39:50.117679+00:00",
+  "completed_at": "2026-11-24T15:54:52.757190+00:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
   "added": 1,
   "updated": 0,
   "modules": [
-    "m152"
+    "m153"
   ],
-  "migration_mode": "static-web",
+  "migration_mode": "static-web-with-original-server-package",
   "discovery": {
-    "owner_sites": 111,
     "pages": [
       50,
       50,
-      11
+      12
     ],
-    "pagination_complete": true,
+    "count": 112,
+    "complete": true,
     "catalogue_version": 22,
     "catalogue_changed": false
   },
-  "source_project": "appgprj_6b046eb6f7e88191b57d48b75c4f97c6",
-  "source_version": 1,
-  "source_version_id": "appgprj_6b046eb6f7e88191b57d48b75c4f97c6~appgver_705062d5c6408191ba8c74214dc5f74c",
-  "source_commit": "aa2a6b0e6684cc2f4133fbc1a86446e814ccb204",
+  "source_project": "appgprj_6b05a82182b081919e7456ac28af0500",
+  "source_version": 2,
+  "source_version_id": "appgprj_6b05a82182b081919e7456ac28af0500~appgver_d795880228788191bda7ed72b8cf5e01",
+  "source_commit": "e7e8a149d0acc632544bd2962e44f1ebacadb74a",
   "source_deployment": {
-    "id": "appgdep_6b04723d762c8191b7739ef8b94b1306",
-    "project_id": "appgprj_6b046eb6f7e88191b57d48b75c4f97c6",
-    "version_id": "appgprj_6b046eb6f7e88191b57d48b75c4f97c6~appgver_705062d5c6408191ba8c74214dc5f74c",
+    "id": "appgdep_6b05adbe30c48191a491f48000e26998",
+    "project_id": "appgprj_6b05a82182b081919e7456ac28af0500",
+    "version_id": "appgprj_6b05a82182b081919e7456ac28af0500~appgver_d795880228788191bda7ed72b8cf5e01",
     "status": "succeeded",
     "type": "publish",
-    "url": "https://tang-youxia-poetry-trails.yunjinzh.chatgpt.site",
-    "updated_at": "2026-11-23T17:05:16.656973+00:00",
+    "url": "https://claymotion-atelier.yunjinzh.chatgpt.site",
+    "updated_at": "2026-11-24T15:31:34.895567+00:00",
     "failure_message": null
   },
-  "deployment_commit": "4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/45229038407",
+  "deployment_commit": "9553a5d0ee870d47d206c83df0541ae1cc029d51",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/45430206317",
   "deployment_workflow_conclusion": "success",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m152/index.html",
-  "original_url": "https://tang-youxia-poetry-trails.yunjinzh.chatgpt.site",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/index.html",
+  "original_url": "https://claymotion-atelier.yunjinzh.chatgpt.site",
   "catalogue_url": "https://yunjinzh.github.io/yunjin-tools/",
-  "catalogue_count": 152,
-  "web_count": 115,
+  "catalogue_count": 153,
+  "web_count": 116,
   "summary": [
-    "新增仗剑入唐第1版，提供三卷六关唐诗行旅、护送战斗、本机进度保存及离线单文件下载。",
-    "保留原始源码；发布副本的下载按钮返回未经过 Pages 适配的原始单文件 HTML。",
-    "真实 Pages 入口、资源校验、六关完整推进、战斗重试、移动布局及离线文件运行检查通过。"
+    "新增白模动作工坊第2版，提供浏览器本机视频动作提取、白模预览、H.264 MP4 导出及任务恢复。",
+    "完整保留原始源码、模型、组件许可及独立服务器版 ZIP；Pages 使用原始本机模式，不运行服务器后台。",
+    "真实 HTTPS 入口、发布资源、86帧示例转换、暂停续跑、音轨设置、移动布局和实际下载校验通过。"
   ],
   "adaptation": {
-    "module_id": "m152",
+    "module_id": "m153",
     "original_source_unchanged": true,
-    "changed_web_source_files": [
-      "index.html"
-    ],
-    "reason": "Download the exact original standalone HTML instead of the Pages entry with injected runtime dependencies",
-    "reproducible_packager": "scripts/package_tang_youxia.py",
-    "storage_namespace": "yunjin:m152:",
-    "backend_required": false,
+    "changed_web_source_files": [],
+    "shared_pages_path_and_storage_adapter": true,
+    "storage_namespace": "yunjin:m153:",
+    "backend_required_for_browser_mode": false,
+    "server_background_mode_on_pages": false,
     "original_site_modified": false,
     "runtime_secrets_or_user_data_copied": false
   },
   "source_snapshot_check": {
-    "source_commit": "aa2a6b0e6684cc2f4133fbc1a86446e814ccb204",
-    "tracked_files": 18,
-    "preserved_files": 17,
-    "preserved_bytes": 4387815,
-    "files": [
-      {
-        "path": "assets/cover.webp",
-        "bytes": 441266,
-        "sha256": "111cfaa1c02f7276823699f608ec2f953d84406ea7d631689f8000b3b502b34b"
-      },
-      {
-        "path": "assets/music.mp3",
-        "bytes": 235628,
-        "sha256": "9daf35be9ae122fa8739a0632827934b8293b1ceea2ebb06f6623ef448274c56"
-      },
-      {
-        "path": "assets/scene0.webp",
-        "bytes": 121258,
-        "sha256": "dddf6d791aa681e0d250ce25b58ab9bc97a616f6918abc363a40c71ad6c77864"
-      },
-      {
-        "path": "assets/scene1.webp",
-        "bytes": 110862,
-        "sha256": "5fce89d6e755a72ea3dc49ec155acc0ef784382173055ea7e8f7c7f38a34850c"
-      },
-      {
-        "path": "assets/scene2.webp",
-        "bytes": 88576,
-        "sha256": "c19d21772c9af3f7ce8d0ff4188656a21388c2734de86e3adc65761aa0dafce4"
-      },
-      {
-        "path": "assets/scene3.webp",
-        "bytes": 104446,
-        "sha256": "7f0e3a6a6b1da5ea00301061629bf4726833248a89257ac6e6aa21f674c95d11"
-      },
-      {
-        "path": "assets/scene4.webp",
-        "bytes": 108674,
-        "sha256": "ccb1286c29eda4094bfcb81eba2decb9c254cee96aed2070fe063b39f586d4f7"
-      },
-      {
-        "path": "assets/scene5.webp",
-        "bytes": 96636,
-        "sha256": "4d97fe6dac6ec695e9f2ca05891ffe8766762c6afa20451e1b51c8473d7bc578"
-      },
-      {
-        "path": "build.py",
-        "bytes": 890,
-        "sha256": "09b802316df1426e6845aa87f75132595a250cdb4e1883820cbf44a40c5090aa"
-      },
-      {
-        "path": "dist/index.html",
-        "bytes": 2411460,
-        "sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9"
-      },
-      {
-        "path": "src/data.js",
-        "bytes": 7555,
-        "sha256": "71424da50376912b8460e9be69107f42538c09c823d48af82f86afa33823dd28"
-      },
-      {
-        "path": "src/game.js",
-        "bytes": 22063,
-        "sha256": "0358bca1efabcb5363ab33e377c8d8445a59e8b498625723f7ec7deb87a8bd2b"
-      },
-      {
-        "path": "src/index.tpl",
-        "bytes": 2685,
-        "sha256": "b9883543983be75a13f6d3185231faa719d7bd801588d1fe44c7ed7702af26bd"
-      },
-      {
-        "path": "src/style.css",
-        "bytes": 12527,
-        "sha256": "bfdb56715c709156eadea05e47112769602f4a6cf042e21bd524535b76ff3693"
-      },
-      {
-        "path": "src/world.js",
-        "bytes": 18762,
-        "sha256": "018f8de713f207d34a7c6967329b2fe36229b1c0b8452de0791c19ada2c33f49"
-      },
-      {
-        "path": "vendor/THREE-LICENSE.txt",
-        "bytes": 1082,
-        "sha256": "139b3447715c4230ea582a72987c0604582b74f80aec27f93efc10bb5f2ebe5b"
-      },
-      {
-        "path": "vendor/three.min.js",
-        "bytes": 603445,
-        "sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
-      }
-    ],
+    "project": "appgprj_6b05a82182b081919e7456ac28af0500",
+    "source_commit": "e7e8a149d0acc632544bd2962e44f1ebacadb74a",
+    "tracked_files": 44,
+    "preserved_files": 43,
     "excluded": [
       ".openai/hosting.json"
     ],
-    "rebuild_matches_saved_html": true,
-    "syntax_checked_files": 4,
-    "runtime_data_copied": false,
-    "credentials_flagged": false
+    "source_bytes": 73396407,
+    "js_syntax": "passed",
+    "python_ast": "passed",
+    "secret_scan": "passed",
+    "package": {
+      "bytes": 5795742,
+      "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
+      "members": 26,
+      "crc": "passed",
+      "members_match_source": true
+    }
   },
-  "previous_151_module_records_unchanged": true,
-  "source_checks": {
-    "original_build_reproduces_saved_html": true,
-    "syntax_checked_files": 4,
-    "pages_packager_reproduces_adapted_files": true,
-    "embedded_images_decoded": 7,
-    "embedded_mp3_duration_seconds": 29.412
-  },
+  "preserved_source_files_byte_verified": 43,
+  "previous_152_module_records_unchanged": true,
+  "upstream_whitespace_preserved": true,
   "incremental_sync_tests": {
     "passed": 7
   },
   "build": {
-    "catalogue": 152,
+    "catalogue": 153,
     "kinds": {
-      "web": 115,
+      "web": 116,
       "server": 16,
       "missing": 19,
       "extension": 1,
       "desktop": 1
     },
-    "files": 3725,
-    "bytes": 654454285
+    "files": 3759,
+    "bytes": 721571927
   },
   "asset_validation": {
     "ok": true,
-    "asset_records": 3050,
+    "asset_records": 3055,
     "sha256_checked": true
   },
   "local_validation": {
-    "ok": true,
     "base": "http://127.0.0.1:4173/yunjin-tools/",
-    "resourceSubstitution": false,
-    "diagnosticsReadOnly": true,
-    "simulationStepping": false,
+    "localAssets": true,
     "checks": [
-      "Portal search, three volumes, seven embedded images, music toggle and six initially locked poem cards pass",
-      "WebGL scene, keyboard movement, dash, pause/poem help and real reload recovery at a completed checkpoint pass",
-      "Weicheng: wrong-choice feedback, willow selection, actual sword encounter and first poem reward pass",
-      "Guanque Tower: all three climbs, new-ferry discovery and poem reward pass",
-      "Emei: incorrect route rejection, Qingxi–Three Gorges–Yuzhou ordering and poem reward pass",
-      "Baidi boat: a missed gate preserves progress; all three real-time water gates and medicine delivery pass",
-      "Fengqiao bell: mistimed input and three correctly timed bells lead to the passenger boat and fifth poem",
-      "Furong: defeat/retry, two-phase boss combat, correct letter answer, all six poem cards and full-progress reload pass",
-      "Module-specific storage, replay without duplicate rewards, joystick movement and three mobile viewports pass",
-      "Actual standalone HTML download matches the original SHA-256 and runs a scene/quest with network disabled"
+      "Portal search, initial model preview, local-processing notice and actual server ZIP download/checksum pass",
+      "Real sample extraction, pause/reload/resume, 86-frame tracking and decoded H.264/AAC output pass",
+      "Synchronized playback, frame stepping, color/size/mute re-export without re-extraction and persisted result pass",
+      "390px, 360px and landscape layouts have no horizontal overflow and retain export controls",
+      "Clearing the isolated test task restores the empty workspace; invalid input gives a recoverable error"
     ],
     "errors": [],
     "failures": [],
-    "images": [
-      {
-        "width": 1672,
-        "height": 941
-      },
-      {
-        "width": 764,
-        "height": 337
-      },
-      {
-        "width": 764,
-        "height": 337
-      },
-      {
-        "width": 764,
-        "height": 338
-      },
-      {
-        "width": 764,
-        "height": 338
-      },
-      {
-        "width": 764,
-        "height": 337
-      },
-      {
-        "width": 764,
-        "height": 337
+    "package": {
+      "bytes": 5795742,
+      "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
+      "suggestedFilename": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip"
+    },
+    "motion": {
+      "frames": 86,
+      "detected": 86,
+      "pausedFrames": 13,
+      "sha256": "1d8b5e2bcb5877c56a709dd9697bfc084235ef4059af2d8e33faa0b139bdab74"
+    },
+    "originalExport": {
+      "bytes": 281999,
+      "sha256": "f19ca1e3841c714d79151a5351c30a1735a6e890e14b42c54635bc0db971c328",
+      "suggestedFilename": "开合跳示例-白模.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 480,
+            "height": 360,
+            "nb_read_frames": "86"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "nb_read_frames": "149"
+          }
+        ],
+        "format": {
+          "duration": "3.440000"
+        }
       }
-    ],
-    "firstFight": {
-      "attempts": 3,
-      "phaseSeen": false
     },
-    "bellAttempts": [
-      "已应钟 1 / 3",
-      "已应钟 2 / 3",
-      "第三声过后，雾里亮起一盏回灯。"
-    ],
-    "bossFight": {
-      "attempts": 8,
-      "phaseSeen": true
+    "mutedExport": {
+      "bytes": 253273,
+      "sha256": "b3ee41026500d59fb95e785d74991e75b28158532517abc66251a4bbf9688f3f",
+      "suggestedFilename": "开合跳示例-白模.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 480,
+            "height": 360,
+            "nb_read_frames": "86"
+          }
+        ],
+        "format": {
+          "duration": "3.440000"
+        }
+      }
     },
-    "download": {
-      "filename": "仗剑入唐_离线版.html",
-      "bytes": 2411460,
-      "sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9"
-    },
-    "offlineMode": "Actual downloaded HTML in an isolated network-disabled document"
+    "ok": true
   },
   "local_smoke": {
     "base": "http://127.0.0.1:4173/yunjin-tools/",
     "localAssets": true,
     "outcomes": [
       {
-        "id": "m152",
-        "name": "仗剑入唐 · 游侠诗行录",
+        "id": "m153",
+        "name": "白模动作工坊",
         "http": 200,
         "errors": [],
         "failures": [],
-        "title": "仗剑入唐 · 游侠诗行录",
-        "textLength": 267,
-        "canvas": 0,
+        "title": "形迹 · 视频转白模",
+        "textLength": 319,
+        "canvas": 3,
         "ok": true
       }
     ]
@@ -277,95 +192,96 @@
   "local_portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 152 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 153 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
   "browser_checks": {
-    "ok": true,
     "base": "https://yunjinzh.github.io/yunjin-tools/",
-    "resourceSubstitution": false,
-    "diagnosticsReadOnly": true,
-    "simulationStepping": false,
+    "localAssets": false,
     "checks": [
-      "Portal search, three volumes, seven embedded images, music toggle and six initially locked poem cards pass",
-      "WebGL scene, keyboard movement, dash, pause/poem help and real reload recovery at a completed checkpoint pass",
-      "Weicheng: wrong-choice feedback, willow selection, actual sword encounter and first poem reward pass",
-      "Guanque Tower: all three climbs, new-ferry discovery and poem reward pass",
-      "Emei: incorrect route rejection, Qingxi–Three Gorges–Yuzhou ordering and poem reward pass",
-      "Baidi boat: a missed gate preserves progress; all three real-time water gates and medicine delivery pass",
-      "Fengqiao bell: mistimed input and three correctly timed bells lead to the passenger boat and fifth poem",
-      "Furong: defeat/retry, two-phase boss combat, correct letter answer, all six poem cards and full-progress reload pass",
-      "Module-specific storage, replay without duplicate rewards, joystick movement and three mobile viewports pass",
-      "Actual standalone HTML download matches the original SHA-256 and runs a scene/quest with network disabled"
+      "Portal search, initial model preview, local-processing notice and actual server ZIP download/checksum pass",
+      "Real sample extraction, pause/reload/resume, 86-frame tracking and decoded H.264/AAC output pass",
+      "Synchronized playback, frame stepping, color/size/mute re-export without re-extraction and persisted result pass",
+      "390px, 360px and landscape layouts have no horizontal overflow and retain export controls",
+      "Clearing the isolated test task restores the empty workspace; invalid input gives a recoverable error"
     ],
     "errors": [],
     "failures": [],
-    "images": [
-      {
-        "width": 1672,
-        "height": 941
-      },
-      {
-        "width": 764,
-        "height": 337
-      },
-      {
-        "width": 764,
-        "height": 337
-      },
-      {
-        "width": 764,
-        "height": 338
-      },
-      {
-        "width": 764,
-        "height": 338
-      },
-      {
-        "width": 764,
-        "height": 337
-      },
-      {
-        "width": 764,
-        "height": 337
+    "package": {
+      "bytes": 5795742,
+      "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
+      "suggestedFilename": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip"
+    },
+    "motion": {
+      "frames": 86,
+      "detected": 86,
+      "pausedFrames": 11,
+      "sha256": "1d8b5e2bcb5877c56a709dd9697bfc084235ef4059af2d8e33faa0b139bdab74"
+    },
+    "originalExport": {
+      "bytes": 281999,
+      "sha256": "cf406b951e9dd11dabb523039b7d91b60bb77886713285a9bcdfe4be00732642",
+      "suggestedFilename": "开合跳示例-白模.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 480,
+            "height": 360,
+            "nb_read_frames": "86"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "nb_read_frames": "149"
+          }
+        ],
+        "format": {
+          "duration": "3.440000"
+        }
       }
-    ],
-    "firstFight": {
-      "attempts": 3,
-      "phaseSeen": false
     },
-    "bellAttempts": [
-      "已应钟 1 / 3",
-      "已应钟 1 / 3",
-      "已应钟 2 / 3",
-      "第三声过后，雾里亮起一盏回灯。"
-    ],
-    "bossFight": {
-      "attempts": 8,
-      "phaseSeen": true
+    "mutedExport": {
+      "bytes": 253273,
+      "sha256": "8ebb740f6b2648946691695442d5b495458b45351092e2628991e911a2d6ea1a",
+      "suggestedFilename": "开合跳示例-白模.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 480,
+            "height": 360,
+            "nb_read_frames": "86"
+          }
+        ],
+        "format": {
+          "duration": "3.440000"
+        }
+      }
     },
-    "download": {
-      "filename": "仗剑入唐_离线版.html",
-      "bytes": 2411460,
-      "sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9"
-    },
-    "offlineMode": "Actual downloaded HTML in an isolated network-disabled document"
+    "ok": true
   },
   "public_smoke": {
     "base": "https://yunjinzh.github.io/yunjin-tools/",
     "localAssets": false,
     "outcomes": [
       {
-        "id": "m152",
-        "name": "仗剑入唐 · 游侠诗行录",
+        "id": "m153",
+        "name": "白模动作工坊",
         "http": 200,
         "errors": [],
         "failures": [],
-        "title": "仗剑入唐 · 游侠诗行录",
-        "textLength": 267,
-        "canvas": 0,
+        "title": "形迹 · 视频转白模",
+        "textLength": 319,
+        "canvas": 3,
         "ok": true
       }
     ]
@@ -373,38 +289,31 @@
   "portal_checks": {
     "ok": true,
     "checks": [
-      "Portal: 152 entries, search, empty state, category and availability filters, 390px viewport",
+      "Portal: 153 entries, search, empty state, category and availability filters, 390px viewport",
       "Module storage isolation: get, set and clear",
       "PDF reader: built-in sample action completes without a visible import/load error"
     ]
   },
-  "verification_retry": {
-    "initial_issue": "The browser locator click waited for stable frames and missed the bell timing window.",
-    "resolution": "The test uses Space on the focused native button; three real-time bell responses are verified.",
-    "source_changes_for_retry": false,
-    "verification_only_test_change": "tests/tang-youxia.mjs",
-    "mobile_test_setup": "A dedicated touch-emulated context checks the coarse-pointer joystick; desktop resizing alone does not display it."
-  },
   "http_checks": {
     "ok": true,
-    "deployment_commit": "4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3",
+    "deployment_commit": "9553a5d0ee870d47d206c83df0541ae1cc029d51",
     "resource_substitution": false,
-    "files_checked": 34,
+    "files_checked": 53,
     "checks": [
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/index.html",
         "http": 200,
         "bytes": 3854,
-        "sha256": "fa8dc3c23bb3257b0f68ff6fb1bb57747f35f5484a3277cb7cf677b4720787d8",
-        "expected_sha256": "fa8dc3c23bb3257b0f68ff6fb1bb57747f35f5484a3277cb7cf677b4720787d8",
+        "sha256": "488abee2669f2b6c332814bca9d7ef3ae8391e95dd33e42e3b2f768df4553ec1",
+        "expected_sha256": "488abee2669f2b6c332814bca9d7ef3ae8391e95dd33e42e3b2f768df4553ec1",
         "ok": true
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
         "http": 200,
-        "bytes": 100085,
-        "sha256": "8d47927e1f8eeb506489f5e88f5cfc208000a606cf95037b38bf078f6e259cea",
-        "expected_sha256": "8d47927e1f8eeb506489f5e88f5cfc208000a606cf95037b38bf078f6e259cea",
+        "bytes": 100800,
+        "sha256": "a61818784f6c8af3503298d743fe755a7507a77a8d7fda8ffcc4534ab65b585a",
+        "expected_sha256": "a61818784f6c8af3503298d743fe755a7507a77a8d7fda8ffcc4534ab65b585a",
         "ok": true
       },
       {
@@ -432,253 +341,408 @@
         "ok": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m152/index.html",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/app.mjs",
         "http": 200,
-        "bytes": 2412089,
-        "sha256": "7cb2d6cc27d1e9a29771c1409bceb9d8939866493e72bb6ce2e474c897c4a4d8",
-        "expected_sha256": "7cb2d6cc27d1e9a29771c1409bceb9d8939866493e72bb6ce2e474c897c4a4d8",
+        "bytes": 17298,
+        "sha256": "a693fc7c2d150c1ea9929c2ec947f125683cf6ab74ce590400392346194b55cd",
+        "expected_sha256": "a693fc7c2d150c1ea9929c2ec947f125683cf6ab74ce590400392346194b55cd",
         "ok": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m152/migration-config.js",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/LICENSE-ORT",
         "http": 200,
-        "bytes": 202,
-        "sha256": "d6ace3852b6f1539c7f18b46a3eefc54f1a13c2abfe2ba644f09169c20cb5262",
-        "expected_sha256": "d6ace3852b6f1539c7f18b46a3eefc54f1a13c2abfe2ba644f09169c20cb5262",
+        "bytes": 1073,
+        "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
+        "expected_sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c",
         "ok": true
       },
       {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m152/tang-youxia-offline.bin",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/LICENSE-PERSON",
         "http": 200,
-        "bytes": 2411460,
-        "sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9",
-        "expected_sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9",
+        "bytes": 11358,
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "expected_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/build.py",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/LICENSE-POSE",
         "http": 200,
-        "bytes": 890,
-        "sha256": "09b802316df1426e6845aa87f75132595a250cdb4e1883820cbf44a40c5090aa",
-        "expected_sha256": "09b802316df1426e6845aa87f75132595a250cdb4e1883820cbf44a40c5090aa",
+        "bytes": 11357,
+        "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "expected_sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/dist/index.html",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/ORT-THIRD-PARTY-NOTICES",
         "http": 200,
-        "bytes": 2411460,
-        "sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9",
-        "expected_sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9",
+        "bytes": 338538,
+        "sha256": "10fc98a2f4d478e981813d594e23d7e31b0430e66501a658c1ecab2a226a4b52",
+        "expected_sha256": "10fc98a2f4d478e981813d594e23d7e31b0430e66501a658c1ecab2a226a4b52",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/migration-assets.json",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/ort-wasm-simd.wasm",
         "http": 200,
-        "bytes": 831,
-        "sha256": "4615fbb719a272373bcd05e62581036641824f9ee87bb714c1ef814a491d5ba8",
-        "expected_sha256": "4615fbb719a272373bcd05e62581036641824f9ee87bb714c1ef814a491d5ba8",
+        "bytes": 10595041,
+        "sha256": "f533b5f21790563d7556c611c3835ac65848ee326da2689aac54ed7d9cc8c6a4",
+        "expected_sha256": "f533b5f21790563d7556c611c3835ac65848ee326da2689aac54ed7d9cc8c6a4",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/src/data.js",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/ort-wasm.wasm",
         "http": 200,
-        "bytes": 7555,
-        "sha256": "71424da50376912b8460e9be69107f42538c09c823d48af82f86afa33823dd28",
-        "expected_sha256": "71424da50376912b8460e9be69107f42538c09c823d48af82f86afa33823dd28",
+        "bytes": 9758086,
+        "sha256": "ebe7ec327f83aabc07e3b58487522481ccff10941f24182ab0428d0123652ff2",
+        "expected_sha256": "ebe7ec327f83aabc07e3b58487522481ccff10941f24182ab0428d0123652ff2",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/src/game.js",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/ort.wasm.min.js",
         "http": 200,
-        "bytes": 22063,
-        "sha256": "0358bca1efabcb5363ab33e377c8d8445a59e8b498625723f7ec7deb87a8bd2b",
-        "expected_sha256": "0358bca1efabcb5363ab33e377c8d8445a59e8b498625723f7ec7deb87a8bd2b",
+        "bytes": 143070,
+        "sha256": "3d1a2c2d368e1cba317d3f12c5a893138bd1b6fe7e0e0a89f5c3c26512921cd5",
+        "expected_sha256": "3d1a2c2d368e1cba317d3f12c5a893138bd1b6fe7e0e0a89f5c3c26512921cd5",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/src/index.tpl",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/person.onnx",
         "http": 200,
-        "bytes": 2685,
-        "sha256": "b9883543983be75a13f6d3185231faa719d7bd801588d1fe44c7ed7702af26bd",
-        "expected_sha256": "b9883543983be75a13f6d3185231faa719d7bd801588d1fe44c7ed7702af26bd",
+        "bytes": 11990159,
+        "sha256": "47fd5599d6fa17608f03e0eb0ae230baa6e597d7e8a2c8199fe00abea55a701f",
+        "expected_sha256": "47fd5599d6fa17608f03e0eb0ae230baa6e597d7e8a2c8199fe00abea55a701f",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/src/style.css",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/cpu/pose.onnx",
         "http": 200,
-        "bytes": 12527,
-        "sha256": "bfdb56715c709156eadea05e47112769602f4a6cf042e21bd524535b76ff3693",
-        "expected_sha256": "bfdb56715c709156eadea05e47112769602f4a6cf042e21bd524535b76ff3693",
+        "bytes": 5557238,
+        "sha256": "9d89c599319a18fb7d2e28451a883476164543182bafca5f09eb2cf767ed2f3f",
+        "expected_sha256": "9d89c599319a18fb7d2e28451a883476164543182bafca5f09eb2cf767ed2f3f",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/src/world.js",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/demo-source.txt",
         "http": 200,
-        "bytes": 18762,
-        "sha256": "018f8de713f207d34a7c6967329b2fe36229b1c0b8452de0791c19ada2c33f49",
-        "expected_sha256": "018f8de713f207d34a7c6967329b2fe36229b1c0b8452de0791c19ada2c33f49",
+        "bytes": 518,
+        "sha256": "5afb350830683f23aea3c9af3c8bf2a35eebfdfb6727ce363bbe200c76eea91d",
+        "expected_sha256": "5afb350830683f23aea3c9af3c8bf2a35eebfdfb6727ce363bbe200c76eea91d",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/vendor/THREE-LICENSE.txt",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/h264.js",
         "http": 200,
-        "bytes": 1082,
-        "sha256": "139b3447715c4230ea582a72987c0604582b74f80aec27f93efc10bb5f2ebe5b",
-        "expected_sha256": "139b3447715c4230ea582a72987c0604582b74f80aec27f93efc10bb5f2ebe5b",
+        "bytes": 1702336,
+        "sha256": "db5e45cc1367dc467f876944d9b16eb30f8e984384587c8c00f8d973aff68ce7",
+        "expected_sha256": "db5e45cc1367dc467f876944d9b16eb30f8e984384587c8c00f8d973aff68ce7",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/sources/m152/vendor/three.min.js",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/media.mjs",
         "http": 200,
-        "bytes": 603445,
-        "sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
-        "expected_sha256": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
+        "bytes": 888207,
+        "sha256": "d9ccdf139e26e1d75ab010bb9d61d30ab0f1c639bf06652201058cc58d723812",
+        "expected_sha256": "d9ccdf139e26e1d75ab010bb9d61d30ab0f1c639bf06652201058cc58d723812",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/111cfaa1c02f7276823699f608ec2f953d84406ea7d631689f8000b3b502b34b.webp",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/notices/SOURCES.txt",
         "http": 200,
-        "bytes": 441266,
-        "sha256": "111cfaa1c02f7276823699f608ec2f953d84406ea7d631689f8000b3b502b34b",
-        "expected_sha256": "111cfaa1c02f7276823699f608ec2f953d84406ea7d631689f8000b3b502b34b",
+        "bytes": 900,
+        "sha256": "b3780d997b406b0b11559aeaa5197b40c0375ac077d52050a58eff1ef5924a13",
+        "expected_sha256": "b3780d997b406b0b11559aeaa5197b40c0375ac077d52050a58eff1ef5924a13",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/9daf35be9ae122fa8739a0632827934b8293b1ceea2ebb06f6623ef448274c56.mp3",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/notices/h264-encoder-LICENSE.txt",
         "http": 200,
-        "bytes": 235628,
-        "sha256": "9daf35be9ae122fa8739a0632827934b8293b1ceea2ebb06f6623ef448274c56",
-        "expected_sha256": "9daf35be9ae122fa8739a0632827934b8293b1ceea2ebb06f6623ef448274c56",
+        "bytes": 1072,
+        "sha256": "05f71440b962f294ffdced18c6e77437f59c7bd7cdf0bf69dc1ec0c918065cae",
+        "expected_sha256": "05f71440b962f294ffdced18c6e77437f59c7bd7cdf0bf69dc1ec0c918065cae",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/dddf6d791aa681e0d250ce25b58ab9bc97a616f6918abc363a40c71ad6c77864.webp",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/notices/mediabunny-LICENSE.txt",
         "http": 200,
-        "bytes": 121258,
-        "sha256": "dddf6d791aa681e0d250ce25b58ab9bc97a616f6918abc363a40c71ad6c77864",
-        "expected_sha256": "dddf6d791aa681e0d250ce25b58ab9bc97a616f6918abc363a40c71ad6c77864",
+        "bytes": 16726,
+        "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+        "expected_sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/5fce89d6e755a72ea3dc49ec155acc0ef784382173055ea7e8f7c7f38a34850c.webp",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/notices/mediapipe-LICENSE.txt",
         "http": 200,
-        "bytes": 110862,
-        "sha256": "5fce89d6e755a72ea3dc49ec155acc0ef784382173055ea7e8f7c7f38a34850c",
-        "expected_sha256": "5fce89d6e755a72ea3dc49ec155acc0ef784382173055ea7e8f7c7f38a34850c",
+        "bytes": 12331,
+        "sha256": "8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8",
+        "expected_sha256": "8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/c19d21772c9af3f7ce8d0ff4188656a21388c2734de86e3adc65761aa0dafce4.webp",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/notices/minimp4-LICENSE.txt",
         "http": 200,
-        "bytes": 88576,
-        "sha256": "c19d21772c9af3f7ce8d0ff4188656a21388c2734de86e3adc65761aa0dafce4",
-        "expected_sha256": "c19d21772c9af3f7ce8d0ff4188656a21388c2734de86e3adc65761aa0dafce4",
+        "bytes": 6556,
+        "sha256": "6a1ee543e5282cd9061881edf462e6fdab181f328da71fc2c9a6950a80e94d01",
+        "expected_sha256": "6a1ee543e5282cd9061881edf462e6fdab181f328da71fc2c9a6950a80e94d01",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/7f0e3a6a6b1da5ea00301061629bf4726833248a89257ac6e6aa21f674c95d11.webp",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/notices/openh264-LICENSE.txt",
         "http": 200,
-        "bytes": 104446,
-        "sha256": "7f0e3a6a6b1da5ea00301061629bf4726833248a89257ac6e6aa21f674c95d11",
-        "expected_sha256": "7f0e3a6a6b1da5ea00301061629bf4726833248a89257ac6e6aa21f674c95d11",
+        "bytes": 1295,
+        "sha256": "dd5c1c9668512530fa5a96e4c29ac4033d70a7eeb0eed7a42fddb6dd794ebdbb",
+        "expected_sha256": "dd5c1c9668512530fa5a96e4c29ac4033d70a7eeb0eed7a42fddb6dd794ebdbb",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/ccb1286c29eda4094bfcb81eba2decb9c254cee96aed2070fe063b39f586d4f7.webp",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/notices/three-LICENSE.txt",
         "http": 200,
-        "bytes": 108674,
-        "sha256": "ccb1286c29eda4094bfcb81eba2decb9c254cee96aed2070fe063b39f586d4f7",
-        "expected_sha256": "ccb1286c29eda4094bfcb81eba2decb9c254cee96aed2070fe063b39f586d4f7",
+        "bytes": 1081,
+        "sha256": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
+        "expected_sha256": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/4d97fe6dac6ec695e9f2ca05891ffe8766762c6afa20451e1b51c8473d7bc578.webp",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/pose.mjs",
         "http": 200,
-        "bytes": 96636,
-        "sha256": "4d97fe6dac6ec695e9f2ca05891ffe8766762c6afa20451e1b51c8473d7bc578",
-        "expected_sha256": "4d97fe6dac6ec695e9f2ca05891ffe8766762c6afa20451e1b51c8473d7bc578",
+        "bytes": 137809,
+        "sha256": "3252b10e0fd26c4095e4b6ee545c1c898120b3a3813388ecd4876abe6f1399a9",
+        "expected_sha256": "3252b10e0fd26c4095e4b6ee545c1c898120b3a3813388ecd4876abe6f1399a9",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/web/m152/index.html",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/pose.task",
         "http": 200,
-        "bytes": 2411950,
-        "sha256": "1c5d939b62cc0221ac0eeb2483a3ca60e849f865a16e782e86dd5d5dafc47e95",
-        "expected_sha256": "1c5d939b62cc0221ac0eeb2483a3ca60e849f865a16e782e86dd5d5dafc47e95",
+        "bytes": 5777746,
+        "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+        "expected_sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/web/m152/migration-assets.json",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/three.mjs",
         "http": 200,
-        "bytes": 111,
-        "sha256": "38cb927253e73ed981211dc29c4bc6fbb357fd82a2333dc212fb6a71fd940eae",
-        "expected_sha256": "38cb927253e73ed981211dc29c4bc6fbb357fd82a2333dc212fb6a71fd940eae",
+        "bytes": 670681,
+        "sha256": "3e690ac7d180b0aadf0891bea39eec643e29e2d3e75c99b18689518665f69ba6",
+        "expected_sha256": "3e690ac7d180b0aadf0891bea39eec643e29e2d3e75c99b18689518665f69ba6",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/assets/dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9.bin",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/wasm/vision_wasm_internal.js",
         "http": 200,
-        "bytes": 2411460,
-        "sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9",
-        "expected_sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9",
+        "bytes": 204284,
+        "sha256": "4a97e2520ba506c680ecd6ba6acfb146888afa0e2746d57f205352bc6ebb82eb",
+        "expected_sha256": "4a97e2520ba506c680ecd6ba6acfb146888afa0e2746d57f205352bc6ebb82eb",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/README.md",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/wasm/vision_wasm_internal.wasm",
         "http": 200,
-        "bytes": 3596,
-        "sha256": "6d6f45b0201c5a15cc450b16e25089e898b64c2113fb2df8f80b6c2dfa6784cf",
-        "expected_sha256": "6d6f45b0201c5a15cc450b16e25089e898b64c2113fb2df8f80b6c2dfa6784cf",
+        "bytes": 9574032,
+        "sha256": "f00ec4731faa23b3e714d00e88d4d10e2df5c0a427d3a2b4ae6e3526fdd14ef7",
+        "expected_sha256": "f00ec4731faa23b3e714d00e88d4d10e2df5c0a427d3a2b4ae6e3526fdd14ef7",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/docs/BUILDING.md",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/wasm/vision_wasm_nosimd_internal.js",
         "http": 200,
-        "bytes": 14004,
-        "sha256": "f971417a160e78c8294802f842e67a523c2daea3b1ad1ce9113e5a2b4bca0458",
-        "expected_sha256": "f971417a160e78c8294802f842e67a523c2daea3b1ad1ce9113e5a2b4bca0458",
+        "bytes": 204137,
+        "sha256": "927def7b465c51b86e4b3060f93646aca4e27121f4b8fc0483786e407ea9cf1f",
+        "expected_sha256": "927def7b465c51b86e4b3060f93646aca4e27121f4b8fc0483786e407ea9cf1f",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/docs/MIGRATION.md",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/assets/wasm/vision_wasm_nosimd_internal.wasm",
         "http": 200,
-        "bytes": 20028,
-        "sha256": "a81ba0815765ffc4070f378a11e225a8fa12bc27e3bde21156b0065b653db4ce",
-        "expected_sha256": "a81ba0815765ffc4070f378a11e225a8fa12bc27e3bde21156b0065b653db4ce",
+        "bytes": 9448638,
+        "sha256": "3821ea9b1f7fb8c549ef2a064ef5c85750bf375c545a49fd6eea0df44a95f1f4",
+        "expected_sha256": "3821ea9b1f7fb8c549ef2a064ef5c85750bf375c545a49fd6eea0df44a95f1f4",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/tests/tang-youxia.mjs",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/cpu-pose.mjs",
         "http": 200,
-        "bytes": 17661,
-        "sha256": "bc50fb6edc7d36fd272f890bd594e44f9ba1e2e45e3635dc62db159ad7b59d4a",
-        "expected_sha256": "bc50fb6edc7d36fd272f890bd594e44f9ba1e2e45e3635dc62db159ad7b59d4a",
+        "bytes": 4155,
+        "sha256": "e71d88c6a4c2423956f1e577373e8f2d0760cafef9df6db290969ee3ae3aa09f",
+        "expected_sha256": "e71d88c6a4c2423956f1e577373e8f2d0760cafef9df6db290969ee3ae3aa09f",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4bfc89d767ce0c1f97e4a6bf7c53a3ea1e7af6d3/scripts/package_tang_youxia.py",
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/engine.mjs",
         "http": 200,
-        "bytes": 2129,
-        "sha256": "1b8dd0f005a48e726d1d294b9992e9b293a3212c526ac1a9d13676dd5a7de4af",
-        "expected_sha256": "1b8dd0f005a48e726d1d294b9992e9b293a3212c526ac1a9d13676dd5a7de4af",
+        "bytes": 13004,
+        "sha256": "f59711529f282cf4e0589c155cbf97e035be1d6a499d1457154d97d0a1a4a5cf",
+        "expected_sha256": "f59711529f282cf4e0589c155cbf97e035be1d6a499d1457154d97d0a1a4a5cf",
+        "ok": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/figure.mjs",
+        "http": 200,
+        "bytes": 9957,
+        "sha256": "cc7ae6d310ff9fdc55de81aa0f3f71eeaffdc07cc1cd7335cf113e02e0b411c8",
+        "expected_sha256": "cc7ae6d310ff9fdc55de81aa0f3f71eeaffdc07cc1cd7335cf113e02e0b411c8",
+        "ok": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/index.html",
+        "http": 200,
+        "bytes": 6520,
+        "sha256": "0b750b272192f43910c27ebc4ef2eb80c8f081e97238a2e9ff4b744c08234535",
+        "expected_sha256": "0b750b272192f43910c27ebc4ef2eb80c8f081e97238a2e9ff4b744c08234535",
+        "ok": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/migration-config.js",
+        "http": 200,
+        "bytes": 1557,
+        "sha256": "f6540e582801cc4e111ef43b1303311be2151cfbe5de8cbbba1c9e0aa383dbd0",
+        "expected_sha256": "f6540e582801cc4e111ef43b1303311be2151cfbe5de8cbbba1c9e0aa383dbd0",
+        "ok": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/server-mode.json",
+        "http": 200,
+        "bytes": 21,
+        "sha256": "015868b8835e32eea0f0bb363ad7bf2114a142c6e8f494ad1573c9dd1b6493e6",
+        "expected_sha256": "015868b8835e32eea0f0bb363ad7bf2114a142c6e8f494ad1573c9dd1b6493e6",
+        "ok": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/style.css",
+        "http": 200,
+        "bytes": 10146,
+        "sha256": "01318533fb7fa969bca100e2e0467f03ed959db7a04bedc6d91b1f5a04b9930c",
+        "expected_sha256": "01318533fb7fa969bca100e2e0467f03ed959db7a04bedc6d91b1f5a04b9930c",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/47fd5599d6fa17608f03e0eb0ae230baa6e597d7e8a2c8199fe00abea55a701f.onnx",
+        "http": 200,
+        "bytes": 11990159,
+        "sha256": "47fd5599d6fa17608f03e0eb0ae230baa6e597d7e8a2c8199fe00abea55a701f",
+        "expected_sha256": "47fd5599d6fa17608f03e0eb0ae230baa6e597d7e8a2c8199fe00abea55a701f",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/9d89c599319a18fb7d2e28451a883476164543182bafca5f09eb2cf767ed2f3f.onnx",
+        "http": 200,
+        "bytes": 5557238,
+        "sha256": "9d89c599319a18fb7d2e28451a883476164543182bafca5f09eb2cf767ed2f3f",
+        "expected_sha256": "9d89c599319a18fb7d2e28451a883476164543182bafca5f09eb2cf767ed2f3f",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/c6a938bb8b507838532b2939214021af33e4fd09cd61408e5958042fea0ee702.mp4",
+        "http": 200,
+        "bytes": 188625,
+        "sha256": "c6a938bb8b507838532b2939214021af33e4fd09cd61408e5958042fea0ee702",
+        "expected_sha256": "c6a938bb8b507838532b2939214021af33e4fd09cd61408e5958042fea0ee702",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/b68d4afd98ea8b2ea56386ccf2246df705640933dd38e954f7afa4467c5a3691.mp4",
+        "http": 200,
+        "bytes": 275169,
+        "sha256": "b68d4afd98ea8b2ea56386ccf2246df705640933dd38e954f7afa4467c5a3691",
+        "expected_sha256": "b68d4afd98ea8b2ea56386ccf2246df705640933dd38e954f7afa4467c5a3691",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip",
+        "http": 200,
+        "bytes": 5795742,
+        "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
+        "expected_sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/README.md",
+        "http": 200,
+        "bytes": 2417,
+        "sha256": "4aeb22041e4e3037003e3e4932d8a22b25dee9137b37bb491127881aa3db7fc9",
+        "expected_sha256": "4aeb22041e4e3037003e3e4932d8a22b25dee9137b37bb491127881aa3db7fc9",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/Dockerfile",
+        "http": 200,
+        "bytes": 617,
+        "sha256": "de39703f1cf73fac8fecaa6957ffb961d04d97212c69480d675e25e34ed54a3b",
+        "expected_sha256": "de39703f1cf73fac8fecaa6957ffb961d04d97212c69480d675e25e34ed54a3b",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/server/service.py",
+        "http": 200,
+        "bytes": 9110,
+        "sha256": "b713a3e2f44a3c9e327f9e2a850d15b5ac79bec6fd121807474eae9854fa572d",
+        "expected_sha256": "b713a3e2f44a3c9e327f9e2a850d15b5ac79bec6fd121807474eae9854fa572d",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/server/processor.py",
+        "http": 200,
+        "bytes": 9620,
+        "sha256": "13175d8532e0dad16eefa06d907201fbd1a76752a55eee051caa10e76df8c2b5",
+        "expected_sha256": "13175d8532e0dad16eefa06d907201fbd1a76752a55eee051caa10e76df8c2b5",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/server/render.mjs",
+        "http": 200,
+        "bytes": 589,
+        "sha256": "b76887c15b4ce0ff558b1158d4da9e9104c138f29d23aacb23dec5a978f9b2ce",
+        "expected_sha256": "b76887c15b4ce0ff558b1158d4da9e9104c138f29d23aacb23dec5a978f9b2ce",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/server/requirements.txt",
+        "http": 200,
+        "bytes": 30,
+        "sha256": "43b7aa8f62a76d285062ce44b9b1d207c62bacc6b278a5630b9c90fbffe14cc8",
+        "expected_sha256": "43b7aa8f62a76d285062ce44b9b1d207c62bacc6b278a5630b9c90fbffe14cc8",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/migration-assets.json",
+        "http": 200,
+        "bytes": 579,
+        "sha256": "98c670f2ca7eb9c635fbf0fd8d82508673271e7f505a805ac1a35b2154cf2dcc",
+        "expected_sha256": "98c670f2ca7eb9c635fbf0fd8d82508673271e7f505a805ac1a35b2154cf2dcc",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/docs/BUILDING.md",
+        "http": 200,
+        "bytes": 16215,
+        "sha256": "97b459bf564c7642f8b9ca4b63462d647476692db74c7e2f504467fd4a9cfaa9",
+        "expected_sha256": "97b459bf564c7642f8b9ca4b63462d647476692db74c7e2f504467fd4a9cfaa9",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/tests/claymotion.mjs",
+        "http": 200,
+        "bytes": 10949,
+        "sha256": "5e67a5cbae2ffd95f8f559562fff14678a425e8047b9b401bc5778ace430136c",
+        "expected_sha256": "5e67a5cbae2ffd95f8f559562fff14678a425e8047b9b401bc5778ace430136c",
         "ok": true
       }
     ]
   },
   "downloads": {
-    "type": "original standalone HTML",
+    "type": "original Linux x86-64 Docker source package",
+    "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip",
     "verified": {
-      "filename": "仗剑入唐_离线版.html",
-      "bytes": 2411460,
-      "sha256": "dac1df70423516f3d5ac2199375fe438034e9be095e4452974593e0f081911f9"
+      "bytes": 5795742,
+      "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
+      "suggestedFilename": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip"
     },
-    "offline_verification": "Actual downloaded HTML in an isolated network-disabled document",
-    "new_installer_or_release_package": false
+    "zip_crc_checked": true,
+    "package_members_match_saved_source": 26,
+    "docker_backend_deployed_or_runtime_validated": false,
+    "h264_outputs_decoded_completely": true
   },
   "limitations": [
-    "未进行不同设备的帧率或长时间性能验收。",
-    "离线检查使用实际下载的原始 HTML，在禁用网络的独立浏览器文档中运行；未覆盖所有操作系统的文件双击行为。",
-    "原站、Pages 和离线文件的个人进度分别保存在所在浏览器中，不自动互通。"
+    "浏览器验收使用内置3.44秒、480×360、86帧开合跳样片，未覆盖多人目标选择、10分钟视频、大文件及所有设备性能。",
+    "独立服务器版需用户按原README自行部署；本次验证源码语法、包完整性与实际下载，没有部署或验收新的Docker后端。",
+    "原站与Pages的浏览器个人任务不自动互通；本次不迁入原站视频、任务数据库或成片。"
   ],
   "uncompleted": {
     "new_blockers": [],
