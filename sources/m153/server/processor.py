@@ -113,7 +113,7 @@ def extract(path, folder, state, update, choose, check):
                 prev={'t':round(t,6),'d':max(1/fps,.001),'p':p,'q':q};frames.append(prev)
                 if time.monotonic()-last_update>1 or len(frames)==1:
                     rgba=preview.draw(p); tmp=folder/'p.tmp.jpg';cv2.imwrite(str(tmp),cv2.cvtColor(rgba,cv2.COLOR_RGBA2BGR));tmp.replace(folder/'preview.jpg')
-                    update(state='running',title='正在提取动作',progress=min(.69,.04+.65*t/duration),time=t,preview=len(frames))
+                    update(state='running',stage='extract',title='正在提取动作',progress=min(.69,.04+.65*t/duration),time=t,preview=len(frames))
                     last_update=time.monotonic()
     finally:preview.close()
     if not any(f['p'] for f in frames):raise ValueError('整段视频未识别到人体，请换用人物清晰的素材。')
@@ -154,7 +154,7 @@ def render(data, folder, config, update, check):
                 if time.monotonic()-since>.6:update(title='正在导出 MP4',progress=.7+.24*(i+1)/len(frames));since=time.monotonic()
             for pkt in stream.encode():mux(pkt)
     finally:painter.close()
-    check();update(title='正在校验成片',progress=.96)
+    check();update(stage='verify',title='正在校验成片',progress=.96)
     cmd=['ffmpeg','-v','error','-nostdin','-y','-copyts','-i',str(folder/'picture.mp4')]
     has_audio=config['audio'] and data['audio']
     if has_audio:cmd+=['-itsoffset',str(-data['base']),'-i',str(folder/'source'),'-map','0:v:0','-map','1:a:0','-af','atrim=start=0','-c:a','aac','-b:a','160k']

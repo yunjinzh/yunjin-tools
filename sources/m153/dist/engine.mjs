@@ -72,7 +72,7 @@ export async function extract(meta,blob,state,hooks){
       hooks.signal?.throwIfAborted();if(frame.t<from-.00001||frame.t>=meta.duration||!Number.isFinite(frame.t))continue;
       if(source.width!==frame.canvas.width||source.height!==frame.canvas.height){source.width=frame.canvas.width;source.height=frame.canvas.height;}
       ctx.drawImage(frame.canvas,0,0);const res=await pose.detectForVideo(source,Math.max(0,frame.t*1000));
-      const candidates=res.landmarks.map(p=>candidate(p,ctx,meta.w/meta.h));let hit;
+      hooks.signal?.throwIfAborted();const candidates=res.landmarks.map(p=>candidate(p,ctx,meta.w/meta.h));let hit;
       if(last){hit=identify(candidates,last,frame.t-lastSeen,meta.w/meta.h);}
       else if(candidates.length){hit=candidates[candidates.length===1?0:await hooks.choose(source,candidates.map(c=>c.box),frame.t)];}
       if(hit){lastSeen=frame.t;const {pose:p,box,...descriptor}=hit;last=descriptor;}

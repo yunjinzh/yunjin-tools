@@ -345,10 +345,15 @@
       "version": 1
     },
     "appgprj_6b05a82182b081919e7456ac28af0500": {
-      "version": 2
+      "version": 3
     }
   },
-  "pending_verification": {},
+  "pending_verification": {
+    "appgprj_6b05a82182b081919e7456ac28af0500": {
+      "module": "m153",
+      "version": 3
+    }
+  },
   "verified": {
     "appgprj_6afbcd27f570819193859b4c241e9f8c": {
       "module": "m143",

@@ -27,3 +27,7 @@ docker run -d --name motion-atelier --restart unless-stopped \
 ## 示例与组件
 
 开合跳视频由 Taco Fleur / Cavemantraining 拍摄，按 CC BY-SA 4.0 分发，包含原声与裁切。所附白模示例沿用同一许可证。出处见 dist/assets/demo-source.txt，依赖许可在 dist/assets/notices。
+
+## 状态与回归
+
+完整的状态清单、恢复优先级、代理操作约定与回归入口见 [工作流说明](dist/workflow-audit.md)。

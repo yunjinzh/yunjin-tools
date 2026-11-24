@@ -72,7 +72,7 @@ try {
   const packageEvent = page.waitForEvent('download'); await page.locator('#serverDownload').click();
   const packageDownload = await packageEvent; const packageFile = path.join(out, 'motion-atelier-server.zip'); await packageDownload.saveAs(packageFile);
   result.package = { bytes: fs.statSync(packageFile).size, sha256: digest(fs.readFileSync(packageFile)), suggestedFilename: packageDownload.suggestedFilename() };
-  expect(result.package.bytes).toBe(5795742); expect(result.package.sha256).toBe('b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313');
+  expect(result.package.bytes).toBe(5810642); expect(result.package.sha256).toBe('70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2');
   execFileSync('python', ['-m', 'zipfile', '-t', packageFile], { stdio: 'pipe' });
   await page.getByRole('button', { name: '关闭', exact: true }).click();
   check('Portal search, initial model preview, local-processing notice and actual server ZIP download/checksum pass');
@@ -89,6 +89,16 @@ try {
   expect(motion.frames.at(-1).t).toBeCloseTo(3.40, 2);
   result.motion = { frames: motion.frames.length, detected: motion.frames.filter(f => f.p).length, pausedFrames: paused.frames.length, sha256: digest(JSON.stringify(motion.frames)) };
   result.originalExport = await downloadVideo('white-with-audio.mp4', true);
+  const originalSettings = await page.evaluate(() => ({ bg: document.querySelector('#bg').value, size: document.querySelector('#size').value, audio: document.querySelector('#audio').checked }));
+  await expect(page.locator('#workspace')).toHaveAttribute('data-phase', 'ready');
+  await expect(page.locator('#workspace')).toHaveAttribute('data-download-ready', 'true');
+  await page.locator('#helpBtn').click(); await page.locator('#stateInspector summary').click();
+  await expect(page.locator('#stateInfo')).toContainText('"phase"');
+  const snapshot = JSON.parse(await page.locator('#stateInfo').innerText());
+  expect(snapshot.phase).toBe('ready'); expect(snapshot.checkpoint).toBe('complete'); expect(snapshot.downloadReady).toBeTruthy();
+  expect(snapshot.actions).toContain('download');
+  expect(await page.locator('#stateInspector a').evaluate(a => a.href)).toBe(new URL('apps/m153/workflow-audit.md', base).href);
+  await page.getByRole('button', { name: '关闭', exact: true }).click();
   await page.screenshot({ path: path.join(out, 'converted.png'), fullPage: true });
   check('Real sample extraction, pause/reload/resume, 86-frame tracking and decoded H.264/AAC output pass');
 
@@ -99,13 +109,30 @@ try {
   const times = await page.evaluate(() => [document.querySelector('#original').currentTime, document.querySelector('#result').currentTime]);
   expect(Math.abs(times[0] - times[1])).toBeLessThan(.20);
   await page.locator('#bg').selectOption('slate'); await page.locator('#size').selectOption('480'); await page.locator('#audio').uncheck();
-  await expect(page.locator('#status')).toHaveText('输出设置已更改'); await page.locator('#retry').click(); await ready();
+  await expect(page.locator('#status')).toHaveText('输出设置已更改'); await expect(page.locator('#download')).toBeHidden();
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await expect(page.locator('#status')).toHaveText('输出设置已更改'); await expect(page.locator('#download')).toBeHidden();
+  await expect(page.locator('#workspace')).toHaveAttribute('data-phase', 'changed');
+  expect(digest(JSON.stringify((await storedMotion()).frames))).toBe(result.motion.sha256);
+  await page.locator('#bg').selectOption(originalSettings.bg); await page.locator('#size').selectOption(originalSettings.size); await page.locator('#audio').setChecked(originalSettings.audio);
+  await ready(); result.restoredExport = await downloadVideo('restored-with-audio.mp4', true);
+  expect(result.restoredExport.sha256).toBe(result.originalExport.sha256);
+  check('v3 state inspector agrees with the UI; changed settings survive reload and reverting settings restores the identical export');
+  await page.locator('#bg').selectOption('slate'); await page.locator('#size').selectOption('480'); await page.locator('#audio').uncheck();
+  await page.locator('#retry').click(); await ready();
   const reused = await storedMotion(); expect(digest(JSON.stringify(reused.frames))).toBe(result.motion.sha256);
   result.mutedExport = await downloadVideo('white-muted.mp4', false); expect(result.mutedExport.sha256).not.toBe(result.originalExport.sha256);
   await page.reload({ waitUntil: 'domcontentloaded' }); await ready();
   await expect(page.locator('#bg')).toHaveValue('slate'); await expect(page.locator('#audio')).not.toBeChecked();
   expect((await page.evaluate(() => indexedDB.databases())).some(d => d.name === 'yunjin:m153:motion-atelier-v1')).toBeTruthy();
   check('Synchronized playback, frame stepping, color/size/mute re-export without re-extraction and persisted result pass');
+  const existingDownload = await page.locator('#download').getAttribute('href');
+  const rejectedFile = page.waitForEvent('dialog').then(async dialog => { expect(dialog.message()).toContain('大于 0 字节'); await dialog.accept(); });
+  await page.locator('#file').setInputFiles({ name: 'empty.mp4', mimeType: 'video/mp4', buffer: Buffer.alloc(0) }); await rejectedFile;
+  await expect(page.locator('#status')).toHaveText('白模视频已就绪');
+  expect(await page.locator('#download').getAttribute('href')).toBe(existingDownload);
+  expect(digest(JSON.stringify((await storedMotion()).frames))).toBe(result.motion.sha256);
+  check('Rejecting an empty import preserves the existing task, extracted motion and ready download');
 
   for (const [width, height] of [[390,844], [360,800], [844,390]]) {
     await page.setViewportSize({ width, height });
@@ -114,7 +141,10 @@ try {
   }
   check('390px, 360px and landscape layouts have no horizontal overflow and retain export controls');
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.locator('#helpBtn').click(); await page.locator('#clear').click(); await expect(page.locator('#study')).toBeVisible();
+  await page.locator('#helpBtn').click();
+  const cleared = page.waitForEvent('load'); await page.locator('#clear').click(); await cleared;
+  await expect(page.locator('#workspace')).toHaveAttribute('data-phase', 'idle');
+  await expect(page.locator('#study')).toBeVisible();
   await expect(page.locator('#jobpanel')).toBeHidden(); expect(await storedMotion()).toBeUndefined();
   await page.locator('#file').setInputFiles({ name: 'invalid.mp4', mimeType: 'video/mp4', buffer: Buffer.from('not a video') });
   await expect(page.locator('#status')).toHaveText('处理未完成'); await expect(page.locator('#retry')).toBeVisible();
