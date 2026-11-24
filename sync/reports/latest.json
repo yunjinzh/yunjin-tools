@@ -1,9 +1,9 @@
 {
-  "completed_at": "2026-11-24T15:54:52.757190+00:00",
+  "completed_at": "2026-11-24T23:47:22.406323+00:00",
   "trigger": "Scheduled automatic synchronization",
   "result": "succeeded",
-  "added": 1,
-  "updated": 0,
+  "added": 0,
+  "updated": 1,
   "modules": [
     "m153"
   ],
@@ -20,21 +20,22 @@
     "catalogue_changed": false
   },
   "source_project": "appgprj_6b05a82182b081919e7456ac28af0500",
-  "source_version": 2,
-  "source_version_id": "appgprj_6b05a82182b081919e7456ac28af0500~appgver_d795880228788191bda7ed72b8cf5e01",
-  "source_commit": "e7e8a149d0acc632544bd2962e44f1ebacadb74a",
+  "previous_source_version": 2,
+  "source_version": 3,
+  "source_version_id": "appgprj_6b05a82182b081919e7456ac28af0500~appgver_40a79e1d02d081918ecfc8d3f06f6cb3",
+  "source_commit": "fdc2a00fe05c07d5b22a043138f234277300236c",
   "source_deployment": {
-    "id": "appgdep_6b05adbe30c48191a491f48000e26998",
+    "id": "appgdep_6b061ce0e0148191a280f9225515e7e2",
     "project_id": "appgprj_6b05a82182b081919e7456ac28af0500",
-    "version_id": "appgprj_6b05a82182b081919e7456ac28af0500~appgver_d795880228788191bda7ed72b8cf5e01",
+    "version_id": "appgprj_6b05a82182b081919e7456ac28af0500~appgver_40a79e1d02d081918ecfc8d3f06f6cb3",
     "status": "succeeded",
     "type": "publish",
     "url": "https://claymotion-atelier.yunjinzh.chatgpt.site",
-    "updated_at": "2026-11-24T15:31:34.895567+00:00",
+    "updated_at": "2026-11-24T23:25:33.163882+00:00",
     "failure_message": null
   },
-  "deployment_commit": "9553a5d0ee870d47d206c83df0541ae1cc029d51",
-  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/45430206317",
+  "deployment_commit": "6e463d7d18314cfc072dc5aa2c234ef81154bf74",
+  "deployment_workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/45512433637",
   "deployment_workflow_conclusion": "success",
   "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/index.html",
   "original_url": "https://claymotion-atelier.yunjinzh.chatgpt.site",
@@ -42,9 +43,9 @@
   "catalogue_count": 153,
   "web_count": 116,
   "summary": [
-    "新增白模动作工坊第2版，提供浏览器本机视频动作提取、白模预览、H.264 MP4 导出及任务恢复。",
-    "完整保留原始源码、模型、组件许可及独立服务器版 ZIP；Pages 使用原始本机模式，不运行服务器后台。",
-    "真实 HTTPS 入口、发布资源、86帧示例转换、暂停续跑、音轨设置、移动布局和实际下载校验通过。"
+    "白模动作工坊从第2版更新至第3版，沿用m153入口和存储命名空间，目录仍为153项。",
+    "同步暂停、失败和输出草稿恢复、导入竞态保护、任务状态查看及服务器任务生命周期改进，保留原始源码和更新后的服务器包。",
+    "真实HTTPS资源、86帧示例转换、暂停续跑、设置恢复、原成片复用、MP4解码、移动布局和实际下载校验通过。"
   ],
   "adaptation": {
     "module_id": "m153",
@@ -58,28 +59,133 @@
     "runtime_secrets_or_user_data_copied": false
   },
   "source_snapshot_check": {
-    "project": "appgprj_6b05a82182b081919e7456ac28af0500",
-    "source_commit": "e7e8a149d0acc632544bd2962e44f1ebacadb74a",
-    "tracked_files": 44,
-    "preserved_files": 43,
-    "excluded": [
+    "source_commit": "fdc2a00fe05c07d5b22a043138f234277300236c",
+    "tracked_files": 50,
+    "preserved_files": 49,
+    "preserved_bytes": 73449503,
+    "excluded_files": [
       ".openai/hosting.json"
     ],
-    "source_bytes": 73396407,
-    "js_syntax": "passed",
-    "python_ast": "passed",
-    "secret_scan": "passed",
+    "secret_scan_text_files": 32,
+    "secret_scan_passed": true,
+    "javascript_syntax_passed": true,
+    "python_syntax_passed": true,
     "package": {
-      "bytes": 5795742,
-      "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
-      "members": 26,
-      "crc": "passed",
-      "members_match_source": true
-    }
+      "bytes": 5810642,
+      "sha256": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2",
+      "members": 31,
+      "uncompressed_bytes": 7960407,
+      "crc_valid": true,
+      "all_members_match_source": true,
+      "contains_runtime_data": false
+    },
+    "changes": [
+      {
+        "path": "README.md",
+        "action": "changed",
+        "old_bytes": 2417,
+        "bytes": 2562
+      },
+      {
+        "path": "dist/app.mjs",
+        "action": "changed",
+        "old_bytes": 17127,
+        "bytes": 26161
+      },
+      {
+        "path": "dist/assets/motion-atelier-server.zip",
+        "action": "changed",
+        "old_bytes": 5795742,
+        "bytes": 5810642
+      },
+      {
+        "path": "dist/engine.mjs",
+        "action": "changed",
+        "old_bytes": 12848,
+        "bytes": 12879
+      },
+      {
+        "path": "dist/index.html",
+        "action": "changed",
+        "old_bytes": 6124,
+        "bytes": 6416
+      },
+      {
+        "path": "dist/style.css",
+        "action": "changed",
+        "old_bytes": 10146,
+        "bytes": 10414
+      },
+      {
+        "path": "dist/workflow-audit.md",
+        "action": "added",
+        "bytes": 4984
+      },
+      {
+        "path": "dist/workflow.mjs",
+        "action": "added",
+        "bytes": 3950
+      },
+      {
+        "path": "scripts/package_server.py",
+        "action": "added",
+        "bytes": 1413
+      },
+      {
+        "path": "server/processor.py",
+        "action": "changed",
+        "old_bytes": 9620,
+        "bytes": 9651
+      },
+      {
+        "path": "server/service.py",
+        "action": "changed",
+        "old_bytes": 9110,
+        "bytes": 13199
+      },
+      {
+        "path": "tests/app.test.mjs",
+        "action": "added",
+        "bytes": 6173
+      },
+      {
+        "path": "tests/service_lifecycle.py",
+        "action": "added",
+        "bytes": 5017
+      },
+      {
+        "path": "tests/workflow.test.mjs",
+        "action": "added",
+        "bytes": 2769
+      }
+    ],
+    "preserved_files_byte_verified": 49,
+    "web_matches_original_dist": true,
+    "other_152_module_records_unchanged": true
   },
-  "preserved_source_files_byte_verified": 43,
-  "previous_152_module_records_unchanged": true,
-  "upstream_whitespace_preserved": true,
+  "preserved_source_files_byte_verified": 49,
+  "other_152_module_records_unchanged": true,
+  "upstream_regression_tests": {
+    "source_commit": "fdc2a00fe05c07d5b22a043138f234277300236c",
+    "unit_tests": {
+      "command": "node --test tests/*.test.mjs",
+      "passed": 10,
+      "failed": 0,
+      "exit_code": 0
+    },
+    "service_lifecycle": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /workspace/work/claymotion-v3-venv/bin/python tests/service_lifecycle.py",
+      "exit_code": 0,
+      "isolated_dependencies": true,
+      "temporary_task_directory": true,
+      "original_user_tasks_accessed": false,
+      "checks": [
+        "PASS queued cancellation, persisted pause on restart",
+        "PASS duplicate upload, pause/resume, in-flight retry, terminal pause, MP4 decoding, 86 frames, range download, silent re-export, versioned choice, expiry/missing response"
+      ]
+    },
+    "docker_image_built_or_deployed": false
+  },
   "incremental_sync_tests": {
     "passed": 7
   },
@@ -92,12 +198,14 @@
       "extension": 1,
       "desktop": 1
     },
-    "files": 3759,
-    "bytes": 721571927
+    "files": 3761,
+    "bytes": 721590565
   },
   "asset_validation": {
     "ok": true,
-    "asset_records": 3055,
+    "command": "python scripts/validate.py --hashes",
+    "exit_code": 0,
+    "asset_records": 3056,
     "sha256_checked": true
   },
   "local_validation": {
@@ -106,26 +214,54 @@
     "checks": [
       "Portal search, initial model preview, local-processing notice and actual server ZIP download/checksum pass",
       "Real sample extraction, pause/reload/resume, 86-frame tracking and decoded H.264/AAC output pass",
+      "v3 state inspector agrees with the UI; changed settings survive reload and reverting settings restores the identical export",
       "Synchronized playback, frame stepping, color/size/mute re-export without re-extraction and persisted result pass",
+      "Rejecting an empty import preserves the existing task, extracted motion and ready download",
       "390px, 360px and landscape layouts have no horizontal overflow and retain export controls",
       "Clearing the isolated test task restores the empty workspace; invalid input gives a recoverable error"
     ],
     "errors": [],
     "failures": [],
     "package": {
-      "bytes": 5795742,
-      "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
-      "suggestedFilename": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip"
+      "bytes": 5810642,
+      "sha256": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2",
+      "suggestedFilename": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2.zip"
     },
     "motion": {
       "frames": 86,
       "detected": 86,
-      "pausedFrames": 13,
+      "pausedFrames": 8,
       "sha256": "1d8b5e2bcb5877c56a709dd9697bfc084235ef4059af2d8e33faa0b139bdab74"
     },
     "originalExport": {
       "bytes": 281999,
-      "sha256": "f19ca1e3841c714d79151a5351c30a1735a6e890e14b42c54635bc0db971c328",
+      "sha256": "d05916133c67744b65ab1fb367a4b733715c1380ea3c5b65340fb492495bfd92",
+      "suggestedFilename": "开合跳示例-白模.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 480,
+            "height": 360,
+            "nb_read_frames": "86"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "nb_read_frames": "149"
+          }
+        ],
+        "format": {
+          "duration": "3.440000"
+        }
+      }
+    },
+    "restoredExport": {
+      "bytes": 281999,
+      "sha256": "d05916133c67744b65ab1fb367a4b733715c1380ea3c5b65340fb492495bfd92",
       "suggestedFilename": "开合跳示例-白模.mp4",
       "probe": {
         "programs": [],
@@ -151,7 +287,7 @@
     },
     "mutedExport": {
       "bytes": 253273,
-      "sha256": "b3ee41026500d59fb95e785d74991e75b28158532517abc66251a4bbf9688f3f",
+      "sha256": "7a3ee132e46fbd8297a41368d62549fdd640ff39821e51df54aebe15f32817a1",
       "suggestedFilename": "开合跳示例-白模.mp4",
       "probe": {
         "programs": [],
@@ -203,26 +339,54 @@
     "checks": [
       "Portal search, initial model preview, local-processing notice and actual server ZIP download/checksum pass",
       "Real sample extraction, pause/reload/resume, 86-frame tracking and decoded H.264/AAC output pass",
+      "v3 state inspector agrees with the UI; changed settings survive reload and reverting settings restores the identical export",
       "Synchronized playback, frame stepping, color/size/mute re-export without re-extraction and persisted result pass",
+      "Rejecting an empty import preserves the existing task, extracted motion and ready download",
       "390px, 360px and landscape layouts have no horizontal overflow and retain export controls",
       "Clearing the isolated test task restores the empty workspace; invalid input gives a recoverable error"
     ],
     "errors": [],
     "failures": [],
     "package": {
-      "bytes": 5795742,
-      "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
-      "suggestedFilename": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip"
+      "bytes": 5810642,
+      "sha256": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2",
+      "suggestedFilename": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2.zip"
     },
     "motion": {
       "frames": 86,
       "detected": 86,
-      "pausedFrames": 11,
+      "pausedFrames": 8,
       "sha256": "1d8b5e2bcb5877c56a709dd9697bfc084235ef4059af2d8e33faa0b139bdab74"
     },
     "originalExport": {
       "bytes": 281999,
-      "sha256": "cf406b951e9dd11dabb523039b7d91b60bb77886713285a9bcdfe4be00732642",
+      "sha256": "5347e8a05602381d72130d1bfd2d50c208144fd9f8f26fd1f559901bdab5fa1c",
+      "suggestedFilename": "开合跳示例-白模.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 480,
+            "height": 360,
+            "nb_read_frames": "86"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "nb_read_frames": "149"
+          }
+        ],
+        "format": {
+          "duration": "3.440000"
+        }
+      }
+    },
+    "restoredExport": {
+      "bytes": 281999,
+      "sha256": "5347e8a05602381d72130d1bfd2d50c208144fd9f8f26fd1f559901bdab5fa1c",
       "suggestedFilename": "开合跳示例-白模.mp4",
       "probe": {
         "programs": [],
@@ -248,7 +412,7 @@
     },
     "mutedExport": {
       "bytes": 253273,
-      "sha256": "8ebb740f6b2648946691695442d5b495458b45351092e2628991e911a2d6ea1a",
+      "sha256": "cdaf00a9a3c002ab39ebbeb47c56e728ac65f52342509e80645c40fa4b04cce8",
       "suggestedFilename": "开合跳示例-白模.mp4",
       "probe": {
         "programs": [],
@@ -296,9 +460,9 @@
   },
   "http_checks": {
     "ok": true,
-    "deployment_commit": "9553a5d0ee870d47d206c83df0541ae1cc029d51",
+    "deployment_commit": "6e463d7d18314cfc072dc5aa2c234ef81154bf74",
     "resource_substitution": false,
-    "files_checked": 53,
+    "files_checked": 61,
     "checks": [
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/index.html",
@@ -312,8 +476,8 @@
         "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
         "http": 200,
         "bytes": 100800,
-        "sha256": "a61818784f6c8af3503298d743fe755a7507a77a8d7fda8ffcc4534ab65b585a",
-        "expected_sha256": "a61818784f6c8af3503298d743fe755a7507a77a8d7fda8ffcc4534ab65b585a",
+        "sha256": "f87e4566ef89c965e6580a31ae1bbbe392601472a52713b67067991f144c2b62",
+        "expected_sha256": "f87e4566ef89c965e6580a31ae1bbbe392601472a52713b67067991f144c2b62",
         "ok": true
       },
       {
@@ -343,9 +507,9 @@
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/app.mjs",
         "http": 200,
-        "bytes": 17298,
-        "sha256": "a693fc7c2d150c1ea9929c2ec947f125683cf6ab74ce590400392346194b55cd",
-        "expected_sha256": "a693fc7c2d150c1ea9929c2ec947f125683cf6ab74ce590400392346194b55cd",
+        "bytes": 26354,
+        "sha256": "68dbace95484e85691f9018fbf10f25f96603e01c72413a9c7aef7f38f3d521c",
+        "expected_sha256": "68dbace95484e85691f9018fbf10f25f96603e01c72413a9c7aef7f38f3d521c",
         "ok": true
       },
       {
@@ -567,9 +731,9 @@
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/engine.mjs",
         "http": 200,
-        "bytes": 13004,
-        "sha256": "f59711529f282cf4e0589c155cbf97e035be1d6a499d1457154d97d0a1a4a5cf",
-        "expected_sha256": "f59711529f282cf4e0589c155cbf97e035be1d6a499d1457154d97d0a1a4a5cf",
+        "bytes": 13035,
+        "sha256": "0af2121e3c0aa71b12740f05b29e26819c40795905d80d03e2a4e06bad2a436d",
+        "expected_sha256": "0af2121e3c0aa71b12740f05b29e26819c40795905d80d03e2a4e06bad2a436d",
         "ok": true
       },
       {
@@ -583,17 +747,17 @@
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/index.html",
         "http": 200,
-        "bytes": 6520,
-        "sha256": "0b750b272192f43910c27ebc4ef2eb80c8f081e97238a2e9ff4b744c08234535",
-        "expected_sha256": "0b750b272192f43910c27ebc4ef2eb80c8f081e97238a2e9ff4b744c08234535",
+        "bytes": 6834,
+        "sha256": "9e1171fcc125c2b7f4968851082c50b9f1419d4918acb510592e657483e58bcf",
+        "expected_sha256": "9e1171fcc125c2b7f4968851082c50b9f1419d4918acb510592e657483e58bcf",
         "ok": true
       },
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/migration-config.js",
         "http": 200,
-        "bytes": 1557,
-        "sha256": "f6540e582801cc4e111ef43b1303311be2151cfbe5de8cbbba1c9e0aa383dbd0",
-        "expected_sha256": "f6540e582801cc4e111ef43b1303311be2151cfbe5de8cbbba1c9e0aa383dbd0",
+        "bytes": 1592,
+        "sha256": "609f6680459381955c1a7fd6057690eaf7612daf12fd38614969d108e1796251",
+        "expected_sha256": "609f6680459381955c1a7fd6057690eaf7612daf12fd38614969d108e1796251",
         "ok": true
       },
       {
@@ -607,9 +771,25 @@
       {
         "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/style.css",
         "http": 200,
-        "bytes": 10146,
-        "sha256": "01318533fb7fa969bca100e2e0467f03ed959db7a04bedc6d91b1f5a04b9930c",
-        "expected_sha256": "01318533fb7fa969bca100e2e0467f03ed959db7a04bedc6d91b1f5a04b9930c",
+        "bytes": 10414,
+        "sha256": "837ba5c6138ca4c08b3e1764f7eeef340f205250749af8a553478ccbbabda84b",
+        "expected_sha256": "837ba5c6138ca4c08b3e1764f7eeef340f205250749af8a553478ccbbabda84b",
+        "ok": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/workflow-audit.md",
+        "http": 200,
+        "bytes": 4984,
+        "sha256": "bbfd55fba7f74df5f4017a52120fb5dfd89f206b92df78a9edfe308357d570de",
+        "expected_sha256": "bbfd55fba7f74df5f4017a52120fb5dfd89f206b92df78a9edfe308357d570de",
+        "ok": true
+      },
+      {
+        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m153/workflow.mjs",
+        "http": 200,
+        "bytes": 3950,
+        "sha256": "5c11f236e1cb0dacb5f15322be9cf94b127dd40f27f591aa1b987c220e16c94f",
+        "expected_sha256": "5c11f236e1cb0dacb5f15322be9cf94b127dd40f27f591aa1b987c220e16c94f",
         "ok": true
       },
       {
@@ -645,23 +825,23 @@
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2.zip",
         "http": 200,
-        "bytes": 5795742,
-        "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
-        "expected_sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
+        "bytes": 5810642,
+        "sha256": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2",
+        "expected_sha256": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/README.md",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/README.md",
         "http": 200,
-        "bytes": 2417,
-        "sha256": "4aeb22041e4e3037003e3e4932d8a22b25dee9137b37bb491127881aa3db7fc9",
-        "expected_sha256": "4aeb22041e4e3037003e3e4932d8a22b25dee9137b37bb491127881aa3db7fc9",
+        "bytes": 2562,
+        "sha256": "a2ea3914692b3b8d19df9b826a2cbe04e48618ca0ed32d0142c56944529c91ab",
+        "expected_sha256": "a2ea3914692b3b8d19df9b826a2cbe04e48618ca0ed32d0142c56944529c91ab",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/Dockerfile",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/Dockerfile",
         "http": 200,
         "bytes": 617,
         "sha256": "de39703f1cf73fac8fecaa6957ffb961d04d97212c69480d675e25e34ed54a3b",
@@ -669,23 +849,23 @@
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/server/service.py",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/server/service.py",
         "http": 200,
-        "bytes": 9110,
-        "sha256": "b713a3e2f44a3c9e327f9e2a850d15b5ac79bec6fd121807474eae9854fa572d",
-        "expected_sha256": "b713a3e2f44a3c9e327f9e2a850d15b5ac79bec6fd121807474eae9854fa572d",
+        "bytes": 13199,
+        "sha256": "b711a317e090e30b4cc575f3a64397eba1380de53b31a14f575522ef1c37df19",
+        "expected_sha256": "b711a317e090e30b4cc575f3a64397eba1380de53b31a14f575522ef1c37df19",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/server/processor.py",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/server/processor.py",
         "http": 200,
-        "bytes": 9620,
-        "sha256": "13175d8532e0dad16eefa06d907201fbd1a76752a55eee051caa10e76df8c2b5",
-        "expected_sha256": "13175d8532e0dad16eefa06d907201fbd1a76752a55eee051caa10e76df8c2b5",
+        "bytes": 9651,
+        "sha256": "f0931436668ec8fe39b0a8427116a1c930d791990a9f81009aa7ca6ebf9b955e",
+        "expected_sha256": "f0931436668ec8fe39b0a8427116a1c930d791990a9f81009aa7ca6ebf9b955e",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/server/render.mjs",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/server/render.mjs",
         "http": 200,
         "bytes": 589,
         "sha256": "b76887c15b4ce0ff558b1158d4da9e9104c138f29d23aacb23dec5a978f9b2ce",
@@ -693,7 +873,7 @@
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/server/requirements.txt",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/server/requirements.txt",
         "http": 200,
         "bytes": 30,
         "sha256": "43b7aa8f62a76d285062ce44b9b1d207c62bacc6b278a5630b9c90fbffe14cc8",
@@ -701,47 +881,96 @@
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/sources/m153/migration-assets.json",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/migration-assets.json",
         "http": 200,
         "bytes": 579,
-        "sha256": "98c670f2ca7eb9c635fbf0fd8d82508673271e7f505a805ac1a35b2154cf2dcc",
-        "expected_sha256": "98c670f2ca7eb9c635fbf0fd8d82508673271e7f505a805ac1a35b2154cf2dcc",
+        "sha256": "71f803f55a10a39f9933c201dac8d145cbb1d3a27fd922c3ab4fdbc2960c9628",
+        "expected_sha256": "71f803f55a10a39f9933c201dac8d145cbb1d3a27fd922c3ab4fdbc2960c9628",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/docs/BUILDING.md",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/dist/workflow.mjs",
         "http": 200,
-        "bytes": 16215,
-        "sha256": "97b459bf564c7642f8b9ca4b63462d647476692db74c7e2f504467fd4a9cfaa9",
-        "expected_sha256": "97b459bf564c7642f8b9ca4b63462d647476692db74c7e2f504467fd4a9cfaa9",
+        "bytes": 3950,
+        "sha256": "5c11f236e1cb0dacb5f15322be9cf94b127dd40f27f591aa1b987c220e16c94f",
+        "expected_sha256": "5c11f236e1cb0dacb5f15322be9cf94b127dd40f27f591aa1b987c220e16c94f",
         "ok": true
       },
       {
-        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/9553a5d0ee870d47d206c83df0541ae1cc029d51/tests/claymotion.mjs",
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/dist/workflow-audit.md",
         "http": 200,
-        "bytes": 10949,
-        "sha256": "5e67a5cbae2ffd95f8f559562fff14678a425e8047b9b401bc5778ace430136c",
-        "expected_sha256": "5e67a5cbae2ffd95f8f559562fff14678a425e8047b9b401bc5778ace430136c",
+        "bytes": 4984,
+        "sha256": "bbfd55fba7f74df5f4017a52120fb5dfd89f206b92df78a9edfe308357d570de",
+        "expected_sha256": "bbfd55fba7f74df5f4017a52120fb5dfd89f206b92df78a9edfe308357d570de",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/tests/app.test.mjs",
+        "http": 200,
+        "bytes": 6173,
+        "sha256": "55e5ee40434300d39f7ab1f86cdcb54e4ee6f6cb16765b06d15811002c97250f",
+        "expected_sha256": "55e5ee40434300d39f7ab1f86cdcb54e4ee6f6cb16765b06d15811002c97250f",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/tests/workflow.test.mjs",
+        "http": 200,
+        "bytes": 2769,
+        "sha256": "6bf5ad9db186d78c98238a1a639f260b4aa027807e5cee007f2091a36eee4a71",
+        "expected_sha256": "6bf5ad9db186d78c98238a1a639f260b4aa027807e5cee007f2091a36eee4a71",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/tests/service_lifecycle.py",
+        "http": 200,
+        "bytes": 5017,
+        "sha256": "2d1643474a2f7571baf6a26ed85e7a5dae65a350e25cba72ad717a3c8a1dcb82",
+        "expected_sha256": "2d1643474a2f7571baf6a26ed85e7a5dae65a350e25cba72ad717a3c8a1dcb82",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/sources/m153/scripts/package_server.py",
+        "http": 200,
+        "bytes": 1413,
+        "sha256": "f51430663788562ece4c1b03f7599a3ea8cbf2d1f8411e7d73738a6e0edf4984",
+        "expected_sha256": "f51430663788562ece4c1b03f7599a3ea8cbf2d1f8411e7d73738a6e0edf4984",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/docs/BUILDING.md",
+        "http": 200,
+        "bytes": 16974,
+        "sha256": "c45b982d5fa7fa2fbafc96b105fff799ae8207e6b2241bbf16d43363f603ffd8",
+        "expected_sha256": "c45b982d5fa7fa2fbafc96b105fff799ae8207e6b2241bbf16d43363f603ffd8",
+        "ok": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/6e463d7d18314cfc072dc5aa2c234ef81154bf74/tests/claymotion.mjs",
+        "http": 200,
+        "bytes": 13881,
+        "sha256": "40c14ebf93fe633458f5ec4a65ea85d041ab23bcf879f73470a00e281e8a18f6",
+        "expected_sha256": "40c14ebf93fe633458f5ec4a65ea85d041ab23bcf879f73470a00e281e8a18f6",
         "ok": true
       }
     ]
   },
   "downloads": {
     "type": "original Linux x86-64 Docker source package",
-    "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip",
+    "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2.zip",
     "verified": {
-      "bytes": 5795742,
-      "sha256": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313",
-      "suggestedFilename": "b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip"
+      "bytes": 5810642,
+      "sha256": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2",
+      "suggestedFilename": "70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2.zip"
     },
     "zip_crc_checked": true,
-    "package_members_match_saved_source": 26,
-    "docker_backend_deployed_or_runtime_validated": false,
+    "package_members_match_saved_source": 31,
+    "isolated_python_backend_lifecycle_test_passed": true,
+    "docker_image_built_or_deployed": false,
     "h264_outputs_decoded_completely": true
   },
   "limitations": [
-    "浏览器验收使用内置3.44秒、480×360、86帧开合跳样片，未覆盖多人目标选择、10分钟视频、大文件及所有设备性能。",
-    "独立服务器版需用户按原README自行部署；本次验证源码语法、包完整性与实际下载，没有部署或验收新的Docker后端。",
+    "浏览器验收使用内置3.44秒、480×360、86帧开合跳样片，未覆盖浏览器多人选择、10分钟视频、大文件及所有设备性能。",
+    "独立服务器版需按原README自行部署；本次在隔离Python环境及临时目录通过真实任务回归，未构建或部署Docker服务，Pages不运行服务器后台。",
     "原站与Pages的浏览器个人任务不自动互通；本次不迁入原站视频、任务数据库或成片。"
   ],
   "uncompleted": {
@@ -750,7 +979,7 @@
   },
   "pending_verification": {},
   "notification": {
-    "reason": "one newly synchronized runnable tool",
+    "reason": "one successfully synchronized source version update",
     "channel": "task-result-only"
   }
 }
