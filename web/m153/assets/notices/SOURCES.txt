@@ -1,0 +1,9 @@
+Three.js 0.160.1 — https://github.com/mrdoob/three.js/tree/r160
+Mediabunny 1.26.0 — https://github.com/Vanilagy/mediabunny/tree/v1.26.0
+MediaPipe Tasks Vision 0.10.22-rc.20250304 — https://github.com/google-ai-edge/mediapipe
+Pose Landmarker Lite float16, model generation 1 — https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task
+ONNX Runtime Web 1.18.0 — https://github.com/microsoft/onnxruntime/tree/v1.18.0
+OpenCV Zoo MediaPipe Person Detector and Pose Estimator, March 2023 — https://github.com/opencv/opencv_zoo/tree/main/models
+CPU adapter uses their preprocessing and anchor decoding method. The included OpenCV model licenses are in assets/cpu.
+H264 MP4 Encoder 1.0.12 — https://github.com/TrevorSundberg/h264-mp4-encoder
+Included third-party libraries are distributed under their respective upstream licenses.

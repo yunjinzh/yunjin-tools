@@ -2272,5 +2272,21 @@
     "migration": "web",
     "web": "web/m152",
     "entry": "index.html"
+  },
+  {
+    "id": "m153",
+    "name": "白模动作工坊",
+    "description": "在浏览器本机提取视频人物动作，生成可逐帧对照的三维白模 H.264 MP4；支持背景、尺寸与原声设置、任务进度保存，并提供独立服务器版下载包。",
+    "category": "创作与媒体",
+    "original_url": "https://claymotion-atelier.yunjinzh.chatgpt.site",
+    "original_status": "原站已保存发布版本；按同步检查范围验证",
+    "source": "sources/m153",
+    "source_project": "appgprj_6b05a82182b081919e7456ac28af0500",
+    "source_version": 2,
+    "source_commit": "e7e8a149d0acc632544bd2962e44f1ebacadb74a",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m153",
+    "entry": "index.html"
   }
 ]

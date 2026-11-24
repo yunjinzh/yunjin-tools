@@ -1,0 +1,7 @@
+{
+  "assets/cpu/person.onnx": "assets/47fd5599d6fa17608f03e0eb0ae230baa6e597d7e8a2c8199fe00abea55a701f.onnx",
+  "assets/cpu/pose.onnx": "assets/9d89c599319a18fb7d2e28451a883476164543182bafca5f09eb2cf767ed2f3f.onnx",
+  "assets/demo-jumping-jacks.mp4": "assets/c6a938bb8b507838532b2939214021af33e4fd09cd61408e5958042fea0ee702.mp4",
+  "assets/demo-white.mp4": "assets/b68d4afd98ea8b2ea56386ccf2246df705640933dd38e954f7afa4467c5a3691.mp4",
+  "assets/motion-atelier-server.zip": "assets/b7e16c043d3fbe9f5f39604b31ab5aed22fd445751d49de3567c9df5c055a313.zip"
+}
