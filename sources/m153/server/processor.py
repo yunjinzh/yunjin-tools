@@ -21,9 +21,9 @@ def probe(path):
 
 
 class Renderer:
-    def __init__(self, w, h, bg):
+    def __init__(self, w, h, bg, motion_path=None):
         self.w, self.h = w, h
-        self.proc = subprocess.Popen(['node', str(ROOT / 'server/render.mjs'), str(w), str(h), bg], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        self.proc = subprocess.Popen(['node', str(ROOT / 'server/render.mjs'), str(w), str(h), bg] + ([str(motion_path)] if motion_path else []), stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     def draw(self, points):
         self.proc.stdin.write((json.dumps(points) + '\n').encode())
@@ -51,6 +51,17 @@ def pose_box(points):
             min(1,max(p[0] for p in visible)+.02),min(1,max(p[1] for p in visible)+.02)]
 
 
+def bridge_pose(a, b, aspect):
+    def torso(p):
+        points = np.asarray(p)[:, :2] * [aspect, 1]
+        hips = (points[23] + points[24]) / 2
+        shoulders = (points[11] + points[12]) / 2
+        return hips, max(.025, np.linalg.norm(shoulders - hips))
+    ca, sa = torso(a)
+    cb, sb = torso(b)
+    return np.linalg.norm(ca - cb) < 1.25*max(sa, sb) and max(sa, sb) < 2*min(sa, sb)
+
+
 def describe(points, image):
     h,w=image.shape[:2]
     core=np.array([points[i][:2] for i in (11,12,23,24)])
@@ -75,7 +86,7 @@ def extract(path, folder, state, update, choose, check):
     opts=mp.tasks.vision.PoseLandmarkerOptions(base_options=mp.tasks.BaseOptions(model_asset_path=str(ROOT/'dist/assets/pose.task')),
         running_mode=mp.tasks.vision.RunningMode.VIDEO, num_poses=4, min_pose_detection_confidence=.46, min_tracking_confidence=.5)
     frames=[]; last=None; seen=0; last_update=0; prev=None; time_ms=-1
-    preview=Renderer(max(2,round(w*min(1,400/max(w,h)))),max(2,round(h*min(1,400/max(w,h)))),'sage')
+    preview=Renderer(max(2,round(w*min(1,400/max(w,h)))),max(2,round(h*min(1,400/max(w,h)))),'studio')
     try:
         with av.open(str(path)) as cap, mp.tasks.vision.PoseLandmarker.create_from_options(opts) as detector:
             for vf in cap.decode(video=0):
@@ -89,7 +100,7 @@ def extract(path, folder, state, update, choose, check):
                 rgb=cv2.resize(rgb,(max(4,round(w*factor)),max(4,round(h*factor))),interpolation=cv2.INTER_AREA)
                 time_ms=max(time_ms+1,round(t*1000))
                 res=detector.detect_for_video(mp.Image(image_format=mp.ImageFormat.SRGB,data=np.ascontiguousarray(rgb)),time_ms)
-                candidates=[[[round(p.x,5),round(p.y,5),round(p.z,5),round(p.visibility,3)] for p in person] for person in res.pose_landmarks]
+                candidates=[[[round(p.x,5),round(p.y,5),round(p.z,5),round(p.visibility,3),round(world[i].z,5)] for i,p in enumerate(person)] for person,world in zip(res.pose_landmarks,res.pose_world_landmarks)]
                 target=None
                 if candidates:
                     desc=[describe(p,rgb) for p in candidates]
@@ -124,7 +135,7 @@ def extract(path, folder, state, update, choose, check):
         if frames[i]['p'] is not None:i+=1;continue
         j=i
         while j<len(frames) and frames[j]['p'] is None:j+=1
-        if i>0 and j<len(frames) and frames[j]['t']-frames[i-1]['t']<=.28:
+        if i>0 and j<len(frames) and frames[j]['t']-frames[i-1]['t']<=.28 and bridge_pose(frames[i-1]['p'], frames[j]['p'], w/h):
             a,b=frames[i-1],frames[j]
             for k in range(i,j):
                 ratio=(frames[k]['t']-a['t'])/(b['t']-a['t']);frames[k]['p']=(np.array(a['p'])*(1-ratio)+np.array(b['p'])*ratio).round(5).tolist();frames[k]['q']='fill'
@@ -137,7 +148,7 @@ def render(data, folder, config, update, check):
     frames=data['frames'];size=config['size']
     scale=min(1,size/min(data['w'],data['h']),size*16/9/max(data['w'],data['h']))
     w,h=[max(2,round(dim*scale/2)*2) for dim in (data['w'],data['h'])]
-    painter=Renderer(w,h,config['bg'])
+    painter=Renderer(w,h,config['bg'],folder/'motion.json')
     durations={};since=0
     try:
         with av.open(str(folder/'picture.mp4'),'w') as out:
@@ -148,7 +159,7 @@ def render(data, folder, config, update, check):
                 if packet.pts in durations:packet.duration=durations[packet.pts]
                 out.mux(packet)
             for i,item in enumerate(frames):
-                check();rgb=painter.draw(item['p']);v=av.VideoFrame.from_ndarray(rgb,format='rgba');v.time_base=CLOCK
+                check();rgb=painter.draw(i);v=av.VideoFrame.from_ndarray(rgb,format='rgba');v.time_base=CLOCK
                 v.pts=round(item['t']/CLOCK);durations[v.pts]=max(1,round(item['d']/CLOCK))
                 for pkt in stream.encode(v):mux(pkt)
                 if time.monotonic()-since>.6:update(title='正在导出 MP4',progress=.7+.24*(i+1)/len(frames));since=time.monotonic()
@@ -168,4 +179,4 @@ def render(data, folder, config, update, check):
         if not f['q']:continue
         if groups and groups[-1]['reason']==f['q'] and f['t']-groups[-1]['end']<.04:groups[-1]['end']=f['t']+f['d']
         else:groups.append({'reason':f['q'],'start':f['t'],'end':f['t']+f['d']})
-    return dict(duration=data['duration'],fps=data['fps'],times=[f['t'] for f in frames],issues=groups,bytes=(folder/'output.mp4').stat().st_size)
+    return dict(renderVersion='atelier-2',duration=data['duration'],fps=data['fps'],times=[f['t'] for f in frames],issues=groups,bytes=(folder/'output.mp4').stat().st_size)

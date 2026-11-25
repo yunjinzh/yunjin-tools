@@ -27,12 +27,12 @@ export async function cpuModel(){
     const img=b.getImageData(0,0,256,256).data;for(let i=0;i<65536;i++){poseData[3*i]=img[4*i]/255;poseData[3*i+1]=img[4*i+1]/255;poseData[3*i+2]=img[4*i+2]/255;}
     const outputs=Object.values(await pose.run({[pose.inputNames[0]]:pTensor}));if(outputs.find(v=>v.data.length===1).data[0]<.48)return null;
     const raw=outputs.find(v=>v.data.length===195).data,cos=Math.cos(angle),sin=Math.sin(angle),points=[];
-    for(let i=0;i<33;i++){const off=i*5,u=(raw[off]-128)/scale,v=(raw[off+1]-128)/scale;points.push({x:(x+cos*u-sin*v)/c.width,y:(y+sin*u+cos*v)/c.height,z:raw[off+2]/scale/c.width,visibility:Math.min(sigmoid(raw[off+3]),sigmoid(raw[off+4]))});}return points;
+    for(let i=0;i<33;i++){const off=i*5,u=(raw[off]-128)/scale,v=(raw[off+1]-128)/scale;points.push({x:(x+cos*u-sin*v)/c.width,y:(y+sin*u+cos*v)/c.height,z:raw[off+2]/scale/c.width,visibility:Math.min(sigmoid(raw[off+3]),sigmoid(raw[off+4]))});}return {points,world:outputs.find(v=>v.data.length===117)?.data};
   }
-  return{async detectForVideo(c){let rois=(++count%5===1||!previous.length)?await detect(c):previous;const landmarks=[],next=[];
-    for(const roi of rois){const pts=await landmark(c,roi);if(!pts)continue;landmarks.push(pts);
+  return{async detectForVideo(c){let rois=(++count%5===1||!previous.length)?await detect(c):previous;const landmarks=[],worldLandmarks=[],next=[];
+    for(const roi of rois){const result=await landmark(c,roi);if(!result)continue;const pts=result.points;landmarks.push(pts);worldLandmarks.push(result.world?pts.map((_,i)=>({z:result.world[i*3+2]})):null);
       const x=(pts[23].x+pts[24].x)*.5*c.width,y=(pts[23].y+pts[24].y)*.5*c.height;
       const radius=Math.max(...pts.filter(p=>p.visibility>.5).map(p=>Math.hypot(p.x*c.width-x,p.y*c.height-y)));
       next.push({...roi,x:x*.4+roi.x*.6,y:y*.4+roi.y*.6,r:Math.min(roi.r*1.1,Math.max(roi.r*.97,radius*1.10))});}
-    previous=next;return{landmarks};},close(){det.release();pose.release();}};
+    previous=next;return{landmarks,worldLandmarks};},close(){det.release();pose.release();}};
 }

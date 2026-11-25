@@ -1,4 +1,5 @@
 import * as M from './assets/media.mjs';
+import {motionTrack,bridgePose} from './motion-track.mjs';
 import {makeStage} from './figure.mjs';
 const wait=()=>new Promise(r=>setTimeout(r,0));
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -23,8 +24,8 @@ async function model(){
   const files=await FilesetResolver.forVisionTasks(new URL('assets/wasm',import.meta.url).href);
   return await PoseLandmarker.createFromOptions(files,{baseOptions:{modelAssetPath:new URL('assets/pose.task',import.meta.url).href,delegate:'CPU'},runningMode:'VIDEO',numPoses:4,minPoseDetectionConfidence:.46,minTrackingConfidence:.50,minPosePresenceConfidence:.48});}catch{return (await import('./cpu-pose.mjs')).cpuModel();}
 }
-function candidate(points,ctx,aspect){
-  const pack=points.map(p=>[+p.x.toFixed(5),+p.y.toFixed(5),+p.z.toFixed(5),+(p.visibility??1).toFixed(3)]);
+function candidate(points,ctx,aspect,world){
+  const pack=points.map((p,i)=>[+p.x.toFixed(5),+p.y.toFixed(5),+p.z.toFixed(5),+(p.visibility??1).toFixed(3),...(Number.isFinite(world?.[i]?.z)?[+world[i].z.toFixed(5)]:[])]);
   const core=[11,12,23,24].map(i=>pack[i]);const x=core.reduce((a,p)=>a+p[0]/4,0),y=core.reduce((a,p)=>a+p[1]/4,0);
   const len=Math.max(.035,Math.hypot((core[0][0]-core[2][0])*aspect,core[0][1]-core[2][1]));
   const {width:w,height:h}=ctx.canvas, xx=Math.round(x*w),yy=Math.round(y*h);
@@ -72,7 +73,7 @@ export async function extract(meta,blob,state,hooks){
       hooks.signal?.throwIfAborted();if(frame.t<from-.00001||frame.t>=meta.duration||!Number.isFinite(frame.t))continue;
       if(source.width!==frame.canvas.width||source.height!==frame.canvas.height){source.width=frame.canvas.width;source.height=frame.canvas.height;}
       ctx.drawImage(frame.canvas,0,0);const res=await pose.detectForVideo(source,Math.max(0,frame.t*1000));
-      hooks.signal?.throwIfAborted();const candidates=res.landmarks.map(p=>candidate(p,ctx,meta.w/meta.h));let hit;
+      hooks.signal?.throwIfAborted();const candidates=res.landmarks.map((p,i)=>candidate(p,ctx,meta.w/meta.h,res.worldLandmarks?.[i]));let hit;
       if(last){hit=identify(candidates,last,frame.t-lastSeen,meta.w/meta.h);}
       else if(candidates.length){hit=candidates[candidates.length===1?0:await hooks.choose(source,candidates.map(c=>c.box),frame.t)];}
       if(hit){lastSeen=frame.t;const {pose:p,box,...descriptor}=hit;last=descriptor;}
@@ -86,7 +87,7 @@ export async function extract(meta,blob,state,hooks){
     if(!saved.some(f=>f.p))throw Error('整段视频未识别到人体。请选用人物清晰、身体大部分入镜的片段。');
     if(!saved.length||saved.at(-1).t+Math.max(saved.at(-1).d,1/meta.fps)<meta.duration-.15)throw Error('视频解码提前中止。请检查原文件能否完整播放。');
     for(let i=0;i<saved.length;i++){if(saved[i].p)continue;let j=i;while(j<saved.length&&!saved[j].p)j++;
-      const prev=saved[i-1],next=saved[j];if(prev&&next&&next.t-prev.t<=.28){for(let k=i;k<j;k++){const mix=(saved[k].t-prev.t)/(next.t-prev.t);saved[k].p=prev.p.map((a,n)=>a.map((v,idx)=>v+(next.p[n][idx]-v)*mix));saved[k].q='fill';}}i=j-1;}
+      const prev=saved[i-1],next=saved[j];if(prev&&next&&next.t-prev.t<=.28 && bridgePose(prev.p,next.p,meta.w/meta.h)){for(let k=i;k<j;k++){const mix=(saved[k].t-prev.t)/(next.t-prev.t);saved[k].p=prev.p.map((a,n)=>a.map((v,idx)=>v+(next.p[n][idx]-v)*mix));saved[k].q='fill';}}i=j-1;}
     state.complete=true;await hooks.checkpoint(state);return state;
   }finally{pose.close();}
 }
@@ -110,14 +111,14 @@ export async function encode(meta,state,settings,progress,signal){
   const w=roundEven(meta.w*ratio),h=roundEven(meta.h*ratio);
   const canvas=document.createElement('canvas');const scene=makeStage(canvas,w,h);
   const out=new M.Output({format:new M.Mp4OutputFormat({fastStart:'in-memory'}),target:new M.BufferTarget()});
-  const frames=state.frames,bitrate=Math.round(Math.max(700000,w*h*3.3));let enc,native,src,softIn; 
+  const frames=state.frames,sample=motionTrack(frames,meta.w/meta.h),bitrate=Math.round(Math.max(700000,w*h*3.3));let enc,native,src,softIn;
   try{
     native=await M.canEncodeVideo('avc',{width:w,height:h,bitrate});
     if(native){src=new M.CanvasSource(canvas,{codec:'avc',bitrate,latencyMode:'realtime'});}
     else{src=new M.EncodedVideoPacketSource('avc');enc=await (await hme()).createH264MP4Encoder();enc.width=w;enc.height=h;enc.frameRate=clamp(Math.round(meta.fps),1,120);enc.kbps=Math.round(bitrate/1000);enc.groupOfPictures=enc.frameRate;enc.initialize();}
     out.addVideoTrack(src);const writeAudio=await addAudio(out,meta,settings.audio);await out.start();
     const copy=document.createElement('canvas');copy.width=w;copy.height=h;const ctx=enc?copy.getContext('2d',{willReadFrequently:true}):null;
-    for(let i=0;i<frames.length;i++){signal?.throwIfAborted();const f=frames[i],d=(frames[i+1]?.t??meta.duration)-f.t;if(d<=0)continue;scene.draw([f.p],settings.bg);
+    for(let i=0;i<frames.length;i++){signal?.throwIfAborted();const f=frames[i],d=(frames[i+1]?.t??meta.duration)-f.t;if(d<=0)continue;scene.draw([sample(i)],settings.bg);
       if(native)await src.add(f.t,d);else{ctx.drawImage(canvas,0,0);enc.addFrameRgba(ctx.getImageData(0,0,w,h).data);}
       if(i%4===0){progress(.90*(i+1)/frames.length);await wait();}}
     if(enc){enc.finalize();const bytes=enc.FS.readFile(enc.outputFilename).slice();softIn=new M.Input({source:new M.BufferSource(bytes),formats:M.ALL_FORMATS});const track=await softIn.getPrimaryVideoTrack();const conf=await track.getDecoderConfig();let i=0;

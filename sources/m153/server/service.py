@@ -49,8 +49,8 @@ def public_state(state, key):
 
 def configure(v):
     size=int(v.get('size',720))
-    if size not in (480,720,1080) or v.get('bg','sage') not in ('sage','sand','slate'):raise ValueError('无效的输出设置。')
-    return dict(size=size,bg=v.get('bg','sage'),audio=v.get('audio',True) in (True,'1'))
+    if size not in (480,720,1080) or v.get('bg','studio') not in ('studio','sage','sand','slate'):raise ValueError('无效的输出设置。')
+    return dict(size=size,bg=v.get('bg','studio'),audio=v.get('audio',True) in (True,'1'))
 
 
 def save(key, **changes):

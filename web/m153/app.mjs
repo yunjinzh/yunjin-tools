@@ -8,8 +8,10 @@ let job=null,meta=null,motion=null,stage=null,art=null,blobUrl='',srcUrl='',cont
 let server=false,remoteId='',remoteData=null,tick=0,at=0,mode='idle',studyPlaying=false,studyTime=0,restoreToken=0;
 let trackingState='waiting',agentInterface='page';
 let exportedSettings=null,choiceCount=0,revision=0,playGeneration=0,playback='idle',sampleRequest=0,progressValue=null;
+const renderVersion='atelier-2';
+let previousLook=false;
 let taskRef='',storageOwner=null,configurationReady;
-function policy(){return taskPolicy(mode,{hasJob:!!job,hasMotion:!!motion?.complete,hasResult:!!exportedSettings,remote:server});}
+function policy(){return taskPolicy(mode,{hasJob:!!job,hasMotion:!!motion?.complete,hasResult:!!exportedSettings,previousLook,remote:server});}
 function showSnapshot(){if($('stateInspector')?.open)$('stateInfo').textContent=JSON.stringify(snapshot(),null,2);}
 function expose(){
   const main=$('workspace'),p=policy();
@@ -23,7 +25,7 @@ function snapshot(){const p=policy();return {schema:1,task:taskRef,revision,phas
     playback,progress:progressValue,duration:meta?.duration??remoteData?.duration??null,time:at,
     checkpoint:motion?.complete?'complete':motion?.frames?.length?'partial':'none',
     persistence:cacheOK?'available':'unavailable',candidates:choiceCount,downloadReady:p.download,
-    settings:cfg(),resultSettings:exportedSettings?{...exportedSettings}:null,tracking:trackingState,warningSegments:document.getElementById('issues').childElementCount,
+    renderVersion,previousLook,settings:cfg(),resultSettings:exportedSettings?{...exportedSettings}:null,tracking:trackingState,warningSegments:document.getElementById('issues').childElementCount,
     actions:p.actions};}
 const phaseNames={missing:'未跟踪到',low:'局部遮挡',fill:'短暂补间'};
 const cfg=()=>({bg:$('bg').value,size:+$('size').value,audio:$('audio').checked});
@@ -59,7 +61,7 @@ function status(value,title,detail,p){
   mode=value;progressValue=p;const rules=policy();
   $('jobpanel').hidden=false;$('status').textContent=title;$('detail').textContent=detail;
   $('percent').textContent=p==null?'':Math.round(p*100)+'%';$('progress').hidden=p==null;$('progress').value=p??0;
-  $('download').hidden=!rules.download;$('retry').hidden=!rules.retry;$('retry').textContent=retryLabel[rules.retry]||'重试';
+  $('download').hidden=!rules.download;$('retry').hidden=!rules.retry;$('retry').textContent=previousLook&&value==='ready'?'用新版白模重新导出':retryLabel[rules.retry]||'重试';
   $('cancel').hidden=!rules.pause;lockInputs(!rules.settings);
   if(job){controls(rules.preview);if(!rules.preview && !$('result').paused)pause();
     for(const mark of $('issues').querySelectorAll('button'))mark.disabled=!rules.preview;}
@@ -69,7 +71,7 @@ function status(value,title,detail,p){
   expose();
 }
 function release(){
-  pause();trackingState='waiting';exportedSettings=null;remoteData=null;playback='idle';for(const id of ['original','result']){const v=$(id);v.pause();v.removeAttribute('src');v.load();}
+  pause();previousLook=false;trackingState='waiting';exportedSettings=null;remoteData=null;playback='idle';for(const id of ['original','result']){const v=$(id);v.pause();v.removeAttribute('src');v.load();}
   for(const u of [srcUrl,blobUrl])if(u)URL.revokeObjectURL(u);srcUrl=blobUrl='';meta?.input?.dispose();meta=null;stage?.dispose();stage=null;at=0;$('issues').replaceChildren();$('play').innerHTML='<span>▶</span>';controls(false);
 }
 function emptyArt(){
@@ -83,7 +85,8 @@ function openPair(name){
 }
 function stageAt(w,h){if(stage)return stage;const s=Math.min(1,500/Math.max(w,h));return stage=makeStage($('live'),Math.max(2,Math.round(w*s)),Math.max(2,Math.round(h*s)));}
 function issuesView(data){const el=$('issues');el.replaceChildren();for(const g of data){const b=document.createElement('button');b.textContent=fmt(g.start)+'–'+exact(g.end)+' '+phaseNames[g.reason];b.title='查看此时的原片与白模';b.onclick=()=>seek(g.start);el.append(b);}}
-function readyPlayback(file,size,settings=cfg()){
+function readyPlayback(file,size,settings=cfg(),version){
+  previousLook=version!==renderVersion;
   exportedSettings={...settings};playback='paused';
   const url=typeof file==='string'?file:URL.createObjectURL(file);if(blobUrl)URL.revokeObjectURL(blobUrl);if(typeof file!=='string')blobUrl=url;
   $('result').src=url;$('result').load();$('result').hidden=false;$('live').hidden=true;$('liveOriginal').hidden=true;$('download').href=typeof file==='string'?file+'?download=1':url;
@@ -114,7 +117,7 @@ async function processLocal(){
     signal.throwIfAborted();$('liveOriginal').hidden=true;const settings=cfg();await cache([['settings',settings]]);
     status('export','正在导出 MP4','动作已保存。正在按原画幅编码和校验成片。',.70);
     const out=await encode(meta,motion,settings,p=>{signal.throwIfAborted();progressValue=.70+.30*p;if(p>=.96 && mode!=='verify')status('verify','正在校验成片','正在核对 MP4 的画幅、时长和音视频轨道。',progressValue);$('progress').value=.70+.30*p;$('percent').textContent=Math.round(70+30*p)+'%';},signal);
-    signal.throwIfAborted();await cache([['result',{out,settings}]]);signal.throwIfAborted();readyPlayback(out,out.size,settings);
+    signal.throwIfAborted();await cache([['result',{out,settings,version:renderVersion}]]);signal.throwIfAborted();readyPlayback(out,out.size,settings,renderVersion);
   }catch(e){if(signal.aborted||e.name==='AbortError'){await cache([['motion',motion],['paused',true]]);status('pause','任务已暂停',cacheOK?'已保存当前进度，可继续处理。':'当前页面可继续处理。',null);}
     else{const message=e.message||String(e);await cache([['failure',message],['motion',motion]]);status('failed','处理未完成',message,null);} }
 }
@@ -242,7 +245,7 @@ async function poll(signal){
     const d=await call('status',{signal},key);signal.throwIfAborted();remoteData=d;
     const phase=d.pause_requested&&['queued','running'].includes(d.state)?'pausing':serverPhase(d.state,d.stage);
     if(phase==='ready'){
-      readyPlayback('./api/jobs/'+key+'/output',d.bytes,d.settings);
+      readyPlayback('./api/jobs/'+key+'/output',d.bytes,d.settings,d.renderVersion);
       if(d.updated)$('detail').textContent+=' 可下载至 '+new Date((d.updated+86400)*1000).toLocaleString('zh-CN')+'。';
       if(!sameSettings(cfg(),d.settings))applyChange();return;
     }
@@ -269,7 +272,7 @@ async function configureRuntime(){
   if(server){$('serverDownload').hidden=true;$('runtime').textContent='服务端处理 · 关闭页面后继续';$('helpstorage').textContent='服务端任务在页面关闭后继续。任务和成片在完成后保留 24 小时。同一浏览器重新打开可继续查看。';}
 }
 async function init(){
-  const token=restoreToken;emptyArt();expose();await configurationReady;
+  const token=restoreToken;chip();emptyArt();expose();await configurationReady;
   const saved=await readSaved();if(token!==restoreToken||!saved.job)return;
   // Claim only the snapshot actually read. An older tab may continue to view
   // its own result but cannot overwrite a later tab's task or checkpoint.
@@ -283,7 +286,7 @@ async function init(){
   try{restoredMeta=await inspect(job.file);}catch{}
   if(token!==restoreToken){restoredMeta?.input.dispose();return;}meta=restoredMeta;
   const next=restoration({...saved,settings:cfg()});
-  if(meta && saved.result?.out && motion.complete){readyPlayback(saved.result.out,saved.result.out.size,saved.result.settings);}
+  if(meta && saved.result?.out && motion.complete){readyPlayback(saved.result.out,saved.result.out.size,saved.result.settings,saved.result.version);}
   if(next==='ready'&&meta)return;
   if(next==='changed'&&meta){applyChange();return;}
   if(next==='pause'){status('pause','任务已暂停','已恢复最近任务，可继续处理。',null);return;}

@@ -65,6 +65,18 @@ try {
   await expect(page.locator('.card')).toHaveAttribute('href', /apps\/m153\//);
   await page.goto(new URL('apps/m153/index.html', base).href, { waitUntil: 'networkidle' });
   await expect(page.locator('#runtime')).toContainText('本机处理');
+  await expect(page.locator('#bg')).toHaveValue('studio');
+  const previewEvent = context.waitForEvent('page');
+  await page.getByRole('link', { name: '观看示例成片', exact: true }).click();
+  const preview = await previewEvent; await preview.waitForLoadState('domcontentloaded');
+  await preview.waitForFunction(() => document.querySelector('video')?.readyState >= 2);
+  const sampleVideo = await preview.locator('video').evaluate(async video => {
+    video.muted = true; await video.play(); return { width: video.videoWidth, height: video.videoHeight, duration: video.duration };
+  });
+  expect(sampleVideo.width).toBe(480); expect(sampleVideo.height).toBe(360); expect(Math.abs(sampleVideo.duration - 3.44)).toBeLessThan(.06);
+  await preview.waitForFunction(() => document.querySelector('video').currentTime > .1);
+  result.samplePreview = { ...sampleVideo, url: preview.url(), played: true }; await preview.close();
+  check('The new mannequin sample opens as an actual playable MP4 in its own tab');
   expect(await page.evaluate(() => document.querySelector('#art').width)).toBeGreaterThan(0);
   await page.locator('#play').click(); await page.waitForTimeout(450); await page.locator('#play').click();
   await page.screenshot({ path: path.join(out, 'home.png'), fullPage: true });
@@ -72,7 +84,7 @@ try {
   const packageEvent = page.waitForEvent('download'); await page.locator('#serverDownload').click();
   const packageDownload = await packageEvent; const packageFile = path.join(out, 'motion-atelier-server.zip'); await packageDownload.saveAs(packageFile);
   result.package = { bytes: fs.statSync(packageFile).size, sha256: digest(fs.readFileSync(packageFile)), suggestedFilename: packageDownload.suggestedFilename() };
-  expect(result.package.bytes).toBe(5810642); expect(result.package.sha256).toBe('70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2');
+  expect(result.package.bytes).toBe(9401937); expect(result.package.sha256).toBe('6f7e6a0df8e3d54a8d5bc6cf78a59e98ea5df57549013efd9565a628b86873e4');
   execFileSync('python', ['-m', 'zipfile', '-t', packageFile], { stdio: 'pipe' });
   await page.getByRole('button', { name: '关闭', exact: true }).click();
   check('Portal search, initial model preview, local-processing notice and actual server ZIP download/checksum pass');
@@ -86,6 +98,7 @@ try {
   await page.locator('#retry').click(); await ready();
   const motion = await storedMotion(); expect(motion.complete).toBeTruthy(); expect(motion.frames).toHaveLength(86);
   expect(motion.frames.filter(f => f.p).length).toBeGreaterThan(70);
+  expect(motion.frames.filter(f => f.p?.every(p => Number.isFinite(p[4]))).length).toBeGreaterThan(70);
   expect(motion.frames.at(-1).t).toBeCloseTo(3.40, 2);
   result.motion = { frames: motion.frames.length, detected: motion.frames.filter(f => f.p).length, pausedFrames: paused.frames.length, sha256: digest(JSON.stringify(motion.frames)) };
   result.originalExport = await downloadVideo('white-with-audio.mp4', true);
@@ -96,6 +109,7 @@ try {
   await expect(page.locator('#stateInfo')).toContainText('"phase"');
   const snapshot = JSON.parse(await page.locator('#stateInfo').innerText());
   expect(snapshot.phase).toBe('ready'); expect(snapshot.checkpoint).toBe('complete'); expect(snapshot.downloadReady).toBeTruthy();
+  expect(snapshot.renderVersion).toBe('atelier-2'); expect(snapshot.previousLook).toBeFalsy();
   expect(snapshot.actions).toContain('download');
   expect(await page.locator('#stateInspector a').evaluate(a => a.href)).toBe(new URL('apps/m153/workflow-audit.md', base).href);
   await page.getByRole('button', { name: '关闭', exact: true }).click();
@@ -149,6 +163,41 @@ try {
   await page.locator('#file').setInputFiles({ name: 'invalid.mp4', mimeType: 'video/mp4', buffer: Buffer.from('not a video') });
   await expect(page.locator('#status')).toHaveText('处理未完成'); await expect(page.locator('#retry')).toBeVisible();
   check('Clearing the isolated test task restores the empty workspace; invalid input gives a recoverable error');
+
+  if (process.env.LEGACY_FIXTURE) {
+    const fixture = JSON.parse(fs.readFileSync(process.env.LEGACY_FIXTURE));
+    expect(fixture.generated_from_builtin_sample).toBeTruthy(); expect(fixture.source_version).toBe(3);
+    expect(fixture.source_commit).toBe('fdc2a00fe05c07d5b22a043138f234277300236c');
+    expect(digest(JSON.stringify(fixture.motion.frames))).toBe(fixture.motion_sha256);
+    expect(digest(Buffer.from(fixture.result.out.base64, 'base64'))).toBe(fixture.output_sha256);
+    // Seed only this disposable browser with our v3 sample fixture. Production
+    // code, models and media requests remain unmodified during the public run.
+    await page.evaluate(async fixture => {
+      const unpack = data => new Blob([Uint8Array.from(atob(data.base64), c => c.charCodeAt(0))], { type: data.type });
+      const db = await new Promise((ok, no) => { const r = indexedDB.open('motion-atelier-v1', 1); r.onsuccess = () => ok(r.result); r.onerror = () => no(r.error); });
+      await new Promise((ok, no) => {
+        const tx = db.transaction('current', 'readwrite'), s = tx.objectStore('current'); s.clear();
+        s.put('isolated-v3-sample-fixture', 'owner');
+        s.put({ name: fixture.job.name, file: new File([unpack(fixture.job.file)], fixture.job.name, { type: fixture.job.file.type }) }, 'job');
+        s.put(fixture.settings, 'settings'); s.put(fixture.motion, 'motion');
+        s.put({ settings: fixture.result.settings, out: unpack(fixture.result.out) }, 'result');
+        tx.oncomplete = ok; tx.onerror = tx.onabort = () => no(tx.error);
+      }); db.close();
+    }, fixture);
+    await page.reload({ waitUntil: 'domcontentloaded' }); await ready();
+    await expect(page.locator('#retry')).toHaveText('用新版白模重新导出');
+    const original = await downloadVideo('legacy-v3-original.mp4', true);
+    expect(original.sha256).toBe(fixture.output_sha256);
+    expect(digest(JSON.stringify((await storedMotion()).frames))).toBe(fixture.motion_sha256);
+    await page.locator('#retry').click(); await ready(); await expect(page.locator('#retry')).toBeHidden();
+    const upgraded = await downloadVideo('legacy-v3-rerendered.mp4', true);
+    expect(upgraded.sha256).not.toBe(original.sha256);
+    expect(digest(JSON.stringify((await storedMotion()).frames))).toBe(fixture.motion_sha256);
+    await page.screenshot({ path: path.join(out, 'legacy-rerendered.png'), fullPage: true });
+    result.legacy = { fixture_source_version: 3, fixture_source_commit: fixture.source_commit, original, upgraded,
+      raw_motion_unchanged: true, motion_sha256: fixture.motion_sha256, user_browser_data_used: false };
+    check('A real v3 sample result remains downloadable byte-for-byte and rerenders with the v4 mannequin without changing its saved motion');
+  }
   expect(requests.some(url => /\/api\/jobs/.test(url))).toBeFalsy();
   expect(errors).toEqual([]); expect(failures).toEqual([]);
   result.ok = true;

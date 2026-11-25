@@ -3,10 +3,10 @@
 const busyPhases = new Set(['preparing','read','loading','extract','choose','export','verify','upload','queued','remote','pausing','clearing']);
 export const sameSettings = (a,b) => !!a && !!b && a.bg===b.bg && a.size===b.size && a.audio===b.audio;
 export function taskPolicy(phase,context={}) {
-  const {hasJob=false,hasMotion=false,hasResult=false,remote=false}=context;
+  const {hasJob=false,hasMotion=false,hasResult=false,previousLook=false,remote=false}=context;
   const busy=busyPhases.has(phase);
   const retry={
-    pause:'resume',failed:hasMotion?'export':'retry',changed:'export',
+    ready:previousLook&&hasResult?'export':null,pause:'resume',failed:hasMotion?'export':'retry',changed:'export',
     disconnected:'reconnect',expired:'upload'
   }[phase];
   const pause=busy && !['preparing','pausing','clearing'].includes(phase);

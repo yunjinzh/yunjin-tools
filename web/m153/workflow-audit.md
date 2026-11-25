@@ -31,3 +31,5 @@ python tests/service_lifecycle.py
 在“使用说明”中展开“查看当前任务状态”，可以读取同一份 JSON 状态。服务端 status 响应补充了 stage、revision、actions，旧客户端原有的 state 字段继续可用。
 
 现有页面按钮、动态状态提示、框选和下载链接是普通浏览器的操作入口。支持 WebMCP 的浏览器另提供两个接口。get_motion_state 返回任务阶段、设置、进度、播放时间、可执行动作和下载就绪标记。act_on_motion_task 需要当前 task、revision 和 action，choose 的 value 为从 1 开始的人物编号，seek 的 value 为秒。完成下载使用可见的 MP4 链接。
+
+旧版成片仍可下载。在就绪状态选择「用新版白模重新导出」，系统复用已保存的动作轨道。当前模型版本和可用导出操作也记录在任务状态中。

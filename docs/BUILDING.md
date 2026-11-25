@@ -90,12 +90,16 @@ PNG 照片与可编辑造型分别导出和保存：竖幅照片为 1080×1350�
 
 ## 白模动作工坊（m153）
 
-第 3 版源码保存在 [sources/m153](../sources/m153/)，对应源提交 `fdc2a00fe05c07d5b22a043138f234277300236c`。网页标题为“形迹 · 视频转白模”。原项目同时提供浏览器本机处理版和独立服务器版；Pages 使用原始 `dist/` 静态文件，保留 `server-mode.json` 中的 `background: false`，通过浏览器提取人物动作、渲染白模并导出 H.264 MP4。未改变原始应用逻辑，统一构建仅添加子路径、资源映射和模块存储隔离。
+第 4 版源码保存在 [sources/m153](../sources/m153/)，对应源提交 `0dc2dcf4635e66ee72eee378ea50a8b26fa19de1`。网页标题为“形迹 · 视频转白模”。原项目同时提供浏览器本机处理版和独立服务器版；Pages 使用原始 `dist/` 静态文件，保留 `server-mode.json` 中的 `background: false`，通过浏览器提取人物动作、渲染白模并导出 H.264 MP4。未改变原始应用逻辑，统一构建添加子路径、资源映射和模块存储隔离。
 
 本机版支持视频导入、多人目标选择、暂停续跑、同步对照、逐帧定位，以及背景、画面尺寸和原声设置。最近任务存于当前浏览器的 IndexedDB；关闭网页后暂停计算，再次打开可从已保存进度继续。原站与 Pages 的本机任务不自动互通，原站视频、成片和个人任务数据未迁入。示例视频及白模示例按原项目的 CC BY-SA 4.0 许可保留，依赖许可和模型说明也随源码保存。
 
-第 3 版完善暂停、失败及输出设置草稿的恢复规则，防止旧任务覆盖新导入的文件；恢复原设置后可以直接下载已有成片。“使用说明”新增当前任务状态查看，完整规则见 [workflow-audit.md](../sources/m153/dist/workflow-audit.md)。上游 `node --test tests/*.test.mjs` 的 10 项回归检查通过，覆盖状态优先级、过期动作拒绝、导入竞态和服务端断线重连。
+第 4 版使用连续蒙皮白模、摄影棚渐变背景和接触阴影，姿态模型更新为 MediaPipe Pose Landmarker Full；导出阶段平滑动作并保留原始轨道。旧版成片可以继续下载，也可明确选择“用新版白模重新导出”。此前的暂停、失败及设置草稿恢复规则继续保留，完整规则见 [workflow-audit.md](../sources/m153/dist/workflow-audit.md)。上游 `node --test tests/*.test.mjs` 的 14 项回归检查通过，包含轨道平滑、场景切换、旧格式兼容、软件渲染及任务状态检查。
 
-“使用说明”内的“下载独立服务器版”提供原始 Linux x86-64 Docker 源码包，大小为 5810642 字节，SHA-256 为 `70d2e03008df74b07d0fb5ae65faf6f8b2b0b35bfa13ae79bafe0d00d8453db2`。其 31 个文件均与该源提交一致，包中不包含平台身份、数据库或用户上传文件。按原 README 自行部署后，服务器版才支持关页继续处理、任务排队及结果保留；GitHub Pages 不运行该服务器。同步验证下载字节、ZIP 完整性和源码语法；另在隔离 Python 环境和临时任务目录运行上游 `tests/service_lifecycle.py`，通过真实样片转换、重复上传、暂停续跑、排队取消、重启恢复、版本化选人、范围下载及静音重导出检查。未构建或部署 Docker 服务。
+新入口“观看示例成片”需要浏览器直接打开视频。GitHub Raw 对 MP4 返回 `application/octet-stream`，因此将原始 `demo-white.mp4` 同时保留在 `web/m153/assets/`，由 Pages 以视频类型提供；文件大小 167763 字节，SHA-256 为 `edb6718b1d3f907fabb5cb15c46761cba8758d6ac793fb783d1745cacef9be4d`。源归档及哈希资源库仍保留对应文件，未改写媒体内容。
 
-运行 `python scripts/restore_assets.py m153` 可还原源码中的五项去重资源，然后通过 HTTP 静态服务器打开 `sources/m153/dist/index.html`。运行 `CHROMIUM_PATH=/usr/bin/chromium node tests/claymotion.mjs` 检查内置 3.44 秒、480×360 的开合跳示例：真实提取 86 帧动作、暂停并刷新后续跑、带原声及静音 MP4 下载与完整解码、设置草稿刷新恢复、还原设置复用原成片、状态查看、无效空文件保留已有任务、清除任务和移动布局。设置 `APP_URL` 后验证真实 Pages 资源，不替换线上文件。浏览器多人选择、10 分钟或大文件处理、所有浏览器和设备的性能不在本次验收范围内。
+“使用说明”内的“下载独立服务器版”提供原始 Linux x86-64 Docker 源码包，大小为 9401937 字节，SHA-256 为 `6f7e6a0df8e3d54a8d5bc6cf78a59e98ea5df57549013efd9565a628b86873e4`。其 36 个文件均与该源提交一致，包中不包含平台身份、数据库或用户上传文件。按原 README 自行部署后，服务器版才支持关页继续处理、任务排队及结果保留；GitHub Pages 不运行该服务器。同步验证下载字节、ZIP 完整性和源码语法；另在隔离 Python 环境和临时任务目录运行上游 `tests/service_lifecycle.py`，通过真实样片转换、重复上传、暂停续跑、排队取消、重启恢复、版本化选人、范围下载及静音重导出检查。未构建或部署 Docker 服务。
+
+运行 `python scripts/restore_assets.py m153` 可还原源码中的五项去重资源，然后通过 HTTP 静态服务器打开 `sources/m153/dist/index.html`。运行 `CHROMIUM_PATH=/usr/bin/chromium node tests/claymotion.mjs` 检查内置 3.44 秒、480×360 的开合跳示例：真实提取 86 帧动作、暂停并刷新后续跑、带原声及静音 MP4 下载与完整解码、设置草稿恢复、还原设置复用原成片、新模型版本、示例视频播放、无效空文件保护、清除任务和移动布局。设置 `APP_URL` 后验证真实 Pages 资源，不替换线上文件。
+
+升级兼容检查使用隔离浏览器生成的 v3 内置样片任务。升级前或临时提供已归档的 v3 网页时，设置 `LEGACY_URL` 为该网页入口、`LEGACY_FIXTURE` 为临时 JSON 路径，运行 `node tests/claymotion-legacy-fixture.mjs`；脚本核对 v3 应用哈希后生成测试夹具。再将同一 `LEGACY_FIXTURE` 传给 `tests/claymotion.mjs`，检查旧 MP4 字节不变、可用新白模重新导出且原始动作轨道未变。这些测试不读取用户现有浏览器资料。浏览器多人选择、10 分钟或大文件处理、所有浏览器和设备的性能不在本次验收范围内。
