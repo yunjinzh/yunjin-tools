@@ -1,0 +1,55 @@
+{
+  "bounds": [
+    115.3,
+    39.23,
+    117.52,
+    40.8
+  ],
+  "cols": 449,
+  "rows": 417,
+  "sourceZoom": 9,
+  "units": "metres",
+  "rawHeightRange": [
+    -80,
+    2341
+  ],
+  "localReferenceElevation": 54.77,
+  "referenceCoordinate": [
+    116.3907,
+    39.9159
+  ],
+  "referenceDescription": "DEM sample near the Hall of Supreme Harmony, used solely to set the local rendering datum.",
+  "texture": "beijing-region.webp",
+  "heightfile": "height.i16",
+  "encoding": "int16 little endian, west-east columns and north-south Web Mercator rows",
+  "elevationAttribution": "Mapzen Terrain Tiles. SRTM and GMTED2010 terrain data courtesy of the U.S. Geological Survey.",
+  "elevationSource": "https://registry.opendata.aws/terrain-tiles/",
+  "elevationTerms": "https://github.com/tilezen/joerd/blob/master/docs/attribution.md",
+  "providerSourceFiles": [
+    "etopo1/ETOPO1_Bed_g.tif",
+    "gmted/30N090E_20101117_gmted_mea075.tif",
+    "srtm/N38E114.tif",
+    "srtm/N38E115.tif",
+    "srtm/N38E116.tif",
+    "srtm/N38E117.tif",
+    "srtm/N39E114.tif",
+    "srtm/N39E115.tif",
+    "srtm/N39E116.tif",
+    "srtm/N39E117.tif",
+    "srtm/N39E118.tif",
+    "srtm/N40E114.tif",
+    "srtm/N40E115.tif",
+    "srtm/N40E116.tif",
+    "srtm/N40E117.tif",
+    "srtm/N40E118.tif"
+  ],
+  "imageryAttribution": "EOxCloudless \u2014 https://cloudless.eox.at by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2016), released under CC BY 4.0. Cropped, resampled and encoded as WebP.",
+  "imagerySource": "https://cloudless.eox.at/documentation/license",
+  "imageryLicense": "https://creativecommons.org/licenses/by/4.0/",
+  "retrieved": "2026-11-26",
+  "nightTexture": "night-lights.webp",
+  "nightAttribution": "NASA Earth Observatory / Joshua Stevens, using Suomi NPP VIIRS data from Miguel Rom\u00e1n, NASA Goddard Space Flight Center. Observed 2016 nighttime lights composite, NASA GIBS (VIIRS_Night_Lights). Cropped and resampled.",
+  "nightSource": "https://science.nasa.gov/earth/earth-observatory/earth-at-night/maps/",
+  "tileSourcesCoverage": "Source files listed are the union of contributing full tile headers. The cropped grid lies on land.",
+  "processing": "Unexaggerated relief. Subtract local DEM reference and spherical Earth curvature; flatten the modeled urban surface into its local datum. Texture epochs refer to satellite composites."
+}

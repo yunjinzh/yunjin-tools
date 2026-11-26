@@ -1,0 +1,16 @@
+[
+  {
+    "source": "https://commons.wikimedia.org/wiki/File:Temple_of_Heaven_20160323_01.jpg",
+    "author": "Shujianyang",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "changes": "从原始照片裁取梁枋、斗栱及题匾细部，缩放、镜像拼接为环形纹理，并采样为软件渲染色片。衍生纹理按相同协议发布。"
+  },
+  {
+    "author": "N509FZ",
+    "source": "https://commons.wikimedia.org/wiki/File:Hall_of_Supreme_Harmony_(20241127120000).jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "changes": "截取上下层梁枋彩绘及太和殿匾额，缩放、拼接、镜像并采样为软件渲染彩片。衍生纹理采用相同许可。"
+  }
+]

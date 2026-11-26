@@ -1,0 +1,74 @@
+{
+  "palace": {
+    "src": "photos/palace.webp",
+    "credit": "N509FZ",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Hall_of_Supreme_Harmony_(20241127120000).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "title": "Hall of Supreme Harmony (20241127120000).jpg",
+    "changes": "等比缩放、WebP 转码"
+  },
+  "tiantan": {
+    "src": "photos/tiantan.webp",
+    "credit": "Shujianyang",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Temple_of_Heaven_20160323_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "title": "Temple of Heaven 20160323 01.jpg",
+    "changes": "等比缩放、WebP 转码"
+  },
+  "tiananmen": {
+    "src": "photos/tiananmen.webp",
+    "credit": "Balon Greyjoy",
+    "license": "CC0",
+    "url": "https://commons.wikimedia.org/wiki/File:20200110_Tiananmen-3.jpg",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "title": "20200110 Tiananmen-3.jpg",
+    "changes": "等比缩放、WebP 转码"
+  },
+  "ncpa": {
+    "src": "photos/ncpa.webp",
+    "credit": "xiquinhosilva",
+    "license": "CC BY 2.0",
+    "url": "https://commons.wikimedia.org/wiki/File:National_Centre_for_the_Performing_Arts.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "title": "National Centre for the Performing Arts.jpg",
+    "changes": "等比缩放、WebP 转码"
+  },
+  "stadium": {
+    "src": "photos/stadium.webp",
+    "credit": "CEphoto, Uwe Aranas",
+    "license": "CC BY-SA 3.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Beijing_China_Beijing-National-Stadium-01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "title": "Beijing China Beijing-National-Stadium-01.jpg",
+    "changes": "等比缩放、WebP 转码"
+  },
+  "cube": {
+    "src": "photos/cube.webp",
+    "credit": "Charlie fong",
+    "license": "Public domain",
+    "url": "https://commons.wikimedia.org/wiki/File:%E5%9B%BD%E5%AE%B6%E6%B8%B8%E6%B3%B3%E4%B8%AD%E5%BF%83%E5%A4%9C%E6%99%AF.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "title": "国家游泳中心夜景.jpg",
+    "changes": "等比缩放、WebP 转码"
+  },
+  "cctv": {
+    "src": "photos/cctv.webp",
+    "credit": "Dayton12345",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:China_Central_Television_HQ,_from_China_World_Trade_Centre_(Cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "title": "China Central Television HQ, from China World Trade Centre (Cropped).jpg",
+    "changes": "等比缩放、WebP 转码"
+  },
+  "zun": {
+    "src": "photos/zun.webp",
+    "credit": "N509FZ",
+    "license": "CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:China_Zun_in_2020_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "title": "China Zun in 2020 (cropped).jpg",
+    "changes": "等比缩放、WebP 转码"
+  }
+}

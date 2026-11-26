@@ -103,3 +103,13 @@ PNG 照片与可编辑造型分别导出和保存：竖幅照片为 1080×1350�
 运行 `python scripts/restore_assets.py m153` 可还原源码中的五项去重资源，然后通过 HTTP 静态服务器打开 `sources/m153/dist/index.html`。运行 `CHROMIUM_PATH=/usr/bin/chromium node tests/claymotion.mjs` 检查内置 3.44 秒、480×360 的开合跳示例：真实提取 86 帧动作、暂停并刷新后续跑、带原声及静音 MP4 下载与完整解码、设置草稿恢复、还原设置复用原成片、新模型版本、示例视频播放、无效空文件保护、清除任务和移动布局。设置 `APP_URL` 后验证真实 Pages 资源，不替换线上文件。
 
 升级兼容检查使用隔离浏览器生成的 v3 内置样片任务。升级前或临时提供已归档的 v3 网页时，设置 `LEGACY_URL` 为该网页入口、`LEGACY_FIXTURE` 为临时 JSON 路径，运行 `node tests/claymotion-legacy-fixture.mjs`；脚本核对 v3 应用哈希后生成测试夹具。再将同一 `LEGACY_FIXTURE` 传给 `tests/claymotion.mjs`，检查旧 MP4 字节不变、可用新白模重新导出且原始动作轨道未变。这些测试不读取用户现有浏览器资料。浏览器多人选择、10 分钟或大文件处理、所有浏览器和设备的性能不在本次验收范围内。
+
+## 京观 · 北京城市三维漫游（m154）
+
+第 1 版原始源码保存在 [sources/m154](../sources/m154/)，对应源提交 `bd7f57adeaec5e625ef152b809274db411092ae9`。这是独立于 m151 京城夜行游戏的地理浏览工具：包含 8 处参数化地标、34,478 个 OSM 建筑面、27,161 段道路，以及北京区域高程、卫星影像和夜光纹理。先运行 `python scripts/restore_assets.py m154` 恢复去重资源，再通过 HTTP 静态服务器打开 `sources/m154/dist/index.html`；无需独立后端或构建步骤。`tools/` 保留原始数据加工脚本，本次使用保存版本随附的静态数据，不重新抓取或生成地图。
+
+发布副本在 `web/m154/app.js` 和 `panels.js` 中让动态照片及背景地址经过统一资源映射，在 `software.js` 中为读取像素的图片设置匿名跨域加载，并用 URL 解析兼容影像清单中的绝对地址，以兼容 GitHub Raw 上的去重资源。原始 58 个源码与素材文件保持字节一致，仅排除平台配置。Three.js MIT、OpenStreetMap ODbL、EOX、USGS/NASA、Wikimedia 摄影及衍生纹理的来源与许可说明随项目保留。
+
+场景支持飞行、1.72 米步行视点、地标筛选、城市与区域地图、自动导览、日期日照及五种天气模拟，并可手动请求 Open-Meteo 当前模式值。地图数据是原项目附带的公开地理快照，未读取原站数据库、用户上传内容或浏览器资料。多数建筑高度与外观经过概化，影像、高程和建筑数据的年代不同，不能作为实测模型或现实导航。
+
+运行 `CHROMIUM_PATH=/usr/bin/chromium node tests/jingguan.mjs` 检查三维场景、八处地标与参考照片、键盘漫游、地图、环境与图层、来源链接、地图数据下载、移动布局和禁用 WebGL 后的 CPU 三维模式。默认预览为 `http://127.0.0.1:4185/yunjin-tools/`；设置 `APP_URL` 后验证真实 Pages 入口，不替换线上资源，`QA_DIR` 可指定临时检查输出目录。联网天气的实际响应单独记录；全部道路的碰撞边界、所有设备帧率、长时间导览和数据测绘精度不在本次验收范围内。

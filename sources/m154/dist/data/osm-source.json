@@ -1,0 +1,49 @@
+{
+  "bounds": [
+    116.35,
+    39.86,
+    116.498,
+    40.015
+  ],
+  "crs": "EPSG:4326",
+  "coordinateOrder": "longitude, latitude",
+  "snapshot": "2026-11-25T21:22:46Z",
+  "counts": {
+    "roads": 27161,
+    "water": 230,
+    "plazas": 640,
+    "buildings": 34478,
+    "parks": 2895
+  },
+  "heightCoverage": {
+    "unknownHeight": 24602,
+    "levelsOnly": 9202,
+    "taggedHeight": 674
+  },
+  "license": "ODbL-1.0",
+  "credit": "© OpenStreetMap contributors",
+  "source": "https://download.geofabrik.de/asia/china/beijing/beijing-261125.osm.pbf",
+  "attribution": "https://www.openstreetmap.org/copyright",
+  "pbfSha256": "e9ad7e26c8438b34911c6c2131c7fa5b74720d191d6c89cf6144a6ced898bb13",
+  "geometry": "Clipped OSM polygons with interiors; 1e-6 degree coordinate quantization. Multi-part objects may yield multiple features.",
+  "heightPolicy": "Tagged height in metres, tagged building:levels separately. Null when absent; neither is a survey guarantee.",
+  "neighborhoodEstimates": {
+    "count": 1434,
+    "unresolved": 23168,
+    "radiusMeters": 155,
+    "minimumReferenceBuildings": 3,
+    "maximumReferenceBuildings": 7,
+    "heightByLevelsMeters": 3,
+    "areaLogRatioLimit": 0.55,
+    "calculation": "Median of similar-area, like-use OSM neighbours with consistent vertical tags in the same map snapshot. Excludes unstable local groups. Not a measured height.",
+    "blockValidationMeters": 65,
+    "validationOsmHeightAndLevels": {
+      "count": 5924,
+      "meanAbsoluteDifferenceMeters": 0.88
+    },
+    "validationOsmHeightOnly": {
+      "count": 411,
+      "meanAbsoluteDifferenceMeters": 1.02
+    }
+  }
+}

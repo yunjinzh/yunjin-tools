@@ -1,0 +1,17 @@
+{
+  "dist/data/beijing.osm.bin": "assets/e6df36a51fae4ba99244bd8ba61f8b96cf34447080ec3745ca5becf9d9731d39.bin",
+  "dist/data/locator.webp": "assets/8686a97ef599d896f2672a8d1b7f2cb6e7f31329c83332faa68efb67c84d2ed4.webp",
+  "dist/imagery/canopies.bin": "assets/6d26442e17fdda02f32bb9881922bf9dd5ccd06b7eb370dd4322900faa035f6b.bin",
+  "dist/imagery/canopy.bin": "assets/0c7829ebdfa293bf62ca6aaf0a807ed58bceeab3bee88c9087de821f89c9b766.bin",
+  "dist/imagery/cloud-noise.png": "assets/a6e56fafa0c4bc6469e2ee2090c33d1651aff2d526f63fe2c979790d3db8add6.png",
+  "dist/imagery/region.webp": "assets/185e0f4f693bebcade4b9ff236685e5954de3b6d2c4fda02daaad524c72da1b5.webp",
+  "dist/imagery/urban.webp": "assets/56d634616c30c28fe2f163126d36a4a0c71ef900aebfbfde49e01a22489e47a0.webp",
+  "dist/photos/cctv.webp": "assets/f1882afba4e7ddf94ca9c149ebaefb468d0da2d9dd82cd625253b8cbd8448418.webp",
+  "dist/photos/cube.webp": "assets/7a3630e5d7e96a6526442e9880b783dadda93fc204cef6bda8ed9cbc8e05c376.webp",
+  "dist/photos/ncpa.webp": "assets/93ead01c174f20e3a0aa98cf04e7fffad82e3efc3e4099e19791a39fea6f5cc4.webp",
+  "dist/photos/palace.webp": "assets/6e64e0030b06020402081f11ba4478ff4f7234fb5caa8f9f29f82f2ce9614dde.webp",
+  "dist/photos/stadium.webp": "assets/0973e4d9ca330b0d62c46818845fc7053c0d0135fc2dce3fb4e8f385a4b42c84.webp",
+  "dist/photos/tiananmen.webp": "assets/237bc776ebf9637abaeff2b6bb64f5d959d0b8a6b9eef37c8399deb4a0100bee.webp",
+  "dist/photos/tiantan.webp": "assets/7df9bdbcbd3b89eb390b6d1e75863dec2c5157bd20ad57edb7ca3add9456eddd.webp",
+  "dist/terrain-data/beijing-region.webp": "assets/54189aff584f3553d8d0189f50da83204db79c7f83d7762cbb006533a9031226.webp"
+}
