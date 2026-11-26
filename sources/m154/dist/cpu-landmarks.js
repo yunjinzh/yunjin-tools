@@ -18,7 +18,7 @@ function transform(matrix,x,y,z) {
 class GeometryWriter {
   constructor() {
     this.pos=[];this.index=[];this.colors=[];this.normals=[];
-    this.buckets=new Map();this.next=[];this.linePos=[];this.lineColors=[];
+    this.texFaces=[];this.uvs=[];this.bulbs=[];this.mapIds=[];this.textures=[];this.buckets=new Map();this.next=[];this.linePos=[];this.lineColors=[];
   }
   vertex(x,y,z) {
     // All model detail is coarser than this 3.9 mm grid. Hash collisions are independently compared.
@@ -32,18 +32,20 @@ class GeometryWriter {
     const id=this.pos.length/3;this.pos.push(px,py,pz);
     this.next[id]=first;this.buckets.set(hash,id);return id;
   }
-  triangle(a,b,c,tint) {
+  triangle(a,b,c,tint,texture=-1,uv=null) {
     if(a===b||a===c||b===c)return;
     const p=this.pos,i=a*3,j=b*3,k=c*3;
     const ux=p[j]-p[i],uy=p[j+1]-p[i+1],uz=p[j+2]-p[i+2];
     const vx=p[k]-p[i],vy=p[k+1]-p[i+1],vz=p[k+2]-p[i+2];
     const nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx,len=Math.sqrt(nx*nx+ny*ny+nz*nz);
     if(len<1e-8)return;
+    this.texFaces.push(texture<0?0:this.mapIds.length+1);
+    if(texture>=0){this.mapIds.push(texture);this.uvs.push(...uv);}
     this.index.push(a,b,c);this.colors.push(tint[0],tint[1],tint[2]);
     this.normals.push(Math.round(127*nx/len),Math.round(127*ny/len),Math.round(127*nz/len));
   }
   finish() {
-    return {pos:new Float32Array(this.pos),index:new Uint32Array(this.index),colors:new Uint8Array(this.colors),
+    return {bulbs:new Float32Array(this.bulbs),texFaces:this.uvs.length?new Uint32Array(this.texFaces):null,uvs:new Float32Array(this.uvs),mapIds:new Uint16Array(this.mapIds),textures:this.textures,pos:new Float32Array(this.pos),index:new Uint32Array(this.index),colors:new Uint8Array(this.colors),
       normals:new Int8Array(this.normals),linePos:new Float32Array(this.linePos),lineColors:new Uint8Array(this.lineColors)};
   }
 }
@@ -52,15 +54,21 @@ function readTint(mat,attr,i) {
   if(!attr||!mat.vertexColors) return swatch(c.r,c.g,c.b);
   return swatch(c.r*attr.getX(i),c.g*attr.getY(i),c.b*attr.getZ(i));
 }
-function appendSolid(out,mesh) {
-  const geo=mesh.geometry,mat=mesh.material,attr=geo.getAttribute('position'),rgb=geo.getAttribute('color');
+function appendSolid(out,mesh,maps) {
+  const geo=mesh.geometry,attr=geo.getAttribute('position'),rgb=geo.getAttribute('color'),uv=geo.getAttribute('uv');
   const remap=new Uint32Array(attr.count);
   for(let i=0;i<attr.count;i++)remap[i]=out.vertex(...transform(mesh.matrixWorld,attr.getX(i),attr.getY(i),attr.getZ(i)));
   const order=geo.index?.array, length=order?.length??attr.count;
-  for(let i=0;i+2<length;i+=3){
-    const a=order?order[i]:i,b=order?order[i+1]:i+1,c=order?order[i+2]:i+2;
-    // Every procedural façade, roof facet and structural strap has a constant vertex tint per face.
-    out.triangle(remap[a],remap[b],remap[c],readTint(mat,rgb,a));
+  const groups=Array.isArray(mesh.material)?geo.groups:[{start:0,count:length}];
+  for(const group of groups){
+    const mat=Array.isArray(mesh.material)?mesh.material[group.materialIndex]:mesh.material;
+    if(!mat||!mat.visible)continue;
+    const id=maps.get(mat)??-1,matrix=mat.map?.matrix.elements;
+    function coords(i){const u=uv.getX(i),v=uv.getY(i);return [matrix[0]*u+matrix[3]*v+matrix[6],matrix[1]*u+matrix[4]*v+matrix[7]];}
+    for(let i=group.start;i+2<Math.min(group.start+group.count,length);i+=3){
+      const a=order?order[i]:i,b=order?order[i+1]:i+1,c=order?order[i+2]:i+2;
+      out.triangle(remap[a],remap[b],remap[c],readTint(mat,rgb,a),uv?id:-1,uv&&id>=0?[...coords(a),...coords(b),...coords(c)]:null);
+    }
   }
 }
 function appendLines(out,mesh) {
@@ -71,71 +79,47 @@ function appendLines(out,mesh) {
     out.lineColors.push(...readTint(mesh.material,rgb,i));
   }
 }
-const mix=(a,b,t)=>a+(b-a)*t;
-function atQuad(points,s,t) {
-  return points[0].map((_,i)=>mix(mix(points[0][i],points[1][i],s),mix(points[2][i],points[3][i],s),t));
-}
-const panelImages=new Map();
-async function imagePixels(mesh,id) {
-  if(typeof document==='undefined')return;
-  const map=mesh.material.map;
-  let src=map.image;
-  const asset=mesh.userData.panelUrl || (id==='tiananmen'&&!map.isCanvasTexture?'./photos/tiananmen.webp':null);
-  if(!src && asset){
-    if(!panelImages.has(asset))panelImages.set(asset,fetch(new URL(asset,import.meta.url)).then(r=>r.ok?r.blob():null)
-      .then(blob=>blob?createImageBitmap(blob):null).catch(()=>null));
-    src=await panelImages.get(asset);
-  }
-  if(!src)return;
-  if(src.decode)await src.decode();
-  const canvas=document.createElement('canvas');
-  canvas.width=src.width;canvas.height=src.height;
-  const ctx=canvas.getContext('2d',{willReadFrequently:true});
-  if(!ctx||!canvas.width||!canvas.height)return;
-  ctx.drawImage(src,0,0);
-  return ctx.getImageData(0,0,canvas.width,canvas.height);
-}
-async function appendPanel(out,mesh,id) {
-  let img;
-  try {img=await imagePixels(mesh,id);} catch {/* A plain panel still retains the architectural opening. */}
-  if(!img){appendSolid(out,mesh);return;}
-  const geo=mesh.geometry,coords=geo.getAttribute('position'),uvs=geo.getAttribute('uv');
-  if(coords.count!==4||!uvs){appendSolid(out,mesh);return;}
-  const corners=[],uv=[];
-  for(let i=0;i<4;i++){
-    corners.push(transform(mesh.matrixWorld,coords.getX(i),coords.getY(i),coords.getZ(i)));
-    uv.push([uvs.getX(i),uvs.getY(i)]);
-  }
-  const w=geo.parameters.width,h=geo.parameters.height;
-  const rows=mesh.material.map.isCanvasTexture?12:24, cols=Math.max(6,Math.min(144,Math.round(rows*w/h)));
-  const indices=new Uint32Array((rows+1)*(cols+1));
-  for(let r=0;r<=rows;r++)for(let c=0;c<=cols;c++){
-    indices[r*(cols+1)+c]=out.vertex(...atQuad(corners,c/cols,r/rows));
-  }
-  function tint(s,t){
-    const [u,v]=atQuad(uv,s,t);
-    const x=Math.min(img.width-1,Math.max(0,Math.round(u*(img.width-1))));
-    const y=Math.min(img.height-1,Math.max(0,Math.round((1-v)*(img.height-1))));
-    return img.data.subarray((y*img.width+x)*4,(y*img.width+x)*4+3);
-  }
-  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
-    const i=r*(cols+1)+c,a=indices[i],b=indices[i+cols+1],d=indices[i+1],e=indices[i+cols+2];
-    out.triangle(a,b,d,tint((c+1/3)/cols,(r+1/3)/rows));
-    out.triangle(b,e,d,tint((c+2/3)/cols,(r+2/3)/rows));
-  }
+const imageCache=new Map();
+async function mipLevels(map,url){
+  const key=url||map.source;
+  if(!imageCache.has(key))imageCache.set(key,(async()=>{
+    let image=map.image;
+    if(!image?.width && url){const r=await fetch(url);if(!r.ok)throw Error('Texture '+r.status);image=await createImageBitmap(await r.blob());}
+    if(!image?.width)return null;
+    if(image.decode)await image.decode();
+    const limit=matchMedia("(pointer:coarse)").matches?2048:4096;const scale=Math.min(1,limit/Math.max(image.width,image.height)),levels=[];
+    let w=Math.max(1,Math.round(image.width*scale)),h=Math.max(1,Math.round(image.height*scale)),src=image;
+    for(;;){const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d',{willReadFrequently:true});
+      ctx.drawImage(src,0,0,w,h);levels.push({w,h,data:ctx.getImageData(0,0,w,h).data});
+      if(w===1&&h===1)break;src=c;w=Math.max(1,w>>1);h=Math.max(1,h>>1);
+    }
+    return levels;
+  })().catch(()=>null));
+  return imageCache.get(key);
 }
 async function convert(id) {
-  const model=createLandmark(id);
-  model.updateMatrixWorld(true);
-  const out=new GeometryWriter(),panels=[];
+  const model=createLandmark(id);model.updateMatrixWorld(true);
+  const out=new GeometryWriter(),meshes=[],maps=new Map(),tasks=[];
   model.traverse(mesh=>{
     if(mesh.isLineSegments)appendLines(out,mesh);
-    if(mesh.isMesh){
-      if(mesh.userData.cpuBaked)return;
-      if(mesh.material.map)panels.push(mesh);else appendSolid(out,mesh);
+    if(mesh.isPoints&&mesh.userData.roofLights){const at=mesh.geometry.getAttribute('position');for(let i=0;i<at.count;i++)out.bulbs.push(...transform(mesh.matrixWorld,at.getX(i),at.getY(i),at.getZ(i)));}
+    if(!mesh.isMesh||mesh.userData.cpuBaked)return;
+    meshes.push(mesh);
+    for(const mat of [].concat(mesh.material)){
+      const map=mat.map;
+      if(!map||maps.has(mat))continue;
+      maps.set(mat,-1);
+      const src=map.userData.src||mesh.userData.panelUrl||map.image?.currentSrc||map.image?.src;
+      if(map.matrixAutoUpdate)map.updateMatrix();
+      tasks.push(mipLevels(map,src&&new URL(src,import.meta.url).href).then(levels=>{
+        if(!levels)return;
+        maps.set(mat,out.textures.length);
+        out.textures.push({asset:src||'',plaster:mesh.name==='Tiananmen plaster',roof:src?.endsWith('gate-roof.webp'),beam:/gate-(lower-paint|paint|brackets)\.webp/.test(src||''),levels,repeatS:map.wrapS,repeatT:map.wrapT,flip:map.flipY,alpha:Math.round((mat.alphaTest||.25)*255)});
+      }));
     }
   });
-  for(const panel of panels)await appendPanel(out,panel,id);
+  await Promise.all(tasks);
+  for(const mesh of meshes)appendSolid(out,mesh,maps);
   return out.finish();
 }
 

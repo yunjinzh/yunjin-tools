@@ -12,7 +12,7 @@ function indexLandmark(id){
   load(a,ia);load(b,ib);load(c,ic);
   if(Math.max(a.y,b.y,c.y)-Math.min(a.y,b.y,c.y)>.12)continue;
   const abx=b.x-a.x,abz=b.z-a.z,acx=c.x-a.x,acz=c.z-a.z,area=abx*acz-abz*acx;
-  if(Math.abs(area)<1.1)continue;
+  if(Math.abs(area)<.65)continue;
   const minX=Math.min(a.x,b.x,c.x),maxX=Math.max(a.x,b.x,c.x),minZ=Math.min(a.z,b.z,c.z),maxZ=Math.max(a.z,b.z,c.z);
   const t={ax:a.x,az:a.z,abx,abz,acx,acz,area,y:(a.y+b.y+c.y)/3};
   for(let i=Math.floor(minX/tile);i<=Math.floor(maxX/tile);i++)for(let j=Math.floor(minZ/tile);j<=Math.floor(maxZ/tile);j++){const k=i+','+j;if(!cells.has(k))cells.set(k,[]);cells.get(k).push(t);}

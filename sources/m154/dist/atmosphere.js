@@ -1,3 +1,4 @@
+import {createPhotoSky,PHOTO_SKY_GLSL} from './heritage/sky-light.js';
 import * as T from 'three';
 const rad=Math.PI/180, clamp=T.MathUtils.clamp;
 export const climates={clear:['晴天','sun',0.12],cloud:['多云','cloud',0.66],rain:['降雨','rain',0.92],snow:['降雪','snow',0.89],fog:['雾天','fog',0.63]};
@@ -11,11 +12,15 @@ export function solar(date,time,lat=39.91,lon=116.40){
 }
 const skyvs='varying vec3 dir; void main(){dir=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}';
 const skyfs=`
+${PHOTO_SKY_GLSL}
+uniform sampler2D photoHemisphere; uniform float photoReady; uniform float photoAzimuth;
 varying vec3 dir; uniform vec3 sunDir; uniform float day; uniform float warm; uniform float clouds; uniform float weatherDark; uniform float t;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.)),f.x),f.y);}
 float fbm(vec2 p){float f=0.;float s=.52;for(int i=0;i<5;i++){f+=s*noise(p);p=mat2(1.67,1.,-1.,1.67)*p+5.4;s*=.49;}return f;}
-void main(){vec3 v=normalize(dir);float y=max(0.,v.y);float sd=dot(v,sunDir);
+void main(){vec3 v=normalize(dir);
+ if(photoReady>.5){gl_FragColor=vec4(samplePhotoSky(photoHemisphere,v,photoAzimuth),1.);return;}
+ float y=max(0.,v.y);float sd=dot(v,sunDir);
  vec3 horizon=mix(vec3(.026,.048,.09),mix(vec3(.67,.80,.86),vec3(.98,.69,.46),warm*(.48+.52*max(sd,0.))),day);
  vec3 zenith=mix(vec3(.004,.009,.026),mix(vec3(.115,.34,.56),vec3(.18,.32,.48),warm),day);
  vec3 col=mix(horizon,zenith,pow(y,.53));col=mix(col,mix(vec3(.027,.044,.06),vec3(.36,.41,.44),day),weatherDark*.76);
@@ -37,11 +42,12 @@ function envMap(){
  const tex=new T.DataTexture(a,w,h,T.RGBAFormat);tex.mapping=T.EquirectangularReflectionMapping;tex.colorSpace=T.SRGBColorSpace;tex.needsUpdate=true;return tex;
 }
 export function makeAtmosphere(scene,renderer){
- const uni={sunDir:{value:new T.Vector3()},day:{value:1},warm:{value:0},clouds:{value:.1},weatherDark:{value:0},t:{value:0}};
- const sky=new T.Mesh(new T.SphereGeometry(115000,48,24),new T.ShaderMaterial({side:T.BackSide,depthWrite:false,depthTest:false,uniforms:uni,vertexShader:skyvs,fragmentShader:skyfs}));sky.renderOrder=-10000;sky.frustumCulled=false;scene.add(sky);
+ let photographic,photoTexture;
+ const uni={photoHemisphere:{value:null},photoReady:{value:0},photoAzimuth:{value:0},sunDir:{value:new T.Vector3()},day:{value:1},warm:{value:0},clouds:{value:.1},weatherDark:{value:0},t:{value:0}};
+ const sky=new T.Mesh(new T.SphereGeometry(115000,48,24),new T.ShaderMaterial({side:T.BackSide,depthWrite:false,depthTest:false,uniforms:uni,vertexShader:skyvs,fragmentShader:skyfs}));sky.layers.enable(1);sky.renderOrder=-10000;sky.frustumCulled=false;scene.add(sky);
  scene.background=new T.Color('#94acb6');scene.fog=new T.FogExp2('#adc2c6',.000017);
  const hemi=new T.HemisphereLight(0xe6efff,0xb0a087,1.2),sun=new T.DirectionalLight(0xffe6be,2),fill=new T.DirectionalLight(0xc4d6fb,.55);
- fill.position.set(-450,400,-280);scene.add(hemi,sun,sun.target,fill);
+ fill.position.set(-450,400,-280);scene.add(hemi,sun,sun.target,fill);for(const light of [hemi,sun,fill])light.layers.enable(1);
  sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.bias=-.00015;sun.shadow.normalBias=.1;sun.shadow.camera.near=1;sun.shadow.camera.far=4200;
  if(renderer){const env=envMap(),baker=new T.PMREMGenerator(renderer),pm=baker.fromEquirectangular(env);scene.environment=pm.texture;scene.environmentIntensity=.46;env.dispose();baker.dispose();}
  const count=820, coords=new Float32Array(count*6),seeds=new Float32Array(count*4);
@@ -53,7 +59,9 @@ export function makeAtmosphere(scene,renderer){
  rain.frustumCulled=snow.frustumCulled=false;scene.add(snow,rain);
  let weather='clear',sunVector=new T.Vector3(),clock=0,lastRange=0,result={night:0,wet:0,snow:0};
  const dark=new T.Color('#172942'),dayColor=new T.Color('#b7c7cb'),warmFog=new T.Color('#e0be9d'),tint=new T.Color(),silver=new T.Color('#95a1a6'),v=new T.Vector3();
- function set(date,time,w){weather=w;const dir=solar(date,time);sunVector.copy(dir);const day=T.MathUtils.smoothstep(dir.y,-.12,.105),warm=(1-T.MathUtils.smoothstep(dir.y,.04,.43))*day,severity=({clear:0,cloud:.23,rain:.83,snow:.72,fog:.72})[w];
+ function updatePhoto(dir,w){if(!photographic)return;if(photographic.update(dir,w))photoTexture.needsUpdate=true;uni.photoAzimuth.value=photographic.azimuthTurns;}
+ createPhotoSky().then(p=>{photographic=p;photoTexture=new T.CanvasTexture(p.canvas);photoTexture.wrapS=T.RepeatWrapping;photoTexture.colorSpace=T.NoColorSpace;uni.photoHemisphere.value=photoTexture;uni.photoReady.value=1;updatePhoto(sunVector,weather);}).catch(console.warn);
+ function set(date,time,w){weather=w;const dir=solar(date,time);sunVector.copy(dir);updatePhoto(dir,w);const day=T.MathUtils.smoothstep(dir.y,-.12,.105),warm=(1-T.MathUtils.smoothstep(dir.y,.04,.43))*day,severity=({clear:0,cloud:.23,rain:.83,snow:.72,fog:.72})[w];
  uni.sunDir.value.copy(dir);uni.day.value=day;uni.warm.value=warm;uni.clouds.value=climates[w][2];uni.weatherDark.value=severity;
  hemi.intensity=.35+day*(1.25+severity*.22);hemi.color.set('#e2eeff');hemi.groundColor.set(day>.3?'#b6a391':'#4d526b');
  sun.color.set(day>.5?'#ffead4':'#a5bcff');if(day>.5)sun.color.lerp(new T.Color('#ffad71'),warm*.75);

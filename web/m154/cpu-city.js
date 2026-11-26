@@ -1,6 +1,6 @@
 import {ShapeUtils, Vector2} from 'three';
 import {loadBeijing} from './data/beijing.js';
-import {SpatialIndex,projectArea,inPolygon,ringArea,edgeDistance,lineVertices,roadWidth,propertyHeight,landmarkIndex,templeCourtWays,replacedRefs,seedAt,rngGenerator} from './city.js';
+import {SpatialIndex,projectArea,inPolygon,ringArea,edgeDistance,lineVertices,roadWidth,stoneBridgeWidths,propertyHeight,landmarkIndex,templeCourtWays,replacedRefs,seedAt,rngGenerator} from './city.js';
 
 const TILE=250, FAR_TILE=750, TAU=Math.PI*2;
 const bound=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -323,7 +323,8 @@ export async function createCpuCity({project,landmarks}){
     const line=lineVertices(f.line,project),kind=f.kind.replace('_link',''),half=roadWidth(f,kind)/2;
     for(let i=1;i<line.length;i++){
       const a=line[i-1],b=line[i],segment={a,b,kind,half,bridge:f.bridge};
-      segmentTiles(a,b,(p,q)=>at((p.x+q.x)/2,(p.z+q.z)/2).roads.push({a:p,b:q,kind,half,bridge:f.bridge}));
+      if(!stoneBridgeWidths.has(f.osmId))segmentTiles(a,b,(p,q)=>at((p.x+q.x)/2,(p.z+q.z)/2).roads.push({a:p,b:q,kind,half,bridge:f.bridge}));
+      else segment.half-=.85;
       roads.insert(segment,{x0:Math.min(a.x,b.x)-half-1,x1:Math.max(a.x,b.x)+half+1,z0:Math.min(a.z,b.z)-half-1,z1:Math.max(a.z,b.z)+half+1});
     }
   }
@@ -392,6 +393,8 @@ export async function createCpuCity({project,landmarks}){
       if(!mesh){
         const w=new MeshBuilder();
         for(const item of list){
+          // The pitched temple geometry is visible beneath every near/far overlap.
+          if(item.history){historical(w,item,2);continue;}
           const h=item.height;
           if(level===0?h<9&&item.planArea<400:level===1?h<17&&item.planArea<1300:h<26&&item.planArea<2400)continue;
           const {poly,seed}=item,b=poly.bb;

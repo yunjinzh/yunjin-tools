@@ -10,8 +10,8 @@ const base=process.env.APP_URL||'http://127.0.0.1:4185/yunjin-tools/';
 const local=['localhost','127.0.0.1'].includes(new URL(base).hostname);
 const output=process.env.QA_DIR||path.join(root,'tests/jingguan-results');
 fs.mkdirSync(output,{recursive:true});
-const checks=[],errors=[],failures=[],weatherRequests=[];
-const result={base,localAssets:local,checks,errors,failures,weatherRequests};
+const checks=[],errors=[],failures=[],weatherRequests=[],weatherConsole=[];
+const result={base,localAssets:local,checks,errors,failures,weatherRequests,weatherConsole};
 const mark=message=>{checks.push(message);console.log(JSON.stringify({check:message}));};
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const launch=cpu=>chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,
@@ -26,7 +26,8 @@ async function contextFor(browser,options={}){
  context.on('page',page=>{
   page.setDefaultTimeout(30000);
   page.on('pageerror',e=>errors.push(e.message));
-  page.on('console',m=>{if(m.type()==='error'&&!m.text().startsWith('Failed to load resource:'))errors.push(m.text());});
+  page.on('console',m=>{if(m.type()!=='error'||m.text().startsWith('Failed to load resource:'))return;
+   if(m.text().includes('https://api.open-meteo.com/v1/forecast?'))weatherConsole.push(m.text());else errors.push(m.text());});
   page.on('response',r=>{if(new URL(r.url()).hostname==='api.open-meteo.com')weatherRequests.push({url:r.url(),status:r.status()});else if(r.status()>=400)failures.push({url:r.url(),status:r.status()});});
   page.on('requestfailed',r=>{const error=r.failure()?.errorText;if(error&&error!=='net::ERR_ABORTED'){const x={url:r.url(),error};if(new URL(r.url()).hostname==='api.open-meteo.com')weatherRequests.push(x);else failures.push(x);}});
  });return context;
@@ -60,8 +61,54 @@ try{
   await closePanel(page);
  }
  mark('Category filters, eight landmark selections, URL state and credited reference photos');
+ const gallery=JSON.parse(fs.readFileSync(path.join(root,'web/m154/field/index.json')));
+ result.fieldImages=[];
+ for(const id of ['palace','tiananmen']){
+  await page.locator('#cards [data-id="'+id+'"]').click();
+  const shots=id==='palace'?['axis','roof','eaves','sundial']:['bridge','tower','gate'];
+  await expect(page.locator('#views button')).toHaveCount(shots.length);
+  for(let i=0;i<shots.length;i++){
+   await page.locator('#views button').nth(i).click();await expect(page.locator('#stage')).toHaveAttribute('data-shot',String(i));
+   assert.equal(new URL(page.url()).searchParams.get('view'),shots[i]);
+  }
+  await page.screenshot({path:path.join(output,id+'-detail.png')});
+  await page.locator('#fieldButton').click();await expect(page.locator('#fieldDialog')).toBeVisible();
+  await expect(page.locator('#fieldStrip button')).toHaveCount(5);
+  await expect.poll(()=>page.locator('#fieldStrip img').evaluateAll(xs=>xs.every(x=>x.complete&&x.naturalWidth>0))).toBe(true);
+  for(let i=0;i<gallery[id].length;i++){
+   const item=gallery[id][i];await page.locator('#fieldStrip button').nth(i).click();
+   await expect(page.locator('#fieldName')).toHaveText(item.name);await expect(page.locator('#fieldMessage')).toHaveText('',{timeout:30000});
+   await expect(page.locator('#fieldCredit')).toContainText(item.credit);await expect(page.locator('#fieldCredit')).toContainText(item.license);
+   if(item.type==='sphere'){
+    await expect(page.locator('#fieldSphere')).toBeVisible();
+    const pixelDigest=()=>page.locator('#fieldSphere').evaluate(c=>{const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let h=0;for(let i=0;i<d.length;i+=97)h=(Math.imul(h,31)+d[i])>>>0;return h;});
+    await expect.poll(pixelDigest).not.toBe(0);const before=await pixelDigest();
+    const rect=await page.locator('#fieldScreen').boundingBox();await page.mouse.move(rect.x+rect.width*.5,rect.y+rect.height*.5);await page.mouse.down();await page.mouse.move(rect.x+rect.width*.65,rect.y+rect.height*.55,{steps:10});await page.mouse.up();
+    await expect.poll(pixelDigest).not.toBe(before);const rotated=await pixelDigest();await page.locator('#fieldPlus').click();await expect.poll(pixelDigest).not.toBe(rotated);
+    await page.screenshot({path:path.join(output,'spherical-panorama.png')});await page.locator('#fieldReset').click();
+   }else{
+    await expect(page.locator('#fieldImage')).toBeVisible();await expect.poll(()=>page.locator('#fieldImage').evaluate(im=>im.complete&&im.naturalWidth>0)).toBe(true);
+    await page.locator('#fieldPlus').click();await expect.poll(()=>page.locator('#fieldImage').evaluate(im=>im.style.transform)).toContain('scale(1.45)');
+    await page.locator('#fieldReset').click();await expect.poll(()=>page.locator('#fieldImage').evaluate(im=>im.style.transform)).toContain('scale(1)');
+   }
+   result.fieldImages.push({id:item.id,type:item.type,license:item.license,ok:true});
+  }
+  await page.locator('#fieldClose').click();await expect(page.locator('#fieldDialog')).not.toBeVisible();
+ }
+ mark('Seven heritage viewpoints and ten credited reference images, including real 360-degree pixel rendering, drag and zoom');
+ await page.locator('#cinema').click();await expect(page.locator('body')).toHaveClass(/immersive/);await expect(page.locator('.top')).not.toBeVisible();
+ await page.keyboard.press('Escape');await expect(page.locator('body')).not.toHaveClass(/immersive/);await expect(page.locator('.top')).toBeVisible();
+ const deep=new URL('apps/m154/index.html?landmark=tiananmen&view=gate&time=22:00&weather=snow',base);await page.goto(deep.href,{waitUntil:'domcontentloaded',timeout:60000});
+ await expect(page.locator('#loading')).toBeHidden({timeout:180000});await expect(page.locator('#stage')).toHaveAttribute('data-render','webgl2');await expect(page.locator('#stage')).toHaveAttribute('data-shot','2');
+ await expect(page.locator('#stage')).toHaveAttribute('data-weather','snow');await expect(page.locator('#clock')).toHaveText('22:00');
+ await page.screenshot({path:path.join(output,'gate-night-snow.png')});
+ await page.locator('#envButton').click();await page.locator('.preset button[data-t="12"]').click();await page.locator('[data-w="clear"]').click();await closePanel(page);
+ mark('Immersive mode exit and saved viewpoint, time and weather restored from a real deep link');
+ // A close heritage view can move less than the coordinate readout's 4-decimal resolution.
+ const closeView=await page.locator('#coords').innerText();await page.locator('#cards [data-id="tiantan"]').click();
+ await expect.poll(()=>page.locator('#coords').innerText(),{timeout:20000}).not.toBe(closeView);
  const initial=await page.locator('#coords').innerText();await page.locator('#zoomIn').click();
- await expect.poll(()=>page.locator('#coords').innerText()).not.toBe(initial);
+ await expect.poll(()=>page.locator('#coords').innerText(),{timeout:20000}).not.toBe(initial);
  await page.locator('#compass').click();await page.locator('#home').click();await page.locator('#cards [data-id="tiananmen"]').click();await page.locator('#walk').click();
  await expect(page.locator('#stage')).toHaveAttribute('data-mode','walk');
  await expect.poll(()=>page.locator('#alt').innerText()).toContain('1.72');
@@ -102,11 +149,16 @@ try{
   await phone.screenshot({path:path.join(output,'mobile-'+size.width+'.png'),fullPage:true});
  }
  await phone.setViewportSize({width:390,height:844});await phone.locator('#walk').click();await expect(phone.locator('#stage')).toHaveAttribute('data-mode','walk');await expect(phone.locator('#touchpad')).toBeVisible();
+ await phone.locator('#fieldButton').click();await expect(phone.locator('#fieldDialog')).toBeVisible();await expect(phone.locator('#fieldMessage')).toHaveText('');
+ await expect.poll(()=>phone.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await phone.screenshot({path:path.join(output,'mobile-reference.png')});await phone.locator('#fieldClose').click();
  await mobile.close();mark('390/360 px touch layout, short landscape and mobile walking controls');
  await browser.close();browser=await launch(true);const cpuContext=await contextFor(browser,{viewport:{width:1000,height:760}}),cpuPage=await cpuContext.newPage();await load(cpuPage,'tiantan',true);
  await expect.poll(()=>cpuPage.locator('#world').getAttribute('data-cpu-triangles'),{timeout:20000}).not.toBeNull();
  result.cpu={...await cpuPage.locator('#stage').evaluate(e=>({...e.dataset})),triangles:await cpuPage.locator('#world').getAttribute('data-cpu-triangles')};assert.ok(Number(result.cpu.triangles)>1000);
  await cpuPage.locator('#cards [data-id="palace"]').click();await expect(cpuPage.locator('#stage')).toHaveAttribute('data-landmark','palace');await cpuPage.waitForTimeout(1500);
+ await expect.poll(()=>cpuPage.locator('#world').getAttribute('data-photo-faces'),{timeout:30000}).not.toBe('0');
+ await expect.poll(()=>cpuPage.locator('#world').getAttribute('data-photo-faces'),{timeout:30000}).not.toBeNull();
+ result.cpu.photoFaces=await cpuPage.locator('#world').getAttribute('data-photo-faces');
  await cpuPage.screenshot({path:path.join(output,'cpu.png')});await cpuContext.close();mark('Actual WebGL-disabled browser uses CPU 3D, pixel-readback imagery, city and terrain');
  assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);result.ok=true;
 }catch(e){result.ok=false;result.error=e.stack;process.exitCode=1;for(const c of browser?.contexts()||[])for(const p of c.pages())await p.screenshot({path:path.join(output,'failure.png'),timeout:10000}).catch(()=>{});}

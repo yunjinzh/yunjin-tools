@@ -1,0 +1,84 @@
+{
+  "title": "太和殿丹陛陈设",
+  "method": "实测资料、照片与程序化建模。器物点位按平台和层级近似配准。",
+  "sources": [
+    {
+      "title": "故宫博物院《太和殿》",
+      "url": "https://www.dpm.org.cn/show/225724.html",
+      "use": "月台陈设与铜鼎总数。"
+    },
+    {
+      "title": "故宫博物院《故宫中的赤道式日晷》",
+      "url": "https://www.dpm.org.cn/Uploads/pdf/1558/T00055_00.pdf",
+      "use": "采用所载日晷台座 2.70 × 1.65 × 1.65 米、盘径 0.725 米、盘厚 0.085 米、晷针长 0.342 米。盘面倾角按北京纬度重建，风蚀纹及分刻概括表示。"
+    },
+    {
+      "title": "黄希明《太和殿前的嘉量和日晷》",
+      "url": "https://www.dpm.org.cn/Uploads/pdf/2199/T00020_00.pdf",
+      "use": "四柱晷座、南侧三级阶、嘉量歇山石亭及须弥座。"
+    },
+    {
+      "title": "故宫博物院《太和殿前的嘉量》",
+      "url": "https://www.dpm.org.cn/building/talk/223530.html",
+      "use": "太和殿方形鎏金量器的结构与位置。"
+    },
+    {
+      "title": "北京市园林绿化局《“吉祥缸”记录了故宫的“耻辱”》",
+      "url": "https://yllhj.beijing.gov.cn/ztxx/lhysh/sh/202310/t20231019_3282359.shtml",
+      "use": "殿两侧鎏金水缸、兽面铜环与石基座；口径参考同类档案口径 1.66 米。"
+    },
+    {
+      "title": "田金英、王允丽《故宫环境因素对中轴线鎏金文物影响的现状调查研究》",
+      "url": "https://www.cactch.org.cn/webfile/upload/2021/02-10/23-00-380154-543311357.pdf",
+      "use": "东西缸表面鎏金磨损程度区别。纹样、锈蚀和各道划痕根据参照物近似建模。"
+    },
+    {
+      "title": "Hispalois · Beijing sundial Ri Gui",
+      "url": "https://commons.wikimedia.org/wiki/File:Beijing_sundial_Ri_Gui.JPG",
+      "use": "日晷立面比例参考。"
+    },
+    {
+      "title": "秋水平湖 · 太和殿丹陛嘉量",
+      "url": "https://commons.wikimedia.org/wiki/File:%E5%A4%AA%E5%92%8C%E6%AE%BF%E4%B8%B9%E9%99%9B%E5%98%89%E9%87%8F.JPG",
+      "use": "嘉量外形及云纹石雕，局部用于贴合石座的取样浮雕。"
+    }
+  ],
+  "derivedAssets": [
+    {
+      "asset": "furniture-carving.js · waist / scroll",
+      "creator": "秋水平湖",
+      "title": "太和殿丹陛嘉量.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:%E5%A4%AA%E5%92%8C%E6%AE%BF%E4%B8%B9%E9%99%9B%E5%98%89%E9%87%8F.JPG",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "changes": "石座束腰、卷草线脚的照片局部经裁剪、透视校正和灰度化，用于网格浮雕和颜色。采样原图与衍生采样均按相同许可证使用。"
+    },
+    {
+      "asset": "furniture-metal.js · maskImage",
+      "creator": "FormalDude",
+      "title": "Close up of Bronze lion head handle of the water vat in Forbidden City",
+      "url": "https://commons.wikimedia.org/wiki/File:Close_up_of_Bronze_lion_head_handle_of_the_water_vat_in_Forbidden_City.jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "changes": "截取故宫同类水缸铺首，校正转向、抽取明度并投影到凸面网格。此衍生采样保留相同许可证。"
+    },
+    {
+      "asset": "furniture-metal.js · vatWear",
+      "creator": "Kurinurm",
+      "title": "Fire fighting water cauldron in Forbidden City, Bejing",
+      "url": "https://commons.wikimedia.org/wiki/File:Fire_fighting_water_cauldron_in_Forbidden_City,_Bejing.jpg",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "changes": "由同类故宫铜缸表面裁剪、采样明度，重建铜胎与残留鎏金的颜色层次。"
+    },
+    {
+      "asset": "furniture-carving.js · marbleGrain",
+      "creator": "Hispalois",
+      "title": "Beijing sundial Ri Gui.JPG",
+      "url": "https://commons.wikimedia.org/wiki/File:Beijing_sundial_Ri_Gui.JPG",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "changes": "从实物日晷石柱的照片取样石质细纹，经去光照、灰度化和缩放，作为汉白玉的近景表面凹凸纹理。衍生采样保留相同许可证。"
+    }
+  ]
+}

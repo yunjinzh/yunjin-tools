@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { loadBeijing } from './data/beijing.js';
 import { landmarkFootprints } from './landmarks.js';
+import { precinctRefs } from './heritage/precinct-data.js';
 
 const TILE = 2200;
 const CITY_DATA = new URL('./imagery/', import.meta.url);
@@ -234,6 +235,20 @@ function materials(u) {
     float ripple=smoothstep(.86,1.,wave)*nearMask;
     diffuseColor.rgb*=.92+ripple*.14;
   `,`outgoingLight+=vec3(.16,.24,.28)*ripple*(.13+.12*uCityWet)*(1.-uCityNight); `);
+  const compiled=water.onBeforeCompile;
+  const mirror={uCanalMap:{value:null},uCanalVP:{value:new THREE.Matrix4()},uCanalOn:{value:0}};
+  water.onBeforeCompile=(shader,r)=>{
+    compiled(shader,r);Object.assign(shader.uniforms,mirror);
+    shader.fragmentShader='uniform sampler2D uCanalMap;uniform mat4 uCanalVP;uniform float uCanalOn;\n'+shader.fragmentShader;
+    shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',`
+      if(uCanalOn>.5){vec4 q=uCanalVP*vec4(vCityUv.x*10.,.018,vCityUv.y*10.,1.);
+        vec2 pos=q.xy/q.w*.5+.5;
+        pos+=vec2(.0018*sin(vCityUv.x*5.+vCityUv.y*11.+uCityClock),.002*sin(vCityUv.y*12.-uCityClock*.8));
+        if(q.w>0.&&all(greaterThan(pos,vec2(0.)))&&all(lessThan(pos,vec2(1.))))outgoingLight=mix(outgoingLight,texture2D(uCanalMap,pos).rgb*vec3(.73,.82,.85),.51);
+      }
+      #include <opaque_fragment>`);
+  };
+  water.userData.setReflection=ref=>{mirror.uCanalOn.value=ref?1:0;if(ref){mirror.uCanalMap.value=ref.texture;mirror.uCanalVP.value.copy(ref.matrix);}};
   return {buildings,road,water};
 }
 
@@ -548,7 +563,7 @@ function collectLamps(lamps,feature,line,half,blocks,marks,waters) {
   }
 }
 
-const replacedRefs=new Set(['relation/7820447','way/599547918','relation/8847697','way/4974233','way/29201257','way/43921139','way/638449347','relation/563404']);
+const replacedRefs=new Set([...precinctRefs,'relation/7820447','way/599547918','relation/8847697','way/4974233','way/29201257','way/43921139','way/638449347','relation/563404']);
 function cluster(records,read) {
   const groups=new Map();
   for(const record of records) {
@@ -568,7 +583,9 @@ function lineVertices(coords,project) {
   }
   return line;
 }
+export const stoneBridgeWidths=new Map([[29241072,9.9],[29241084,8],[29241090,8],[29241106,7.8],[29241112,8],[29241129,6.7],[523763741,6.4]]);
 function roadWidth(feature,kind) {
+  if(stoneBridgeWidths.has(feature.osmId))return stoneBridgeWidths.get(feature.osmId);
   if(Number(feature.width)>0)return clamp(Number(feature.width),.7,60);
   if(Number(feature.lanes)>0)return clamp(Number(feature.lanes)*3.35,2,48);
   return roadWidths[kind]||4.0;
@@ -639,12 +656,12 @@ export async function createCity({scene,project,landmarks,onProgress}) {
       if(line.length<2)continue;
       const kind=(f.kind||'').replace('_link','');
       const half=roadWidth(f,kind)/2;
-      drawRoad(bin,line,half,kind,f.bridge);
+      if(!stoneBridgeWidths.has(f.osmId))drawRoad(bin,line,half,kind,f.bridge);
       collectLamps(lamps,f,line,half,blocks,marks,water);
       for(let i=1;i<line.length;i++){
         const a=line[i-1],b=line[i],padding=half+1;
         const bb={x0:Math.min(a.x,b.x)-padding,x1:Math.max(a.x,b.x)+padding,z0:Math.min(a.z,b.z)-padding,z1:Math.max(a.z,b.z)+padding};
-        roads.insert({a,b,width:half+.75,bridge:f.bridge},bb);
+        roads.insert({a,b,width:stoneBridgeWidths.has(f.osmId)?half-.35:half+.75,bridge:f.bridge},bb);
       }
     }
     if(bin.indices.length)layer.roads.add(bin.mesh(m.road));
@@ -709,7 +726,7 @@ export async function createCity({scene,project,landmarks,onProgress}) {
     }
   }
   progress(onProgress,1,'北京城区已就绪');
-  return {group:city,stats,isBlocked,setLayer,update,meta:data.meta,imagery:imagery.manifest};
+  return {reflection:m.water.userData.setReflection,group:city,stats,isBlocked,setLayer,update,meta:data.meta,imagery:imagery.manifest};
 }
 
 // Shared planar geographic tests also drive the software-rendered scene.

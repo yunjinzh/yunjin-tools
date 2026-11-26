@@ -1,6 +1,9 @@
+import {addPrecinctContext} from './heritage/precinct-context.js';
 import * as THREE from 'three';
+import { buildTiananmenGate } from './heritage/gate.js';
 import { palacePaint } from './ornaments/palace-swatch.js';
 import { paintedPanels } from './ornaments/tiantan-swatches.js';
+import { buildTaiheHall, finishPalaceCourtHall } from './heritage/palace.js';
 import { palaceRoofs } from './data/palace-roofs.js';
 
 // Geodetic anchors are WGS84 points. Distances and local XYZ are metres.
@@ -360,64 +363,29 @@ function palace(b) {
   archedGate(b,0,north,53,24,10.6,3);
   hall(b,0,north,42,19,11.2,28,{bays:5,rich:false});
   // The gate, three great halls and inner court use north–south spacings from the published coordinates.
-  b.box(0,.04,113,195,.20,179,0xc6b69d,'ground');
-  for(let i=-45;i<=45;i++)b.line([i*2,.32,24],[i*2,.32,201],0xbdaf9a);
-  for(let j=0;j<65;j++)b.line([-97,.32,24+j*2.77],[97,.32,24+j*2.77],0xc0b39e);
-  b.box(0,.29,118,4.8,.12,178,p.stone,'ground');
   terrace(b,0,212,72,34,3.8,false);
-  hall(b,0,212,54,26,3.8,24,{bays:9,rich:false});
+  hall(b,0,212,54,26,3.8,24,{bays:9,rich:false,gable:true});
+  finishPalaceCourtHall(b,212,54,26,3.8,24,{bays:9,gable:true});
   for(const s of [-1,1]) {
     hall(b,s*66,212,72,10,.46,10,{rich:false,double:false});
     b.box(s*99,0,104,4.6,5.5,198,p.brick);
     b.box(s*99,5.5,104,5.8,.60,198,p.roofDark);
   }
-  b.box(0,.25,-55,92,2.0,199,p.stone);
-  terrace(b,0,0,100,68,8.13,true);
-  hall(b,0,0,63.96,37.17,8.13,35.05,{bays:11,plaque:'太和殿'});
+  b.box(0,.25,-86,82,2.0,129,p.stone);
+  buildTaiheHall(b);
   terrace(b,0,-65,49,44,7.8,false);
   hall(b,0,-65,24.15,24.15,7.8,27,{double:false,pyramid:true,bays:3});
+  finishPalaceCourtHall(b,-65,24.15,24.15,7.8,27,{double:false,pyramid:true,bays:3,rich:true});
   terrace(b,0,-126,84,48,7.8,false);
-  hall(b,0,-126,49.68,24.97,7.8,29.5,{bays:9,rich:false});
+  hall(b,0,-126,49.68,24.97,7.8,29.5,{bays:9,rich:false,gable:true});
+  finishPalaceCourtHall(b,-126,49.68,24.97,7.8,29.5,{bays:9,gable:true});
   for(const [z,w,d,h] of [[-217,32,13,16],[-317,47,24,25],[-354,19,19,19],[-386,41,22,23]]){
     terrace(b,0,z,w+12,d+10,3.7,false);
     hall(b,0,z,w,d,3.7,h,{double:w>31,pyramid:w===19,rich:false});
   }
   mappedPalaceRoofs(b);
 }
-function tiananmen(b){
-  archedGate(b,0,0,118,34,13.2);
-  hall(b,0,0,65,26,13.8,34.7,{bays:9,gable:true});
-  if(typeof document!=='undefined'){
-    // Perspective-rectified detail sampled from the bundled CC0 photograph by Balon Greyjoy.
-    const tex=new THREE.TextureLoader().load(new URL('./photos/tiananmen.webp',import.meta.url).href);
-    tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=4;
-    const plane=new THREE.PlaneGeometry(4.5,6),uv=plane.attributes.uv;
-    [[239,435],[280,427],[240,531],[279,528]].forEach(([u,v],i)=>uv.setXY(i,u/960,1-v/640));
-    const portrait=new THREE.Mesh(plane,new THREE.MeshStandardMaterial({map:tex,roughness:.9}));
-    portrait.position.set(0,10.22,17.12);b.decals.push(portrait);
-  }
-  for(const s of [-1,1]){
-    b.box(s*40,8.8,17.12,30,3.5,.38,0xb23723);
-    decal(b,s*40,10.55,17.37,29.6,3.32,s<0?'中华人民共和国万岁':'世界人民大团结万岁','#a72e23','#fff0cf');
-    rail(b,-58,s*16.4,58,s*16.4,13.75,30);
-    for(let i=0;i<5;i++){
-      const x=s*(33+i*4.1);b.beam([x,13.8,12.8],[x,20.1,12.8],.11,0xd4b765);
-      b.face([[x,20.1,12.8],[x+2.4,19.7,12.9],[x+2.8,18.5,12.9],[x,18.9,12.8]],0xca3528);
-    }
-  }
-  // Seven white stone bridges over the outer Jinshui River.
-  for(const [index,x] of [-62,-40,-20,0,20,40,62].entries()){
-    const w=index===3?9:5.7, z=45, d=21;
-    for(let i=0;i<10;i++){
-      const t=(i+.5)/10,yy=1.05*Math.sin(t*Math.PI);
-      b.box(x,0,z+(t-.5)*d,w,1+yy,d/10+.05,p.lightStone);
-      for(const s of [-1,1]){
-        const zz=z+(t-.5)*d;b.box(x+s*w/2,1+yy,zz,.38,1.04,.4,p.lightStone);
-        b.box(x+s*w/2,1.74+yy,zz,.24,.20,d/10+.02,p.stone);
-      }
-    }
-  }
-}
+function tiananmen(b){buildTiananmenGate(b);}
 function paintedBand(b,{r0,r1,y0,y1,motif,repeats}){
   const [sw,sh,raw]=paintedPanels[motif],bytes=Uint8Array.from(atob(raw),s=>s.charCodeAt(0));
   const n=sw*repeats,at=(a,t)=>[Math.cos(a)*mix(r0,r1,t),mix(y0,y1,t),Math.sin(a)*mix(r0,r1,t)];
@@ -686,7 +654,7 @@ const shapeCache=new Map(),maskCache=new Map();
 function make(id){
   if(!builders[id])throw new Error('未知地标 '+id);
   if(!shapeCache.has(id)){
-    const b=new Batch();builders[id](b);
+    const b=new Batch();builders[id](b);addPrecinctContext(b,id);
     const shape=b.build(),ang=yaw[id],sa=Math.sin(ang),ca=Math.cos(ang);
     shape.rotation.y=ang;shape.name=id;
     shape.userData.landmarkId=id;

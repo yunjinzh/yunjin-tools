@@ -1,0 +1,55 @@
+{
+  "site": "故宫太和殿",
+  "geometryReference": {
+    "publisher": "故宫博物院",
+    "url": "https://www.dpm.org.cn/show/225724.html",
+    "verified": "面阔 63.96 米，进深 37.17 米，十一开间、五进深，台基 8.13 米，连台基总高 35.05 米，正脊鸱吻通高 3.40 米。",
+    "dimensions": "https://www.dpm.org.cn/Uploads/pdf/1564/T00016_00.pdf",
+    "plinth": "https://www.dpm.org.cn/Uploads/File/pdf/61/c6/3d/61c63dd5c3bbe17dd6c72b62d47637e1.pdf",
+    "relatedBuildings": [
+      "https://www.dpm.org.cn/show/225723.html",
+      "https://www.dpm.org.cn/explore/building/236434.html",
+      "https://img.dpm.org.cn/Uploads/File/2023/01/16/u63c4c9751178e.pdf"
+    ]
+  },
+  "assets": [
+    {
+      "files": [
+        "palace-front.webp",
+        "palace-details.webp",
+        "palace-pavers.webp",
+        "palace-profiles.js (chiwen)"
+      ],
+      "title": "Hall of Supreme Harmony (20241127120000)",
+      "author": "N509FZ",
+      "source": "https://commons.wikimedia.org/wiki/File:Hall_of_Supreme_Harmony_(20241127120000).jpg",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "changes": "从当日正面实拍裁切双檐琉璃瓦、梁枋、格扇、匾额、脊饰、石栏、踏跺与石材局部；按三维屋面和构件重新投影、镜像、重排；石砖缩放并均衡亮度。衍生纹理和鸱吻轮廓按原许可发布。"
+    },
+    {
+      "files": [
+        "palace-beasts.webp",
+        "palace-profiles.js (b0–b11)"
+      ],
+      "title": "Pekin L03-1D",
+      "author": "Roweromaniak",
+      "source": "https://commons.wikimedia.org/wiki/File:Pekin_L03-1D.jpg",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "changes": "缩放原图，提取屋脊走兽与骑凤仙人侧面轮廓，将局部色彩投影至有厚度的三维浮雕。衍生纹理及走兽轮廓按原许可发布。"
+    },
+    {
+      "files": [
+        "palace-joinery.webp"
+      ],
+      "title": "太和殿柱頭鋪作.JPG",
+      "author": "秋水平湖",
+      "source": "https://commons.wikimedia.org/wiki/File:%E5%A4%AA%E5%92%8C%E6%AE%BF%E6%9F%B1%E9%A0%AD%E9%8B%AA%E4%BD%9C.JPG",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "changes": "截取正面柱头斗栱和檐底彩画椽子，裁切与缩放后投影到木构及檐底的不同真实方向面。衍生纹理采用相同许可。"
+    }
+  ],
+  "limits": "开间细分、斗栱截面、栏杆间距、瓦当、御路尺度与侧背材质依据照片及公布总尺度近似。正面彩画、琉璃瓦、格扇与石雕使用实拍局部，背面与侧面复用同类材料。周边宫殿为较低细节等级。"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "故宫及天安门中轴线建筑环境",
+  "geometry": {
+    "credit": "© OpenStreetMap contributors",
+    "license": "Open Database License 1.0",
+    "licenseUrl": "https://www.openstreetmap.org/copyright",
+    "snapshot": "../data/osm-source.json",
+    "coordinates": "WGS84，按两个地标的统一米制局部坐标和朝向重投影。",
+    "method": "从面及闭合线提取楼阁、檐、台阶、墙体和斜屋面。存在子构件时去除父轮廓，保留院落洞口。具有标签的屋面使用其坡向、颜色、屋高和起始标高。无标高记录的轮廓按场地类型和短边估算。门扇、柱间和栏杆细部为近似构件。",
+    "counts": {
+      "palace": {"volumesWithHeight": 1020, "volumesWithEstimatedHeight": 651},
+      "tiananmen": {"volumesWithHeight": 220, "volumesWithEstimatedHeight": 68, "mappedTreePoints": 87}
+    },
+    "forms": [
+      {"feature": "外金水河水面及河岸", "url": "https://www.openstreetmap.org/way/523763740"},
+      {"feature": "四段观礼台平面，阶高与分段示意", "osmWays": [257208023, 257208024, 257208025, 257208026], "reference": "https://www.visitbeijing.com.cn/article/47Qku7Na3BF"},
+      {"feature": "外金水桥，中央五桥宽度来自桥面轮廓，两座外围桥宽估算为八米", "reference": "https://tamgw.beijing.gov.cn/diqufuwu/zjtam/201912/t20191226_1519194.html"},
+      {"feature": "天安门前两座小附房", "osmWays": [523763737, 523763738], "heightMetres": 6, "roofRiseMetres": 3}
+    ]
+  },
+  "surfacing": {
+    "creditFile": "gate-credits.md",
+    "description": "屋瓦、铺石复用张瑜拍摄的公共领域照片。灰瓦为同一瓦面去色及调整明暗后的重复纹理。红墙、门扇和梁枋使用 Balon Greyjoy 的 CC0 照片，按各构件实建近似重复应用。",
+    "photos": ["https://commons.wikimedia.org/wiki/File:Tiananmen_beijing_Panorama.jpg", "https://commons.wikimedia.org/wiki/File:20200110_Tiananmen-3.jpg"]
+  }
+}
