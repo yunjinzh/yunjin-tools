@@ -8,10 +8,11 @@ import { fileURLToPath } from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const base=process.env.APP_URL||'http://127.0.0.1:4185/yunjin-tools/';
 const local=['localhost','127.0.0.1'].includes(new URL(base).hostname);
+const phase=process.env.QA_PHASE||'full';assert.ok(['full','mobile'].includes(phase));
 const output=process.env.QA_DIR||path.join(root,'tests/jingguan-results');
 fs.mkdirSync(output,{recursive:true});
 const checks=[],errors=[],failures=[],weatherRequests=[],weatherConsole=[];
-const result={base,localAssets:local,checks,errors,failures,weatherRequests,weatherConsole};
+const result={base,phase,localAssets:local,checks,errors,failures,weatherRequests,weatherConsole};
 const mark=message=>{checks.push(message);console.log(JSON.stringify({check:message}));};
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const launch=cpu=>chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,
@@ -43,24 +44,33 @@ async function load(page,landmark='tiantan',cpu=false){
 async function closePanel(page){await page.locator('#closeDialog').click();await expect(page.locator('#dialog')).not.toBeVisible();}
 let browser;
 try{
- browser=await launch(false);const context=await contextFor(browser),page=await context.newPage();
+ browser=await launch(false);
+ if(phase==='full'){
+ const context=await contextFor(browser),page=await context.newPage();
  await load(page);
  result.webgl=await page.locator('#stage').evaluate(e=>({...e.dataset}));
  assert.ok(Number(result.webgl.buildings)>30000);assert.ok(Number(result.webgl.triangles)>10000);
  await page.screenshot({path:path.join(output,'desktop.png')});
- mark('WebGL scene, city geometry, terrain and all eight photo cards load');
+ await expect(page.locator('#cards .card')).toHaveCount(10);
+ mark('WebGL scene, city geometry, terrain and all ten destination cards load');
+ await page.locator('[data-cat="城市街区"]').click();await expect(page.locator('#cards .card:visible')).toHaveCount(2);
  await page.locator('[data-cat="古都建筑"]').click();await expect(page.locator('#cards .card:visible')).toHaveCount(3);
  await page.locator('[data-cat="当代地标"]').click();await expect(page.locator('#cards .card:visible')).toHaveCount(5);
  await page.locator('[data-cat="all"]').click();
- for(const id of ['palace','tiananmen','ncpa','zun','cctv','stadium','cube','tiantan']){
+ const landmarkPhotos=JSON.parse(fs.readFileSync(path.join(root,'web/m154/photos/index.json')));
+ const streetPhotos=JSON.parse(fs.readFileSync(path.join(root,'web/m154/field/urban-index.json')));
+ for(const id of ['palace','tiananmen','ncpa','zun','cctv','stadium','cube','tiantan','hutong','waterfront']){
   console.log(JSON.stringify({landmark:id}));await page.locator('#cards [data-id="'+id+'"]').click();await expect(page.locator('#stage')).toHaveAttribute('data-landmark',id);
   assert.equal(new URL(page.url()).searchParams.get('landmark'),id);
   await page.locator('#detailButton').click();await expect(page.locator('.doc-photo')).toBeVisible();
   await expect.poll(()=>page.locator('.doc-photo').evaluate(e=>e.complete&&e.naturalWidth>0)).toBe(true);
-  assert.ok((await page.locator('.photo-credit').innerText()).includes('实景摄影'));
+  await expect(page.locator('.photo-credit a')).toHaveCount(2);
+  const photo=landmarkPhotos[id]||streetPhotos[id][0];
+  await expect(page.locator('.photo-credit')).toContainText(photo.credit);
+  await expect(page.locator('.photo-credit')).toContainText(photo.license);
   await closePanel(page);
  }
- mark('Category filters, eight landmark selections, URL state and credited reference photos');
+ mark('Category filters, ten destination selections, URL state and credited reference photos');
  const gallery=JSON.parse(fs.readFileSync(path.join(root,'web/m154/field/index.json')));
  result.fieldImages=[];
  for(const id of ['palace','tiananmen']){
@@ -96,6 +106,25 @@ try{
   await page.locator('#fieldClose').click();await expect(page.locator('#fieldDialog')).not.toBeVisible();
  }
  mark('Seven heritage viewpoints and ten credited reference images, including real 360-degree pixel rendering, drag and zoom');
+
+ const urbanGallery=JSON.parse(fs.readFileSync(path.join(root,'web/m154/field/urban-index.json')));
+ await page.locator('#fieldButton').click();await expect(page.locator('#fieldGroup option')).toHaveCount(8);
+ for(const [group,items] of Object.entries(urbanGallery)){
+  await page.locator('#fieldGroup').selectOption(group);await expect(page.locator('#fieldStrip button')).toHaveCount(items.length);
+  await expect.poll(()=>page.locator('#fieldStrip img').evaluateAll(xs=>xs.every(x=>x.complete&&x.naturalWidth>0))).toBe(true);
+  for(let i=0;i<items.length;i++){
+   const item=items[i];await page.locator('#fieldStrip button').nth(i).click();
+   await expect(page.locator('#fieldName')).toHaveText(item.name);await expect(page.locator('#fieldMessage')).toHaveText('',{timeout:45000});
+   await expect(page.locator('#fieldCredit')).toContainText(item.credit);await expect(page.locator('#fieldCredit')).toContainText(item.license);
+   if(item.type==='sphere'){
+    const digest=()=>page.locator('#fieldSphere').evaluate(c=>{const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let h=0;for(let j=0;j<d.length;j+=97)h=(Math.imul(h,31)+d[j])>>>0;return h;});
+    await expect.poll(digest).not.toBe(0);const before=await digest();await page.locator('#fieldPlus').click();await expect.poll(digest).not.toBe(before);await page.locator('#fieldReset').click();
+   }else await expect.poll(()=>page.locator('#fieldImage').evaluate(im=>im.complete&&im.naturalWidth>0)).toBe(true);
+   result.fieldImages.push({group,id:item.id,type:item.type,license:item.license,ok:true});
+  }
+ }
+ await page.screenshot({path:path.join(output,'urban-panorama.png')});await page.locator('#fieldClose').click();
+ mark('Eight real-photo groups and fourteen additional credited photos, including two additional spherical panoramas');
  await page.locator('#cinema').click();await expect(page.locator('body')).toHaveClass(/immersive/);await expect(page.locator('.top')).not.toBeVisible();
  await page.keyboard.press('Escape');await expect(page.locator('body')).not.toHaveClass(/immersive/);await expect(page.locator('.top')).toBeVisible();
  const deep=new URL('apps/m154/index.html?landmark=tiananmen&view=gate&time=22:00&weather=snow',base);await page.goto(deep.href,{waitUntil:'domcontentloaded',timeout:60000});
@@ -118,20 +147,44 @@ try{
  await page.locator('#home').click();await page.locator('#tour').click();await expect(page.locator('#tour')).toHaveAttribute('aria-pressed','true');
  await page.locator('#zoomOut').click();await expect(page.locator('#tour')).toHaveAttribute('aria-pressed','false');
  mark('Zoom, north/home views, keyboard walking at 1.72 m, flight and tour cancellation');
- await page.locator('.nav-item[data-panel="map"]').click();await expect(page.locator('.map-list button')).toHaveCount(8);
+ await page.locator('.nav-item[data-panel="map"]').click();await expect(page.locator('.map-list').first().locator('button')).toHaveCount(10);
  await page.locator('[data-area="region"]').click();await expect(page.locator('[data-area="region"]')).toHaveClass('sel');
  await page.screenshot({path:path.join(output,'regional-map.png')});await page.locator('[data-area="city"]').click();
- await page.locator('.map-list button').nth(4).click();await expect(page.locator('#stage')).toHaveAttribute('data-landmark','zun');
+ await page.locator('.map-list').first().getByRole('button',{name:'中国尊',exact:true}).click();await expect(page.locator('#stage')).toHaveAttribute('data-landmark','zun');
  await page.locator('#envButton').click();await page.locator('.preset button[data-t="22"]').click();
  await expect(page.locator('#clock')).toHaveText('22:00');await page.screenshot({path:path.join(output,'night.png')});
  for(const weather of ['rain','snow','fog','cloud','clear']){await page.locator('[data-w="'+weather+'"]').click();await expect(page.locator('#stage')).toHaveAttribute('data-weather',weather);}
  await page.locator('#sdate').fill('2026-12-21');await page.locator('#sdate').dispatchEvent('change');
- for(const label of ['普通建筑','树冠','地表影像']){await page.getByLabel(label,{exact:true}).uncheck();await expect(page.getByLabel(label,{exact:true})).not.toBeChecked();await page.getByLabel(label,{exact:true}).check();}
+ for(const label of ['普通建筑','树冠','地表影像','国贸 2023 屋顶补充','区域建筑（2021–2023）']){await page.getByLabel(label,{exact:true}).uncheck();await expect(page.getByLabel(label,{exact:true})).not.toBeChecked();await page.getByLabel(label,{exact:true}).check();}
  await page.locator('#sync').click();await expect(page.locator('#sync')).toBeEnabled({timeout:20000});
  result.liveWeather=await page.locator('#syncState').innerText();assert.match(result.liveWeather,/模式值|连接失败/);
  await page.locator('.preset button[data-t="12"]').click();await page.locator('[data-w="clear"]').click();
  await expect(page.locator('#syncState')).toHaveText('手动模拟');await closePanel(page);
  mark('City/regional maps, map travel, date/time, five weather modes, layers and actual weather request');
+
+ result.regionalStops=[];
+ for(const name of ['中关村','通州北苑','亦庄文化园周边']){
+  await page.locator('.nav-item[data-panel="map"]').click();await page.locator('[data-area="region"]').click();
+  await page.getByRole('button',{name,exact:true}).click();
+  await expect(page.locator('#stage')).toHaveAttribute('data-region-view','true',{timeout:30000});
+  await expect.poll(()=>page.locator('#stage').getAttribute('data-regional-buildings'),{timeout:60000}).toMatch(/^[1-9][0-9]*$/);
+  result.regionalStops.push({name,buildings:Number(await page.locator('#stage').getAttribute('data-regional-buildings')),url:page.url()});
+ }
+ await page.screenshot({path:path.join(output,'regional-buildings.png')});
+ await page.locator('#cards [data-id="zun"]').click();await expect(page.locator('#stage')).toHaveAttribute('data-region-view','false',{timeout:30000});
+ await page.locator('#inspectBuilding').click();await expect(page.locator('#inspectBuilding')).toHaveAttribute('aria-pressed','true');
+ const box=await page.locator('#world').boundingBox();let inspected=false;
+ for(const [x,y] of [[.3,.7],[.4,.7],[.5,.7],[.6,.7],[.7,.7],[.3,.55],[.4,.55],[.55,.55],[.7,.55],[.25,.8],[.6,.8]]){
+  await page.mouse.click(box.x+box.width*x,box.y+box.height*y);
+  if(await page.locator('.building-record').isVisible()){inspected=true;break;}
+  try{await expect(page.locator('.building-record')).toBeVisible({timeout:2000});inspected=true;break;}catch{}
+ }
+ assert.ok(inspected,'A visible ordinary building must be queryable');
+ await expect(page.locator('.building-record')).toContainText('基底面积');await expect(page.locator('.building-record')).toContainText('WGS84');
+ result.buildingQuery=await page.locator('.building-record').innerText();
+ await page.screenshot({path:path.join(output,'building-query.png')});await page.getByRole('button',{name:'退出查询'}).click();
+ await expect(page.locator('#inspectBuilding')).toHaveAttribute('aria-pressed','false');
+ mark('Three regional observation stops load real building tiles; a clicked city building shows OSM provenance, area and height evidence');
  await page.locator('footer [data-panel="sources"]').click();await expect(page.locator('#modalBody')).toContainText('34,478');
  await expect(page.locator('#modalBody')).toContainText('ODbL');
  const dataLink=page.getByRole('link',{name:'下载本场景使用的 OSM 派生数据库'});const url=new URL(await dataLink.getAttribute('href'),page.url()).href;
@@ -142,9 +195,12 @@ try{
  await page.getByRole('button',{name:'操作指南',exact:true}).click();await expect(page.locator('#modalBody')).toContainText('WebGL 2');await closePanel(page);
  mark('Attribution, accuracy notes, public map-data bytes and operating guide');
  await context.close();
+ }
  const mobile=await contextFor(browser,{viewport:{width:390,height:844},isMobile:true,hasTouch:true}),phone=await mobile.newPage();await load(phone,'palace');
+ result.mobileLayouts=[];
  for(const size of [{width:390,height:844},{width:360,height:800},{width:844,height:390}]){
-  await phone.setViewportSize(size);await expect.poll(()=>phone.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await phone.setViewportSize(size);await expect.poll(()=>phone.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),{timeout:30000}).toBe(true);
+  result.mobileLayouts.push({...size,...await phone.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,viewportWidth:innerWidth}))});
   await phone.locator('#envButton').click();await expect(phone.locator('#hours')).toBeVisible();await closePanel(phone);
   await phone.screenshot({path:path.join(output,'mobile-'+size.width+'.png'),fullPage:true});
  }

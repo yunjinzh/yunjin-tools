@@ -1,9 +1,11 @@
+import {createRegionalLayer} from './urban/regional-layer.js';
 import {createPhotoSky} from './heritage/sky-light.js';
 import {drawPhotographicFace} from './heritage/uv-raster.js';
 import {solar} from './atmosphere.js';
 import {loadCpuLandmark} from './cpu-landmarks.js';
 import {loadCpuRelief} from './cpu-relief.js';
 import {createCpuCity} from './cpu-city.js';
+import {Frustum,Matrix4,Vector3,Sphere} from 'three';
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),mix=(a,b,k)=>a+(b-a)*k;
 const pack=(r,g,b)=>(255<<24)|(clamp(b|0,0,255)<<16)|(clamp(g|0,0,255)<<8)|clamp(r|0,0,255);
 async function rasterImage(src){const im=new Image();im.crossOrigin='anonymous';im.src=src;await im.decode();const canvas=document.createElement('canvas');canvas.width=im.naturalWidth;canvas.height=im.naturalHeight;const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(im,0,0);return ctx.getImageData(0,0,canvas.width,canvas.height)}
@@ -33,7 +35,9 @@ export async function makeSoftware({canvas,project,landmarks,selected,camera,sta
  const groundImages=await Promise.all(manifest.layers.map(async l=>{const im=await rasterImage(new URL(l.file,new URL('./imagery/',import.meta.url)).href),lt=project(l.bounds[0],l.bounds[3]),rb=project(l.bounds[2],l.bounds[1]);return {im,x0:lt.x,z0:lt.z,x1:rb.x,z1:rb.z,sx:(im.width-1)/(rb.x-lt.x),sz:(im.height-1)/(rb.z-lt.z)}}));groundImages.reverse();const ra=project(115.30,40.80),rb=project(117.52,39.23);const regional={im:wideImage,x0:ra.x,z0:ra.z,x1:rb.x,z1:rb.z,sx:(wideImage.width-1)/(rb.x-ra.x),sz:(wideImage.height-1)/(rb.z-ra.z)};
  let swCity,relief=[],land=new Map(),W=1,H=1,buffer,pixels,depth,waterDepth,waterXs,fx,fy,px,py,active,shadow,sun,night=0,wet=0,snow=0,day=1,haze=.000028,grey=0,warm=0,horizon=[178,194,196],selId=selected.id,lastPaint=-Infinity,lastKey='',drawn=0,frameTime=25,serial=0,timeKey='';
  const moved=new Float64Array(16);let scr=new Float32Array(128),clipX=new Float32Array(64),clipY=new Float32Array(64);let cc,ss;
- const settings={buildings:true,vegetation:true,imagery:true};
+ const settings={...state.layers};
+ const viewVolume=new Frustum(),viewMatrix=new Matrix4(),tileSphere=new Sphere(new Vector3(),0);
+ function visibleTile(bounds){tileSphere.center.fromArray(bounds.center);tileSphere.radius=bounds.radius;return viewVolume.intersectsSphere(tileSphere);}
  const localById=new Map(landmarks.map(lm=>{let {x,z}=project(lm.lon,lm.lat);return [lm.id,{x,z,lm}]}));
  async function load(id){if(!land.has(id))land.set(id,loadCpuLandmark(id).then(m=>{m.bounds=boundsFor(m);return m}));return land.get(id);}
  async function select(id){selId=id;const m=await load(id);if(selId!==id)return;active=m;serial++;timeKey='';}
@@ -55,7 +59,7 @@ export async function makeSoftware({canvas,project,landmarks,selected,camera,sta
     if(t<550){const j=(Math.sin(Math.floor(gx*1.7)*2.23+Math.floor(gz*1.7)*9.72)*.5+.5)*5;R+=j;G+=j;B+=j;}
     const inShadow=shadow&&Math.abs(gx-near.x)<radius&&Math.abs(gz-near.z)<radius&&shadow(gx-near.x,0,gz-near.z);
     const sm=1-.29*(inShadow||0),tone=sm*earthR;R=R*tone*rday;G=G*tone*rg;B=B*tone*rb;if(snow){R=mix(R,198,.55);G=mix(G,211,.55);B=mix(B,217,.55);}
-    const f=clamp(t*haze/(1+t*haze),0,.97);R=mix(R,horizon[0],f);G=mix(G,horizon[1],f);B=mix(B,horizon[2],f);dep=1/t;
+    const f=clamp(t*haze/(1+t*haze),0,.97);R=mix(R,horizon[0],f);G=mix(G,horizon[1],f);B=mix(B,horizon[2],f);dep=!relief.length||(gx>=layer.x0&&gx<=layer.x1&&gz>=layer.z0&&gz<=layer.z1)?1/t:0;
    }else{
     const inv=1/Math.sqrt(rx*rx+ry*ry+rz*rz),ux=rx*inv,uy=ry*inv,uz=rz*inv,h=clamp(Math.sqrt(Math.max(0,uy))*.94,0,1),dot=ux*sun.x+uy*sun.y+uz*sun.z;
     if(photoSky){pixels[idx]=photoSky.sample(ux,uy,uz);depth[idx]=0;continue;}
@@ -132,13 +136,19 @@ export async function makeSoftware({canvas,project,landmarks,selected,camera,sta
    if(!clip&&((ax<0&&bx<0&&cx<0)||(ax>=W&&bx>=W&&cx>=W)||(ay<0&&by<0&&cy<0)||(ay>=H&&by>=H&&cy>=H)))continue;
    const area=(bx-ax)*(cy-ay)-(by-ay)*(cx-ax);if(!clip&&Math.abs(area)<.09)continue;
    let nx=norm[i]/127,ny=norm[i+1]/127,nz=norm[i+2]/127;if(area>0&&!terrain){nx=-nx;ny=-ny;nz=-nz;}
-   let r=colors[i],g=colors[i+1],bb=colors[i+2];const d=(za+zb+zc)/3,up=clamp(ny,0,1),sunlight=Math.max(0,nx*sun.x+ny*sun.y+nz*sun.z);
+   let r=colors[i],g=colors[i+1],bb=colors[i+2],slot=mesh.texFaces?.[i/3];
+   // A distant roofline can span an entire screen even with a long camera
+   // range. Resolve the photo for actual screen coverage and use its 1px mip
+   // for triangles too small to display window detail.
+   if(slot&&mesh.farFacades&&!clip&&(Math.abs(area)<14||Math.max(ay,by,cy)-Math.min(ay,by,cy)<3)){
+     const mean=mesh.textures[mesh.mapIds[slot-1]].mean;r*=mean[0]/255;g*=mean[1]/255;bb*=mean[2]/255;slot=0;
+   }
+   const d=(za+zb+zc)/3,up=clamp(ny,0,1),sunlight=Math.max(0,nx*sun.x+ny*sun.y+nz*sun.z);
    const horizontal=Math.abs(ny)>.985&&Math.abs(p[a+1]-p[b+1])<.08&&Math.abs(p[b+1]-p[c+1])<.08;
    const stone=horizontal&&hero&&p[a+1]<11&&Math.abs(r-bb)<75&&Math.abs(g-bb)<57;
    const paved=horizontal&&type==='city'&&p[a+1]<.40&&d<630&&r>g&&g>bb;
    const water=horizontal&&type==='city'&&p[a+1]<.09&&bb>r*1.18;
-   const facade=type==='city'&&Math.abs(ny)<.22&&r>120&&g>117&&Math.max(r,g,bb)-Math.min(r,g,bb)<48&&Math.max(p[a+1],p[b+1],p[c+1])>9&&d<1200;
-   surface=stone?1:paved?2:facade?3:water?4:0;surfaceX=ox;surfaceZ=oz;level=p[a+1];
+   surface=stone?1:paved?2:water?4:type==='regional'&&!horizontal&&d<1350&&Math.abs(area)>45?3:0;surfaceX=ox;surfaceZ=oz;level=p[a+1];
    localShadow=hero&&stone;viewCosX=nz;viewCosZ=-nx;
    let shade=1;if(hero&&!stone&&shadow&&sunlight>.06){const mx=(p[a]+p[b]+p[c])/3,my=(p[a+1]+p[b+1]+p[c+1])/3,mz=(p[a+2]+p[b+2]+p[c+2])/3;if(Math.abs(area)>280&&!mesh.texFaces?.[i/3]&&surface===0){surface=6;}
     else shade=1-.31*shadow(mx,my,mz);}
@@ -152,11 +162,11 @@ export async function makeSoftware({canvas,project,landmarks,selected,camera,sta
    r*=intensity*(1+.074*warm*sunlight)*(1-wet*.09);g*=intensity*(1-wet*.065);bb*=intensity*(1-.065*warm*sunlight)*(1-wet*.04);
    if(night>.05&&mesh.emissive){const glow=(mesh.emissive[i/3]||0)/255*night;r+=glow*161;g+=glow*122;bb+=glow*66;}
    const fog=clamp(d*haze/(1+Math.max(0,d)*haze),0,.97);r=mix(r,horizon[0],fog);g=mix(g,horizon[1],fog);bb=mix(bb,horizon[2],fog);
-   if(terrain){surface=5;level=.92+Math.max(0,sunlight-.25)*.27;}const rgb=pack(r,g,bb);const slot=mesh.texFaces?.[i/3];
+   if(terrain){surface=5;level=.92+Math.max(0,sunlight-.25)*.27;}const rgb=pack(r,g,bb);
    if(slot){const n=slot-1,im=mesh.textures[mesh.mapIds[n]],snowVeil=(1-fog)*snowCov;
     const lift=night*.035;const fixture=im.roof?1-.52*night:im.beam?1+.31*night:im.plaster?1-.06*night:1;
     const dye=[(r-horizon[0]*fog)/255+lift,(g-horizon[1]*fog)/255+lift*.66,(bb-horizon[2]*fog)/255+lift*.35].map(ch=>Math.max(0,ch*(1-snowCov)*fixture));
-    drawPhotographicFace(scr,clipX,clipY,[a,b,c],mesh.uvs.subarray(6*n,6*n+6),im,{W,H,fx,fy,px,py,pixels,depth,night},dye,horizon.map((v,j)=>v*fog+[201,208,216][j]*snowVeil));drawn++;continue;
+    drawPhotographicFace(scr,clipX,clipY,[a,b,c],mesh.uvs.subarray(6*n,6*n+6),im,{W,H,fx,fy,px,py,pixels,depth,night,transmission:1-fog},dye,horizon.map((v,j)=>v*fog+[201,208,216][j]*snowVeil));drawn++;continue;
    }if(clip)nearClip([a,b,c],rgb);else triangle(ax,ay,1/za,bx,by,1/zb,cx,cy,1/zc,rgb);drawn++;
   }
   if(hero&&mesh.linePos&&zc<2200){
@@ -186,8 +196,27 @@ export async function makeSoftware({canvas,project,landmarks,selected,camera,sta
   }
  }
  // Trace reflected viewing rays against the completed depth buffer only on visible canal pixels.
+
+ // Estimate nearby concavity from opposite depth samples. The planar component
+ // cancels on long streets and flat walls; the distance gate prevents skyline halos.
+ function contactShade(){
+  const strength=.18*(1-.45*night);
+  for(let y=6;y<H-6;y+=2)for(let x=6;x<W-6;x+=2){
+   const i=y*W+x,q=depth[i];if(q<.0018||waterDepth[i]===q)continue;
+   const z=1/q,r=Math.max(2,Math.min(6,Math.round(fx*1.7/z))),tolerance=Math.min(5,.45+.009*z);
+   let sum=0;
+   for(const stride of [r,r*W,r*(W+1),r*(W-1)]){
+    const a=depth[i-stride],b=depth[i+stride];if(a<=0||b<=0)continue;
+    const da=z-1/a,db=z-1/b;
+    if(Math.abs(da)>tolerance*2.5||Math.abs(db)>tolerance*2.5)continue;
+    sum+=Math.min(1,Math.max(0,(da+db)/tolerance-.07));
+   }
+   if(sum<.09)continue;const light=1-strength*sum/4;
+   for(const di of [0,1,W,W+1]){if(Math.abs(depth[i+di]-q)>.012*q)continue;const c=pixels[i+di];pixels[i+di]=pack((c&255)*light,(c>>>8&255)*light,(c>>>16&255)*light);}
+  }
+ }
  function reflectWater(now){
-  if(selId!=='tiananmen'||!waterXs.length)return;
+  if(!['tiananmen','waterfront','ncpa'].includes(selId)||!waterXs.length)return;
   const e=camera.matrixWorld.elements,nx=e[1],ny=e[5],nz=-e[9];
   for(const k of waterXs){const iz=waterDepth[k];if(depth[k]>iz*1.0003||iz<1/500)continue;
    const y=Math.floor(k/W),x=k-y*W,t=1/iz,vx=(x+.5-px)/fx,vy=(py-y-.5)/fy,dot=vx*nx+vy*ny+nz;
@@ -206,24 +235,34 @@ export async function makeSoftware({canvas,project,landmarks,selected,camera,sta
  }
  let lastWeather=0;
  function paintWeather(now){lastWeather=now;ctx.putImageData(buffer,0,0);if(wet||snow){ctx.save();ctx.strokeStyle='rgba(198,217,233,.56)';ctx.fillStyle='rgba(242,245,249,.87)';ctx.lineWidth=Math.max(.6,W/1380);ctx.beginPath();const num=Math.round(W*H/1400);for(let i=0;i<num;i++){const x=((i*167.391+Math.sin(i)*81+now*(snow?.014:-.08))%(W+25)+W+25)%(W+25)-12,y=(i*107.79+now*(snow?.045:.46)*(1+(i%7)*.05))%H;if(wet){ctx.moveTo(x,y);ctx.lineTo(x-2,y+6+i%7);}else{ctx.moveTo(x+1,y);ctx.arc(x,y,.6+i%3*.4,0,Math.PI*2);}}if(snow)ctx.fill();else ctx.stroke();ctx.restore();}}
+ const regionLayer=createRegionalLayer({groundAt:(x,z)=>relief.groundAt?.(x,z),onChange:()=>{serial++;canvas.dataset.regionalBuildings=String(regionLayer.stats.buildings);}});
+ regionLayer.setEnabled(state.layers.regionalBuildings!==false);
  let lastPose='',changedAt=0;
- function render(now,force=false){env();const cm=camera.matrixWorld.elements;const key=Array.from(cm).map(x=>x.toFixed(6)).join(',')+timeKey+serial;if(key!==lastPose){lastPose=key;changedAt=now;}size(now-changedAt>550);
+ function render(now,force=false){env();regionLayer.update(camera);const cm=camera.matrixWorld.elements;const key=Array.from(cm).map(x=>x.toFixed(6)).join(',')+timeKey+serial;if(key!==lastPose){lastPose=key;changedAt=now;}size(now-changedAt>550);
  if(!force&&lastKey===key){if((wet||snow)&&now-lastWeather>40)paintWeather(now);return;}if(!force&&now-lastPaint<Math.max(29,Math.min(85,frameTime*.95)))return;
- const begin=performance.now();lastPaint=now;lastKey=key;const proj=camera.projectionMatrix.elements;fx=proj[0]*W/2;fy=proj[5]*H/2;px=(1-proj[8])*W/2;py=(1+proj[9])*H/2;drawn=0;waterDepth.fill(0);waterXs.length=0;drawBackground(now);
+ requestNearby();const begin=performance.now();lastPaint=now;lastKey=key;const proj=camera.projectionMatrix.elements;fx=proj[0]*W/2;fy=proj[5]*H/2;px=(1-proj[8])*W/2;py=(1+proj[9])*H/2;drawn=0;waterDepth.fill(0);waterXs.length=0;drawBackground(now);
  surface=0;for(const m of relief)drawMesh(m,0,0,0,'terrain');
- if(swCity){const range=clamp(1350+camera.position.y*1.55,1350,5200),a=localById.get(selId);
-  if(swCity.far&&settings.buildings){for(const m of swCity.far(camera.position.x,camera.position.z,clamp(3900+camera.position.y*2,3900,6000)))drawMesh(m);}
-  const pieces=swCity.near(camera.position.x,camera.position.z,range,28);
-  if(Math.hypot(camera.position.x-a.x,camera.position.z-a.z)<4200)pieces.push(...swCity.near(a.x,a.z,1250,32));
+ for(const m of regionLayer.cpuParts())if(m.count)drawMesh(m,...m.origin,'regional');
+ if(swCity){viewVolume.setFromProjectionMatrix(viewMatrix.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));const range=clamp(1350+camera.position.y*1.55,1350,5200),a=localById.get(selId);
+  if(swCity.far&&(settings.buildings||settings.cbd2023)){for(const m of swCity.far(camera.position.x,camera.position.z,clamp(3900+camera.position.y*2,3900,6000),visibleTile))drawMesh(m);}
+  const pieces=swCity.near(camera.position.x,camera.position.z,range,28,visibleTile);
+  if(Math.hypot(camera.position.x-a.x,camera.position.z-a.z)<4200)pieces.push(...swCity.near(a.x,a.z,1250,32,visibleTile));
   const tiles=new Map();for(const m of pieces){const key=m.id.split('/')[0];if(!tiles.has(key)||m.id<tiles.get(key).id)tiles.set(key,m);}
   const parts=[...tiles.values()];for(const m of parts){const o=m.origin||[0,0,0];drawMesh(m,o[0],o[1],o[2]);}swCity.paintCpuTrees?.({parts,camera,fx,fy,px,py,width:W,height:H,pixels,depth,day,night,wet,snow,haze,horizon});}
  for(const [id,p] of localById){const distance=Math.hypot(camera.position.x-p.x,camera.position.z-p.z);if(distance<(id===selId?18000:clamp(p.lm.height*19,1500,10000))&&p.mesh)drawMesh(p.mesh,p.x,0,p.z,id===selId?'hero':'landmark');}
- drawGateBulbs();reflectWater(now);paintWeather(now);
+ contactShade();drawGateBulbs();reflectWater(now);paintWeather(now);
  frameTime=mix(frameTime,performance.now()-begin,.2);canvas.dataset.cpuTriangles=drawn;canvas.dataset.photoFaces=active?.mapIds?.length||0;canvas.dataset.renderMs=Math.round(frameTime);}
  await select(selId);localById.get(selId).mesh=active;
  const tasks=[loadCpuRelief(project).then(x=>{relief=x;serial++;}),createCpuCity({project,landmarks}).then(c=>{swCity=c;for(const [k,v] of Object.entries(settings))c.setLayer?.(k,v);serial++;})];
  async function bring(id){const m=await load(id);localById.get(id).mesh=m;serial++;return m;}
- for(const p of landmarks)if(p.id!==selId)setTimeout(()=>bring(p.id).catch(console.warn),400+250*landmarks.indexOf(p));
+ // Load a second landmark only when the viewer can actually see its district.
+ let loadingNearby=false;
+ function requestNearby(){
+  if(loadingNearby||!swCity)return;
+  const p=[...localById.values()].filter(p=>!p.mesh&&!p.pending&&Math.hypot(camera.position.x-p.x,camera.position.z-p.z)<clamp(p.lm.height*16,850,6800)).sort((a,b)=>Math.hypot(camera.position.x-a.x,camera.position.z-a.z)-Math.hypot(camera.position.x-b.x,camera.position.z-b.z))[0];
+  if(!p)return;loadingNearby=true;p.pending=true;
+  setTimeout(()=>bring(p.lm.id).catch(console.warn).finally(()=>{loadingNearby=false;p.pending=false;}),80);
+ }
  const complete=Promise.allSettled(tasks).then(r=>{r.forEach(x=>{if(x.status==='rejected')console.warn(x.reason)});return {city:!!swCity,terrain:relief.length>0};});
- return {render,complete,async select(id){await select(id);localById.get(id).mesh=await load(id);},get stats(){return swCity?.stats},isBlocked:(x,z,r)=>swCity?.isBlocked(x,z,r)||false,setLayer(k,v){settings[k]=v;swCity?.setLayer?.(k,v);serial++;},groundAt(x,z){return relief.groundAt?.(x,z)||0;},get ready(){return !!swCity}};
+ return {render,complete,async select(id){await select(id);localById.get(id).mesh=await load(id);},get stats(){return swCity?.stats},isBlocked:(x,z,r)=>swCity?.isBlocked(x,z,r)||false,setLayer(k,v){if(k==='regionalBuildings')regionLayer.setEnabled(v);settings[k]=v;swCity?.setLayer?.(k,v);serial++;},groundAt(x,z){return relief.groundAt?.(x,z)||0;},get ready(){return !!swCity}};
 }

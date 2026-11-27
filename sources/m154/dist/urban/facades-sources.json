@@ -1,0 +1,229 @@
+{
+  "scope": "通用建筑表现。OpenStreetMap 提供建筑轮廓及已有高度、层数与用途。照片为北京或开放通用立面样本，选用、纹理重复、屋顶附属物及局部退台均为可视化近似，未经逐幢核实。贴图的时代外观不代表 OSM 记录了建造年代。",
+  "geometrySource": "../data/osm-source.json",
+  "assets": [
+    {
+      "file": "facades-railings.webp",
+      "sources": [
+        {
+          "title": "Apartment building (6234137918).jpg",
+          "author": "Francisco Anzola",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Apartment_building_(6234137918).jpg"
+        }
+      ],
+      "changes": "Projective rectification of a four-storey module, crop, colour balance, WebP. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        115,
+        112,
+        103
+      ]
+    },
+    {
+      "file": "facades-balconies.webp",
+      "sources": [
+        {
+          "title": "Beijing Apartment Balconies (10563725643).jpg",
+          "author": "Gary Todd from Xinzheng, China",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "source": "https://commons.wikimedia.org/wiki/File:Beijing_Apartment_Balconies_(10563725643).jpg"
+        }
+      ],
+      "changes": "Rectified two-storey balcony detail, cropped and colour balanced. The projected railings and stairs in the model are illustrative. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        106,
+        106,
+        106
+      ]
+    },
+    {
+      "file": "facades-tile-slab.webp",
+      "sources": [
+        {
+          "title": "101 West 3rd Ring Rd North (20230222114210).jpg",
+          "author": "N509FZ",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:101_West_3rd_Ring_Rd_North_(20230222114210).jpg"
+        }
+      ],
+      "changes": "Rectified mid-rise slab block window bays. CC BY-SA 4.0 applies to this derivative. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        169,
+        161,
+        143
+      ]
+    },
+    {
+      "file": "facades-shopfront.webp",
+      "sources": [
+        {
+          "title": "201606 A 7-11 store in 798, Beijing.jpg",
+          "author": "MNXANL",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:201606_A_7-11_store_in_798,_Beijing.jpg"
+        }
+      ],
+      "changes": "Rectified unbranded ground-floor shop window and cladding. CC BY-SA 4.0 applies to this derivative. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        90,
+        91,
+        88
+      ]
+    },
+    {
+      "file": "facades-podium.webp",
+      "sources": [
+        {
+          "title": "201611 Wangfujing Bookstore exterior.jpg",
+          "author": "Another Believer",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:201611_Wangfujing_Bookstore_exterior.jpg"
+        }
+      ],
+      "changes": "Rectified upper curtain wall framed by stone pilasters. CC BY-SA 4.0 applies to this derivative. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        148,
+        149,
+        147
+      ]
+    },
+    {
+      "file": "facades-curtain.webp",
+      "sources": [
+        {
+          "title": "Facade001",
+          "author": "ambientCG",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://ambientcg.com/view?id=Facade001"
+        }
+      ],
+      "changes": "Resized and colour balanced albedo map; source PBR material. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        101,
+        110,
+        118
+      ]
+    },
+    {
+      "file": "facades-office.webp",
+      "sources": [
+        {
+          "title": "Facade019A",
+          "author": "ambientCG",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://ambientcg.com/view?id=Facade019A"
+        }
+      ],
+      "changes": "Resized and colour balanced albedo map; source PBR material. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        121,
+        123,
+        127
+      ]
+    },
+    {
+      "file": "facades-masonry.webp",
+      "sources": [
+        {
+          "title": "Facade018A",
+          "author": "ambientCG",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://ambientcg.com/view?id=Facade018A"
+        }
+      ],
+      "changes": "Resized and colour balanced albedo map; source PBR material. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        140,
+        132,
+        132
+      ]
+    },
+    {
+      "file": "facades-workshop.webp",
+      "sources": [
+        {
+          "title": "CorrugatedSteel009",
+          "author": "ambientCG",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://ambientcg.com/view?id=CorrugatedSteel009"
+        },
+        {
+          "title": "Facade006",
+          "author": "ambientCG",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://ambientcg.com/view?id=Facade006"
+        }
+      ],
+      "changes": "Clerestory and ribbed sheet cladding composed from CC0 surface maps; generic workshop. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        131,
+        137,
+        135
+      ]
+    },
+    {
+      "file": "facades-flat-roof.webp",
+      "sources": [
+        {
+          "title": "Concrete034",
+          "author": "ambientCG",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://ambientcg.com/view?id=Concrete034"
+        }
+      ],
+      "changes": "Colour-balanced base photograph with expansion joints drawn to suggest generic flat roofing. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        166,
+        167,
+        161
+      ]
+    },
+    {
+      "file": "facades-render.webp",
+      "sources": [
+        {
+          "title": "PaintedPlaster017",
+          "author": "ambientCG",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://ambientcg.com/view?id=PaintedPlaster017"
+        }
+      ],
+      "changes": "Neutral render and party-wall material. Desaturated and colour balanced. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        204,
+        198,
+        184
+      ]
+    },
+    {
+      "file": "facades-sheet-roof.webp",
+      "sources": [
+        {
+          "title": "CorrugatedSteel009",
+          "author": "ambientCG",
+          "license": "CC0 1.0",
+          "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source": "https://ambientcg.com/view?id=CorrugatedSteel009"
+        }
+      ],
+      "changes": "Desaturated ribbed steel sheet for approximate pitched workshop roofs. Alpha encodes an illustrative night-window mask; lit windows vary by facade type.",
+      "mean": [
+        125,
+        139,
+        143
+      ]
+    }
+  ]
+}

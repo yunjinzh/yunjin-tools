@@ -1,6 +1,14 @@
+import {cmab2023Features} from './urban/cmab-2023.js';
+import {walkingGround} from './walk-surfaces.js';
+import {hutongRefs} from './urban/hutong.js';
+import {buildStreetScene,streetWidth,streetEnhanced,streetElevated} from './urban/streets.js';
+import {addStreetMeshes} from './urban/streets-gpu.js';
 import * as THREE from 'three';
+import { fillCityTrees } from './urban/trees.js';
 import { loadBeijing } from './data/beijing.js';
 import { landmarkFootprints } from './landmarks.js';
+import { ordinaryGeometry, gpuFacadeArray } from './urban/facades.js';
+import { cbdReplacedRefs, cbdFootprints, createCbdMeshes } from './urban/cbd.js';
 import { precinctRefs } from './heritage/precinct-data.js';
 
 const TILE = 2200;
@@ -149,9 +157,25 @@ function injectMaterial(mat, uniforms, colorStage, finalStage='') {
       vCityUv=uv;
       vCityShape=aShape;
       vCityUp=normal.y;`);
-    shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+sharedShader)
+    shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+sharedShader+(colorStage.includes('uUrbanFacades')?'\nuniform highp sampler2DArray uUrbanFacades;\n':''))
       .replace('#include <color_fragment>','#include <color_fragment>\n'+colorStage)
       .replace('#include <opaque_fragment>',finalStage+'\n#include <opaque_fragment>');
+    if(colorStage.includes('uUrbanFacades')){
+      // Polished curtainwall, painted steel and masonry respond differently
+      // to the same sky. Ordinary roofs also pick up a wet longitudinal sheen.
+      shader.fragmentShader=shader.fragmentShader.replace('#include <roughnessmap_fragment>',`#include <roughnessmap_fragment>
+        if(vCityShape>=0.) {
+          float glassArea=(abs(vCityShape-5.)<.25?1.:abs(vCityShape-6.)<.25?.43:0.);
+          float sheetMetal=abs(vCityShape-11.)<.25?1.:0.;
+          roughnessFactor=mix(.84,.22,glassArea);
+          roughnessFactor=mix(roughnessFactor,.43,sheetMetal);
+          roughnessFactor=mix(roughnessFactor,max(.14,roughnessFactor*.52),uCityWet*(.44+.56*max(0.,vCityUp)));
+          roughnessFactor=mix(roughnessFactor,.88,uCitySnow*.78*max(0.,vCityUp));
+        }`)
+       .replace('#include <metalnessmap_fragment>',`#include <metalnessmap_fragment>
+         if(vCityShape>=0.)metalnessFactor=(abs(vCityShape-5.)<.25?.38:abs(vCityShape-11.)<.25?.45:abs(vCityShape-6.)<.25?.11:.025);
+       `);
+    }
   };
   mat.customProgramCacheKey=()=>colorStage;
   return mat;
@@ -169,31 +193,13 @@ function materials(u) {
         diffuseColor.rgb*=.8+.24*timber*closeDetail;
       }
       diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.84,.87,.9),uCitySnow*.42*max(vCityUp,0.));
-    } else if(vCityUp < .45){
-      float seed=fract(vCityShape);
-      float facadeKind=floor(vCityShape);
-      vec2 grid=vCityUv/vec2(facadeKind>.5?2.75:3.25, facadeKind>.5?3.6:3.15);
-      vec2 cell=fract(grid);
-      vec2 aa=clamp(fwidth(grid),vec2(.009),vec2(.45));
-      vec2 lo=facadeKind>.5?vec2(.085,.16):vec2(.19,.22);
-      vec2 hi=facadeKind>.5?vec2(.945,.91):vec2(.79,.82);
-      vec2 aperture=smoothstep(lo-aa,lo+aa,cell)*(1.-smoothstep(hi-aa,hi+aa,cell));
-      float nearDetail=1.-smoothstep(.15,1.25,max(aa.x,aa.y)*2.);
-      float glass=aperture.x*aperture.y*nearDetail;
-      float random=cityRand(floor(grid)+vec2(seed*261.,seed*97.));
-      float mullion=facadeKind>.5?1.-smoothstep(.012,.04+aa.x,abs(cell.x-.5)):0.;
-      glass*=1.-mullion*.45;
-      vec3 glazing=mix(vec3(.068,.113,.141),vec3(.235,.317,.351),.22+.7*seed+.08*random);
-      diffuseColor.rgb=mix(diffuseColor.rgb,glazing,glass*.83);
-      float band=1.-smoothstep(.016,.046+aa.y,min(cell.y,1.-cell.y));
-      diffuseColor.rgb*=1.-band*.15*nearDetail;
-      // Contact shading at the building's foot.
-      diffuseColor.rgb*=mix(.72,1.,smoothstep(0.,3.8,vCityUv.y));
-      windowLit=glass*step(mix(.76,.54,seed),random)*mix(.4,1.,cityRand(floor(grid)+seed));
+    } else if(vCityShape>=0.){
+      vec4 texel=texture(uUrbanFacades,vec3(vCityUv.x,1.-vCityUv.y,floor(vCityShape+.1)));
+      diffuseColor.rgb*=texel.rgb;
+      windowLit=clamp((texel.a*255.-192.)/63.,0.,1.);
+      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.83,.86,.88),uCitySnow*.66*max(vCityUp,0.));
     } else {
-      float seams=step(.977,fract(vCityUv.x*.7))*(1.-smoothstep(.02,.35,abs(fwidth(vCityUv.x))));
-      diffuseColor.rgb*=1.-seams*.07;
-      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.85,.89,.93),uCitySnow*.65);
+      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.83,.86,.88),uCitySnow*.55*max(vCityUp,0.));
     }
     diffuseColor.rgb*=1.-.17*uCityWet;
   `,`outgoingLight+=vec3(1.,.63,.28)*windowLit*uCityNight*.82;`);
@@ -209,16 +215,6 @@ function materials(u) {
       lampPool=exp(-longitudinal*longitudinal*.008-lateral*lateral*.019);
     }
     if(paved>.5){
-      float scale=max(fwidth(vCityUv.x),fwidth(vCityUv.y));
-      float aa=max(.04,fwidth(vCityUv.x));
-      float lod=1.-smoothstep(.28,1.1,scale);
-      float margin=1.-smoothstep(.06,.10+aa,abs(sides-halfWidth+.56));
-      float center=(1.-smoothstep(.06,.13+aa,sides))*step(3.4,halfWidth);
-      float divider=(1.-smoothstep(.06,.12+aa,abs(sides-halfWidth*.5)))*step(6.6,halfWidth);
-      float dash=(1.-smoothstep(.4,.5,abs(fract(vCityUv.y*.095)-.5)*2.));
-      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.64,.62,.54),margin*lod*.68);
-      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.69,.51,.21),center*lod*.70);
-      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.62,.63,.60),divider*dash*lod*.67);
       diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.30,.285,.25),edge*.87);
     } else {
       float cuts=abs(fract(vCityUv.y/.93)-.5);
@@ -228,23 +224,40 @@ function materials(u) {
     diffuseColor.rgb*=1.-.28*uCityWet;
     diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.69,.73,.78),uCitySnow*mix(.13,.5,edge));
   `,`outgoingLight+=vec3(.136,.094,.053)*lampPool*uCityNight;`);
-  const water=injectMaterial(new THREE.MeshStandardMaterial({color:0xffffff,vertexColors:true,roughness:.28,metalness:.22}),u,`
-    vec2 p=vCityUv;
-    float nearMask=1.-smoothstep(.4,3.,max(fwidth(p.x),fwidth(p.y)));
-    float wave=sin(p.x*2.9+p.y*1.5+uCityClock*.8+sin(p.y*1.45+uCityClock*.4)*.8);
-    float ripple=smoothstep(.86,1.,wave)*nearMask;
-    diffuseColor.rgb*=.92+ripple*.14;
-  `,`outgoingLight+=vec3(.16,.24,.28)*ripple*(.13+.12*uCityWet)*(1.-uCityNight); `);
+  const water=injectMaterial(new THREE.MeshStandardMaterial({color:0xffffff,vertexColors:true,roughness:.22,metalness:.11}),u,`
+    vec2 wp=vCityUv*10.;
+    vec2 wind=vec2(.924,.382),crossWind=vec2(-.382,.924);
+    float t=uCityClock,along=dot(wp,wind),across=dot(wp,crossWind);
+    float pixels=max(length(dFdx(wp)),length(dFdy(wp)));
+    float big=sin(along*1.28+across*.19+t*.91+.63*sin(across*.41));
+    float shortWave=sin(along*4.8-across*1.73+t*1.94+1.07*big);
+    float fine=sin(along*10.7+across*1.36+t*3.1+1.13*shortWave);
+    float body=1.-smoothstep(1.,4.7,pixels);
+    vec2 waterSlope=wind*(big*.052*body+shortWave*.032*(1.-smoothstep(.17,1.25,pixels)))
+      +crossWind*(fine*.027*(1.-smoothstep(.085,.55,pixels))+sin(across*.69+t*.51)*.017*body);
+    diffuseColor.rgb*=.88+.075*big*body;
+  `,`
+    float grazing=pow(1.-clamp(dot(normal,normalize(vViewPosition)),0.,1.),2.8);
+    vec3 lakeSky=mix(vec3(.35,.45,.53),vec3(.064,.085,.107),uCityWet*.74);
+    lakeSky=mix(lakeSky,vec3(.013,.024,.040),uCityNight);
+    outgoingLight=mix(outgoingLight,lakeSky,.08+.32*grazing);
+  `);
   const compiled=water.onBeforeCompile;
   const mirror={uCanalMap:{value:null},uCanalVP:{value:new THREE.Matrix4()},uCanalOn:{value:0}};
   water.onBeforeCompile=(shader,r)=>{
     compiled(shader,r);Object.assign(shader.uniforms,mirror);
     shader.fragmentShader='uniform sampler2D uCanalMap;uniform mat4 uCanalVP;uniform float uCanalOn;\n'+shader.fragmentShader;
+    shader.fragmentShader=shader.fragmentShader.replace('#include <normal_fragment_maps>',`#include <normal_fragment_maps>
+      normal=normalize(normal+mat3(viewMatrix)*vec3(waterSlope.x,0.,waterSlope.y));`);
     shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',`
-      if(uCanalOn>.5){vec4 q=uCanalVP*vec4(vCityUv.x*10.,.018,vCityUv.y*10.,1.);
+      if(uCanalOn>.5){
+        vec4 q=uCanalVP*vec4(wp.x,.018,wp.y,1.);
         vec2 pos=q.xy/q.w*.5+.5;
-        pos+=vec2(.0018*sin(vCityUv.x*5.+vCityUv.y*11.+uCityClock),.002*sin(vCityUv.y*12.-uCityClock*.8));
-        if(q.w>0.&&all(greaterThan(pos,vec2(0.)))&&all(lessThan(pos,vec2(1.))))outgoingLight=mix(outgoingLight,texture2D(uCanalMap,pos).rgb*vec3(.73,.82,.85),.51);
+        pos+=clamp(waterSlope*vec2(.035,.062),vec2(-.006),vec2(.006));
+        if(q.w>0.&&all(greaterThan(pos,vec2(0.)))&&all(lessThan(pos,vec2(1.)))){
+          vec3 reflection=texture2D(uCanalMap,pos).rgb*vec3(.84,.91,.94);
+          outgoingLight=mix(outgoingLight,reflection,.34+.39*grazing);
+        }
       }
       #include <opaque_fragment>`);
   };
@@ -302,7 +315,7 @@ const roadWidths={motorway:20,trunk:17,primary:15,secondary:12,tertiary:9,unclas
 const pedestrian=new Set(['pedestrian','footway','path','steps','cycleway','bridleway','corridor','platform']);
 function drawRoad(batch, line, half, kind, bridge) {
   const walk=pedestrian.has(kind), major=half>=4.35&&!walk;
-  const full=half+(major?.85:.13);
+  const full=half;
   const y=bridge?.36:(walk?.075:.11+(major?.02:0));
   const color=new THREE.Color(walk?kind==='cycleway'?0x9a9580:0xb2a58e:major?0x686864:0x787671);
   let dist=0,lastLeft,lastRight;
@@ -409,17 +422,38 @@ function propertyHeight(feature,area) {
   if(/commercial|office|hotel/.test(type))return 22;
   return area<145?5:area<470?8:12;
 }
-const facadePalette=['#b8b1a3','#bab5af','#c0b8a7','#b4bbc0','#a4a49c','#c4b8ab','#a5aaa9'];
-function roofTone(rgb,seed) {
-  // Satellite pixels often include shadows at the building edge. Limit their
-  // influence on individual roofs; the geometry still determines illumination.
-  const lum=(rgb[0]*.32+rgb[1]*.52+rgb[2]*.16)/255;
-  const bright=clamp(.53+.31*(lum-.40)+.1*seed,.40,.72);
-  const tone=new THREE.Color();
-  tone.setRGB(clamp(bright+(rgb[0]-rgb[1])*.00068,0,1),bright,clamp(bright+(rgb[2]-rgb[1])*.00068,0,1),THREE.SRGBColorSpace);
-  return tone;
+const urbanSwatches=new Map();
+function urbanColor(rgb){
+  const key=rgb[0]*65536+rgb[1]*256+rgb[2];
+  let c=urbanSwatches.get(key);
+  if(!c){c=new THREE.Color(key);urbanSwatches.set(key,c);}
+  return c;
 }
-
+export function prepareCmabLayer(project){
+  const tiles=new Map(),blocks=new SpatialIndex(100);
+  for(const feature of cmab2023Features()){
+    const poly=projectArea(feature,project),bb=poly.bb;
+    const key=Math.floor(bb.x/450)+','+Math.floor(bb.z/450);
+    if(!tiles.has(key))tiles.set(key,[]);
+    tiles.get(key).push({poly,feature,height:feature.height,seed:seedAt(bb.x,bb.z),planArea:Math.abs(ringArea(poly.ring))});
+    blocks.insert(poly,bb);
+  }
+  return {tiles,blocks};
+}
+function ordinaryBatch(batch){
+  return {
+    quad(points,uv,id,rgb,reverse,textured){
+      const p=points[0],q=points[1],r=points[2],ux=q[0]-p[0],uy=q[1]-p[1],uz=q[2]-p[2],vx=r[0]-p[0],vy=r[1]-p[1],vz=r[2]-p[2];
+      let nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;
+      const len=Math.hypot(nx,ny,nz);if(len<.0001)return;
+      const scale=(reverse?-1:1)/len;nx*=scale;ny*=scale;nz*=scale;
+      const color=urbanColor(rgb),type=textured?id:-.5;
+      const ix=points.map((v,i)=>batch.vertex(...v,nx,ny,nz,uv?.[i*2]||0,uv?.[i*2+1]||0,color,type));
+      if(reverse)ix.reverse();batch.quad(...ix);
+    },
+    roof(poly,y,id,rgb,textured){surface(batch,poly,y,urbanColor(rgb),textured?id:-.5);}
+  };
+}
 function landmarkIndex(landmarks,project) {
   const index=new SpatialIndex(160);
   for(const mark of landmarks||[]) {
@@ -443,23 +477,8 @@ function geometries(group,map,material,casts) {
     map.delete(key);
   }
 }
-function gradientTreeGeometry() {
-  const geom=new THREE.IcosahedronGeometry(1,1), pos=geom.attributes.position;
-  const colors=[];
-  const v=new THREE.Vector3();
-  for(let i=0;i<pos.count;i++) {
-    v.fromBufferAttribute(pos,i);
-    const wobble=seedAt(Math.round(v.x*100)*3+Math.round(v.y*91),Math.round(v.z*100))-.5;
-    const scale=1+wobble*.13;
-    pos.setXYZ(i,v.x*scale,v.y*(1+wobble*.14),v.z*scale);
-    const light=.78+.22*(v.y+1)*.5+wobble*.09;
-    colors.push(light,light,light);
-  }
-  geom.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));
-  geom.computeVertexNormals();return geom;
-}
 function buildTrees(group,parks,imagery,buildingIndex,markIndex,waterIndex,pavingIndex,roadIndex) {
-  const trees=[],palette=['#596d3c','#53693a','#647445','#70804b','#4f6438','#788054','#687542'];
+  const trees=[];
   const groundTrees=new SpatialIndex(16);
   let seed=31;
   const nearRoad=(x,z)=>{
@@ -483,7 +502,7 @@ function buildTrees(group,parks,imagery,buildingIndex,markIndex,waterIndex,pavin
         if(green<8||random()>clamp((green-4)/23,.11,.88))continue;
         if(markIndex.hits(cx,cz)||buildingIndex.hits(cx,cz)||waterIndex.hits(cx,cz)||pavingIndex.hits(cx,cz)||nearRoad(cx,cz))continue;
         if(groundTrees.at(cx,cz).some(t=>Math.hypot(t.x-cx,t.z-cz)<9))continue;
-        const t={x:cx,z:cz, h:6.5+random()*6.3, w:2.8+random()*2.1, t:random(), color:palette[Math.floor(random()*palette.length)]};
+        const t={x:cx,z:cz, h:6.5+random()*6.3, w:2.8+random()*2.1, t:random()};
         trees.push(t);groundTrees.insert(t,{x0:cx-9,x1:cx+9,z0:cz-9,z1:cz+9});
       }
     }
@@ -495,30 +514,7 @@ function buildTrees(group,parks,imagery,buildingIndex,markIndex,waterIndex,pavin
     if(!byTile.has(id))byTile.set(id,[]);
     byTile.get(id).push(t);
   }
-  const leafGeom=gradientTreeGeometry(), lowLeafGeom=new THREE.IcosahedronGeometry(1,0), trunkGeom=new THREE.CylinderGeometry(.62,1,1,5,1);
-  const lowColors=new Float32Array(lowLeafGeom.attributes.position.count*3);
-  for(let i=0;i<lowLeafGeom.attributes.position.count;i++){
-    const shade=.82+.16*(.5+.5*lowLeafGeom.attributes.position.getY(i));
-    lowColors.set([shade,shade,shade],i*3);
-  }
-  lowLeafGeom.setAttribute('color',new THREE.Float32BufferAttribute(lowColors,3));
-  const leaves=new THREE.MeshLambertMaterial({vertexColors:true,color:0xffffff});
-  const trunks=new THREE.MeshLambertMaterial({color:0x77674c});
-  const transform=new THREE.Object3D(),color=new THREE.Color();
-  for(const tile of byTile.values()){
-    const foliage=new THREE.InstancedMesh(leafGeom,leaves,tile.length);
-    foliage.userData.highGeometry=leafGeom;foliage.userData.lowGeometry=lowLeafGeom;
-    const trunksMesh=new THREE.InstancedMesh(trunkGeom,trunks,tile.length);
-    tile.forEach((t,i)=>{
-      transform.position.set(t.x,t.h*.64,t.z);
-      transform.scale.set(t.w,t.h*.39,t.w*(.81+t.t*.24));
-      transform.rotation.set(.07*t.t,t.t*6.283,-.045*t.t); transform.updateMatrix();
-      foliage.setMatrixAt(i,transform.matrix);foliage.setColorAt(i,color.set(t.color));
-      transform.position.set(t.x,t.h*.27,t.z);transform.scale.set(t.w*.078,t.h*.54,t.w*.078);
-      transform.rotation.set(0,t.t*PI,0);transform.updateMatrix();trunksMesh.setMatrixAt(i,transform.matrix);
-    });
-    for(const mesh of [foliage,trunksMesh]){mesh.computeBoundingSphere();mesh.receiveShadow=true;mesh.castShadow=false;group.add(mesh);}
-  }
+  const leaves=fillCityTrees(group,byTile);
   return {count:trees.length,leaves};
 }
 
@@ -563,7 +559,7 @@ function collectLamps(lamps,feature,line,half,blocks,marks,waters) {
   }
 }
 
-const replacedRefs=new Set([...precinctRefs,'relation/7820447','way/599547918','relation/8847697','way/4974233','way/29201257','way/43921139','way/638449347','relation/563404']);
+const replacedRefs=new Set([...hutongRefs,...precinctRefs,...cbdReplacedRefs,'relation/7820447','way/599547918','relation/8847697','way/4974233','way/29201257','way/43921139','way/638449347','relation/563404']);
 function cluster(records,read) {
   const groups=new Map();
   for(const record of records) {
@@ -586,8 +582,10 @@ function lineVertices(coords,project) {
 export const stoneBridgeWidths=new Map([[29241072,9.9],[29241084,8],[29241090,8],[29241106,7.8],[29241112,8],[29241129,6.7],[523763741,6.4]]);
 function roadWidth(feature,kind) {
   if(stoneBridgeWidths.has(feature.osmId))return stoneBridgeWidths.get(feature.osmId);
+  const surveyed=streetWidth(feature.osmId);if(surveyed)return surveyed;
   if(Number(feature.width)>0)return clamp(Number(feature.width),.7,60);
   if(Number(feature.lanes)>0)return clamp(Number(feature.lanes)*3.35,2,48);
+  if((feature.kind||'').endsWith('_link'))return 4.6;
   return roadWidths[kind]||4.0;
 }
 function progress(call,frac,text) {
@@ -595,22 +593,25 @@ function progress(call,frac,text) {
 }
 export async function createCity({scene,project,landmarks,onProgress}) {
   progress(onProgress,.04,'读取北京建筑与地表');
-  const [data,imagery]=await Promise.all([loadBeijing(),loadImagery(project)]);
+  const [data,imagery,urbanFacades]=await Promise.all([loadBeijing(),loadImagery(project),gpuFacadeArray()]);
   const city=new THREE.Group();city.name='北京城区实景底图';
-  const layer={imagery:imagery.group,buildings:new THREE.Group(),roads:new THREE.Group(),water:new THREE.Group(),streetlights:new THREE.Group(),vegetation:new THREE.Group(),plazas:new THREE.Group()};
+  const layer={imagery:imagery.group,buildings:new THREE.Group(),roads:new THREE.Group(),water:new THREE.Group(),streetlights:new THREE.Group(),vegetation:new THREE.Group(),plazas:new THREE.Group(),cbd2023:new THREE.Group()};
+  layer.cbd2023.visible=false;let cmab=null;
   for(const [key,group] of Object.entries(layer)){group.name=key;city.add(group);}
   // An underlay outside the mapped urban core remains beneath the separate DEM.
   imagery.planes[0].mesh.position.y=-789;
-  const u={uCityNight:{value:0},uCityWet:{value:0},uCitySnow:{value:0},uCityClock:{value:0}};
+  const u={uUrbanFacades:{value:urbanFacades},uCityNight:{value:0},uCityWet:{value:0},uCitySnow:{value:0},uCityClock:{value:0}};
   const m=materials(u);
   const blocks=new SpatialIndex(90),water=new SpatialIndex(140),roads=new SpatialIndex(105),paving=new SpatialIndex(140);
   const marks=landmarkIndex(landmarks,project);
   const stats={...data.meta.counts,buildingMeshes:0,treeInstances:0,taggedHeight:data.meta.heightCoverage.taggedHeight,levelsOnly:data.meta.heightCoverage.levelsOnly};
   const firstPoint=coords=>coords && coords.length?project(coords[0][0],coords[0][1]):null;
   const groups=cluster(data.buildings,f=>firstPoint(f.ring));
+  for(const mesh of createCbdMeshes(project)){mesh.castShadow=true;layer.buildings.add(mesh);}
+  for(const p of cbdFootprints(project))blocks.insert(p,p.bb);
   let n=0;
   for(const list of groups.values()){
-    const bin=new Batch();
+    const bin=new Batch(),writer=ordinaryBatch(bin);
     for(const f of list){
       const area=projectArea(f,project);
       if(!area)continue;
@@ -619,10 +620,8 @@ export async function createCity({scene,project,landmarks,onProgress}) {
       const footprint=Math.abs(ringArea(area.ring));
       if(footprint<2.2)continue;
       const seed=seedAt(bb.x,bb.z),h=propertyHeight(f,footprint);
-      const roof=roofTone(imagery.sample(bb.x,bb.z),seed);
-      const wall=new THREE.Color(facadePalette[Math.min(6,Math.floor(seed*7))]);
       if(f.osmType==='way'&&templeCourtWays.has(f.osmId))templeCourtHall(bin,area,f,h);
-      else buildVolume(bin,area,f,h,roof,wall,seed);
+      else ordinaryGeometry(writer,area,f,h,seed,1,footprint);
       blocks.insert(area,{x0:bb.x0-2,x1:bb.x1+2,z0:bb.z0-2,z1:bb.z1+2});
       stats.buildingMeshes++;
     }
@@ -656,18 +655,21 @@ export async function createCity({scene,project,landmarks,onProgress}) {
       if(line.length<2)continue;
       const kind=(f.kind||'').replace('_link','');
       const half=roadWidth(f,kind)/2;
-      if(!stoneBridgeWidths.has(f.osmId))drawRoad(bin,line,half,kind,f.bridge);
-      collectLamps(lamps,f,line,half,blocks,marks,water);
+      if(!stoneBridgeWidths.has(f.osmId)&&!streetElevated(f.osmId))drawRoad(bin,line,half,kind,f.bridge);
+      if(!streetEnhanced(f.osmId))collectLamps(lamps,f,line,half,blocks,marks,water);
       for(let i=1;i<line.length;i++){
         const a=line[i-1],b=line[i],padding=half+1;
         const bb={x0:Math.min(a.x,b.x)-padding,x1:Math.max(a.x,b.x)+padding,z0:Math.min(a.z,b.z)-padding,z1:Math.max(a.z,b.z)+padding};
-        roads.insert({a,b,width:stoneBridgeWidths.has(f.osmId)?half-.35:half+.75,bridge:f.bridge},bb);
+        roads.insert({a,b,kind,width:stoneBridgeWidths.has(f.osmId)?half-.35:half+.75,bridge:f.bridge},bb);
       }
     }
     if(bin.indices.length)layer.roads.add(bin.mesh(m.road));
     if(++n%5===0){progress(onProgress,.61+.19*n/roadGroups.size,'铺设道路、步道与桥面');await nextFrame();}
   }
-  const lampMaterial=streetLighting(layer.streetlights,lamps);stats.illustrativeStreetlights=lamps.length;
+  const streetScene=buildStreetScene(data.roads,project,(x,z,r)=>blocks.hits(x,z,r)||marks.hits(x,z,r)||water.hits(x,z),
+    (x,z,r)=>roads.at(x,z).some(s=>!s.bridge&&!pedestrian.has(s.kind)&&edgeDistance(x,z,s.a,s.b)<s.width-.75+r),walkingGround(project,landmarks||[]));
+  addStreetMeshes(layer.roads,streetScene,u);stats.streets=streetScene.counts;
+  const lampMaterial=streetLighting(layer.streetlights,lamps);stats.illustrativeStreetlights=lamps.length+streetScene.counts.lamps;
   progress(onProgress,.84,'生成绿地中的树冠');
   const parks=[];
   for(const f of data.parks){
@@ -685,12 +687,20 @@ export async function createCity({scene,project,landmarks,onProgress}) {
   scene.add(city);
   const snowTint=new THREE.Color(0xc3cbd0),leafBase=new THREE.Color(0xffffff);
   function isBlocked(x,z,radius=.55) {
-    if(marks.hits(x,z,radius)||blocks.hits(x,z,radius))return true;
+    if(marks.hits(x,z,radius)||blocks.hits(x,z,radius)||(layer.cbd2023.visible&&cmab?.blocks.hits(x,z,radius)))return true;
     if(!water.hits(x,z))return false;
     return !roads.at(x,z).some(s=>s.bridge&&edgeDistance(x,z,s.a,s.b)<s.width);
   }
   function setLayer(name,visible) {
     const aliases={parks:'vegetation',trees:'vegetation',satellite:'imagery',building:'buildings'};
+    if(name==='cbd2023'&&visible&&!cmab){
+      cmab=prepareCmabLayer(project);
+      for(const [key,list] of cmab.tiles){
+        const batch=new Batch(),writer=ordinaryBatch(batch);
+        for(const item of list)ordinaryGeometry(writer,item.poly,item.feature,item.height,item.seed,1,item.planArea);
+        const mesh=batch.mesh(m.buildings);mesh.name='CMAB 2023 '+key;mesh.castShadow=true;layer.cbd2023.add(mesh);
+      }
+    }
     const group=layer[aliases[name]||name];
     if(group)group.visible=Boolean(visible);
     if(name==='roads')layer.streetlights.visible=Boolean(visible);
@@ -716,8 +726,8 @@ export async function createCity({scene,project,landmarks,onProgress}) {
             const sphere=mesh.isInstancedMesh?mesh.boundingSphere:mesh.geometry.boundingSphere;
             if(sphere){
               const distance=Math.hypot(sphere.center.x-pos.x,sphere.center.z-pos.z);
-              mesh.visible=distance<far+sphere.radius;
-              if(mesh.userData.lowGeometry)mesh.geometry=distance>1350?mesh.userData.lowGeometry:mesh.userData.highGeometry;
+              mesh.visible=distance<(mesh.userData.groundShade?950:mesh.userData.streetProp?1050:far)+sphere.radius;
+              if(mesh.userData.lowGeometry)mesh.geometry=distance>(mesh.userData.streetProp?320+sphere.radius:1350)?mesh.userData.lowGeometry:mesh.userData.highGeometry;
             }
           }
         }

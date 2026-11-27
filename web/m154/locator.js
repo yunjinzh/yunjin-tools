@@ -2,7 +2,8 @@ const bounds=[116.35,39.86,116.498,40.015],wm=12650,hm=17213;
 const image=new Image();image.src='./data/locator.webp';const regionImage=new Image();regionImage.src='./terrain-data/beijing-region.webp';
 const outerBounds=[115.30,39.23,117.52,40.80];
 const xy=(lon,lat)=>[(lon-bounds[0])/(bounds[2]-bounds[0])*wm,(bounds[3]-lat)/(bounds[3]-bounds[1])*hm];
-export function locator({landmarks,getCamera,go,flyTo}){
+export function locator({landmarks,getCamera,go,flyTo,observe}){
+ let sites=[];
  let big=null,zoom=1,center=[wm/2,hm/2],pins=[],drag=null,base=1,selected='',wide=false;
  const regA=xy(outerBounds[0],outerBounds[3]),regB=xy(outerBounds[2],outerBounds[1]);
  const mini=document.querySelector('#mini');
@@ -24,6 +25,13 @@ export function locator({landmarks,getCamera,go,flyTo}){
      const tw=c.measureText(text).width;pins.push({id:lm.id,x,y,l:align==='left'?x+dx:x+dx-tw,r:align==='left'?x+dx+tw:x+dx,t:y+dy-8,b:y+dy+8});
     }
    }
+   if(wide&&!isMini)for(const site of sites){
+     const [x,y]=pt(xy(site.lon,site.lat));if(x<-14||y<-14||x>W+14||y>H+14)continue;
+     c.fillStyle='#84d9d1';c.strokeStyle='#173938';c.lineWidth=2;
+     c.beginPath();c.moveTo(x,y-5);c.lineTo(x+5,y);c.lineTo(x,y+5);c.lineTo(x-5,y);c.closePath();c.fill();c.stroke();
+     c.font='600 11px system-ui,sans-serif';c.textAlign='left';c.textBaseline='middle';c.lineWidth=3;c.strokeText(site.name,x+8,y-2);c.fillText(site.name,x+8,y-2);
+     pins.unshift({site,x,y,l:x+6,r:x+10+c.measureText(site.name).width,t:y-10,b:y+7});
+   }
    const [px,py]=pt(pos);c.save();c.translate(px,py);c.rotate(eye.heading||0);c.beginPath();c.moveTo(0,-13);c.lineTo(7,8);c.lineTo(0,5);c.lineTo(-7,8);c.closePath();c.fillStyle='#f0a16d';c.fill();c.strokeStyle='#332d26';c.lineWidth=1.3;c.stroke();c.restore();
    if(!isMini){base=scale;c.textAlign='left';c.font='11px monospace';c.fillStyle='#e0e4d4';c.fillText('N ↑',14,18);const len=wide?(zoom>2?15000:40000):(zoom>2?1000:3000);c.fillRect(14,H-18,len*scale,2);c.fillText(len/1000+' km',14,H-22);}
  }
@@ -33,10 +41,10 @@ export function locator({landmarks,getCamera,go,flyTo}){
    canvas.onwheel=e=>{e.preventDefault();const [x,y]=where(e),ox=(x-canvas.width/2)/base,oy=(y-canvas.height/2)/base;const n=Math.max(1,Math.min(9,zoom*Math.exp(-e.deltaY*.0017)));center[0]+=ox*(1-zoom/n);center[1]+=oy*(1-zoom/n);zoom=n;draw()};
    canvas.onpointerdown=e=>{const p=where(e);drag={p,start:p,dist:0};canvas.setPointerCapture(e.pointerId)};
    canvas.onpointermove=e=>{if(!drag)return;const p=where(e);drag.dist+=Math.hypot(p[0]-drag.p[0],p[1]-drag.p[1]);center[0]=Math.max(wide?regA[0]:0,Math.min(wide?regB[0]:wm,center[0]-(p[0]-drag.p[0])/base));center[1]=Math.max(wide?regA[1]:0,Math.min(wide?regB[1]:hm,center[1]-(p[1]-drag.p[1])/base));drag.p=p;draw()};
-   canvas.onpointerup=e=>{if(!drag)return;const [x,y]=where(e);if(drag.dist<5){const hit=pins.find(i=>Math.hypot(i.x-x,i.y-y)<10||(x>=i.l&&x<=i.r&&y>=i.t&&y<=i.b));if(hit)go(hit.id);}drag=null};
+   canvas.onpointerup=e=>{if(!drag)return;const [x,y]=where(e);if(drag.dist<5){const hit=pins.find(i=>Math.hypot(i.x-x,i.y-y)<10||(x>=i.l&&x<=i.r&&y>=i.t&&y<=i.b));if(hit){if(hit.site)observe(hit.site);else go(hit.id);}}drag=null};
    canvas.onpointercancel=()=>drag=null;
    canvas.ondblclick=e=>{const [x,y]=where(e);const xx=(x-canvas.width/2)/base+center[0],yy=(y-canvas.height/2)/base+center[1];if(wide?(xx>regA[0]&&xx<regB[0]&&yy>regA[1]&&yy<regB[1]):(xx>=0&&yy>=0&&xx<=wm&&yy<=hm))flyTo(bounds[0]+xx/wm*(bounds[2]-bounds[0]),bounds[3]-yy/hm*(bounds[3]-bounds[1]))};
  }
  image.onload=regionImage.onload=draw;
- return {draw,attach,setRegion(value){wide=value;zoom=1;center=wide?[(regA[0]+regB[0])/2,(regA[1]+regB[1])/2]:[wm/2,hm/2];draw();},select(id){selected=id;draw()},detach(){big=null;drag=null}};
+ return {draw,attach,setSites(value){sites=value;draw();},setRegion(value){wide=value;zoom=1;center=wide?[(regA[0]+regB[0])/2,(regA[1]+regB[1])/2]:[wm/2,hm/2];draw();},select(id){selected=id;draw()},detach(){big=null;drag=null}};
 }

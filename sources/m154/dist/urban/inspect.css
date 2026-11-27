@@ -1,0 +1,24 @@
+.inspection-mode #world{cursor:crosshair}
+.inspection-mode #world.drag{cursor:grabbing}
+#inspectBuilding[aria-pressed=true]{color:#ffcd9d;border-color:#a17e5d;background:#40382d}
+.shelf.inspection-open{position:relative;display:block}
+.shelf.inspection-open>.shelf-head,.shelf.inspection-open>#cards{visibility:hidden;pointer-events:none}
+.building-record{position:absolute;inset:0;z-index:3;overflow:auto;background:#202827;color:#eeeee4;padding:clamp(8px,1.1vw,17px) clamp(17px,2.5vw,44px);border-top:2px solid #c69571}
+.building-record[hidden]{display:none}
+.building-record-head{display:flex;align-items:baseline;gap:16px}
+.building-record-head h2{font-family:var(--serif);font-size:clamp(16px,1.55vw,23px);font-weight:600;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.building-record-id{font:12px var(--mono);color:#ecc29c;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.building-record-close{margin-left:auto;flex:0 0 auto;font-size:12px;background:transparent;border:1px solid #ffffff45;color:#eee9dd;border-radius:4px;padding:4px 9px}
+.building-record-values{display:grid;grid-template-columns:1fr 1fr 1.2fr 1.15fr;gap:18px;margin:11px 0 0}
+.building-record-values div{min-width:0}
+.building-record-values dt,.building-record-values small{font-size:11px;color:#bec5ba;display:block}
+.building-record-values dd{margin:2px 0 0;font-size:17px;font-variant-numeric:tabular-nums;line-height:1.35;overflow-wrap:anywhere}
+.building-record-values small{margin-top:2px}
+@media(max-width:700px){
+ .building-record{padding:6px 12px;scrollbar-width:thin}
+ .building-record-head{gap:8px;align-items:center}.building-record-head h2{font-size:14px}
+ .building-record-id,.building-record-close{font-size:10px}.building-record-close{padding:2px 5px}
+ .building-record-values{grid-template-columns:1fr 1fr;gap:5px 12px;margin:5px 0 0}
+ .building-record-values dt{font-size:10px}.building-record-values dd{font-size:12px;line-height:1.2}
+ .building-record-values small{display:inline;font-size:10px;margin:0 0 0 5px}
+}

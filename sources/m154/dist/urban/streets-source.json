@@ -1,0 +1,15 @@
+{
+  "database": "© OpenStreetMap contributors, ODbL 1.0",
+  "snapshot": "2026-11-25T21:22:46Z",
+  "source": "https://download.geofabrik.de/asia/china/beijing/beijing-261125.osm.pbf",
+  "sha256": "e9ad7e26c8438b34911c6c2131c7fa5b74720d191d6c89cf6144a6ced898bb13",
+  "attribution": "https://www.openstreetmap.org/copyright",
+  "streets-data.js": "545 urban road ways keyed by OSM way ID. Coordinates from the site's matching bundled polyline set. The rows contain displayed lane count, one-way direction relative to source way, displayed width (m), membership of a bus or trolleybus route relation, breaks at same-level junctions, marked zebra crossing chainages, mapped pedestrian frontage per side, overpass height profile at Guomao and tagged directional lane counts. Distances in metres along each way. Explicit OSM width and lanes take precedence, remaining dimensions estimated from peer carriageways or road class. Traffic and pavement detail are illustrative, with no live data.",
+  "pedestrian": "Zebra stripes at positively marked OSM crossing nodes shared by a carriageway. Sidewalks drawn where the way carries a sidewalk tag or a parallel mapped pedestrian way is near the curb. Pavement texture, curb width, lamp locations and stripe pitch are modelled.",
+  "bridges": "Individual OSM bridge ways and layer tags determine the horizontal footprint and order of the Guomao overpasses. Deck separation, ramp heights, pier dimensions and spacing are modelled. Elevated vehicle decks do not receive zebra crossings.",
+  "traffic": "Original parameterised civilian vehicles, right-hand traffic, stable example positions. Cars are 4.68 m long. Non-articulated two-door bus represents a 12 m electric city bus. Taxi and bus liveries are generic. No route number, exact fleet assignment, traffic volume or timetable is asserted.",
+  "busReference": "https://jtw.beijing.gov.cn/xxgk/tpxw/201904/t20190410_342419.html",
+  "lighting": "Thirteen-globe Chang'an Avenue lamp form from public reports. Geometry, finish and siting are illustrative. Other streets use a single-arm LED model.",
+  "lightingReference": "https://society.people.com.cn/n1/2018/0219/c1008-29826067.html",
+  "streets-walking.js": "160 mapped ground-level public ways in the modelled precincts, including pedestrian and cycle ways. Each entry carries OSM way ID, district key, and direction when tagged. The waterfront extension follows the mapped shoreline and modelled promenade. Pedestrians and bicycle riders are original illustrative meshes, in plausible sample positions, for scale. They do not depict identifiable individuals or measured footfall."
+}

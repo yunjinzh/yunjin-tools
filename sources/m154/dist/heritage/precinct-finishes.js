@@ -1,7 +1,7 @@
 // Reuses the rectified surface photographs and credits of the gate and palace.
 // Grey ceramic tiles are a desaturated derivative of gate-roof.webp.
 import * as THREE from 'three';
-const files={gold:'gate-roof',grey:'precinct-grey-tile',wall:'gate-plaster',stone:'gate-paving',doors:'gate-doors',beam:'gate-lower-paint'};
+const files={gable:'gate-gable',court:'palace-details',gold:'gate-roof',grey:'precinct-grey-tile',wall:'gate-plaster',stone:'gate-paving',doors:'gate-doors',beam:'gate-lower-paint'};
 const materials=new Map();
 function material(key){
   if(materials.has(key))return materials.get(key);
@@ -9,7 +9,7 @@ function material(key){
   const tex=typeof document==='undefined'?new THREE.Texture():new THREE.TextureLoader().load(url);
   tex.userData.src=url;tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=8;tex.wrapT=tex.wrapS=THREE.RepeatWrapping;
   const mat=new THREE.MeshStandardMaterial({map:tex,side:THREE.DoubleSide,roughness:key==='gold'?.54:.88,metalness:.018,
-    color:key==='gold'?0xe8d8bd:key==='grey'?0xdfdfda:key==='wall'?0xf4d8cf:0xffffff});
+    color:key==='gable'?0xb3946c:key==='gold'?0xe8d8bd:key==='grey'?0xdfdfda:key==='wall'?0xf4d8cf:0xffffff});
   mat.name='中轴线 · '+files[key];materials.set(key,mat);return mat;
 }
 export class PrecinctFinishes {
@@ -43,7 +43,7 @@ export class PrecinctFinishes {
       g.setAttribute('position',new THREE.Float32BufferAttribute(layer.positions,3));
       g.setAttribute('uv',new THREE.Float32BufferAttribute(layer.uv,2));g.setIndex(layer.indices);g.computeVertexNormals();g.computeBoundingSphere();
       const mesh=new THREE.Mesh(g,material(key));
-      mesh.castShadow=key==='gold'||key==='grey'||key==='wall';mesh.receiveShadow=true;b.decals.push(mesh);
+      mesh.castShadow=key==='court'||key==='gold'||key==='grey'||key==='wall';mesh.receiveShadow=true;b.decals.push(mesh);
     }
   }
 }

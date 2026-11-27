@@ -1,3 +1,8 @@
+import {landmarkMasks} from './data/landmark-masks.js';
+import {buildHutong,hutongViews} from './urban/hutong.js';
+import {buildWaterfront} from './urban/waterfront.js';
+import {citicTower} from './urban/cbd-hero.js';
+import {CbdFaces,curtain} from './urban/cbd.js';
 import {addPrecinctContext} from './heritage/precinct-context.js';
 import * as THREE from 'three';
 import { buildTiananmenGate } from './heritage/gate.js';
@@ -8,6 +13,9 @@ import { palaceRoofs } from './data/palace-roofs.js';
 
 // Geodetic anchors are WGS84 points. Distances and local XYZ are metres.
 export const landmarks = [
+  {id:'hutong',name:'钟库胡同',short:'钟库胡同',en:'Zhongku Hutong',area:'钟鼓楼西侧',category:'传统居住街区',lon:116.38875,lat:39.94020,height:4.5,description:'钟库胡同和东、西轿杆胡同位于钟鼓楼西侧。这片街区按地图中的平房轮廓重建。近看院门、砖墙与筒瓦，俯看街巷串联的小院。',source:'OpenStreetMap 街区轮廓',url:'https://www.openstreetmap.org/#map=19/39.94020/116.38875',coordUrl:'https://www.openstreetmap.org/#map=19/39.94020/116.38875',view:{distance:138,azimuth:148,elevation:34,targetHeight:2},walkDistance:32,walkView:hutongViews[1]},
+  {id:'waterfront',name:'什刹海 · 前海',short:'什刹海前海',en:'Qianhai Waterfront',area:'什刹海前海南沿',category:'历史水岸',lon:116.387542,lat:39.934105,height:9,description:'前海南沿的步道贴着湖岸展开。水面外边界和岛屿取自公开地图，岸上沿线配置石栏和垂柳。',source:'OpenStreetMap 前海水体',url:'https://www.openstreetmap.org/relation/11518929',coordUrl:'https://www.openstreetmap.org/way/30833078',view:{distance:95,azimuth:129,elevation:26,targetHeight:3},walkDistance:36,walkView:{eye:[27,2.46,-10],at:[-18,1.8,-43]}},
+
   {id:'palace',name:'故宫 · 太和殿',short:'太和殿',en:'Hall of Supreme Harmony',area:'故宫博物院',category:'宫殿建筑',lon:116.3908139,lat:39.9158956,height:35.05,description:'从太和门望向北侧，三层汉白玉台基托起十一开间的太和殿。双层庑殿顶沿中轴依次衔接中和殿与保和殿。',source:'故宫博物院',url:'https://www.dpm.org.cn/explore/building/236465.html',coordUrl:'https://www.openstreetmap.org/way/638449347',view:{distance:174,azimuth:153,elevation:23,targetHeight:14},walkDistance:98},
   {id:'tiananmen',name:'天安门城楼',short:'天安门',en:'Tian’anmen Gate',area:'北京中轴线',category:'城门建筑',lon:116.3912643,lat:39.9073379,height:34.7,description:'城台中央并列五座拱门。重檐城楼位于金水桥以北，向南面对长安街与天安门广场。',source:'北京旅游网',url:'https://english.visitbeijing.com.cn/article/47OMXTgi9vO',coordUrl:'https://www.openstreetmap.org/relation/8847697',view:{distance:156,azimuth:161,elevation:15,targetHeight:12},walkDistance:96},
   {id:'tiantan',name:'天坛 · 祈年殿',short:'祈年殿',en:'Hall of Prayer for Good Harvests',area:'天坛公园',category:'坛庙建筑',lon:116.4066228,lat:39.8822511,height:36.8,description:'沿丹陛桥向北，三层蓝色琉璃檐收束于鎏金宝顶。三层圆形坛台的直径逐层收小，石栏环绕四周。',source:'北京市公园管理中心',url:'https://gygl.beijing.gov.cn/mlgy/mlgy_gyjg01/201912/t20191211_1048233.html',coordUrl:'https://www.openstreetmap.org/way/43921139',view:{distance:121,azimuth:151,elevation:17,targetHeight:15},walkDistance:72},
@@ -592,42 +600,19 @@ function cube(b) {
   }
   b.box(0,0,0,177.5,.69,177.5,0x768e96);b.rectFoot(0,0,177,177);
 }
-function zun(b) {
-  function r(t){return t<.54?27+12*((.54-t)/.54)**1.85:27+7.5*((t-.54)/.46)**1.9;}
-  function pos(a,t,extra=0){const rad=r(t)+extra,c=Math.cos(a),s=Math.sin(a);
-    return [rad*Math.sign(c)*Math.abs(c)**.36,t*528,rad*Math.sign(s)*Math.abs(s)**.36];}
-  const n=72,floors=108;
-  for(let j=0;j<floors;j++){
-    const t=j/floors,v=(j+1)/floors;
-    for(let i=0;i<n;i++) {
-      const a=tau*i/n,a2=tau*(i+1)/n,p0=pos(a,t),p1=pos(a,v),p2=pos(a2,v),p3=pos(a2,t);
-      const c=new THREE.Color().setRGB(.18+.12*t+.043*Math.cos(a*3),.28+.15*t+.05*Math.cos(a*3),.31+.17*t+.057*Math.cos(a*3));
-      if(j%17===13||j%17===14)c.multiplyScalar(.72);
-      b.face([p0,p1,p2,p3],c.getHex(),'glass');
-      b.line(pos(a,t,.08),pos(a2,t,.08),j%4===0?0x879eaa:0x6e899a);
-      if(j%3===0)b.beam(pos(a,t,.1),pos(a,Math.min(1,(j+3)/floors),.1),i%9===0?.68:.30,i%9===0?0xbdc9c9:0x97adb5,.35,'metal');
-    }
-  }
-  for(let i=0;i<n;i++) {
-    const a=tau*i/n,c=tau*(i+1)/n;b.face([pos(a,1),pos(c,1),[0,528,0]],0xafbabc,'metal');
-    b.beam(pos(a,1),pos(c,1),.74,0xc9d0ca,.49,'metal');
-  }
-  b.rectFoot(0,0,78,78);
-}
+function zun(b) {citicTower(b);}
 function cctv(b) {
   const corners=(cx,cz,w,d,y,tilt=0)=>[[-1,-1],[1,-1],[1,1],[-1,1]].map(([x,z])=>[cx+x*w/2,y+tilt*x,cz+z*d/2]);
-  const tint=[0x8298a6,0x6a818f,0x78919f,0x708b9a];
+  const tint=[0,1,2,3],glazing=new CbdFaces();
   function surface(p0,p1,p2,p3,columns,rows,c,diag=true){
     const v=(u,t)=>lerp3(lerp3(p0,p1,u),lerp3(p3,p2,u),t);
-    b.face([p0,p1,p2,p3],c,'glass');
-    for(let i=0;i<=columns;i++)b.line(v(i/columns,0),v(i/columns,1),0x99acb3);
-    for(let j=0;j<=rows;j++)b.line(v(0,j/rows),v(1,j/rows),0x475d69);
+    curtain(glazing,[p0,p1],[p3,p2],'cctv',c,rows,columns,18+Math.floor(p0[1]/17),{spandrel:.14,belt:[74,94,103],frame:[128,148,153],mullion:.05,lightScale:.62});
     if(diag){
       const nx=Math.max(1,Math.round(columns/5)),ny=Math.max(1,Math.round(rows/3.5));
       for(let i=0;i<nx;i++)for(let j=0;j<ny;j++){
         const a=v(i/nx,j/ny),d=v((i+1)/nx,(j+1)/ny),g=v((i+1)/nx,j/ny),c2=v(i/nx,(j+1)/ny);
-        b.beam(a,d,.54,0x485967,.45,'metal');
-        if((i+j)%3!==0||j>ny*.65) b.beam(g,c2,.60,0x4a5b65,.45,'metal');
+        b.beam(a,d,.79,0x485761,.59,'metal');
+        if((i+j)%3!==0||j>ny*.65) b.beam(g,c2,.79,0x485761,.59,'metal');
       }
     }
   }
@@ -646,21 +631,30 @@ function cctv(b) {
   prism(corners(-8,-52,132,61,0),corners(-8,-52,132,61,32),8);
   prism(corners(4,33,88,61,184,-7),corners(4,33,88,61,217,-8),8);
   prism(corners(35,2,57,89,175,4),corners(35,2,57,89,206,5),8);
-  b.rectFoot(0,0,160,169);
+  b.decals.push(glazing.gpu('央视总部 · 斜交网格内侧幕墙'));
+  for(const ring of [legA0,legB0,corners(-48,-10,58,95,0),corners(-8,-52,132,61,0)])
+    b.footprints.push(ring.map(([x,,z])=>[x,z]));
 }
-const builders={palace,tiananmen,tiantan,ncpa,stadium,cube,cctv,zun};
-const yaw={palace:.0356,tiananmen:.031,tiantan:.027,ncpa:0,stadium:.013,cube:.017,cctv:0,zun:0};
-const shapeCache=new Map(),maskCache=new Map();
-function make(id){
+const builders={hutong:buildHutong,waterfront:buildWaterfront,palace,tiananmen,tiantan,ncpa,stadium,cube,cctv,zun};
+const yaw={hutong:0,waterfront:0,palace:.0356,tiananmen:.031,tiantan:.027,ncpa:0,stadium:.013,cube:.017,cctv:0,zun:0};
+const shapeCache=new Map();
+function landmarkBatch(id){
   if(!builders[id])throw new Error('未知地标 '+id);
+  const b=new Batch();builders[id](b);addPrecinctContext(b,id);return b;
+}
+function make(id){
   if(!shapeCache.has(id)){
-    const b=new Batch();builders[id](b);addPrecinctContext(b,id);
-    const shape=b.build(),ang=yaw[id],sa=Math.sin(ang),ca=Math.cos(ang);
-    shape.rotation.y=ang;shape.name=id;
-    shape.userData.landmarkId=id;
-    shapeCache.set(id,shape);
-    maskCache.set(id,b.footprints.map(poly=>poly.map(([x,z])=>[x*ca+z*sa,z*ca-x*sa])));
+    const shape=landmarkBatch(id).build();shape.rotation.y=yaw[id];shape.name=id;
+    shape.userData.landmarkId=id;shapeCache.set(id,shape);
   }
 }
-export function createLandmark(id) {make(id);return shapeCache.get(id).clone();}
-export function landmarkFootprints(id){make(id);return maskCache.get(id);}
+export function createLandmark(id){make(id);return shapeCache.get(id).clone();}
+export function landmarkFootprints(id){
+  if(!Object.hasOwn(landmarkMasks,id))throw new Error('未知地标 '+id);
+  return landmarkMasks[id];
+}
+// The offline baker calls this to refresh the compact collision catalogue after a model edit.
+export function sourceLandmarkFootprints(id){
+  const angle=yaw[id],sa=Math.sin(angle),ca=Math.cos(angle);
+  return landmarkBatch(id).footprints.map(poly=>poly.map(([x,z])=>[x*ca+z*sa,z*ca-x*sa]));
+}

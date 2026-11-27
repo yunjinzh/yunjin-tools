@@ -1,0 +1,34 @@
+{
+  "name": "钟库胡同和东、西轿杆胡同 · 钟鼓楼西侧居住街坊",
+  "anchor": [116.38875, 39.94020],
+  "coordinates": "WGS84，局部 X 向东、Y 向上、Z 向南，单位米，模型没有附加旋转。",
+  "geometry": {
+    "credit": "© OpenStreetMap contributors",
+    "license": "ODbL 1.0",
+    "licenseUrl": "https://www.openstreetmap.org/copyright",
+    "extractUrl": "https://api.openstreetmap.org/api/0.6/map?bbox=116.3859,39.9364,116.3903,39.9418",
+    "roads": [
+      {"name":"西轿杆胡同","osmWay":1467919218},
+      {"name":"东轿杆胡同","osmWay":1468345156},
+      {"name":"钟库胡同","osmWay":1468427002}
+    ],
+    "buildings": 183,
+    "buildingTag": "building=bungalow",
+    "plan": "建筑外墙平面逐栋来自 OSM 闭合几何；街巷中心线沿 OSM 道路，未移动或补齐缺图建筑。局部道路宽度按步行胡同类型估算。",
+    "modeledDetails": "资料未给出每户的墙高、院界、院门位置、树位、屋面坡度与房屋立面。院墙按路缘设置并避开建筑，41株庭树在相邻房屋包围的空地中取位；以上是典型街坊的风貌复原。屋脊、檐口、窗扇、牌面、石阶、烟囱、单车、花盆和户外表箱按居住胡同的常见做法表现。"
+  },
+  "references": [
+    {"title":"东城区北中轴线钟鼓楼紧邻地区环境综合整治初见成效","source":"北京市人民政府","url":"https://www.beijing.gov.cn/ywdt/gqrd/202211/t20221101_2849646.html"},
+    {"title":"钟鼓楼周边院落保护性修缮工程启动","source":"北京市东城区人民政府","url":"https://www.bjdch.gov.cn/ywdt/dcyw/202512/t20251205_4322398.html"},
+    {"title":"北京老城保护房屋修缮技术导则（2019版）","source":"北京市住房和城乡建设委员会","url":"https://zjw.beijing.gov.cn/bjjs/xxgk/zcwj2024/gfxwj40/xxyx/436464671/2024060611455397127.pdf"}
+  ],
+  "photographicMaterials": [
+    {"files":["hutong-brick.webp","hutong-base.webp","hutong-timber-door.webp"],"title":"北京胡同里的老院门 old door","author":"wanghongliu","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0/","source":"https://commons.wikimedia.org/wiki/File:北京胡同里的老院门_old_door_-_panoramio.jpg","changes":"裁切菊儿胡同的一张灰砖、勒脚和木门实拍，调整透视，砖样镜像拼接。衍生纹理以同一许可发布。"},
+    {"files":["hutong-tile.webp","hutong-eave.webp"],"title":"Roof Tiles at a hutong house in Beijing (China)","author":"Mr. Tickle","license":"CC BY-SA 3.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/3.0/","source":"https://commons.wikimedia.org/wiki/File:Roof_Tiles_at_a_hutong_house_in_Beijing_(China).jpg","changes":"从灰瓦照片裁切并校正屋面与滴水瓦当。瓦面拼接，檐口使用透明遮罩。衍生纹理以同一许可发布。"},
+    {"files":["hutong-blessing-left.webp","hutong-blessing-right.webp"],"title":"Beijing door pic 1","author":"lyng883","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0/","source":"https://commons.wikimedia.org/wiki/File:Beijing_door_pic_1.jpg","changes":"裁切和校正院门两侧的春联照片。"},
+    {"files":["hutong-redwood.webp"],"title":"Beijingreddoorpic1","author":"sara marlowe","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0/","source":"https://commons.wikimedia.org/wiki/File:Beijingreddoorpic1.jpg","changes":"从木门红漆区域裁切、透视校正和拼接。"},
+    {"files":["hutong-lime.webp","hutong-foliage.webp"],"title":"Hutong beijing","author":"Denis Yuen","license":"CC BY-SA 2.5","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.5/","source":"https://commons.wikimedia.org/wiki/File:Hutong_beijing.JPG","changes":"取后海附近胡同照片中的灰白墙面和枝叶。裁切，调整色彩、透视和树叶透明背景。衍生纹理以同一许可发布。"},
+    {"files":["trees-hackberry-bark.webp","trees-broad-spray.webp"],"title":"近景树皮与阔叶枝片实拍","source":"waterfront-credits.json"},
+    {"files":["../heritage/gate-paving.webp"],"title":"铺石用既有石材摄影纹理","source":"../heritage/gate-credits.md"}
+  ]
+}

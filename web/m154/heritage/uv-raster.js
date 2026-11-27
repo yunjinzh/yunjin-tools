@@ -35,16 +35,18 @@ export function drawPhotographicFace(screen,clipX,clipY,inds,uv,texture,frame,li
     const U=wrap(s/d,texture.repeatS)*(w-1),V=wrap(texture.flip?1-t/d:t/d,texture.repeatT)*(h-1);
     const ix=U|0,iy=V|0,j=(iy*w+ix)*4,j1=ix<w-1?j+4:j,j2=iy<h-1?j+4*w:j,j3=j2+j1-j;
     const f=U-ix,g=V-iy,a0=(1-f)*(1-g),a1=f*(1-g),a2=(1-f)*g,a3=f*g;
-    if(im[j+3]*a0+im[j1+3]*a1+im[j2+3]*a2+im[j3+3]*a3<texture.alpha)continue;
+    const alpha=im[j+3]*a0+im[j1+3]*a1+im[j2+3]*a2+im[j3+3]*a3;
+    if(alpha<texture.alpha)continue;
+    const glow=texture.urban&&frame.night>.01?Math.max(0,(alpha-192)/63)*frame.night*frame.transmission:0;
     let wash=1;
     if(texture.plaster&&frame.night>.01){
      const horizontal=s/d*9,height=t/d*7;
      const pools=(1+Math.cos(horizontal*.29))*.5,above=Math.max(0,Math.min(1,height/13));
      wash=1+frame.night*(-.31+.29*(1-above)+.30*pools*(.35+.65*(1-above)));
     }
-    const r=(im[j]*a0+im[j1]*a1+im[j2]*a2+im[j3]*a3)*light[0]*wash+air[0];
-    const gg=(im[j+1]*a0+im[j1+1]*a1+im[j2+1]*a2+im[j3+1]*a3)*light[1]*wash+air[1];
-    const bl=(im[j+2]*a0+im[j1+2]*a1+im[j2+2]*a2+im[j3+2]*a3)*light[2]*wash+air[2];
+    const r=(im[j]*a0+im[j1]*a1+im[j2]*a2+im[j3]*a3)*light[0]*wash+air[0]+glow*118;
+    const gg=(im[j+1]*a0+im[j1+1]*a1+im[j2+1]*a2+im[j3+1]*a3)*light[1]*wash+air[1]+glow*88;
+    const bl=(im[j+2]*a0+im[j1+2]*a1+im[j2+2]*a2+im[j3+2]*a3)*light[2]*wash+air[2]+glow*48;
     pixels[k]=0xff000000|(byte(bl)<<16)|(byte(gg)<<8)|byte(r);depth[k]=d;
    }
   }

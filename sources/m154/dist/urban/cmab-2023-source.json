@@ -1,0 +1,28 @@
+{
+  "title": "国贸 2023 屋顶补充",
+  "authors": [
+    "Yecheng Zhang",
+    "Huimin Zhao",
+    "Ying Long"
+  ],
+  "dataset": "CMAB-The World’s First National-Scale Multi-Attribute Building Dataset, Figshare v7",
+  "doi": "https://doi.org/10.6084/m9.figshare.27992417.v7",
+  "source": "https://ndownloader.figshare.com/files/53666768",
+  "archive": "beijing.zip",
+  "archiveMD5": "35b084756364639871773be84cd00f1b",
+  "layer": "processed_beijing20230701_all",
+  "period": "2023，北京主城区分片名称标记 2023-07-01",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "bboxWgs84": [
+    116.44,
+    39.898,
+    116.477,
+    39.922
+  ],
+  "features": 329,
+  "geometry": "原始 EPSG:3857 屋顶多边形转换为 WGS84，再按项目米制投影作西移 4 m、北移 4 m 的图层级校正。简化容差 0.68 m；打包平面坐标保留至 0.1 m。数据内 sourceId 保留原始 merged_id。",
+  "filter": "边界内 1678 个候选；限制 4–38 m 预测高度及 50–4200 m² 屋顶面积。排除与现有 OSM 建筑及 4 m 缓冲、机动车道路面、水体或高层缓冲区冲突的对象。使用现有地图建筑筛选重叠，未引入其建筑轮廓。",
+  "height": "Height 为机器学习逐栋估计，自地面至楼顶。屋顶位置受影像视角和配准误差影响。立面、分层与屋面设施属于类型化示意，可能与后续建设有别。",
+  "visibleDefault": false
+}

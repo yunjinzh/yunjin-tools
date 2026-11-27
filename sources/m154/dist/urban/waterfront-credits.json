@@ -1,0 +1,99 @@
+{
+  "site": "什刹海前海南沿",
+  "anchorWGS84": [
+    116.387542,
+    39.934105
+  ],
+  "projection": "北京城市场景局部米制，东／上／南。",
+  "geometry": [
+    {
+      "data": "前海水域、岛屿、岸线",
+      "url": "https://www.openstreetmap.org/relation/11518929"
+    },
+    {
+      "data": "前海南沿街道",
+      "url": "https://www.openstreetmap.org/way/30833078"
+    },
+    {
+      "data": "岛内六边形建筑轮廓",
+      "url": "https://www.openstreetmap.org/way/584742867"
+    },
+    {
+      "data": "西岸荷花市场建筑轮廓",
+      "url": "https://www.openstreetmap.org/way/584742885"
+    }
+  ],
+  "geometryLicense": "© OpenStreetMap contributors，ODbL 1.0",
+  "geometryLicenseUrl": "https://www.openstreetmap.org/copyright",
+  "architecturalReference": [
+    {
+      "title": "什刹海风景区：湖岸垂柳和水中荷花",
+      "url": "https://www.visitbeijing.com.cn/article/48R3Dm8TNkc?device=amp"
+    },
+    {
+      "title": "西岸荷花市场一至两层仿古街廓与水侧木栈道",
+      "url": "https://english.visitbeijing.com.cn/article/47OLqmQeKYu"
+    },
+    {
+      "title": "临水步道石栏与柳枝影像比对",
+      "url": "https://www.thepaper.cn/newsDetail_forward_8338399"
+    }
+  ],
+  "reconstruction": "岸线、岛屿与建筑平面来自 OSM。柳树的株位、树高、石栏尺度、铺装、屋顶与颜色为参照图像构建的示意细节。树皮与叶片是通用植物扫描材质，不对应现场单株或测绘年份。",
+  "surfaceLicense": "CC0 1.0",
+  "surfaceLicenseUrl": "https://polyhaven.com/license",
+  "assets": [
+    {
+      "asset": "shrub_02",
+      "authors": {
+        "Rico Cilliers": "All"
+      },
+      "url": "https://polyhaven.com/a/shrub_02"
+    },
+    {
+      "asset": "tree_small_02",
+      "authors": {
+        "Rico Cilliers": "All"
+      },
+      "url": "https://polyhaven.com/a/tree_small_02"
+    },
+    {
+      "asset": "bark_willow",
+      "authors": {
+        "Dario Barresi": "Processing",
+        "Dimitrios Savva": "Photography"
+      },
+      "url": "https://polyhaven.com/a/bark_willow"
+    },
+    {
+      "asset": "chinese_hackberry_bark",
+      "authors": {
+        "Charlotte Baglioni": "All"
+      },
+      "url": "https://polyhaven.com/a/chinese_hackberry_bark"
+    },
+    {
+      "asset": "stone_brick_wall_001",
+      "authors": {
+        "Dimitrios Savva": "Photography",
+        "Rico Cilliers": "Processing"
+      },
+      "url": "https://polyhaven.com/a/stone_brick_wall_001"
+    },
+    {
+      "asset": "rectangular_paving",
+      "authors": {
+        "Dimitrios Savva": "All"
+      },
+      "url": "https://polyhaven.com/a/rectangular_paving"
+    },
+    {
+      "asset": "granite_tile",
+      "authors": {
+        "Charlotte Baglioni": "All"
+      },
+      "url": "https://polyhaven.com/a/granite_tile"
+    }
+  ],
+  "process": "从 Shrub 02 与 Tree Small 02 的公开叶片颜色／透明通道中分割单叶，重组柳叶与阔叶枝组。三维树木由本项目构建，八个远景树冠由离屏 Cycles 对本项目三维树木重新渲染。树皮与石材使用缩放、色调修正后的漫反射扫描贴图。瓦屋面沿用 heritage/precinct-grey-tile.webp，来源见 heritage/precinct-source.json。"
+}

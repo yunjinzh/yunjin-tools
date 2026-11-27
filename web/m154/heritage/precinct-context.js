@@ -1,5 +1,6 @@
 // Physically located setting for the central-axis landmarks. All coordinates are metres.
 import { ShapeUtils, Vector2 } from 'three';
+import {finishOuterCourt,finishSleeveWall,replacedGatePart,outerCourtStone,gateStoneSide} from './precinct-court.js';
 import { precinctData } from './precinct-data.js';
 import { PrecinctFinishes, finishPalaceFlanks } from './precinct-finishes.js';
 
@@ -100,6 +101,7 @@ function crown(b,outer,planes,h,finish){
 function volume(b,row,s,id){
   const [ref,shape,floor,h,rise,compass,across,finish,body,rings,treatment]=row;
   const annex=ref==='way/523763737'||ref==='way/523763738';
+  const detailStone=id==='palace'&&outerCourtStone(ref);
   const outer=rings[0],faces=triangles(rings),roof=roofTones[finish],wall=wallTones[body],base=h-rise;
   const center=outer.reduce(([x,z],p)=>[x+p[0]/outer.length,z+p[1]/outer.length],[0,0]);
   const near=Math.hypot(center[0],center[1])<(id==='palace'?275:240);
@@ -114,7 +116,8 @@ function volume(b,row,s,id){
       const ha=roofAt(a),hd=roofAt(d);
       if(Math.max(ha,hd)-floor>.01){
         const side=[xyz(a,floor),xyz(a,ha),xyz(d,hd),xyz(d,floor)];
-        if(near&&body==='red')s.masonry(side);else b.face(side,wall);
+        if(detailStone)gateStoneSide(b,s,a,d,ha,hd,shape==='skillion');
+        else if(near&&body==='red')s.masonry(side);else b.face(side,wall);
       }
       if(ri===0&&heroZone&&treatment==='timber'&&body!=='stone'&&floor<4&&(annex||Math.min(ha,hd)>5.4)){
         const spans=outer.map((p,i)=>Math.hypot(p[0]-outer[(i+1)%outer.length][0],p[1]-outer[(i+1)%outer.length][1]));
@@ -140,7 +143,10 @@ function volume(b,row,s,id){
       const fn=planes[n];let polygon=tri;
       for(let i=0;i<planes.length&&polygon.length>2;i++)if(i!==n)polygon=clip(polygon,p=>planes[i](p)-fn(p));
       if(polygon.length<3)continue;
-      if(near&&(finish==='gold'||finish==='grey')){
+      if(detailStone){
+        const points=(signedArea(polygon)>0?[...polygon].reverse():polygon);
+        s.face('stone',points.map(p=>xyz(p,height(fn(p)))),points.map(([x,z])=>[x/4.0,z/2.0]));
+      }else if(near&&(finish==='gold'||finish==='grey')){
         const points=(signedArea(polygon)>0?[...polygon].reverse():polygon).map(p=>xyz(p,height(fn(p))));
         s.roof(finish,points);
       }else surface(b,polygon,p=>height(fn(p)),roof,finish==='gold'?'glaze':'solid');
@@ -248,11 +254,13 @@ export function addPrecinctContext(b,id){
   const finishes=new PrecinctFinishes();
   if(id==='palace')finishPalaceFlanks(b,finishes);
   for(const row of data.volumes){
-    volume(b,row,finishes,id);
+    if(id!=='palace'||!replacedGatePart(row))volume(b,row,finishes,id);
+    if(id==='palace')finishSleeveWall(b,finishes,row);
     const [,shape,low,, , , , ,body,rings]=row;
     // Only full-height ground-contact walls obstruct walking. Terraces, bridges and stairs remain accessible.
     if(low===0&&rings.length===1&&body!=='stone'&&shape!=='skillion')b.footprints.push(rings[0]);
   }
+  if(id==='palace')finishOuterCourt(b,finishes);
   if(id!=='tiananmen'){finishes.finish(b);return;}
   const river=data.grounds.find(row=>row[1]==='river')[2],lawns=data.grounds.filter(row=>row[1]==='grass').map(row=>row[2]);
   gatePaving(b,finishes,river,lawns);

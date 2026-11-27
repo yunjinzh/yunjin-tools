@@ -1,3 +1,4 @@
+import {readCpuPack} from './urban/packed-cpu.js';
 import { createLandmark } from './landmarks.js';
 
 const cache = new Map();
@@ -17,7 +18,7 @@ function transform(matrix,x,y,z) {
 }
 class GeometryWriter {
   constructor() {
-    this.pos=[];this.index=[];this.colors=[];this.normals=[];
+    this.pos=[];this.index=[];this.colors=[];this.normals=[];this.emissive=[];this.hasEmissive=false;
     this.texFaces=[];this.uvs=[];this.bulbs=[];this.mapIds=[];this.textures=[];this.buckets=new Map();this.next=[];this.linePos=[];this.lineColors=[];
   }
   vertex(x,y,z) {
@@ -32,7 +33,7 @@ class GeometryWriter {
     const id=this.pos.length/3;this.pos.push(px,py,pz);
     this.next[id]=first;this.buckets.set(hash,id);return id;
   }
-  triangle(a,b,c,tint,texture=-1,uv=null) {
+  triangle(a,b,c,tint,texture=-1,uv=null,glow=0) {
     if(a===b||a===c||b===c)return;
     const p=this.pos,i=a*3,j=b*3,k=c*3;
     const ux=p[j]-p[i],uy=p[j+1]-p[i+1],uz=p[j+2]-p[i+2];
@@ -42,10 +43,11 @@ class GeometryWriter {
     this.texFaces.push(texture<0?0:this.mapIds.length+1);
     if(texture>=0){this.mapIds.push(texture);this.uvs.push(...uv);}
     this.index.push(a,b,c);this.colors.push(tint[0],tint[1],tint[2]);
+    this.emissive.push(Math.round(255*glow));if(glow>0)this.hasEmissive=true;
     this.normals.push(Math.round(127*nx/len),Math.round(127*ny/len),Math.round(127*nz/len));
   }
   finish() {
-    return {bulbs:new Float32Array(this.bulbs),texFaces:this.uvs.length?new Uint32Array(this.texFaces):null,uvs:new Float32Array(this.uvs),mapIds:new Uint16Array(this.mapIds),textures:this.textures,pos:new Float32Array(this.pos),index:new Uint32Array(this.index),colors:new Uint8Array(this.colors),
+    return {emissive:this.hasEmissive?new Uint8Array(this.emissive):null,bulbs:new Float32Array(this.bulbs),texFaces:this.uvs.length?new Uint32Array(this.texFaces):null,uvs:new Float32Array(this.uvs),mapIds:new Uint16Array(this.mapIds),textures:this.textures,pos:new Float32Array(this.pos),index:new Uint32Array(this.index),colors:new Uint8Array(this.colors),
       normals:new Int8Array(this.normals),linePos:new Float32Array(this.linePos),lineColors:new Uint8Array(this.lineColors)};
   }
 }
@@ -55,7 +57,7 @@ function readTint(mat,attr,i) {
   return swatch(c.r*attr.getX(i),c.g*attr.getY(i),c.b*attr.getZ(i));
 }
 function appendSolid(out,mesh,maps) {
-  const geo=mesh.geometry,attr=geo.getAttribute('position'),rgb=geo.getAttribute('color'),uv=geo.getAttribute('uv');
+  const geo=mesh.geometry,attr=geo.getAttribute('position'),rgb=geo.getAttribute('color'),uv=geo.getAttribute('uv'),glow=geo.getAttribute('cbdGlow');
   const remap=new Uint32Array(attr.count);
   for(let i=0;i<attr.count;i++)remap[i]=out.vertex(...transform(mesh.matrixWorld,attr.getX(i),attr.getY(i),attr.getZ(i)));
   const order=geo.index?.array, length=order?.length??attr.count;
@@ -67,7 +69,7 @@ function appendSolid(out,mesh,maps) {
     function coords(i){const u=uv.getX(i),v=uv.getY(i);return [matrix[0]*u+matrix[3]*v+matrix[6],matrix[1]*u+matrix[4]*v+matrix[7]];}
     for(let i=group.start;i+2<Math.min(group.start+group.count,length);i+=3){
       const a=order?order[i]:i,b=order?order[i+1]:i+1,c=order?order[i+2]:i+2;
-      out.triangle(remap[a],remap[b],remap[c],readTint(mat,rgb,a),uv?id:-1,uv&&id>=0?[...coords(a),...coords(b),...coords(c)]:null);
+      out.triangle(remap[a],remap[b],remap[c],readTint(mat,rgb,a),uv?id:-1,uv&&id>=0?[...coords(a),...coords(b),...coords(c)]:null,glow?glow.getX(a):0);
     }
   }
 }
@@ -97,7 +99,7 @@ async function mipLevels(map,url){
   })().catch(()=>null));
   return imageCache.get(key);
 }
-async function convert(id) {
+export async function sourceCpuLandmark(id) {
   const model=createLandmark(id);model.updateMatrixWorld(true);
   const out=new GeometryWriter(),meshes=[],maps=new Map(),tasks=[];
   model.traverse(mesh=>{
@@ -126,6 +128,11 @@ async function convert(id) {
 /** WGS84 landmark-local metres, with yaw baked in; XYZ and sRGB/normals are tightly packed triples.
  * linePos contains two XYZs per segment; lineColors has one sRGB triple per segment. */
 export function loadCpuLandmark(id) {
-  if(!cache.has(id))cache.set(id,Promise.resolve().then(()=>convert(id)).catch(error=>{cache.delete(id);throw error;}));
+  if(!cache.has(id)){
+    const asset=id==='zun'||id==='cctv'
+      ?readCpuPack(id).then(models=>models[0]).catch(()=>sourceCpuLandmark(id))
+      :sourceCpuLandmark(id);
+    cache.set(id,asset.catch(error=>{cache.delete(id);throw error;}));
+  }
   return cache.get(id);
 }

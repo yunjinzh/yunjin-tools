@@ -1,3 +1,4 @@
+import {locate,triangleElevation} from './terrain.js';
 const DEM = new URL('./terrain-data/', import.meta.url);
 const IMAGERY = new URL('./imagery/', import.meta.url);
 const DEG = Math.PI / 180;
@@ -128,9 +129,8 @@ export async function loadCpuRelief(project) {
   meshes.groundAt=(x,z)=>{
     if(x>=nw.x&&x<=se.x&&z>=nw.z&&z<=se.z)return 0;
     if(x<xs[0]||x>xs.at(-1)||z<zs[0]||z>zs.at(-1))return 0;
-    const i=Math.max(0,Math.min(xs.length-2,xs.findIndex(t=>t>x)-1)),j=Math.max(0,Math.min(zs.length-2,zs.findIndex(t=>t>z)-1));
-    const u=(x-xs[i])/(xs[i+1]-xs[i]),v=(z-zs[j])/(zs[j+1]-zs[j]),a=i+j*ix.length;
-    return (H[a]*(1-u)+H[a+1]*u)*(1-v)+(H[a+ix.length]*(1-u)+H[a+ix.length+1]*u)*v;
+    const [i,u]=locate(xs,x),[j,v]=locate(zs,z);
+    return triangleElevation(H,i+j*ix.length,ix.length,u,v);
   };
   return meshes;
 }

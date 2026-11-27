@@ -117,13 +117,18 @@ function buildPatches(xs, zs, heights, group, material) {
   }
 }
 
-function locate(axis, coordinate) {
+export function locate(axis, coordinate) {
   let left=0, right=axis.length-1;
   while(right-left>1) {
     const mid=(left+right)>>1;
     if(axis[mid]<=coordinate) left=mid; else right=mid;
   }
   return [left,clamp((coordinate-axis[left])/(axis[right]-axis[left]))];
+}
+
+export function triangleElevation(h,q,stride,u,v){
+  return u+v<=1?h[q]*(1-u-v)+h[q+1]*u+h[q+stride]*v:
+    h[q+stride+1]*(u+v-1)+h[q+1]*(1-v)+h[q+stride]*(1-u);
 }
 
 /** SRTM elevations in a local metre frame, X east and Z south. */
@@ -176,8 +181,7 @@ export async function createTerrain({scene,project}) {
       if(x>=a.x&&x<=b.x&&z>=a.z&&z<=b.z) return 0;
       const [i,fx]=locate(xs,x),[j,fz]=locate(zs,z);
       const q=j*cols+i;
-      return THREE.MathUtils.lerp(THREE.MathUtils.lerp(heights[q],heights[q+1],fx),
-        THREE.MathUtils.lerp(heights[q+cols],heights[q+cols+1],fx),fz);
+      return triangleElevation(heights,q,cols,fx,fz);
     },
     dispose() {
       group.removeFromParent();
