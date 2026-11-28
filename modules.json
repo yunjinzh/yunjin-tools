@@ -2304,5 +2304,21 @@
     "migration": "web",
     "web": "web/m154",
     "entry": "index.html"
+  },
+  {
+    "id": "m155",
+    "name": "墨页 · Markdown 编辑器",
+    "description": "可在电脑和手机上使用的 Markdown 编辑器，支持实时预览、本机草稿和 .md 文件导入导出。",
+    "category": "效率与管理",
+    "original_url": "https://moye-markdown-yunjin.yunjinzh.chatgpt.site",
+    "original_status": "原站已保存发布版本；按同步检查范围验证",
+    "source": "sources/m155",
+    "source_project": "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346",
+    "source_version": 1,
+    "source_commit": "c69f32ff726791632df47229d96f59ea5be4d58f",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m155",
+    "entry": "index.html"
   }
 ]
