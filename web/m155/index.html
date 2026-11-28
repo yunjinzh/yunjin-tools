@@ -841,7 +841,7 @@ if(__exports != exports)module.exports = exports;return module.exports}));
         persistedRevision=null;
         rememberActive(); updateHeading(); drawList(); notify('已将本页修改保留为独立副本');
       }
-      const revision=uid(), record={...active,revision};
+      const revision=uid(), record={...active,revision,baseRevision:persistedRevision};
       localStorage.setItem(prefix+active.id, JSON.stringify(record));
       active.revision=revision; persistedRevision=revision; diskAvailable=true; dirty=false;
       status('已存至本机'); updateTime();
@@ -943,16 +943,39 @@ if(__exports != exports)module.exports = exports;return module.exports}));
     const eventKey=modulePrefix?(e.key?.startsWith(modulePrefix)?e.key.slice(modulePrefix.length):null):e.key;
     if(!eventKey?.startsWith(prefix)) return;
     const id=eventKey.slice(prefix.length);
+    // localStorage read/check/write is not atomic. Preserve the exact overwritten
+    // revision when a competing write was based on an older revision.
+    let recovered=null;
+    try {
+      const before=e.oldValue?JSON.parse(e.oldValue):null;
+      const after=e.newValue?JSON.parse(e.newValue):null;
+      if(valid(before)&&valid(after)&&typeof before.revision==='string'&&
+          Object.hasOwn(after,'baseRevision')&&after.baseRevision!==before.revision&&
+          (after.body!==before.body||after.name!==before.name)) {
+        const copyId='conflict-'+before.revision;
+        const existing=localStorage.getItem(prefix+copyId);
+        recovered=existing?JSON.parse(existing):{...before,id:copyId,name:before.name+'（并发副本）',baseRevision:null};
+        if(valid(recovered)) {
+          records.set(copyId,recovered);
+          if(!existing) {
+            try {localStorage.setItem(prefix+copyId,JSON.stringify(recovered));}
+            catch {recovered.pending=true;recovered.savedRevision=null;}
+          }
+          notify(recovered.pending?'并发副本尚未保存，请下载':'已将并发修改保留为独立副本');
+        }
+      }
+    } catch {}
     if(id===active.id && dirty){save();return;}
     let record=null;
-    try{if(e.newValue) record=JSON.parse(e.newValue);}catch{return;}
+    // A queued event can describe an older write; display the current record.
+    try{const raw=localStorage.getItem(prefix+id);if(raw)record=JSON.parse(raw);}catch{return;}
     if(valid(record)) {
       records.set(id,record);
       if(id===active.id) {
         const pos=source.selectionStart,scroll=source.scrollTop;
-        select(record); source.setSelectionRange(pos,pos); source.scrollTop=scroll;
+        select(recovered&&active.revision===recovered.revision?recovered:record); source.setSelectionRange(pos,pos); source.scrollTop=scroll;
       } else drawList();
-    } else if(!e.newValue) {
+    } else if(!record) {
       records.delete(id);
       if(id!==active.id) drawList();
       else if(records.size) select(records.values().next().value);

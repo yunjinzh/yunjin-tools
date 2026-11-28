@@ -136,10 +136,22 @@ try {
   await page.locator('#source').fill(shared);
   await saved(page);
   await expect(second.locator('#source')).toHaveValue(shared);
-  const edits = ['# 同时修改 A\n\n保留第一页内容', '# 同时修改 B\n\n保留第二页内容'];
-  await Promise.all([page.locator('#source').fill(edits[0]), second.locator('#source').fill(edits[1])]);
-  await Promise.all([saved(page), saved(second)]);
-  await expect.poll(() => page.evaluate(() => Array.from({ length: localStorage.length }, (_, i) => localStorage.key(i)).filter(k => k.startsWith('moye.markdown.v1.doc.')).map(k => JSON.parse(localStorage.getItem(k)).body))).toEqual(expect.arrayContaining(edits));
+  for (let round = 0; round < 3; round++) {
+    await Promise.all([page, second].map(p => p.locator('#docList .doc-pick[title="同步验收.md"]').click()));
+    const baseline = '# 并发基线 ' + round;
+    await page.locator('#source').fill(baseline);
+    await saved(page);
+    await expect(second.locator('#source')).toHaveValue(baseline);
+    const edits = [`# 同时修改 A ${round}\n\n保留第一页内容`, `# 同时修改 B ${round}\n\n保留第二页内容`];
+    await Promise.all([page, second].map(p => p.evaluate(() => {
+      document.querySelector('#source').addEventListener('input', () => { window.__moyeInputTime = Date.now(); }, { once: true });
+    })));
+    await Promise.all([page.locator('#source').fill(edits[0]), second.locator('#source').fill(edits[1])]);
+    const times = await Promise.all([page, second].map(p => p.evaluate(() => window.__moyeInputTime)));
+    expect(Math.abs(times[0] - times[1]), 'Both edits must precede the 280ms autosave delay').toBeLessThan(200);
+    await Promise.all([saved(page), saved(second)]);
+    await expect.poll(() => page.evaluate(() => Array.from({ length: localStorage.length }, (_, i) => localStorage.key(i)).filter(k => k.startsWith('moye.markdown.v1.doc.')).map(k => JSON.parse(localStorage.getItem(k)).body))).toEqual(expect.arrayContaining(edits));
+  }
   await second.close();
   await checkpoint('Native cross-tab refresh and concurrent edits preserve both drafts');
 
