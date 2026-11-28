@@ -130,20 +130,447 @@
   .source-wrap.has-source-paint #source::selection { color: HighlightText; background: Highlight; }
 }
 </style>
+<style>
+/* Article typography remains independent of the editing interface. */
+#preview[data-style] {
+  --typeface: var(--serif);
+  --reading-size: 1rem;
+  --reading-leading: 1.85;
+  --accent: var(--article-accent, #36563f);
+  --tint: color-mix(in srgb, var(--accent) 8%, var(--sheet, #fffef9));
+  --rule: color-mix(in srgb, var(--accent) 25%, var(--sheet, #fffef9));
+  --accent-text: color-mix(in srgb, var(--accent) 82%, #24251f);
+  font-family: var(--article-font, var(--typeface));
+  font-size: var(--article-size, var(--reading-size));
+  line-height: var(--article-leading, var(--reading-leading));
+}
+#preview[data-style] :is(h1,h2,h3,h4,h5,h6) {
+  font-family: var(--article-font, var(--typeface));
+  text-wrap: pretty;
+}
+#preview[data-style] a { color: var(--accent-text); text-underline-offset: .18em; }
+#preview[data-style] input[type=checkbox] { accent-color: var(--accent); }
+#preview[data-style] li::marker { color: var(--accent-text); }
+#preview[data-style=ink] :is(h1,h2,h3,strong) { color: var(--accent-text); }
+#preview[data-style=ink] blockquote { border-left-color: color-mix(in srgb, var(--accent) 65%, #d5decc); background: var(--tint); }
+#preview[data-style=ink] th { background: var(--tint); }
+#preview[data-style]:where(:not([data-style=ink])) {
+  color: var(--body-ink);
+  background-color: var(--sheet);
+  min-height: 100%;
+}
+#preview[data-style]:where(:not([data-style=ink])) :is(h1,h2,h3,h4,h5,h6),
+#preview[data-style]:where(:not([data-style=ink])) strong { color: var(--heading-ink); }
+#preview[data-style]:where(:not([data-style=ink])) h1 { font-size: 1.95em; line-height: 1.36; }
+#preview[data-style]:where(:not([data-style=ink])) h2 { margin-top: 1.35em; }
+#preview[data-style]:where(:not([data-style=ink])) h3 { line-height: 1.5; color: var(--accent-text); }
+#preview[data-style]:where(:not([data-style=ink])) p { margin: .7em 0 .95em; }
+#preview[data-style]:where(:not([data-style=ink])) blockquote {
+  color: var(--body-ink); background: var(--tint); border-color: var(--accent);
+}
+#preview[data-style]:where(:not([data-style=ink])) blockquote > :first-child { margin-top: 0; }
+#preview[data-style]:where(:not([data-style=ink])) blockquote > :last-child { margin-bottom: 0; }
+#preview[data-style]:where(:not([data-style=ink])) th { background: var(--tint); color: var(--heading-ink); }
+#preview[data-style]:where(:not([data-style=ink])) :is(th,td) { border-color: var(--rule); }
+#preview[data-style]:where(:not([data-style=ink])) code { color: var(--accent-text); background: var(--tint); }
+#preview[data-style]:where(:not([data-style=ink])) pre { color: var(--block-ink); background: var(--block-bg); border-color: var(--rule); }
+#preview[data-style]:where(:not([data-style=ink])) pre code { color: inherit; background: transparent; }
+#preview[data-style]:where(:not([data-style=ink])) hr { border-color: var(--rule); }
+#preview[data-style] > :first-child { margin-top: 0; }
+
+/* Handwritten field journal: double rules and generous manuscript leading. */
+#preview[data-style=journal] {
+  --sheet: #fbf7ed; --body-ink: #423a30; --heading-ink: #393126;
+  --block-bg: #f0eadd; --block-ink: #4a4035; --reading-leading: 1.95;
+}
+#preview[data-style=journal] h1 {
+  letter-spacing: .075em; border-bottom: 3px double var(--accent);
+  padding-bottom: .27em; font-weight: 650;
+}
+#preview[data-style=journal] h2 {
+  font-size: 1.3em; border: 0; border-inline-start: 3px solid var(--accent);
+  padding: 0 0 0 .52em; letter-spacing: .055em;
+}
+#preview[data-style=journal] h3 { letter-spacing: .09em; font-weight: 600; }
+#preview[data-style=journal] blockquote {
+  border: 0; border-inline-start: 4px double var(--accent); border-radius: 0; padding: .65em 1em;
+}
+#preview[data-style=journal] ul { list-style-type: circle; }
+#preview[data-style=journal] :is(th,td) { border-inline: 0; }
+#preview[data-style=journal] pre { border-radius: 2px; border-style: dashed; }
+#preview[data-style=journal] hr { border-top: 3px double var(--rule); }
+
+/* Swiss typographic grid: strong horizontal anchors, flush-left sans, sharp edges. */
+#preview[data-style=swiss] {
+  --typeface: var(--sans); --sheet: #f5f4f0; --body-ink: #292a29; --heading-ink: #191b1a;
+  --block-bg: #242725; --block-ink: #f4f4eb; --reading-leading: 1.72;
+}
+#preview[data-style=swiss] h1 {
+  border-top: .15em solid var(--heading-ink); padding-top: .22em;
+  letter-spacing: -.045em; font-weight: 800;
+}
+#preview[data-style=swiss] h2 {
+  border: 0; border-top: 2px solid var(--accent);
+  padding: .27em 0 0; letter-spacing: -.025em; font-weight: 800;
+}
+#preview[data-style=swiss] h3 { border-inline-start: .38em solid var(--accent); padding-left: .48em; }
+#preview[data-style=swiss] blockquote {
+  border-left: 5px solid var(--accent); border-radius: 0; font-weight: 550;
+  margin-inline: 0; padding: .65em .9em;
+}
+#preview[data-style=swiss] ul { list-style-type: square; }
+#preview[data-style=swiss] :is(code,pre) { border-radius: 0; }
+#preview[data-style=swiss] th { background: var(--heading-ink); color: #f7f6f3; }
+#preview[data-style=swiss] hr { border-top: 2px solid var(--heading-ink); }
+
+/* Engineering report: inset grid masthead, ruled sections, dark technical listings. */
+#preview[data-style=blueprint] {
+  --typeface: var(--sans); --sheet: #f2f7fb; --body-ink: #303f4c; --heading-ink: #19364c;
+  --block-bg: #193448; --block-ink: #e7f3fb; --reading-leading: 1.8;
+}
+#preview[data-style=blueprint] h1 {
+  padding: .35em .45em; border-inline-start: .13em solid var(--accent);
+  background-color: var(--tint);
+  background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 18px 18px; letter-spacing: .02em;
+}
+#preview[data-style=blueprint] h2 {
+  padding-bottom: .28em; border-bottom: 1px dashed var(--accent); letter-spacing: .035em;
+}
+#preview[data-style=blueprint] h3 { padding-inline-start: .58em; border-inline-start: 3px solid var(--accent); }
+#preview[data-style=blueprint] blockquote {
+  border: 1px solid var(--rule); border-inline-start: 4px solid var(--accent);
+  border-radius: 2px; padding: .6em .9em;
+}
+#preview[data-style=blueprint] ul { list-style-type: square; }
+#preview[data-style=blueprint] pre { border: 0; border-inline-start: 4px solid var(--accent); border-radius: 3px; }
+#preview[data-style=blueprint] :is(th,td) { font-variant-numeric: tabular-nums; }
+#preview[data-style=blueprint] tbody tr:nth-child(even) { background: var(--tint); }
+#preview[data-style=blueprint] hr { border-style: dashed none none; }
+
+/* Cultural magazine: centered display heading and full-width pull quotes. */
+#preview[data-style=magazine] {
+  --sheet: #fcf6f5; --body-ink: #493c42; --heading-ink: #422a36;
+  --block-bg: #efe5e8; --block-ink: #4a3843; --reading-leading: 1.92;
+}
+#preview[data-style=magazine] h1 {
+  text-align: center; letter-spacing: .095em; font-weight: 600;
+  border-bottom: 1px solid var(--accent); padding: .12em 0 .46em;
+}
+#preview[data-style=magazine] h2 {
+  color: var(--accent-text); margin-inline: auto; text-align: center;
+  border: 0; padding: .35em 0 .2em; letter-spacing: .1em; font-weight: 600;
+}
+#preview[data-style=magazine] h3 { font-style: italic; font-weight: 600; letter-spacing: .05em; }
+#preview[data-style=magazine] blockquote {
+  background: transparent; border: 0; border-block: 1px solid var(--rule);
+  border-radius: 0; padding: .85em .75em; text-align: center; color: var(--accent-text);
+}
+#preview[data-style=magazine] :is(th,td) { border-inline: 0; }
+#preview[data-style=magazine] pre { border: 0; border-block: 1px solid var(--rule); border-radius: 0; }
+#preview[data-style=magazine] hr { max-width: 22%; margin: 1.6em auto; border-color: var(--accent); }
+
+/* General publishing: solid section tabs and airy, readable mobile paragraphs. */
+#preview[data-style=wechat] {
+  --typeface: var(--sans); --sheet: #fcfdfb; --body-ink: #353e39; --heading-ink: #243a31;
+  --block-bg: #edf3f0; --block-ink: #264537; --reading-leading: 1.88;
+}
+#preview[data-style=wechat] h1 { font-weight: 750; letter-spacing: .015em; padding-bottom: .12em; }
+#preview[data-style=wechat] h2 {
+  width: fit-content; max-width: 100%; color: #fff;
+  background: var(--accent-text); border: 0; border-radius: 3px;
+  padding: .19em .57em .21em; font-size: 1.2em; letter-spacing: .02em;
+}
+#preview[data-style=wechat] h3 { padding-left: .55em; border-left: .22em solid var(--accent); }
+#preview[data-style=wechat] blockquote { padding: .72em 1em; border-radius: 0 8px 8px 0; }
+#preview[data-style=wechat] strong { color: var(--accent-text); }
+#preview[data-style=wechat] pre { border-radius: 7px; }
+#preview[data-style=wechat] hr { width: 45%; margin: 1.5em auto; }
+#preview[data-style] > :is(h1,h2,h3,h4,h5,h6):first-child { margin-top: 0; }
+@media (min-width: 1550px) {
+  #preview[data-style] { --reading-size: 1.0625rem; }
+}
+
+/* A single settings panel moves between the desktop rail and the mobile sheet. */
+.side-tabs {
+  display:flex; gap:3px; padding:3px; margin:19px 15px 0; flex:none;
+  border:1px solid #d5dbcc; background:#e9ede1; border-radius:8px;
+}
+.side-tabs button {
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px; min-height:31px;
+  border:1px solid transparent; background:none; border-radius:5px; color:#52644e; font-size:14px;
+}
+.side-tabs .icon { width:15px; height:15px; }
+.side-tabs button[aria-selected=true] {
+  color:#2e4d35; background:#fbfcf6; border-color:#d4dbcb; box-shadow:0 1px 3px #23352112; font-weight:650;
+}
+#stylePanel { min-width:0; }
+#stylePanel fieldset { min-width:0; border:0; margin:0; padding:0; }
+#stylePanel legend { margin-bottom:11px; padding:0; font-size:14px; font-weight:650; letter-spacing:.025em; color:#354632; }
+.preset-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.style-tile {
+  appearance:none; min-width:0; display:flex; flex-direction:column; align-items:stretch; position:relative;
+  padding:3px; border-radius:7px; border:1px solid #d4d9ca; background:#fbfcf6; text-align:start;
+}
+.style-tile:hover { border-color:#93a18a; }
+.style-tile[aria-pressed=true] { border-color:#496a4c; box-shadow:0 0 0 1px #496a4c; }
+.style-tile[aria-pressed=true]::after {
+  content:""; position:absolute; top:6px; right:6px; height:14px; width:14px;
+  border-radius:50%; box-shadow:0 0 0 1px #fff9; background:#36563f;
+}
+.style-tile[aria-pressed=true]::before {
+  content:""; z-index:1; position:absolute; top:10px; right:9px; width:6px; height:3px; border:solid #fff;
+  border-width:0 0 1.5px 1.5px; transform:rotate(-45deg);
+}
+.tile-name { padding:4px 3px 2px; text-align:center; font-size:13px; color:#42523e; font-weight:550; }
+.style-tile[aria-pressed=true] .tile-name { color:#294b30; font-weight:700; }
+#stylePanel .tune-field { margin-top:20px; }
+.tune-field legend { width:100%; padding-top:15px!important; border-top:1px solid #d6ddce; }
+.color-row { display:flex; align-items:center; justify-content:space-between; gap:4px; font-size:13px; color:#4a5846; }
+#accentName { font-size:12px; color:#65725f; }
+.accent-choices { display:flex; gap:5px; flex-wrap:wrap; margin:4px 0 12px; }
+.accent-choices button { width:28px; height:30px; padding:0; display:grid; place-items:center; border:0; background:none; border-radius:4px; }
+.color-chip { display:grid; place-items:center; width:21px; height:21px; border-radius:50%; background:var(--chip); }
+.accent-choices button[aria-pressed=true] .color-chip { outline:1px solid var(--chip); outline-offset:2px; }
+.accent-choices button[aria-pressed=true] .color-chip::after { content:""; height:4px; width:8px; border:solid #fff; border-width:0 0 1.5px 1.5px; transform:rotate(-45deg) translateY(-1px); }
+.select-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+.select-grid label { min-width:0; display:flex; flex-direction:column; gap:4px; color:#4a5846; font-size:13px; }
+.font-field { grid-column:1 / -1; }
+.select-grid select {
+  appearance:none; width:100%; font:inherit; font-size:14px; color:#344831; background-color:#fcfcf7;
+  border:1px solid #cdd5c5; border-radius:5px; min-height:33px; padding:3px 24px 3px 9px; cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='m3 5 4 4 4-4' fill='none' stroke='%23546751' stroke-linecap='round' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-size:13px; background-position:right 7px center;
+}
+.reset-style { margin:11px 0 0; background:none; border:0; padding:4px 0; color:var(--green); font-size:13px; text-decoration:underline; text-underline-offset:3px; }
+.select-grid select:focus-visible { outline:2px solid #a85436; outline-offset:2px; }
+.pane-heading .preview-actions { gap:8px; }
+.preview-actions button { min-height:29px; border:1px solid transparent; background:transparent; color:#475d43; display:flex; align-items:center; justify-content:center; gap:5px; font-size:13px; border-radius:5px; padding:2px 6px; }
+.preview-actions button:hover { background:#eaf0e3; }
+.preview-actions .active-style { padding-left:7px; color:#485542; }
+.active-style i { display:inline-block; width:8px; height:8px; background:var(--swatch,#36563f); border-radius:50%; }
+.active-style .icon { width:11px; }
+.preview-actions .copy-styled { border-color:#cbd4c2; background:#f8faf3; font-weight:550; }
+.preview-actions .copy-styled .icon { width:14px; }
+.mobile-style { display:none; }
+.style-sheet {
+  top:auto; bottom:0; left:0; right:0; width:min(100%,540px); max-width:100%; margin:0 auto;
+  padding:0; border:1px solid #c9d2c0; border-bottom:0; border-radius:15px 15px 0 0;
+  background:#f5f6ee; color:var(--ink); box-shadow:0 -6px 32px #23352b2b;
+}
+.style-sheet[open] { display:flex; flex-direction:column; max-height:min(65dvh,585px); }
+.style-sheet::backdrop { background:#24322930; }
+.sheet-head { flex:none; display:flex; align-items:center; gap:10px; justify-content:space-between; padding:9px 17px; border-bottom:1px solid var(--hair); }
+.sheet-head h2 { margin:0; font:650 18px var(--serif); }
+.sheet-head button { background:var(--green); color:#fff; border:0; border-radius:6px; padding:6px 14px; font-size:14px; min-height:34px; }
+#sheetDock { overflow:auto; overscroll-behavior:contain; padding:14px 17px max(16px, env(safe-area-inset-bottom)); }
+#sheetDock .preset-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+#sheetDock .font-field { grid-column:auto; }
+#sheetDock .select-grid { grid-template-columns:1.12fr 1fr 1fr; }
+#sheetDock .accent-choices { gap:10px; }
+#sheetDock .accent-choices button { width:34px; height:34px; }
+@media (min-width:900px) {
+ .app-layout>aside { width:218px; }
+ .side-scroll { padding:18px 15px 14px; }
+ .side-foot { padding-bottom:14px; }
+}
+@media (min-width:1151px) { .app-layout>aside { width:242px; } .side-scroll { padding:20px 17px 14px; } }
+@media (min-width:1550px) { .app-layout>aside { width:258px; } }
+@media (max-width:899px) { .side-tabs { display:none; } .mobile-style { display:inline-flex; } }
+@media (max-width:600px) {
+ .pane-heading .preview-actions { gap:4px; }
+ .preview-actions button { min-height:30px; }
+ .top-actions .btn { gap:5px; }
+}
+@media (max-width:359px) {
+ .topbar{ padding:0 8px; }
+ .top-actions {gap:4px;}
+ .top-actions .btn {padding-inline:7px;}
+ .mobile-style .icon{display:none}
+ #sheetDock {padding-inline:12px}
+}
+
+/* Each cover is a small type specimen. Its contents stay decorative to assistive technology. */
+.style-tile .style-cover {
+  --cover-ink: #344b38;
+  --cover-paper: #f0f3e6;
+  --cover-rule: #a0ad94;
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3px;
+  width: 100%;
+  min-width: 0;
+  height: 51px;
+  padding: 4px 10px;
+  overflow: hidden;
+  text-align: left;
+  color: var(--cover-ink);
+  background: var(--cover-paper);
+}
+.style-cover b {
+  display: block;
+  position: relative;
+  flex: none;
+  margin: 0 0 2px;
+  font: 700 13px/1.15 var(--serif, serif);
+  letter-spacing: .055em;
+  white-space: nowrap;
+}
+.style-cover i {
+  display: block;
+  flex: none;
+  height: 1px;
+  width: 76%;
+  background: var(--cover-rule);
+}
+.style-cover i:nth-of-type(2) { width: 62%; }
+.style-cover i:nth-of-type(3) { width: 43%; }
+
+.style-tile[data-preset="ink"] .style-cover {
+  background: linear-gradient(120deg, #f5f5e9 24%, #e2e9d6);
+}
+.style-tile[data-preset="ink"] .style-cover::before,
+.style-tile[data-preset="ink"] .style-cover::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -3px;
+  bottom: -1px;
+  width: 56%;
+  height: 59%;
+  background: #bdcbb3;
+  clip-path: polygon(0 100%, 23% 70%, 38% 77%, 67% 34%, 79% 45%, 100% 11%, 100% 100%);
+}
+.style-tile[data-preset="ink"] .style-cover::after {
+  width: 39%;
+  height: 42%;
+  background: #9dad94;
+}
+.style-tile[data-preset="ink"] .style-cover i { max-width: 59%; }
+
+.style-tile[data-preset="journal"] .style-cover {
+  --cover-ink: #69482d;
+  --cover-rule: #c0a98d;
+  padding-left: 14px;
+  background:
+    linear-gradient(90deg, transparent 7px, #d4ac91 7px 8px, transparent 8px),
+    repeating-linear-gradient(0deg, transparent 0 7px, #c2b29a40 7px 8px),
+    #f7efe2;
+}
+.style-tile[data-preset="journal"] .style-cover b {
+  margin-bottom: 1px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #986a49;
+  letter-spacing: .13em;
+}
+
+.style-tile[data-preset="swiss"] .style-cover {
+  --cover-ink: #282927;
+  --cover-rule: #91938e;
+  background: #f2f1eb;
+  padding-left: 12px;
+  border-left: 4px solid #aa3a2d;
+}
+.style-tile[data-preset="swiss"] .style-cover b {
+  font: 800 14px/1.1 var(--sans, sans-serif);
+  letter-spacing: -.04em;
+}
+.style-tile[data-preset="swiss"] .style-cover i:first-of-type {
+  width: 90%;
+  height: 2px;
+  background: #323431;
+}
+
+.style-tile[data-preset="blueprint"] .style-cover {
+  --cover-ink: #204e70;
+  --cover-rule: #8daab9;
+  background-color: #e8f0f2;
+  background-image:
+    linear-gradient(90deg, #447d9c16 1px, transparent 1px),
+    linear-gradient(#447d9c16 1px, transparent 1px);
+  background-size: 7px 7px;
+}
+.style-tile[data-preset="blueprint"] .style-cover b {
+  padding-left: 5px;
+  border-left: 2px solid #326a8e;
+  font-family: var(--sans, sans-serif);
+  font-size: 12px;
+  letter-spacing: .07em;
+}
+.style-tile[data-preset="blueprint"] .style-cover i { margin-left: 7px; }
+.style-tile[data-preset="blueprint"] .style-cover i:nth-of-type(2) { margin-left: 11px; }
+
+.style-tile[data-preset="magazine"] .style-cover {
+  --cover-ink: #743e54;
+  --cover-rule: #c4a6ad;
+  align-items: center;
+  background: #f5e9e9;
+}
+.style-tile[data-preset="magazine"] .style-cover b {
+  margin: 0 0 1px;
+  font-size: 14px;
+  letter-spacing: .08em;
+}
+.style-tile[data-preset="magazine"] .style-cover i:first-of-type {
+  width: 15px;
+  margin-bottom: 2px;
+  background: #914b65;
+}
+
+.style-tile[data-preset="wechat"] .style-cover {
+  --cover-rule: #99b7a9;
+  background: #edf4ed;
+}
+.style-tile[data-preset="wechat"] .style-cover b {
+  padding: 2px 5px;
+  background: #23674f;
+  color: #fffefa;
+  font: 650 11px/1.25 var(--sans, sans-serif);
+  letter-spacing: .06em;
+}
+</style>
 </head>
 <body>
-<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true"><defs><symbol id="ic-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V6c0-1 .7-2 2-2h5l2.5 3H19c1.3 0 2 .8 2 2v1"/><path d="M5 19h13l3-9H7l-3 8c-.2.6.2 1 1 1Z"/></symbol><symbol id="ic-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4.3-4.5L12 15l4.3-4.5M4 16v3c0 1 .8 2 2 2h12c1.2 0 2-1 2-2v-3"/></symbol><symbol id="ic-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h4v16H3zm6 0h4v16H9zm6 2 4-1 3.5 14-4 1z"/></symbol><symbol id="ic-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></symbol><symbol id="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m6 6 12 12M18 6 6 18"/></symbol><symbol id="ic-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h12M5 12h15M5 19h10"/></symbol><symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h13c1 0 2 .8 2 2v14H7c-2 0-3-1-3-3V6c0-1 .5-2 1-2Z"/><path d="M4 17c0-1 .8-2 3-2h13M8 8h8"/></symbol><symbol id="ic-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5c4-1 7 0 9 2 2-2 5-3 9-2v14c-4-1-6 0-9 2-3-2-5-3-9-2zM12 7v14"/></symbol><symbol id="ic-panel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></symbol><symbol id="ic-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v13c0 .7-.4 1-1 1H6c-.7 0-1-.3-1-1V4c0-.7.4-1 1-1Zm7 1v4h4M8.5 12h6.8m-6.8 4h5"/></symbol><symbol id="ic-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16-.8 4.8L8 20l12-12c.7-.7.7-1.7 0-2.4l-1.7-1.7c-.7-.7-1.7-.7-2.4 0Z"/><path d="m14.7 5.2 4.1 4.1"/></symbol><symbol id="ic-undo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 5-5 5 5 5M4 10h9a7 7 0 0 1 7 7v2"/></symbol><symbol id="ic-redo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 5 5 5-5 5m4-5h-9a7 7 0 0 0-7 7v2"/></symbol><symbol id="ic-bold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="2.7" d="M7 4h6a4 4 0 0 1 0 8H7zm0 8h7a4 4 0 1 1 0 8H7z"/></symbol><symbol id="ic-italic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4h8M5 20h8m2-16L9 20"/></symbol><symbol id="ic-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol><symbol id="ic-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-4 1.6-6.4 5-8l1 2c-2.4 1.4-3.4 3-3.4 5H10v6H4zm10 0c0-4 1.6-6.4 5-8l1 2c-2.4 1.4-3.4 3-3.4 5H20v6h-6z"/></symbol><symbol id="ic-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4" cy="6" r=".7"/><circle cx="4" cy="12" r=".7"/><circle cx="4" cy="18" r=".7"/></symbol><symbol id="ic-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m10 13 4-4m-5 8-2 2a3.5 3.5 0 0 1-5-5l5-5a3.7 3.7 0 0 1 5 0m0 6a3.7 3.7 0 0 0 5 0l5-5a3.5 3.5 0 0 0-5-5l-2 2" transform="translate(1 0) scale(.91)"/></symbol><symbol id="ic-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 7.5-5 4.5 5 4.5m9-9 5 4.5-5 4.5M14 5l-4 14"/></symbol><symbol id="ic-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="4.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19.5" cy="12" r="1"/></symbol><symbol id="ic-split" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></symbol><symbol id="ic-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/></symbol><symbol id="ic-source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7 8-4 4 4 4m4 0h9"/></symbol><symbol id="ic-ordered" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6h11M10 12h11M10 18h11M3 4h1v4m-1 3a1.5 1.5 0 1 1 2 1.5L3 15h3m-3 3h3l-2 1 2 1-2 1"/></symbol><symbol id="ic-check-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="m7.5 12 3 3 6-7"/></symbol><symbol id="ic-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 10h18M3 15h18M10 4v16"/></symbol><symbol id="ic-strike" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7c-1-4-10-4-11 0-.8 2.8 2.2 4.1 5 4.8M6 17c2 4 10 4 11 0 .9-2.5-2-4.2-5-5M3 12h18"/></symbol><symbol id="ic-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/></symbol><symbol id="ic-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 9v7m4-7v7"/></symbol><symbol id="ic-keyboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h1m3 0h1m3 0h1m3 0h.1M6 12h1m3 0h1m3 0h1m3 0h.1M8 15h8"/></symbol></defs></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true"><defs><symbol id="ic-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V6c0-1 .7-2 2-2h5l2.5 3H19c1.3 0 2 .8 2 2v1"/><path d="M5 19h13l3-9H7l-3 8c-.2.6.2 1 1 1Z"/></symbol><symbol id="ic-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4.3-4.5L12 15l4.3-4.5M4 16v3c0 1 .8 2 2 2h12c1.2 0 2-1 2-2v-3"/></symbol><symbol id="ic-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h4v16H3zm6 0h4v16H9zm6 2 4-1 3.5 14-4 1z"/></symbol><symbol id="ic-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></symbol><symbol id="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m6 6 12 12M18 6 6 18"/></symbol><symbol id="ic-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h12M5 12h15M5 19h10"/></symbol><symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h13c1 0 2 .8 2 2v14H7c-2 0-3-1-3-3V6c0-1 .5-2 1-2Z"/><path d="M4 17c0-1 .8-2 3-2h13M8 8h8"/></symbol><symbol id="ic-book-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5c4-1 7 0 9 2 2-2 5-3 9-2v14c-4-1-6 0-9 2-3-2-5-3-9-2zM12 7v14"/></symbol><symbol id="ic-panel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></symbol><symbol id="ic-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v13c0 .7-.4 1-1 1H6c-.7 0-1-.3-1-1V4c0-.7.4-1 1-1Zm7 1v4h4M8.5 12h6.8m-6.8 4h5"/></symbol><symbol id="ic-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16-.8 4.8L8 20l12-12c.7-.7.7-1.7 0-2.4l-1.7-1.7c-.7-.7-1.7-.7-2.4 0Z"/><path d="m14.7 5.2 4.1 4.1"/></symbol><symbol id="ic-undo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 5-5 5 5 5M4 10h9a7 7 0 0 1 7 7v2"/></symbol><symbol id="ic-redo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m16 5 5 5-5 5m4-5h-9a7 7 0 0 0-7 7v2"/></symbol><symbol id="ic-bold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="2.7" d="M7 4h6a4 4 0 0 1 0 8H7zm0 8h7a4 4 0 1 1 0 8H7z"/></symbol><symbol id="ic-italic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4h8M5 20h8m2-16L9 20"/></symbol><symbol id="ic-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol><symbol id="ic-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-4 1.6-6.4 5-8l1 2c-2.4 1.4-3.4 3-3.4 5H10v6H4zm10 0c0-4 1.6-6.4 5-8l1 2c-2.4 1.4-3.4 3-3.4 5H20v6h-6z"/></symbol><symbol id="ic-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4" cy="6" r=".7"/><circle cx="4" cy="12" r=".7"/><circle cx="4" cy="18" r=".7"/></symbol><symbol id="ic-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m10 13 4-4m-5 8-2 2a3.5 3.5 0 0 1-5-5l5-5a3.7 3.7 0 0 1 5 0m0 6a3.7 3.7 0 0 0 5 0l5-5a3.5 3.5 0 0 0-5-5l-2 2" transform="translate(1 0) scale(.91)"/></symbol><symbol id="ic-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 7.5-5 4.5 5 4.5m9-9 5 4.5-5 4.5M14 5l-4 14"/></symbol><symbol id="ic-more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="4.5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19.5" cy="12" r="1"/></symbol><symbol id="ic-split" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></symbol><symbol id="ic-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/></symbol><symbol id="ic-source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7 8-4 4 4 4m4 0h9"/></symbol><symbol id="ic-ordered" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6h11M10 12h11M10 18h11M3 4h1v4m-1 3a1.5 1.5 0 1 1 2 1.5L3 15h3m-3 3h3l-2 1 2 1-2 1"/></symbol><symbol id="ic-check-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="m7.5 12 3 3 6-7"/></symbol><symbol id="ic-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 10h18M3 15h18M10 4v16"/></symbol><symbol id="ic-strike" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7c-1-4-10-4-11 0-.8 2.8 2.2 4.1 5 4.8M6 17c2 4 10 4 11 0 .9-2.5-2-4.2-5-5M3 12h18"/></symbol><symbol id="ic-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/></symbol><symbol id="ic-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 9v7m4-7v7"/></symbol><symbol id="ic-keyboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h1m3 0h1m3 0h1m3 0h.1M6 12h1m3 0h1m3 0h1m3 0h.1M8 15h8"/></symbol><symbol id="ic-layout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M8 9h6M8 13h9M8 16h5"/></symbol><symbol id="ic-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol></defs></svg>
 <header class="topbar">
   <div class="brand"><span class="brandmark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 11.5c5.6-.8 9.3 1.4 12 4.1 2.3-3.6 5.9-6.1 12-7.7v19.5c-4.8 1-8.9 2.5-12 5.2-2.9-2.9-7-4.4-12-4.4z" fill="#e7ebd9"/><path d="M20 16v14M11 16c2.5.2 4.3 1 6.2 2.4M11 20.1c2.5.2 4.4 1 6.2 2.4M23.5 16.3c1.6-1.7 3.4-2.7 5.4-3.4M23.5 20.4c1.6-1.6 3.4-2.7 5.4-3.4" fill="none" stroke="#365638" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="brandname">墨页</span><span class="brand-divider"></span><span class="brand-purpose">Markdown 编辑器</span></div>
-  <div class="top-actions"><span class="save-state" id="saveState" role="status"><i></i><span>已存至本机</span></span><button id="openBtn" class="btn btn-paper" title="打开 Markdown 文件"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-folder"/></svg><span class="wide-word">打开文件</span><span class="short-word">打开</span></button><button id="exportBtn" class="btn btn-green"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-download"/></svg><span class="wide-word">下载 .md</span><span class="short-word">下载</span></button><input id="fileInput" type="file" accept=".md,.markdown,.mdown,.txt,text/markdown,text/plain" hidden></div>
+  <div class="top-actions"><span class="save-state" id="saveState" role="status"><i></i><span>已存至本机</span></span><button id="mobileStyle" class="btn btn-paper mobile-style" type="button" aria-haspopup="dialog" aria-controls="styleSheet"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-layout"/></svg><span>排版</span></button><button id="openBtn" class="btn btn-paper" title="打开 Markdown 文件"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-folder"/></svg><span class="wide-word">打开文件</span><span class="short-word">打开</span></button><button id="exportBtn" class="btn btn-green"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-download"/></svg><span class="wide-word">下载 .md</span><span class="short-word">下载</span></button><input id="fileInput" type="file" accept=".md,.markdown,.mdown,.txt,text/markdown,text/plain" hidden></div>
 </header>
 <div class="app-layout">
   <div class="scrim" id="scrim" hidden></div>
-  <aside id="sidebar" aria-label="文稿导航">
-    <div class="side-scroll"><div class="side-top"><span class="side-heading"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-library"/></svg>文稿库</span><span class="pill-count" id="docCount">1</span><button id="closeSide" class="icon-button side-close" aria-label="关闭文稿库"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-close"/></svg></button></div>
+  <aside id="sidebar" aria-label="文稿与排版">
+
+    <div class="side-tabs" role="tablist" aria-label="工作区侧栏">
+      <button type="button" id="libraryTab" role="tab" aria-controls="libraryPanel" aria-selected="false" tabindex="-1"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-library"/></svg>文稿库</button>
+      <button type="button" id="styleTab" role="tab" aria-controls="styleDock" aria-selected="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-layout"/></svg>排版设置</button>
+    </div>
+    <div class="side-scroll"><div id="libraryPanel" role="tabpanel" aria-label="文稿库"><div class="side-top"><span class="side-heading"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-library"/></svg>文稿库</span><span class="pill-count" id="docCount">1</span><button id="closeSide" class="icon-button side-close" aria-label="关闭文稿库"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-close"/></svg></button></div>
     <button id="newBtn" class="new-doc"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-plus"/></svg>新建文稿</button>
     <nav id="docList" aria-label="我的文稿"></nav>
     <div class="outline-block"><div class="side-top"><span class="side-heading"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-outline"/></svg>本文大纲</span></div><nav id="outline" aria-label="本文大纲"></nav></div></div>
+<div id="styleDock" role="tabpanel" aria-labelledby="styleTab"><section id="stylePanel" aria-label="文章排版设置">
+  <fieldset class="preset-field">
+    <legend>文章风格</legend>
+    <div id="presetGrid" class="preset-grid"></div>
+  </fieldset>
+  <fieldset class="tune-field">
+    <legend>排版细节</legend>
+    <div class="color-row"><span id="accentLabel">主题色</span><span id="accentName"></span></div>
+    <div id="accentChoices" class="accent-choices" role="group" aria-labelledby="accentLabel"></div>
+    <div class="select-grid">
+      <label class="font-field">正文字体<select id="styleFont"><option value="">跟随风格</option><option value="serif">宋体</option><option value="sans">黑体</option><option value="mono">等宽</option></select></label>
+      <label>字号<select id="styleSize"><option value="">默认</option><option value="15">15 px</option><option value="16">16 px</option><option value="18">18 px</option><option value="20">20 px</option></select></label>
+      <label>行距<select id="styleLeading"><option value="">默认</option><option value="1.6">1.6 倍</option><option value="1.8">1.8 倍</option><option value="2">2.0 倍</option><option value="2.2">2.2 倍</option></select></label>
+    </div>
+    <button type="button" id="resetStyle" class="reset-style" disabled>恢复当前风格默认值</button>
+  </fieldset>
+</section>
+</div></div>
     <div class="side-foot"><button id="helpBtn" class="help-button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg><span>语法速查</span><kbd>?</kbd></button></div>
   </aside>
   <main class="main"><div class="mobile-nav"><button class="text-button" id="menuBtn" aria-controls="sidebar" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-panel"/></svg>文稿库</button><span id="mobileSave">已存至本机</span></div>
@@ -165,7 +592,7 @@
       </div>
       <div class="panes">
         <section class="pane source-pane" aria-label="Markdown 源文"><div class="pane-heading"><div><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-source"/></svg><h2>源文编辑</h2></div><span class="pane-meta">Markdown</span></div><div class="source-wrap"><div id="sourcePaint" aria-hidden="true"></div><textarea id="source" wrap="soft" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Markdown 源文" placeholder="从这里开始写，或粘贴 Markdown…"></textarea></div></section>
-        <section class="pane preview-pane" aria-label="文稿预览"><div class="pane-heading"><div><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book-open"/></svg><h2>排版预览</h2></div><span class="pane-live"><i></i>实时</span></div><div id="previewScroll" tabindex="0" aria-label="排版预览内容"><article id="preview" class="prose"></article></div></section>
+        <section class="pane preview-pane" aria-label="文稿预览"><div class="pane-heading"><div><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book-open"/></svg><h2>排版预览</h2></div><div class="preview-actions"><button id="activeStyle" class="active-style" type="button" title="调整排版风格"><i aria-hidden="true"></i><span id="activeStyleName">山水墨韵</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-chevron"/></svg></button><button id="copyStyled" type="button" class="copy-styled" title="复制带样式的正文"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-copy"/></svg>复制排版</button></div></div><div id="previewScroll" tabindex="0" aria-label="排版预览内容"><article id="preview" class="prose"></article></div></section>
       </div>
       <footer class="statusbar"><span id="cursorPos">行 1，列 1</span><span class="foot-right"><span id="charCount">0 字符</span><span class="status-dot">·</span><span>UTF-8</span></span></footer>
     </section>
@@ -174,6 +601,7 @@
 <div class="dropdown" id="headingMenu" aria-label="标题级别" hidden><button data-format="h1"><b>H1</b>一级标题</button><button data-format="h2"><b>H2</b>二级标题</button><button data-format="h3"><b>H3</b>三级标题</button></div>
 <div class="dropdown" id="moreMenu" aria-label="更多排版工具" hidden><button data-format="ol"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-ordered"/></svg>有序列表</button><button data-format="task"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-check-square"/></svg>任务清单</button><button data-format="table"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-table"/></svg>表格</button><button data-format="strike"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-strike"/></svg>删除线</button><button data-format="hr"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-minus"/></svg>分隔线</button></div>
 <div class="dropdown" id="docMenu" hidden><button data-doc-action="rename"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-pencil"/></svg>重命名</button><button data-doc-action="delete"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-trash"/></svg>删除文稿</button></div>
+<dialog id="styleSheet" class="style-sheet" aria-labelledby="sheetTitle"><div class="sheet-head"><h2 id="sheetTitle">排版设置</h2><button id="sheetDone" type="button" autofocus>完成</button></div><div id="sheetDock"></div></dialog>
 <dialog class="modal" id="nameDialog"><form><div class="modal-head"><h2>重命名文稿</h2><button type="button" data-close class="icon-button" aria-label="关闭"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-close"/></svg></button></div><label for="nameInput">文件名</label><input id="nameInput" maxlength="100" required autocomplete="off"><div class="modal-actions"><button class="btn btn-paper" type="button" data-close>取消</button><button class="btn btn-green">保存名称</button></div></form></dialog>
 <dialog class="modal" id="deleteDialog"><form><div class="modal-head"><h2>删除文稿</h2></div><p id="deleteMsg"></p><div class="modal-actions"><button type="button" class="btn btn-paper" data-close autofocus>取消</button><button class="btn danger">删除文稿</button></div></form></dialog>
 <dialog class="modal help-modal" id="helpDialog"><div class="modal-head"><div><div class="file-label"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg>Markdown</div><h2>语法速查</h2></div><button class="icon-button" aria-label="关闭" data-close><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-close"/></svg></button></div><div id="helpRows"></div><div class="help-note"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-keyboard"/></svg><span id="shortcutNote"></span></div></dialog>
@@ -808,6 +1236,7 @@ if(__exports != exports)module.exports = exports;return module.exports}));
     const t = $('toast'); t.textContent=message; t.classList.add('show');
     clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2400);
   }
+  document.addEventListener('moye:notice', event => notify(event.detail));
   function status(message, bad=false) {
     $('saveState').classList.toggle('bad',bad);
     $('saveState').lastElementChild.textContent=message; $('mobileSave').textContent=message;
@@ -1078,6 +1507,347 @@ if(__exports != exports)module.exports = exports;return module.exports}));
     }
   });
   load();displayMode();
+})();
+</script>
+<script>
+(() => {
+  'use strict';
+  const presets = new Map([
+    ['ink',       { name:'山水墨韵', color:'#36563f', tone:'松墨绿' }],
+    ['journal',   { name:'学术手记', color:'#87532f', tone:'赭石棕' }],
+    ['swiss',     { name:'瑞士网格', color:'#ad3c2e', tone:'砖朱红' }],
+    ['blueprint', { name:'技术蓝图', color:'#235e8b', tone:'工程蓝' }],
+    ['magazine',  { name:'人文杂志', color:'#82485d', tone:'梅子紫' }],
+    ['wechat',    { name:'公众号经典', color:'#176952', tone:'翡翠绿' }]
+  ]);
+  const key = 'moye.markdown.typesetting.v1';
+  const $ = id => document.getElementById(id);
+  const small = matchMedia('(max-width: 899px)');
+  const article = $('preview');
+  const sheet = $('styleSheet');
+  const panel = $('stylePanel');
+  const tabButtons = [$('libraryTab'), $('styleTab')];
+  const faces = { serif:'var(--serif)', sans:'var(--sans)', mono:'var(--mono),var(--sans)' };
+  const detailInputs = { font:$('styleFont'), size:$('styleSize'), leading:$('styleLeading') };
+  const swatches = new Map(Array.from(presets.values(), preset => [preset.color, preset.tone]));
+  const overrides = new Map();
+  const cards = new Map(), colors = new Map();
+  let active = 'ink';
+  let desktopTab = 'styleTab';
+  let sheetTrigger = null;
+
+  function loadPreference() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(key));
+      if (!saved || !presets.has(saved.active)) return;
+      active = saved.active;
+      for (const name of presets.keys()) {
+        const stored = saved.overrides?.[name];
+        if (!stored || typeof stored !== 'object') continue;
+        const valid = {};
+        if (swatches.has(stored.accent)) valid.accent = stored.accent;
+        for (const [field, input] of Object.entries(detailInputs)) {
+          if ([...input.options].some(option => option.value && option.value === stored[field])) valid[field] = stored[field];
+        }
+        overrides.set(name, valid);
+      }
+    } catch { /* Storage is optional. */ }
+  }
+  function savePreference() {
+    try {
+      localStorage.setItem(key, JSON.stringify({ active, overrides:Object.fromEntries(overrides) }));
+    } catch { /* Changes still apply for this visit. */ }
+  }
+  function applyPreference() {
+    const preset = presets.get(active);
+    const custom = overrides.get(active) || {};
+    const color = custom.accent || preset.color;
+    article.dataset.style = active;
+    const variables = {
+      '--article-accent':color,
+      '--article-font':faces[custom.font],
+      '--article-size':custom.size && (Number(custom.size)/16)+'rem',
+      '--article-leading':custom.leading
+    };
+    for (const [property, value] of Object.entries(variables)) {
+      if (value) article.style.setProperty(property, value);
+      else article.style.removeProperty(property);
+    }
+    for (const [id, card] of cards) card.setAttribute('aria-pressed', String(id === active));
+    for (const [hex, button] of colors) button.setAttribute('aria-pressed', String(hex === color));
+    for (const [field, input] of Object.entries(detailInputs)) input.value = custom[field] || '';
+    $('accentName').textContent = swatches.get(color);
+    $('activeStyleName').textContent = preset.name;
+    $('activeStyle').style.setProperty('--swatch', color);
+    $('activeStyle').setAttribute('aria-label', '调整排版风格，当前'+preset.name);
+    $('resetStyle').disabled = Object.keys(custom).length === 0;
+  }
+  function revealPreview() {
+    if (document.querySelector('.workbench').dataset.mode === 'edit') {
+      document.querySelector(small.matches ? '[data-mode-btn="preview"]' : '[data-mode-btn="split"]').click();
+    }
+  }
+  function selectPreset(id) {
+    active = id;
+    revealPreview();
+    applyPreference();
+    savePreference();
+  }
+  function changeDetail(field, value) {
+    const custom = overrides.get(active) || {};
+    if (!value || (field === 'accent' && value === presets.get(active).color)) delete custom[field];
+    else custom[field] = value;
+    overrides.set(active, custom);
+    revealPreview();
+    applyPreference();
+    savePreference();
+  }
+  function styleButtons() {
+    for (const [id, preset] of presets) {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'style-tile';
+      card.dataset.preset = id;
+      card.innerHTML = '<span class="style-cover" aria-hidden="true"><b>山野手记</b><i></i><i></i><i></i></span><span class="tile-name"></span>';
+      card.lastElementChild.textContent = preset.name;
+      card.addEventListener('click', () => selectPreset(id));
+      cards.set(id, card);
+      $('presetGrid').append(card);
+    }
+    for (const [hex, label] of swatches) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.title = label;
+      button.setAttribute('aria-label', label);
+      button.style.setProperty('--chip', hex);
+      button.innerHTML = '<span aria-hidden="true" class="color-chip"></span>';
+      button.addEventListener('click', () => changeDetail('accent', hex));
+      colors.set(hex, button);
+      $('accentChoices').append(button);
+    }
+  }
+  function displayTab() {
+    const library = small.matches || desktopTab === 'libraryTab';
+    $('libraryPanel').hidden = !library;
+    $('styleDock').hidden = library;
+    for (const tab of tabButtons) {
+      const on = tab.id === desktopTab;
+      tab.setAttribute('aria-selected', String(on));
+      tab.tabIndex = on ? 0 : -1;
+    }
+  }
+  function setTab(tab) {
+    desktopTab = tab.id;
+    displayTab();
+    document.querySelector('.side-scroll').scrollTop = 0;
+  }
+  function openSettings(trigger) {
+    revealPreview();
+    if (small.matches) {
+      if (sheet.open) return;
+      sheetTrigger = trigger;
+      $('sheetDock').append(panel);
+      sheet.showModal();
+      $('sheetDock').scrollTop = 0;
+      return;
+    }
+    setTab($('styleTab'));
+    cards.get(active).focus({ preventScroll:true });
+  }
+  for (const tab of tabButtons) {
+    tab.addEventListener('click', () => {
+      setTab(tab);
+      if (tab === $('styleTab')) revealPreview();
+    });
+    tab.addEventListener('keydown', event => {
+      if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+      event.preventDefault();
+      const next = event.key === 'Home' ? tabButtons[0] : event.key === 'End' ? tabButtons[1] : tabButtons.find(button => button !== tab);
+      next.focus();
+      next.click();
+    });
+  }
+  for (const id of ['mobileStyle','activeStyle']) {
+    const trigger = $(id);
+    trigger.addEventListener('click', () => openSettings(trigger));
+  }
+  $('sheetDone').addEventListener('click', () => sheet.close());
+  sheet.addEventListener('click', event => {
+    if (event.target !== sheet) return;
+    const bounds = sheet.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right ||
+        event.clientY < bounds.top || event.clientY > bounds.bottom) sheet.close();
+  });
+  sheet.addEventListener('close', () => {
+    $('styleDock').append(panel);
+    displayTab();
+    if (sheetTrigger?.getClientRects().length) sheetTrigger.focus({ preventScroll:true });
+    sheetTrigger = null;
+  });
+  for (const [field, input] of Object.entries(detailInputs)) {
+    input.addEventListener('change', () => changeDetail(field, input.value));
+  }
+  $('resetStyle').addEventListener('click', () => {
+    overrides.delete(active);
+    revealPreview();
+    applyPreference();
+    savePreference();
+    cards.get(active).focus({ preventScroll:true });
+  });
+  small.addEventListener('change', () => {
+    if (!small.matches && sheet.open) sheet.close();
+    displayTab();
+  });
+  styleButtons();
+  loadPreference();
+  applyPreference();
+  displayTab();
+})();
+</script>
+<script>
+(() => {
+  'use strict';
+  const button = document.getElementById('copyStyled');
+  const preview = document.getElementById('preview');
+  const source = document.getElementById('source');
+  const notice = message => document.dispatchEvent(new CustomEvent('moye:notice', { detail: message }));
+  const typography = [
+    'font-family', 'font-weight', 'font-style', 'font-size', 'line-height', 'letter-spacing',
+    'color', 'text-align', 'text-indent', 'white-space', 'overflow-wrap', 'word-break'
+  ];
+  const box = ['margin', 'padding', 'border-radius', 'text-decoration', 'vertical-align'];
+  const transparent = new Set(['transparent', 'rgba(0, 0, 0, 0)']);
+  let busy = false;
+
+  // Browsers serialize color-mix(in srgb, ...) using CSS Color 4. Many paste
+  // targets still accept only the older rgb()/rgba() notation.
+  function portableColors(value) {
+    return value.replace(/color\(srgb\s+([^()]+)\)/gi, (original, body) => {
+      const [channels, alpha] = body.trim().split(/\s*\/\s*/);
+      const unit = token => {
+        const number = token.endsWith('%') ? parseFloat(token) / 100 : Number(token);
+        return Math.max(0, Math.min(1, number));
+      };
+      const rgb = channels.split(/\s+/).map(token => Math.round(unit(token) * 255));
+      const opacity = alpha === undefined ? 1 : unit(alpha);
+      if (rgb.length !== 3 || rgb.some(Number.isNaN) || Number.isNaN(opacity)) return original;
+      return opacity === 1 ? 'rgb(' + rgb.join(', ') + ')' : 'rgba(' + [...rgb, opacity].join(', ') + ')';
+    });
+  }
+
+  function applyAppearance(from, to, root) {
+    const css = getComputedStyle(from);
+    to.removeAttribute('style');
+    to.removeAttribute('class');
+    to.removeAttribute('data-heading-index');
+    for (const prop of typography) to.style.setProperty(prop, portableColors(css.getPropertyValue(prop)));
+    if (!transparent.has(css.backgroundColor)) to.style.backgroundColor = portableColors(css.backgroundColor);
+    if (css.backgroundImage.includes('gradient(')) {
+      to.style.backgroundImage = portableColors(css.backgroundImage);
+      to.style.backgroundSize = css.backgroundSize;
+    }
+    if (!root) {
+      for (const prop of box) to.style.setProperty(prop, portableColors(css.getPropertyValue(prop)));
+      if (from.matches('hr')) to.style.border = '0';
+      for (const side of ['top', 'right', 'bottom', 'left']) {
+        const border = 'border-' + side;
+        if (parseFloat(css.getPropertyValue(border + '-width')) > 0)
+          to.style.setProperty(border, portableColors(css.getPropertyValue(border)));
+      }
+      if (css.display === 'inline-block') to.style.display = css.display;
+      if (preview.dataset.style === 'wechat' && from.matches('h2')) {
+        to.style.display = 'table';
+        to.style.width = 'auto';
+        to.style.maxWidth = '100%';
+      }
+      if (from.matches('ul,ol,li')) to.style.listStyleType = css.listStyleType;
+      if (from.matches('table')) to.style.borderCollapse = css.borderCollapse;
+      if (from.matches('pre,table,img')) to.style.maxWidth = '100%';
+      if (from.matches('pre')) to.style.overflowX = 'auto';
+    }
+  }
+
+  function articlePayload() {
+    const article = document.createElement('section');
+    for (const child of preview.childNodes) article.append(child.cloneNode(true));
+    applyAppearance(preview, article, true);
+    const copies = article.querySelectorAll('*');
+    preview.querySelectorAll('*').forEach((original, i) => {
+      const copy = copies[i];
+      if (original.matches('input[type="checkbox"]')) {
+        copy.replaceWith(document.createTextNode(original.checked ? '☑ ' : '☐ '));
+      } else {
+        applyAppearance(original, copy, false);
+      }
+    });
+    const html = article.outerHTML;
+    // Measure rendered text even when the user is writing in the single-pane editor.
+    const stage = document.createElement('div');
+    stage.setAttribute('aria-hidden', 'true');
+    stage.style.cssText = 'position:fixed;left:-200vw;top:0;width:48rem;opacity:0;pointer-events:none';
+    stage.append(article);
+    document.body.append(stage);
+    try {
+      return { html, plain: article.innerText };
+    } finally {
+      stage.remove();
+    }
+  }
+
+  function copyWithEvent(payload) {
+    let supplied = false;
+    const supply = event => {
+      if (!event.clipboardData) return;
+      event.clipboardData.setData('text/html', payload.html);
+      event.clipboardData.setData('text/plain', payload.plain);
+      event.preventDefault();
+      supplied = true;
+    };
+    document.addEventListener('copy', supply, true);
+    try {
+      return document.execCommand('copy') && supplied;
+    } catch {
+      return false;
+    } finally {
+      document.removeEventListener('copy', supply, true);
+    }
+  }
+
+  // Keep the text selection when a writer clicks directly from the source pane.
+  button.addEventListener('mousedown', event => {
+    if (event.button === 0 && document.activeElement === source) event.preventDefault();
+  });
+  button.addEventListener('click', async () => {
+    if (busy) return;
+    if (!source.value.trim() || preview.querySelector('.preview-empty') || !preview.hasChildNodes()) {
+      notice('先写一点内容，再复制排版。');
+      return;
+    }
+    busy = true;
+    button.setAttribute('aria-busy', 'true');
+    try {
+      const payload = articlePayload();
+      if (navigator.clipboard?.write && typeof ClipboardItem === 'function') {
+        try {
+          const item = new ClipboardItem({
+            'text/html': new Blob([payload.html], { type: 'text/html' }),
+            'text/plain': new Blob([payload.plain], { type: 'text/plain' })
+          });
+          await navigator.clipboard.write([item]);
+          notice('已复制排版，可粘贴到富文本编辑器。');
+          return;
+        } catch { /* Embedded browsers may only allow the copy event. */ }
+      }
+      notice(copyWithEvent(payload)
+        ? '已复制排版，可粘贴到富文本编辑器。'
+        : '自动复制受限，请在预览中选中正文后复制。');
+    } catch {
+      notice('复制未完成，请在预览中选中正文后复制。');
+    } finally {
+      busy = false;
+      button.removeAttribute('aria-busy');
+    }
+  });
 })();
 </script>
 </body></html>

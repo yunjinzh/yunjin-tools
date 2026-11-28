@@ -351,10 +351,22 @@
       "version": 3
     },
     "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346": {
+      "version": 2
+    },
+    "appgprj_6b0a4e477e548191aab218ab52172bab": {
       "version": 1
     }
   },
-  "pending_verification": {},
+  "pending_verification": {
+    "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346": {
+      "module": "m155",
+      "version": 2
+    },
+    "appgprj_6b0a4e477e548191aab218ab52172bab": {
+      "module": "m156",
+      "version": 1
+    }
+  },
   "verified": {
     "appgprj_6afbcd27f570819193859b4c241e9f8c": {
       "module": "m143",

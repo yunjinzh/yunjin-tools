@@ -47,6 +47,36 @@ try {
   await page.screenshot({ path: path.join(output, 'desktop.png') });
   await checkpoint('Initial sample, rendered table, outline and desktop layout');
 
+  for (const preset of ['ink', 'journal', 'swiss', 'blueprint', 'magazine', 'wechat']) {
+    await page.locator(`[data-preset="${preset}"]`).click();
+    await expect(page.locator('#preview')).toHaveAttribute('data-style', preset);
+    await expect(page.locator(`[data-preset="${preset}"]`)).toHaveAttribute('aria-pressed', 'true');
+  }
+  await page.locator('#styleFont').selectOption('sans');
+  await page.locator('#styleSize').selectOption('20');
+  await page.locator('#styleLeading').selectOption('2.2');
+  await expect(page.locator('#preview')).toHaveCSS('font-size', '20px');
+  await expect(page.locator('#preview')).toHaveCSS('line-height', '44px');
+  await page.reload();
+  await expect(page.locator('#preview')).toHaveAttribute('data-style', 'wechat');
+  await expect(page.locator('#styleSize')).toHaveValue('20');
+  await page.locator('#resetStyle').click();
+  await expect(page.locator('#styleSize')).toHaveValue('');
+  await expect(page.locator('#resetStyle')).toBeDisabled();
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: new URL(url).origin });
+  await page.locator('#copyStyled').click();
+  await expect(page.locator('#toast')).toContainText('已复制排版');
+  const clipboard = await page.evaluate(async () => {
+    const items = await navigator.clipboard.read();
+    const item = items.find(item => item.types.includes('text/html'));
+    return { html: await (await item.getType('text/html')).text(), plain: await (await item.getType('text/plain')).text() };
+  });
+  expect(clipboard.plain).toContain('山野观察手记');
+  expect(clipboard.html).toContain('font-family:');
+  expect(clipboard.html).not.toContain('color(srgb');
+  await page.locator('#libraryTab').click();
+  await checkpoint('Six typesetting presets, custom typography persistence/reset and native rich clipboard');
+
   const markdown = '# 同步验收\n\n**重点** 与 *斜体*。\n\n## 清单\n\n- [x] 已完成\n- [ ] 待办\n\n| 项目 | 数值 |\n| --- | --- |\n| 示例 | 42 |\n\n```js\nconst answer = 42;\n```\n\n[示例](https://example.com)\n\n<script>window.__moyeUnsafe=true</script>\n\n[不可执行](javascript:alert(1))\n\n![图片说明](https://example.com/image.png)\n';
   await page.locator('#fileInput').setInputFiles({ name: '同步验收.md', mimeType: 'text/markdown', buffer: Buffer.from('\uFEFF' + markdown.replace(/\n/g, '\r\n')) });
   await expect(page.locator('#source')).toHaveValue(markdown);
@@ -64,6 +94,7 @@ try {
   await page.reload();
   await expect(page.locator('#source')).toHaveValue(markdown);
   await expect(page.locator('#docCount')).toHaveText('2');
+  await page.locator('#libraryTab').click();
   await checkpoint('UTF-8/BOM/CRLF import, Markdown preview safety, byte-exact download and reload recovery');
 
   await page.locator('#newBtn').click();
@@ -132,6 +163,7 @@ try {
   const second = watch(await context.newPage());
   await second.goto(url);
   await expect(second.locator('#source')).toHaveValue(markdown);
+  await second.locator('#libraryTab').click();
   const shared = '# 双页同步\n\n第一页的新内容';
   await page.locator('#source').fill(shared);
   await saved(page);
@@ -174,6 +206,11 @@ try {
     await page.locator('#menuBtn').click();
     await expect(page.locator('#sidebar')).toHaveClass(/open/);
     await page.locator('#closeSide').click();
+    await page.locator('#mobileStyle').click();
+    await expect(page.locator('#styleSheet')).toBeVisible();
+    await page.locator('#styleSheet [data-preset=blueprint]').click();
+    await page.locator('#sheetDone').click();
+    await expect(page.locator('#preview')).toHaveAttribute('data-style', 'blueprint');
     await page.locator('[data-mode-btn=preview]').click();
     await expect(page.locator('#preview h1')).toHaveText('独立草稿');
     await page.screenshot({ path: path.join(output, `mobile-${width}x${height}.png`) });
@@ -186,6 +223,7 @@ try {
   await limited.addInitScript(() => { Storage.prototype.setItem = () => { throw new DOMException('Test storage quota', 'QuotaExceededError'); }; });
   const emergency = watch(await limited.newPage());
   await emergency.goto(url);
+  await emergency.locator('#libraryTab').click();
   const unsaved = '# 下载保全\n\n存储不可用时的测试文稿';
   await emergency.locator('#source').fill(unsaved);
   await expect(emergency.locator('#saveState')).toHaveText('尚未保存，请下载');

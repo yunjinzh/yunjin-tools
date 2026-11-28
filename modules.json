@@ -2314,11 +2314,27 @@
     "original_status": "原站已保存发布版本；按同步检查范围验证",
     "source": "sources/m155",
     "source_project": "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346",
-    "source_version": 1,
-    "source_commit": "c69f32ff726791632df47229d96f59ea5be4d58f",
+    "source_version": 2,
+    "source_commit": "1a6ba53b3cfefef4603de38297bd2463cb8f0cf3",
     "kind": "web",
     "migration": "web",
     "web": "web/m155",
+    "entry": "index.html"
+  },
+  {
+    "id": "m156",
+    "name": "MD Studio · 多风格排版",
+    "description": "基于 MD Studio 3.0 的多风格排版编辑器，支持十二种文章样式、实时预览、富文本复制和独立网页导出。",
+    "category": "效率与管理",
+    "original_url": "https://md-studio-typesetting.yunjinzh.chatgpt.site",
+    "original_status": "原站已保存发布版本；按同步检查范围验证",
+    "source": "sources/m156",
+    "source_project": "appgprj_6b0a4e477e548191aab218ab52172bab",
+    "source_version": 1,
+    "source_commit": "316440db5814ee2860bf6014aa68091936714f54",
+    "kind": "web",
+    "migration": "web",
+    "web": "web/m156",
     "entry": "index.html"
   }
 ]
