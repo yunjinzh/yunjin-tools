@@ -1,527 +1,692 @@
 {
-  "completed_at": "2026-11-27T02:39:21.677815+00:00",
+  "completed_at": "2026-11-28T13:19:58.849356+00:00",
   "trigger": "Automation_9ccf5b150eac8191a04eee37c908d561",
-  "result": "updated",
-  "added": 0,
-  "updated": 1,
+  "result": "added",
+  "added": 1,
+  "updated": 0,
   "discovery": {
     "role": "owner",
     "pages": [
       50,
       50,
-      13
+      14
     ],
-    "sites": 113,
-    "unique_sites": 113,
+    "sites": 114,
+    "unique_sites": 114,
     "pagination_complete": true,
     "catalogue_version": 22,
     "catalogue_changed": false
   },
   "modules": [
     {
-      "id": "m154",
-      "title": "京观 · 北京城市三维漫游",
-      "project": "appgprj_6b083fee787c8191abb835f27b6e4ae7",
-      "source_version": 3,
-      "source_version_id": "appgprj_6b083fee787c8191abb835f27b6e4ae7~appgver_051117515b0c8191bcfa0b2a383e2389",
-      "source_commit": "a13f99ca3b447359b56021fbcb601859f178321a",
+      "id": "m155",
+      "title": "墨页 · Markdown 编辑器",
+      "project": "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346",
+      "source_version": 1,
+      "source_version_id": "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346~appgver_bc83489c45f88191bef32fba74bd1fd2",
+      "source_commit": "c69f32ff726791632df47229d96f59ea5be4d58f",
       "source_deployment": {
-        "id": "appgdep_6b08cd8e9c5c81918f77f7c57b54a8ca",
+        "id": "appgdep_6b0a4a68a770819181e06747b624eb5a",
         "status": "succeeded",
         "type": "publish",
-        "url": "https://beijing-urban-observatory.yunjinzh.chatgpt.site"
+        "url": "https://moye-markdown-yunjin.yunjinzh.chatgpt.site"
       },
-      "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/index.html",
-      "explore_url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/explore.html",
-      "survey_url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/field/survey/index.html",
-      "deployment_commit": "992452a978e699cf1c0a049afcea5accbd6edc34"
+      "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
+      "deployment_commit": "4a200a484a693d19cc7c8af316483ef580bfc53c"
     }
   ],
-  "catalogue_count": 154,
-  "summary": "Updated existing m154 to saved published v3: five exhibition chapters and 4K plates, ten exploration destinations, regional buildings and provenance query, 24 reference images, two downloadable photogrammetry meshes and frame fallbacks. Original source and attribution preserved.",
-  "deployment_commit": "992452a978e699cf1c0a049afcea5accbd6edc34",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/",
+  "catalogue_count": 155,
+  "summary": "新增墨页 Markdown 编辑器 v1；原始单文件源码保留，发布副本适配跨标签页存储事件。线上编辑、草稿、导入导出、响应式布局及资源验证通过。",
+  "deployment_commit": "4a200a484a693d19cc7c8af316483ef580bfc53c",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
   "deployment": {
-    "performed": true,
-    "workflow": "https://github.com/yunjinzh/yunjin-tools/actions/runs/45927117629",
+    "id": 46105128018,
+    "name": "Deploy tools to GitHub Pages",
     "status": "completed",
     "conclusion": "success",
-    "commit": "992452a978e699cf1c0a049afcea5accbd6edc34",
-    "completed_at": "2026-11-27T02:16:28Z"
+    "head_sha": "4a200a484a693d19cc7c8af316483ef580bfc53c",
+    "url": "https://github.com/yunjinzh/yunjin-tools/actions/runs/46105128018",
+    "updated_at": "2026-11-28T03:57:40Z"
   },
   "build": {
     "performed": true,
-    "catalogue": 154,
+    "catalogue": 155,
     "kinds": {
-      "web": 117,
+      "web": 118,
       "server": 16,
       "missing": 19,
       "extension": 1,
       "desktop": 1
     },
-    "files": 4160,
-    "bytes": 769513256,
+    "files": 4162,
+    "bytes": 769676073,
     "limit_bytes": 996147200
   },
   "validation": {
-    "incremental_sync_tests": {
-      "passed": true,
-      "count": 7
+    "synchronization_regressions": {
+      "command": "python3 tests/test_sync_tools.py",
+      "passed": 7,
+      "failed": 0
     },
-    "asset_hashes": {
-      "passed": true,
-      "records": 3227
+    "asset_validation": {
+      "command": "python3 scripts/validate.py --hashes",
+      "ok": true,
+      "asset_records": 3227
     },
-    "source": {
-      "passed": true,
-      "files_byte_equal": 488,
-      "bytes": 147550986,
-      "excluded": [
+    "source_snapshot": {
+      "commit": "c69f32ff726791632df47229d96f59ea5be4d58f",
+      "files_retained": 1,
+      "platform_files_excluded": [
         ".openai/hosting.json"
       ],
-      "original_snapshot_modified": false,
-      "adapted_files": [
-        "app.js",
-        "field/survey/survey.js",
-        "heritage/field-view.js",
-        "heritage/views.js",
-        "panels.js",
-        "software.js",
-        "urban/facades.js"
-      ],
-      "python_syntax_files": 14,
-      "javascript_syntax_files": 67,
-      "generated_javascript_syntax_files": 64
+      "original_bytes_preserved": true,
+      "html_bytes": 160214,
+      "html_sha256": "e14d5298508b9b83ed04ff064fd857eb5778f389996395cb3c630c3c8e3d627f"
     },
-    "video_decode": {
-      "ok": true,
-      "files": [
-        "avenue.mp4",
-        "avenue.webm",
-        "cbd.mp4",
-        "cbd.webm",
-        "hutong.mp4",
-        "hutong.webm",
-        "palace.mp4",
-        "palace.webm",
-        "waterfront.mp4",
-        "waterfront.webm"
-      ]
+    "syntax": {
+      "original_inline_scripts": 4,
+      "adapted_inline_scripts": 4,
+      "ok": true
     },
-    "local": {
-      "desktop_scene_checks": [
-        "WebGL scene, city geometry, terrain and all ten destination cards load",
-        "Category filters, ten destination selections, URL state and credited reference photos",
-        "Seven heritage viewpoints and ten credited reference images, including real 360-degree pixel rendering, drag and zoom",
-        "Eight real-photo groups and fourteen additional credited photos, including two additional spherical panoramas",
-        "Immersive mode exit and saved viewpoint, time and weather restored from a real deep link",
-        "Zoom, north/home views, keyboard walking at 1.72 m, flight and tour cancellation",
-        "City/regional maps, map travel, date/time, five weather modes, layers and actual weather request",
-        "Three regional observation stops load real building tiles; a clicked city building shows OSM provenance, area and height evidence",
-        "Attribution, accuracy notes, public map-data bytes and operating guide"
-      ],
-      "mobile_cpu_recheck": {
-        "passed": true,
-        "checks": [
-          "390/360 px touch layout, short landscape and mobile walking controls",
-          "Actual WebGL-disabled browser uses CPU 3D, pixel-readback imagery, city and terrain"
-        ],
-        "layouts": [
-          {
-            "width": 390,
-            "height": 844,
-            "scrollWidth": 390,
-            "viewportWidth": 390
-          },
-          {
-            "width": 360,
-            "height": 800,
-            "scrollWidth": 360,
-            "viewportWidth": 360
-          },
-          {
-            "width": 844,
-            "height": 390,
-            "scrollWidth": 844,
-            "viewportWidth": 844
-          }
-        ],
-        "cpu": {
-          "shot": "0",
-          "landmark": "tiantan",
-          "weather": "clear",
-          "time": "16:20",
-          "render": "cpu3d",
-          "regionView": "false",
-          "mode": "fly",
-          "city": "ready",
-          "terrain": "ready",
-          "triangles": "115684",
-          "photoFaces": "33058"
-        }
-      },
-      "recheck_reason": "The full local run passed all nine desktop groups, then a five-second mobile layout poll timed out under software rendering. Confirmed no horizontal overflow, increased the wait, repaired the visibly obstructed portrait palace view, and reran mobile/CPU checks. Public validation uses the complete suite.",
-      "exhibition_checks": [
-        "All five films decode and play, pause and seek; five native 4K plates and credited area photos load",
-        "Chapter wraparound and deep links, clean mode, exhibition guide and real credits page",
-        "Two CC BY photogrammetry meshes render and rotate/zoom; actual GLB downloads match source bytes",
-        "Both 16-view fallbacks load all frames; external originals stay labeled and load only after a click",
-        "Exhibition and survey controls work at 390/360 px and short landscape without horizontal overflow"
-      ],
-      "smoke": {
-        "base": "http://127.0.0.1:4185/yunjin-tools/",
-        "localAssets": true,
-        "outcomes": [
-          {
-            "id": "m154",
-            "name": "京观 · 北京城市三维漫游",
-            "http": 200,
-            "errors": [],
-            "failures": [],
-            "title": "京观 · 北京城市空间展",
-            "textLength": 280,
-            "canvas": 0,
-            "ok": true
-          }
-        ]
-      },
-      "flows": {
-        "ok": true,
-        "checks": [
-          "Portal: 154 entries, search, empty state, category and availability filters, 390px viewport",
-          "Module storage isolation: get, set and clear",
-          "PDF reader: built-in sample action completes without a visible import/load error"
-        ]
+    "adaptation": {
+      "file": "web/m155/index.html",
+      "reason": "Native storage events retain the module prefix. The imported listener accepts its own module events, reads the latest stored record, and preserves overwritten concurrent revisions as separate drafts. Saves retain their base revision.",
+      "original_source_modified": false
+    },
+    "recovered_failures": [
+      {
+        "deployment_commit": "603c8dc424eb4ef38878dfb4ddf0131f3928a8a6",
+        "check": "Concurrent edits preserve both drafts",
+        "first_public_run": "failed after four completed check groups; no resource or script errors",
+        "diagnosis": "Real overlapping saves lost one draft in two of three isolated diagnostic rounds. localStorage read/check/write is not atomic.",
+        "repair": "Record base revisions, recover overwritten revisions from native storage-event oldValue, and read current storage instead of stale queued event payloads.",
+        "final_check": "Three overlapping edit rounds in each final local and public suite; each retained both drafts."
       }
-    },
-    "online": {
-      "https_files": 891,
-      "all_status_and_bytes_match": true,
-      "local_substitution": false,
-      "scene_checks": [
-        "WebGL scene, city geometry, terrain and all ten destination cards load",
-        "Category filters, ten destination selections, URL state and credited reference photos",
-        "Seven heritage viewpoints and ten credited reference images, including real 360-degree pixel rendering, drag and zoom",
-        "Eight real-photo groups and fourteen additional credited photos, including two additional spherical panoramas",
-        "Immersive mode exit and saved viewpoint, time and weather restored from a real deep link",
-        "Zoom, north/home views, keyboard walking at 1.72 m, flight and tour cancellation",
-        "City/regional maps, map travel, date/time, five weather modes, layers and actual weather request",
-        "Three regional observation stops load real building tiles; a clicked city building shows OSM provenance, area and height evidence",
-        "Attribution, accuracy notes, public map-data bytes and operating guide",
-        "390/360 px touch layout, short landscape and mobile walking controls",
-        "Actual WebGL-disabled browser uses CPU 3D, pixel-readback imagery, city and terrain"
+    ],
+    "local_browser": {
+      "ok": true,
+      "base": "http://127.0.0.1:4186/yunjin-tools/",
+      "url": "http://127.0.0.1:4186/yunjin-tools/apps/m155/index.html",
+      "checks": [
+        "Initial sample, rendered table, outline and desktop layout",
+        "UTF-8/BOM/CRLF import, Markdown preview safety, byte-exact download and reload recovery",
+        "Formatting toolbar, undo/redo, heading, table and validated link insertion",
+        "Create/rename/switch/delete with cancellation, help and three desktop view modes",
+        "Native cross-tab refresh and concurrent edits preserve both drafts",
+        "Storage stays isolated from other portal modules",
+        "390px, 360px and landscape mobile layouts, navigation and preview",
+        "Unavailable browser storage is reported; download and in-memory draft remain usable"
       ],
-      "scene_initial_run": {
-        "ok": false,
-        "completed_checks": [
-          "WebGL scene, city geometry, terrain and all ten destination cards load",
-          "Category filters, ten destination selections, URL state and credited reference photos",
-          "Seven heritage viewpoints and ten credited reference images, including real 360-degree pixel rendering, drag and zoom",
-          "Eight real-photo groups and fourteen additional credited photos, including two additional spherical panoramas",
-          "Immersive mode exit and saved viewpoint, time and weather restored from a real deep link",
-          "Zoom, north/home views, keyboard walking at 1.72 m, flight and tour cancellation",
-          "City/regional maps, map travel, date/time, five weather modes, layers and actual weather request",
-          "Three regional observation stops load real building tiles; a clicked city building shows OSM provenance, area and height evidence",
-          "Attribution, accuracy notes, public map-data bytes and operating guide",
-          "390/360 px touch layout, short landscape and mobile walking controls"
-        ],
-        "errors": [],
-        "failures": [
-          {
-            "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/exhibit/hutong-thumb.webp",
-            "status": 503
-          }
-        ],
-        "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at captureRawStack (/workspace/work/builder/node_modules/playwright-core/lib/coreBundle.js:9551:17)\n    at callMatcherAsStep (/workspace/work/builder/node_modules/playwright/lib/matchers/expect.js:13342:57)\n    at Object.toBe (/workspace/work/builder/node_modules/playwright/lib/matchers/expect.js:13334:23)\n    at load (/workspace/work/yunjin-tools/tests/jingguan.mjs:42:111)\n    at async file:///workspace/work/yunjin-tools/tests/jingguan.mjs:211:164"
-      },
-      "scene_recheck": {
-        "ok": true,
-        "checks": [
-          "390/360 px touch layout, short landscape and mobile walking controls",
-          "Actual WebGL-disabled browser uses CPU 3D, pixel-readback imagery, city and terrain"
-        ],
-        "errors": [],
-        "failures": [],
-        "reason": "A Pages thumbnail returned HTTP 503 during the final WebGL-disabled page load. Ten full-suite groups had passed. The same resource was fetched three times with matching bytes, then the committed mobile/CPU phase was rerun successfully against public HTTPS without any artifact change.",
-        "resource_recovery": {
-          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/exhibit/hutong-thumb.webp",
-          "previous_status": 503,
-          "checks": [
-            {
-              "attempt": 1,
-              "retrieved_at": "2026-11-27T02:36:33.874881+00:00",
-              "exit_code": 0,
-              "bytes": 17842,
-              "sha256": "d0c2e6644e629932f7da98513a5b477bb2d81eaf272c26b9a7e7f29cb9ee291d",
-              "match": true
-            },
-            {
-              "attempt": 2,
-              "retrieved_at": "2026-11-27T02:36:34.077821+00:00",
-              "exit_code": 0,
-              "bytes": 17842,
-              "sha256": "d0c2e6644e629932f7da98513a5b477bb2d81eaf272c26b9a7e7f29cb9ee291d",
-              "match": true
-            },
-            {
-              "attempt": 3,
-              "retrieved_at": "2026-11-27T02:36:34.127570+00:00",
-              "exit_code": 0,
-              "bytes": 17842,
-              "sha256": "d0c2e6644e629932f7da98513a5b477bb2d81eaf272c26b9a7e7f29cb9ee291d",
-              "match": true
-            }
-          ],
+      "downloads": [
+        {
+          "name": "同步验收.md",
+          "bytes": 324,
+          "sha256": "f0ec0e3c78ac0646c7f751d8c46ddbd4644a550666c1579a06aa41dc280298c9"
+        },
+        {
+          "name": "山行笔记.md",
+          "bytes": 49,
+          "sha256": "345b891af9b18be2986d0aaa263e2db1fc3ed2c2b003436952c742d8e8e55cd5"
+        }
+      ],
+      "errors": [],
+      "failures": []
+    },
+    "public_browser": {
+      "ok": true,
+      "base": "https://yunjinzh.github.io/yunjin-tools/",
+      "url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
+      "checks": [
+        "Initial sample, rendered table, outline and desktop layout",
+        "UTF-8/BOM/CRLF import, Markdown preview safety, byte-exact download and reload recovery",
+        "Formatting toolbar, undo/redo, heading, table and validated link insertion",
+        "Create/rename/switch/delete with cancellation, help and three desktop view modes",
+        "Native cross-tab refresh and concurrent edits preserve both drafts",
+        "Storage stays isolated from other portal modules",
+        "390px, 360px and landscape mobile layouts, navigation and preview",
+        "Unavailable browser storage is reported; download and in-memory draft remain usable"
+      ],
+      "downloads": [
+        {
+          "name": "同步验收.md",
+          "bytes": 324,
+          "sha256": "f0ec0e3c78ac0646c7f751d8c46ddbd4644a550666c1579a06aa41dc280298c9"
+        },
+        {
+          "name": "山行笔记.md",
+          "bytes": 49,
+          "sha256": "345b891af9b18be2986d0aaa263e2db1fc3ed2c2b003436952c742d8e8e55cd5"
+        }
+      ],
+      "errors": [],
+      "failures": []
+    },
+    "local_smoke": {
+      "base": "http://127.0.0.1:4186/yunjin-tools/",
+      "localAssets": true,
+      "outcomes": [
+        {
+          "id": "m155",
+          "name": "墨页 · Markdown 编辑器",
+          "http": 200,
+          "errors": [],
+          "failures": [],
+          "title": "山行笔记 · 墨页 Markdown 编辑器",
+          "textLength": 731,
+          "canvas": 0,
           "ok": true
         }
-      },
-      "exhibition_checks": [
-        "All five films decode and play, pause and seek; five native 4K plates and credited area photos load",
-        "Chapter wraparound and deep links, clean mode, exhibition guide and real credits page",
-        "Two CC BY photogrammetry meshes render and rotate/zoom; actual GLB downloads match source bytes",
-        "Both 16-view fallbacks load all frames; external originals stay labeled and load only after a click",
-        "Exhibition and survey controls work at 390/360 px and short landscape without horizontal overflow"
-      ],
-      "webgl": {
-        "shot": "0",
-        "landmark": "tiantan",
-        "weather": "clear",
-        "time": "16:20",
-        "render": "webgl2",
-        "software": "true",
-        "regionView": "false",
-        "mode": "fly",
-        "triangles": "247988",
-        "calls": "33",
-        "city": "ready",
-        "buildings": "32887",
-        "terrain": "ready"
-      },
-      "cpu": {
-        "shot": "0",
-        "landmark": "tiantan",
-        "weather": "clear",
-        "time": "16:20",
-        "render": "cpu3d",
-        "regionView": "false",
-        "mode": "fly",
-        "city": "ready",
-        "terrain": "ready",
-        "triangles": "115684",
-        "photoFaces": "33058"
-      },
-      "mobile_layouts": [
-        {
-          "width": 390,
-          "height": 844,
-          "scrollWidth": 390,
-          "viewportWidth": 390
-        },
-        {
-          "width": 360,
-          "height": 800,
-          "scrollWidth": 360,
-          "viewportWidth": 360
-        },
-        {
-          "width": 844,
-          "height": 390,
-          "scrollWidth": 844,
-          "viewportWidth": 844
-        }
-      ],
-      "reference_photos": 24,
-      "regional_stops": [
-        {
-          "name": "中关村",
-          "buildings": 2383,
-          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/explore.html?time=22%3A00&weather=snow&region=haidian"
-        },
-        {
-          "name": "通州北苑",
-          "buildings": 5068,
-          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/explore.html?time=22%3A00&weather=snow&region=tongzhou"
-        },
-        {
-          "name": "亦庄文化园周边",
-          "buildings": 4144,
-          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/explore.html?time=22%3A00&weather=snow&region=yizhuang"
-        }
-      ],
-      "building_query": "建外SOHO 东区A座\nOSM way/233513063 ↗\n退出查询\nOSM 建筑类别\n用途未标注\nbuilding=yes\n基底面积\n1,521.73 m²\n按轮廓计算，扣除内院\nOSM 高度标注\n100 m\nheight = 100 m · 31 层\n点击点 · WGS84\n116.45449° E\n39.90447° N",
-      "actual_map_download": {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/data/beijing.osm.bin",
-        "bytes": 2172396,
-        "sha256": "e6df36a51fae4ba99244bd8ba61f8b96cf34447080ec3745ca5becf9d9731d39"
-      },
-      "films": [
-        {
-          "id": "cbd",
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/e90fe83c075ba098b6192fd0e691f05fa8709d0484647e208cc9b20c6b78fdd8.mp4",
-          "width": 1920,
-          "height": 1080,
-          "duration": 12,
-          "error": null,
-          "plate": [
-            3840,
-            2160
-          ],
-          "photo": true
-        },
-        {
-          "id": "hutong",
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/378af99fef98f7c322ccdd64896c396b01c9fddd4a2e463edc589cf04a93a04f.mp4",
-          "width": 1920,
-          "height": 1080,
-          "duration": 10,
-          "error": null,
-          "plate": [
-            3840,
-            2160
-          ],
-          "photo": true
-        },
-        {
-          "id": "waterfront",
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/1d434a73e1771210ee7e1787429582a574eeb2436de8971a94921353207848f5.mp4",
-          "width": 1920,
-          "height": 1080,
-          "duration": 10,
-          "error": null,
-          "plate": [
-            3840,
-            2160
-          ],
-          "photo": true
-        },
-        {
-          "id": "palace",
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/853932ca2b8b72c8cb248585e84cca2639441501a28c8ceb3da63ed358bd6d0e.mp4",
-          "width": 1920,
-          "height": 1080,
-          "duration": 11,
-          "error": null,
-          "plate": [
-            3840,
-            2160
-          ],
-          "photo": true
-        },
-        {
-          "id": "avenue",
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/main/assets/fb6dfcc20d1da9986eee8a87bed332cf2fa243aebc306b46948a5e434b01f378.mp4",
-          "width": 1920,
-          "height": 1080,
-          "duration": 11,
-          "error": null,
-          "plate": [
-            3840,
-            2160
-          ],
-          "photo": true
-        }
-      ],
-      "survey": [
-        {
-          "id": "art798",
-          "mode": "mesh",
-          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/field/survey/art798.glb",
-          "bytes": 3763428,
-          "sha256": "94ef1ff1b5b6aab5b704066ec080b7c4340f0aa2775e60d7dc7c635dafc4671b",
-          "rotation": true,
-          "zoom": true
-        },
-        {
-          "id": "hills",
-          "mode": "mesh",
-          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/field/survey/hills.glb",
-          "bytes": 14726028,
-          "sha256": "10a57b2237ceff1beecd6e9ed25b97affe30debf5eeb7f3e3d47b896b79a72fc",
-          "rotation": true,
-          "zoom": true
-        },
-        {
-          "id": "art798",
-          "mode": "frames",
-          "views": 16
-        },
-        {
-          "id": "hills",
-          "mode": "frames",
-          "views": 16
-        },
-        {
-          "id": "houhai",
-          "mode": "external_embed",
-          "url": "https://sketchfab.com/models/ef29e82e71d744d9ab2e618966678c32/embed",
-          "loaded_on_request": true
-        },
-        {
-          "id": "qilin",
-          "mode": "external_embed",
-          "url": "https://sketchfab.com/models/c595ca3f69304c67b80f121b9a8e39e4/embed",
-          "loaded_on_request": true
-        }
-      ],
-      "live_weather": "模式值 10:30 · 7.9°C",
-      "weather_responses": [
-        {
-          "url": "https://api.open-meteo.com/v1/forecast?latitude=39.91&longitude=116.40&current=temperature_2m,weather_code&timezone=Asia%2FShanghai",
-          "status": 200
-        }
-      ],
-      "external_responses": [],
-      "mobile_survey_frame": {
-        "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/field/survey/index.html?model=art798&mode=frames",
-        "http": 200,
-        "image": {
-          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m154/field/survey/frames/art798-01.webp",
-          "width": 960,
-          "height": 576
-        },
-        "errors": [],
-        "ok": true
-      },
-      "smoke": {
-        "base": "https://yunjinzh.github.io/yunjin-tools/",
-        "localAssets": false,
-        "outcomes": [
-          {
-            "id": "m154",
-            "name": "京观 · 北京城市三维漫游",
-            "http": 200,
-            "errors": [],
-            "failures": [],
-            "title": "京观 · 北京城市空间展",
-            "textLength": 280,
-            "canvas": 0,
-            "ok": true
-          }
-        ]
-      },
-      "flows": {
-        "ok": true,
-        "checks": [
-          "Portal: 154 entries, search, empty state, category and availability filters, 390px viewport",
-          "Module storage isolation: get, set and clear",
-          "PDF reader: built-in sample action completes without a visible import/load error"
-        ]
-      }
+      ]
     },
-    "package_release": {
-      "required": false,
-      "reason": "No new installer; source-side generation scripts archived. Actual GLB and OSM data downloads were checked by bytes and SHA-256."
+    "local_portal_flows": {
+      "ok": true,
+      "checks": [
+        "Portal: 155 entries, search, empty state, category and availability filters, 390px viewport",
+        "Module storage isolation: get, set and clear",
+        "PDF reader: built-in sample action completes without a visible import/load error"
+      ]
+    },
+    "public_smoke": {
+      "base": "https://yunjinzh.github.io/yunjin-tools/",
+      "localAssets": false,
+      "outcomes": [
+        {
+          "id": "m155",
+          "name": "墨页 · Markdown 编辑器",
+          "http": 200,
+          "errors": [],
+          "failures": [],
+          "title": "山行笔记 · 墨页 Markdown 编辑器",
+          "textLength": 731,
+          "canvas": 0,
+          "ok": true
+        }
+      ]
+    },
+    "public_portal_flows": {
+      "ok": true,
+      "checks": [
+        "Portal: 155 entries, search, empty state, category and availability filters, 390px viewport",
+        "Module storage isolation: get, set and clear",
+        "PDF reader: built-in sample action completes without a visible import/load error"
+      ]
+    },
+    "public_resources": {
+      "deployment_commit": "4a200a484a693d19cc7c8af316483ef580bfc53c",
+      "base": "https://yunjinzh.github.io/yunjin-tools/",
+      "ok": true,
+      "files": 31,
+      "results": [
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/index.html",
+          "status": 200,
+          "bytes": 3854,
+          "sha256": "90702c87e627df45319b3feed906956638fb2fd0f64fc1d6633965959b0b62b5",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
+          "status": 200,
+          "bytes": 102143,
+          "sha256": "3d83c505a9da605b4ef5ea151793631da87bc302aff4366cbc39f95d9a2dc7d4",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/runtime.js",
+          "status": 200,
+          "bytes": 5207,
+          "sha256": "19c4c5ea3f45222ab8544998dffe6c188922756a41eab13b3c4bd259768665a0",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/migration-config.js",
+          "status": 200,
+          "bytes": 171,
+          "sha256": "4afd2891b16f3611c477fd2c57ef56864b08aa85d9eabb9f82e7b3056e956150",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
+          "status": 200,
+          "bytes": 161995,
+          "sha256": "f02f247239aea52832e780ee055762fecb998430e1e8e743fecff4a8b5518757",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/factory-reconstruction.svg",
+          "status": 200,
+          "bytes": 2393,
+          "sha256": "a0070e7e39e1a93926a0e77b623500f6714fd919789967f69da828da4dd31ba7",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/night-ring.svg",
+          "status": 200,
+          "bytes": 1630,
+          "sha256": "fd59c5a5771d4e91621a05cd303a044042f4abb049343b7e1520501d375ae92c",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/chess.svg",
+          "status": 200,
+          "bytes": 2128,
+          "sha256": "f394b383345247d9392ff38b5c18dc93b270448a576d0782d1f90b927e58faaa",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/map-atelier.svg",
+          "status": 200,
+          "bytes": 1502,
+          "sha256": "29e80822ef48d7d95079b23cb272ca16aef0f5260bb22d6dbfb0ccbc7a114634",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/earth-plates.svg",
+          "status": 200,
+          "bytes": 3234,
+          "sha256": "96cd3cfa88d0aa0c156c5e23f3188e6e6cf00b6cbc6dfa97b8b1af455185184d",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/unveiling.svg",
+          "status": 200,
+          "bytes": 2094,
+          "sha256": "59d998fc7505f9664cea054dc970224211230450b1cf5c235270128b0042bc96",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/gem.svg",
+          "status": 200,
+          "bytes": 3950,
+          "sha256": "8cbf304d22f01366d4a5325fe7c174fc1003a39c39d008538552b83c7bfdfd08",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/designlab.svg",
+          "status": 200,
+          "bytes": 3191,
+          "sha256": "a84e3cb621e91fd066179caf06b3d65da7df675fc22b3e32c7321346b6973c3b",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/qingtu.svg",
+          "status": 200,
+          "bytes": 3620,
+          "sha256": "b27bd7fd946d3f846ca0ccf7adc3e07c947a19e3c83979fdb649ce2598525140",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/style.css",
+          "status": 200,
+          "bytes": 8684,
+          "sha256": "864939fb9f1dba919cf6ee04bab8991e2d2ac41d7d2c0a252f8d7b5873806c5c",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/cartography-evolution.svg",
+          "status": 200,
+          "bytes": 2858,
+          "sha256": "e2d20e21fb976e1d149e5a27f3debb975b4ae0dfd132366725ef0236ff9e8f72",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/qingdi.svg",
+          "status": 200,
+          "bytes": 3134,
+          "sha256": "2d9280a2c793d2a55beabed8d0dbbe3e888a8d9ecc8dfc33dde4d80fa5bb93a0",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/kunye-training.svg",
+          "status": 200,
+          "bytes": 2739,
+          "sha256": "98a020b89bdb0e59942b27f06cd9b8ff03aa56b146d69d5bf0ae130abe175fd0",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/fieldnotes.svg",
+          "status": 200,
+          "bytes": 2599,
+          "sha256": "cd8bbd5d8ec7a17d8575972f2b3ef426e9bd512eb04b9e72e599d17727f164fe",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/stageshow.svg",
+          "status": 200,
+          "bytes": 2933,
+          "sha256": "2dadfe2242245d729ddc8529acf32108693b2a5b0130215478e740137c06a3e1",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/ridge.svg",
+          "status": 200,
+          "bytes": 10524,
+          "sha256": "32f9d6216b6c89cb6bb54e30c6f2a4dfec34d23774a8fddc0b6e343766a45094",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/funding-insights.svg",
+          "status": 200,
+          "bytes": 1620,
+          "sha256": "aac52f0740fe681b95c67ba7a264cb78c3766bddb6747ca1bbeef65525c7e0c3",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/spatial-workbench.svg",
+          "status": 200,
+          "bytes": 2230,
+          "sha256": "5f40684b7546464782b3f3abb70408ae60b2fd6bc1fac7807134365892e3a968",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/app.js",
+          "status": 200,
+          "bytes": 3777,
+          "sha256": "982ea5fe3ca1f24d7e70ee15988f538168abfd92373637f562a4ec9fc5e558d4",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/xiyou-gallery.svg",
+          "status": 200,
+          "bytes": 2595,
+          "sha256": "a3a7406b29a359c685df50611baca806ee0860c14b541236f654077d52842670",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/index.html",
+          "status": 200,
+          "bytes": 3905,
+          "sha256": "4c4ea0e2d245398ffd283dafdf6a00795c810160154220c37be7d6f9067b53a1",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/portal/shape-studio.svg",
+          "status": 200,
+          "bytes": 3110,
+          "sha256": "87a315e355c1f667028cba999587108cf59afd9f5dd132adf84f7bf299ada648",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4a200a484a693d19cc7c8af316483ef580bfc53c/sources/m155/dist/index.html",
+          "status": 200,
+          "bytes": 160214,
+          "sha256": "e14d5298508b9b83ed04ff064fd857eb5778f389996395cb3c630c3c8e3d627f",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4a200a484a693d19cc7c8af316483ef580bfc53c/web/m155/index.html",
+          "status": 200,
+          "bytes": 161880,
+          "sha256": "f8f73ee3a4f316e18e531d966ad7a670e21a63d106024b15947fe090211a89e2",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4a200a484a693d19cc7c8af316483ef580bfc53c/tests/moye-markdown.mjs",
+          "status": 200,
+          "bytes": 13015,
+          "sha256": "69d0b95de3bce82d9e84e07ae743a0c650cbb1c92213f50c3c01eaff1190d563",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4a200a484a693d19cc7c8af316483ef580bfc53c/docs/BUILDING.md",
+          "status": 200,
+          "bytes": 23754,
+          "sha256": "2665b32dc28b28be6cfa20fe4334ebb459f0582310ec06eef26df5afc9f4479e",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        }
+      ]
+    },
+    "download_verification": {
+      "performed": true,
+      "kind": "browser-generated Markdown documents",
+      "results": [
+        {
+          "name": "同步验收.md",
+          "bytes": 324,
+          "sha256": "f0ec0e3c78ac0646c7f751d8c46ddbd4644a550666c1579a06aa41dc280298c9"
+        },
+        {
+          "name": "山行笔记.md",
+          "bytes": 49,
+          "sha256": "345b891af9b18be2986d0aaa263e2db1fc3ed2c2b003436952c742d8e8e55cd5"
+        }
+      ],
+      "new_installation_package": false
+    },
+    "preview_environment": {
+      "managed_sites_preview": "relay timed out; stopped",
+      "repository_preview": "loopback HTTP under the Pages subpath",
+      "public_tests_use_real_https": true,
+      "public_resource_substitutions": false
     }
   },
   "limitations": [
-    "Exhibition films are offline renderings, not real footage. Geographic data are snapshots and modeled heights are not surveyed measurements.",
-    "Two models remain original-author, opt-in online embeds. Their loading controls and original URLs were checked; third-party rendering and availability are not guaranteed.",
-    "All road collisions, sustained tour playback, every device frame rate and surveying accuracy are outside validation scope."
+    "原站、Pages 和本地 HTML 的个人草稿不自动互通；原站文稿、平台配置及用户浏览器资料未迁入。",
+    "保留原项目预览边界：原始 HTML 显示为文本，远程图片显示说明占位。",
+    "未覆盖所有浏览器、超大文稿性能、真实手机输入法及 file:// 运行。",
+    "既有 19 项待补原包保持原状态；本轮未发现新的目录交付。"
   ],
   "uncompleted": [],
   "pending_verification": {},
   "notification": {
     "notify": true,
-    "reason": "One tool version successfully updated and verified on public HTTPS."
+    "reason": "One new tool imported and verified on public HTTPS."
   }
 }
