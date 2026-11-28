@@ -1,18 +1,20 @@
 {
-  "completed_at": "2026-11-28T13:19:58.849356+00:00",
+  "completed_at": "2026-11-28T13:31:29.310192+00:00",
   "trigger": "Automation_9ccf5b150eac8191a04eee37c908d561",
-  "result": "added",
+  "result": "added_and_updated",
   "added": 1,
-  "updated": 0,
+  "updated": 1,
+  "catalogue_count": 156,
+  "summary": "新增 MD Studio 多风格排版 v1，墨页 Markdown 编辑器更新至 v2，延续已验证的跨标签页草稿保全适配。两项线上功能、资源和导出文件验证通过。",
   "discovery": {
     "role": "owner",
     "pages": [
       50,
       50,
-      14
+      15
     ],
-    "sites": 114,
-    "unique_sites": 114,
+    "sites": 115,
+    "unique_sites": 115,
     "pagination_complete": true,
     "catalogue_version": 22,
     "catalogue_changed": false
@@ -21,45 +23,75 @@
     {
       "id": "m155",
       "title": "墨页 · Markdown 编辑器",
+      "action": "update",
       "project": "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346",
-      "source_version": 1,
-      "source_version_id": "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346~appgver_bc83489c45f88191bef32fba74bd1fd2",
-      "source_commit": "c69f32ff726791632df47229d96f59ea5be4d58f",
+      "source_version": 2,
+      "source_version_id": "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346~appgver_59b902e8dd4481918ecf1c620a568175",
+      "source_commit": "1a6ba53b3cfefef4603de38297bd2463cb8f0cf3",
       "source_deployment": {
-        "id": "appgdep_6b0a4a68a770819181e06747b624eb5a",
+        "id": "appgdep_6b0a4d24590081919f785b31ddb984bd",
         "status": "succeeded",
         "type": "publish",
-        "url": "https://moye-markdown-yunjin.yunjinzh.chatgpt.site"
+        "version_id": "appgprj_6b0a4a3eb2cc8191a5fe86f5d794c346~appgver_59b902e8dd4481918ecf1c620a568175",
+        "url": "https://moye-markdown-yunjin.yunjinzh.chatgpt.site",
+        "updated_at": "2026-11-28T03:40:24.850714+00:00"
       },
+      "original_url": "https://moye-markdown-yunjin.yunjinzh.chatgpt.site",
       "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
-      "deployment_commit": "4a200a484a693d19cc7c8af316483ef580bfc53c"
+      "deployment_commit": "7fa96e85c50acc37e770dc310cf8bc1420f59725"
+    },
+    {
+      "id": "m156",
+      "title": "MD Studio · 多风格排版",
+      "action": "new",
+      "project": "appgprj_6b0a4e477e548191aab218ab52172bab",
+      "source_version": 1,
+      "source_version_id": "appgprj_6b0a4e477e548191aab218ab52172bab~appgver_fc8482e09220819180d6c4324577e27e",
+      "source_commit": "316440db5814ee2860bf6014aa68091936714f54",
+      "source_deployment": {
+        "id": "appgdep_6b0a4f1b2bfc81919fdca0142fbc6e85",
+        "status": "succeeded",
+        "type": "publish",
+        "version_id": "appgprj_6b0a4e477e548191aab218ab52172bab~appgver_fc8482e09220819180d6c4324577e27e",
+        "url": "https://md-studio-typesetting.yunjinzh.chatgpt.site",
+        "updated_at": "2026-11-28T03:48:48.262065+00:00"
+      },
+      "original_url": "https://md-studio-typesetting.yunjinzh.chatgpt.site",
+      "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m156/index.html",
+      "deployment_commit": "7fa96e85c50acc37e770dc310cf8bc1420f59725"
     }
   ],
-  "catalogue_count": 155,
-  "summary": "新增墨页 Markdown 编辑器 v1；原始单文件源码保留，发布副本适配跨标签页存储事件。线上编辑、草稿、导入导出、响应式布局及资源验证通过。",
-  "deployment_commit": "4a200a484a693d19cc7c8af316483ef580bfc53c",
-  "entry_url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
+  "deployment_commit": "7fa96e85c50acc37e770dc310cf8bc1420f59725",
+  "entry_url": "https://yunjinzh.github.io/yunjin-tools/",
   "deployment": {
-    "id": 46105128018,
+    "id": 46149738097,
     "name": "Deploy tools to GitHub Pages",
     "status": "completed",
     "conclusion": "success",
-    "head_sha": "4a200a484a693d19cc7c8af316483ef580bfc53c",
-    "url": "https://github.com/yunjinzh/yunjin-tools/actions/runs/46105128018",
-    "updated_at": "2026-11-28T03:57:40Z"
+    "head_sha": "7fa96e85c50acc37e770dc310cf8bc1420f59725",
+    "url": "https://github.com/yunjinzh/yunjin-tools/actions/runs/46149738097",
+    "updated_at": "2026-11-28T13:30:14Z"
+  },
+  "preceding_completion": {
+    "module": "m155",
+    "source_version": 1,
+    "deployment_commit": "4a200a484a693d19cc7c8af316483ef580bfc53c",
+    "verification_commit": "ec6002c9c42905d70ef18a60b4af378204f84aa1",
+    "report_url": "https://github.com/yunjinzh/yunjin-tools/blob/ec6002c9c42905d70ef18a60b4af378204f84aa1/sync/reports/latest.json",
+    "reason": "Finished pending v1 public verification before importing the newly discovered v2; initial concurrent-save failure and repair remain in that report."
   },
   "build": {
     "performed": true,
-    "catalogue": 155,
+    "catalogue": 156,
     "kinds": {
-      "web": 118,
+      "web": 119,
       "server": 16,
       "missing": 19,
       "extension": 1,
       "desktop": 1
     },
-    "files": 4162,
-    "bytes": 769676073,
+    "files": 4164,
+    "bytes": 769929896,
     "limit_bytes": 996147200
   },
   "validation": {
@@ -73,98 +105,192 @@
       "ok": true,
       "asset_records": 3227
     },
-    "source_snapshot": {
-      "commit": "c69f32ff726791632df47229d96f59ea5be4d58f",
-      "files_retained": 1,
+    "source_snapshots": [
+      {
+        "module": "m155",
+        "original_bytes_preserved": true,
+        "html_bytes": 196801,
+        "sha256": "42f8e8cc91150fd4f7b6a0d085327f77e06bc7b1ab08ea2294fc3d38c736b115",
+        "inline_scripts": 6
+      },
+      {
+        "module": "m156",
+        "original_bytes_preserved": true,
+        "html_bytes": 216279,
+        "sha256": "abe5880ef7ef39232271d31f2726bc8a6ef35233c90d3987f61f9ce5700fbeb0",
+        "inline_scripts": 3
+      }
+    ],
+    "source_handling": {
       "platform_files_excluded": [
         ".openai/hosting.json"
       ],
-      "original_bytes_preserved": true,
-      "html_bytes": 160214,
-      "html_sha256": "e14d5298508b9b83ed04ff064fd857eb5778f389996395cb3c630c3c8e3d627f"
+      "source_and_adapted_script_syntax": "passed",
+      "upstream_pushes": false,
+      "upstream_access_changes": false,
+      "user_browser_data_imported": false,
+      "m155_adaptation": "Preserve module-prefixed native storage events and recovered concurrent draft revisions from the previously verified Pages copy; retain the new v2 typesetting and rich-clipboard code.",
+      "m156_adaptation": "No source changes; standard build supplies subpath support and module storage isolation."
     },
-    "syntax": {
-      "original_inline_scripts": 4,
-      "adapted_inline_scripts": 4,
-      "ok": true
-    },
-    "adaptation": {
-      "file": "web/m155/index.html",
-      "reason": "Native storage events retain the module prefix. The imported listener accepts its own module events, reads the latest stored record, and preserves overwritten concurrent revisions as separate drafts. Saves retain their base revision.",
-      "original_source_modified": false
-    },
-    "recovered_failures": [
-      {
-        "deployment_commit": "603c8dc424eb4ef38878dfb4ddf0131f3928a8a6",
-        "check": "Concurrent edits preserve both drafts",
-        "first_public_run": "failed after four completed check groups; no resource or script errors",
-        "diagnosis": "Real overlapping saves lost one draft in two of three isolated diagnostic rounds. localStorage read/check/write is not atomic.",
-        "repair": "Record base revisions, recover overwritten revisions from native storage-event oldValue, and read current storage instead of stale queued event payloads.",
-        "final_check": "Three overlapping edit rounds in each final local and public suite; each retained both drafts."
+    "browser": {
+      "m155": {
+        "local": {
+          "ok": true,
+          "base": "http://127.0.0.1:4186/yunjin-tools/",
+          "url": "http://127.0.0.1:4186/yunjin-tools/apps/m155/index.html",
+          "checks": [
+            "Initial sample, rendered table, outline and desktop layout",
+            "Six typesetting presets, custom typography persistence/reset and native rich clipboard",
+            "UTF-8/BOM/CRLF import, Markdown preview safety, byte-exact download and reload recovery",
+            "Formatting toolbar, undo/redo, heading, table and validated link insertion",
+            "Create/rename/switch/delete with cancellation, help and three desktop view modes",
+            "Native cross-tab refresh and concurrent edits preserve both drafts",
+            "Storage stays isolated from other portal modules",
+            "390px, 360px and landscape mobile layouts, navigation and preview",
+            "Unavailable browser storage is reported; download and in-memory draft remain usable"
+          ],
+          "downloads": [
+            {
+              "name": "同步验收.md",
+              "bytes": 324,
+              "sha256": "f0ec0e3c78ac0646c7f751d8c46ddbd4644a550666c1579a06aa41dc280298c9"
+            },
+            {
+              "name": "山行笔记.md",
+              "bytes": 49,
+              "sha256": "345b891af9b18be2986d0aaa263e2db1fc3ed2c2b003436952c742d8e8e55cd5"
+            }
+          ],
+          "errors": [],
+          "failures": []
+        },
+        "public": {
+          "ok": true,
+          "base": "https://yunjinzh.github.io/yunjin-tools/",
+          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
+          "checks": [
+            "Initial sample, rendered table, outline and desktop layout",
+            "Six typesetting presets, custom typography persistence/reset and native rich clipboard",
+            "UTF-8/BOM/CRLF import, Markdown preview safety, byte-exact download and reload recovery",
+            "Formatting toolbar, undo/redo, heading, table and validated link insertion",
+            "Create/rename/switch/delete with cancellation, help and three desktop view modes",
+            "Native cross-tab refresh and concurrent edits preserve both drafts",
+            "Storage stays isolated from other portal modules",
+            "390px, 360px and landscape mobile layouts, navigation and preview",
+            "Unavailable browser storage is reported; download and in-memory draft remain usable"
+          ],
+          "downloads": [
+            {
+              "name": "同步验收.md",
+              "bytes": 324,
+              "sha256": "f0ec0e3c78ac0646c7f751d8c46ddbd4644a550666c1579a06aa41dc280298c9"
+            },
+            {
+              "name": "山行笔记.md",
+              "bytes": 49,
+              "sha256": "345b891af9b18be2986d0aaa263e2db1fc3ed2c2b003436952c742d8e8e55cd5"
+            }
+          ],
+          "errors": [],
+          "failures": []
+        }
+      },
+      "m156": {
+        "local": {
+          "ok": true,
+          "base": "http://127.0.0.1:4186/yunjin-tools/",
+          "url": "http://127.0.0.1:4186/yunjin-tools/apps/m156/index.html",
+          "checks": [
+            "Initial Markdown sample, worker preview, table, checklist and outline",
+            "Formatting, undo/redo and case-sensitive literal find/replace",
+            "Import cancellation, UTF-8/BOM/CRLF normalization, safe preview, exact Markdown download and reload",
+            "Twelve gallery styles, six themes, keyboard split resizing and persistent typography preferences",
+            "Native rich-text clipboard, downloaded standalone HTML with matching style, and plain-text export",
+            "History snapshot restore, embedded image insertion and storage isolation from Moye",
+            "Phone and landscape layouts, editing/preview navigation and mobile style gallery",
+            "Storage failure is visible and the unsaved document still downloads exactly"
+          ],
+          "downloads": [
+            {
+              "name": "排版验收.md",
+              "bytes": 316,
+              "sha256": "87d544352f2bbde3214976e38f5e590dc783baf5d73436bd067f000bbbea5361"
+            },
+            {
+              "name": "排版验收.html",
+              "bytes": 20802,
+              "sha256": "6df9f56dd97255446382973fb65b352fc29d3f21153def599a6720804ba67df6"
+            },
+            {
+              "name": "排版验收.txt",
+              "bytes": 198,
+              "sha256": "a8bdba28e03f1e86311dd28a592193b0874bf7daa1344c0fcd90b4845077ff13"
+            },
+            {
+              "name": "写作示例.md",
+              "bytes": 49,
+              "sha256": "3dc2d73f131c077d3812536f90dc6f6afd27d73a3c8c4abf2c02b952247e50ad"
+            }
+          ],
+          "errors": [],
+          "failures": []
+        },
+        "public": {
+          "ok": true,
+          "base": "https://yunjinzh.github.io/yunjin-tools/",
+          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m156/index.html",
+          "checks": [
+            "Initial Markdown sample, worker preview, table, checklist and outline",
+            "Formatting, undo/redo and case-sensitive literal find/replace",
+            "Import cancellation, UTF-8/BOM/CRLF normalization, safe preview, exact Markdown download and reload",
+            "Twelve gallery styles, six themes, keyboard split resizing and persistent typography preferences",
+            "Native rich-text clipboard, downloaded standalone HTML with matching style, and plain-text export",
+            "History snapshot restore, embedded image insertion and storage isolation from Moye",
+            "Phone and landscape layouts, editing/preview navigation and mobile style gallery",
+            "Storage failure is visible and the unsaved document still downloads exactly"
+          ],
+          "downloads": [
+            {
+              "name": "排版验收.md",
+              "bytes": 316,
+              "sha256": "87d544352f2bbde3214976e38f5e590dc783baf5d73436bd067f000bbbea5361"
+            },
+            {
+              "name": "排版验收.html",
+              "bytes": 20802,
+              "sha256": "6df9f56dd97255446382973fb65b352fc29d3f21153def599a6720804ba67df6"
+            },
+            {
+              "name": "排版验收.txt",
+              "bytes": 198,
+              "sha256": "a8bdba28e03f1e86311dd28a592193b0874bf7daa1344c0fcd90b4845077ff13"
+            },
+            {
+              "name": "写作示例.md",
+              "bytes": 49,
+              "sha256": "3dc2d73f131c077d3812536f90dc6f6afd27d73a3c8c4abf2c02b952247e50ad"
+            }
+          ],
+          "errors": [],
+          "failures": []
+        }
       }
-    ],
-    "local_browser": {
-      "ok": true,
-      "base": "http://127.0.0.1:4186/yunjin-tools/",
-      "url": "http://127.0.0.1:4186/yunjin-tools/apps/m155/index.html",
-      "checks": [
-        "Initial sample, rendered table, outline and desktop layout",
-        "UTF-8/BOM/CRLF import, Markdown preview safety, byte-exact download and reload recovery",
-        "Formatting toolbar, undo/redo, heading, table and validated link insertion",
-        "Create/rename/switch/delete with cancellation, help and three desktop view modes",
-        "Native cross-tab refresh and concurrent edits preserve both drafts",
-        "Storage stays isolated from other portal modules",
-        "390px, 360px and landscape mobile layouts, navigation and preview",
-        "Unavailable browser storage is reported; download and in-memory draft remain usable"
-      ],
-      "downloads": [
-        {
-          "name": "同步验收.md",
-          "bytes": 324,
-          "sha256": "f0ec0e3c78ac0646c7f751d8c46ddbd4644a550666c1579a06aa41dc280298c9"
-        },
-        {
-          "name": "山行笔记.md",
-          "bytes": 49,
-          "sha256": "345b891af9b18be2986d0aaa263e2db1fc3ed2c2b003436952c742d8e8e55cd5"
-        }
-      ],
-      "errors": [],
-      "failures": []
-    },
-    "public_browser": {
-      "ok": true,
-      "base": "https://yunjinzh.github.io/yunjin-tools/",
-      "url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
-      "checks": [
-        "Initial sample, rendered table, outline and desktop layout",
-        "UTF-8/BOM/CRLF import, Markdown preview safety, byte-exact download and reload recovery",
-        "Formatting toolbar, undo/redo, heading, table and validated link insertion",
-        "Create/rename/switch/delete with cancellation, help and three desktop view modes",
-        "Native cross-tab refresh and concurrent edits preserve both drafts",
-        "Storage stays isolated from other portal modules",
-        "390px, 360px and landscape mobile layouts, navigation and preview",
-        "Unavailable browser storage is reported; download and in-memory draft remain usable"
-      ],
-      "downloads": [
-        {
-          "name": "同步验收.md",
-          "bytes": 324,
-          "sha256": "f0ec0e3c78ac0646c7f751d8c46ddbd4644a550666c1579a06aa41dc280298c9"
-        },
-        {
-          "name": "山行笔记.md",
-          "bytes": 49,
-          "sha256": "345b891af9b18be2986d0aaa263e2db1fc3ed2c2b003436952c742d8e8e55cd5"
-        }
-      ],
-      "errors": [],
-      "failures": []
     },
     "local_smoke": {
       "base": "http://127.0.0.1:4186/yunjin-tools/",
       "localAssets": true,
       "outcomes": [
+        {
+          "id": "m156",
+          "name": "MD Studio · 多风格排版",
+          "http": 200,
+          "errors": [],
+          "failures": [],
+          "title": "MD Studio · 多风格排版",
+          "textLength": 637,
+          "canvas": 0,
+          "ok": true
+        },
         {
           "id": "m155",
           "name": "墨页 · Markdown 编辑器",
@@ -172,18 +298,10 @@
           "errors": [],
           "failures": [],
           "title": "山行笔记 · 墨页 Markdown 编辑器",
-          "textLength": 731,
+          "textLength": 872,
           "canvas": 0,
           "ok": true
         }
-      ]
-    },
-    "local_portal_flows": {
-      "ok": true,
-      "checks": [
-        "Portal: 155 entries, search, empty state, category and availability filters, 390px viewport",
-        "Module storage isolation: get, set and clear",
-        "PDF reader: built-in sample action completes without a visible import/load error"
       ]
     },
     "public_smoke": {
@@ -197,31 +315,50 @@
           "errors": [],
           "failures": [],
           "title": "山行笔记 · 墨页 Markdown 编辑器",
-          "textLength": 731,
+          "textLength": 872,
+          "canvas": 0,
+          "ok": true
+        },
+        {
+          "id": "m156",
+          "name": "MD Studio · 多风格排版",
+          "http": 200,
+          "errors": [],
+          "failures": [],
+          "title": "MD Studio · 多风格排版",
+          "textLength": 637,
           "canvas": 0,
           "ok": true
         }
       ]
     },
+    "local_portal_flows": {
+      "ok": true,
+      "checks": [
+        "Portal: 156 entries, search, empty state, category and availability filters, 390px viewport",
+        "Module storage isolation: get, set and clear",
+        "PDF reader: built-in sample action completes without a visible import/load error"
+      ]
+    },
     "public_portal_flows": {
       "ok": true,
       "checks": [
-        "Portal: 155 entries, search, empty state, category and availability filters, 390px viewport",
+        "Portal: 156 entries, search, empty state, category and availability filters, 390px viewport",
         "Module storage isolation: get, set and clear",
         "PDF reader: built-in sample action completes without a visible import/load error"
       ]
     },
     "public_resources": {
-      "deployment_commit": "4a200a484a693d19cc7c8af316483ef580bfc53c",
+      "deployment_commit": "7fa96e85c50acc37e770dc310cf8bc1420f59725",
       "base": "https://yunjinzh.github.io/yunjin-tools/",
       "ok": true,
-      "files": 31,
+      "files": 36,
       "results": [
         {
           "url": "https://yunjinzh.github.io/yunjin-tools/index.html",
           "status": 200,
           "bytes": 3854,
-          "sha256": "90702c87e627df45319b3feed906956638fb2fd0f64fc1d6633965959b0b62b5",
+          "sha256": "9adfe7d3bde30ac546ffefb9b798b708e79cfd84715e3a246f180aae62f80c17",
           "matches": true,
           "ok": true,
           "attempts": [
@@ -234,8 +371,8 @@
         {
           "url": "https://yunjinzh.github.io/yunjin-tools/modules.json",
           "status": 200,
-          "bytes": 102143,
-          "sha256": "3d83c505a9da605b4ef5ea151793631da87bc302aff4366cbc39f95d9a2dc7d4",
+          "bytes": 102813,
+          "sha256": "a359b16aefae6cb12cc75180f299cf9eb57be85d10696ce18509f059e5604112",
           "matches": true,
           "ok": true,
           "attempts": [
@@ -276,8 +413,36 @@
         {
           "url": "https://yunjinzh.github.io/yunjin-tools/apps/m155/index.html",
           "status": 200,
-          "bytes": 161995,
-          "sha256": "f02f247239aea52832e780ee055762fecb998430e1e8e743fecff4a8b5518757",
+          "bytes": 198582,
+          "sha256": "c9c9ba63e650694e6f80d26434451a8713eaec2fa4915310dcf1791d4e14b3ea",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m156/migration-config.js",
+          "status": 200,
+          "bytes": 172,
+          "sha256": "4638497a0b88c5898dbb1ad6efa0a0257ce8ac062593cc86593d244f23a9de98",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://yunjinzh.github.io/yunjin-tools/apps/m156/index.html",
+          "status": 200,
+          "bytes": 216394,
+          "sha256": "853a7c0b065ecef65efed8e90eb669887eaa6b8db3ea82dc9fac6f2b7a7daf21",
           "matches": true,
           "ok": true,
           "attempts": [
@@ -596,10 +761,10 @@
           ]
         },
         {
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4a200a484a693d19cc7c8af316483ef580bfc53c/sources/m155/dist/index.html",
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/7fa96e85c50acc37e770dc310cf8bc1420f59725/sources/m155/dist/index.html",
           "status": 200,
-          "bytes": 160214,
-          "sha256": "e14d5298508b9b83ed04ff064fd857eb5778f389996395cb3c630c3c8e3d627f",
+          "bytes": 196801,
+          "sha256": "42f8e8cc91150fd4f7b6a0d085327f77e06bc7b1ab08ea2294fc3d38c736b115",
           "matches": true,
           "ok": true,
           "attempts": [
@@ -610,10 +775,10 @@
           ]
         },
         {
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4a200a484a693d19cc7c8af316483ef580bfc53c/web/m155/index.html",
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/7fa96e85c50acc37e770dc310cf8bc1420f59725/sources/m156/dist/index.html",
           "status": 200,
-          "bytes": 161880,
-          "sha256": "f8f73ee3a4f316e18e531d966ad7a670e21a63d106024b15947fe090211a89e2",
+          "bytes": 216279,
+          "sha256": "abe5880ef7ef39232271d31f2726bc8a6ef35233c90d3987f61f9ce5700fbeb0",
           "matches": true,
           "ok": true,
           "attempts": [
@@ -624,10 +789,10 @@
           ]
         },
         {
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4a200a484a693d19cc7c8af316483ef580bfc53c/tests/moye-markdown.mjs",
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/7fa96e85c50acc37e770dc310cf8bc1420f59725/web/m155/index.html",
           "status": 200,
-          "bytes": 13015,
-          "sha256": "69d0b95de3bce82d9e84e07ae743a0c650cbb1c92213f50c3c01eaff1190d563",
+          "bytes": 198467,
+          "sha256": "09be2918c523433508f6346d1451bc114442fafa0e5bac9d4361df2fc0df8b5d",
           "matches": true,
           "ok": true,
           "attempts": [
@@ -638,10 +803,52 @@
           ]
         },
         {
-          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/4a200a484a693d19cc7c8af316483ef580bfc53c/docs/BUILDING.md",
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/7fa96e85c50acc37e770dc310cf8bc1420f59725/web/m156/index.html",
           "status": 200,
-          "bytes": 23754,
-          "sha256": "2665b32dc28b28be6cfa20fe4334ebb459f0582310ec06eef26df5afc9f4479e",
+          "bytes": 216279,
+          "sha256": "abe5880ef7ef39232271d31f2726bc8a6ef35233c90d3987f61f9ce5700fbeb0",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/7fa96e85c50acc37e770dc310cf8bc1420f59725/tests/moye-markdown.mjs",
+          "status": 200,
+          "bytes": 15311,
+          "sha256": "7adc01c9b5d6ae953e82a7fb54cda937383cb5d309688b157d176430ea4df41d",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/7fa96e85c50acc37e770dc310cf8bc1420f59725/tests/mdstudio.mjs",
+          "status": 200,
+          "bytes": 13140,
+          "sha256": "3ddaeb19793fa33ab490f961677a95638b210b27032e2ea4d8e93d0c9366655f",
+          "matches": true,
+          "ok": true,
+          "attempts": [
+            {
+              "status": 200,
+              "matches": true
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/yunjinzh/yunjin-tools/7fa96e85c50acc37e770dc310cf8bc1420f59725/docs/BUILDING.md",
+          "status": 200,
+          "bytes": 25745,
+          "sha256": "ade3fb6448c82147b54eb246f6eec9d64add3c883749ead0bd0c9dc612b8bce8",
           "matches": true,
           "ok": true,
           "attempts": [
@@ -655,38 +862,66 @@
     },
     "download_verification": {
       "performed": true,
-      "kind": "browser-generated Markdown documents",
+      "kind": "browser-generated Markdown, HTML and text documents",
+      "local_public_checksums_match": true,
       "results": [
         {
+          "module": "m155",
           "name": "同步验收.md",
           "bytes": 324,
           "sha256": "f0ec0e3c78ac0646c7f751d8c46ddbd4644a550666c1579a06aa41dc280298c9"
         },
         {
+          "module": "m155",
           "name": "山行笔记.md",
           "bytes": 49,
           "sha256": "345b891af9b18be2986d0aaa263e2db1fc3ed2c2b003436952c742d8e8e55cd5"
+        },
+        {
+          "module": "m156",
+          "name": "排版验收.md",
+          "bytes": 316,
+          "sha256": "87d544352f2bbde3214976e38f5e590dc783baf5d73436bd067f000bbbea5361"
+        },
+        {
+          "module": "m156",
+          "name": "排版验收.html",
+          "bytes": 20802,
+          "sha256": "6df9f56dd97255446382973fb65b352fc29d3f21153def599a6720804ba67df6"
+        },
+        {
+          "module": "m156",
+          "name": "排版验收.txt",
+          "bytes": 198,
+          "sha256": "a8bdba28e03f1e86311dd28a592193b0874bf7daa1344c0fcd90b4845077ff13"
+        },
+        {
+          "module": "m156",
+          "name": "写作示例.md",
+          "bytes": 49,
+          "sha256": "3dc2d73f131c077d3812536f90dc6f6afd27d73a3c8c4abf2c02b952247e50ad"
         }
       ],
       "new_installation_package": false
     },
     "preview_environment": {
-      "managed_sites_preview": "relay timed out; stopped",
+      "managed_sites_preview": "relay unavailable earlier in this task; stopped",
       "repository_preview": "loopback HTTP under the Pages subpath",
       "public_tests_use_real_https": true,
-      "public_resource_substitutions": false
+      "public_resource_substitutions": false,
+      "downloaded_html": "Actual downloaded bytes rendered in an independent blank document, preserving the browser file:// restriction."
     }
   },
   "limitations": [
-    "原站、Pages 和本地 HTML 的个人草稿不自动互通；原站文稿、平台配置及用户浏览器资料未迁入。",
-    "保留原项目预览边界：原始 HTML 显示为文本，远程图片显示说明占位。",
-    "未覆盖所有浏览器、超大文稿性能、真实手机输入法及 file:// 运行。",
+    "云端浏览器禁止 file:// 导航；已验证真实下载字节及独立文档中的导出排版，不声称验证本地文件打开。",
+    "富文本内容已在原生剪贴板中核对；未覆盖所有粘贴目标、所有浏览器、超大文稿、打印 PDF 或真实手机输入法。",
+    "原站与 Pages 的浏览器文稿不自动互通。MD Studio 原实现不协调多个标签页同时写入同一文稿；墨页保留跨页同步及并发副本适配。",
     "既有 19 项待补原包保持原状态；本轮未发现新的目录交付。"
   ],
   "uncompleted": [],
   "pending_verification": {},
   "notification": {
     "notify": true,
-    "reason": "One new tool imported and verified on public HTTPS."
+    "reason": "One new tool and one source update verified on public HTTPS."
   }
 }
